@@ -29,7 +29,7 @@ type Project struct {
 	Togglable    bool              `json:"togglable"`
 	Role         int               `json:"current_user_role_id"`
 	RepoCount    int64             `json:"repo_count"`
-	Metadata     map[string]string `json:"metadata"`
+	Metadata     ProjectMetadata `json:"metadata"`
 }
 
 // AccessLog holds information about logs which are used to record the actions that user take to the resourses.
