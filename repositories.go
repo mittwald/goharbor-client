@@ -1,9 +1,8 @@
 package harbor
 
 import (
-	"time"
-	"github.com/parnurzeal/gorequest"
 	"fmt"
+	"github.com/parnurzeal/gorequest"
 )
 
 // VulnerabilityItem is an item in the vulnerability result returned by vulnerability details API.
@@ -25,8 +24,6 @@ type RepoResp struct {
 	PullCount    int64     `json:"pull_count"`
 	StarCount    int64     `json:"star_count"`
 	TagsCount    int64     `json:"tags_count"`
-	CreationTime time.Time `json:"creation_time"`
-	UpdateTime   time.Time `json:"update_time"`
 }
 
 // RepoRecord holds the record of an repository in DB, all the infors are from the registry notification event.
@@ -37,8 +34,6 @@ type RepoRecord struct {
 	Description  string    `json:"description"`
 	PullCount    int64     `json:"pull_count"`
 	StarCount    int64     `json:"star_count"`
-	CreationTime time.Time `json:"creation_time"`
-	UpdateTime   time.Time `json:"update_time"`
 }
 
 type cfg struct {
@@ -67,8 +62,6 @@ type ImgScanOverview struct {
 	CompOverviewStr string              `json:"-"`
 	CompOverview    *ComponentsOverview `json:"components,omitempty"`
 	DetailsKey      string              `json:"details_key"`
-	CreationTime    time.Time           `json:"creation_time,omitempty"`
-	UpdateTime      time.Time           `json:"update_time,omitempty"`
 }
 
 type tagDetail struct {
@@ -79,7 +72,6 @@ type tagDetail struct {
 	OS            string    `json:"os"`
 	DockerVersion string    `json:"docker_version"`
 	Author        string    `json:"author"`
-	Created       time.Time `json:"created"`
 	Config        *cfg      `json:"config"`
 }
 

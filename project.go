@@ -1,20 +1,18 @@
 package harbor
 
 import (
-	"time"
-	"github.com/parnurzeal/gorequest"
 	"fmt"
+	"github.com/parnurzeal/gorequest"
+	"time"
 )
 
 // ProjectMetadata holds the metadata of a project.
 type ProjectMetadata struct {
-	ID           int64     `json:"id"`
-	ProjectID    int64     `json:"project_id"`
-	Name         string    `json:"name"`
-	Value        string    `json:"value"`
-	CreationTime time.Time `json:"creation_time"`
-	UpdateTime   time.Time `json:"update_time"`
-	Deleted      int       `json:"deleted"`
+	ID        int64  `json:"id"`
+	ProjectID int64  `json:"project_id"`
+	Name      string `json:"name"`
+	Value     string `json:"value"`
+	Deleted   int    `json:"deleted"`
 }
 
 // Project holds the details of a project.
@@ -26,10 +24,22 @@ type Project struct {
 	UpdateTime   time.Time         `json:"update_time"`
 	Deleted      int               `json:"deleted"`
 	OwnerName    string            `json:"owner_name"`
-	Togglable    bool              `json:"togglable"`
+	Toggleable   bool              `json:"toggleable"`
 	Role         int               `json:"current_user_role_id"`
 	RepoCount    int64             `json:"repo_count"`
-	Metadata     ProjectMetadata `json:"metadata"`
+	Metadata     map[string]string `json:"metadata"`
+	CVEWhitelist CVEWhitelist      `json:"CVEWhitelist"`
+	StorageLimit int64 			   `json:"storageLimit"`
+}
+
+type CVEWhitelistItem struct {
+	CVEID string `json:"CVEID"`
+}
+
+type CVEWhitelist struct {
+	ID        int64            `json:"id"`
+	ProjectID int64            `json:"projectID"`
+	Items     CVEWhitelistItem `json:"items,optional"`
 }
 
 // AccessLog holds information about logs which are used to record the actions that user take to the resourses.
@@ -239,25 +249,6 @@ func (s *ProjectsService) DeleteProjectMetadata(pid int64, metadataName string) 
 	return &resp, errs
 }
 
-// User holds the details of a user.
-type User struct {
-	UserID       int       `json:"user_id"`
-	Username     string    `json:"username"`
-	Email        string    `json:"email"`
-	Password     string    `json:"password"`
-	Realname     string    `json:"realname"`
-	Comment      string    `json:"comment"`
-	Deleted      int       `json:"deleted"`
-	Rolename     string    `json:"role_name"`
-	Role         int       `json:"role_id"`
-	RoleList     []Role    `json:"role_list"`
-	HasAdminRole int       `json:"has_admin_role"`
-	ResetUUID    string    `json:"reset_uuid"`
-	Salt         string    `json:"-"`
-	CreationTime time.Time `json:"creation_time"`
-	UpdateTime   time.Time `json:"update_time"`
-}
-
 // Return a project's relevant role members.
 //
 // This endpoint is for user to search a specified project’s relevant role members.
@@ -278,7 +269,7 @@ func (s *ProjectsService) GetProjectMembers(pid int64) ([]User, *gorequest.Respo
 // Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L483
 func (s *ProjectsService) AddProjectMember(pid int64, member MemberRequest) (*gorequest.Response, []error) {
 	resp, _, errs := s.client.
-		NewRequest(gorequest.POST, fmt.Sprintf("projects/%d/metadatas", pid)).
+		NewRequest(gorequest.POST, fmt.Sprintf("projects/%d/members", pid)).
 		Send(member).
 		End()
 	return &resp, errs
