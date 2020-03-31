@@ -12,7 +12,7 @@ type ProjectMetadata struct {
 	ProjectID int64  `json:"project_id"`
 	Name      string `json:"name"`
 	Value     string `json:"value"`
-	Deleted   int    `json:"deleted"`
+	Deleted   bool   `json:"deleted"`
 }
 
 // Project holds the details of a project.
@@ -22,14 +22,14 @@ type Project struct {
 	Name         string            `json:"name"`
 	CreationTime time.Time         `json:"creation_time"`
 	UpdateTime   time.Time         `json:"update_time"`
-	Deleted      int               `json:"deleted"`
+	Deleted      bool              `json:"deleted"`
 	OwnerName    string            `json:"owner_name"`
 	Toggleable   bool              `json:"toggleable"`
 	Role         int               `json:"current_user_role_id"`
 	RepoCount    int64             `json:"repo_count"`
 	Metadata     map[string]string `json:"metadata"`
 	CVEWhitelist CVEWhitelist      `json:"CVEWhitelist"`
-	StorageLimit int64 			   `json:"storageLimit"`
+	StorageLimit int64             `json:"storageLimit"`
 }
 
 type CVEWhitelistItem struct {
@@ -83,6 +83,16 @@ type ListLogOptions struct {
 type MemberRequest struct {
 	UserName string `json:"username"`
 	Roles    []int  `json:"roles"`
+}
+
+type ProjectMemberRequest struct {
+	RoleID     int        `json:"role_id"`
+	MemberUser MemberUser `json:"member_user"`
+}
+
+type MemberUser struct {
+	Username string `json:"username"`
+	UserID   int    `json:"user_id"`
 }
 
 // ProjectsService handles communication with the user related methods of
@@ -262,12 +272,20 @@ func (s *ProjectsService) GetProjectMembers(pid int64) ([]User, *gorequest.Respo
 	return users, &resp, errs
 }
 
+func (s *ProjectsService) UpdateProjectMember(pid, mid int64, member MemberRequest) (*gorequest.Response, []error) {
+	resp, _, errs := s.client.
+		NewRequest(gorequest.PUT, fmt.Sprintf("projects/%d/members/%d", pid, mid)).
+		Send(member.Roles).
+		End()
+	return &resp, errs
+}
+
 // Add project role member accompany with relevant project and user.
 //
 // This endpoint is for user to add project role member accompany with relevant project and user.
 //
 // Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L483
-func (s *ProjectsService) AddProjectMember(pid int64, member MemberRequest) (*gorequest.Response, []error) {
+func (s *ProjectsService) AddProjectMember(pid int, member ProjectMemberRequest) (*gorequest.Response, []error) {
 	resp, _, errs := s.client.
 		NewRequest(gorequest.POST, fmt.Sprintf("projects/%d/members", pid)).
 		Send(member).
@@ -288,10 +306,10 @@ type Role struct {
 // This endpoint is for user to get role members accompany with relevant project and user.
 //
 // Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L522
-func (s *ProjectsService) GetProjectMemberRole(pid, uid int) (Role, *gorequest.Response, []error) {
+func (s *ProjectsService) GetProjectMemberRole(pid, mid int) (Role, *gorequest.Response, []error) {
 	var role Role
 	resp, _, errs := s.client.
-		NewRequest(gorequest.GET, fmt.Sprintf("projects/%d/members/%d", pid, uid)).
+		NewRequest(gorequest.GET, fmt.Sprintf("projects/%d/members/%d", pid, mid)).
 		EndStruct(&role)
 	return role, &resp, errs
 }
@@ -314,9 +332,9 @@ func (s *ProjectsService) UpdateProjectMemberRole(pid, uid int, role MemberReque
 // This endpoint is aimed to remove project role members already added to the relevant project and user.
 //
 // Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L597
-func (s *ProjectsService) DeleteProjectMember(pid, uid int) (*gorequest.Response, []error) {
+func (s *ProjectsService) DeleteProjectMember(pid, mid int64) (*gorequest.Response, []error) {
 	resp, _, errs := s.client.
-		NewRequest(gorequest.DELETE, fmt.Sprintf("projects/%d/members/%d", pid, uid)).
+		NewRequest(gorequest.DELETE, fmt.Sprintf("projects/%d/members/%d", pid, mid)).
 		End()
 	return &resp, errs
 }
