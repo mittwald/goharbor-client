@@ -24,9 +24,10 @@ type User struct {
 
 type UserRequest struct {
 	Username     string `json:"username"`
+	Email        string `json:"email"`
 	Password     string `json:"password"`
 	Role         int    `json:"role_id"`
-	HasAdminRole bool    `json:"has_admin_role"`
+	HasAdminRole bool   `json:"has_admin_role"`
 }
 
 // Add a user
