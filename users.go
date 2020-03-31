@@ -11,7 +11,7 @@ type User struct {
 	Username     string `json:"username"`
 	Email        string `json:"email"`
 	Password     string `json:"password"`
-	Realname     string `json:"realname"`
+	RealName     string `json:"realname"`
 	Comment      string `json:"comment"`
 	Deleted      int    `json:"deleted"`
 	Rolename     string `json:"role_name"`
@@ -26,6 +26,7 @@ type UserRequest struct {
 	Username     string `json:"username"`
 	Email        string `json:"email"`
 	Password     string `json:"password"`
+	RealName     string `json:"realname"`
 	Role         int    `json:"role_id"`
 	HasAdminRole bool   `json:"has_admin_role"`
 }
