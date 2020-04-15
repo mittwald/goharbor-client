@@ -6,6 +6,10 @@ import (
 	"time"
 )
 
+// ProjectClient handles communication with the project related methods of the Harbor API.
+type ProjectClient struct {
+	client *Client
+}
 // ProjectMetadata holds the metadata of a project.
 type ProjectMetadata struct {
 	ID        int64  `json:"id"`
@@ -18,7 +22,7 @@ type ProjectMetadata struct {
 // Project holds the details of a project.
 type Project struct {
 	ProjectID    int64             `json:"project_id"`
-	OwnerID      int               `json:"owner_id"`
+	OwnerID      int64             `json:"owner_id"`
 	Name         string            `json:"name"`
 	CreationTime time.Time         `json:"creation_time"`
 	UpdateTime   time.Time         `json:"update_time"`
@@ -32,17 +36,31 @@ type Project struct {
 	StorageLimit int64             `json:"storageLimit"`
 }
 
+// Role holds the details of a role.
+type Role struct {
+	RoleID   int    `json:"role_id"`
+	RoleCode string `json:"role_code"`
+	Name     string `json:"role_name"`
+	RoleMask int    `json:"role_mask"`
+}
+
+type RoleRequest struct {
+	Role int64 `json:"role"`
+}
+
+// CVEWhitelistItem holds the CVE ids of a whitelisted item
 type CVEWhitelistItem struct {
 	CVEID string `json:"CVEID"`
 }
 
+// CVEWhitelist holds project specific information next to the set CVEWhitelistItem's
 type CVEWhitelist struct {
 	ID        int64            `json:"id"`
 	ProjectID int64            `json:"projectID"`
 	Items     CVEWhitelistItem `json:"items,optional"`
 }
 
-// AccessLog holds information about logs which are used to record the actions that user take to the resourses.
+// AccessLog holds the information of log entries
 type AccessLog struct {
 	LogID     int       `json:"log_id"`
 	Username  string    `json:"username"`
@@ -54,13 +72,14 @@ type AccessLog struct {
 	OpTime    time.Time `json:"op_time"`
 }
 
-// ProjectRequest holds informations that need for creating project API
+// ProjectRequest holds the information needed to create a project
 type ProjectRequest struct {
 	Name     string            `url:"name,omitempty" json:"project_name"`
 	Public   *int              `url:"public,omitempty" json:"public"` //deprecated, reserved for project creation in replication
 	Metadata map[string]string `url:"-" json:"metadata"`
 }
 
+// ListProjectsOptions holds the information needed to list a project
 type ListProjectsOptions struct {
 	ListOptions
 	Name   string `url:"name,omitempty" json:"name,omitempty"`
@@ -68,8 +87,7 @@ type ListProjectsOptions struct {
 	Owner  string `url:"owner,omitempty" json:"owner,omitempty"`
 }
 
-// LogQueryParam is used to set query conditions when listing
-// access logs.
+// LogQueryParam is used to set query conditions when listing access logs
 type ListLogOptions struct {
 	ListOptions
 	Username   string     `url:"username,omitempty"`        // the operator's username of the log
@@ -80,261 +98,216 @@ type ListLogOptions struct {
 	EndTime    *time.Time `url:"end_timestamp,omitempty"`   // the time before which the operation is doen
 }
 
+// MemberRequest holds the information needed to update a project member
 type MemberRequest struct {
 	UserName string `json:"username"`
 	Roles    []int  `json:"roles"`
 }
 
+// ProjectMemberRequest holds the information needed to add a project member
 type ProjectMemberRequest struct {
 	RoleID     int        `json:"role_id"`
 	MemberUser MemberUser `json:"member_user"`
 }
 
+// MemberUser holds the user information needed for a project member request
 type MemberUser struct {
 	Username string `json:"username"`
 	UserID   int    `json:"user_id"`
 }
 
-// ProjectsService handles communication with the user related methods of
-// the Harbor API.
-//
-// Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L45
-type ProjectsService struct {
-	client *Client
+// CreateProject
+// Creates a new project
+func (s *ProjectClient) CreateProject(p ProjectRequest) error {
+	resp, _, err := s.client.
+		NewRequest(gorequest.POST, "projects").
+		Send(p).
+		End()
+
+	if err != nil {
+		return err[len(err)-1]
+	}
+	if resp.StatusCode != 200 {
+		return fmt.Errorf("API returned %d when creating project", resp.StatusCode)
+	}
+	return nil
 }
 
 // List projects
 //
 // This endpoint returns all projects created by Harbor,
 // and can be filtered by project name.
-//
-// Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L46
-func (s *ProjectsService) ListProject(opt *ListProjectsOptions) ([]Project, *gorequest.Response, []error) {
+func (s *ProjectClient) ListProject(opt *ListProjectsOptions) ([]Project, gorequest.Response, []error) {
 	var projects []Project
 	resp, _, errs := s.client.
 		NewRequest(gorequest.GET, "projects").
 		Query(*opt).
 		EndStruct(&projects)
-	return projects, &resp, errs
+	return projects, resp, errs
 }
 
-// Check if the project name user provided already exists.
-//
-// This endpoint is used to check if the project name user provided already exist.
-//
-// Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L100
-func (s *ProjectsService) CheckProject(projectName string) (*gorequest.Response, []error) {
-	resp, _, errs := s.client.
+// CheckProject
+// Check if the project name provided already exist
+func (s *ProjectClient) CheckProject(projectName string) error {
+	resp, _, err := s.client.
 		NewRequest(gorequest.HEAD, "projects").
 		Query(fmt.Sprintf("project_name=%s", projectName)).
 		End()
-	return &resp, errs
+	if err != nil {
+		return err[len(err)-1]
+	}
+	if resp.StatusCode != 200 {
+		return fmt.Errorf("API returned %d when checking project", resp.StatusCode)
+	}
+
+	return  nil
 }
 
-// Create a new project.
-//
-// This endpoint is for user to create a new project.
-//
-// Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L122
-func (s *ProjectsService) CreateProject(p ProjectRequest) (*gorequest.Response, []error) {
-	resp, _, errs := s.client.
-		NewRequest(gorequest.POST, "projects").
-		Send(p).
-		End()
-	return &resp, errs
-}
-
-// Return specific project detail information.
-//
-// This endpoint returns specific project information by project ID.
-//
-// Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L149
-func (s *ProjectsService) GetProjectByID(pid int64) (Project, *gorequest.Response, []error) {
+// GetProjectByID
+// Return specific project details
+func (s *ProjectClient) GetProjectByID(pid int64) (Project, gorequest.Response, []error) {
 	var project Project
 	resp, _, errs := s.client.
 		NewRequest(gorequest.GET, fmt.Sprintf("projects/%d", pid)).
 		EndStruct(&project)
-	return project, &resp, errs
+	return project, resp, errs
 }
 
-// Update properties for a selected project.
-//
-// This endpoint is aimed to update the properties of a project.
-//
-// Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L171
-func (s *ProjectsService) UpdateProject(pid int64, p Project) (*gorequest.Response, []error) {
+// UpdateProject
+// Update the properties of a project.
+func (s *ProjectClient) UpdateProject(pid int64, p Project) (gorequest.Response, []error) {
 	resp, _, errs := s.client.
 		NewRequest(gorequest.PUT, fmt.Sprintf("projects/%d", pid)).
 		Send(p).
 		End()
-	return &resp, errs
+	return resp, errs
 }
 
-// Delete project by projectID.
-//
-// This endpoint is aimed to delete project by project ID.
-//
-// Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L203
-func (s *ProjectsService) DeleteProject(pid int64) (*gorequest.Response, []error) {
-	resp, _, errs := s.client.
+// DeleteProject
+// Delete a project by project ID.
+func (s *ProjectClient) DeleteProject(pid int64) error {
+	resp, _, err := s.client.
 		NewRequest(gorequest.DELETE, fmt.Sprintf("projects/%d", pid)).
 		End()
-	return &resp, errs
+	if err != nil {
+		return  err[len(err)-1]
+	}
+	if resp.StatusCode != 200 {
+		return fmt.Errorf("API returned %d when deleting project", resp.StatusCode)
+	}
+	return  nil
 }
 
-// Get access logs accompany with a relevant project.
-//
-// This endpoint let user search access logs filtered by operations and date time ranges.
-//
-// Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L230
-func (s *ProjectsService) GetProjectLogByID(pid int64, opt ListLogOptions) ([]AccessLog, *gorequest.Response, []error) {
+// GetProjectLogByID
+// Get access logs of a project with user-specified filter operations and date time ranges
+func (s *ProjectClient) GetProjectLogByID(pid int64, opt ListLogOptions) ([]AccessLog, gorequest.Response, []error) {
 	var accessLog []AccessLog
 	resp, _, errs := s.client.
 		NewRequest(gorequest.GET, fmt.Sprintf("projects/%d", pid)).
 		Query(opt).
 		EndStruct(&accessLog)
-	return accessLog, &resp, errs
+	return accessLog, resp, errs
 }
 
-// Get project all metadata.
-//
-// This endpoint returns metadata of the project specified by project ID.
-//
-// Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L307
-func (s *ProjectsService) GetProjectMetadataById(pid int64) (map[string]string, *gorequest.Response, []error) {
+// GetProjectMetadataById
+// Get the metadata of a project
+func (s *ProjectClient) GetProjectMetadataById(pid int64) (map[string]string, gorequest.Response, []error) {
 	var metadata map[string]string
 	resp, _, errs := s.client.
 		NewRequest(gorequest.GET, fmt.Sprintf("projects/%d", pid)).
 		EndStruct(&metadata)
-	return metadata, &resp, errs
+	return metadata, resp, errs
 }
 
-// Add metadata for the project.
-//
-// This endpoint is aimed to add metadata of a project.
-//
-// Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L329
-func (s *ProjectsService) AddProjectMetadata(pid int64, metadata map[string]string) (*gorequest.Response, []error) {
+// AddProjectMetadata
+// Add metadata to a project
+func (s *ProjectClient) AddProjectMetadata(pid int64, metadata map[string]string) (gorequest.Response, []error) {
 	resp, _, errs := s.client.
 		NewRequest(gorequest.POST, fmt.Sprintf("projects/%d/metadatas", pid)).
 		Send(metadata).
 		End()
-	return &resp, errs
+	return resp, errs
 }
 
-// Get project metadata
-//
-// This endpoint returns specified metadata of a project.
-//
-// Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L364
-func (s *ProjectsService) GetProjectMetadata(pid int64, specified string) (map[string]string, *gorequest.Response, []error) {
+// GetProjectMetadata
+// Get the specified metadata value of a project
+func (s *ProjectClient) GetProjectMetadata(pid int64, specified string) (map[string]string, gorequest.Response, []error) {
 	var metadata map[string]string
 	resp, _, errs := s.client.
 		NewRequest(gorequest.GET, fmt.Sprintf("projects/%d/metadatas/%s", pid, specified)).
 		EndStruct(&metadata)
-	return metadata, &resp, errs
+	return metadata, resp, errs
 }
 
-// Update metadata of a project.
-//
-// This endpoint is aimed to update the metadata of a project.
-//
-// Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L391
-func (s *ProjectsService) UpdateProjectMetadata(pid int64, metadataName string) (*gorequest.Response, []error) {
+// UpdateProjectMetadata
+// Update the metadata of a project.
+func (s *ProjectClient) UpdateProjectMetadata(pid int64, metadataName string) (gorequest.Response, []error) {
 	resp, _, errs := s.client.
 		NewRequest(gorequest.PUT, fmt.Sprintf("projects/%d/%s", pid, metadataName)).
 		End()
-	return &resp, errs
+	return resp, errs
 }
 
-// Delete metadata of a project
-//
-// This endpoint is aimed to delete metadata of a project.
-//
-// Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L422
-func (s *ProjectsService) DeleteProjectMetadata(pid int64, metadataName string) (*gorequest.Response, []error) {
+// DeleteProjectMetadata
+// Delete a specified metadata value of a project.
+func (s *ProjectClient) DeleteProjectMetadata(pid int64, metadataName string) (gorequest.Response, []error) {
 	resp, _, errs := s.client.
 		NewRequest(gorequest.DELETE, fmt.Sprintf("projects/%d/%s", pid, metadataName)).
 		End()
-	return &resp, errs
+	return resp, errs
 }
 
-// Return a project's relevant role members.
-//
-// This endpoint is for user to search a specified project’s relevant role members.
-//
-// Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L452
-func (s *ProjectsService) GetProjectMembers(pid int64) ([]User, *gorequest.Response, []error) {
+// GetProjectMembers
+// Get the specified project’s members
+func (s *ProjectClient) GetProjectMembers(pid int64) ([]User, gorequest.Response, []error) {
 	var users []User
 	resp, _, errs := s.client.
 		NewRequest(gorequest.GET, fmt.Sprintf("projects/%d/members", pid)).
 		EndStruct(&users)
-	return users, &resp, errs
+	return users, resp, errs
 }
 
-func (s *ProjectsService) UpdateProjectMember(pid, mid int64, member MemberRequest) (*gorequest.Response, []error) {
+// UpdateProjectMember
+// Update a project member
+func (s *ProjectClient) UpdateProjectMember(pid, mid int64, role RoleRequest) (gorequest.Response, []error) {
 	resp, _, errs := s.client.
 		NewRequest(gorequest.PUT, fmt.Sprintf("projects/%d/members/%d", pid, mid)).
-		Send(member.Roles).
+		Send(role).
 		End()
-	return &resp, errs
+	return resp, errs
 }
 
-// Add project role member accompany with relevant project and user.
+// AddProjectMember
 //
 // This endpoint is for user to add project role member accompany with relevant project and user.
 //
-// Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L483
-func (s *ProjectsService) AddProjectMember(pid int, member ProjectMemberRequest) (*gorequest.Response, []error) {
+func (s *ProjectClient) AddProjectMember(pid int, member ProjectMemberRequest) (gorequest.Response, []error) {
 	resp, _, errs := s.client.
 		NewRequest(gorequest.POST, fmt.Sprintf("projects/%d/members", pid)).
 		Send(member).
 		End()
-	return &resp, errs
+	return resp, errs
 }
 
-// Role holds the details of a role.
-type Role struct {
-	RoleID   int    `json:"role_id"`
-	RoleCode string `json:"role_code"`
-	Name     string `json:"role_name"`
-	RoleMask int    `json:"role_mask"`
-}
-
-// Return role members accompany with relevant project and user.
-//
-// This endpoint is for user to get role members accompany with relevant project and user.
+// GetProjectMemberRole
+// Get the role of a project member
 //
 // Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L522
-func (s *ProjectsService) GetProjectMemberRole(pid, mid int) (Role, *gorequest.Response, []error) {
+func (s *ProjectClient) GetProjectMemberRole(pid, mid int) (Role, gorequest.Response, []error) {
 	var role Role
 	resp, _, errs := s.client.
 		NewRequest(gorequest.GET, fmt.Sprintf("projects/%d/members/%d", pid, mid)).
 		EndStruct(&role)
-	return role, &resp, errs
+	return role, resp, errs
 }
 
-// Update project role members accompany with relevant project and user.
-//
-// This endpoint is for user to update current project role members accompany with relevant project and user.
-//
-// Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L559
-func (s *ProjectsService) UpdateProjectMemberRole(pid, uid int, role MemberRequest) (*gorequest.Response, []error) {
-	resp, _, errs := s.client.
-		NewRequest(gorequest.PUT, fmt.Sprintf("projects/%d/members/%d", pid, uid)).
-		Send(role).
-		End()
-	return &resp, errs
-}
 
-// Delete project role members accompany with relevant project and user.
-//
-// This endpoint is aimed to remove project role members already added to the relevant project and user.
-//
-// Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L597
-func (s *ProjectsService) DeleteProjectMember(pid, mid int64) (*gorequest.Response, []error) {
+
+// DeleteProjectMember
+// Delete a project member
+func (s *ProjectClient) DeleteProjectMember(pid, mid int64) (gorequest.Response, []error) {
 	resp, _, errs := s.client.
 		NewRequest(gorequest.DELETE, fmt.Sprintf("projects/%d/members/%d", pid, mid)).
 		End()
-	return &resp, errs
+	return resp, errs
 }
