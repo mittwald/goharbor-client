@@ -1,4 +1,4 @@
-module github.com/elenz97/go-harbor
+module github.com/mittwald/goharbor-client
 
 go 1.13
 

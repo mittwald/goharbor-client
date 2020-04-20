@@ -9,7 +9,7 @@ import (
 
 const (
 	libraryVersion = "0.0.1"
-	userAgent      = "go-harbor/" + libraryVersion
+	userAgent      = "goharbor-client/" + libraryVersion
 )
 
 type Client struct {
