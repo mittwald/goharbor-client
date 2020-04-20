@@ -19,7 +19,7 @@ type ManifestResp struct {
 	Config   interface{} `json:"config,omitempty" `
 }
 
-//ComponentsOverview has the total number and a list of components number of different severity level.
+// ComponentsOverview holds information about the total number of components with a certain CVE severity
 type ComponentsOverview struct {
 	Total   int                        `json:"total"`
 	Summary []*ComponentsOverviewEntry `json:"summary"`
@@ -31,7 +31,7 @@ type ComponentsOverviewEntry struct {
 	Count int `json:"count"`
 }
 
-// VulnerabilityItem is an item in the vulnerability result returned by the vulnerability details API.
+// VulnerabilityItem is an item in the vulnerability result returned by the vulnerability details API
 type VulnerabilityItem struct {
 	ID          string `json:"id"`
 	Severity    int64  `json:"severity"`
@@ -91,7 +91,7 @@ type TagResp struct {
 	ScanOverview *ImgScanOverview `json:"scan_overview,omitempty"`
 }
 
-// RepositoryClient handles communication with the repository related methods of the Harbor API.
+// RepositoryClient handles communication with the repository related methods of the Harbor API
 type RepositoryClient struct {
 	client *Client
 }
@@ -115,7 +115,7 @@ func (s *RepositoryClient) ListRepository(opt *ListRepositoriesOption) ([]RepoRe
 }
 
 // DeleteRepository
-// Delete a repository.
+// Delete a repository
 func (s *RepositoryClient) DeleteRepository(repoName string) (gorequest.Response, []error) {
 	resp, _, errs := s.client.
 		NewRequest(gorequest.DELETE, fmt.Sprintf("repositories/%s", repoName)).
@@ -139,7 +139,7 @@ func (s *RepositoryClient) UpdateRepository(repoName string, d RepositoryDescrip
 
 // GetRepositoryTag
 // Get the tag of a repository
-// NOTE: If deployed with Notary, the signature property of response represents whether the image is signed or not.
+// NOTE: If deployed with Notary, the signature property of response represents whether the image is signed or not
 // If the property is null, the image is unsigned
 func (s *RepositoryClient) GetRepositoryTag(repoName, tag string) (TagResp, gorequest.Response, []error) {
 	var v TagResp
@@ -160,7 +160,7 @@ func (s *RepositoryClient) DeleteRepositoryTag(repoName, tag string) (gorequest.
 
 // ListRepositoryTags
 // Get tags from a repository
-// NOTE: If deployed with Notary, the signature property of response represents whether the image is signed or not.
+// NOTE: If deployed with Notary, the signature property of response represents whether the image is signed or not
 // If the property is null, the image is unsigned
 
 func (s *RepositoryClient) ListRepositoryTags(repoName string) ([]TagResp, gorequest.Response, []error) {

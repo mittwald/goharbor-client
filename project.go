@@ -12,7 +12,7 @@ type ProjectClient struct {
 
 // List projects
 // This endpoint returns all projects created by Harbor,
-// and can be filtered by project name.
+// and can be filtered by project name
 func (s *ProjectClient) ListProjects(opt ListProjectsOptions) ([]Project, error) {
 	var projects []Project
 	resp, _, errs := s.NewRequest(gorequest.GET, "").
@@ -52,7 +52,7 @@ func (s *ProjectClient) CreateProject(p ProjectRequest) error {
 }
 
 // UpdateProject
-// Update the properties of a project.
+// Update the properties of a project
 func (s *ProjectClient) UpdateProject(pid int64, p Project) error {
 	resp, _, errs := s.NewRequest(gorequest.PUT, "/"+I64toA(pid)).
 		Send(p).
@@ -61,7 +61,7 @@ func (s *ProjectClient) UpdateProject(pid int64, p Project) error {
 }
 
 // DeleteProject
-// Delete a project by project ID.
+// Delete a project by project ID
 func (s *ProjectClient) DeleteProject(pid int64) error {
 	resp, _, errs := s.NewRequest(gorequest.DELETE, "/"+I64toA(pid)).
 		End()
@@ -106,7 +106,7 @@ func (s *ProjectClient) GetProjectMetadataSingle(pid int64, specified string) (m
 }
 
 // UpdateProjectMetadata
-// Update the metadata of a project.
+// Update the metadata of a project
 func (s *ProjectClient) UpdateProjectMetadataSingle(pid int64, metadataName string) error {
 	resp, _, errs := s.NewRequest(gorequest.PUT, fmt.Sprintf("/%d/metadatas/%s", pid, metadataName)).
 		End()
@@ -114,7 +114,7 @@ func (s *ProjectClient) UpdateProjectMetadataSingle(pid int64, metadataName stri
 }
 
 // DeleteProjectMetadata
-// Delete a specified metadata value of a project.
+// Delete a specified metadata value of a project
 func (s *ProjectClient) DeleteProjectMetadataSingle(pid int64, metadataName string) error {
 	resp, _, errs := s.NewRequest(gorequest.DELETE, fmt.Sprintf("/%d/metadatas/%s", pid, metadataName)).
 		End()
@@ -122,7 +122,7 @@ func (s *ProjectClient) DeleteProjectMetadataSingle(pid int64, metadataName stri
 }
 
 // GetProjectMembers
-// Get the specified project’s members
+// Get members of the specified project
 func (s *ProjectClient) GetProjectMembers(pid int64) ([]User, error) {
 	var users []User
 	resp, _, errs := s.NewRequest(gorequest.GET, fmt.Sprintf("/%d/members", pid)).
@@ -131,7 +131,7 @@ func (s *ProjectClient) GetProjectMembers(pid int64) ([]User, error) {
 }
 
 // AddProjectMember
-// This endpoint is for user to add project role member accompany with relevant project and user.
+// Add a project member to a project
 func (s *ProjectClient) AddProjectMember(pid int, member ProjectMemberRequest) error {
 	resp, _, errs := s.NewRequest(gorequest.POST, fmt.Sprintf("/%d/members", pid)).
 		Send(member).

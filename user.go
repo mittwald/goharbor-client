@@ -89,7 +89,7 @@ func (s *UserClient) UpdateUserPassword(uid int64, oldPw, newPw string) error {
 }
 
 // UpdateUserPasswordAsAdmin
-// Update a user's password as admin (only usable by an admin user)
+// Update a users password as admin (only usable by an admin user)
 func (s *UserClient) UpdateUserPasswordAsAdmin(uid int64, newPw string) error {
 	cp := ChangePasswordAsAdmin{
 		NewPassword: newPw,
