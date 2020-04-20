@@ -7,141 +7,96 @@ import (
 
 // UserClient handles communication with the user related methods of the Harbor API
 type UserClient struct {
-	client *Client
-}
-
-// User holds the details of a user
-type User struct {
-	UserID       int    `json:"user_id"`
-	Username     string `json:"username"`
-	Email        string `json:"email"`
-	Password     string `json:"password"`
-	RealName     string `json:"realname"`
-	Comment      string `json:"comment"`
-	Deleted      bool   `json:"deleted"`
-	RoleName     string `json:"role_name"`
-	Role         int    `json:"role_id"`
-	RoleList     []Role `json:"role_list"`
-	HasAdminRole bool   `json:"has_admin_role"`
-	ResetUUID    string `json:"reset_uuid"`
-	Salt         string `json:"-"`
-}
-
-// UserRequest holds the information needed for basic operations on users
-type UserRequest struct {
-	Username     string `json:"username"`
-	Password     string `json:"password"`
-	Email        string `json:"email"`
-	RealName     string `json:"realname"`
-	Comment      string `json:"comment,omitempty"`
-	Role         int    `json:"role_id"`
-	HasAdminRole bool   `json:"has_admin_role"`
-	UserID       int    `json:"user_id,omitempty"`
-}
-
-// ChangePassword holds the information needed to change a users password
-// NOTE: when using an admin user, the usage of ChangePasswordAsAdmin is recommended
-type ChangePassword struct {
-	OldPassword string `json:"old_password"`
-	NewPassword string `json:"new_password"`
-}
-
-// ChangePasswordAsAdmin holds the information needed to change a users password as administrator
-type ChangePasswordAsAdmin struct {
-	NewPassword string `json:"new_password"`
-}
-
-// UserSearchResult holds the information returned by the API when querying for a user name
-
-type UserSearchResults []UserSearchResult
-
-type UserSearchResult struct {
-	UserID   int    `json:"user_id"`
-	Username string `json:"username"`
-}
-
-// AddUser
-// Add a user
-func (s *UserClient) AddUser(usr UserRequest) (gorequest.Response, []error) {
-	resp, _, errs := s.client.
-		NewRequest(gorequest.POST, fmt.Sprintf("users")).
-		Send(usr).
-		End()
-	return resp, errs
-}
-
-// GetUser
-// Get a user's profile by ID
-func (s *UserClient) GetUser(usr UserRequest) (User, gorequest.Response, []error) {
-	var u User
-	resp, _, errs := s.client.
-		NewRequest(gorequest.GET, fmt.Sprintf("users/%d", usr.UserID)).
-		EndStruct(&u)
-	return u, resp, errs
+	*Client
 }
 
 // SearchUser
 // Search User searches for a user by name
-func (s *UserClient) SearchUser(usr UserRequest) (UserSearchResults, gorequest.Response, []error) {
+func (s *UserClient) SearchUser(usr UserRequest) (UserSearchResults, error) {
 	var u UserSearchResults
-	resp, _, errs := s.client.
-		NewRequest(gorequest.GET, fmt.Sprintf("users/search?username=%s", usr.Username)).
+	resp, _, errs := s.NewRequest(gorequest.GET, "/search").
+		Query(fmt.Sprintf("username=%s", usr.Username)).
 		EndStruct(&u)
-	return u, resp, errs
+	return u, CheckResponse(errs, resp, 200)
 }
 
-// DeleteUser
-// Delete a user
-func (s *UserClient) DeleteUser(usr UserRequest) (gorequest.Response, []error) {
-	resp, _, errs := s.client.
-		NewRequest(gorequest.DELETE, fmt.Sprintf("users/%d", usr.UserID)).
-		End()
-	return resp, errs
+// ListUsers
+// Get a list of users
+func (s *UserClient) ListUsers() ([]User, error) {
+	var u []User
+	resp, _, errs := s.NewRequest(gorequest.GET, "").
+		EndStruct(&u)
+	return u, CheckResponse(errs, resp, 200)
 }
 
-// ToggleUserSysAdmin
-// Toggle administrator privileges of a user
-func (s *UserClient) ToggleUserSysAdmin(usr UserRequest) (gorequest.Response, []error) {
-	resp, _, errs := s.client.
-		NewRequest(gorequest.PUT, fmt.Sprintf("users/%d/sysadmin", usr.UserID)).
-		Send(usr.HasAdminRole).
-		End()
-	return resp, errs
+// GetUser
+// Get a user's profile by ID
+func (s *UserClient) GetUser(usr UserRequest) (User, error) {
+	var u User
+	resp, _, errs := s.NewRequest(gorequest.GET, "/"+I64toA(usr.UserID)).
+		EndStruct(&u)
+	return u, CheckResponse(errs, resp, 200)
 }
 
-// UpdateUserPassword
-// Update a users password
-func (s *UserClient) UpdateUserPassword(oldUsr, newUsr UserRequest) (gorequest.Response, []error) {
-	cp := ChangePassword{
-		OldPassword: oldUsr.Password,
-		NewPassword: newUsr.Password,
-	}
-	resp, _, errs := s.client.
-		NewRequest(gorequest.PUT, fmt.Sprintf("users/%d/password", oldUsr.UserID)).
-		Send(cp).
+// AddUser
+// Add a user
+func (s *UserClient) AddUser(usr UserRequest) error {
+	resp, _, errs := s.NewRequest(gorequest.POST, "").
+		Send(usr).
 		End()
-	return resp, errs
-}
-
-// UpdateUserPasswordAsAdmin
-// Update a user's password as admin (only usable by an admin user)
-func (s *UserClient) UpdateUserPasswordAsAdmin(newUsr UserRequest) (gorequest.Response, []error) {
-	cp := ChangePasswordAsAdmin{
-		NewPassword: newUsr.Password,
-	}
-	resp, _, errs := s.client.
-		NewRequest(gorequest.PUT, fmt.Sprintf("users/%d/password", newUsr.UserID)).
-		Send(cp).
-		End()
-	return resp, errs
+	return CheckResponse(errs, resp, 201)
 }
 
 // UpdateUserProfile
 // Update a user's profile
-func (s *UserClient) UpdateUserProfile(usr UserRequest) (gorequest.Response, []error) {
-	resp, _, errs := s.client.
-		NewRequest(gorequest.PUT, fmt.Sprintf("users/%d", usr.UserID)).
+func (s *UserClient) UpdateUserProfile(usr UserRequest) error {
+	resp, _, errs := s.NewRequest(gorequest.PUT, "/"+I64toA(usr.UserID)).
 		Send(usr).
 		End()
-	return resp, errs
+	return CheckResponse(errs, resp, 200)
+}
+
+// DeleteUser
+// Delete a user
+func (s *UserClient) DeleteUser(usr UserRequest) error {
+	resp, _, errs := s.NewRequest(gorequest.DELETE, "/"+I64toA(usr.UserID)).
+		End()
+	return CheckResponse(errs, resp, 200)
+}
+
+// ToggleUserSysAdmin
+// Toggle administrator privileges of a user
+func (s *UserClient) ToggleUserSysAdmin(usr UserRequest) error {
+	resp, _, errs := s.NewRequest(gorequest.PUT, fmt.Sprintf("/%d/sysadmin", usr.UserID)).
+		Send(usr.HasAdminRole).
+		End()
+	return CheckResponse(errs, resp, 200)
+}
+
+// UpdateUserPassword
+// Update a users password
+// NOTE: when using an admin user, the usage of ChangePasswordAsAdmin is recommended
+func (s *UserClient) UpdateUserPassword(uid int64, oldPw, newPw string) error {
+	cp := ChangePassword{
+		OldPassword: oldPw,
+		NewPassword: newPw,
+	}
+
+	resp, _, errs := s.NewRequest(gorequest.PUT, fmt.Sprintf("/%d/password", uid)).
+		Send(cp).
+		End()
+	return CheckResponse(errs, resp, 200)
+}
+
+// UpdateUserPasswordAsAdmin
+// Update a user's password as admin (only usable by an admin user)
+func (s *UserClient) UpdateUserPasswordAsAdmin(uid int64, newPw string) error {
+	cp := ChangePasswordAsAdmin{
+		NewPassword: newPw,
+	}
+
+	resp, _, errs := s.NewRequest(gorequest.PUT, fmt.Sprintf("/%d/password", uid)).
+		Send(cp).
+		End()
+	return CheckResponse(errs, resp, 200)
 }

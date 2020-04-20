@@ -43,25 +43,24 @@ type VulnerabilityItem struct {
 }
 
 type RepoResp struct {
-	ID           int64     `json:"id"`
-	Name         string    `json:"name"`
-	ProjectID    int64     `json:"project_id"`
-	Description  string    `json:"description"`
-	PullCount    int64     `json:"pull_count"`
-	StarCount    int64     `json:"star_count"`
-	TagsCount    int64     `json:"tags_count"`
+	ID          int64  `json:"id"`
+	Name        string `json:"name"`
+	ProjectID   int64  `json:"project_id"`
+	Description string `json:"description"`
+	PullCount   int64  `json:"pull_count"`
+	StarCount   int64  `json:"star_count"`
+	TagsCount   int64  `json:"tags_count"`
 }
 
 // RepoRecord holds the record of an repository, held by the database
 type RepoRecord struct {
-	RepositoryID int64     `json:"repository_id"`
-	Name         string    `json:"name"`
-	ProjectID    int64     `json:"project_id"`
-	Description  string    `json:"description"`
-	PullCount    int64     `json:"pull_count"`
-	StarCount    int64     `json:"star_count"`
+	RepositoryID int64  `json:"repository_id"`
+	Name         string `json:"name"`
+	ProjectID    int64  `json:"project_id"`
+	Description  string `json:"description"`
+	PullCount    int64  `json:"pull_count"`
+	StarCount    int64  `json:"star_count"`
 }
-
 
 // ImgScanOverview maps the record of an image scan overview.
 type ImgScanOverview struct {
@@ -76,16 +75,15 @@ type ImgScanOverview struct {
 }
 
 type tagDetail struct {
-	Digest        string    `json:"digest"`
-	Name          string    `json:"name"`
-	Size          int64     `json:"size"`
-	Architecture  string    `json:"architecture"`
-	OS            string    `json:"os"`
-	DockerVersion string    `json:"docker_version"`
-	Author        string    `json:"author"`
-	Config        *cfg      `json:"config"`
+	Digest        string `json:"digest"`
+	Name          string `json:"name"`
+	Size          int64  `json:"size"`
+	Architecture  string `json:"architecture"`
+	OS            string `json:"os"`
+	DockerVersion string `json:"docker_version"`
+	Author        string `json:"author"`
+	Config        *cfg   `json:"config"`
 }
-
 
 type TagResp struct {
 	tagDetail
@@ -104,7 +102,6 @@ type ListRepositoriesOption struct {
 	Q         string `url:"q,omitempty" json:"q,omitempty"`
 	Sort      string `url:"sort,omitempty" json:"sort,omitempty"`
 }
-
 
 // ListRepository
 // Get repositories filtered by the relevant project ID and repository name
@@ -180,11 +177,11 @@ func (s *RepositoryClient) GetRepositoryTagManifests(repoName, tag string, versi
 	var v ManifestResp
 	resp, _, errs := s.client.
 		NewRequest(gorequest.GET, func() string {
-		if version == "" {
-			return fmt.Sprintf("repositories/%s/tags/%s/manifest", repoName, tag)
-		}
-		return fmt.Sprintf("repositories/%s/tags/%s/manifest?version=%s", repoName, tag, version)
-	}()).
+			if version == "" {
+				return fmt.Sprintf("repositories/%s/tags/%s/manifest", repoName, tag)
+			}
+			return fmt.Sprintf("repositories/%s/tags/%s/manifest?version=%s", repoName, tag, version)
+		}()).
 		EndStruct(&v)
 	return v, resp, errs
 }
@@ -227,11 +224,11 @@ func (s *RepositoryClient) GetRepositoryTop(top interface{}) ([]RepoResp, gorequ
 	var v []RepoResp
 	resp, _, errs := s.client.
 		NewRequest(gorequest.GET, func() string {
-		if t, ok := top.(int); ok {
-			return fmt.Sprintf("repositories/top?count=%d", t)
-		}
-		return fmt.Sprintf("repositories/top")
-	}()).
+			if t, ok := top.(int); ok {
+				return fmt.Sprintf("repositories/top?count=%d", t)
+			}
+			return fmt.Sprintf("repositories/top")
+		}()).
 		EndStruct(&v)
 	return v, resp, errs
 }

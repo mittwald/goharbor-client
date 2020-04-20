@@ -7,6 +7,5 @@ require (
 	github.com/moul/http2curl v1.0.0 // indirect
 	github.com/parnurzeal/gorequest v0.2.15
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/smartystreets/goconvey v1.6.4 // indirect
 	golang.org/x/net v0.0.0-20200320220750-118fecf932d8 // indirect
 )
