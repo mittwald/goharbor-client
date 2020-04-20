@@ -37,7 +37,7 @@ type Role struct {
 }
 
 type RoleRequest struct {
-	Role int64 `json:"role"`
+	Role int `json:"role"`
 }
 
 // CVEWhitelistItem holds the CVE ids of a whitelisted item
@@ -105,5 +105,5 @@ type ProjectMemberRequest struct {
 // MemberUser holds the user information needed for a project member request
 type MemberUser struct {
 	Username string `json:"username"`
-	UserID   int    `json:"user_id"`
+	UserID   int64  `json:"user_id"`
 }
