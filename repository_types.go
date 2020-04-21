@@ -23,14 +23,6 @@ type ManifestResp struct {
 	Config   interface{} `json:"config,omitempty" `
 }
 
-// MemberReq -  Create Project Member Request
-type MemberReq struct {
-	ProjectID   int64     `json:"project_id"`
-	Role        int       `json:"role_id,omitempty"`
-	MemberUser  User      `json:"member_user,omitempty"`
-	MemberGroup UserGroup `json:"member_group,omitempty"`
-}
-
 // UserGroup ...
 type UserGroup struct {
 	ID          int    `orm:"pk;auto;column(id)" json:"id,omitempty"`
