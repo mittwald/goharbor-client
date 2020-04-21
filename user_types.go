@@ -41,14 +41,6 @@ type OIDCUser struct {
 	UpdateTime   time.Time `orm:"column(update_time);auto_now" json:"update_time"`
 }
 
-// UserMember ...
-type UserMember struct {
-	ID       int    `orm:"pk;column(user_id)" json:"user_id"`
-	Username string `json:"username"`
-	Rolename string `json:"role_name"`
-	Role     int    `json:"role_id"`
-}
-
 type UserSearchResults []UserSearchResult
 
 // UserSearchResult holds the information returned by the API when querying for a user name
