@@ -123,8 +123,6 @@ func (s *ProjectClient) DeleteProjectMetadataSingle(pid int64, metadataName stri
 
 // GetProjectMembers
 // Get members of the specified project
-
-
 func (s *ProjectClient) GetProjectMembers(pid int64) ([]Member, error) {
 	var mem []Member
 	resp, _, errs := s.NewRequest(gorequest.GET, fmt.Sprintf("/%d/members", pid)).
