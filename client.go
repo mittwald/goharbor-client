@@ -122,3 +122,14 @@ func (c *Client) Users() *UserClient {
 	u.baseURLSuffix = "users"
 	return u
 }
+
+func (c *Client) Repositories() *RepositoryClient {
+	u := &RepositoryClient{Client: &Client{
+		baseURL:  c.baseURL,
+		username: c.username,
+		password: c.password,
+	}}
+
+	u.baseURLSuffix = "repositories"
+	return u
+}

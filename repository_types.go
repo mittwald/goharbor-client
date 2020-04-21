@@ -89,7 +89,7 @@ type Hashes map[string][]byte
 
 // Signature ...
 type Signature struct {
-	Tag    string      `json:"tag"`
+	Tag    string `json:"tag"`
 	Hashes Hashes `json:"hashes"`
 }
 
@@ -129,7 +129,7 @@ type TagResp struct {
 }
 
 type Target struct {
-	Tag    string      `json:"tag"`
+	Tag    string `json:"tag"`
 	Hashes Hashes `json:"hashes"`
 }
 
@@ -142,4 +142,8 @@ type VulnerabilityItem struct {
 	Description string `json:"description"`
 	Link        string `json:"link"`
 	Fixed       string `json:"fixedVersion,omitempty"`
+}
+
+type RepositoryDescription struct {
+	Description string `url:"description,omitempty" json:"description,omitempty"`
 }
