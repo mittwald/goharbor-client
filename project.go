@@ -136,7 +136,7 @@ func (s *ProjectClient) AddProjectMember(pid int64, member MemberReq) error {
 	resp, _, errs := s.NewRequest(gorequest.POST, fmt.Sprintf("/%d/members", pid)).
 		Send(member).
 		End()
-	return CheckResponse(errs, resp, 200)
+	return CheckResponse(errs, resp, 201)
 }
 
 // GetProjectMemberRole

@@ -88,7 +88,7 @@ func (s *RepositoryClient) GetRepositoryTagManifests(repoName, tag string, versi
 func (s *RepositoryClient) ScanImage(repoName, tag string) error {
 	resp, _, errs := s.NewRequest(gorequest.POST, fmt.Sprintf("/%s/tags/%s/scan", repoName, tag)).
 		End()
-	return CheckResponse(errs, resp, 200)
+	return CheckResponse(errs, resp, 202)
 }
 
 // GetImageDetails
