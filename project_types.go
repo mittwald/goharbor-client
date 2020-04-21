@@ -2,56 +2,6 @@ package harbor
 
 import "time"
 
-// ProjectMetadata holds the metadata of a project.
-type ProjectMetadata struct {
-	ID        int64  `json:"id"`
-	ProjectID int64  `json:"project_id"`
-	Name      string `json:"name"`
-	Value     string `json:"value"`
-	Deleted   bool   `json:"deleted"`
-}
-
-// Project holds the details of a project.
-type Project struct {
-	ProjectID    int64             `json:"project_id"`
-	OwnerID      int64             `json:"owner_id"`
-	Name         string            `json:"name"`
-	CreationTime time.Time         `json:"creation_time"`
-	UpdateTime   time.Time         `json:"update_time"`
-	Deleted      bool              `json:"deleted"`
-	OwnerName    string            `json:"owner_name"`
-	Toggleable   bool              `json:"toggleable"`
-	Role         int               `json:"current_user_role_id"`
-	RepoCount    int64             `json:"repo_count"`
-	Metadata     map[string]string `json:"metadata"`
-	CVEWhitelist CVEWhitelist      `json:"CVEWhitelist"`
-	StorageLimit int64             `json:"storageLimit"`
-}
-
-// Role holds the details of a role.
-type Role struct {
-	RoleID   int    `json:"role_id"`
-	RoleCode string `json:"role_code"`
-	Name     string `json:"role_name"`
-	RoleMask int    `json:"role_mask"`
-}
-
-type RoleRequest struct {
-	Role int `json:"role"`
-}
-
-// CVEWhitelistItem holds the CVE ids of a whitelisted item
-type CVEWhitelistItem struct {
-	CVEID string `json:"CVEID"`
-}
-
-// CVEWhitelist holds project specific information next to the set CVEWhitelistItem's
-type CVEWhitelist struct {
-	ID        int64            `json:"id"`
-	ProjectID int64            `json:"projectID"`
-	Items     CVEWhitelistItem `json:"items,optional"`
-}
-
 // AccessLog holds the information of log entries
 type AccessLog struct {
 	LogID     int       `json:"log_id"`
@@ -64,11 +14,20 @@ type AccessLog struct {
 	OpTime    time.Time `json:"op_time"`
 }
 
-// ProjectRequest holds the information needed to create a project
-type ProjectRequest struct {
-	Name     string            `url:"name,omitempty" json:"project_name"`
-	Public   *int              `url:"public,omitempty" json:"public"` //deprecated, reserved for project creation in replication
-	Metadata map[string]string `url:"-" json:"metadata"`
+// CVEWhitelist defines the data model for a CVE whitelist
+type CVEWhitelist struct {
+	ID           int64              `orm:"pk;auto;column(id)" json:"id"`
+	ProjectID    int64              `orm:"column(project_id)" json:"project_id"`
+	ExpiresAt    *int64             `orm:"column(expires_at)" json:"expires_at,omitempty"`
+	Items        []CVEWhitelistItem `orm:"-" json:"items"`
+	ItemsText    string             `orm:"column(items)" json:"-"`
+	CreationTime time.Time          `orm:"column(creation_time);auto_now_add" json:"creation_time"`
+	UpdateTime   time.Time          `orm:"column(update_time);auto_now" json:"update_time"`
+}
+
+// CVEWhitelistItem defines one item in the CVE whitelist
+type CVEWhitelistItem struct {
+	CVEID string `json:"cve_id"`
 }
 
 // ListProjectsOptions holds the information needed to list a project
@@ -90,20 +49,34 @@ type ListLogOptions struct {
 	EndTime    *time.Time `url:"end_timestamp,omitempty"`   // the time before which the operation is doen
 }
 
-// MemberRequest holds the information needed to update a project member
-type MemberRequest struct {
-	UserName string `json:"username"`
-	Roles    []int  `json:"roles"`
+// Project holds the details of a project.
+type Project struct {
+	ProjectID    int64             `orm:"pk;auto;column(project_id)" json:"project_id"`
+	OwnerID      int               `orm:"column(owner_id)" json:"owner_id"`
+	Name         string            `orm:"column(name)" json:"name"`
+	CreationTime time.Time         `orm:"column(creation_time);auto_now_add" json:"creation_time"`
+	UpdateTime   time.Time         `orm:"column(update_time);auto_now" json:"update_time"`
+	Deleted      bool              `orm:"column(deleted)" json:"deleted"`
+	OwnerName    string            `orm:"-" json:"owner_name"`
+	Role         int               `orm:"-" json:"current_user_role_id"`
+	RoleList     []int             `orm:"-" json:"current_user_role_ids"`
+	RepoCount    int64             `orm:"-" json:"repo_count"`
+	ChartCount   uint64            `orm:"-" json:"chart_count"`
+	Metadata     map[string]string `orm:"-" json:"metadata"`
+	CVEWhitelist CVEWhitelist      `orm:"-" json:"cve_whitelist"`
 }
 
-// ProjectMemberRequest holds the information needed to add a project member
-type ProjectMemberRequest struct {
-	RoleID     int        `json:"role_id"`
-	MemberUser MemberUser `json:"member_user"`
+// ProjectRequest holds informations that need for creating project API
+type ProjectRequest struct {
+	Name         string            `json:"project_name"`
+	Public       *int              `json:"public"` // deprecated, reserved for project creation in replication
+	Metadata     map[string]string `json:"metadata"`
+	CVEWhitelist CVEWhitelist      `json:"cve_whitelist"`
+
+	StorageLimit *int64 `json:"storage_limit,omitempty"`
 }
 
-// MemberUser holds the user information needed for a project member request
-type MemberUser struct {
-	Username string `json:"username"`
-	UserID   int64  `json:"user_id"`
+// RoleRequest holds the information of a user's role
+type RoleRequest struct {
+	Role int `json:"role"`
 }

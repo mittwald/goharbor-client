@@ -12,7 +12,7 @@ type UserClient struct {
 
 // SearchUser
 // Search User searches for a user by name
-func (s *UserClient) SearchUser(usr UserRequest) (UserSearchResults, error) {
+func (s *UserClient) SearchUser(usr UserMember) (UserSearchResults, error) {
 	var u UserSearchResults
 	resp, _, errs := s.NewRequest(gorequest.GET, "/search").
 		Query(fmt.Sprintf("username=%s", usr.Username)).

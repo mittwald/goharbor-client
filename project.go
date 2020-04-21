@@ -132,7 +132,7 @@ func (s *ProjectClient) GetProjectMembers(pid int64) ([]User, error) {
 
 // AddProjectMember
 // Add a project member to a project
-func (s *ProjectClient) AddProjectMember(pid int64, member ProjectMemberRequest) error {
+func (s *ProjectClient) AddProjectMember(pid int64, member MemberReq) error {
 	resp, _, errs := s.NewRequest(gorequest.POST, fmt.Sprintf("/%d/members", pid)).
 		Send(member).
 		End()

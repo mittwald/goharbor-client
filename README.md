@@ -4,7 +4,7 @@ A Harbor API client enabling Go programs to perform CRUD operations on [goharbor
 
 [![GitHub license](https://img.shields.io/github/license/mittwald/goharbor-client.svg)](https://github.com/mittwald/goharbor-client/blob/master/LICENSE)
 
-This library is mainly build upon `goharbor/v1.10.1`
+This library is build upon `goharbor/v1.10.2`
 
 ## Usage
 
