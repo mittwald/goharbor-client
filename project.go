@@ -48,7 +48,7 @@ func (s *ProjectClient) CreateProject(p ProjectRequest) error {
 		Send(p).
 		End()
 
-	return CheckResponse(errs, resp, 200)
+	return CheckResponse(errs, resp, 201)
 }
 
 // UpdateProject
