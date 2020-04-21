@@ -132,7 +132,7 @@ func (s *ProjectClient) GetProjectMembers(pid int64) ([]User, error) {
 
 // AddProjectMember
 // Add a project member to a project
-func (s *ProjectClient) AddProjectMember(pid int, member MemberReq) error {
+func (s *ProjectClient) AddProjectMember(pid int64, member MemberReq) error {
 	resp, _, errs := s.NewRequest(gorequest.POST, fmt.Sprintf("/%d/members", pid)).
 		Send(member).
 		End()
@@ -141,7 +141,7 @@ func (s *ProjectClient) AddProjectMember(pid int, member MemberReq) error {
 
 // GetProjectMemberRole
 // Get the role of a project member
-func (s *ProjectClient) GetProjectMember(pid, mid int) (Role, error) {
+func (s *ProjectClient) GetProjectMember(pid, mid int64) (Role, error) {
 	var role Role
 	resp, _, errs := s.NewRequest(gorequest.GET, fmt.Sprintf("/%d/members/%d", pid, mid)).
 		EndStruct(&role)
