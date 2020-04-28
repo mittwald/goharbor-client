@@ -27,7 +27,7 @@ func (s *ProjectClient) ListProjects(opt ListProjectsOptions) ([]Project, error)
 // Check if the project name provided already exist
 func (s *ProjectClient) CheckProject(projectName string) error {
 	resp, _, errs := s.NewRequest(gorequest.HEAD, "").
-		Query(fmt.Sprintf("project_name=%s", projectName)).
+		Query(map[string]string{"project_name": projectName}).
 		End()
 
 	return CheckResponse(errs, resp, 200)

@@ -15,7 +15,7 @@ type UserClient struct {
 func (s *UserClient) SearchUser(usr UserMember) (UserSearchResults, error) {
 	var u UserSearchResults
 	resp, _, errs := s.NewRequest(gorequest.GET, "/search").
-		Query(fmt.Sprintf("username=%s", usr.Username)).
+		Query(map[string]string{"username": usr.Username}).
 		EndStruct(&u)
 	return u, CheckResponse(errs, resp, 200)
 }
