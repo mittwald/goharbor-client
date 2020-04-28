@@ -144,3 +144,14 @@ func (c *Client) Registries() *RegistryClient {
 	r.baseURLSuffix = "registries"
 	return r
 }
+
+func (c *Client) Replications() *ReplicationClient {
+	r := &ReplicationClient{Client: &Client{
+		baseURL:  c.baseURL,
+		username: c.username,
+		password: c.password,
+	}}
+
+	r.baseURLSuffix = "replication"
+	return r
+}

@@ -1,6 +1,9 @@
 package harbor
 
-import "github.com/parnurzeal/gorequest"
+import (
+	"fmt"
+	"github.com/parnurzeal/gorequest"
+)
 
 // RegistryClient handles communication with the registry related methods of the Harbor API
 type RegistryClient struct {
@@ -21,7 +24,7 @@ func (s *RegistryClient) GetRegistryByID(id int64) (Registry, error) {
 // Get a registry's info by ID
 func (s *RegistryClient) GetRegistryInfoByID(id int64) (RegistryInfo, error) {
 	var v RegistryInfo
-	resp, _, errs := s.NewRequest(gorequest.GET, "").
+	resp, _, errs := s.NewRequest(gorequest.GET, fmt.Sprintf("/%d/info", id)).
 		Query(id).
 		EndStruct(&v)
 	return v, CheckResponse(errs, resp, 200)
@@ -47,7 +50,7 @@ func (s *RegistryClient) UpdateRegistryByID(registryName string, r Registry) err
 // PingRegistry
 // Ping a registry and return it's health status
 func (s *RegistryClient) PingRegistry(r Registry) error {
-	resp, _, errs := s.NewRequest(gorequest.POST, "").
+	resp, _, errs := s.NewRequest(gorequest.POST, "/ping").
 		Send(r).
 		End()
 	return CheckResponse(errs, resp, 200)
