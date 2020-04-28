@@ -2,6 +2,10 @@ package harbor
 
 import "time"
 
+// To ensure type-safe queries to the harbor API,
+// the following typings include typings from the upstream sources:
+// https://github.com/goharbor/harbor/src/common/models/
+
 // User holds the details of a user.
 type User struct {
 	UserID          int    `orm:"pk;auto;column(user_id)" json:"user_id"`

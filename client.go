@@ -102,56 +102,31 @@ func CheckResponse(errs []error, resp gorequest.Response, expected int) error {
 	return nil
 }
 
+func (c *Client) withURLSuffix(suffix string) *Client {
+	return &Client{
+		baseURL:       c.baseURL,
+		username:      c.username,
+		password:      c.password,
+		baseURLSuffix: suffix,
+	}
+}
+
 func (c *Client) Projects() *ProjectClient {
-	p := &ProjectClient{Client: &Client{
-		baseURL:  c.baseURL,
-		username: c.username,
-		password: c.password,
-	}}
-	p.baseURLSuffix = "projects"
-	return p
+	return &ProjectClient{c.withURLSuffix("projects")}
 }
 
 func (c *Client) Users() *UserClient {
-	u := &UserClient{Client: &Client{
-		baseURL:  c.baseURL,
-		username: c.username,
-		password: c.password,
-	}}
-
-	u.baseURLSuffix = "users"
-	return u
+	return &UserClient{c.withURLSuffix("users")}
 }
 
 func (c *Client) Repositories() *RepositoryClient {
-	r := &RepositoryClient{Client: &Client{
-		baseURL:  c.baseURL,
-		username: c.username,
-		password: c.password,
-	}}
-
-	r.baseURLSuffix = "repositories"
-	return r
+	return &RepositoryClient{c.withURLSuffix("repositories")}
 }
 
 func (c *Client) Registries() *RegistryClient {
-	r := &RegistryClient{Client: &Client{
-		baseURL:  c.baseURL,
-		username: c.username,
-		password: c.password,
-	}}
-
-	r.baseURLSuffix = "registries"
-	return r
+	return &RegistryClient{c.withURLSuffix("registries")}
 }
 
 func (c *Client) Replications() *ReplicationClient {
-	r := &ReplicationClient{Client: &Client{
-		baseURL:  c.baseURL,
-		username: c.username,
-		password: c.password,
-	}}
-
-	r.baseURLSuffix = "replication"
-	return r
+	return &ReplicationClient{c.withURLSuffix("replication")}
 }

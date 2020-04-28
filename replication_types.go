@@ -2,6 +2,10 @@ package harbor
 
 import "time"
 
+// To ensure type-safe queries to the harbor API,
+// the following typings include typings from the upstream sources:
+// https://github.com/goharbor/harbor/src/replication/dao/models/
+
 // ReplicationExecution holds information about one replication execution.
 type ReplicationExecution struct {
 	ID         int64       `orm:"pk;auto;column(id)" json:"id"`
