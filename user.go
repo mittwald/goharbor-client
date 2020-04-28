@@ -16,7 +16,7 @@ type UserClient struct {
 func (s *UserClient) SearchUser(usr UserMember) (UserSearchResults, error) {
 	var u UserSearchResults
 	resp, _, errs := s.NewRequest(gorequest.GET, "/search").
-		Query(map[string]string{"username": url.PathEscape(usr.Username)}).
+		Query(map[string]string{"username": url.QueryEscape(usr.Username)}).
 		EndStruct(&u)
 	return u, CheckResponse(errs, resp, 200)
 }

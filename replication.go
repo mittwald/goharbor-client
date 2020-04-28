@@ -24,7 +24,7 @@ func (s *ReplicationClient) ListReplicationAdapters() ([]string, error) {
 func (s *ReplicationClient) ListReplicationPolicies(name string) ([]ReplicationPolicy, error) {
 	var rp []ReplicationPolicy
 	resp, _, errs := s.NewRequest(gorequest.GET, "/policies").
-		Query(map[string]string{"name": url.PathEscape(name)}).
+		Query(map[string]string{"name": url.QueryEscape(name)}).
 		EndStruct(&rp)
 	return rp, CheckResponse(errs, resp, 200)
 }
