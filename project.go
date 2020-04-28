@@ -37,8 +37,7 @@ func (s *ProjectClient) CheckProject(projectName string) error {
 // Return specific project details
 func (s *ProjectClient) GetProjectByID(pid int64) (Project, error) {
 	var project Project
-	resp, _, errs := s.NewRequest(gorequest.GET,
-		url.PathEscape("/"+I64toA(pid))).
+	resp, _, errs := s.NewRequest(gorequest.GET,"/"+I64toA(pid)).
 		EndStruct(&project)
 	return project, CheckResponse(errs, resp, 200)
 }
@@ -56,8 +55,7 @@ func (s *ProjectClient) CreateProject(p ProjectRequest) error {
 // UpdateProject
 // Update the properties of a project
 func (s *ProjectClient) UpdateProject(pid int64, p Project) error {
-	resp, _, errs := s.NewRequest(gorequest.PUT,
-		url.PathEscape("/"+I64toA(pid))).
+	resp, _, errs := s.NewRequest(gorequest.PUT,"/"+I64toA(pid)).
 		Send(p).
 		End()
 	return CheckResponse(errs, resp, 200)
@@ -66,8 +64,7 @@ func (s *ProjectClient) UpdateProject(pid int64, p Project) error {
 // DeleteProject
 // Delete a project by project ID
 func (s *ProjectClient) DeleteProject(pid int64) error {
-	resp, _, errs := s.NewRequest(gorequest.DELETE,
-		url.PathEscape("/"+I64toA(pid))).
+	resp, _, errs := s.NewRequest(gorequest.DELETE, "/"+I64toA(pid)).
 		End()
 	return CheckResponse(errs, resp, 200)
 }
@@ -77,8 +74,7 @@ func (s *ProjectClient) DeleteProject(pid int64) error {
 func (s *ProjectClient) GetProjectLogByID(pid int64, opt ListLogOptions) ([]AccessLog, error) {
 	var accessLog []AccessLog
 	resp, _, errs := s.NewRequest(gorequest.GET,
-		url.PathEscape(
-			fmt.Sprintf("/%d/logs", pid))).
+		fmt.Sprintf("/%d/logs", pid)).
 		Query(opt).
 		EndStruct(&accessLog)
 	return accessLog, CheckResponse(errs, resp, 200)
@@ -89,8 +85,7 @@ func (s *ProjectClient) GetProjectLogByID(pid int64, opt ListLogOptions) ([]Acce
 func (s *ProjectClient) GetProjectMetadata(pid int64) (map[string]string, error) {
 	var metadata map[string]string
 	resp, _, errs := s.NewRequest(gorequest.GET,
-		url.PathEscape(
-			fmt.Sprintf("/%d/metedatas", pid))).
+		fmt.Sprintf("/%d/metedatas", pid)).
 		EndStruct(&metadata)
 	return metadata, CheckResponse(errs, resp, 200)
 }
@@ -99,8 +94,7 @@ func (s *ProjectClient) GetProjectMetadata(pid int64) (map[string]string, error)
 // Add metadata to a project
 func (s *ProjectClient) AddProjectMetadata(pid int64, metadata map[string]string) error {
 	resp, _, errs := s.NewRequest(gorequest.POST,
-		url.PathEscape(
-			fmt.Sprintf("/%d/metadatas", pid))).
+		fmt.Sprintf("/%d/metadatas", pid)).
 		Send(metadata).
 		End()
 	return CheckResponse(errs, resp, 200)
@@ -111,8 +105,7 @@ func (s *ProjectClient) AddProjectMetadata(pid int64, metadata map[string]string
 func (s *ProjectClient) GetProjectMetadataSingle(pid int64, specified string) (map[string]string, error) {
 	var metadata map[string]string
 	resp, _, errs := s.NewRequest(gorequest.GET,
-		url.PathEscape(
-			fmt.Sprintf("/%d/metadatas/%s", pid, specified))).
+		fmt.Sprintf("/%d/metadatas/%s", pid, url.PathEscape(specified))).
 		EndStruct(&metadata)
 	return metadata, CheckResponse(errs, resp, 200)
 }
@@ -121,8 +114,7 @@ func (s *ProjectClient) GetProjectMetadataSingle(pid int64, specified string) (m
 // Update the metadata of a project
 func (s *ProjectClient) UpdateProjectMetadataSingle(pid int64, metadataName string) error {
 	resp, _, errs := s.NewRequest(gorequest.PUT,
-		url.PathEscape(
-			fmt.Sprintf("/%d/metadatas/%s", pid, metadataName))).
+		fmt.Sprintf("/%d/metadatas/%s", pid, url.PathEscape(metadataName))).
 		End()
 	return CheckResponse(errs, resp, 200)
 }
@@ -131,8 +123,7 @@ func (s *ProjectClient) UpdateProjectMetadataSingle(pid int64, metadataName stri
 // Delete a specified metadata value of a project
 func (s *ProjectClient) DeleteProjectMetadataSingle(pid int64, metadataName string) error {
 	resp, _, errs := s.NewRequest(gorequest.DELETE,
-		url.PathEscape(
-			fmt.Sprintf("/%d/metadatas/%s", pid, metadataName))).
+		fmt.Sprintf("/%d/metadatas/%s", pid, url.PathEscape(metadataName))).
 		End()
 	return CheckResponse(errs, resp, 200)
 }
@@ -142,8 +133,7 @@ func (s *ProjectClient) DeleteProjectMetadataSingle(pid int64, metadataName stri
 func (s *ProjectClient) GetProjectMembers(pid int64) ([]Member, error) {
 	var mem []Member
 	resp, _, errs := s.NewRequest(gorequest.GET,
-		url.PathEscape(
-			fmt.Sprintf("/%d/members", pid))).
+		fmt.Sprintf("/%d/members", pid)).
 		EndStruct(&mem)
 	return mem, CheckResponse(errs, resp, 200)
 }
@@ -152,8 +142,7 @@ func (s *ProjectClient) GetProjectMembers(pid int64) ([]Member, error) {
 // Add a project member to a project
 func (s *ProjectClient) AddProjectMember(pid int64, member MemberReq) error {
 	resp, _, errs := s.NewRequest(gorequest.POST,
-		url.PathEscape(
-			fmt.Sprintf("/%d/members", pid))).
+		fmt.Sprintf("/%d/members", pid)).
 		Send(member).
 		End()
 	return CheckResponse(errs, resp, 201)
@@ -164,8 +153,7 @@ func (s *ProjectClient) AddProjectMember(pid int64, member MemberReq) error {
 func (s *ProjectClient) GetProjectMember(pid, mid int64) (Role, error) {
 	var role Role
 	resp, _, errs := s.NewRequest(gorequest.GET,
-		url.PathEscape(
-			fmt.Sprintf("/%d/members/%d", pid, mid))).
+		fmt.Sprintf("/%d/members/%d", pid, mid)).
 		EndStruct(&role)
 	return role, CheckResponse(errs, resp, 200)
 }
@@ -174,8 +162,7 @@ func (s *ProjectClient) GetProjectMember(pid, mid int64) (Role, error) {
 // Update a project member
 func (s *ProjectClient) UpdateProjectMember(pid, mid int64, role RoleRequest) error {
 	resp, _, errs := s.NewRequest(gorequest.PUT,
-		url.PathEscape(
-			fmt.Sprintf("/%d/members/%d", pid, mid))).
+		fmt.Sprintf("/%d/members/%d", pid, mid)).
 		Send(role).
 		End()
 	return CheckResponse(errs, resp, 200)
@@ -185,8 +172,7 @@ func (s *ProjectClient) UpdateProjectMember(pid, mid int64, role RoleRequest) er
 // Delete a project member
 func (s *ProjectClient) DeleteProjectMember(pid, mid int64) error {
 	resp, _, errs := s.NewRequest(gorequest.DELETE,
-		url.PathEscape(
-			fmt.Sprintf("/%d/members/%d", pid, mid))).
+		fmt.Sprintf("/%d/members/%d", pid, mid)).
 		End()
 	return CheckResponse(errs, resp, 200)
 }

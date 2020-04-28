@@ -2,7 +2,6 @@ package harbor
 
 import (
 	"github.com/parnurzeal/gorequest"
-	"net/url"
 )
 
 // ReplicationClient handles communication with the replication related methods of the Harbor API
@@ -33,8 +32,7 @@ func (s *ReplicationClient) GetReplicationPolicies(name string) ([]ReplicationPo
 // Get a replication policy by ID
 func (s *ReplicationClient) GetReplicationPolicyByID(id int64) (ReplicationPolicy, error) {
 	var r ReplicationPolicy
-	resp, _, errs := s.NewRequest(gorequest.GET,
-		url.PathEscape("/policies"+I64toA(id))).
+	resp, _, errs := s.NewRequest(gorequest.GET,"/policies"+I64toA(id)).
 		EndStruct(&r)
 	return r, CheckResponse(errs, resp, 200)
 }
@@ -42,8 +40,7 @@ func (s *ReplicationClient) GetReplicationPolicyByID(id int64) (ReplicationPolic
 // UpdateReplicationPolicyByID
 // Update a replication policy by ID
 func (s *ReplicationClient) UpdateReplicationPolicyByID(id int64, policy ReplicationPolicy) error {
-	resp, _, errs := s.NewRequest(gorequest.PUT,
-		url.PathEscape("/policies/"+I64toA(id))).
+	resp, _, errs := s.NewRequest(gorequest.PUT,"/policies/"+I64toA(id)).
 		Send(policy).
 		End()
 	return CheckResponse(errs, resp, 200)
@@ -52,8 +49,7 @@ func (s *ReplicationClient) UpdateReplicationPolicyByID(id int64, policy Replica
 // DeleteReplicationPolicyByID
 // Delete a replication policy by ID
 func (s *ReplicationClient) DeleteReplicationPolicyByID(id int64) error {
-	resp, _, errs := s.NewRequest(gorequest.DELETE,
-		url.PathEscape("/policies/"+I64toA(id))).
+	resp, _, errs := s.NewRequest(gorequest.DELETE, "/policies/"+I64toA(id)).
 		End()
 	return CheckResponse(errs, resp, 200)
 }
@@ -71,8 +67,7 @@ func (s *ReplicationClient) CreateReplicationPolicy(rp ReplicationPolicy) error 
 // Get replication executions filtered by replication ID
 func (s *ReplicationClient) GetReplicationExecutionsByID(id int64) (ReplicationExecution, error) {
 	var r ReplicationExecution
-	resp, _, errs := s.NewRequest(gorequest.GET,
-		url.PathEscape("/executions/"+I64toA(id))).
+	resp, _, errs := s.NewRequest(gorequest.GET,"/executions/"+I64toA(id)).
 		EndStruct(&r)
 	return r, CheckResponse(errs, resp, 200)
 }
@@ -90,8 +85,7 @@ func (s *ReplicationClient) TriggerReplicationExecution(e ReplicationExecution) 
 // Get an array of matching replication policies
 func (s *ReplicationClient) GetReplicationExecutions(policyID int64, name string) ([]ReplicationExecution, error) {
 	var r []ReplicationExecution
-	resp, _, errs := s.NewRequest(gorequest.GET,
-		url.PathEscape("/executions/"+I64toA(policyID))).
+	resp, _, errs := s.NewRequest(gorequest.GET,"/executions/"+I64toA(policyID)).
 		Query(name).
 		EndStruct(&r)
 	return r, CheckResponse(errs, resp, 200)
