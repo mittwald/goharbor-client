@@ -51,7 +51,7 @@ type RepositoryQuery struct {
 	Sorting
 }
 
-// RepoRecord holds the record of an repository in DB, all the infors are from the registry notification event.
+// RepoRecord holds the record of an repository in DB, all the infos are from the registry notification event.
 type RepoRecord struct {
 	RepositoryID int64     `orm:"pk;auto;column(repository_id)" json:"repository_id"`
 	Name         string    `orm:"column(name)" json:"name"`

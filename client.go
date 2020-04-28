@@ -124,12 +124,23 @@ func (c *Client) Users() *UserClient {
 }
 
 func (c *Client) Repositories() *RepositoryClient {
-	u := &RepositoryClient{Client: &Client{
+	r := &RepositoryClient{Client: &Client{
 		baseURL:  c.baseURL,
 		username: c.username,
 		password: c.password,
 	}}
 
-	u.baseURLSuffix = "repositories"
-	return u
+	r.baseURLSuffix = "repositories"
+	return r
+}
+
+func (c *Client) Registries() *RegistryClient {
+	r := &RegistryClient{Client: &Client{
+		baseURL:  c.baseURL,
+		username: c.username,
+		password: c.password,
+	}}
+
+	r.baseURLSuffix = "registries"
+	return r
 }

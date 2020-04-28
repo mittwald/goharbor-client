@@ -1,0 +1,54 @@
+package harbor
+
+import "github.com/parnurzeal/gorequest"
+
+// RegistryClient handles communication with the registry related methods of the Harbor API
+type RegistryClient struct {
+	*Client
+}
+
+// GetRegistryByID
+// Get a registry by ID
+func (s *RegistryClient) GetRegistryByID(id int64) (Registry, error) {
+	var v Registry
+	resp, _, errs := s.NewRequest(gorequest.GET, "").
+		Query(id).
+		EndStruct(&v)
+	return v, CheckResponse(errs, resp, 200)
+}
+
+// GetRegistryInfoByID
+// Get a registry's info by ID
+func (s *RegistryClient) GetRegistryInfoByID(id int64) (RegistryInfo, error) {
+	var v RegistryInfo
+	resp, _, errs := s.NewRequest(gorequest.GET, "").
+		Query(id).
+		EndStruct(&v)
+	return v, CheckResponse(errs, resp, 200)
+}
+
+// DeleteRegistryByID
+// Delete a registry by ID
+func (s *RegistryClient) DeleteRegistryByID(id int64) error {
+	resp, _, errs := s.NewRequest(gorequest.DELETE, "/"+I64toA(id)).
+		End()
+	return CheckResponse(errs, resp, 200)
+}
+
+// UpdateRegistryByID
+// Update a registry by ID
+func (s *RegistryClient) UpdateRegistryByID(registryName string, r Registry) error {
+	resp, _, errs := s.NewRequest(gorequest.PUT, "/"+registryName).
+		Send(r).
+		End()
+	return CheckResponse(errs, resp, 200)
+}
+
+// PingRegistry
+// Ping a registry and return it's health status
+func (s *RegistryClient) PingRegistry(r Registry) error {
+	resp, _, errs := s.NewRequest(gorequest.POST, "").
+		Send(r).
+		End()
+	return CheckResponse(errs, resp, 200)
+}
