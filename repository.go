@@ -3,6 +3,7 @@ package harbor
 import (
 	"fmt"
 	"github.com/parnurzeal/gorequest"
+	"net/url"
 )
 
 // RepositoryClient handles communication with the repository related methods of the Harbor API
@@ -23,7 +24,7 @@ func (s *RepositoryClient) ListRepository(opt *RepositoryQuery) ([]RepoRecord, e
 // DeleteRepository
 // Delete a repository
 func (s *RepositoryClient) DeleteRepository(repoName string) error {
-	resp, _, errs := s.NewRequest(gorequest.DELETE, "/"+repoName).
+	resp, _, errs := s.NewRequest(gorequest.DELETE,"/"+url.PathEscape(repoName)).
 		End()
 	return CheckResponse(errs, resp, 200)
 }
@@ -31,7 +32,7 @@ func (s *RepositoryClient) DeleteRepository(repoName string) error {
 // UpdateRepository
 // Update the description of a repository
 func (s *RepositoryClient) UpdateRepository(repoName string, d RepositoryDescription) error {
-	resp, _, errs := s.NewRequest(gorequest.PUT, "/"+repoName).
+	resp, _, errs := s.NewRequest(gorequest.PUT,"/"+url.PathEscape(repoName)).
 		Send(d).
 		End()
 	return CheckResponse(errs, resp, 200)
@@ -43,7 +44,8 @@ func (s *RepositoryClient) UpdateRepository(repoName string, d RepositoryDescrip
 // If the property is null, the image is unsigned
 func (s *RepositoryClient) GetRepositoryTag(repoName, tag string) (TagResp, error) {
 	var v TagResp
-	resp, _, errs := s.NewRequest(gorequest.GET, fmt.Sprintf("/%s/tags/%s", repoName, tag)).
+	resp, _, errs := s.NewRequest(gorequest.GET,
+		fmt.Sprintf("/%s/tags/%s", url.PathEscape(repoName), url.PathEscape(tag))).
 		EndStruct(&v)
 	return v, CheckResponse(errs, resp, 200)
 }
@@ -51,7 +53,8 @@ func (s *RepositoryClient) GetRepositoryTag(repoName, tag string) (TagResp, erro
 // DeleteRepositoryTag
 // Delete tags of a repository
 func (s *RepositoryClient) DeleteRepositoryTag(repoName, tag string) error {
-	resp, _, errs := s.NewRequest(gorequest.DELETE, fmt.Sprintf("/%s/tags/%s", repoName, tag)).
+	resp, _, errs := s.NewRequest(gorequest.DELETE,fmt.Sprintf("/%s/tags/%s",
+		url.PathEscape(repoName), url.PathEscape(tag))).
 		End()
 	return CheckResponse(errs, resp, 200)
 }
@@ -63,7 +66,8 @@ func (s *RepositoryClient) DeleteRepositoryTag(repoName, tag string) error {
 
 func (s *RepositoryClient) ListRepositoryTags(repoName string) ([]TagResp, error) {
 	var v []TagResp
-	resp, _, errs := s.NewRequest(gorequest.GET, fmt.Sprintf("/%s/tags", repoName)).
+	resp, _, errs := s.NewRequest(gorequest.GET,
+		fmt.Sprintf("/%s/tags", url.PathEscape(repoName))).
 		EndStruct(&v)
 	return v, CheckResponse(errs, resp, 200)
 }
@@ -74,9 +78,11 @@ func (s *RepositoryClient) GetRepositoryTagManifests(repoName, tag string, versi
 	var v ManifestResp
 	resp, _, errs := s.NewRequest(gorequest.GET, func() string {
 		if version == "" {
-			return fmt.Sprintf("/%s/tags/%s/manifest", repoName, tag)
+			return fmt.Sprintf("/%s/tags/%s/manifest",
+				url.PathEscape(repoName), url.PathEscape(tag))
 		}
-		return fmt.Sprintf("/%s/tags/%s/manifest?version=%s", repoName, tag, version)
+		return fmt.Sprintf("/%s/tags/%s/manifest?version=%s",
+				url.PathEscape(repoName), url.PathEscape(tag), url.PathEscape(version))
 	}()).
 		EndStruct(&v)
 	return v, CheckResponse(errs, resp, 200)
@@ -86,7 +92,8 @@ func (s *RepositoryClient) GetRepositoryTagManifests(repoName, tag string, versi
 // Trigger the jobservice component to call the Clair API to scan the image
 // Only accessible for project admins
 func (s *RepositoryClient) ScanImage(repoName, tag string) error {
-	resp, _, errs := s.NewRequest(gorequest.POST, fmt.Sprintf("/%s/tags/%s/scan", repoName, tag)).
+	resp, _, errs := s.NewRequest(gorequest.POST,fmt.Sprintf("/%s/tags/%s/scan",
+		url.PathEscape(repoName), url.PathEscape(tag))).
 		End()
 	return CheckResponse(errs, resp, 202)
 }
@@ -95,7 +102,8 @@ func (s *RepositoryClient) ScanImage(repoName, tag string) error {
 // Get information from the Clair API containing vulnerability information based on the previous successful scan
 func (s *RepositoryClient) GetImageScan(repoName, tag string) ([]VulnerabilityItem, error) {
 	var v []VulnerabilityItem
-	resp, _, errs := s.NewRequest(gorequest.GET, fmt.Sprintf("/%s/tags/%s/scan", repoName, tag)).
+	resp, _, errs := s.NewRequest(gorequest.GET,fmt.Sprintf("/%s/tags/%s/scan",
+		url.PathEscape(repoName), url.PathEscape(tag))).
 		EndStruct(&v)
 	return v, CheckResponse(errs, resp, 200)
 }
@@ -106,7 +114,8 @@ func (s *RepositoryClient) GetImageScan(repoName, tag string) ([]VulnerabilityIt
 // return an empty list with response code 200, instead of 404
 func (s *RepositoryClient) GetRepositorySignature(repoName string) ([]Signature, error) {
 	var v []Signature
-	resp, _, errs := s.NewRequest(gorequest.GET, fmt.Sprintf("/%s/signatures", repoName)).
+	resp, _, errs := s.NewRequest(gorequest.GET,
+		fmt.Sprintf("/%s/signatures", url.PathEscape(repoName))).
 		EndStruct(&v)
 	return v, CheckResponse(errs, resp, 200)
 }
