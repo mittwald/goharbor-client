@@ -25,7 +25,7 @@ func (s *RegistryClient) CreateRegistry(r Registry) error {
 func (s *RegistryClient) ListRegistries(name string) ([]Registry, error) {
 	var r []Registry
 	resp, _, errs := s.NewRequest(gorequest.GET, "").
-		Query(map[string]string{"name": url.QueryEscape(name)}).
+		Query(map[string]string{"name": name}).
 		EndStruct(&r)
 	return r, CheckResponse(errs, resp, 200)
 }
