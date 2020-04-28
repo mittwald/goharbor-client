@@ -25,7 +25,7 @@ func (s *RegistryClient) CreateRegistry(r Registry) error {
 func (s *RegistryClient) ListRegistries(name string) ([]Registry, error) {
 	var r []Registry
 	resp, _, errs := s.NewRequest(gorequest.GET, "").
-		Query(name).
+		Query(map[string]string{"name": name}).
 		EndStruct(&r)
 	return r, CheckResponse(errs, resp, 200)
 }
@@ -34,8 +34,7 @@ func (s *RegistryClient) ListRegistries(name string) ([]Registry, error) {
 // Get a registry by ID
 func (s *RegistryClient) GetRegistryByID(id int64) (Registry, error) {
 	var v Registry
-	resp, _, errs := s.NewRequest(gorequest.GET, "").
-		Query(id).
+	resp, _, errs := s.NewRequest(gorequest.GET, "/"+I64toA(id)).
 		EndStruct(&v)
 	return v, CheckResponse(errs, resp, 200)
 }
@@ -45,7 +44,6 @@ func (s *RegistryClient) GetRegistryByID(id int64) (Registry, error) {
 func (s *RegistryClient) GetRegistryInfoByID(id int64) (RegistryInfo, error) {
 	var v RegistryInfo
 	resp, _, errs := s.NewRequest(gorequest.GET,fmt.Sprintf("/%d/info", id)).
-		Query(id).
 		EndStruct(&v)
 	return v, CheckResponse(errs, resp, 200)
 }

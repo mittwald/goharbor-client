@@ -3,6 +3,7 @@ package harbor
 import (
 	"fmt"
 	"github.com/parnurzeal/gorequest"
+	"net/url"
 )
 
 // UserClient handles communication with the user related methods of the Harbor API
@@ -15,7 +16,7 @@ type UserClient struct {
 func (s *UserClient) SearchUser(usr UserMember) (UserSearchResults, error) {
 	var u UserSearchResults
 	resp, _, errs := s.NewRequest(gorequest.GET, "/search").
-		Query(fmt.Sprintf("username=%s", usr.Username)).
+		Query(map[string]string{"username": url.PathEscape(usr.Username)}).
 		EndStruct(&u)
 	return u, CheckResponse(errs, resp, 200)
 }

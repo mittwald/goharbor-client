@@ -2,6 +2,7 @@ package harbor
 
 import (
 	"github.com/parnurzeal/gorequest"
+	"net/url"
 )
 
 // ReplicationClient handles communication with the replication related methods of the Harbor API
@@ -18,12 +19,12 @@ func (s *ReplicationClient) ListReplicationAdapters() ([]string, error) {
 	return r, CheckResponse(errs, resp, 200)
 }
 
-// GetReplicationPolicies
+// ListReplicationPolicies
 // Get an array of matching replication policies
-func (s *ReplicationClient) GetReplicationPolicies(name string) ([]ReplicationPolicy, error) {
+func (s *ReplicationClient) ListReplicationPolicies(name string) ([]ReplicationPolicy, error) {
 	var rp []ReplicationPolicy
 	resp, _, errs := s.NewRequest(gorequest.GET, "/policies").
-		Query(name).
+		Query(map[string]string{"name": url.PathEscape(name)}).
 		EndStruct(&rp)
 	return rp, CheckResponse(errs, resp, 200)
 }
@@ -83,10 +84,10 @@ func (s *ReplicationClient) TriggerReplicationExecution(e ReplicationExecution) 
 
 // GetReplicationPolicies
 // Get an array of matching replication policies
-func (s *ReplicationClient) GetReplicationExecutions(policyID int64, name string) ([]ReplicationExecution, error) {
+func (s *ReplicationClient) GetReplicationExecutions(policyID int64) ([]ReplicationExecution, error) {
 	var r []ReplicationExecution
-	resp, _, errs := s.NewRequest(gorequest.GET,"/executions/"+I64toA(policyID)).
-		Query(name).
+	resp, _, errs := s.NewRequest(gorequest.GET,"/executions/").
+		Query(map[string]string{"policy_id": I64toA(policyID)}).
 		EndStruct(&r)
 	return r, CheckResponse(errs, resp, 200)
 }
