@@ -2,7 +2,6 @@ package harbor
 
 import (
 	"github.com/parnurzeal/gorequest"
-	"net/url"
 )
 
 // ReplicationClient handles communication with the replication related methods of the Harbor API
