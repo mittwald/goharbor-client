@@ -32,7 +32,7 @@ func (s *ReplicationClient) ListReplicationPolicies(name string) ([]ReplicationP
 // Get a replication policy by ID
 func (s *ReplicationClient) GetReplicationPolicyByID(id int64) (ReplicationPolicy, error) {
 	var r ReplicationPolicy
-	resp, _, errs := s.NewRequest(gorequest.GET, "/policies"+I64toA(id)).
+	resp, _, errs := s.NewRequest(gorequest.GET, "/policies/"+I64toA(id)).
 		EndStruct(&r)
 	return r, CheckResponse(errs, resp, 200)
 }
