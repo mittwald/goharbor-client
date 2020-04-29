@@ -1,3 +1,5 @@
+#### This project is still under development and not stable yet - Breaking Changes may happen at any time and without notice
+
 # goharbor-client
 
 A Harbor API client enabling Go programs to perform CRUD operations on [goharbor](https://github.com/goharbor/harbor) users and projects
