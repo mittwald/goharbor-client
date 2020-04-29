@@ -3,7 +3,6 @@ package harbor
 import (
 	"fmt"
 	"github.com/parnurzeal/gorequest"
-	"net/url"
 )
 
 // RegistryClient handles communication with the registry related methods of the Harbor API
@@ -58,8 +57,8 @@ func (s *RegistryClient) DeleteRegistryByID(id int64) error {
 
 // UpdateRegistryByID
 // Update a registry by ID
-func (s *RegistryClient) UpdateRegistryByID(registryName string, r Registry) error {
-	resp, _, errs := s.NewRequest(gorequest.PUT,"/"+url.PathEscape(registryName)).
+func (s *RegistryClient) UpdateRegistryByID(r Registry) error {
+	resp, _, errs := s.NewRequest(gorequest.PUT,"/"+I64toA(r.ID)).
 		Send(r).
 		End()
 	return CheckResponse(errs, resp, 200)
