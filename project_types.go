@@ -1,6 +1,8 @@
 package harbor
 
-import "time"
+import (
+	"time"
+)
 
 // To ensure type-safe queries to the harbor API,
 // the following typings include typings from the upstream sources:

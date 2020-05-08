@@ -57,7 +57,7 @@ type Search struct {
 // display order.
 //
 // Harbor API docs: https://github.com/vmware/harbor/blob/release-1.4.0/docs/swagger.yaml#L17
-func (c *Client) Search() (Search, *gorequest.Response, []error) {
+func (c *RestClient) Search() (Search, *gorequest.Response, []error) {
 	var search Search
 	resp, _, errs := c.NewRequest(gorequest.GET, "search").
 		EndStruct(&search)
@@ -81,7 +81,7 @@ type StatisticMap struct {
 
 // GetStatistics
 // Get project and repository statistics
-func (c *Client) GetStatistics() (StatisticMap, *gorequest.Response, []error) {
+func (c *RestClient) GetStatistics() (StatisticMap, *gorequest.Response, []error) {
 	var statistics StatisticMap
 	resp, _, errs := c.NewRequest(gorequest.GET, "statistics").
 		EndStruct(&statistics)

@@ -12,12 +12,31 @@ const (
 	userAgent      = "goharbor-client/" + libraryVersion
 )
 
-type Client struct {
+// Implementations of Client provide methods for managing Harbor instances.
+type Client interface {
+	// Projects returns an implementation of ProjectClient.
+	Projects() ProjectClient
+
+	// Users returns an implementation of UserClient.
+	Users() UserClient
+
+	// Repositories returns an implementation of RepositoryClient.
+	Repositories() RepositoryClient
+
+	// Registries returns an implementation of RegistryClient.
+	Registries() RegistryClient
+
+	// Replications returns an implementation of ReplicationClient.
+	Replications() ReplicationClient
+}
+
+// RestClient implements the Client interface by communicating with Harbor via REST api.
+type RestClient struct {
 	// base URL for Harbor API requests
 	baseURL *url.URL
 
 	// client specific baseURLSuffix the client will append to the baseURL
-	// default "", for ProjectClient this will be "projects"
+	// default "", for RestProjectClient this will be "projects"
 	baseURLSuffix string
 
 	// basic auth username
@@ -26,12 +45,9 @@ type Client struct {
 	password string
 }
 
-func NewClient(baseURL, username, password string) (*Client, error) {
-	return newClient(baseURL, username, password)
-}
-
-func newClient(baseURL, username, password string) (*Client, error) {
-	c := &Client{
+// NewClient returns a new REST based harbor client.
+func NewClient(baseURL, username, password string) (Client, error) {
+	c := &RestClient{
 		username: username,
 		password: password,
 	}
@@ -45,7 +61,7 @@ func newClient(baseURL, username, password string) (*Client, error) {
 
 // SetBaseURL sets the base URL for API requests to a custom endpoint. urlStr
 // should always be specified with a trailing slash.
-func (c *Client) SetBaseURL(urlStr string) error {
+func (c *RestClient) SetBaseURL(urlStr string) error {
 	if !strings.HasSuffix(urlStr, "/") {
 		urlStr += "/"
 	}
@@ -55,11 +71,11 @@ func (c *Client) SetBaseURL(urlStr string) error {
 	return err
 }
 
-// NewRequest
-// creates an API request. A relative URL path can be provided in
-// urlStr, in which case it is resolved relative to the base URL of the Client.
+// NewRequest creates an API request.
+// A relative URL path can be provided in urlStr,
+// in which case it is resolved relative to the base URL of the RestClient.
 // Relative URL paths should always be specified without a preceding slash.
-func (c *Client) NewRequest(method, subPath string) *gorequest.SuperAgent {
+func (c *RestClient) NewRequest(method, subPath string) *gorequest.SuperAgent {
 	r := gorequest.New()
 	r.Set("Accept", "application/json")
 	r.Set("User-Agent", userAgent)
@@ -77,7 +93,7 @@ func (c *Client) NewRequest(method, subPath string) *gorequest.SuperAgent {
 	return r
 }
 
-// CheckResponse flattens errors and checks the response status code
+// CheckResponse flattens errors and checks the response status code.
 func CheckResponse(errs []error, resp gorequest.Response, expected int) error {
 	var err error
 	// flatten the gorequests error into a single one
@@ -102,8 +118,8 @@ func CheckResponse(errs []error, resp gorequest.Response, expected int) error {
 	return nil
 }
 
-func (c *Client) withURLSuffix(suffix string) *Client {
-	return &Client{
+func (c *RestClient) withURLSuffix(suffix string) *RestClient {
+	return &RestClient{
 		baseURL:       c.baseURL,
 		username:      c.username,
 		password:      c.password,
@@ -111,22 +127,32 @@ func (c *Client) withURLSuffix(suffix string) *Client {
 	}
 }
 
-func (c *Client) Projects() *ProjectClient {
-	return &ProjectClient{c.withURLSuffix("projects")}
+// Projects returns a REST based project client.
+// It satisfies the Client interface.
+func (c *RestClient) Projects() ProjectClient {
+	return &RestProjectClient{c.withURLSuffix("projects")}
 }
 
-func (c *Client) Users() *UserClient {
-	return &UserClient{c.withURLSuffix("users")}
+// Users returns a REST based user client.
+// It satisfies the Client interface.
+func (c *RestClient) Users() UserClient {
+	return &RestUserClient{c.withURLSuffix("users")}
 }
 
-func (c *Client) Repositories() *RepositoryClient {
-	return &RepositoryClient{c.withURLSuffix("repositories")}
+// Repositories returns a REST based repository client.
+// It satisfies the Client interface.
+func (c *RestClient) Repositories() RepositoryClient {
+	return &RestRepositoryClient{c.withURLSuffix("repositories")}
 }
 
-func (c *Client) Registries() *RegistryClient {
-	return &RegistryClient{c.withURLSuffix("registries")}
+// Registries returns a REST based registry client.
+// It satisfies the Client interface.
+func (c *RestClient) Registries() RegistryClient {
+	return &RestRegistryClient{c.withURLSuffix("registries")}
 }
 
-func (c *Client) Replications() *ReplicationClient {
-	return &ReplicationClient{c.withURLSuffix("replication")}
+// Replications returns a REST based replication client.
+// It satisfies the Client interface.
+func (c *RestClient) Replications() ReplicationClient {
+	return &RestReplicationClient{c.withURLSuffix("replication")}
 }
