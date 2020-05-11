@@ -33,7 +33,7 @@ func (s *UserClient) ListUsers() ([]User, error) {
 // Get a user's profile by ID
 func (s *UserClient) GetUser(usr UserRequest) (User, error) {
 	var u User
-	resp, _, errs := s.NewRequest(gorequest.GET,"/"+I64toA(usr.UserID)).
+	resp, _, errs := s.NewRequest(gorequest.GET, "/"+I64toA(usr.UserID)).
 		EndStruct(&u)
 	return u, CheckResponse(errs, resp, 200)
 }
@@ -50,7 +50,7 @@ func (s *UserClient) AddUser(usr UserRequest) error {
 // UpdateUserProfile
 // Update a user's profile
 func (s *UserClient) UpdateUserProfile(usr UserRequest) error {
-	resp, _, errs := s.NewRequest(gorequest.PUT,"/"+I64toA(usr.UserID)).
+	resp, _, errs := s.NewRequest(gorequest.PUT, "/"+I64toA(usr.UserID)).
 		Send(usr).
 		End()
 	return CheckResponse(errs, resp, 200)
@@ -59,7 +59,7 @@ func (s *UserClient) UpdateUserProfile(usr UserRequest) error {
 // DeleteUser
 // Delete a user
 func (s *UserClient) DeleteUser(usr UserRequest) error {
-	resp, _, errs := s.NewRequest(gorequest.DELETE,"/"+I64toA(usr.UserID)).
+	resp, _, errs := s.NewRequest(gorequest.DELETE, "/"+I64toA(usr.UserID)).
 		End()
 	return CheckResponse(errs, resp, 200)
 }
@@ -67,7 +67,7 @@ func (s *UserClient) DeleteUser(usr UserRequest) error {
 // ToggleUserSysAdmin
 // Toggle administrator privileges of a user
 func (s *UserClient) ToggleUserSysAdmin(usr UserRequest) error {
-	resp, _, errs := s.NewRequest(gorequest.PUT,fmt.Sprintf("/%d/sysadmin", usr.UserID)).
+	resp, _, errs := s.NewRequest(gorequest.PUT, fmt.Sprintf("/%d/sysadmin", usr.UserID)).
 		Send(usr.HasAdminRole).
 		End()
 	return CheckResponse(errs, resp, 200)

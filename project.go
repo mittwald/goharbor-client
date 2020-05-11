@@ -37,7 +37,7 @@ func (s *ProjectClient) CheckProject(projectName string) error {
 // Return specific project details
 func (s *ProjectClient) GetProjectByID(pid int64) (Project, error) {
 	var project Project
-	resp, _, errs := s.NewRequest(gorequest.GET,"/"+I64toA(pid)).
+	resp, _, errs := s.NewRequest(gorequest.GET, "/"+I64toA(pid)).
 		EndStruct(&project)
 	return project, CheckResponse(errs, resp, 200)
 }
@@ -55,7 +55,7 @@ func (s *ProjectClient) CreateProject(p ProjectRequest) error {
 // UpdateProject
 // Update the properties of a project
 func (s *ProjectClient) UpdateProject(pid int64, p Project) error {
-	resp, _, errs := s.NewRequest(gorequest.PUT,"/"+I64toA(pid)).
+	resp, _, errs := s.NewRequest(gorequest.PUT, "/"+I64toA(pid)).
 		Send(p).
 		End()
 	return CheckResponse(errs, resp, 200)
