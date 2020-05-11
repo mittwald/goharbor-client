@@ -42,7 +42,7 @@ func (s *RegistryClient) GetRegistryByID(id int64) (Registry, error) {
 // Get a registry's info by ID
 func (s *RegistryClient) GetRegistryInfoByID(id int64) (RegistryInfo, error) {
 	var v RegistryInfo
-	resp, _, errs := s.NewRequest(gorequest.GET,fmt.Sprintf("/%d/info", id)).
+	resp, _, errs := s.NewRequest(gorequest.GET, fmt.Sprintf("/%d/info", id)).
 		EndStruct(&v)
 	return v, CheckResponse(errs, resp, 200)
 }
@@ -58,7 +58,7 @@ func (s *RegistryClient) DeleteRegistryByID(id int64) error {
 // UpdateRegistryByID
 // Update a registry by ID
 func (s *RegistryClient) UpdateRegistryByID(r Registry) error {
-	resp, _, errs := s.NewRequest(gorequest.PUT,"/"+I64toA(r.ID)).
+	resp, _, errs := s.NewRequest(gorequest.PUT, "/"+I64toA(r.ID)).
 		Send(r).
 		End()
 	return CheckResponse(errs, resp, 200)
