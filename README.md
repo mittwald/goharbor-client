@@ -1,16 +1,26 @@
 # goharbor-client
 
-#### This project is still under development and not stable yet - breaking changes may happen at any time and without notice
-
-A Harbor API client enabling Go programs to perform CRUD operations on [goharbor](https://github.com/goharbor/harbor) users and projects
-
-This library is build upon `goharbor/v1.10.2`, and utilizes typings from the upstream source [goharbor/harbor](https://github.com/goharbor/harbor), available under the 
-[Apache 2 license](https://github.com/goharbor/harbor/blob/master/LICENSE)
-
-The initial project is a fork of [TimeBye/go-harbor](https://github.com/TimeBye/go-harbor) and available under the MIT License
- 
+![Compile & Test](https://github.com/mittwald/goharbor-client/workflows/Compile%20&%20Test/badge.svg)
 [![GitHub license](https://img.shields.io/github/license/mittwald/goharbor-client.svg)](https://github.com/mittwald/goharbor-client/blob/master/LICENSE)
+[![Go Report Card](https://goreportcard.com/badge/github.com/mittwald/goharbor-client)](https://goreportcard.com/report/github.com/mittwald/goharbor-client)
+[![Documentation](https://godoc.org/github.com/mittwald/goharbor-client?status.svg)](https://pkg.go.dev/github.com/mittwald/goharbor-client)
 
+<hr />
+**:warning: STABILITY NOTICE:** This project is still under development and not stable yet - breaking changes may happen at any time and without notice
+<hr/>
+
+A Harbor API client enabling Go programs to perform CRUD operations on [goharbor](https://github.com/goharbor/harbor) users and projects.
+
+This library is built upon `goharbor/v1.10.2`, and utilizes typings from the upstream source [goharbor/harbor](https://github.com/goharbor/harbor), available under the 
+[Apache 2 license](https://github.com/goharbor/harbor/blob/master/LICENSE).
+
+The initial project is a fork of [TimeBye/go-harbor](https://github.com/TimeBye/go-harbor) and available under the MIT License.
+
+## Installation
+
+Install this library using `go get`:
+
+    $ go get github.com/mittwald/goharbor-client
 
 ## Usage
 
@@ -64,4 +74,4 @@ func main() {
 ```
 
 ## Documentation
-For more specific documentation, please refer to the [godoc](https://pkg.go.dev/github.com/mittwald/goharbor-client) of this library
+For more specific documentation, please refer to the [godoc](https://pkg.go.dev/github.com/mittwald/goharbor-client) of this library.
