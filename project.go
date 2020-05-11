@@ -6,7 +6,7 @@ import (
 	"net/url"
 )
 
-// Implementations of ProjectClient handle communication with
+// ProjectClient abstracts away the communication implementation of
 // project related methods of Harbor.
 type ProjectClient interface {
 	// ListProjects returns all projects created by Harbor,

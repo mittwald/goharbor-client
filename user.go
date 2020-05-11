@@ -5,8 +5,8 @@ import (
 	"github.com/parnurzeal/gorequest"
 )
 
-// Implementations of UserClient handle communication with
-// the replication related methods of Harbor.
+// UserClient abstracts away the communication implementation of
+// user related methods of Harbor.
 type UserClient interface {
 	// SearchUser searches for a user by name.
 	SearchUser(usr UserMember) (UserSearchResults, error)

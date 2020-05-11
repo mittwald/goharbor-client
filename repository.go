@@ -6,7 +6,7 @@ import (
 	"net/url"
 )
 
-// Implementations of RepositoryClient handle communication with
+// RepositoryClient abstracts away the communication implementation of
 // repository related methods of Harbor.
 type RepositoryClient interface {
 	// ListRepository lists repositories filtered by the

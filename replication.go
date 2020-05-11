@@ -4,8 +4,8 @@ import (
 	"github.com/parnurzeal/gorequest"
 )
 
-// Implementations of ReplicationClient handle communication with
-// the replication related methods of Harbor.
+// ReplicationClient abstracts away the communication implementation of
+// replication related methods of Harbor.
 type ReplicationClient interface {
 	// List all replication adapters.
 	ListReplicationAdapters() ([]string, error)

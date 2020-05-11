@@ -5,7 +5,7 @@ import (
 	"github.com/parnurzeal/gorequest"
 )
 
-// Implementations of RegistryClient handle communication with
+// RegistryClient abstracts away the communication implementation of
 // registry related methods of Harbor.
 type RegistryClient interface {
 	// Create a new registry.
