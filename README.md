@@ -6,7 +6,9 @@
 [![Documentation](https://godoc.org/github.com/mittwald/goharbor-client?status.svg)](https://pkg.go.dev/github.com/mittwald/goharbor-client)
 
 <hr />
-**:warning: STABILITY NOTICE:** This project is still under development and not stable yet - breaking changes may happen at any time and without notice
+
+:warning: **STABILITY NOTICE:** This project is still under development and not stable yet - breaking changes may happen at any time and without notice
+
 <hr/>
 
 A Harbor API client enabling Go programs to perform CRUD operations on [goharbor](https://github.com/goharbor/harbor) users and projects.
