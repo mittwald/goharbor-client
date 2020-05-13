@@ -2,8 +2,9 @@ package harbor
 
 import (
 	"fmt"
-	"github.com/parnurzeal/gorequest"
 	"net/url"
+
+	"github.com/parnurzeal/gorequest"
 )
 
 // RepositoryClient handles communication with the repository related methods of the Harbor API

@@ -2,8 +2,9 @@ package harbor
 
 import (
 	"fmt"
-	"github.com/parnurzeal/gorequest"
 	"strconv"
+
+	"github.com/parnurzeal/gorequest"
 )
 
 type StatusCodeError struct {

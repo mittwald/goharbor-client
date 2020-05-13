@@ -2,9 +2,10 @@ package harbor
 
 import (
 	"fmt"
-	"github.com/parnurzeal/gorequest"
 	"net/url"
 	"strings"
+
+	"github.com/parnurzeal/gorequest"
 )
 
 const (
@@ -129,4 +130,8 @@ func (c *Client) Registries() *RegistryClient {
 
 func (c *Client) Replications() *ReplicationClient {
 	return &ReplicationClient{c.withURLSuffix("replication")}
+}
+
+func (c *Client) System() *SystemClient {
+	return &SystemClient{c.withURLSuffix("system")}
 }
