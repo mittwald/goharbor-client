@@ -15,18 +15,13 @@ const (
 	ScheduleTypeNone                = "None"
 )
 
-// AdminJobReq holds request information for admin job
+// AdminJobReq holds request information for an admin job
 type AdminJobReq struct {
-	AdminJobSchedule
-	Name       string                 `json:"name"`
-	Status     string                 `json:"status"`
-	ID         int64                  `json:"id"`
-	Parameters map[string]interface{} `json:"parameters"`
-}
-
-// AdminJobSchedule holds the information of an admin job schedule
-type AdminJobSchedule struct {
-	Schedule *ScheduleParam `json:"schedule"`
+	AdminJobSchedule *ScheduleParam         `json:"schedule"`
+	Name             string                 `json:"name"`
+	Status           string                 `json:"status"`
+	ID               int64                  `json:"id"`
+	Parameters       map[string]interface{} `json:"parameters"`
 }
 
 // ScheduleParam defines the parameters of a schedule trigger
