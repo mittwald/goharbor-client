@@ -4,7 +4,7 @@ import "time"
 
 // To ensure type-safe queries to the harbor API,
 // the following typings include typings from the upstream sources:
-// https://github.com/goharbor/harbor/src/common/models/
+// https://github.com/goharbor/harbor/tree/v1.10.2/src/common/models
 
 // AccessLog holds the information of log entries
 type AccessLog struct {

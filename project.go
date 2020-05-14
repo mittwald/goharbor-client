@@ -2,8 +2,9 @@ package harbor
 
 import (
 	"fmt"
-	"github.com/parnurzeal/gorequest"
 	"net/url"
+
+	"github.com/parnurzeal/gorequest"
 )
 
 // ProjectClient handles communication with the project related methods of the Harbor API.
