@@ -2,21 +2,17 @@ package harbor
 
 // To ensure type-safe queries to the harbor API,
 // the following typings include typings from the upstream sources:
-// https://github.com/goharbor/harbor/src/core/api/models
+// https://github.com/goharbor/harbor/tree/v1.10.2/src/core/api/models
+
+type ScheduleType string
 
 const (
-	// ScheduleHourly : 'Hourly'
-	ScheduleHourly = "Hourly"
-	// ScheduleDaily : 'Daily'
-	ScheduleDaily = "Daily"
-	// ScheduleWeekly : 'Weekly'
-	ScheduleWeekly = "Weekly"
-	// ScheduleCustom : 'Custom'
-	ScheduleCustom = "Custom"
-	// ScheduleManual : 'Manual'
-	ScheduleManual = "Manual"
-	// ScheduleNone : 'None'
-	ScheduleNone = "None"
+	ScheduleTypeHourly ScheduleType = "Hourly"
+	ScheduleTypeDaily               = "Daily"
+	ScheduleTypeWeekly              = "Weekly"
+	ScheduleTypeCustom              = "Custom"
+	ScheduleTypeManual              = "Manual"
+	ScheduleTypeNone                = "None"
 )
 
 // AdminJobReq holds request information for admin job
@@ -28,15 +24,16 @@ type AdminJobReq struct {
 	Parameters map[string]interface{} `json:"parameters"`
 }
 
-// AdminJobSchedule ...
+// AdminJobSchedule holds the information of an admin job schedule
 type AdminJobSchedule struct {
 	Schedule *ScheduleParam `json:"schedule"`
 }
 
-// ScheduleParam defines the parameter of schedule trigger
+// ScheduleParam defines the parameters of a schedule trigger
 type ScheduleParam struct {
-	// Daily, Weekly, Custom, Manual, None
-	Type string `json:"type"`
+	// Daily, Hourly, Weekly, Custom, Manual, None
+	// Note: When creating pre-defined schedule types (e.g. 'Hourly'), the Cron string has to be provided.
+	Type ScheduleType `json:"type"`
 	// The cron string of scheduled job
 	Cron string `json:"cron"`
 }
