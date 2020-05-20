@@ -48,7 +48,7 @@ type Credential struct {
 // Data required for the secure access way is not contained here.
 // DAO layer is not considered here
 type Registry struct {
-	ID          int64        `json:"id"`
+	ID          int64        `json:"id,omitempty"`
 	Name        string       `json:"name"`
 	Description string       `json:"description"`
 	Type        RegistryType `json:"type"`

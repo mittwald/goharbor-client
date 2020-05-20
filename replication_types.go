@@ -24,7 +24,7 @@ type ReplicationExecution struct {
 
 // ReplicationPolicy defines the structure of a replication policy
 type ReplicationPolicy struct {
-	ID          int64  `json:"id"`
+	ID          int64  `json:"id,omitempty"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	Creator     string `json:"creator"`
