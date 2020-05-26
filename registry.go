@@ -1,6 +1,7 @@
 package harbor
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/parnurzeal/gorequest"
@@ -28,6 +29,23 @@ func (s *RegistryClient) ListRegistries(name string) ([]Registry, error) {
 		Query(map[string]string{"name": name}).
 		EndStruct(&r)
 	return r, CheckResponse(errs, resp, 200)
+}
+
+// GetRegistryByName
+// Get a registry by its name
+func (s *RegistryClient) GetRegistryByName(name string) (Registry, error) {
+	registries, err := s.ListRegistries(name)
+	if err != nil {
+		return Registry{}, err
+	}
+
+	for i, reg := range registries {
+		if reg.Name == name {
+			return registries[i], nil
+		}
+	}
+
+	return Registry{}, errors.New("registry not found")
 }
 
 // GetRegistryByID
