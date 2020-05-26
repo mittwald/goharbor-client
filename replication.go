@@ -1,6 +1,8 @@
 package harbor
 
 import (
+	"errors"
+
 	"github.com/parnurzeal/gorequest"
 )
 
@@ -26,6 +28,23 @@ func (s *ReplicationClient) ListReplicationPolicies(name string) ([]ReplicationP
 		Query(map[string]string{"name": name}).
 		EndStruct(&rp)
 	return rp, CheckResponse(errs, resp, 200)
+}
+
+// GetReplicationPolicyByName
+// Get a replication policy by its name
+func (s *ReplicationClient) GetReplicationPolicyByName(name string) (ReplicationPolicy, error) {
+	replications, err := s.ListReplicationPolicies(name)
+	if err != nil {
+		return ReplicationPolicy{}, err
+	}
+
+	for i, repl := range replications {
+		if repl.Name == name {
+			return replications[i], nil
+		}
+	}
+
+	return ReplicationPolicy{}, errors.New("replication policy not found")
 }
 
 // GetReplicationPolicies

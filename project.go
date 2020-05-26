@@ -1,6 +1,7 @@
 package harbor
 
 import (
+	"errors"
 	"fmt"
 	"net/url"
 
@@ -32,6 +33,23 @@ func (s *ProjectClient) CheckProject(projectName string) error {
 		End()
 
 	return CheckResponse(errs, resp, 200)
+}
+
+// GetProjectByName
+// Get a project by its name
+func (s *ProjectClient) GetProjectByName(name string) (Project, error) {
+	projects, err := s.ListProjects(ListProjectsOptions{Name: name})
+	if err != nil {
+		return Project{}, err
+	}
+
+	for i, pr := range projects {
+		if pr.Name == name {
+			return projects[i], nil
+		}
+	}
+
+	return Project{}, errors.New("project not found")
 }
 
 // GetProjectByID
