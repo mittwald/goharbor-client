@@ -42,6 +42,9 @@ func (s *UserClient) GetUser(usr UserRequest) (User, error) {
 // AddUser
 // Add a user
 func (s *UserClient) AddUser(usr UserRequest) error {
+	if err := ValidatePassword(usr.Password); err != nil {
+		return err
+	}
 	resp, _, errs := s.NewRequest(gorequest.POST, "").
 		Send(usr).
 		End()
@@ -78,6 +81,10 @@ func (s *UserClient) ToggleUserSysAdmin(usr UserRequest) error {
 // Update a users password
 // NOTE: when using an admin user, the usage of ChangePasswordAsAdmin is recommended
 func (s *UserClient) UpdateUserPassword(uid int64, oldPw, newPw string) error {
+	if err := ValidatePassword(newPw); err != nil {
+		return err
+	}
+
 	cp := ChangePassword{
 		OldPassword: oldPw,
 		NewPassword: newPw,
@@ -93,6 +100,10 @@ func (s *UserClient) UpdateUserPassword(uid int64, oldPw, newPw string) error {
 // UpdateUserPasswordAsAdmin
 // Update a users password as admin (only usable by an admin user)
 func (s *UserClient) UpdateUserPasswordAsAdmin(uid int64, newPw string) error {
+	if err := ValidatePassword(newPw); err != nil {
+		return err
+	}
+
 	cp := ChangePasswordAsAdmin{
 		NewPassword: newPw,
 	}
