@@ -1,197 +1,245 @@
-package harbor
+package goharborclient
 
 import (
+	"context"
 	"errors"
 	"fmt"
-	"net/url"
 
-	"github.com/parnurzeal/gorequest"
+	"github.com/go-openapi/runtime"
+	"github.com/mittwald/goharbor-client/client/products"
+	"github.com/mittwald/goharbor-client/model"
 )
 
-// ProjectClient handles communication with the project related methods of the Harbor API.
-type ProjectClient struct {
-	*Client
+const (
+	// ErrProjectIlligalIDFormat describes an illegal request format
+	ErrProjectIlligalIDFormat = "illegal format of provided ID value"
+
+	// ErrProjectUnauthorized describes an unauthorized request
+	ErrProjectUnauthorized = "unauthorized"
+
+	// ErrProjectInternalErrors describes server-side internal errors
+	ErrProjectInternalErrors = "unexpected internal errors"
+
+	// ErrProjectNoPermission describes a request error without permission
+	ErrProjectNoPermission = "user does not have permission to the project"
+
+	// ErrProjectIDNotExists describes an error
+	// when no proper project ID is found
+	ErrProjectIDNotExists = "project ID does not exist"
+
+	// ErrProjectNameAlreadyExists describes a duplicate project name error
+	ErrProjectNameAlreadyExists = "project name already exists"
+
+	// ErrProjectMismatch describes a failed lookup
+	// of a project with name/id pair
+	ErrProjectMismatch = "id/name pair not found on server side"
+
+	// ErrProjectNotFound describes an error
+	// when a specific project is not found
+	ErrProjectNotFound = "project not found on server side"
+)
+
+// ProjectError is an error describing a errors related to project operations
+// and implements the error interface.
+type ProjectError struct {
+	// ID of the related project. -1 means undefined.
+	ProjectID int32
+
+	// Name of the related project. Empty string means undefined.
+	ProjectName string
+
+	// Error message of the related project.
+	errorMessage string
 }
 
-// List projects
-// This endpoint returns all projects created by Harbor,
-// and can be filtered by project name
-func (s *ProjectClient) ListProjects(opt ListProjectsOptions) ([]Project, error) {
-	var projects []Project
-	resp, _, errs := s.NewRequest(gorequest.GET, "").
-		Query(opt).
-		EndStruct(&projects)
-
-	return projects, CheckResponse(errs, resp, 200)
+// Error implements the Error interface.
+func (p *ProjectError) Error() string {
+	return fmt.Sprintf("%s (project: %s, id: %d)",
+		p.errorMessage, p.ProjectName, p.ProjectID)
 }
 
-// CheckProject
-// Check if the project name provided already exist
-func (s *ProjectClient) CheckProject(projectName string) error {
-	resp, _, errs := s.NewRequest(gorequest.HEAD, "").
-		Query(map[string]string{"project_name": projectName}).
-		End()
-
-	return CheckResponse(errs, resp, 200)
+// NewProjectError creates a new ProjectError.
+func NewProjectError(msg string, id int32, name string) error {
+	return &ProjectError{
+		ProjectID:    id,
+		ProjectName:  name,
+		errorMessage: msg,
+	}
 }
 
-// GetProjectByName
-// Get a project by its name
-func (s *ProjectClient) GetProjectByName(name string) (Project, error) {
-	projects, err := s.ListProjects(ListProjectsOptions{Name: name})
-	if err != nil {
-		return Project{}, err
+// ProjectRESTClient is a subclient for RESTClient handling project related
+// actions.
+type ProjectRESTClient struct {
+	parent *RESTClient
+}
+
+// NewProject creates a new project with name as project name.
+// CountLimit and StorageLimit limits space and access for this project.
+// Returns the project as it is stored inside Harbor or an error,
+// if the project could not be created.
+func (c *ProjectRESTClient) NewProject(ctx context.Context, name string,
+	countLimit int, storageLimit int) (*model.Project, error) {
+	pReq := &model.ProjectReq{
+		CveWhitelist: nil,
+		Metadata:     nil,
+		ProjectName:  name,
+		CountLimit:   int64(countLimit),
+		StorageLimit: int64(storageLimit) * 1024 * 1024,
 	}
 
-	for i, pr := range projects {
-		if pr.Name == name {
-			return projects[i], nil
+	_, err := c.parent.Client.Products.PostProjects(
+		&products.PostProjectsParams{
+			Project: pReq,
+			Context: ctx,
+		}, c.parent.AuthInfo)
+
+	err = handleSwaggerProjectErrors(err, -1, name)
+	if err != nil {
+		return nil, err
+	}
+
+	project, err := c.Get(ctx, name)
+	if err != nil {
+		return nil, err
+	}
+
+	return project, nil
+}
+
+// Delete deletes a project.
+// Returns an error when no matching project is found or when
+// having difficulties talking to the API.
+func (c *ProjectRESTClient) Delete(ctx context.Context,
+	p *model.Project) error {
+	if p == nil {
+		return errors.New("no project provided")
+	}
+
+	project, err := c.Get(ctx, p.Name)
+	if err != nil {
+		return err
+	}
+
+	if p.ProjectID != project.ProjectID {
+		return NewProjectError(ErrProjectMismatch, p.ProjectID, p.Name)
+	}
+
+	_, err = c.parent.Client.Products.DeleteProjectsProjectID(
+		&products.DeleteProjectsProjectIDParams{
+			ProjectID: int64(project.ProjectID),
+			Context:   ctx,
+		}, c.parent.AuthInfo)
+
+	return handleSwaggerProjectErrors(err, p.ProjectID, p.Name)
+}
+
+// Get returns a project identified by name.
+// Returns an error if it cannot find a matching project or when
+// having difficulties talking to the API.
+func (c *ProjectRESTClient) Get(ctx context.Context,
+	name string) (*model.Project, error) {
+	if name == "" {
+		return nil, errors.New("no name provided")
+	}
+	resp, err := c.parent.Client.Products.GetProjects(
+		&products.GetProjectsParams{
+			Name:    &name,
+			Context: ctx,
+		}, c.parent.AuthInfo)
+
+	err = handleSwaggerProjectErrors(err, -1, name)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, p := range resp.Payload {
+		if p.Name == name {
+			return p, nil
 		}
 	}
 
-	return Project{}, errors.New("project not found")
+	return nil, NewProjectError(ErrProjectNotFound, -1, name)
 }
 
-// GetProjectByID
-// Return specific project details
-func (s *ProjectClient) GetProjectByID(pid int64) (Project, error) {
-	var project Project
-	resp, _, errs := s.NewRequest(gorequest.GET, "/"+I64toA(pid)).
-		EndStruct(&project)
-	return project, CheckResponse(errs, resp, 200)
+// List retrieves projects filtered by name (all if name is empty string).
+// Returns an error if no projects were found.
+func (c *ProjectRESTClient) List(ctx context.Context,
+	nameFilter string) ([]*model.Project, error) {
+	resp, err := c.parent.Client.Products.GetProjects(
+		&products.GetProjectsParams{
+			Name:    &nameFilter,
+			Context: ctx,
+		}, c.parent.AuthInfo)
+
+	err = handleSwaggerProjectErrors(err, -1, "")
+	if err != nil {
+		return nil, err
+	}
+
+	if len(resp.Payload) == 0 {
+		return nil, NewProjectError(ErrProjectNotFound, -1, nameFilter)
+	}
+
+	return resp.Payload, nil
 }
 
-// CreateProject
-// Creates a new project
-func (s *ProjectClient) CreateProject(p ProjectRequest) error {
-	resp, _, errs := s.NewRequest(gorequest.POST, "").
-		Send(p).
-		End()
+// Update overwrites properties of a stored project with properties of p.Update.
+// Return an error if Name/ID pair of p does not match a stored project.
+func (c *ProjectRESTClient) Update(ctx context.Context, p *model.Project,
+	countLimit int, storageLimit int) error {
+	project, err := c.Get(ctx, p.Name)
+	if err != nil {
+		return err
+	}
 
-	return CheckResponse(errs, resp, 201)
+	if p.ProjectID != project.ProjectID {
+		return NewProjectError(ErrProjectMismatch, p.ProjectID, p.Name)
+	}
+
+	pReq := &model.ProjectReq{
+		CveWhitelist: p.CveWhitelist,
+		Metadata:     p.Metadata,
+		ProjectName:  p.Name,
+		CountLimit:   int64(countLimit),
+		StorageLimit: int64(storageLimit) * 1024 * 1024,
+	}
+
+	_, err = c.parent.Client.Products.PutProjectsProjectID(
+		&products.PutProjectsProjectIDParams{
+			Project:   pReq,
+			ProjectID: int64(p.ProjectID),
+			Context:   ctx,
+		}, c.parent.AuthInfo)
+
+	return handleSwaggerProjectErrors(err, p.ProjectID, p.Name)
 }
 
-// UpdateProject
-// Update the properties of a project
-func (s *ProjectClient) UpdateProject(pid int64, p Project) error {
-	resp, _, errs := s.NewRequest(gorequest.PUT, "/"+I64toA(pid)).
-		Send(p).
-		End()
-	return CheckResponse(errs, resp, 200)
-}
+// handleProjectErrors takes a swagger generated error as input,
+// which usually does not contain any form of error message,
+// and outputs a new error with proper message.
+func handleSwaggerProjectErrors(in error, id int32, name string) error {
+	t, ok := in.(*runtime.APIError)
+	if ok {
+		switch t.Code {
+		case 400:
+			return NewProjectError(ErrProjectIlligalIDFormat, id, name)
+		case 401:
+			return NewProjectError(ErrProjectUnauthorized, id, name)
+		case 403:
+			return NewProjectError(ErrProjectNoPermission, id, name)
+		case 500:
+			return NewProjectError(ErrProjectInternalErrors, id, name)
+		}
+	}
 
-// DeleteProject
-// Delete a project by project ID
-func (s *ProjectClient) DeleteProject(pid int64) error {
-	resp, _, errs := s.NewRequest(gorequest.DELETE, "/"+I64toA(pid)).
-		End()
-	return CheckResponse(errs, resp, 200)
-}
-
-// GetProjectLogByID
-// Get access logs of a project with user-specified filter operations and date time ranges
-func (s *ProjectClient) GetProjectLogByID(pid int64, opt ListLogOptions) ([]AccessLog, error) {
-	var accessLog []AccessLog
-	resp, _, errs := s.NewRequest(gorequest.GET,
-		fmt.Sprintf("/%d/logs", pid)).
-		Query(opt).
-		EndStruct(&accessLog)
-	return accessLog, CheckResponse(errs, resp, 200)
-}
-
-// GetProjectMetadataById
-// Get the metadata of a project
-func (s *ProjectClient) GetProjectMetadata(pid int64) (map[string]string, error) {
-	var metadata map[string]string
-	resp, _, errs := s.NewRequest(gorequest.GET,
-		fmt.Sprintf("/%d/metedatas", pid)).
-		EndStruct(&metadata)
-	return metadata, CheckResponse(errs, resp, 200)
-}
-
-// AddProjectMetadata
-// Add metadata to a project
-func (s *ProjectClient) AddProjectMetadata(pid int64, metadata map[string]string) error {
-	resp, _, errs := s.NewRequest(gorequest.POST,
-		fmt.Sprintf("/%d/metadatas", pid)).
-		Send(metadata).
-		End()
-	return CheckResponse(errs, resp, 200)
-}
-
-// GetProjectMetadata
-// Get the specified metadata value of a project
-func (s *ProjectClient) GetProjectMetadataSingle(pid int64, specified string) (map[string]string, error) {
-	var metadata map[string]string
-	resp, _, errs := s.NewRequest(gorequest.GET,
-		fmt.Sprintf("/%d/metadatas/%s", pid, url.PathEscape(specified))).
-		EndStruct(&metadata)
-	return metadata, CheckResponse(errs, resp, 200)
-}
-
-// UpdateProjectMetadata
-// Update the metadata of a project
-func (s *ProjectClient) UpdateProjectMetadataSingle(pid int64, metadataName string) error {
-	resp, _, errs := s.NewRequest(gorequest.PUT,
-		fmt.Sprintf("/%d/metadatas/%s", pid, url.PathEscape(metadataName))).
-		End()
-	return CheckResponse(errs, resp, 200)
-}
-
-// DeleteProjectMetadata
-// Delete a specified metadata value of a project
-func (s *ProjectClient) DeleteProjectMetadataSingle(pid int64, metadataName string) error {
-	resp, _, errs := s.NewRequest(gorequest.DELETE,
-		fmt.Sprintf("/%d/metadatas/%s", pid, url.PathEscape(metadataName))).
-		End()
-	return CheckResponse(errs, resp, 200)
-}
-
-// GetProjectMembers
-// Get members of the specified project
-func (s *ProjectClient) GetProjectMembers(pid int64) ([]Member, error) {
-	var mem []Member
-	resp, _, errs := s.NewRequest(gorequest.GET,
-		fmt.Sprintf("/%d/members", pid)).
-		EndStruct(&mem)
-	return mem, CheckResponse(errs, resp, 200)
-}
-
-// AddProjectMember
-// Add a project member to a project
-func (s *ProjectClient) AddProjectMember(pid int64, member MemberReq) error {
-	resp, _, errs := s.NewRequest(gorequest.POST,
-		fmt.Sprintf("/%d/members", pid)).
-		Send(member).
-		End()
-	return CheckResponse(errs, resp, 201)
-}
-
-// GetProjectMemberRole
-// Get the role of a project member
-func (s *ProjectClient) GetProjectMember(pid, mid int64) (Role, error) {
-	var role Role
-	resp, _, errs := s.NewRequest(gorequest.GET,
-		fmt.Sprintf("/%d/members/%d", pid, mid)).
-		EndStruct(&role)
-	return role, CheckResponse(errs, resp, 200)
-}
-
-// UpdateProjectMember
-// Update a project member
-func (s *ProjectClient) UpdateProjectMember(pid, mid int64, role RoleRequest) error {
-	resp, _, errs := s.NewRequest(gorequest.PUT,
-		fmt.Sprintf("/%d/members/%d", pid, mid)).
-		Send(role).
-		End()
-	return CheckResponse(errs, resp, 200)
-}
-
-// DeleteProjectMember
-// Delete a project member
-func (s *ProjectClient) DeleteProjectMember(pid, mid int64) error {
-	resp, _, errs := s.NewRequest(gorequest.DELETE,
-		fmt.Sprintf("/%d/members/%d", pid, mid)).
-		End()
-	return CheckResponse(errs, resp, 200)
+	switch in.(type) {
+	case *products.DeleteProjectsProjectIDNotFound:
+		return NewProjectError(ErrProjectIDNotExists, id, name)
+	case *products.PutProjectsProjectIDNotFound:
+		return NewProjectError(ErrProjectIDNotExists, id, name)
+	case *products.PostProjectsConflict:
+		return NewProjectError(ErrProjectNameAlreadyExists, id, name)
+	default:
+		return in
+	}
 }
