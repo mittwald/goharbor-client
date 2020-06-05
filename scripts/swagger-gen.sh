@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 SWAGGER_IMAGE="quay.io/goswagger/swagger"
-API_VERSION="v1.10.2"
+API_VERSION="v1.10.0"
 SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${API_VERSION}/api/harbor/swagger.yaml"
 
 # go-swaggers documentation on swagger operations at the moment is really sparse,
@@ -36,8 +36,8 @@ done
 docker run --rm -it -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
   generate client \
   --skip-validation \
-  --model-package="model" \
-  --name="goharbor" \
-  --client-package="client" \
+  --model-package="api/${API_VERSION}/model" \
+  --name="harbor" \
+  --client-package="api/${API_VERSION}/client" \
   --spec="${SWAGGER_FILE}" \
   ${operation_flags}

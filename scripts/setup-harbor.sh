@@ -76,12 +76,13 @@ fi
 echo "Install Harbor via helm..."
 helm repo add harbor https://helm.goharbor.io
 helm install harbor harbor/harbor \
-    --set expose.type=nodePort,expose.tls.enabled=false \
+    --set expose.type=nodePort,expose.tls.enabled=false,externalURL=http://localhost \
     --namespace default \
     --kube-context kind-"${CLUSTER_NAME}" \
     --version="${CHART_VERSION}"
 if [[ "$?" -ne "0" ]]; then
-    >&2 echo "Could not install Harbor, aborting."
+    >&2 echo "Could not install Harbor, cleaning up and aborting."
+    kind delete cluster --name "${CLUSTER_NAME}"
     exit 1
 fi
 

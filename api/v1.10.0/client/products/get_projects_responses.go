@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/mittwald/goharbor-client/model"
+	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
 )
 
 // GetProjectsReader is a Reader for the GetProjects structure.

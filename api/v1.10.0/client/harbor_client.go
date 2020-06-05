@@ -10,10 +10,10 @@ import (
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/client/products"
+	"github.com/mittwald/goharbor-client/api/v1.10.0/client/products"
 )
 
-// Default goharbor HTTP client.
+// Default harbor HTTP client.
 var Default = NewHTTPClient(nil)
 
 const (
@@ -28,14 +28,14 @@ const (
 // DefaultSchemes are the default schemes found in Meta (info) section of spec file
 var DefaultSchemes = []string{"http", "https"}
 
-// NewHTTPClient creates a new goharbor HTTP client.
-func NewHTTPClient(formats strfmt.Registry) *Goharbor {
+// NewHTTPClient creates a new harbor HTTP client.
+func NewHTTPClient(formats strfmt.Registry) *Harbor {
 	return NewHTTPClientWithConfig(formats, nil)
 }
 
-// NewHTTPClientWithConfig creates a new goharbor HTTP client,
+// NewHTTPClientWithConfig creates a new harbor HTTP client,
 // using a customizable transport config.
-func NewHTTPClientWithConfig(formats strfmt.Registry, cfg *TransportConfig) *Goharbor {
+func NewHTTPClientWithConfig(formats strfmt.Registry, cfg *TransportConfig) *Harbor {
 	// ensure nullable parameters have default
 	if cfg == nil {
 		cfg = DefaultTransportConfig()
@@ -46,14 +46,14 @@ func NewHTTPClientWithConfig(formats strfmt.Registry, cfg *TransportConfig) *Goh
 	return New(transport, formats)
 }
 
-// New creates a new goharbor client
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Goharbor {
+// New creates a new harbor client
+func New(transport runtime.ClientTransport, formats strfmt.Registry) *Harbor {
 	// ensure nullable parameters have default
 	if formats == nil {
 		formats = strfmt.Default
 	}
 
-	cli := new(Goharbor)
+	cli := new(Harbor)
 	cli.Transport = transport
 	cli.Products = products.New(transport, formats)
 	return cli
@@ -98,15 +98,15 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 	return cfg
 }
 
-// Goharbor is a client for goharbor
-type Goharbor struct {
+// Harbor is a client for harbor
+type Harbor struct {
 	Products products.ClientService
 
 	Transport runtime.ClientTransport
 }
 
 // SetTransport changes the transport on the client and all its subresources
-func (c *Goharbor) SetTransport(transport runtime.ClientTransport) {
+func (c *Harbor) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 	c.Products.SetTransport(transport)
 }

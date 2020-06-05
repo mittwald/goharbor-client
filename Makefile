@@ -1,4 +1,4 @@
-.PHONY: swagger swaggerclientcleanup swaggermodelcleanup harbor-%
+.PHONY: swagger swaggerclientcleanup swaggermodelcleanup harbor-1.10.2 integration-test-v1.10.0 teardown
 
 swagger:
 	scripts/swagger-gen.sh
@@ -11,14 +11,28 @@ swaggerclientcleanup:
 swaggermodelcleanup:
 	rm -rf ./model
 
-integration-test:
-	go test -v ./... -integration -version=1.10.2
-
 # Creates a Harbor instance as a docker container via Kind.
-# Specify a version after "-", i.e.
-# make harbor-2.0.0
-# make harbor-1.10.2
 # Delete cluster via scripts/teardown-harbor.sh
-harbor-%:
-	scripts/setup-harbor.sh $$(echo $@ | sed 's/harbor-//')
+harbor-1.10.2:
+	scripts/setup-harbor.sh 1.10.2
 
+harbor-1.10.1:
+	scripts/setup-harbor.sh 1.10.1
+
+harbor-1.10.0:
+	scripts/setup-harbor.sh 1.10.0
+
+# Testing on Harbor 1.10.2
+integration-test-v1.10.2:
+	go test -v github.com/mittwald/goharbor-client -integration -version=1.10.2
+
+# Testing on Harbor 1.10.1
+integration-test-v1.10.1:
+	go test -v github.com/mittwald/goharbor-client -integration -version=1.10.1
+
+# Testing on Harbor 1.10.0
+integration-test-v1.10.0:
+	go test -v github.com/mittwald/goharbor-client -integration -version=1.10.0
+
+teardown:
+	scripts/teardown-harbor.sh
