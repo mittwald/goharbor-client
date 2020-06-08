@@ -31,7 +31,7 @@ swagger_operations+=("DeleteProjectsProjectID")
 
 swagger_operations+=("GetUsers")
 swagger_operations+=("PostUsers")
-swagger_operations+=("PutUsersUserterminaID")
+swagger_operations+=("PutUsersUserID")
 swagger_operations+=("DeleteUsersUserID")
 
 for i in "${swagger_operations[@]}"; do

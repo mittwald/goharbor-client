@@ -15,8 +15,8 @@ const (
 	ErrUserNotFound     = "user not found on server side"
 	ErrUserBadRequest   = "Unsatisfied with constraints of the user creation/modification."
 	ErrUserMismatch     = "id/name pair not found on server side"
-	ErrUserAlreadyExist = "User with this username already exists."
-	ErrUserInvalidID    = "Invalid user ID."
+	ErrUserAlreadyExist = "user with this username already exists"
+	ErrUserInvalidID    = "invalid user ID"
 )
 
 // UserError is an error describing a errors related to project operations
