@@ -5,7 +5,7 @@ HARBOR_VERSION="${1}"
 CHART_VERSION=""
 
 
-echo "Check for existence of neccessary tools..."
+echo "Check for existence of necessary tools..."
 
 docker --version &>/dev/null
 if [[ $? -ne "0" ]]; then
@@ -32,7 +32,6 @@ if [[ $? -ne "0" ]]; then
 fi
 
 echo "Check needed program arguments..."
-found="false"
 if [[ -z "${HARBOR_VERSION}" ]]; then
     >&2 echo "Harbor version as first argument not provided, aborting."
     exit 1
@@ -66,25 +65,28 @@ if [[ -z "${CHART_VERSION}" ]]; then
     exit 1
 fi
 
-echo "Create new kind cluster to deploy Harbor into..."
+echo "Creating a new kind cluster to deploy Harbor into..."
 kind create cluster --config scripts/kind-config.yaml --name "${CLUSTER_NAME}"
 if [[ "$?" -ne "0" ]]; then
     >&2 echo "Could not create kind cluster, aborting."
     exit 1
 fi
 
-echo "Install Harbor via helm..."
-helm repo add harbor https://helm.goharbor.io
+echo "Installing Harbor via Helm..."
+helm repo add harbor https://helm.goharbor.io && helm repo update
 helm install harbor harbor/harbor \
     --set expose.type=nodePort,expose.tls.enabled=false,externalURL=http://localhost \
     --namespace default \
     --kube-context kind-"${CLUSTER_NAME}" \
     --version="${CHART_VERSION}"
 if [[ "$?" -ne "0" ]]; then
-    >&2 echo "Could not install Harbor, cleaning up and aborting."
-    kind delete cluster --name "${CLUSTER_NAME}"
+    >&2 echo "Could not install Harbor, aborting."
     exit 1
 fi
+
+echo "Setting up seperate docker registry for integration tests..."
+helm repo add stable https://kubernetes-charts.storage.googleapis.com && helm repo update
+helm install registry stable/docker-registry
 
 echo "Waiting for Harbor to become ready..."
 API_URL_PREFIX="http://localhost:30002/api"
@@ -93,14 +95,14 @@ if [[ "${HARBOR_VERSION}" =~ ^2 ]]; then
 fi
 
 for i in {1..100}; do
-    echo "Ping Harbor instance ($i/100)..."
-    status="$(curl -s -X GET --connect-timeout 3 ${API_URL_PREFIX}/health | jq '.status' 2>/dev/null)"
-    if [[ "${status}" == "\"healthy\"" ]]; then
-        echo "Harbor installation finished sucessfully. Visit at http://localhost:30002"
+    echo "Pinging Harbor instance ($i/100)..."
+    STATUS="$(curl -s -X GET --connect-timeout 3 "${API_URL_PREFIX}/health" | jq '.status' 2>/dev/null)"
+    if [[ "${STATUS}" == "\"healthy\"" ]]; then
+        echo "Harbor installation finished successfully. Visit at http://localhost:30002"
         exit 0
     fi
     sleep 5
 done
 
-echo "Timeout waiting for Harbor installation, aborting."
+echo -e "Timeout while waiting for the Harbor installation to finish."
 exit 1
