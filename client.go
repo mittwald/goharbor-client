@@ -41,6 +41,13 @@ func (c *RESTClient) Projects() *ProjectRESTClient {
 	}
 }
 
+// Users returns a user subclient for handling user related actions.
+func (c *RESTClient) Users() *UserRESTClient {
+	return &UserRESTClient{
+		parent: c,
+	}
+}
+
 // Health reports Harbor system health information.
 func (c *RESTClient) Health(ctx context.Context) (*model.OverallHealthStatus, error) {
 	resp, err := c.Client.Products.GetHealth(&products.GetHealthParams{
