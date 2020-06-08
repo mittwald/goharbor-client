@@ -29,6 +29,11 @@ swagger_operations+=("GetProjectsProjectID")
 swagger_operations+=("PutProjectsProjectID")
 swagger_operations+=("DeleteProjectsProjectID")
 
+swagger_operations+=("GetUsers")
+swagger_operations+=("PostUsers")
+swagger_operations+=("PutUsersUserterminaID")
+swagger_operations+=("DeleteUsersUserID")
+
 for i in "${swagger_operations[@]}"; do
   operation_flags+="--operation=${i} "
 done
