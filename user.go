@@ -12,11 +12,20 @@ import (
 )
 
 const (
-	ErrUserNotFound     = "user not found on server side"
-	ErrUserBadRequest   = "Unsatisfied with constraints of the user creation/modification."
-	ErrUserMismatch     = "id/name pair not found on server side"
+	// ErrUserNotFound describes an error when a specific user was not found on server side.
+	ErrUserNotFound = "user not found on server side"
+
+	// ErrUserBadRequest describes a formal error when creating or updating a user (such as bad password).
+	ErrUserBadRequest = "Unsatisfied with constraints of the user creation/modification."
+
+	// ErrUserMismatch describes an error when the id and name of a user do not match on server side.
+	ErrUserMismatch = "id/name pair not found on server side"
+
+	// ErrUserAlreadyExist describes an error indicating that this user already exists.
 	ErrUserAlreadyExist = "user with this username already exists"
-	ErrUserInvalidID    = "invalid user ID"
+
+	// ErrUserInvalidID describes an error indicating an invalid user id.
+	ErrUserInvalidID = "invalid user ID"
 )
 
 // UserError is an error describing a errors related to project operations
