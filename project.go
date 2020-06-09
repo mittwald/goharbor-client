@@ -11,8 +11,8 @@ import (
 )
 
 const (
-	// ErrProjectIlligalIDFormat describes an illegal request format
-	ErrProjectIlligalIDFormat = "illegal format of provided ID value"
+	// ErrProjectIllegalIDFormat describes an illegal request format
+	ErrProjectIllegalIDFormat = "illegal format of provided ID value"
 
 	// ErrProjectUnauthorized describes an unauthorized request
 	ErrProjectUnauthorized = "unauthorized"
@@ -222,7 +222,7 @@ func handleSwaggerProjectErrors(in error, id int32, name string) error {
 	if ok {
 		switch t.Code {
 		case 400:
-			return NewProjectError(ErrProjectIlligalIDFormat, id, name)
+			return NewProjectError(ErrProjectIllegalIDFormat, id, name)
 		case 401:
 			return NewProjectError(ErrProjectUnauthorized, id, name)
 		case 403:
