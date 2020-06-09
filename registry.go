@@ -46,8 +46,8 @@ func (c *RegistryRESTClient) NewRegistry(ctx context.Context, name, registryType
 	return registry, nil
 }
 
-// Get returns a project identified by name.
-// Returns an error if it cannot find a matching project or when
+// Get returns a registry identified by name.
+// Returns an error if it cannot find a matching registry or when
 // having difficulties talking to the API.
 func (c *RegistryRESTClient) Get(ctx context.Context, name string) (*model.Registry, error) {
 	if name == "" {
