@@ -11,7 +11,7 @@ import (
 
 const (
 	// ErrRegistryIllegalIDFormat describes an illegal request format
-	ErrRegistryIllegalIDFormat = "illegal format of provided ID value"
+	ErrRegistryIllegalIDFormat = "unsatisfied with constraints of the registry creation"
 
 	// ErrRegistryUnauthorized describes an unauthorized request
 	ErrRegistryUnauthorized = "unauthorized"
@@ -152,8 +152,8 @@ func (c *RegistryRESTClient) Delete(ctx context.Context,
 
 	_, err = c.parent.Client.Products.DeleteRegistriesID(
 		&products.DeleteRegistriesIDParams{
-			ID: registry.ID,
-			Context:   ctx,
+			ID:      registry.ID,
+			Context: ctx,
 		}, c.parent.AuthInfo)
 
 	return handleSwaggerRegistryErrors(err, r.ID, r.Name)

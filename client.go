@@ -41,7 +41,7 @@ func (c *RESTClient) Projects() *ProjectRESTClient {
 	}
 }
 
-// Projects returns a project subclient for handling project related actions.
+// Registries returns a project subclient for handling project related actions.
 func (c *RESTClient) Registries() *RegistryRESTClient {
 	return &RegistryRESTClient{
 		parent: c,

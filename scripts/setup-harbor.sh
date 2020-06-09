@@ -2,7 +2,8 @@
 
 CLUSTER_NAME="goharbor-client-integration-tests"
 HARBOR_VERSION="${1}"
-CHART_VERSION=""
+HARBOR_CHART_VERSION=""
+REGISTRY_IMAGE_TAG="2.7.1"
 
 
 echo "Check for existence of necessary tools..."
@@ -40,7 +41,7 @@ fi
 # map Harbor version to it's helm chart version
 while read CHART HARBOR; do
     if [[ "${HARBOR_VERSION}" == "${HARBOR}" ]]; then
-        CHART_VERSION="${CHART}"
+        HARBOR_CHART_VERSION="${CHART}"
     fi
 done <<< "1.4.0 2.0.0
 1.3.2 1.10.2
@@ -60,7 +61,7 @@ done <<< "1.4.0 2.0.0
 1.1.0 1.8.0
 1.0.1 1.7.5
 1.0.0 1.7.0"
-if [[ -z "${CHART_VERSION}" ]]; then
+if [[ -z "${HARBOR_CHART_VERSION}" ]]; then
     >&2 echo "Unsupported Harbor version, aborting."
     exit 1
 fi
@@ -78,15 +79,20 @@ helm install harbor harbor/harbor \
     --set expose.type=nodePort,expose.tls.enabled=false,externalURL=http://localhost \
     --namespace default \
     --kube-context kind-"${CLUSTER_NAME}" \
-    --version="${CHART_VERSION}"
+    --version="${HARBOR_CHART_VERSION}"
 if [[ "$?" -ne "0" ]]; then
     >&2 echo "Could not install Harbor, aborting."
     exit 1
 fi
 
-echo "Setting up seperate docker registry for integration tests..."
+echo "Installing seperate docker registry for integration tests..."
 helm repo add stable https://kubernetes-charts.storage.googleapis.com && helm repo update
-helm install registry stable/docker-registry
+helm install registry stable/docker-registry \
+    --set service.port=5000,image.tag=${REGISTRY_IMAGE_TAG}
+if [[ "$?" -ne "0" ]]; then
+    >&2 echo "Could not install Registry, aborting."
+    exit 1
+fi
 
 echo "Waiting for Harbor to become ready..."
 API_URL_PREFIX="http://localhost:30002/api"
