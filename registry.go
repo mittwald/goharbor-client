@@ -5,38 +5,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/go-openapi/runtime"
 	"github.com/mittwald/goharbor-client/api/v1.10.0/client/products"
 	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
-)
-
-const (
-	// ErrRegistryIllegalIDFormat describes an illegal request format
-	ErrRegistryIllegalIDFormat = "unsatisfied with constraints of the registry creation"
-
-	// ErrRegistryUnauthorized describes an unauthorized request
-	ErrRegistryUnauthorized = "unauthorized"
-
-	// ErrRegistryInternalErrors describes server-side internal errors
-	ErrRegistryInternalErrors = "unexpected internal errors"
-
-	// ErrRegistryNoPermission describes a request error without permission
-	ErrRegistryNoPermission = "user does not have permission to the registry"
-
-	// ErrRegistryIDNotExists describes an error
-	// when no proper registry ID is found
-	ErrRegistryIDNotExists = "registry ID does not exist"
-
-	// ErrRegistryNameAlreadyExists describes a duplicate project name error
-	ErrRegistryNameAlreadyExists = "registry name already exists"
-
-	// ErrRegistryMismatch describes a failed lookup
-	// of a registry with name/id pair
-	ErrRegistryMismatch = "id/name pair not found on server side"
-
-	// ErrRegistryNotFound describes an error
-	// when a specific project is not found
-	ErrRegistryNotFound = "registry not found on server side"
 )
 
 // RegistryRESTClient is a subclient for RESTClient handling registry related
@@ -93,7 +63,7 @@ func (c *RegistryRESTClient) NewRegistry(ctx context.Context, name, registryType
 			Context:  ctx,
 		}, c.parent.AuthInfo)
 
-	err = handleSwaggerRegistryErrors(err, -1, name)
+	err = handleSwaggerRegistryErrors(err)
 	if err != nil {
 		return nil, err
 	}
@@ -119,7 +89,7 @@ func (c *RegistryRESTClient) Get(ctx context.Context, name string) (*model.Regis
 			Context: ctx,
 		}, c.parent.AuthInfo)
 
-	err = handleSwaggerRegistryErrors(err, -1, name)
+	err = handleSwaggerRegistryErrors(err)
 	if err != nil {
 		return nil, err
 	}
@@ -130,7 +100,7 @@ func (c *RegistryRESTClient) Get(ctx context.Context, name string) (*model.Regis
 		}
 	}
 
-	return nil, NewRegistryError(ErrRegistryNotFound, -1, name)
+	return nil, NewRegistryError(ErrRegistryNotFoundMsg, -1, name)
 }
 
 // Delete deletes a registry.
@@ -148,7 +118,7 @@ func (c *RegistryRESTClient) Delete(ctx context.Context,
 	}
 
 	if r.ID != registry.ID {
-		return NewRegistryError(ErrRegistryMismatch, r.ID, r.Name)
+		return NewRegistryError(ErrRegistryMismatchMsg, r.ID, r.Name)
 	}
 
 	_, err = c.parent.Client.Products.DeleteRegistriesID(
@@ -157,35 +127,5 @@ func (c *RegistryRESTClient) Delete(ctx context.Context,
 			Context: ctx,
 		}, c.parent.AuthInfo)
 
-	return handleSwaggerRegistryErrors(err, r.ID, r.Name)
-}
-
-// handleSwaggerRegistryErrors takes a swagger generated error as input,
-// which usually does not contain any form of error message,
-// and outputs a new error with a proper message.
-func handleSwaggerRegistryErrors(in error, id int64, name string) error {
-	t, ok := in.(*runtime.APIError)
-	if ok {
-		switch t.Code {
-		case 400:
-			return NewRegistryError(ErrRegistryIllegalIDFormat, id, name)
-		case 401:
-			return NewRegistryError(ErrRegistryUnauthorized, id, name)
-		case 403:
-			return NewRegistryError(ErrRegistryNoPermission, id, name)
-		case 500:
-			return NewRegistryError(ErrRegistryInternalErrors, id, name)
-		}
-	}
-
-	switch in.(type) {
-	case *products.DeleteRegistriesIDNotFound:
-		return NewRegistryError(ErrRegistryIDNotExists, id, name)
-	case *products.PutRegistriesIDNotFound:
-		return NewRegistryError(ErrRegistryIDNotExists, id, name)
-	case *products.PostRegistriesConflict:
-		return NewRegistryError(ErrRegistryNameAlreadyExists, id, name)
-	default:
-		return in
-	}
+	return handleSwaggerRegistryErrors(err)
 }
