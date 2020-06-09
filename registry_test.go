@@ -2,10 +2,11 @@ package goharborclient
 
 import (
 	"context"
+	"testing"
+
 	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 func TestAPIRegistryNew(t *testing.T) {

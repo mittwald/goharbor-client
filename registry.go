@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+
 	"github.com/go-openapi/runtime"
 	"github.com/mittwald/goharbor-client/api/v1.10.0/client/products"
 	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
