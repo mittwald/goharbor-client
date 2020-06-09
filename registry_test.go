@@ -84,8 +84,6 @@ func TestAPIRegistryDelete(t *testing.T) {
 
 	r, err = c.Registries().Get(ctx, name)
 	if assert.Error(t, err) {
-		assert.Contains(t, err.Error(), "registry not found")
-		_, ok := err.(*RegistryError)
-		assert.True(t, ok)
+		assert.IsType(t, &ErrRegistryNotFound{}, err)
 	}
 }
