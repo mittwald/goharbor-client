@@ -3,54 +3,12 @@ package goharborclient
 import (
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/go-openapi/runtime"
 
 	"github.com/mittwald/goharbor-client/api/v1.10.0/client/products"
 	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
 )
-
-const (
-	// ErrUserNotFound describes an error when a specific user was not found on server side.
-	ErrUserNotFound = "user not found on server side"
-
-	// ErrUserBadRequest describes a formal error when creating or updating a user (such as bad password).
-	ErrUserBadRequest = "Unsatisfied with constraints of the user creation/modification."
-
-	// ErrUserMismatch describes an error when the id and name of a user do not match on server side.
-	ErrUserMismatch = "id/name pair not found on server side"
-
-	// ErrUserAlreadyExist describes an error indicating that this user already exists.
-	ErrUserAlreadyExist = "user with this username already exists"
-
-	// ErrUserInvalidID describes an error indicating an invalid user id.
-	ErrUserInvalidID = "invalid user ID"
-)
-
-// UserError is an error describing a errors related to project operations
-// and implements the error interface.
-type UserError struct {
-	// Name of the related project. Empty string means undefined.
-	Username string
-
-	// Error message of the related project.
-	errorMessage string
-}
-
-// Error implements the Error interface.
-func (p *UserError) Error() string {
-	return fmt.Sprintf("%s (username: %s)",
-		p.errorMessage, p.Username)
-}
-
-// NewUserError creates a new ProjectError.
-func NewUserError(msg string, name string) error {
-	return &UserError{
-		Username:     name,
-		errorMessage: msg,
-	}
-}
 
 // UserRESTClient is a subclient for RESTClient handling user related actions.
 type UserRESTClient struct {
@@ -113,7 +71,7 @@ func (c *UserRESTClient) Get(ctx context.Context, username string) (*model.User,
 		}
 	}
 
-	return nil, NewUserError(ErrUserNotFound, username)
+	return nil, &ErrUserNotFound{}
 }
 
 // Delete deletes a user from Harbor given by a user model,
@@ -129,7 +87,7 @@ func (c *UserRESTClient) Delete(ctx context.Context, u *model.User) error {
 	}
 
 	if u.UserID != user.UserID {
-		return NewUserError(ErrUserMismatch, u.Username)
+		return &ErrUserMismatch{}
 	}
 
 	_, err = c.parent.Client.Products.DeleteUsersUserID(&products.DeleteUsersUserIDParams{
@@ -160,7 +118,7 @@ func (c *UserRESTClient) Update(ctx context.Context, u *model.User) error {
 	}
 
 	if u.UserID != user.UserID {
-		return NewUserError(ErrUserMismatch, u.Username)
+		return &ErrUserMismatch{}
 	}
 
 	_, err = c.parent.Client.Products.PutUsersUserID(&products.PutUsersUserIDParams{
@@ -180,16 +138,30 @@ func handleSwaggerUserErrors(in error, username string) error {
 	if ok {
 		switch t.Code {
 		case 409:
-			return NewUserError(ErrUserAlreadyExist, username)
+			return &ErrUserAlreadyExist{}
 		}
 	}
 
 	switch in.(type) {
 	case *products.PostUsersBadRequest:
-		return NewUserError(ErrUserBadRequest, username)
+		return &ErrUserBadRequest{}
 	case *products.PutUsersUserIDBadRequest:
-		return NewUserError(ErrUserInvalidID, username)
+		return &ErrUserInvalidID{}
 	default:
 		return in
 	}
+}
+
+func (c *UserRESTClient) userExists(ctx context.Context, u *model.User) (bool, error) {
+	_, err := c.Get(ctx, u.Username)
+
+	if err != nil {
+		if _, ok := err.(*ErrUserNotFound); ok {
+			return false, nil
+		} else {
+			return false, err
+		}
+	}
+
+	return true, nil
 }

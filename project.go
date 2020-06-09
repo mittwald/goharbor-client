@@ -3,69 +3,11 @@ package goharborclient
 import (
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/go-openapi/runtime"
 	"github.com/mittwald/goharbor-client/api/v1.10.0/client/products"
 	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
 )
-
-const (
-	// ErrProjectIlligalIDFormat describes an illegal request format
-	ErrProjectIlligalIDFormat = "illegal format of provided ID value"
-
-	// ErrProjectUnauthorized describes an unauthorized request
-	ErrProjectUnauthorized = "unauthorized"
-
-	// ErrProjectInternalErrors describes server-side internal errors
-	ErrProjectInternalErrors = "unexpected internal errors"
-
-	// ErrProjectNoPermission describes a request error without permission
-	ErrProjectNoPermission = "user does not have permission to the project"
-
-	// ErrProjectIDNotExists describes an error
-	// when no proper project ID is found
-	ErrProjectIDNotExists = "project ID does not exist"
-
-	// ErrProjectNameAlreadyExists describes a duplicate project name error
-	ErrProjectNameAlreadyExists = "project name already exists"
-
-	// ErrProjectMismatch describes a failed lookup
-	// of a project with name/id pair
-	ErrProjectMismatch = "id/name pair not found on server side"
-
-	// ErrProjectNotFound describes an error
-	// when a specific project is not found
-	ErrProjectNotFound = "project not found on server side"
-)
-
-// ProjectError is an error describing a errors related to project operations
-// and implements the error interface.
-type ProjectError struct {
-	// ID of the related project. -1 means undefined.
-	ProjectID int32
-
-	// Name of the related project. Empty string means undefined.
-	ProjectName string
-
-	// Error message of the related project.
-	errorMessage string
-}
-
-// Error implements the Error interface.
-func (p *ProjectError) Error() string {
-	return fmt.Sprintf("%s (project: %s, id: %d)",
-		p.errorMessage, p.ProjectName, p.ProjectID)
-}
-
-// NewProjectError creates a new ProjectError.
-func NewProjectError(msg string, id int32, name string) error {
-	return &ProjectError{
-		ProjectID:    id,
-		ProjectName:  name,
-		errorMessage: msg,
-	}
-}
 
 // ProjectRESTClient is a subclient for RESTClient handling project related
 // actions.
@@ -93,7 +35,7 @@ func (c *ProjectRESTClient) NewProject(ctx context.Context, name string,
 			Context: ctx,
 		}, c.parent.AuthInfo)
 
-	err = handleSwaggerProjectErrors(err, -1, name)
+	err = handleSwaggerProjectErrors(err)
 	if err != nil {
 		return nil, err
 	}
@@ -112,25 +54,24 @@ func (c *ProjectRESTClient) NewProject(ctx context.Context, name string,
 func (c *ProjectRESTClient) Delete(ctx context.Context,
 	p *model.Project) error {
 	if p == nil {
-		return errors.New("no project provided")
+		return &ErrProjectNotProvided{}
 	}
 
-	project, err := c.Get(ctx, p.Name)
+	projectExists, err := c.projectExists(ctx, p)
 	if err != nil {
 		return err
 	}
-
-	if p.ProjectID != project.ProjectID {
-		return NewProjectError(ErrProjectMismatch, p.ProjectID, p.Name)
+	if !projectExists {
+		return &ErrProjectMismatch{}
 	}
 
 	_, err = c.parent.Client.Products.DeleteProjectsProjectID(
 		&products.DeleteProjectsProjectIDParams{
-			ProjectID: int64(project.ProjectID),
+			ProjectID: int64(p.ProjectID),
 			Context:   ctx,
 		}, c.parent.AuthInfo)
 
-	return handleSwaggerProjectErrors(err, p.ProjectID, p.Name)
+	return handleSwaggerProjectErrors(err)
 }
 
 // Get returns a project identified by name.
@@ -147,7 +88,7 @@ func (c *ProjectRESTClient) Get(ctx context.Context,
 			Context: ctx,
 		}, c.parent.AuthInfo)
 
-	err = handleSwaggerProjectErrors(err, -1, name)
+	err = handleSwaggerProjectErrors(err)
 	if err != nil {
 		return nil, err
 	}
@@ -158,7 +99,7 @@ func (c *ProjectRESTClient) Get(ctx context.Context,
 		}
 	}
 
-	return nil, NewProjectError(ErrProjectNotFound, -1, name)
+	return nil, &ErrProjectNotFound{}
 }
 
 // List retrieves projects filtered by name (all if name is empty string).
@@ -171,13 +112,13 @@ func (c *ProjectRESTClient) List(ctx context.Context,
 			Context: ctx,
 		}, c.parent.AuthInfo)
 
-	err = handleSwaggerProjectErrors(err, -1, "")
+	err = handleSwaggerProjectErrors(err)
 	if err != nil {
 		return nil, err
 	}
 
 	if len(resp.Payload) == 0 {
-		return nil, NewProjectError(ErrProjectNotFound, -1, nameFilter)
+		return nil, &ErrProjectNotFound{}
 	}
 
 	return resp.Payload, nil
@@ -193,7 +134,7 @@ func (c *ProjectRESTClient) Update(ctx context.Context, p *model.Project,
 	}
 
 	if p.ProjectID != project.ProjectID {
-		return NewProjectError(ErrProjectMismatch, p.ProjectID, p.Name)
+		return &ErrProjectMismatch{}
 	}
 
 	pReq := &model.ProjectReq{
@@ -211,35 +152,197 @@ func (c *ProjectRESTClient) Update(ctx context.Context, p *model.Project,
 			Context:   ctx,
 		}, c.parent.AuthInfo)
 
-	return handleSwaggerProjectErrors(err, p.ProjectID, p.Name)
+	return handleSwaggerProjectErrors(err)
+}
+
+// AddUserMember adds an existing user to a project with a role identified by roleID.
+func (c *ProjectRESTClient) AddUserMember(ctx context.Context, p *model.Project, u *model.User, roleID int) error {
+	if p == nil {
+		return &ErrProjectNotProvided{}
+	}
+	if u == nil {
+		return &ErrProjectNoMemberProvided{}
+	}
+
+	projectExists, err := c.projectExists(ctx, p)
+	if err != nil {
+		return err
+	}
+	if !projectExists {
+		return &ErrProjectMismatch{}
+	}
+
+	userExists, err := c.parent.Users().userExists(ctx, u)
+	if err != nil {
+		return err
+	}
+	if !userExists {
+		return &ErrProjectMemberMismatch{}
+	}
+
+	m := &model.ProjectMember{
+		RoleID: int64(roleID),
+		MemberUser: &model.UserEntity{
+			UserID:   u.UserID,
+			Username: u.Username,
+		},
+		MemberGroup: &model.UserGroup{},
+	}
+
+	_, err = c.parent.Client.Products.PostProjectsProjectIDMembers(&products.PostProjectsProjectIDMembersParams{
+		ProjectID:     int64(p.ProjectID),
+		ProjectMember: m,
+		Context:       ctx,
+	}, c.parent.AuthInfo)
+
+	return handleSwaggerProjectErrors(err)
+}
+
+// List members lists all members (users and groups alike) of a project.
+func (c *ProjectRESTClient) ListMembers(ctx context.Context, p *model.Project) ([]*model.ProjectMemberEntity, error) {
+	if p == nil {
+		return nil, &ErrProjectNotProvided{}
+	}
+
+	entityName := ""
+
+	resp, err := c.parent.Client.Products.GetProjectsProjectIDMembers(&products.GetProjectsProjectIDMembersParams{
+		Entityname: &entityName,
+		ProjectID:  int64(p.ProjectID),
+		Context:    ctx,
+	}, c.parent.AuthInfo)
+
+	return resp.Payload, handleSwaggerProjectErrors(err)
+}
+
+// UpdateUserMemberRole updates the role of a member.
+func (c *ProjectRESTClient) UpdateUserMemberRole(ctx context.Context, p *model.Project, u *model.User, roleID int) error {
+	if p == nil {
+		return &ErrProjectNotProvided{}
+	}
+	if u == nil {
+		return &ErrProjectNoMemberProvided{}
+	}
+
+	projectExists, err := c.projectExists(ctx, p)
+	if err != nil {
+		return err
+	}
+	if !projectExists {
+		return &ErrProjectMismatch{}
+	}
+
+	mid, err := c.getMid(ctx, p, u)
+	if err != nil {
+		return err
+	}
+
+	roleRequest := &model.RoleRequest{RoleID: int64(roleID)}
+
+	_, err = c.parent.Client.Products.PutProjectsProjectIDMembersMid(&products.PutProjectsProjectIDMembersMidParams{
+		Mid:       mid,
+		ProjectID: int64(p.ProjectID),
+		Role:      roleRequest,
+		Context:   ctx,
+	}, c.parent.AuthInfo)
+
+	return handleSwaggerProjectErrors(err)
+}
+
+// DeleteUserMember deletes the membership of a user on a project.
+func (c *ProjectRESTClient) DeleteUserMember(ctx context.Context, p *model.Project, u *model.User) error {
+	if p == nil {
+		return &ErrProjectNotProvided{}
+	}
+	if u == nil {
+		return &ErrProjectNoMemberProvided{}
+	}
+
+	projectExists, err := c.projectExists(ctx, p)
+	if err != nil {
+		return err
+	}
+	if !projectExists {
+		return &ErrProjectMismatch{}
+	}
+
+	mid, err := c.getMid(ctx, p, u)
+	if err != nil {
+		return err
+	}
+
+	_, err = c.parent.Client.Products.DeleteProjectsProjectIDMembersMid(
+		&products.DeleteProjectsProjectIDMembersMidParams{
+			Mid:       mid,
+			ProjectID: int64(p.ProjectID),
+			Context:   ctx,
+		}, c.parent.AuthInfo)
+
+	return handleSwaggerProjectErrors(err)
 }
 
 // handleProjectErrors takes a swagger generated error as input,
 // which usually does not contain any form of error message,
 // and outputs a new error with proper message.
-func handleSwaggerProjectErrors(in error, id int32, name string) error {
+func handleSwaggerProjectErrors(in error) error {
 	t, ok := in.(*runtime.APIError)
 	if ok {
 		switch t.Code {
 		case 400:
-			return NewProjectError(ErrProjectIlligalIDFormat, id, name)
+			return &ErrProjectIllegalIDFormat{}
 		case 401:
-			return NewProjectError(ErrProjectUnauthorized, id, name)
+			return &ErrProjectUnauthorized{}
 		case 403:
-			return NewProjectError(ErrProjectNoPermission, id, name)
+			return &ErrProjectNoPermission{}
 		case 500:
-			return NewProjectError(ErrProjectInternalErrors, id, name)
+			return &ErrProjectInternalErrors{}
 		}
 	}
 
 	switch in.(type) {
 	case *products.DeleteProjectsProjectIDNotFound:
-		return NewProjectError(ErrProjectIDNotExists, id, name)
+		return &ErrProjectIDNotExists{}
 	case *products.PutProjectsProjectIDNotFound:
-		return NewProjectError(ErrProjectIDNotExists, id, name)
+		return &ErrProjectIDNotExists{}
 	case *products.PostProjectsConflict:
-		return NewProjectError(ErrProjectNameAlreadyExists, id, name)
+		return &ErrProjectNameAlreadyExists{}
+	case *products.PostProjectsProjectIDMembersBadRequest:
+		return &ErrProjectMemberIllegalFormat{}
 	default:
 		return in
 	}
+}
+
+// projectExists returns true, if p matches a project on server side.
+// Returns false, if not found.
+// Returns an error in case of communication problems.
+func (c *ProjectRESTClient) projectExists(ctx context.Context, p *model.Project) (bool, error) {
+	_, err := c.Get(ctx, p.Name)
+
+	if err != nil {
+		if _, ok := err.(*ErrProjectNotFound); ok {
+			return false, nil
+		} else {
+			return false, err
+		}
+	}
+
+	return true, nil
+}
+
+// getMid returns the member ID of a user u in project p.
+// Returns an error, if user is not a member in project or
+// in case a communication error has occured.
+func (c *ProjectRESTClient) getMid(ctx context.Context, p *model.Project, u *model.User) (int64, error) {
+	members, err := c.ListMembers(ctx, p)
+	if err != nil {
+		return 0, err
+	}
+	for _, v := range members {
+		if v.EntityType == "u" && v.EntityName == u.Username {
+			return v.ID, nil
+		}
+	}
+
+	return 0, &ErrProjectUserIsNoMember{}
 }

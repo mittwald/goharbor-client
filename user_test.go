@@ -56,7 +56,7 @@ func TestAPIUserAlreadyExists(t *testing.T) {
 	_, err = c.Users().NewUser(ctx, username, email, realname, password, comments)
 
 	if assert.Error(t, err) {
-		assert.Contains(t, err.Error(), "User with this username already exists")
+		assert.Contains(t, err.Error(), "user with this username already exists")
 	}
 }
 
