@@ -33,6 +33,11 @@ swagger_operations+=("PostRegistries")
 swagger_operations+=("PutRegistriesID")
 swagger_operations+=("DeleteRegistriesID")
 
+swagger_operations+=("GetUsers")
+swagger_operations+=("PostUsers")
+swagger_operations+=("PutUsersUserID")
+swagger_operations+=("DeleteUsersUserID")
+
 for i in "${swagger_operations[@]}"; do
   operation_flags+="--operation=${i} "
 done
