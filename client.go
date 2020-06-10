@@ -62,6 +62,13 @@ func (c *RESTClient) Replications() *ReplicationRESTClient {
 	}
 }
 
+// Registries returns a project subclient for handling project related actions.
+func (c *RESTClient) System() *SystemRESTClient {
+	return &SystemRESTClient{
+		parent: c,
+	}
+}
+
 // Health reports Harbor system health information.
 func (c *RESTClient) Health(ctx context.Context) (*model.OverallHealthStatus, error) {
 	resp, err := c.Client.Products.GetHealth(&products.GetHealthParams{

@@ -49,6 +49,10 @@ swagger_operations+=("PutReplicationPoliciesID")
 swagger_operations+=("GetReplicationPoliciesID")
 swagger_operations+=("DeleteReplicationPoliciesID")
 
+swagger_operations+=("PostSystemGcSchedule")
+swagger_operations+=("GetSystemGcSchedule")
+swagger_operations+=("PutSystemGcSchedule")
+
 for i in "${swagger_operations[@]}"; do
   operation_flags+="--operation=${i} "
 done
