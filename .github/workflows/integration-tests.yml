@@ -19,7 +19,7 @@ jobs:
         uses: engineerd/setup-kind@v0.4.0
         with:
           skipClusterCreation: "true"
-      - name: Setup helm
+      - name: Setup Helm
         run: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
       - name: Setup tools
         run: sudo apt-get update && sudo apt-get install -y jq make
