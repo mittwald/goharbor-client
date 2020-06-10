@@ -24,15 +24,15 @@ harbor-1.10.0:
 
 # Testing on Harbor 1.10.2
 integration-test-v1.10.2:
-	go test -v github.com/mittwald/goharbor-client -integration -version=1.10.2
+	CGO_ENABLED=0 go test -v github.com/mittwald/goharbor-client -integration -version=1.10.2
 
 # Testing on Harbor 1.10.1
 integration-test-v1.10.1:
-	go test -v github.com/mittwald/goharbor-client -integration -version=1.10.1
+	CGO_ENABLED=0 go test -v github.com/mittwald/goharbor-client -integration -version=1.10.1
 
 # Testing on Harbor 1.10.0
 integration-test-v1.10.0:
-	go test -v github.com/mittwald/goharbor-client -integration -version=1.10.0
+	CGO_ENABLED=0 go test -v github.com/mittwald/goharbor-client -integration -version=1.10.0
 
 teardown:
 	scripts/teardown-harbor.sh
