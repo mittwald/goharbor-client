@@ -22,6 +22,6 @@ jobs:
       - name: Setup helm
         run: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
       - name: Setup tools
-        run: apt-get update && apt-get install -y jq make
+        run: sudo apt-get update && sudo apt-get install -y jq make
       - name: Test
         run: make integration-test-v1.10.2
