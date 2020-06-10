@@ -38,6 +38,7 @@ func TestAPIReplicationNewDestRegistry(t *testing.T) {
 
 	reg, err := c.Registries().NewRegistry(ctx, regName, registryType, url, &credential, false)
 	require.NoError(t, err)
+	defer c.Registries().Delete(ctx, reg)
 
 	r, err := c.Replications().NewReplication(
 		ctx,
@@ -50,10 +51,9 @@ func TestAPIReplicationNewDestRegistry(t *testing.T) {
 		trigger,
 		"", "", name,
 	)
-	defer c.Registries().Delete(ctx, reg)
+	require.NoError(t, err)
 	defer c.Replications().Delete(ctx, r)
 
-	require.NoError(t, err)
 	assert.Equal(t, name, r.Name)
 }
 
@@ -86,6 +86,7 @@ func TestAPIReplicationNewSrcRegistry(t *testing.T) {
 
 	reg, err := c.Registries().NewRegistry(ctx, regName, registryType, url, &credential, false)
 	require.NoError(t, err)
+	defer c.Registries().Delete(ctx, reg)
 
 	r, err := c.Replications().NewReplication(
 		ctx,
@@ -98,10 +99,9 @@ func TestAPIReplicationNewSrcRegistry(t *testing.T) {
 		trigger,
 		"", "", name,
 	)
-	defer c.Registries().Delete(ctx, reg)
+	require.NoError(t, err)
 	defer c.Replications().Delete(ctx, r)
 
-	require.NoError(t, err)
 	assert.Equal(t, name, r.Name)
 }
 
@@ -146,6 +146,8 @@ func TestAPIReplicationDelete(t *testing.T) {
 		trigger,
 		"", "", name,
 	)
+	require.NoError(t, err)
+	defer c.Registries().Delete(ctx, reg)
 
 	err = c.Replications().Delete(ctx, r)
 	require.NoError(t, err)
@@ -154,8 +156,6 @@ func TestAPIReplicationDelete(t *testing.T) {
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrReplicationNotFound{}, err)
 	}
-
-	defer c.Registries().Delete(ctx, reg)
 }
 
 func TestAPIReplicationUpdate(t *testing.T) {
@@ -187,6 +187,7 @@ func TestAPIReplicationUpdate(t *testing.T) {
 
 	reg, err := c.Registries().NewRegistry(ctx, regName, registryType, url, &credential, false)
 	require.NoError(t, err)
+	defer c.Registries().Delete(ctx, reg)
 
 	r, err := c.Replications().NewReplication(
 		ctx,
@@ -200,6 +201,9 @@ func TestAPIReplicationUpdate(t *testing.T) {
 		"", "a", name,
 	)
 
+	require.NoError(t, err)
+	defer c.Replications().Delete(ctx, r)
+
 	descBefore := r.Description
 
 	r.Description = "b"
@@ -211,7 +215,4 @@ func TestAPIReplicationUpdate(t *testing.T) {
 	assert.NoError(t, err)
 
 	assert.NotEqual(t, descBefore, r.Description)
-
-	defer c.Registries().Delete(ctx, reg)
-	defer c.Replications().Delete(ctx, r)
 }

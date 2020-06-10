@@ -14,7 +14,8 @@ type ReplicationRESTClient struct {
 
 // NewReplication creates a new replication with the given arguments.
 func (c *ReplicationRESTClient) NewReplication(ctx context.Context, destRegistry, srcRegistry *model.Registry,
-	replicateDeletion, override, enablePolicy bool, filters []*model.ReplicationFilter, trigger *model.ReplicationTrigger,
+	replicateDeletion, override, enablePolicy bool,
+	filters []*model.ReplicationFilter, trigger *model.ReplicationTrigger,
 	destNamespace, description, name string) (*model.ReplicationPolicy, error) {
 	pReq := &model.ReplicationPolicy{
 		Deletion:      replicateDeletion,

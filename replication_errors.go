@@ -8,23 +8,33 @@ import (
 const (
 	// ErrReplicationIllegalIDFormat describes an illegal request format
 	ErrReplicationIllegalIDFormatMsg = "illegal format of provided ID value"
+
 	// ErrReplicationUnauthorized describes an unauthorized request
 	ErrReplicationUnauthorizedMsg = "unauthorized"
+
 	// ErrReplicationInternalErrors describes server-side internal errors
 	ErrReplicationInternalErrorsMsg = "unexpected internal errors"
+
 	// ErrReplicationNoPermission describes a request error without permission
 	ErrReplicationNoPermissionMsg = "user does not have permission to the replication"
+
 	// ErrReplicationIDNotExists describes an error
 	// when no proper replication ID is found
 	ErrReplicationIDNotExistsMsg = "replication ID does not exist"
+
 	// ErrReplicationNameAlreadyExists describes a duplicate replication name error
 	ErrReplicationNameAlreadyExistsMsg = "replication name already exists"
+
 	// ErrReplicationMismatch describes a failed lookup
 	// of a replication with name/id pair
 	ErrReplicationMismatchMsg = "id/name pair not found on server side"
+
 	// ErrReplicationNotFound describes an error
 	// when a specific replication is not found
-	ErrReplicationNotFoundMsg    = "replication not found on server side"
+	ErrReplicationNotFoundMsg = "replication not found on server side"
+
+	// ErrReplicationNotProvidedMsg describes an error
+	// caused by a missing replication object
 	ErrReplicationNotProvidedMsg = "no replication provided"
 )
 
