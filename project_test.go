@@ -63,9 +63,7 @@ func TestAPIProjectDelete(t *testing.T) {
 
 	p, err = c.Projects().Get(ctx, name)
 	if assert.Error(t, err) {
-		assert.Contains(t, err.Error(), "project not found")
-		_, ok := err.(*ProjectError)
-		assert.True(t, ok)
+		assert.IsType(t, &ErrProjectNotFound{}, err)
 	}
 }
 
@@ -99,6 +97,10 @@ func TestAPIProjectList(t *testing.T) {
 }
 
 func TestAPIProjectUpdate(t *testing.T) {
+	if !*integrationTest {
+		t.Skip()
+	}
+
 	name := "test-project"
 	ctx := context.Background()
 	c := NewClient(host, defaultUser, defaultPassword)
@@ -114,4 +116,158 @@ func TestAPIProjectUpdate(t *testing.T) {
 	p2, err := c.Projects().Get(ctx, name)
 	require.NoError(t, err)
 	assert.Equal(t, p, p2)
+}
+
+func TestAPIProjectUserMemberAdd(t *testing.T) {
+	if !*integrationTest {
+		t.Skip()
+	}
+
+	projectName := "test-project"
+	memberUsername := "foobar"
+	memberEmail := "foo@bar.com"
+	memberRealname := "Foo Bar"
+	memberPassword := "1VerySeriousPassword"
+	memberComments := "Some comments"
+
+	ctx := context.Background()
+	c := NewClient(host, defaultUser, defaultPassword)
+
+	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
+	defer c.Projects().Delete(ctx, p)
+	require.NoError(t, err)
+
+	u, err := c.Users().NewUser(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
+	require.NoError(t, err)
+	defer c.Users().Delete(ctx, u)
+
+	err = c.Projects().AddUserMember(ctx, p, u, 1)
+	require.NoError(t, err)
+
+}
+
+func TestAPIProjectMemberList(t *testing.T) {
+	if !*integrationTest {
+		t.Skip()
+	}
+
+	projectName := "test-project"
+	memberUsername := "foobar"
+	memberEmail := "foo@bar.com"
+	memberRealname := "Foo Bar"
+	memberPassword := "1VerySeriousPassword"
+	memberComments := "Some comments"
+
+	ctx := context.Background()
+	c := NewClient(host, defaultUser, defaultPassword)
+
+	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
+	defer c.Projects().Delete(ctx, p)
+	require.NoError(t, err)
+
+	u, err := c.Users().NewUser(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
+	require.NoError(t, err)
+	defer c.Users().Delete(ctx, u)
+
+	members, err := c.Projects().ListMembers(ctx, p)
+	require.NoError(t, err)
+
+	assert.Len(t, members, 1)
+
+	err = c.Projects().AddUserMember(ctx, p, u, 1)
+	require.NoError(t, err)
+
+	members, err = c.Projects().ListMembers(ctx, p)
+	require.NoError(t, err)
+
+	assert.Len(t, members, 2)
+
+}
+
+func TestAPIProjectUserMemberUpdate(t *testing.T) {
+	if !*integrationTest {
+		t.Skip()
+	}
+
+	projectName := "test-project"
+	memberUsername := "foobar"
+	memberEmail := "foo@bar.com"
+	memberRealname := "Foo Bar"
+	memberPassword := "1VerySeriousPassword"
+	memberComments := "Some comments"
+
+	ctx := context.Background()
+	c := NewClient(host, defaultUser, defaultPassword)
+
+	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
+	defer c.Projects().Delete(ctx, p)
+	require.NoError(t, err)
+
+	u, err := c.Users().NewUser(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
+	require.NoError(t, err)
+	defer c.Users().Delete(ctx, u)
+
+	err = c.Projects().AddUserMember(ctx, p, u, 1)
+	require.NoError(t, err)
+
+	err = c.Projects().UpdateUserMemberRole(ctx, p, u, 2)
+	require.NoError(t, err)
+
+	members, err := c.Projects().ListMembers(ctx, p)
+	require.NoError(t, err)
+
+	found := false
+	for _, v := range members {
+		if v.EntityType == "u" && v.ProjectID == int64(p.ProjectID) && v.EntityName == u.Username {
+			assert.Equal(t, int64(2), v.RoleID)
+			found = true
+		}
+	}
+
+	if !found {
+		t.Error("did not find member in project")
+	}
+}
+
+func TestAPIProjectUserMemberDelete(t *testing.T) {
+	if !*integrationTest {
+		t.Skip()
+	}
+
+	projectName := "test-project"
+	memberUsername := "foobar"
+	memberEmail := "foo@bar.com"
+	memberRealname := "Foo Bar"
+	memberPassword := "1VerySeriousPassword"
+	memberComments := "Some comments"
+
+	ctx := context.Background()
+	c := NewClient(host, defaultUser, defaultPassword)
+
+	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
+	defer c.Projects().Delete(ctx, p)
+	require.NoError(t, err)
+
+	u, err := c.Users().NewUser(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
+	require.NoError(t, err)
+	defer c.Users().Delete(ctx, u)
+
+	err = c.Projects().AddUserMember(ctx, p, u, 1)
+	require.NoError(t, err)
+
+	err = c.Projects().DeleteUserMember(ctx, p, u)
+	require.NoError(t, err)
+
+	members, err := c.Projects().ListMembers(ctx, p)
+	require.NoError(t, err)
+
+	found := false
+	for _, v := range members {
+		if v.EntityType == "u" && v.ProjectID == int64(p.ProjectID) && v.EntityName == u.Username {
+			assert.Equal(t, int64(2), v.RoleID)
+			found = true
+		}
+	}
+
+	assert.False(t, found)
 }

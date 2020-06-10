@@ -29,6 +29,8 @@ type Client struct {
 type ClientService interface {
 	DeleteProjectsProjectID(params *DeleteProjectsProjectIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProjectsProjectIDOK, error)
 
+	DeleteProjectsProjectIDMembersMid(params *DeleteProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProjectsProjectIDMembersMidOK, error)
+
 	DeleteRegistriesID(params *DeleteRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRegistriesIDOK, error)
 
 	DeleteUsersUserID(params *DeleteUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUsersUserIDOK, error)
@@ -39,17 +41,23 @@ type ClientService interface {
 
 	GetProjectsProjectID(params *GetProjectsProjectIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDOK, error)
 
+	GetProjectsProjectIDMembers(params *GetProjectsProjectIDMembersParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDMembersOK, error)
+
 	GetRegistries(params *GetRegistriesParams, authInfo runtime.ClientAuthInfoWriter) (*GetRegistriesOK, error)
 
 	GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersOK, error)
 
 	PostProjects(params *PostProjectsParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsCreated, error)
 
+	PostProjectsProjectIDMembers(params *PostProjectsProjectIDMembersParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsProjectIDMembersCreated, error)
+
 	PostRegistries(params *PostRegistriesParams, authInfo runtime.ClientAuthInfoWriter) (*PostRegistriesCreated, error)
 
 	PostUsers(params *PostUsersParams, authInfo runtime.ClientAuthInfoWriter) (*PostUsersCreated, error)
 
 	PutProjectsProjectID(params *PutProjectsProjectIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDOK, error)
+
+	PutProjectsProjectIDMembersMid(params *PutProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDMembersMidOK, error)
 
 	PutRegistriesID(params *PutRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutRegistriesIDOK, error)
 
@@ -93,6 +101,41 @@ func (a *Client) DeleteProjectsProjectID(params *DeleteProjectsProjectIDParams, 
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for DeleteProjectsProjectID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DeleteProjectsProjectIDMembersMid deletes project member
+*/
+func (a *Client) DeleteProjectsProjectIDMembersMid(params *DeleteProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProjectsProjectIDMembersMidOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteProjectsProjectIDMembersMidParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteProjectsProjectIDMembersMid",
+		Method:             "DELETE",
+		PathPattern:        "/projects/{project_id}/members/{mid}",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DeleteProjectsProjectIDMembersMidReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteProjectsProjectIDMembersMidOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteProjectsProjectIDMembersMid: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -288,6 +331,43 @@ func (a *Client) GetProjectsProjectID(params *GetProjectsProjectIDParams, authIn
 }
 
 /*
+  GetProjectsProjectIDMembers gets all project member information
+
+  Get all project member information
+*/
+func (a *Client) GetProjectsProjectIDMembers(params *GetProjectsProjectIDMembersParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDMembersOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetProjectsProjectIDMembersParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetProjectsProjectIDMembers",
+		Method:             "GET",
+		PathPattern:        "/projects/{project_id}/members",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetProjectsProjectIDMembersReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetProjectsProjectIDMembersOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetProjectsProjectIDMembers: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   GetRegistries lists registries
 
   This endpoint let user list filtered registries by name, if name is nil, list returns all registries.
@@ -402,6 +482,43 @@ func (a *Client) PostProjects(params *PostProjectsParams, authInfo runtime.Clien
 }
 
 /*
+  PostProjectsProjectIDMembers creates project member
+
+  Create project member relationship, the member can be one of the user_member and group_member,  The user_member need to specify user_id or username. If the user already exist in harbor DB, specify the user_id,  If does not exist in harbor DB, it will SearchAndOnBoard the user. The group_member need to specify id or ldap_group_dn. If the group already exist in harbor DB. specify the user group's id,  If does not exist, it will SearchAndOnBoard the group.
+*/
+func (a *Client) PostProjectsProjectIDMembers(params *PostProjectsProjectIDMembersParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsProjectIDMembersCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostProjectsProjectIDMembersParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostProjectsProjectIDMembers",
+		Method:             "POST",
+		PathPattern:        "/projects/{project_id}/members",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PostProjectsProjectIDMembersReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostProjectsProjectIDMembersCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostProjectsProjectIDMembers: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   PostRegistries creates a new registry
 
   This endpoint is for user to create a new registry.
@@ -512,6 +629,43 @@ func (a *Client) PutProjectsProjectID(params *PutProjectsProjectIDParams, authIn
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for PutProjectsProjectID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  PutProjectsProjectIDMembersMid updates project member
+
+  Update project member relationship
+*/
+func (a *Client) PutProjectsProjectIDMembersMid(params *PutProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDMembersMidOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPutProjectsProjectIDMembersMidParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PutProjectsProjectIDMembersMid",
+		Method:             "PUT",
+		PathPattern:        "/projects/{project_id}/members/{mid}",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PutProjectsProjectIDMembersMidReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PutProjectsProjectIDMembersMidOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PutProjectsProjectIDMembersMid: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
