@@ -33,6 +33,8 @@ type ClientService interface {
 
 	DeleteRegistriesID(params *DeleteRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRegistriesIDOK, error)
 
+	DeleteReplicationPoliciesID(params *DeleteReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteReplicationPoliciesIDOK, error)
+
 	DeleteUsersUserID(params *DeleteUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUsersUserIDOK, error)
 
 	GetHealth(params *GetHealthParams, authInfo runtime.ClientAuthInfoWriter) (*GetHealthOK, error)
@@ -45,6 +47,10 @@ type ClientService interface {
 
 	GetRegistries(params *GetRegistriesParams, authInfo runtime.ClientAuthInfoWriter) (*GetRegistriesOK, error)
 
+	GetReplicationPolicies(params *GetReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationPoliciesOK, error)
+
+	GetReplicationPoliciesID(params *GetReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationPoliciesIDOK, error)
+
 	GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersOK, error)
 
 	PostProjects(params *PostProjectsParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsCreated, error)
@@ -53,6 +59,8 @@ type ClientService interface {
 
 	PostRegistries(params *PostRegistriesParams, authInfo runtime.ClientAuthInfoWriter) (*PostRegistriesCreated, error)
 
+	PostReplicationPolicies(params *PostReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*PostReplicationPoliciesCreated, error)
+
 	PostUsers(params *PostUsersParams, authInfo runtime.ClientAuthInfoWriter) (*PostUsersCreated, error)
 
 	PutProjectsProjectID(params *PutProjectsProjectIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDOK, error)
@@ -60,6 +68,8 @@ type ClientService interface {
 	PutProjectsProjectIDMembersMid(params *PutProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDMembersMidOK, error)
 
 	PutRegistriesID(params *PutRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutRegistriesIDOK, error)
+
+	PutReplicationPoliciesID(params *PutReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutReplicationPoliciesIDOK, error)
 
 	PutUsersUserID(params *PutUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutUsersUserIDOK, error)
 
@@ -174,6 +184,44 @@ func (a *Client) DeleteRegistriesID(params *DeleteRegistriesIDParams, authInfo r
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for DeleteRegistriesID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DeleteReplicationPoliciesID deletes the replication policy specified by ID
+
+  Delete the replication policy specified by ID.
+
+*/
+func (a *Client) DeleteReplicationPoliciesID(params *DeleteReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteReplicationPoliciesIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteReplicationPoliciesIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteReplicationPoliciesID",
+		Method:             "DELETE",
+		PathPattern:        "/replication/policies/{id}",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DeleteReplicationPoliciesIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteReplicationPoliciesIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteReplicationPoliciesID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -406,6 +454,82 @@ func (a *Client) GetRegistries(params *GetRegistriesParams, authInfo runtime.Cli
 }
 
 /*
+  GetReplicationPolicies lists replication policies
+
+  This endpoint let user list replication policies
+
+*/
+func (a *Client) GetReplicationPolicies(params *GetReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationPoliciesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetReplicationPoliciesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetReplicationPolicies",
+		Method:             "GET",
+		PathPattern:        "/replication/policies",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetReplicationPoliciesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetReplicationPoliciesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetReplicationPolicies: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetReplicationPoliciesID gets replication policy
+
+  This endpoint let user get replication policy by specific ID.
+
+*/
+func (a *Client) GetReplicationPoliciesID(params *GetReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationPoliciesIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetReplicationPoliciesIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetReplicationPoliciesID",
+		Method:             "GET",
+		PathPattern:        "/replication/policies/{id}",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetReplicationPoliciesIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetReplicationPoliciesIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetReplicationPoliciesID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   GetUsers gets registered users of harbor
 
   This endpoint is for user to search registered users, support for filtering results with username.Notice, by now this operation is only for administrator.
@@ -557,6 +681,44 @@ func (a *Client) PostRegistries(params *PostRegistriesParams, authInfo runtime.C
 }
 
 /*
+  PostReplicationPolicies creates a replication policy
+
+  This endpoint let user create a replication policy
+
+*/
+func (a *Client) PostReplicationPolicies(params *PostReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*PostReplicationPoliciesCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostReplicationPoliciesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostReplicationPolicies",
+		Method:             "POST",
+		PathPattern:        "/replication/policies",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PostReplicationPoliciesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostReplicationPoliciesCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostReplicationPolicies: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   PostUsers creates a new user account
 
   This endpoint is to create a user if the user does not already exist.
@@ -704,6 +866,44 @@ func (a *Client) PutRegistriesID(params *PutRegistriesIDParams, authInfo runtime
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for PutRegistriesID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  PutReplicationPoliciesID updates the replication policy
+
+  This endpoint let user update policy.
+
+*/
+func (a *Client) PutReplicationPoliciesID(params *PutReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutReplicationPoliciesIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPutReplicationPoliciesIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PutReplicationPoliciesID",
+		Method:             "PUT",
+		PathPattern:        "/replication/policies/{id}",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PutReplicationPoliciesIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PutReplicationPoliciesIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PutReplicationPoliciesID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

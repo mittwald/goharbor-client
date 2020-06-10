@@ -43,6 +43,12 @@ swagger_operations+=("PostUsers")
 swagger_operations+=("PutUsersUserID")
 swagger_operations+=("DeleteUsersUserID")
 
+swagger_operations+=("PostReplicationPolicies")
+swagger_operations+=("GetReplicationPolicies")
+swagger_operations+=("PutReplicationPoliciesID")
+swagger_operations+=("GetReplicationPoliciesID")
+swagger_operations+=("DeleteReplicationPoliciesID")
+
 for i in "${swagger_operations[@]}"; do
   operation_flags+="--operation=${i} "
 done
