@@ -31,6 +31,8 @@ type ClientService interface {
 
 	DeleteProjectsProjectIDMembersMid(params *DeleteProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProjectsProjectIDMembersMidOK, error)
 
+	DeleteRegistriesID(params *DeleteRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRegistriesIDOK, error)
+
 	DeleteUsersUserID(params *DeleteUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUsersUserIDOK, error)
 
 	GetHealth(params *GetHealthParams, authInfo runtime.ClientAuthInfoWriter) (*GetHealthOK, error)
@@ -41,17 +43,23 @@ type ClientService interface {
 
 	GetProjectsProjectIDMembers(params *GetProjectsProjectIDMembersParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDMembersOK, error)
 
+	GetRegistries(params *GetRegistriesParams, authInfo runtime.ClientAuthInfoWriter) (*GetRegistriesOK, error)
+
 	GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersOK, error)
 
 	PostProjects(params *PostProjectsParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsCreated, error)
 
 	PostProjectsProjectIDMembers(params *PostProjectsProjectIDMembersParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsProjectIDMembersCreated, error)
 
+	PostRegistries(params *PostRegistriesParams, authInfo runtime.ClientAuthInfoWriter) (*PostRegistriesCreated, error)
+
 	PostUsers(params *PostUsersParams, authInfo runtime.ClientAuthInfoWriter) (*PostUsersCreated, error)
 
 	PutProjectsProjectID(params *PutProjectsProjectIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDOK, error)
 
 	PutProjectsProjectIDMembersMid(params *PutProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDMembersMidOK, error)
+
+	PutRegistriesID(params *PutRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutRegistriesIDOK, error)
 
 	PutUsersUserID(params *PutUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutUsersUserIDOK, error)
 
@@ -128,6 +136,44 @@ func (a *Client) DeleteProjectsProjectIDMembersMid(params *DeleteProjectsProject
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for DeleteProjectsProjectIDMembersMid: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DeleteRegistriesID deletes specific registry
+
+  This endpoint is for to delete specific registry.
+
+*/
+func (a *Client) DeleteRegistriesID(params *DeleteRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRegistriesIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteRegistriesIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteRegistriesID",
+		Method:             "DELETE",
+		PathPattern:        "/registries/{id}",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DeleteRegistriesIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteRegistriesIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteRegistriesID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -322,6 +368,44 @@ func (a *Client) GetProjectsProjectIDMembers(params *GetProjectsProjectIDMembers
 }
 
 /*
+  GetRegistries lists registries
+
+  This endpoint let user list filtered registries by name, if name is nil, list returns all registries.
+
+*/
+func (a *Client) GetRegistries(params *GetRegistriesParams, authInfo runtime.ClientAuthInfoWriter) (*GetRegistriesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetRegistriesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetRegistries",
+		Method:             "GET",
+		PathPattern:        "/registries",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetRegistriesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetRegistriesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetRegistries: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   GetUsers gets registered users of harbor
 
   This endpoint is for user to search registered users, support for filtering results with username.Notice, by now this operation is only for administrator.
@@ -435,6 +519,44 @@ func (a *Client) PostProjectsProjectIDMembers(params *PostProjectsProjectIDMembe
 }
 
 /*
+  PostRegistries creates a new registry
+
+  This endpoint is for user to create a new registry.
+
+*/
+func (a *Client) PostRegistries(params *PostRegistriesParams, authInfo runtime.ClientAuthInfoWriter) (*PostRegistriesCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostRegistriesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostRegistries",
+		Method:             "POST",
+		PathPattern:        "/registries",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PostRegistriesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostRegistriesCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostRegistries: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   PostUsers creates a new user account
 
   This endpoint is to create a user if the user does not already exist.
@@ -544,6 +666,44 @@ func (a *Client) PutProjectsProjectIDMembersMid(params *PutProjectsProjectIDMemb
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for PutProjectsProjectIDMembersMid: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  PutRegistriesID updates a given registry
+
+  This endpoint is for update a given registry.
+
+*/
+func (a *Client) PutRegistriesID(params *PutRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutRegistriesIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPutRegistriesIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PutRegistriesID",
+		Method:             "PUT",
+		PathPattern:        "/registries/{id}",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PutRegistriesIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PutRegistriesIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PutRegistriesID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

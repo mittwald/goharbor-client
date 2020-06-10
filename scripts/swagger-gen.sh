@@ -33,6 +33,11 @@ swagger_operations+=("GetProjectsProjectIDMembers")
 swagger_operations+=("PutProjectsProjectIDMembersMid")
 swagger_operations+=("DeleteProjectsProjectIDMembersMid")
 
+swagger_operations+=("GetRegistries")
+swagger_operations+=("PostRegistries")
+swagger_operations+=("PutRegistriesID")
+swagger_operations+=("DeleteRegistriesID")
+
 swagger_operations+=("GetUsers")
 swagger_operations+=("PostUsers")
 swagger_operations+=("PutUsersUserID")
