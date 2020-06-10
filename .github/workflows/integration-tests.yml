@@ -6,7 +6,7 @@ env:
   GOPROXY: https://proxy.golang.org
 
 jobs:
-  test-harbor-1.10.2:
+  test-harbor-1-10-2:
     name: Test on Harbor 1.10.2
     runs-on: ubuntu-latest
     steps:
