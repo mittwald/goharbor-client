@@ -34,6 +34,8 @@ func TestAPISystemGcScheduleNew(t *testing.T) {
 	assert.Equal(t, gcSchedule.Schedule.Type, scheduleType)
 }
 
+// TestAPISystemGcScheduleUpdate tests the update of an existing GC schedule,
+// asserting the updated schedule cron matches the given values
 func TestAPISystemGcScheduleUpdate(t *testing.T) {
 	if !*integrationTest {
 		t.Skip()
@@ -68,8 +70,7 @@ func TestAPISystemGcScheduleUpdate(t *testing.T) {
 	require.NoError(t, err)
 }
 
-// TestAPISystemGcScheduleReset tests the creation of a new GC schedule
-// and resets it to the default schedule afterwards
+// TestAPISystemGcScheduleReset tests the reset of an existing GC schedule
 func TestAPISystemGcScheduleReset(t *testing.T) {
 	if !*integrationTest {
 		t.Skip()
