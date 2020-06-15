@@ -17,7 +17,7 @@ jobs:
         run: sudo apt-get -y install gnupg ca-certificates
 
       - name: Add Swagger Keyring
-        run: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
+        run: sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
 
       - name: Add Swagger to APT sources
         run: echo "deb https://dl.bintray.com/go-swagger/goswagger-debian ubuntu main" | tee /etc/apt/sources.list.d/goswagger.list
