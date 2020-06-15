@@ -14,9 +14,11 @@ jobs:
         id: go
 
       - name: Set up Swagger
-        run: dir=$(mktemp -d); git clone https://github.com/go-swagger/go-swagger "$dir" && \
-          cd "$dir" && \
-          go install ./cmd/swagger
+        run: sudo apt -y install gnupg ca-certificates && \
+          sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61 && \
+          echo "deb https://dl.bintray.com/go-swagger/goswagger-debian ubuntu main" | sudo tee /etc/apt/sources.list.d/goswagger.list && \
+          sudo apt -y update && \
+          sudo apt -y install swagger
 
       - name: Check out code into the Go module directory
         uses: actions/checkout@v2
