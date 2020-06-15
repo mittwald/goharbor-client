@@ -51,6 +51,8 @@ type ClientService interface {
 
 	GetReplicationPoliciesID(params *GetReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationPoliciesIDOK, error)
 
+	GetSystemGcSchedule(params *GetSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*GetSystemGcScheduleOK, error)
+
 	GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersOK, error)
 
 	PostProjects(params *PostProjectsParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsCreated, error)
@@ -61,6 +63,8 @@ type ClientService interface {
 
 	PostReplicationPolicies(params *PostReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*PostReplicationPoliciesCreated, error)
 
+	PostSystemGcSchedule(params *PostSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*PostSystemGcScheduleOK, error)
+
 	PostUsers(params *PostUsersParams, authInfo runtime.ClientAuthInfoWriter) (*PostUsersCreated, error)
 
 	PutProjectsProjectID(params *PutProjectsProjectIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDOK, error)
@@ -70,6 +74,8 @@ type ClientService interface {
 	PutRegistriesID(params *PutRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutRegistriesIDOK, error)
 
 	PutReplicationPoliciesID(params *PutReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutReplicationPoliciesIDOK, error)
+
+	PutSystemGcSchedule(params *PutSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*PutSystemGcScheduleOK, error)
 
 	PutUsersUserID(params *PutUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutUsersUserIDOK, error)
 
@@ -530,6 +536,43 @@ func (a *Client) GetReplicationPoliciesID(params *GetReplicationPoliciesIDParams
 }
 
 /*
+  GetSystemGcSchedule gets gc s schedule
+
+  This endpoint is for get schedule of gc job.
+*/
+func (a *Client) GetSystemGcSchedule(params *GetSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*GetSystemGcScheduleOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSystemGcScheduleParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetSystemGcSchedule",
+		Method:             "GET",
+		PathPattern:        "/system/gc/schedule",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetSystemGcScheduleReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetSystemGcScheduleOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetSystemGcSchedule: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   GetUsers gets registered users of harbor
 
   This endpoint is for user to search registered users, support for filtering results with username.Notice, by now this operation is only for administrator.
@@ -719,6 +762,44 @@ func (a *Client) PostReplicationPolicies(params *PostReplicationPoliciesParams, 
 }
 
 /*
+  PostSystemGcSchedule creates a gc schedule
+
+  This endpoint is for update gc schedule.
+
+*/
+func (a *Client) PostSystemGcSchedule(params *PostSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*PostSystemGcScheduleOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostSystemGcScheduleParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostSystemGcSchedule",
+		Method:             "POST",
+		PathPattern:        "/system/gc/schedule",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PostSystemGcScheduleReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostSystemGcScheduleOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostSystemGcSchedule: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   PostUsers creates a new user account
 
   This endpoint is to create a user if the user does not already exist.
@@ -904,6 +985,44 @@ func (a *Client) PutReplicationPoliciesID(params *PutReplicationPoliciesIDParams
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for PutReplicationPoliciesID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  PutSystemGcSchedule updates gc s schedule
+
+  This endpoint is for update gc schedule.
+
+*/
+func (a *Client) PutSystemGcSchedule(params *PutSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*PutSystemGcScheduleOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPutSystemGcScheduleParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PutSystemGcSchedule",
+		Method:             "PUT",
+		PathPattern:        "/system/gc/schedule",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PutSystemGcScheduleReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PutSystemGcScheduleOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PutSystemGcSchedule: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
