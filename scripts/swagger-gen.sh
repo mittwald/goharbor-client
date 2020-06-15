@@ -57,7 +57,7 @@ for i in "${swagger_operations[@]}"; do
   operation_flags+="--operation=${i} "
 done
 
-docker run --rm -it -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
+docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
   generate client \
   --skip-validation \
   --model-package="api/${API_VERSION}/model" \
