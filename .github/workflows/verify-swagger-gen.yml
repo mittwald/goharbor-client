@@ -13,18 +13,6 @@ jobs:
           go-version: '1.13.1'
         id: go
 
-      - name: Install gnupg, ca-certificates
-        run: sudo apt-get -y install gnupg ca-certificates
-
-      - name: Add Swagger Keyring
-        run: sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
-
-      - name: Add Swagger to APT sources
-        run: echo "deb https://dl.bintray.com/go-swagger/goswagger-debian ubuntu main" | sudo tee /etc/apt/sources.list.d/goswagger.list
-
-      - name: Set up Swagger
-        run: sudo apt-get -y update && sudo apt-get -y install swagger
-
       - name: Check out code into the Go module directory
         uses: actions/checkout@v2
 
