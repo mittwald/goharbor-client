@@ -57,11 +57,15 @@ for i in "${swagger_operations[@]}"; do
   operation_flags+="--operation=${i} "
 done
 
-docker run --rm -it -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
-  generate client \
-  --skip-validation \
-  --model-package="api/${API_VERSION}/model" \
-  --name="harbor" \
-  --client-package="api/${API_VERSION}/client" \
-  --spec="${SWAGGER_FILE}" \
-  ${operation_flags}
+SWAGGER_ARGS="generate client --skip-validation --model-package="api/${API_VERSION}/model"
+  --name=harbor --client-package="api/${API_VERSION}/client" --spec=${SWAGGER_FILE}  ${operation_flags}"
+
+command -v swagger
+if [[ $? -eq 1 ]]; then
+  echo -e "'swagger' command not found
+Using docker with ${SWAGGER_IMAGE} for code generation ..."
+    docker run --rm -it -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} ${SWAGGER_ARGS}
+  exit 0
+fi
+
+swagger ${SWAGGER_ARGS}

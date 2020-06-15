@@ -1,0 +1,32 @@
+name: Verify
+
+on: pull_request
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Go 1.13
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.13
+        id: go
+
+      - name: Set up Swagger
+        run: apt-get -y install jq; download_url=$(curl -s https://api.github.com/repos/go-swagger/go-swagger/releases/latest | \
+          jq -r '.assets[] | select(.name | contains("'"$(uname | tr '[:upper:]' '[:lower:]')"'_amd64")) | .browser_download_url')
+          curl -o /usr/local/bin/swagger -L'#' "$download_url"
+          chmod +x /usr/local/bin/swagger
+
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+
+      - name: Run code generation
+        run: make swagger
+
+      - name: Test diff
+        run: |
+          git diff | cat
+          git status --porcelain=v1
+          test $(git status --porcelain=v1 | wc -l) -eq 0
