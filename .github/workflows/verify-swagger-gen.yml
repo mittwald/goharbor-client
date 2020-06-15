@@ -1,4 +1,4 @@
-name: Verify
+name: Verify code generation integrity
 
 on: pull_request
 
