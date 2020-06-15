@@ -14,10 +14,10 @@ jobs:
         id: go
 
       - name: Set up Swagger
-        run: sudo apt-get -y install jq; download_url=$(curl -s https://api.github.com/repos/go-swagger/go-swagger/releases/latest | \
-          jq -r '.assets[] | select(.name | contains("'"$(uname | tr '[:upper:]' '[:lower:]')"'_amd64")) | .browser_download_url')
-          curl -o /usr/local/bin/swagger -L'#' "$download_url"
-          sudo chmod +x /usr/local/bin/swagger
+        run: set -x; download_url=$(curl -s https://api.github.com/repos/go-swagger/go-swagger/releases/latest | \
+        jq -r '.assets[] | select(.name | contains("'"$(uname | tr '[:upper:]' '[:lower:]')"'_amd64")) | .browser_download_url')
+        curl -o /usr/local/bin/swagger -L'#' "$download_url"
+        sudo chmod +x /usr/local/bin/swagger
 
       - name: Check out code into the Go module directory
         uses: actions/checkout@v2
