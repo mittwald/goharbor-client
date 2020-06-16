@@ -271,3 +271,202 @@ func TestAPIProjectUserMemberDelete(t *testing.T) {
 
 	assert.False(t, found)
 }
+
+func TestAPIProjectMetadataAdd(t *testing.T) {
+	if !*integrationTest {
+		t.Skip()
+	}
+
+	projectName := "test-project"
+
+	ctx := context.Background()
+	c := NewClient(host, defaultUser, defaultPassword)
+
+	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
+	defer c.Projects().Delete(ctx, p)
+	require.NoError(t, err)
+
+	err = c.Projects().AddMetadata(ctx, p, AutoScanProjectMetadataKey, "true")
+	require.NoError(t, err)
+	err = c.Projects().AddMetadata(ctx, p, EnableContentTrustProjectMetadataKey, "true")
+	require.NoError(t, err)
+	err = c.Projects().AddMetadata(ctx, p, PreventVulProjectMetadataKey, "true")
+	require.NoError(t, err)
+	err = c.Projects().AddMetadata(ctx, p, ReuseSysCVEWhitelistProjectMetadataKey, "true")
+	require.NoError(t, err)
+	err = c.Projects().AddMetadata(ctx, p, SeverityProjectMetadataKey, "medium")
+	require.NoError(t, err)
+}
+
+func TestAPIProjectMetadataAlreadyExists(t *testing.T) {
+	if !*integrationTest {
+		t.Skip()
+	}
+
+	projectName := "test-project"
+
+	ctx := context.Background()
+	c := NewClient(host, defaultUser, defaultPassword)
+
+	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
+	defer c.Projects().Delete(ctx, p)
+	require.NoError(t, err)
+
+	err = c.Projects().AddMetadata(ctx, p, PublicProjectMetadataKey, "false")
+
+	if assert.Error(t, err) {
+		assert.Equal(t, "metadata key already exists", err.Error())
+		assert.IsType(t, &ErrProjectMetadataAlreadyExists{}, err)
+	}
+}
+
+func TestAPIProjectMetadataAddInvalidKey(t *testing.T) {
+	if !*integrationTest {
+		t.Skip()
+	}
+
+	projectName := "test-project"
+
+	ctx := context.Background()
+	c := NewClient(host, defaultUser, defaultPassword)
+
+	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
+	defer c.Projects().Delete(ctx, p)
+	require.NoError(t, err)
+
+	err = c.Projects().AddMetadata(ctx, p, "foobar", "true")
+
+	if assert.Error(t, err) {
+		assert.Equal(t, "invalid request", err.Error())
+		assert.IsType(t, &ErrProjectInvalidRequest{}, err)
+	}
+}
+
+func TestAPIProjectMetadataAddInvalidValue(t *testing.T) {
+	if !*integrationTest {
+		t.Skip()
+	}
+
+	projectName := "test-project"
+
+	ctx := context.Background()
+	c := NewClient(host, defaultUser, defaultPassword)
+
+	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
+	defer c.Projects().Delete(ctx, p)
+	require.NoError(t, err)
+
+	err = c.Projects().AddMetadata(ctx, p, AutoScanProjectMetadataKey, "foobar")
+
+	if assert.Error(t, err) {
+		assert.Equal(t, "invalid request", err.Error())
+		assert.IsType(t, &ErrProjectInvalidRequest{}, err)
+	}
+}
+
+func TestAPIProjectMetadataGet(t *testing.T) {
+	if !*integrationTest {
+		t.Skip()
+	}
+
+	projectName := "test-project"
+
+	ctx := context.Background()
+	c := NewClient(host, defaultUser, defaultPassword)
+
+	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
+	defer c.Projects().Delete(ctx, p)
+	require.NoError(t, err)
+
+	m, err := c.Projects().GetMetadata(ctx, p, PublicProjectMetadataKey)
+	require.NoError(t, err)
+
+	assert.Equal(t, "false", m)
+}
+
+func TestAPIProjectMetadataGetInvalidKey(t *testing.T) {
+	if !*integrationTest {
+		t.Skip()
+	}
+
+	projectName := "test-project"
+
+	ctx := context.Background()
+	c := NewClient(host, defaultUser, defaultPassword)
+
+	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
+	defer c.Projects().Delete(ctx, p)
+	require.NoError(t, err)
+
+	m, err := c.Projects().GetMetadata(ctx, p, "foobar")
+
+	if assert.Error(t, err) {
+		assert.Equal(t, "resource unknown", err.Error())
+		assert.IsType(t, &ErrProjectUnknownResource{}, err)
+	}
+
+	assert.Equal(t, "", m)
+}
+
+func TestAPIProjectMetadataList(t *testing.T) {
+	if !*integrationTest {
+		t.Skip()
+	}
+
+	projectName := "test-project"
+
+	ctx := context.Background()
+	c := NewClient(host, defaultUser, defaultPassword)
+
+	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
+	defer c.Projects().Delete(ctx, p)
+	require.NoError(t, err)
+
+	err = c.Projects().AddMetadata(ctx, p, AutoScanProjectMetadataKey, "true")
+	require.NoError(t, err)
+	err = c.Projects().AddMetadata(ctx, p, EnableContentTrustProjectMetadataKey, "true")
+	require.NoError(t, err)
+	err = c.Projects().AddMetadata(ctx, p, PreventVulProjectMetadataKey, "true")
+	require.NoError(t, err)
+	err = c.Projects().AddMetadata(ctx, p, ReuseSysCVEWhitelistProjectMetadataKey, "true")
+	require.NoError(t, err)
+	err = c.Projects().AddMetadata(ctx, p, SeverityProjectMetadataKey, "medium")
+	require.NoError(t, err)
+
+	m, err := c.Projects().ListMetadata(ctx, p)
+	require.NoError(t, err)
+
+	assert.Equal(t, "true", m.AutoScan)
+	assert.Equal(t, "true", m.EnableContentTrust)
+	assert.Equal(t, "true", m.PreventVul)
+	assert.Equal(t, "true", m.ReuseSysCveWhitelist)
+	assert.Equal(t, "medium", m.Severity)
+}
+
+func TestAPIProjectMetadataDelete(t *testing.T) {
+	if !*integrationTest {
+		t.Skip()
+	}
+
+	projectName := "test-project"
+
+	ctx := context.Background()
+	c := NewClient(host, defaultUser, defaultPassword)
+
+	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
+	defer c.Projects().Delete(ctx, p)
+	require.NoError(t, err)
+
+	err = c.Projects().AddMetadata(ctx, p, AutoScanProjectMetadataKey, "true")
+	require.NoError(t, err)
+
+	err = c.Projects().DeleteMetadata(ctx, p, AutoScanProjectMetadataKey)
+	require.NoError(t, err)
+
+	m, err := c.Projects().GetMetadata(ctx, p, AutoScanProjectMetadataKey)
+
+	if assert.Error(t, err) {
+		assert.Equal(t, "resource unknown", err.Error())
+	}
+	assert.Equal(t, "", m)
+}

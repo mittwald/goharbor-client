@@ -15,6 +15,17 @@ type ProjectRESTClient struct {
 	parent *RESTClient
 }
 
+type ProjectMetadataKey string
+
+const (
+	EnableContentTrustProjectMetadataKey   ProjectMetadataKey = "enable_content_trust"
+	AutoScanProjectMetadataKey             ProjectMetadataKey = "auto_scan"
+	SeverityProjectMetadataKey             ProjectMetadataKey = "severity"
+	ReuseSysCVEWhitelistProjectMetadataKey ProjectMetadataKey = "reuse_sys_cve_whitelist"
+	PublicProjectMetadataKey               ProjectMetadataKey = "public"
+	PreventVulProjectMetadataKey           ProjectMetadataKey = "prevent_vul"
+)
+
 // NewProject creates a new project with name as project name.
 // CountLimit and StorageLimit limits space and access for this project.
 // Returns the project as it is stored inside Harbor or an error,
@@ -212,7 +223,12 @@ func (c *ProjectRESTClient) ListMembers(ctx context.Context, p *model.Project) (
 		Context:    ctx,
 	}, c.parent.AuthInfo)
 
-	return resp.Payload, handleSwaggerProjectErrors(err)
+	err = handleSwaggerProjectErrors(err)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp.Payload, nil
 }
 
 // UpdateUserMemberRole updates the role of a member.
@@ -281,6 +297,122 @@ func (c *ProjectRESTClient) DeleteUserMember(ctx context.Context, p *model.Proje
 	return handleSwaggerProjectErrors(err)
 }
 
+// AddMetadata adds metadata with a specific key and value to project p.
+// See this for more explanation of possible keys and values:
+// https://github.com/goharbor/harbor/blob/v1.10.2/api/harbor/swagger.yaml#L4894
+func (c *ProjectRESTClient) AddMetadata(ctx context.Context, p *model.Project, key ProjectMetadataKey, value string) error {
+	if p == nil {
+		return &ErrProjectNotProvided{}
+	}
+
+	m := &model.ProjectMetadata{}
+	switch key {
+	case EnableContentTrustProjectMetadataKey:
+		m.EnableContentTrust = value
+	case AutoScanProjectMetadataKey:
+		m.AutoScan = value
+	case SeverityProjectMetadataKey:
+		m.Severity = value
+	case ReuseSysCVEWhitelistProjectMetadataKey:
+		m.ReuseSysCveWhitelist = value
+	case PublicProjectMetadataKey:
+		m.Public = value
+	case PreventVulProjectMetadataKey:
+		m.PreventVul = value
+	}
+
+	_, err := c.parent.Client.Products.PostProjectsProjectIDMetadatas(&products.PostProjectsProjectIDMetadatasParams{
+		Metadata:  m,
+		ProjectID: int64(p.ProjectID),
+		Context:   ctx,
+	}, c.parent.AuthInfo)
+
+	err = handleSwaggerProjectErrors(err)
+	if err != nil {
+		t, ok := err.(*runtime.APIError)
+		if ok && t.Code == 409 {
+			// Unspecified error, which is returned when an existing metadata key
+			// is tried to create a second time.
+			return &ErrProjectMetadataAlreadyExists{}
+		}
+		return err
+	}
+
+	return handleSwaggerProjectErrors(err)
+}
+
+// GetMetadata retrieves metadata with key of project p.
+func (c *ProjectRESTClient) GetMetadata(ctx context.Context, p *model.Project, key ProjectMetadataKey) (string, error) {
+	if p == nil {
+		return "", &ErrProjectNotProvided{}
+	}
+
+	resp, err := c.parent.Client.Products.GetProjectsProjectIDMetadatasMetaName(&products.GetProjectsProjectIDMetadatasMetaNameParams{
+		MetaName:  string(key),
+		ProjectID: int64(p.ProjectID),
+		Context:   ctx,
+	}, c.parent.AuthInfo)
+
+	err = handleSwaggerProjectErrors(err)
+	if err != nil {
+		return "", err
+	}
+
+	var result string
+	switch key {
+	case EnableContentTrustProjectMetadataKey:
+		result = resp.Payload.EnableContentTrust
+	case AutoScanProjectMetadataKey:
+		result = resp.Payload.AutoScan
+	case SeverityProjectMetadataKey:
+		result = resp.Payload.Severity
+	case ReuseSysCVEWhitelistProjectMetadataKey:
+		result = resp.Payload.ReuseSysCveWhitelist
+	case PublicProjectMetadataKey:
+		result = resp.Payload.Public
+	case PreventVulProjectMetadataKey:
+		result = resp.Payload.PreventVul
+	default:
+		return "", &ErrProjectInvalidRequest{}
+	}
+
+	return result, nil
+}
+
+// ListMetadata lists all metadata of a project
+func (c *ProjectRESTClient) ListMetadata(ctx context.Context, p *model.Project) (*model.ProjectMetadata, error) {
+	if p == nil {
+		return nil, &ErrProjectNotProvided{}
+	}
+
+	resp, err := c.parent.Client.Products.GetProjectsProjectIDMetadatas(&products.GetProjectsProjectIDMetadatasParams{
+		ProjectID: int64(p.ProjectID),
+		Context:   ctx,
+	}, c.parent.AuthInfo)
+
+	err = handleSwaggerProjectErrors(err)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp.Payload, nil
+}
+
+// DeleteMetadata deletes metadata of project p given by key.
+func (c *ProjectRESTClient) DeleteMetadata(ctx context.Context, p *model.Project, key ProjectMetadataKey) error {
+	if p == nil {
+		return &ErrProjectNotProvided{}
+	}
+
+	_, err := c.parent.Client.Products.DeleteProjectsProjectIDMetadatasMetaName(&products.DeleteProjectsProjectIDMetadatasMetaNameParams{
+		MetaName:  string(key),
+		ProjectID: int64(p.ProjectID),
+		Context:   ctx,
+	}, c.parent.AuthInfo)
+
+	return handleSwaggerProjectErrors(err)
+}
+
 // handleProjectErrors takes a swagger generated error as input,
 // which usually does not contain any form of error message,
 // and outputs a new error with proper message.
@@ -288,12 +420,18 @@ func handleSwaggerProjectErrors(in error) error {
 	t, ok := in.(*runtime.APIError)
 	if ok {
 		switch t.Code {
+		case 201:
+			// Harbor sometimes return 201 instead of 200 despite the swagger spec
+			// not declaring it.
+			return nil
 		case 400:
 			return &ErrProjectIllegalIDFormat{}
 		case 401:
 			return &ErrProjectUnauthorized{}
 		case 403:
 			return &ErrProjectNoPermission{}
+		case 404:
+			return &ErrProjectUnknownResource{}
 		case 500:
 			return &ErrProjectInternalErrors{}
 		}
@@ -307,7 +445,9 @@ func handleSwaggerProjectErrors(in error) error {
 	case *products.PostProjectsConflict:
 		return &ErrProjectNameAlreadyExists{}
 	case *products.PostProjectsProjectIDMembersBadRequest:
-		return &ErrProjectMemberIllegalFormat{}
+		return &ErrProjectInvalidRequest{}
+	case *products.PostProjectsProjectIDMetadatasBadRequest:
+		return &ErrProjectInvalidRequest{}
 	default:
 		return in
 	}
