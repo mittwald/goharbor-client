@@ -40,9 +40,6 @@ const (
 	// ErrProjectUserIsNoMemberMsg is the error message for ErrProjectUserIsNoMember.
 	ErrProjectUserIsNoMemberMsg = "user is no member in project"
 
-	// ErrProjectMetadataNotProvidedMsg is the error message for ErrProjectMetadataNotProvided error.
-	ErrProjectMetadataNotProvidedMsg = "no metadata provided"
-
 	// ErrProjectInvalidRequestMsg is the error message for ErrProjectInvalidRequest error.
 	ErrProjectInvalidRequestMsg = "invalid request"
 
@@ -161,15 +158,6 @@ type ErrProjectUserIsNoMember struct{}
 // Error returns the error message.
 func (e *ErrProjectUserIsNoMember) Error() string {
 	return ErrProjectUserIsNoMemberMsg
-}
-
-// ErrProjectMetadataNotProvided describes an error case,
-// where metadata in method parameters is nil.
-type ErrProjectMetadataNotProvided struct{}
-
-// Error returns the error message.
-func (e *ErrProjectMetadataNotProvided) Error() string {
-	return ErrProjectMetadataNotProvidedMsg
 }
 
 // ErrProjectMemberIllegalFormat describes an communication

@@ -341,8 +341,8 @@ func (c *ProjectRESTClient) AddMetadata(ctx context.Context, p *model.Project, k
 	return handleSwaggerProjectErrors(err)
 }
 
-// GetMetadata retrieves metadata with key of project p.
-func (c *ProjectRESTClient) GetMetadata(ctx context.Context, p *model.Project, key ProjectMetadataKey) (string, error) {
+// GetMetadataValue retrieves metadata with key of project p.
+func (c *ProjectRESTClient) GetMetadataValue(ctx context.Context, p *model.Project, key ProjectMetadataKey) (string, error) {
 	if p == nil {
 		return "", &ErrProjectNotProvided{}
 	}
@@ -398,8 +398,8 @@ func (c *ProjectRESTClient) ListMetadata(ctx context.Context, p *model.Project) 
 	return resp.Payload, nil
 }
 
-// DeleteMetadata deletes metadata of project p given by key.
-func (c *ProjectRESTClient) DeleteMetadata(ctx context.Context, p *model.Project, key ProjectMetadataKey) error {
+// DeleteMetadataValue deletes metadata of project p given by key.
+func (c *ProjectRESTClient) DeleteMetadataValue(ctx context.Context, p *model.Project, key ProjectMetadataKey) error {
 	if p == nil {
 		return &ErrProjectNotProvided{}
 	}
