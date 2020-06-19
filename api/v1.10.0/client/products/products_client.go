@@ -31,6 +31,8 @@ type ClientService interface {
 
 	DeleteProjectsProjectIDMembersMid(params *DeleteProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProjectsProjectIDMembersMidOK, error)
 
+	DeleteProjectsProjectIDMetadatasMetaName(params *DeleteProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProjectsProjectIDMetadatasMetaNameOK, error)
+
 	DeleteRegistriesID(params *DeleteRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRegistriesIDOK, error)
 
 	DeleteReplicationPoliciesID(params *DeleteReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteReplicationPoliciesIDOK, error)
@@ -44,6 +46,10 @@ type ClientService interface {
 	GetProjectsProjectID(params *GetProjectsProjectIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDOK, error)
 
 	GetProjectsProjectIDMembers(params *GetProjectsProjectIDMembersParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDMembersOK, error)
+
+	GetProjectsProjectIDMetadatas(params *GetProjectsProjectIDMetadatasParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDMetadatasOK, error)
+
+	GetProjectsProjectIDMetadatasMetaName(params *GetProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDMetadatasMetaNameOK, error)
 
 	GetRegistries(params *GetRegistriesParams, authInfo runtime.ClientAuthInfoWriter) (*GetRegistriesOK, error)
 
@@ -59,6 +65,8 @@ type ClientService interface {
 
 	PostProjectsProjectIDMembers(params *PostProjectsProjectIDMembersParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsProjectIDMembersCreated, error)
 
+	PostProjectsProjectIDMetadatas(params *PostProjectsProjectIDMetadatasParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsProjectIDMetadatasOK, error)
+
 	PostRegistries(params *PostRegistriesParams, authInfo runtime.ClientAuthInfoWriter) (*PostRegistriesCreated, error)
 
 	PostReplicationPolicies(params *PostReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*PostReplicationPoliciesCreated, error)
@@ -70,6 +78,8 @@ type ClientService interface {
 	PutProjectsProjectID(params *PutProjectsProjectIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDOK, error)
 
 	PutProjectsProjectIDMembersMid(params *PutProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDMembersMidOK, error)
+
+	PutProjectsProjectIDMetadatasMetaName(params *PutProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDMetadatasMetaNameOK, error)
 
 	PutRegistriesID(params *PutRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutRegistriesIDOK, error)
 
@@ -152,6 +162,44 @@ func (a *Client) DeleteProjectsProjectIDMembersMid(params *DeleteProjectsProject
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for DeleteProjectsProjectIDMembersMid: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DeleteProjectsProjectIDMetadatasMetaName deletes metadata of a project
+
+  This endpoint is aimed to delete metadata of a project.
+
+*/
+func (a *Client) DeleteProjectsProjectIDMetadatasMetaName(params *DeleteProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProjectsProjectIDMetadatasMetaNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteProjectsProjectIDMetadatasMetaNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteProjectsProjectIDMetadatasMetaName",
+		Method:             "DELETE",
+		PathPattern:        "/projects/{project_id}/metadatas/{meta_name}",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DeleteProjectsProjectIDMetadatasMetaNameReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteProjectsProjectIDMetadatasMetaNameOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteProjectsProjectIDMetadatasMetaName: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -422,6 +470,82 @@ func (a *Client) GetProjectsProjectIDMembers(params *GetProjectsProjectIDMembers
 }
 
 /*
+  GetProjectsProjectIDMetadatas gets project metadata
+
+  This endpoint returns metadata of the project specified by project ID.
+
+*/
+func (a *Client) GetProjectsProjectIDMetadatas(params *GetProjectsProjectIDMetadatasParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDMetadatasOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetProjectsProjectIDMetadatasParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetProjectsProjectIDMetadatas",
+		Method:             "GET",
+		PathPattern:        "/projects/{project_id}/metadatas",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetProjectsProjectIDMetadatasReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetProjectsProjectIDMetadatasOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetProjectsProjectIDMetadatas: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetProjectsProjectIDMetadatasMetaName gets project metadata
+
+  This endpoint returns specified metadata of a project.
+
+*/
+func (a *Client) GetProjectsProjectIDMetadatasMetaName(params *GetProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDMetadatasMetaNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetProjectsProjectIDMetadatasMetaNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetProjectsProjectIDMetadatasMetaName",
+		Method:             "GET",
+		PathPattern:        "/projects/{project_id}/metadatas/{meta_name}",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetProjectsProjectIDMetadatasMetaNameReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetProjectsProjectIDMetadatasMetaNameOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetProjectsProjectIDMetadatasMetaName: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   GetRegistries lists registries
 
   This endpoint let user list filtered registries by name, if name is nil, list returns all registries.
@@ -686,6 +810,44 @@ func (a *Client) PostProjectsProjectIDMembers(params *PostProjectsProjectIDMembe
 }
 
 /*
+  PostProjectsProjectIDMetadatas adds metadata for the project
+
+  This endpoint is aimed to add metadata of a project.
+
+*/
+func (a *Client) PostProjectsProjectIDMetadatas(params *PostProjectsProjectIDMetadatasParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsProjectIDMetadatasOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostProjectsProjectIDMetadatasParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostProjectsProjectIDMetadatas",
+		Method:             "POST",
+		PathPattern:        "/projects/{project_id}/metadatas",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PostProjectsProjectIDMetadatasReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostProjectsProjectIDMetadatasOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostProjectsProjectIDMetadatas: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   PostRegistries creates a new registry
 
   This endpoint is for user to create a new registry.
@@ -909,6 +1071,44 @@ func (a *Client) PutProjectsProjectIDMembersMid(params *PutProjectsProjectIDMemb
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for PutProjectsProjectIDMembersMid: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  PutProjectsProjectIDMetadatasMetaName updates metadata of a project
+
+  This endpoint is aimed to update the metadata of a project.
+
+*/
+func (a *Client) PutProjectsProjectIDMetadatasMetaName(params *PutProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDMetadatasMetaNameOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPutProjectsProjectIDMetadatasMetaNameParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PutProjectsProjectIDMetadatasMetaName",
+		Method:             "PUT",
+		PathPattern:        "/projects/{project_id}/metadatas/{meta_name}",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PutProjectsProjectIDMetadatasMetaNameReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PutProjectsProjectIDMetadatasMetaNameOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PutProjectsProjectIDMetadatasMetaName: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

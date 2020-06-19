@@ -37,7 +37,17 @@ const (
 	// ErrProjectMemberIllegalFormatMsg is the error message for ErrProjectMemberIllegalFormat error.
 	ErrProjectMemberIllegalFormatMsg = "illegal format of project member or project id is invalid, or LDAP DN is invalid"
 
+	// ErrProjectUserIsNoMemberMsg is the error message for ErrProjectUserIsNoMember.
 	ErrProjectUserIsNoMemberMsg = "user is no member in project"
+
+	// ErrProjectInvalidRequestMsg is the error message for ErrProjectInvalidRequest error.
+	ErrProjectInvalidRequestMsg = "invalid request"
+
+	// ErrProjectMetadataAlreadyExistsMsg is the error message for ErrProjectMetadataAlreadyExists error.
+	ErrProjectMetadataAlreadyExistsMsg = "metadata key already exists"
+
+	// ErrProjectUnknownResourceMsg is the error message for ErrProjectUnknownResource error.
+	ErrProjectUnknownResourceMsg = "resource unknown"
 )
 
 // ErrProjectIllegalIDFormat describes an illegal request format.
@@ -148,4 +158,31 @@ type ErrProjectUserIsNoMember struct{}
 // Error returns the error message.
 func (e *ErrProjectUserIsNoMember) Error() string {
 	return ErrProjectUserIsNoMemberMsg
+}
+
+// ErrProjectMemberIllegalFormat describes an communication
+// error when performing project member operations.
+type ErrProjectInvalidRequest struct{}
+
+// Error returns the error message.
+func (e *ErrProjectInvalidRequest) Error() string {
+	return ErrProjectInvalidRequestMsg
+}
+
+// ErrProjectMetadataAlreadyExists describes an error, which happens
+// when a metadata key of a project is tried to be created a second time.
+type ErrProjectMetadataAlreadyExists struct{}
+
+// Error returns the error message.
+func (e *ErrProjectMetadataAlreadyExists) Error() string {
+	return ErrProjectMetadataAlreadyExistsMsg
+}
+
+// ErrProjectUnknownResource describes which happens,
+// when requesting an unknown ressource.
+type ErrProjectUnknownResource struct{}
+
+// Error returns the error message.
+func (e *ErrProjectUnknownResource) Error() string {
+	return ErrProjectUnknownResourceMsg
 }
