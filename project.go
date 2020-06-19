@@ -297,15 +297,8 @@ func (c *ProjectRESTClient) DeleteUserMember(ctx context.Context, p *model.Proje
 	return handleSwaggerProjectErrors(err)
 }
 
-// AddMetadata adds metadata with a specific key and value to project p.
-// See this for more explanation of possible keys and values:
-// https://github.com/goharbor/harbor/blob/v1.10.2/api/harbor/swagger.yaml#L4894
-func (c *ProjectRESTClient) AddMetadata(ctx context.Context, p *model.Project, key ProjectMetadataKey, value string) error {
-	if p == nil {
-		return &ErrProjectNotProvided{}
-	}
-
-	m := &model.ProjectMetadata{}
+func GetMetadataFromKV(key ProjectMetadataKey, value string) *model.ProjectMetadata {
+	var m model.ProjectMetadata
 	switch key {
 	case EnableContentTrustProjectMetadataKey:
 		m.EnableContentTrust = value
@@ -320,9 +313,19 @@ func (c *ProjectRESTClient) AddMetadata(ctx context.Context, p *model.Project, k
 	case PreventVulProjectMetadataKey:
 		m.PreventVul = value
 	}
+	return &m
+}
+
+// AddMetadata adds metadata with a specific key and value to project p.
+// See this for more explanation of possible keys and values:
+// https://github.com/goharbor/harbor/blob/v1.10.2/api/harbor/swagger.yaml#L4894
+func (c *ProjectRESTClient) AddMetadata(ctx context.Context, p *model.Project, key ProjectMetadataKey, value string) error {
+	if p == nil {
+		return &ErrProjectNotProvided{}
+	}
 
 	_, err := c.parent.Client.Products.PostProjectsProjectIDMetadatas(&products.PostProjectsProjectIDMetadatasParams{
-		Metadata:  m,
+		Metadata:  GetMetadataFromKV(key, value),
 		ProjectID: int64(p.ProjectID),
 		Context:   ctx,
 	}, c.parent.AuthInfo)
@@ -396,6 +399,45 @@ func (c *ProjectRESTClient) ListMetadata(ctx context.Context, p *model.Project) 
 	}
 
 	return resp.Payload, nil
+}
+
+// UpdateMetadata deletes the specified metadata key, if it exists and re-adds this metadata key with the given value.
+// This function works around the faulty behaviour of the corresponding 'Update' endpoint of the Harbor API.
+func (c *ProjectRESTClient) UpdateMetadata(ctx context.Context, p *model.Project, key ProjectMetadataKey, value string) error {
+	if p == nil {
+		return &ErrProjectNotProvided{}
+	}
+
+	pID := int64(p.ProjectID)
+	metaKeyName := string(key)
+
+	_, err := c.parent.Client.Products.GetProjectsProjectIDMetadatasMetaName(&products.GetProjectsProjectIDMetadatasMetaNameParams{
+		MetaName:  metaKeyName,
+		ProjectID: pID,
+		Context:   ctx,
+	}, c.parent.AuthInfo)
+
+	if err != nil {
+		return handleSwaggerProjectErrors(err)
+	}
+
+	_, err = c.parent.Client.Products.DeleteProjectsProjectIDMetadatasMetaName(&products.DeleteProjectsProjectIDMetadatasMetaNameParams{
+		MetaName:  metaKeyName,
+		ProjectID: pID,
+		Context:   ctx,
+	}, c.parent.AuthInfo)
+
+	if err != nil {
+		return handleSwaggerProjectErrors(err)
+	}
+
+	_, err = c.parent.Client.Products.PostProjectsProjectIDMetadatas(&products.PostProjectsProjectIDMetadatasParams{
+		Metadata:  GetMetadataFromKV(key, value),
+		ProjectID: pID,
+		Context:   ctx,
+	}, c.parent.AuthInfo)
+
+	return handleSwaggerProjectErrors(err)
 }
 
 // DeleteMetadataValue deletes metadata of project p given by key.

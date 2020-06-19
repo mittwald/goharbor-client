@@ -443,6 +443,31 @@ func TestAPIProjectMetadataList(t *testing.T) {
 	assert.Equal(t, "medium", m.Severity)
 }
 
+func TestAPIProjectMetadataUpdate(t *testing.T) {
+	if !*integrationTest {
+		t.Skip()
+	}
+
+	projectName := "test-project"
+
+	ctx := context.Background()
+	c := NewClient(host, defaultUser, defaultPassword)
+
+	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
+	defer c.Projects().Delete(ctx, p)
+	require.NoError(t, err)
+
+	err = c.Projects().AddMetadata(ctx, p, AutoScanProjectMetadataKey, "true")
+	require.NoError(t, err)
+
+	err = c.Projects().UpdateMetadata(ctx, p, AutoScanProjectMetadataKey, "false")
+
+	k, err := c.Projects().GetMetadataValue(ctx, p, AutoScanProjectMetadataKey)
+	require.NoError(t, err)
+
+	assert.Equal(t, "false", k)
+}
+
 func TestAPIProjectMetadataDelete(t *testing.T) {
 	if !*integrationTest {
 		t.Skip()
