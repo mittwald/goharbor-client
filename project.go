@@ -297,9 +297,9 @@ func (c *ProjectRESTClient) DeleteUserMember(ctx context.Context, p *model.Proje
 	return handleSwaggerProjectErrors(err)
 }
 
-// GetMetadataFromKV returns a ProjectMetadata object matching
+// GetMetadataByKey returns a ProjectMetadata object matching
 // the provided key and containing the provided value.
-func GetMetadataFromKV(key ProjectMetadataKey, value string) *model.ProjectMetadata {
+func GetMetadataByKey(key ProjectMetadataKey, value string) *model.ProjectMetadata {
 	var m model.ProjectMetadata
 	switch key {
 	case EnableContentTrustProjectMetadataKey:
@@ -327,7 +327,7 @@ func (c *ProjectRESTClient) AddMetadata(ctx context.Context, p *model.Project, k
 	}
 
 	_, err := c.parent.Client.Products.PostProjectsProjectIDMetadatas(&products.PostProjectsProjectIDMetadatasParams{
-		Metadata:  GetMetadataFromKV(key, value),
+		Metadata:  GetMetadataByKey(key, value),
 		ProjectID: int64(p.ProjectID),
 		Context:   ctx,
 	}, c.parent.AuthInfo)
@@ -434,7 +434,7 @@ func (c *ProjectRESTClient) UpdateMetadata(ctx context.Context, p *model.Project
 	}
 
 	_, err = c.parent.Client.Products.PostProjectsProjectIDMetadatas(&products.PostProjectsProjectIDMetadatasParams{
-		Metadata:  GetMetadataFromKV(key, value),
+		Metadata:  GetMetadataByKey(key, value),
 		ProjectID: pID,
 		Context:   ctx,
 	}, c.parent.AuthInfo)
