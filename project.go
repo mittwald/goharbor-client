@@ -297,6 +297,8 @@ func (c *ProjectRESTClient) DeleteUserMember(ctx context.Context, p *model.Proje
 	return handleSwaggerProjectErrors(err)
 }
 
+// GetMetadataFromKV returns a ProjectMetadata object matching
+// the provided key and containing the provided value.
 func GetMetadataFromKV(key ProjectMetadataKey, value string) *model.ProjectMetadata {
 	var m model.ProjectMetadata
 	switch key {
