@@ -160,6 +160,7 @@ func handleSwaggerUserErrors(in error, username string) error {
 	}
 }
 
+// UserExists checks whether a user exists or not
 func (c *RESTClient) UserExists(ctx context.Context, u *model.User) (bool, error) {
 	_, err := c.Get(ctx, u.Username)
 

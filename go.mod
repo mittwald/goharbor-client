@@ -9,6 +9,5 @@ require (
 	github.com/go-openapi/swag v0.19.9
 	github.com/go-openapi/validate v0.19.10
 	github.com/stretchr/testify v1.6.1
-	github.com/vektah/gqlparser v1.1.2 // indirect
 	golang.org/x/text v0.3.3 // indirect
 )

@@ -21,44 +21,5 @@ Install this library using `go get`:
 
     $ go get github.com/mittwald/goharbor-client
 
-## Usage
-
-Initialize a new goharbor client, then use the various services on the client to
-access different parts of the Harbor API.
-
-```go
-package main
-import (
-	"errors"
-	"fmt"
-	harbor "github.com/mittwald/goharbor-client"
-)
-
-func main() {
-	c := NewClient(host, defaultUser, defaultPassword)
-
-	// Projects
-    namePrefix := "test-project"
-	projects, err := c.Projects().List(ctx, namePrefix)
-	if err != nil {
-			panic(err)
-	}
-
-	// Users
-	users, err := client.Users().ListUsers()
-	// ...
-
-	// Replications
-	replications, err := client.Replications().GetReplicationExecutionsByID(1)
-	//
-	
-	// Registries
-	registries, err := client.Registries().GetRegistryByID(1)
-	//
-
-	...
-}
-```
-
 ## Documentation
 For more specific documentation, please refer to the [godoc](https://pkg.go.dev/github.com/mittwald/goharbor-client) of this library.

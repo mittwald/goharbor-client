@@ -19,8 +19,8 @@ const (
 )
 
 var (
-	swaggerClient  = client.New(runtimeclient.New(host, "/api", []string{"http"}), strfmt.Default)
-	authInfo = runtimeclient.BasicAuth(user, password)
+	swaggerClient = client.New(runtimeclient.New(host, "/api", []string{"http"}), strfmt.Default)
+	authInfo      = runtimeclient.BasicAuth(user, password)
 
 	integrationTest = flag.Bool("integration", false,
 		"test against a real Harbor instance")
