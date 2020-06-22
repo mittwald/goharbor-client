@@ -3,13 +3,13 @@ package goharborclient
 import (
 	"context"
 
-	"github.com/mittwald/goharbor-client/api/v1.10.0/client/products"
-	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client/products"
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/model"
 )
 
 // ReplicationRESTClient is a subclient for RESTClient handling user related actions.
 type ReplicationRESTClient struct {
-	parent *RESTClient
+	Parent *RESTClient
 }
 
 // NewReplication creates a new replication with the given arguments.
@@ -30,11 +30,11 @@ func (c *ReplicationRESTClient) NewReplication(ctx context.Context, destRegistry
 		Trigger:       trigger,
 	}
 
-	_, err := c.parent.Client.Products.PostReplicationPolicies(
+	_, err := c.Parent.Client.Products.PostReplicationPolicies(
 		&products.PostReplicationPoliciesParams{
 			Policy:  pReq,
 			Context: ctx,
-		}, c.parent.AuthInfo)
+		}, c.Parent.AuthInfo)
 
 	err = handleSwaggerReplicationErrors(err)
 	if err != nil {
@@ -56,11 +56,11 @@ func (c *ReplicationRESTClient) Get(ctx context.Context, name string) (*model.Re
 	if name == "" {
 		return nil, &ErrReplicationNotProvided{}
 	}
-	resp, err := c.parent.Client.Products.GetReplicationPolicies(
+	resp, err := c.Parent.Client.Products.GetReplicationPolicies(
 		&products.GetReplicationPoliciesParams{
 			Name:    &name,
 			Context: ctx,
-		}, c.parent.AuthInfo)
+		}, c.Parent.AuthInfo)
 
 	err = handleSwaggerReplicationErrors(err)
 	if err != nil {
@@ -94,11 +94,11 @@ func (c *ReplicationRESTClient) Delete(ctx context.Context,
 		return &ErrReplicationMismatch{}
 	}
 
-	_, err = c.parent.Client.Products.DeleteReplicationPoliciesID(
+	_, err = c.Parent.Client.Products.DeleteReplicationPoliciesID(
 		&products.DeleteReplicationPoliciesIDParams{
 			ID:      replication.ID,
 			Context: ctx,
-		}, c.parent.AuthInfo)
+		}, c.Parent.AuthInfo)
 
 	return handleSwaggerReplicationErrors(err)
 }
@@ -119,12 +119,12 @@ func (c *ReplicationRESTClient) Update(ctx context.Context,
 		return &ErrReplicationMismatch{}
 	}
 
-	_, err = c.parent.Client.Products.PutReplicationPoliciesID(
+	_, err = c.Parent.Client.Products.PutReplicationPoliciesID(
 		&products.PutReplicationPoliciesIDParams{
 			ID:      replication.ID,
 			Policy:  r,
 			Context: ctx,
-		}, c.parent.AuthInfo)
+		}, c.Parent.AuthInfo)
 
 	return handleSwaggerReplicationErrors(err)
 }

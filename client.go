@@ -2,13 +2,12 @@ package goharborclient
 
 import (
 	"context"
-
 	"github.com/go-openapi/runtime"
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/mittwald/goharbor-client/api/v1.10.0/client"
-	"github.com/mittwald/goharbor-client/api/v1.10.0/client/products"
-	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client"
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client/products"
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/model"
 )
 
 // RESTClient implements a Harbor client capable of performing Harbor API
@@ -37,35 +36,35 @@ func NewClient(host, user, password string) *RESTClient {
 // Projects returns a project subclient for handling project related actions.
 func (c *RESTClient) Projects() *ProjectRESTClient {
 	return &ProjectRESTClient{
-		parent: c,
+		Parent: c,
 	}
 }
 
 // Users returns a user subclient for handling user related actions.
 func (c *RESTClient) Users() *UserRESTClient {
 	return &UserRESTClient{
-		parent: c,
+		Parent: c,
 	}
 }
 
 // Registries returns a project subclient for handling project related actions.
 func (c *RESTClient) Registries() *RegistryRESTClient {
 	return &RegistryRESTClient{
-		parent: c,
+		Parent: c,
 	}
 }
 
 // Replications returns a project subclient for handling replication related actions.
 func (c *RESTClient) Replications() *ReplicationRESTClient {
 	return &ReplicationRESTClient{
-		parent: c,
+		Parent: c,
 	}
 }
 
 // Registries returns a project subclient for handling project related actions.
 func (c *RESTClient) System() *SystemRESTClient {
 	return &SystemRESTClient{
-		parent: c,
+		Parent: c,
 	}
 }
 

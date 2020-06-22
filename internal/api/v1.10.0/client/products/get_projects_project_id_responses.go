@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/model"
 )
 
 // GetProjectsProjectIDReader is a Reader for the GetProjectsProjectID structure.

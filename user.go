@@ -3,16 +3,15 @@ package goharborclient
 import (
 	"context"
 	"errors"
-
 	"github.com/go-openapi/runtime"
 
-	"github.com/mittwald/goharbor-client/api/v1.10.0/client/products"
-	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client/products"
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/model"
 )
 
 // UserRESTClient is a subclient for RESTClient handling user related actions.
 type UserRESTClient struct {
-	parent *RESTClient
+	Parent *RESTClient
 }
 
 // NewUser creates and returns a new user, or error in case of failure.
@@ -30,10 +29,10 @@ func (c *UserRESTClient) NewUser(ctx context.Context, username, email, realname,
 		Comment:  comments,
 	}
 
-	_, err := c.parent.Client.Products.PostUsers(&products.PostUsersParams{
+	_, err := c.Parent.Client.Products.PostUsers(&products.PostUsersParams{
 		User:    uReq,
 		Context: ctx,
-	}, c.parent.AuthInfo)
+	}, c.Parent.AuthInfo)
 
 	err = handleSwaggerUserErrors(err, username)
 	if err != nil {
@@ -55,10 +54,10 @@ func (c *UserRESTClient) Get(ctx context.Context, username string) (*model.User,
 		return nil, errors.New("no username provided")
 	}
 
-	resp, err := c.parent.Client.Products.GetUsers(&products.GetUsersParams{
+	resp, err := c.Parent.Client.Products.GetUsers(&products.GetUsersParams{
 		Context:  ctx,
 		Username: &username,
-	}, c.parent.AuthInfo)
+	}, c.Parent.AuthInfo)
 
 	err = handleSwaggerUserErrors(err, username)
 	if err != nil {
@@ -90,10 +89,10 @@ func (c *UserRESTClient) Delete(ctx context.Context, u *model.User) error {
 		return &ErrUserMismatch{}
 	}
 
-	_, err = c.parent.Client.Products.DeleteUsersUserID(&products.DeleteUsersUserIDParams{
+	_, err = c.Parent.Client.Products.DeleteUsersUserID(&products.DeleteUsersUserIDParams{
 		UserID:  user.UserID,
 		Context: ctx,
-	}, c.parent.AuthInfo)
+	}, c.Parent.AuthInfo)
 
 	return handleSwaggerUserErrors(err, user.Username)
 }
@@ -121,11 +120,11 @@ func (c *UserRESTClient) Update(ctx context.Context, u *model.User) error {
 		return &ErrUserMismatch{}
 	}
 
-	_, err = c.parent.Client.Products.PutUsersUserID(&products.PutUsersUserIDParams{
+	_, err = c.Parent.Client.Products.PutUsersUserID(&products.PutUsersUserIDParams{
 		UserID:  user.UserID,
 		Profile: profile,
 		Context: ctx,
-	}, c.parent.AuthInfo)
+	}, c.Parent.AuthInfo)
 
 	return handleSwaggerUserErrors(err, user.Username)
 }
@@ -152,7 +151,7 @@ func handleSwaggerUserErrors(in error, username string) error {
 	}
 }
 
-func (c *UserRESTClient) userExists(ctx context.Context, u *model.User) (bool, error) {
+func (c *UserRESTClient) UserExists(ctx context.Context, u *model.User) (bool, error) {
 	_, err := c.Get(ctx, u.Username)
 
 	if err != nil {

@@ -2,15 +2,14 @@ package goharborclient
 
 import (
 	"context"
-
-	"github.com/mittwald/goharbor-client/api/v1.10.0/client/products"
-	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client/products"
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/model"
 )
 
 // RegistryRESTClient is a subclient for RESTClient handling registry related
 // actions.
 type RegistryRESTClient struct {
-	parent *RESTClient
+	Parent *RESTClient
 }
 
 // NewRegistry creates a new project with name as project name.
@@ -27,11 +26,11 @@ func (c *RegistryRESTClient) NewRegistry(ctx context.Context, name, registryType
 		URL:        url,
 	}
 
-	_, err := c.parent.Client.Products.PostRegistries(
+	_, err := c.Parent.Client.Products.PostRegistries(
 		&products.PostRegistriesParams{
 			Registry: rReq,
 			Context:  ctx,
-		}, c.parent.AuthInfo)
+		}, c.Parent.AuthInfo)
 
 	err = handleSwaggerRegistryErrors(err)
 	if err != nil {
@@ -53,11 +52,11 @@ func (c *RegistryRESTClient) Get(ctx context.Context, name string) (*model.Regis
 	if name == "" {
 		return nil, &ErrRegistryNotProvided{}
 	}
-	resp, err := c.parent.Client.Products.GetRegistries(
+	resp, err := c.Parent.Client.Products.GetRegistries(
 		&products.GetRegistriesParams{
 			Name:    &name,
 			Context: ctx,
-		}, c.parent.AuthInfo)
+		}, c.Parent.AuthInfo)
 
 	err = handleSwaggerRegistryErrors(err)
 	if err != nil {
@@ -91,11 +90,11 @@ func (c *RegistryRESTClient) Delete(ctx context.Context,
 		return &ErrRegistryMismatch{}
 	}
 
-	_, err = c.parent.Client.Products.DeleteRegistriesID(
+	_, err = c.Parent.Client.Products.DeleteRegistriesID(
 		&products.DeleteRegistriesIDParams{
 			ID:      registry.ID,
 			Context: ctx,
-		}, c.parent.AuthInfo)
+		}, c.Parent.AuthInfo)
 
 	return handleSwaggerRegistryErrors(err)
 }

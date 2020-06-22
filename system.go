@@ -3,14 +3,14 @@ package goharborclient
 import (
 	"context"
 
-	"github.com/mittwald/goharbor-client/api/v1.10.0/client/products"
-	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client/products"
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/model"
 )
 
 // SystemRESTClient is a subclient for RESTClient handling system related
 // actions.
 type SystemRESTClient struct {
-	parent *RESTClient
+	Parent *RESTClient
 }
 
 // NewSystemGarbageCollection creates a new garbage collection schedule.
@@ -21,11 +21,11 @@ func (c *SystemRESTClient) NewSystemGarbageCollection(ctx context.Context, cron,
 			Type: scheduleType,
 		}}
 
-	_, err := c.parent.Client.Products.PostSystemGcSchedule(
+	_, err := c.Parent.Client.Products.PostSystemGcSchedule(
 		&products.PostSystemGcScheduleParams{
 			Schedule: gcReq,
 			Context:  ctx,
-		}, c.parent.AuthInfo)
+		}, c.Parent.AuthInfo)
 
 	err = handleSwaggerSystemErrors(err)
 	if err != nil {
@@ -55,21 +55,21 @@ func (c *SystemRESTClient) UpdateSystemGarbageCollection(ctx context.Context, ne
 		return &ErrSystemGcScheduleIdentical{}
 	}
 
-	_, err = c.parent.Client.Products.PutSystemGcSchedule(
+	_, err = c.Parent.Client.Products.PutSystemGcSchedule(
 		&products.PutSystemGcScheduleParams{
 			Schedule: &model.AdminJobSchedule{Schedule: newGcSchedule},
 			Context:  ctx,
-		}, c.parent.AuthInfo)
+		}, c.Parent.AuthInfo)
 
 	return handleSwaggerSystemErrors(err)
 }
 
 // GetSystemGarbageCollection returns the system GC schedule.
 func (c *SystemRESTClient) GetSystemGarbageCollection(ctx context.Context) (*model.AdminJobSchedule, error) {
-	systemGc, err := c.parent.Client.Products.GetSystemGcSchedule(
+	systemGc, err := c.Parent.Client.Products.GetSystemGcSchedule(
 		&products.GetSystemGcScheduleParams{
 			Context: ctx,
-		}, c.parent.AuthInfo)
+		}, c.Parent.AuthInfo)
 
 	err = handleSwaggerSystemErrors(err)
 	if err != nil {
@@ -87,14 +87,14 @@ func (c *SystemRESTClient) GetSystemGarbageCollection(ctx context.Context) (*mod
 // containing "None" as the Schedule Type, which effectively deactivates the schedule.
 // For this to work correctly, a GC schedule must exist beforehand.
 func (c *SystemRESTClient) ResetSystemGarbageCollection(ctx context.Context) error {
-	_, err := c.parent.Client.Products.PutSystemGcSchedule(
+	_, err := c.Parent.Client.Products.PutSystemGcSchedule(
 		&products.PutSystemGcScheduleParams{
 			Schedule: &model.AdminJobSchedule{
 				Schedule: &model.AdminJobScheduleObj{
 					Type: "None",
 				}},
 			Context: ctx,
-		}, c.parent.AuthInfo)
+		}, c.Parent.AuthInfo)
 
 	return handleSwaggerSystemErrors(err)
 }

@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/model"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
