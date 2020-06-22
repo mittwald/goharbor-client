@@ -1,11 +1,34 @@
-package goharborclient
+package user
 
 import (
 	"context"
+	"flag"
+	runtimeclient "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+)
+
+const (
+	host     = "localhost:30002"
+	user     = "admin"
+	password = "Harbor12345"
+)
+
+var (
+	swaggerClient  = client.New(runtimeclient.New(host, "/api", []string{"http"}), strfmt.Default)
+	authInfo = runtimeclient.BasicAuth(user, password)
+
+	integrationTest = flag.Bool("integration", false,
+		"test against a real Harbor instance")
+	harborVersion = flag.String("version", "1.10.2",
+		"Harbor version, used in conjunction with -integration, "+
+			"defaults to 1.10.2")
+	skipSpinUp = flag.Bool("skip-spinup", false,
+		"Skip kind cluster creation")
 )
 
 func TestAPIUserNew(t *testing.T) {
@@ -20,13 +43,14 @@ func TestAPIUserNew(t *testing.T) {
 	password := "1VerySeriousPassword"
 	comments := "Some comments"
 
-	c := NewClient(host, defaultUser, defaultPassword)
-	user, err := c.Users().NewUser(ctx, username, email, realname, password, comments)
+	//c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
+	user, err := c.New(ctx, username, email, realname, password, comments)
 
 	require.NoError(t, err)
 	require.NotNil(t, user)
 
-	defer c.Users().Delete(ctx, user)
+	defer c.Delete(ctx, user)
 
 	assert.Equal(t, username, user.Username)
 	assert.Equal(t, email, user.Email)
@@ -45,15 +69,15 @@ func TestAPIUserAlreadyExists(t *testing.T) {
 	password := "1VerySeriousPassword"
 	comments := "Some comments"
 
-	c := NewClient(host, defaultUser, defaultPassword)
-	user, err := c.Users().NewUser(ctx, username, email, realname, password, comments)
+	c := NewClient(swaggerClient, authInfo)
+	user, err := c.New(ctx, username, email, realname, password, comments)
 
 	require.NoError(t, err)
 	require.NotNil(t, user)
 
-	defer c.Users().Delete(ctx, user)
+	defer c.Delete(ctx, user)
 
-	_, err = c.Users().NewUser(ctx, username, email, realname, password, comments)
+	_, err = c.New(ctx, username, email, realname, password, comments)
 
 	if assert.Error(t, err) {
 		assert.Contains(t, err.Error(), "user with this username already exists")
@@ -72,15 +96,15 @@ func TestAPIUserGet(t *testing.T) {
 	password := "1VerySeriousPassword"
 	comments := "Some comments"
 
-	c := NewClient(host, defaultUser, defaultPassword)
-	user, err := c.Users().NewUser(ctx, username, email, realname, password, comments)
+	c := NewClient(swaggerClient, authInfo)
+	user, err := c.New(ctx, username, email, realname, password, comments)
 
 	require.NoError(t, err)
 	require.NotNil(t, user)
 
-	defer c.Users().Delete(ctx, user)
+	defer c.Delete(ctx, user)
 
-	user2, err := c.Users().Get(ctx, username)
+	user2, err := c.Get(ctx, username)
 
 	require.NoError(t, err)
 	require.NotNil(t, user2)
@@ -100,16 +124,16 @@ func TestAPIUserDelete(t *testing.T) {
 	password := "1VerySeriousPassword"
 	comments := "Some comments"
 
-	c := NewClient(host, defaultUser, defaultPassword)
-	user, err := c.Users().NewUser(ctx, username, email, realname, password, comments)
+	c := NewClient(swaggerClient, authInfo)
+	user, err := c.New(ctx, username, email, realname, password, comments)
 
 	require.NoError(t, err)
 	require.NotNil(t, user)
 
-	err = c.Users().Delete(ctx, user)
+	err = c.Delete(ctx, user)
 	require.NoError(t, err)
 
-	user, err = c.Users().Get(ctx, username)
+	user, err = c.Get(ctx, username)
 	require.Error(t, err)
 	assert.Contains(t, err.Error(), "user not found on server side")
 	require.Nil(t, user)
@@ -127,21 +151,21 @@ func TestAPIUserUpdate(t *testing.T) {
 	password := "1VerySeriousPassword"
 	comments := "Some comments"
 
-	c := NewClient(host, defaultUser, defaultPassword)
-	user, err := c.Users().NewUser(ctx, username, email, realname, password, comments)
+	c := NewClient(swaggerClient, authInfo)
+	user, err := c.New(ctx, username, email, realname, password, comments)
 
 	require.NoError(t, err)
 	require.NotNil(t, user)
 
-	defer c.Users().Delete(ctx, user)
+	defer c.Delete(ctx, user)
 
 	user.Email = "foo@baz.com"
 	user.Comment = "Some other comment"
 	user.Realname = "Foo Baz"
-	err = c.Users().Update(ctx, user)
+	err = c.Update(ctx, user)
 	require.NoError(t, err)
 
-	user2, err := c.Users().Get(ctx, user.Username)
+	user2, err := c.Get(ctx, user.Username)
 	require.NoError(t, err)
 
 	assert.Equal(t, user.Email, user2.Email)

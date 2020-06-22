@@ -137,7 +137,7 @@ func TestAPIProjectUserMemberAdd(t *testing.T) {
 	defer c.Projects().Delete(ctx, p)
 	require.NoError(t, err)
 
-	u, err := c.Users().NewUser(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
+	u, err := c.Users().New(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
 	require.NoError(t, err)
 	defer c.Users().Delete(ctx, u)
 
@@ -165,7 +165,7 @@ func TestAPIProjectMemberList(t *testing.T) {
 	defer c.Projects().Delete(ctx, p)
 	require.NoError(t, err)
 
-	u, err := c.Users().NewUser(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
+	u, err := c.Users().New(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
 	require.NoError(t, err)
 	defer c.Users().Delete(ctx, u)
 
@@ -203,7 +203,7 @@ func TestAPIProjectUserMemberUpdate(t *testing.T) {
 	defer c.Projects().Delete(ctx, p)
 	require.NoError(t, err)
 
-	u, err := c.Users().NewUser(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
+	u, err := c.Users().New(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
 	require.NoError(t, err)
 	defer c.Users().Delete(ctx, u)
 
@@ -248,7 +248,7 @@ func TestAPIProjectUserMemberDelete(t *testing.T) {
 	defer c.Projects().Delete(ctx, p)
 	require.NoError(t, err)
 
-	u, err := c.Users().NewUser(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
+	u, err := c.Users().New(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
 	require.NoError(t, err)
 	defer c.Users().Delete(ctx, u)
 

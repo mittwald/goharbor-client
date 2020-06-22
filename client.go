@@ -8,6 +8,7 @@ import (
 	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client"
 	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client/products"
 	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/model"
+	"github.com/mittwald/goharbor-client/user"
 )
 
 // RESTClient implements a Harbor client capable of performing Harbor API
@@ -41,9 +42,9 @@ func (c *RESTClient) Projects() *ProjectRESTClient {
 }
 
 // Users returns a user subclient for handling user related actions.
-func (c *RESTClient) Users() *UserRESTClient {
-	return &UserRESTClient{
-		Parent: c,
+func (c *RESTClient) Users() *user.RESTClient {
+	return &user.RESTClient{
+		AuthInfo: c.AuthInfo,
 	}
 }
 

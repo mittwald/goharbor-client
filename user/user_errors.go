@@ -1,4 +1,4 @@
-package goharborclient
+package user
 
 const (
 	// ErrUserNotFoundMsg is the error message for ErrUserNotFound error.
