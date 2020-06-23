@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/mittwald/goharbor-client/project"
 	"github.com/mittwald/goharbor-client/registry"
+	"github.com/mittwald/goharbor-client/replication"
 	"github.com/mittwald/goharbor-client/user"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
@@ -17,12 +18,14 @@ type Client interface {
 	user.Client
 	project.Client
 	registry.Client
+	replication.Client
 }
 
 type RESTClient struct {
-	user     *user.RESTClient
-	project  *project.RESTClient
-	registry *registry.RESTClient
+	user        *user.RESTClient
+	project     *project.RESTClient
+	registry    *registry.RESTClient
+	replication *replication.RESTClient
 }
 
 // User Client
@@ -86,7 +89,6 @@ func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context, p *model.Pr
 }
 
 // Registry Client
-
 func (c *RESTClient) NewRegistry(ctx context.Context, name, registryType, url string,
 	credential *model.RegistryCredential, insecure bool) (*model.Registry, error) {
 
@@ -103,6 +105,27 @@ func (c *RESTClient) DeleteRegistry(ctx context.Context, r *model.Registry) erro
 	return c.registry.DeleteRegistry(ctx, r)
 }
 
+// Replication Client
+func (c *RESTClient) NewReplication(ctx context.Context, destRegistry, srcRegistry *model.Registry,
+	replicateDeletion, override, enablePolicy bool, filters []*model.ReplicationFilter,
+	trigger *model.ReplicationTrigger, destNamespace, description, name string) (*model.ReplicationPolicy, error) {
+
+	return c.replication.NewReplication(ctx, destRegistry, srcRegistry, replicateDeletion,
+		override, enablePolicy, filters, trigger, destNamespace, description, name)
+}
+
+func (c *RESTClient) GetReplication(ctx context.Context, name string) (*model.ReplicationPolicy, error) {
+	return c.replication.GetReplication(ctx, name)
+}
+
+func (c *RESTClient) DeleteReplication(ctx context.Context, r *model.ReplicationPolicy) error {
+	return c.replication.DeleteReplication(ctx, r)
+}
+
+func (c *RESTClient) UpdateReplication(ctx context.Context, r *model.ReplicationPolicy) error {
+	return c.replication.UpdateReplication(ctx, r)
+}
+
 // NewClient creates a new Harbor client.
 // host is the harbor hostname including the protocol scheme and port,
 // i.e. "https://harbor.example.com" or "http://harbor.example.com:30002".
@@ -113,13 +136,6 @@ func NewClient(host, user, password string) *RESTClient {
 		Client: client.New(runtimeclient.New(host,
 			"/api", []string{"http"}), strfmt.Default),
 		AuthInfo: runtimeclient.BasicAuth(user, password),
-	}
-}
-
-// Replications returns a project subclient for handling replication related actions.
-func (c *RESTClient) Replications() *ReplicationRESTClient {
-	return &ReplicationRESTClient{
-		parent: c,
 	}
 }
 

@@ -1,12 +1,36 @@
-package goharborclient
+package replication
 
 import (
 	"context"
+	"flag"
+	runtimeclient "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
+	"github.com/mittwald/goharbor-client/api/v1.10.0/client"
+	"github.com/mittwald/goharbor-client/registry"
 	"testing"
 
 	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+)
+
+const (
+	host     = "localhost:30002"
+	user     = "admin"
+	password = "Harbor12345"
+)
+
+var (
+	swaggerClient = client.New(runtimeclient.New(host, "/api", []string{"http"}), strfmt.Default)
+	authInfo      = runtimeclient.BasicAuth(user, password)
+
+	integrationTest = flag.Bool("integration", false,
+		"test against a real Harbor instance")
+	harborVersion = flag.String("version", "1.10.2",
+		"Harbor version, used in conjunction with -integration, "+
+			"defaults to 1.10.2")
+	skipSpinUp = flag.Bool("skip-spinup", false,
+		"Skip kind cluster creation")
 )
 
 func TestAPIReplicationNewDestRegistry(t *testing.T) {
@@ -17,14 +41,14 @@ func TestAPIReplicationNewDestRegistry(t *testing.T) {
 	name := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
 	regName := "test-registry"
 	registryType := "harbor"
 	url := "http://registry-docker-registry:5000/"
 	credential := model.RegistryCredential{
-		AccessKey:    defaultUser,
-		AccessSecret: defaultPassword,
+		AccessKey:    user,
+		AccessSecret: password,
 		Type:         "basic",
 	}
 
@@ -36,11 +60,13 @@ func TestAPIReplicationNewDestRegistry(t *testing.T) {
 		Type: "manual",
 	}
 
-	reg, err := c.Registries().NewRegistry(ctx, regName, registryType, url, &credential, false)
-	require.NoError(t, err)
-	defer c.Registries().Delete(ctx, reg)
+	rc := registry.NewClient(c.Client, c.AuthInfo)
 
-	r, err := c.Replications().NewReplication(
+	reg, err := rc.NewRegistry(ctx, regName, registryType, url, &credential, false)
+	require.NoError(t, err)
+	defer rc.DeleteRegistry(ctx, reg)
+
+	r, err := c.NewReplication(
 		ctx,
 		reg,
 		nil,
@@ -52,7 +78,7 @@ func TestAPIReplicationNewDestRegistry(t *testing.T) {
 		"", "", name,
 	)
 	require.NoError(t, err)
-	defer c.Replications().Delete(ctx, r)
+	defer c.DeleteReplication(ctx, r)
 
 	assert.Equal(t, name, r.Name)
 }
@@ -65,14 +91,14 @@ func TestAPIReplicationNewSrcRegistry(t *testing.T) {
 	name := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
 	regName := "test-registry"
 	registryType := "harbor"
 	url := "http://registry-docker-registry:5000/"
 	credential := model.RegistryCredential{
-		AccessKey:    defaultUser,
-		AccessSecret: defaultPassword,
+		AccessKey:    user,
+		AccessSecret: password,
 		Type:         "basic",
 	}
 
@@ -84,11 +110,13 @@ func TestAPIReplicationNewSrcRegistry(t *testing.T) {
 		Type: "manual",
 	}
 
-	reg, err := c.Registries().NewRegistry(ctx, regName, registryType, url, &credential, false)
-	require.NoError(t, err)
-	defer c.Registries().Delete(ctx, reg)
+	rc := registry.NewClient(c.Client, c.AuthInfo)
 
-	r, err := c.Replications().NewReplication(
+	reg, err := rc.NewRegistry(ctx, regName, registryType, url, &credential, false)
+	require.NoError(t, err)
+	defer rc.DeleteRegistry(ctx, reg)
+
+	r, err := c.NewReplication(
 		ctx,
 		nil,
 		reg,
@@ -100,7 +128,7 @@ func TestAPIReplicationNewSrcRegistry(t *testing.T) {
 		"", "", name,
 	)
 	require.NoError(t, err)
-	defer c.Replications().Delete(ctx, r)
+	defer c.DeleteReplication(ctx, r)
 
 	assert.Equal(t, name, r.Name)
 }
@@ -113,14 +141,14 @@ func TestAPIReplicationDelete(t *testing.T) {
 	name := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
 	regName := "test-registry"
 	registryType := "harbor"
 	url := "http://registry-docker-registry:5000/"
 	credential := model.RegistryCredential{
-		AccessKey:    defaultUser,
-		AccessSecret: defaultPassword,
+		AccessKey:    user,
+		AccessSecret: password,
 		Type:         "basic",
 	}
 
@@ -132,10 +160,12 @@ func TestAPIReplicationDelete(t *testing.T) {
 		Type: "manual",
 	}
 
-	reg, err := c.Registries().NewRegistry(ctx, regName, registryType, url, &credential, false)
+	rc := registry.NewClient(c.Client, c.AuthInfo)
+
+	reg, err := rc.NewRegistry(ctx, regName, registryType, url, &credential, false)
 	require.NoError(t, err)
 
-	r, err := c.Replications().NewReplication(
+	r, err := c.NewReplication(
 		ctx,
 		nil,
 		reg,
@@ -147,12 +177,12 @@ func TestAPIReplicationDelete(t *testing.T) {
 		"", "", name,
 	)
 	require.NoError(t, err)
-	defer c.Registries().Delete(ctx, reg)
+	defer rc.DeleteRegistry(ctx, reg)
 
-	err = c.Replications().Delete(ctx, r)
+	err = c.DeleteReplication(ctx, r)
 	require.NoError(t, err)
 
-	r, err = c.Replications().Get(ctx, name)
+	r, err = c.GetReplication(ctx, name)
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrReplicationNotFound{}, err)
 	}
@@ -166,14 +196,14 @@ func TestAPIReplicationUpdate(t *testing.T) {
 	name := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
 	regName := "test-registry"
 	registryType := "harbor"
 	url := "http://registry-docker-registry:5000/"
 	credential := model.RegistryCredential{
-		AccessKey:    defaultUser,
-		AccessSecret: defaultPassword,
+		AccessKey:    user,
+		AccessSecret: password,
 		Type:         "basic",
 	}
 
@@ -185,11 +215,13 @@ func TestAPIReplicationUpdate(t *testing.T) {
 		Type: "manual",
 	}
 
-	reg, err := c.Registries().NewRegistry(ctx, regName, registryType, url, &credential, false)
-	require.NoError(t, err)
-	defer c.Registries().Delete(ctx, reg)
+	rc := registry.NewClient(c.Client, c.AuthInfo)
 
-	r, err := c.Replications().NewReplication(
+	reg, err := rc.NewRegistry(ctx, regName, registryType, url, &credential, false)
+	require.NoError(t, err)
+	defer rc.DeleteRegistry(ctx, reg)
+
+	r, err := c.NewReplication(
 		ctx,
 		nil,
 		reg,
@@ -202,16 +234,16 @@ func TestAPIReplicationUpdate(t *testing.T) {
 	)
 
 	require.NoError(t, err)
-	defer c.Replications().Delete(ctx, r)
+	defer c.DeleteReplication(ctx, r)
 
 	descBefore := r.Description
 
 	r.Description = "b"
 
-	err = c.Replications().Update(ctx, r)
+	err = c.UpdateReplication(ctx, r)
 	require.NoError(t, err)
 
-	r, err = c.Replications().Get(ctx, name)
+	r, err = c.GetReplication(ctx, name)
 	assert.NoError(t, err)
 
 	assert.NotEqual(t, descBefore, r.Description)
