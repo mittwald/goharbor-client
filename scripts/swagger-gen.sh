@@ -75,7 +75,6 @@ if [[ "$1" = "v1" ]]; then
 fi
 
 if [[ "$1" = "v2" ]]; then
-  set -x
   echo "using the v2 swagger file (${API_VERSION_V2})"
     docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
   generate client \
