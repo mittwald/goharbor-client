@@ -1,24 +1,42 @@
-package goharborclient
+package registry
 
 import (
 	"context"
-	"github.com/mittwald/goharbor-client/user"
+	"github.com/go-openapi/runtime"
+	"github.com/mittwald/goharbor-client/api/v1.10.0/client"
 
 	"github.com/mittwald/goharbor-client/api/v1.10.0/client/products"
 	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
 )
 
-// RegistryRESTClient is a subclient for RESTClient handling registry related
-// actions.
-type RegistryRESTClient struct {
-	parent *user.RESTClient
+// RESTClient is a subclient for handling registry related actions.
+type RESTClient struct {
+	// The swagger client
+	Client *client.Harbor
+
+	// AuthInfo contain auth information, which are provided on API calls.
+	AuthInfo runtime.ClientAuthInfoWriter
+}
+
+func NewClient(cl *client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
+	return &RESTClient{
+		Client:   cl,
+		AuthInfo: authInfo,
+	}
+}
+
+type Client interface {
+	NewRegistry(ctx context.Context, name, registryType, url string,
+		credential *model.RegistryCredential, insecure bool) (*model.Registry, error)
+	GetRegistry(ctx context.Context, name string) (*model.Registry, error)
+	DeleteRegistry(ctx context.Context, r *model.Registry) error
 }
 
 // NewRegistry creates a new project with name as project name.
 // CountLimit and StorageLimit limits space and access for this project.
 // Returns the project as it is stored inside Harbor or an error,
 // if the project could not be created.
-func (c *RegistryRESTClient) NewRegistry(ctx context.Context, name, registryType, url string,
+func (c *RESTClient) NewRegistry(ctx context.Context, name, registryType, url string,
 	credential *model.RegistryCredential, insecure bool) (*model.Registry, error) {
 	rReq := &model.Registry{
 		Credential: credential,
@@ -28,18 +46,18 @@ func (c *RegistryRESTClient) NewRegistry(ctx context.Context, name, registryType
 		URL:        url,
 	}
 
-	_, err := c.parent.Client.Products.PostRegistries(
+	_, err := c.Client.Products.PostRegistries(
 		&products.PostRegistriesParams{
 			Registry: rReq,
 			Context:  ctx,
-		}, c.parent.AuthInfo)
+		}, c.AuthInfo)
 
 	err = handleSwaggerRegistryErrors(err)
 	if err != nil {
 		return nil, err
 	}
 
-	registry, err := c.Get(ctx, name)
+	registry, err := c.GetRegistry(ctx, name)
 	if err != nil {
 		return nil, err
 	}
@@ -50,15 +68,15 @@ func (c *RegistryRESTClient) NewRegistry(ctx context.Context, name, registryType
 // Get returns a registry identified by name.
 // Returns an error if it cannot find a matching registry or when
 // having difficulties talking to the API.
-func (c *RegistryRESTClient) Get(ctx context.Context, name string) (*model.Registry, error) {
+func (c *RESTClient) GetRegistry(ctx context.Context, name string) (*model.Registry, error) {
 	if name == "" {
 		return nil, &ErrRegistryNotProvided{}
 	}
-	resp, err := c.parent.Client.Products.GetRegistries(
+	resp, err := c.Client.Products.GetRegistries(
 		&products.GetRegistriesParams{
 			Name:    &name,
 			Context: ctx,
-		}, c.parent.AuthInfo)
+		}, c.AuthInfo)
 
 	err = handleSwaggerRegistryErrors(err)
 	if err != nil {
@@ -77,13 +95,13 @@ func (c *RegistryRESTClient) Get(ctx context.Context, name string) (*model.Regis
 // Delete deletes a registry.
 // Returns an error when no matching registry is found or when
 // having difficulties talking to the API.
-func (c *RegistryRESTClient) Delete(ctx context.Context,
+func (c *RESTClient) DeleteRegistry(ctx context.Context,
 	r *model.Registry) error {
 	if r == nil {
 		return &ErrRegistryNotProvided{}
 	}
 
-	registry, err := c.Get(ctx, r.Name)
+	registry, err := c.GetRegistry(ctx, r.Name)
 	if err != nil {
 		return err
 	}
@@ -92,11 +110,11 @@ func (c *RegistryRESTClient) Delete(ctx context.Context,
 		return &ErrRegistryMismatch{}
 	}
 
-	_, err = c.parent.Client.Products.DeleteRegistriesID(
+	_, err = c.Client.Products.DeleteRegistriesID(
 		&products.DeleteRegistriesIDParams{
 			ID:      registry.ID,
 			Context: ctx,
-		}, c.parent.AuthInfo)
+		}, c.AuthInfo)
 
 	return handleSwaggerRegistryErrors(err)
 }

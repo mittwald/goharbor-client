@@ -3,6 +3,7 @@ package goharborclient
 import (
 	"context"
 	"github.com/mittwald/goharbor-client/project"
+	"github.com/mittwald/goharbor-client/registry"
 	"github.com/mittwald/goharbor-client/user"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
@@ -15,13 +16,16 @@ import (
 type Client interface {
 	user.Client
 	project.Client
+	registry.Client
 }
 
 type RESTClient struct {
-	user    *user.RESTClient
-	project *project.RESTClient
+	user     *user.RESTClient
+	project  *project.RESTClient
+	registry *registry.RESTClient
 }
 
+// User Client
 func (c *RESTClient) NewUser(ctx context.Context, username, email, realname, password, comments string) (*model.User, error) {
 	return c.user.NewUser(ctx, username, email, realname, password, comments)
 }
@@ -36,6 +40,7 @@ func (c *RESTClient) UpdateUser(ctx context.Context, u *model.User) error {
 	return c.user.UpdateUser(ctx, u)
 }
 
+// Project Client
 func (c *RESTClient) NewProject(ctx context.Context, name string, countLimit int, storageLimit int) (*model.Project, error) {
 	return c.project.NewProject(ctx, name, countLimit, storageLimit)
 }
@@ -80,6 +85,24 @@ func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context, p *model.Pr
 	return c.project.DeleteProjectMetadataValue(ctx, p, key)
 }
 
+// Registry Client
+
+func (c *RESTClient) NewRegistry(ctx context.Context, name, registryType, url string,
+	credential *model.RegistryCredential, insecure bool) (*model.Registry, error) {
+
+	return c.registry.NewRegistry(ctx, name, registryType, url,
+		credential, insecure)
+}
+
+func (c *RESTClient) GetRegistry(ctx context.Context, name string) (*model.Registry, error) {
+	return c.registry.GetRegistry(ctx, name)
+
+}
+
+func (c *RESTClient) DeleteRegistry(ctx context.Context, r *model.Registry) error {
+	return c.registry.DeleteRegistry(ctx, r)
+}
+
 // NewClient creates a new Harbor client.
 // host is the harbor hostname including the protocol scheme and port,
 // i.e. "https://harbor.example.com" or "http://harbor.example.com:30002".
@@ -90,13 +113,6 @@ func NewClient(host, user, password string) *RESTClient {
 		Client: client.New(runtimeclient.New(host,
 			"/api", []string{"http"}), strfmt.Default),
 		AuthInfo: runtimeclient.BasicAuth(user, password),
-	}
-}
-
-// Registries returns a project subclient for handling project related actions.
-func (c *RESTClient) Registries() *RegistryRESTClient {
-	return &RegistryRESTClient{
-		parent: c,
 	}
 }
 
