@@ -3,6 +3,10 @@ package goharborclient
 import (
 	"context"
 	"flag"
+	runtimeclient "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
+	"github.com/mittwald/goharbor-client/api/v1.10.0/client"
+	"github.com/mittwald/goharbor-client/system"
 	"os"
 	"os/exec"
 	"testing"
@@ -13,9 +17,15 @@ import (
 const (
 	setupScript    = "scripts/setup-harbor.sh"
 	teardownScript = "scripts/teardown-harbor.sh"
+	host           = "localhost:30002"
+	defaultUser    = "admin"
+	password       = "Harbor12345"
 )
 
 var (
+	swaggerClient = client.New(runtimeclient.New(host, "/api", []string{"http"}), strfmt.Default)
+	authInfo      = runtimeclient.BasicAuth(defaultUser, password)
+
 	integrationTest = flag.Bool("integration", false,
 		"test against a real Harbor instance")
 	harborVersion = flag.String("version", "1.10.2",
@@ -23,9 +33,6 @@ var (
 			"defaults to 1.10.2")
 	skipSpinUp = flag.Bool("skip-spinup", false,
 		"Skip kind cluster creation")
-	host            = "localhost:30002"
-	defaultUser     = "admin"
-	defaultPassword = "Harbor12345"
 )
 
 func TestMain(m *testing.M) {
@@ -78,7 +85,7 @@ func TestAPIHealth(t *testing.T) {
 	}
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := system.NewClient(swaggerClient, authInfo)
 
 	_, err := c.Health(ctx)
 	require.NoError(t, err)

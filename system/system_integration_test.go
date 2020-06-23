@@ -1,12 +1,35 @@
-package goharborclient
+package system
 
 import (
 	"context"
+	"flag"
+	runtimeclient "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
+	"github.com/mittwald/goharbor-client/api/v1.10.0/client"
 	"testing"
 
 	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+)
+
+const (
+	host     = "localhost:30002"
+	user     = "admin"
+	password = "Harbor12345"
+)
+
+var (
+	swaggerClient = client.New(runtimeclient.New(host, "/api", []string{"http"}), strfmt.Default)
+	authInfo      = runtimeclient.BasicAuth(user, password)
+
+	integrationTest = flag.Bool("integration", false,
+		"test against a real Harbor instance")
+	harborVersion = flag.String("version", "1.10.2",
+		"Harbor version, used in conjunction with -integration, "+
+			"defaults to 1.10.2")
+	skipSpinUp = flag.Bool("skip-spinup", false,
+		"Skip kind cluster creation")
 )
 
 // TestAPISystemGcScheduleNew tests the creation of a new GC schedule
@@ -20,15 +43,15 @@ func TestAPISystemGcScheduleNew(t *testing.T) {
 	scheduleType := "Hourly"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
-	_, err := c.System().GetSystemGarbageCollection(ctx)
+	_, err := c.GetSystemGarbageCollection(ctx)
 	require.IsType(t, &ErrSystemGcUndefined{}, err)
 
-	gcSchedule, err := c.System().NewSystemGarbageCollection(ctx, cron, scheduleType)
+	gcSchedule, err := c.NewSystemGarbageCollection(ctx, cron, scheduleType)
 	require.NoError(t, err)
 
-	defer c.System().ResetSystemGarbageCollection(ctx)
+	defer c.ResetSystemGarbageCollection(ctx)
 
 	assert.Equal(t, gcSchedule.Schedule.Cron, cron)
 	assert.Equal(t, gcSchedule.Schedule.Type, scheduleType)
@@ -45,28 +68,28 @@ func TestAPISystemGcScheduleUpdate(t *testing.T) {
 	scheduleType := "Hourly"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
-	_, err := c.System().GetSystemGarbageCollection(ctx)
+	_, err := c.GetSystemGarbageCollection(ctx)
 	require.IsType(t, &ErrSystemGcUndefined{}, err)
 
-	_, err = c.System().NewSystemGarbageCollection(ctx, cron, scheduleType)
+	_, err = c.NewSystemGarbageCollection(ctx, cron, scheduleType)
 	require.NoError(t, err)
 
 	cron2 := "* * */1 * *"
 	scheduleType2 := "Daily"
-	err = c.System().UpdateSystemGarbageCollection(ctx, &model.AdminJobScheduleObj{
+	err = c.UpdateSystemGarbageCollection(ctx, &model.AdminJobScheduleObj{
 		Cron: cron2,
 		Type: scheduleType2,
 	})
 
-	gcSchedule, err := c.System().GetSystemGarbageCollection(ctx)
+	gcSchedule, err := c.GetSystemGarbageCollection(ctx)
 	require.NoError(t, err)
 
 	assert.Equal(t, gcSchedule.Schedule.Cron, cron2)
 	assert.Equal(t, gcSchedule.Schedule.Type, scheduleType2)
 
-	err = c.System().ResetSystemGarbageCollection(ctx)
+	err = c.ResetSystemGarbageCollection(ctx)
 	require.NoError(t, err)
 }
 
@@ -80,17 +103,17 @@ func TestAPISystemGcScheduleReset(t *testing.T) {
 	scheduleType := "Hourly"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
-	_, err := c.System().GetSystemGarbageCollection(ctx)
+	_, err := c.GetSystemGarbageCollection(ctx)
 	require.IsType(t, &ErrSystemGcUndefined{}, err)
 
-	_, err = c.System().NewSystemGarbageCollection(ctx, cron, scheduleType)
+	_, err = c.NewSystemGarbageCollection(ctx, cron, scheduleType)
 	require.NoError(t, err)
 
-	err = c.System().ResetSystemGarbageCollection(ctx)
+	err = c.ResetSystemGarbageCollection(ctx)
 	require.NoError(t, err)
 
-	_, err = c.System().GetSystemGarbageCollection(ctx)
+	_, err = c.GetSystemGarbageCollection(ctx)
 	require.IsType(t, &ErrSystemGcUndefined{}, err)
 }

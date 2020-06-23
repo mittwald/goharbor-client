@@ -1,4 +1,4 @@
-package goharborclient
+package system
 
 import (
 	"github.com/go-openapi/runtime"

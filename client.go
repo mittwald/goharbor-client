@@ -5,12 +5,9 @@ import (
 	"github.com/mittwald/goharbor-client/project"
 	"github.com/mittwald/goharbor-client/registry"
 	"github.com/mittwald/goharbor-client/replication"
+	"github.com/mittwald/goharbor-client/system"
 	"github.com/mittwald/goharbor-client/user"
 
-	runtimeclient "github.com/go-openapi/runtime/client"
-	"github.com/go-openapi/strfmt"
-	"github.com/mittwald/goharbor-client/api/v1.10.0/client"
-	"github.com/mittwald/goharbor-client/api/v1.10.0/client/products"
 	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
 )
 
@@ -19,6 +16,7 @@ type Client interface {
 	project.Client
 	registry.Client
 	replication.Client
+	system.Client
 }
 
 type RESTClient struct {
@@ -26,6 +24,7 @@ type RESTClient struct {
 	project     *project.RESTClient
 	registry    *registry.RESTClient
 	replication *replication.RESTClient
+	system      *system.RESTClient
 }
 
 // User Client
@@ -126,34 +125,19 @@ func (c *RESTClient) UpdateReplication(ctx context.Context, r *model.Replication
 	return c.replication.UpdateReplication(ctx, r)
 }
 
-// NewClient creates a new Harbor client.
-// host is the harbor hostname including the protocol scheme and port,
-// i.e. "https://harbor.example.com" or "http://harbor.example.com:30002".
-// user is the authentication username.
-// password is the authentication password.
-func NewClient(host, user, password string) *RESTClient {
-	return &RESTClient{
-		Client: client.New(runtimeclient.New(host,
-			"/api", []string{"http"}), strfmt.Default),
-		AuthInfo: runtimeclient.BasicAuth(user, password),
-	}
+// System Client
+func (c *RESTClient) NewSystemGarbageCollection(ctx context.Context, cron, scheduleType string) (*model.AdminJobSchedule, error) {
+	return c.system.NewSystemGarbageCollection(ctx, cron, scheduleType)
 }
 
-// Registries returns a project subclient for handling project related actions.
-func (c *RESTClient) System() *SystemRESTClient {
-	return &SystemRESTClient{
-		parent: c,
-	}
+func (c *RESTClient) UpdateSystemGarbageCollection(ctx context.Context, newGcSchedule *model.AdminJobScheduleObj) error {
+	return c.system.UpdateSystemGarbageCollection(ctx, newGcSchedule)
 }
 
-// Health reports Harbor system health information.
-func (c *RESTClient) Health(ctx context.Context) (*model.OverallHealthStatus, error) {
-	resp, err := c.Client.Products.GetHealth(&products.GetHealthParams{
-		Context: ctx,
-	}, c.AuthInfo)
-	if err != nil {
-		return nil, err
-	}
+func (c *RESTClient) GetSystemGarbageCollection(ctx context.Context) (*model.AdminJobSchedule, error) {
+	return c.system.GetSystemGarbageCollection(ctx)
+}
 
-	return resp.Payload, nil
+func (c *RESTClient) ResetSystemGarbageCollection(ctx context.Context) error {
+	return c.system.ResetSystemGarbageCollection(ctx)
 }
