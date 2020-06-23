@@ -2,6 +2,7 @@ package goharborclient
 
 import (
 	"context"
+	"github.com/mittwald/goharbor-client/user"
 
 	"github.com/mittwald/goharbor-client/api/v1.10.0/client/products"
 	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
@@ -9,7 +10,7 @@ import (
 
 // ReplicationRESTClient is a subclient for RESTClient handling user related actions.
 type ReplicationRESTClient struct {
-	parent *RESTClient
+	parent *user.RESTClient
 }
 
 // NewReplication creates a new replication with the given arguments.

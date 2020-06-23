@@ -1,4 +1,4 @@
-package goharborclient
+package project
 
 const (
 	// ErrProjectIllegalIDFormatMsg is the error message for ErrProjectIllegalIDFormat error.

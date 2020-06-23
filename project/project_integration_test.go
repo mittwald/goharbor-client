@@ -1,12 +1,38 @@
-package goharborclient
+package project
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"testing"
 
+	runtimeclient "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
+	"github.com/mittwald/goharbor-client/api/v1.10.0/client"
+
+	uc "github.com/mittwald/goharbor-client/user"
+
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+)
+
+const (
+	host     = "localhost:30002"
+	user     = "admin"
+	password = "Harbor12345"
+)
+
+var (
+	swaggerClient = client.New(runtimeclient.New(host, "/api", []string{"http"}), strfmt.Default)
+	authInfo      = runtimeclient.BasicAuth(user, password)
+
+	integrationTest = flag.Bool("integration", false,
+		"test against a real Harbor instance")
+	harborVersion = flag.String("version", "1.10.2",
+		"Harbor version, used in conjunction with -integration, "+
+			"defaults to 1.10.2")
+	skipSpinUp = flag.Bool("skip-spinup", false,
+		"Skip kind cluster creation")
 )
 
 func TestAPIProjectNew(t *testing.T) {
@@ -17,10 +43,10 @@ func TestAPIProjectNew(t *testing.T) {
 	name := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
-	p, err := c.Projects().NewProject(ctx, name, 3, 3)
-	defer c.Projects().Delete(ctx, p)
+	p, err := c.NewProject(ctx, name, 3, 3)
+	defer c.DeleteProject(ctx, p)
 
 	require.NoError(t, err)
 	assert.Equal(t, name, p.Name)
@@ -35,13 +61,13 @@ func TestAPIProjectGet(t *testing.T) {
 	name := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
-	p, err := c.Projects().NewProject(ctx, name, 3, 3)
+	p, err := c.NewProject(ctx, name, 3, 3)
 	require.NoError(t, err)
-	defer c.Projects().Delete(ctx, p)
+	defer c.DeleteProject(ctx, p)
 
-	p2, err := c.Projects().Get(ctx, name)
+	p2, err := c.GetProject(ctx, name)
 	require.NoError(t, err)
 	assert.Equal(t, p, p2)
 }
@@ -53,15 +79,15 @@ func TestAPIProjectDelete(t *testing.T) {
 
 	name := "test-project"
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
-	p, err := c.Projects().NewProject(ctx, name, 3, 3)
+	p, err := c.NewProject(ctx, name, 3, 3)
 	require.NoError(t, err)
 
-	err = c.Projects().Delete(ctx, p)
+	err = c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	p, err = c.Projects().Get(ctx, name)
+	p, err = c.GetProject(ctx, name)
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrProjectNotFound{}, err)
 	}
@@ -74,21 +100,21 @@ func TestAPIProjectList(t *testing.T) {
 
 	namePrefix := "test-project"
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
 	for i := 0; i < 10; i++ {
 		name := fmt.Sprintf("%s-%d", namePrefix, i)
-		p, err := c.Projects().NewProject(ctx, name, 3, 3)
+		p, err := c.NewProject(ctx, name, 3, 3)
 		require.NoError(t, err)
 		defer func() {
-			err := c.Projects().Delete(ctx, p)
+			err := c.DeleteProject(ctx, p)
 			if err != nil {
 				panic("error in cleanup routine: " + err.Error())
 			}
 		}()
 	}
 
-	projects, err := c.Projects().List(ctx, namePrefix)
+	projects, err := c.ListProjects(ctx, namePrefix)
 	require.NoError(t, err)
 	assert.Len(t, projects, 10)
 	for _, v := range projects {
@@ -103,17 +129,17 @@ func TestAPIProjectUpdate(t *testing.T) {
 
 	name := "test-project"
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
-	p, err := c.Projects().NewProject(ctx, name, 3, 3)
+	p, err := c.NewProject(ctx, name, 3, 3)
 	require.NoError(t, err)
-	defer c.Projects().Delete(ctx, p)
+	defer c.DeleteProject(ctx, p)
 	require.Equal(t, "", p.Metadata.AutoScan)
 
 	p.Metadata.AutoScan = "true"
-	err = c.Projects().Update(ctx, p, 2, 2)
+	err = c.UpdateProject(ctx, p, 2, 2)
 	require.NoError(t, err)
-	p2, err := c.Projects().Get(ctx, name)
+	p2, err := c.GetProject(ctx, name)
 	require.NoError(t, err)
 	assert.Equal(t, p, p2)
 }
@@ -131,17 +157,20 @@ func TestAPIProjectUserMemberAdd(t *testing.T) {
 	memberComments := "Some comments"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
-	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
-	defer c.Projects().Delete(ctx, p)
+	p, err := c.NewProject(ctx, projectName, 3, 3)
+	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	u, err := c.Users().NewUser(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
-	require.NoError(t, err)
-	defer c.Users().Delete(ctx, u)
+	uc := uc.NewClient(swaggerClient, authInfo)
 
-	err = c.Projects().AddUserMember(ctx, p, u, 1)
+	u, err := uc.NewUser(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
+	require.NoError(t, err)
+
+	defer uc.DeleteUser(ctx, u)
+
+	err = c.AddProjectMember(ctx, p, u, 1)
 	require.NoError(t, err)
 
 }
@@ -159,25 +188,27 @@ func TestAPIProjectMemberList(t *testing.T) {
 	memberComments := "Some comments"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
-	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
-	defer c.Projects().Delete(ctx, p)
+	p, err := c.NewProject(ctx, projectName, 3, 3)
+	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	u, err := c.Users().NewUser(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
-	require.NoError(t, err)
-	defer c.Users().Delete(ctx, u)
+	uc := uc.NewClient(swaggerClient, authInfo)
 
-	members, err := c.Projects().ListMembers(ctx, p)
+	u, err := uc.NewUser(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
+	require.NoError(t, err)
+	defer uc.DeleteUser(ctx, u)
+
+	members, err := c.ListProjectMembers(ctx, p)
 	require.NoError(t, err)
 
 	assert.Len(t, members, 1)
 
-	err = c.Projects().AddUserMember(ctx, p, u, 1)
+	err = c.AddProjectMember(ctx, p, u, 1)
 	require.NoError(t, err)
 
-	members, err = c.Projects().ListMembers(ctx, p)
+	members, err = c.ListProjectMembers(ctx, p)
 	require.NoError(t, err)
 
 	assert.Len(t, members, 2)
@@ -197,23 +228,25 @@ func TestAPIProjectUserMemberUpdate(t *testing.T) {
 	memberComments := "Some comments"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
-	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
-	defer c.Projects().Delete(ctx, p)
+	p, err := c.NewProject(ctx, projectName, 3, 3)
+	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	u, err := c.Users().NewUser(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
-	require.NoError(t, err)
-	defer c.Users().Delete(ctx, u)
+	uc := uc.NewClient(swaggerClient, authInfo)
 
-	err = c.Projects().AddUserMember(ctx, p, u, 1)
+	u, err := uc.NewUser(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
+	require.NoError(t, err)
+	defer uc.DeleteUser(ctx, u)
+
+	err = c.AddProjectMember(ctx, p, u, 1)
 	require.NoError(t, err)
 
-	err = c.Projects().UpdateUserMemberRole(ctx, p, u, 2)
+	err = c.UpdateProjectMemberRole(ctx, p, u, 2)
 	require.NoError(t, err)
 
-	members, err := c.Projects().ListMembers(ctx, p)
+	members, err := c.ListProjectMembers(ctx, p)
 	require.NoError(t, err)
 
 	found := false
@@ -242,23 +275,25 @@ func TestAPIProjectUserMemberDelete(t *testing.T) {
 	memberComments := "Some comments"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
-	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
-	defer c.Projects().Delete(ctx, p)
+	p, err := c.NewProject(ctx, projectName, 3, 3)
+	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	u, err := c.Users().NewUser(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
-	require.NoError(t, err)
-	defer c.Users().Delete(ctx, u)
+	uc := uc.NewClient(swaggerClient, authInfo)
 
-	err = c.Projects().AddUserMember(ctx, p, u, 1)
+	u, err := uc.NewUser(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
+	require.NoError(t, err)
+	defer uc.DeleteUser(ctx, u)
+
+	err = c.AddProjectMember(ctx, p, u, 1)
 	require.NoError(t, err)
 
-	err = c.Projects().DeleteUserMember(ctx, p, u)
+	err = c.DeleteProjectMember(ctx, p, u)
 	require.NoError(t, err)
 
-	members, err := c.Projects().ListMembers(ctx, p)
+	members, err := c.ListProjectMembers(ctx, p)
 	require.NoError(t, err)
 
 	found := false
@@ -280,21 +315,21 @@ func TestAPIProjectMetadataAdd(t *testing.T) {
 	projectName := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
-	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
-	defer c.Projects().Delete(ctx, p)
+	p, err := c.NewProject(ctx, projectName, 3, 3)
+	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	err = c.Projects().AddMetadata(ctx, p, AutoScanProjectMetadataKey, "true")
+	err = c.AddProjectMetadata(ctx, p, AutoScanProjectMetadataKey, "true")
 	require.NoError(t, err)
-	err = c.Projects().AddMetadata(ctx, p, EnableContentTrustProjectMetadataKey, "true")
+	err = c.AddProjectMetadata(ctx, p, EnableContentTrustProjectMetadataKey, "true")
 	require.NoError(t, err)
-	err = c.Projects().AddMetadata(ctx, p, PreventVulProjectMetadataKey, "true")
+	err = c.AddProjectMetadata(ctx, p, PreventVulProjectMetadataKey, "true")
 	require.NoError(t, err)
-	err = c.Projects().AddMetadata(ctx, p, ReuseSysCVEWhitelistProjectMetadataKey, "true")
+	err = c.AddProjectMetadata(ctx, p, ReuseSysCVEWhitelistProjectMetadataKey, "true")
 	require.NoError(t, err)
-	err = c.Projects().AddMetadata(ctx, p, SeverityProjectMetadataKey, "medium")
+	err = c.AddProjectMetadata(ctx, p, SeverityProjectMetadataKey, "medium")
 	require.NoError(t, err)
 }
 
@@ -306,13 +341,13 @@ func TestAPIProjectMetadataAlreadyExists(t *testing.T) {
 	projectName := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
-	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
-	defer c.Projects().Delete(ctx, p)
+	p, err := c.NewProject(ctx, projectName, 3, 3)
+	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	err = c.Projects().AddMetadata(ctx, p, PublicProjectMetadataKey, "false")
+	err = c.AddProjectMetadata(ctx, p, PublicProjectMetadataKey, "false")
 
 	if assert.Error(t, err) {
 		assert.Equal(t, "metadata key already exists", err.Error())
@@ -328,13 +363,13 @@ func TestAPIProjectMetadataAddInvalidKey(t *testing.T) {
 	projectName := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
-	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
-	defer c.Projects().Delete(ctx, p)
+	p, err := c.NewProject(ctx, projectName, 3, 3)
+	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	err = c.Projects().AddMetadata(ctx, p, "foobar", "true")
+	err = c.AddProjectMetadata(ctx, p, "foobar", "true")
 
 	if assert.Error(t, err) {
 		assert.Equal(t, "invalid request", err.Error())
@@ -350,13 +385,13 @@ func TestAPIProjectMetadataAddInvalidValue(t *testing.T) {
 	projectName := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
-	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
-	defer c.Projects().Delete(ctx, p)
+	p, err := c.NewProject(ctx, projectName, 3, 3)
+	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	err = c.Projects().AddMetadata(ctx, p, AutoScanProjectMetadataKey, "foobar")
+	err = c.AddProjectMetadata(ctx, p, AutoScanProjectMetadataKey, "foobar")
 
 	if assert.Error(t, err) {
 		assert.Equal(t, "invalid request", err.Error())
@@ -372,13 +407,13 @@ func TestAPIProjectMetadataGet(t *testing.T) {
 	projectName := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
-	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
-	defer c.Projects().Delete(ctx, p)
+	p, err := c.NewProject(ctx, projectName, 3, 3)
+	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	m, err := c.Projects().GetMetadataValue(ctx, p, PublicProjectMetadataKey)
+	m, err := c.getProjectMetadataValue(ctx, p, PublicProjectMetadataKey)
 	require.NoError(t, err)
 
 	assert.Equal(t, "false", m)
@@ -392,13 +427,13 @@ func TestAPIProjectMetadataGetInvalidKey(t *testing.T) {
 	projectName := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
-	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
-	defer c.Projects().Delete(ctx, p)
+	p, err := c.NewProject(ctx, projectName, 3, 3)
+	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	m, err := c.Projects().GetMetadataValue(ctx, p, "foobar")
+	m, err := c.getProjectMetadataValue(ctx, p, "foobar")
 
 	if assert.Error(t, err) {
 		assert.Equal(t, "resource unknown", err.Error())
@@ -416,24 +451,24 @@ func TestAPIProjectMetadataList(t *testing.T) {
 	projectName := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
-	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
-	defer c.Projects().Delete(ctx, p)
-	require.NoError(t, err)
-
-	err = c.Projects().AddMetadata(ctx, p, AutoScanProjectMetadataKey, "true")
-	require.NoError(t, err)
-	err = c.Projects().AddMetadata(ctx, p, EnableContentTrustProjectMetadataKey, "true")
-	require.NoError(t, err)
-	err = c.Projects().AddMetadata(ctx, p, PreventVulProjectMetadataKey, "true")
-	require.NoError(t, err)
-	err = c.Projects().AddMetadata(ctx, p, ReuseSysCVEWhitelistProjectMetadataKey, "true")
-	require.NoError(t, err)
-	err = c.Projects().AddMetadata(ctx, p, SeverityProjectMetadataKey, "medium")
+	p, err := c.NewProject(ctx, projectName, 3, 3)
+	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	m, err := c.Projects().ListMetadata(ctx, p)
+	err = c.AddProjectMetadata(ctx, p, AutoScanProjectMetadataKey, "true")
+	require.NoError(t, err)
+	err = c.AddProjectMetadata(ctx, p, EnableContentTrustProjectMetadataKey, "true")
+	require.NoError(t, err)
+	err = c.AddProjectMetadata(ctx, p, PreventVulProjectMetadataKey, "true")
+	require.NoError(t, err)
+	err = c.AddProjectMetadata(ctx, p, ReuseSysCVEWhitelistProjectMetadataKey, "true")
+	require.NoError(t, err)
+	err = c.AddProjectMetadata(ctx, p, SeverityProjectMetadataKey, "medium")
+	require.NoError(t, err)
+
+	m, err := c.ListProjectMetadata(ctx, p)
 	require.NoError(t, err)
 
 	assert.Equal(t, "true", m.AutoScan)
@@ -451,18 +486,18 @@ func TestAPIProjectMetadataUpdate(t *testing.T) {
 	projectName := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
-	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
-	defer c.Projects().Delete(ctx, p)
+	p, err := c.NewProject(ctx, projectName, 3, 3)
+	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	err = c.Projects().AddMetadata(ctx, p, AutoScanProjectMetadataKey, "true")
+	err = c.AddProjectMetadata(ctx, p, AutoScanProjectMetadataKey, "true")
 	require.NoError(t, err)
 
-	err = c.Projects().UpdateMetadata(ctx, p, AutoScanProjectMetadataKey, "false")
+	err = c.UpdateProjectMetadata(ctx, p, AutoScanProjectMetadataKey, "false")
 
-	k, err := c.Projects().GetMetadataValue(ctx, p, AutoScanProjectMetadataKey)
+	k, err := c.getProjectMetadataValue(ctx, p, AutoScanProjectMetadataKey)
 	require.NoError(t, err)
 
 	assert.Equal(t, "false", k)
@@ -476,19 +511,19 @@ func TestAPIProjectMetadataDelete(t *testing.T) {
 	projectName := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(host, defaultUser, defaultPassword)
+	c := NewClient(swaggerClient, authInfo)
 
-	p, err := c.Projects().NewProject(ctx, projectName, 3, 3)
-	defer c.Projects().Delete(ctx, p)
+	p, err := c.NewProject(ctx, projectName, 3, 3)
+	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	err = c.Projects().AddMetadata(ctx, p, AutoScanProjectMetadataKey, "true")
+	err = c.AddProjectMetadata(ctx, p, AutoScanProjectMetadataKey, "true")
 	require.NoError(t, err)
 
-	err = c.Projects().DeleteMetadataValue(ctx, p, AutoScanProjectMetadataKey)
+	err = c.DeleteProjectMetadataValue(ctx, p, AutoScanProjectMetadataKey)
 	require.NoError(t, err)
 
-	m, err := c.Projects().GetMetadataValue(ctx, p, AutoScanProjectMetadataKey)
+	m, err := c.getProjectMetadataValue(ctx, p, AutoScanProjectMetadataKey)
 
 	if assert.Error(t, err) {
 		assert.Equal(t, "resource unknown", err.Error())

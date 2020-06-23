@@ -2,6 +2,7 @@ package goharborclient
 
 import (
 	"context"
+	"github.com/mittwald/goharbor-client/user"
 
 	"github.com/mittwald/goharbor-client/api/v1.10.0/client/products"
 	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
@@ -10,7 +11,7 @@ import (
 // RegistryRESTClient is a subclient for RESTClient handling registry related
 // actions.
 type RegistryRESTClient struct {
-	parent *RESTClient
+	parent *user.RESTClient
 }
 
 // NewRegistry creates a new project with name as project name.

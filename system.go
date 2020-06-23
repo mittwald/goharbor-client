@@ -2,6 +2,7 @@ package goharborclient
 
 import (
 	"context"
+	"github.com/mittwald/goharbor-client/user"
 
 	"github.com/mittwald/goharbor-client/api/v1.10.0/client/products"
 	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
@@ -10,7 +11,7 @@ import (
 // SystemRESTClient is a subclient for RESTClient handling system related
 // actions.
 type SystemRESTClient struct {
-	parent *RESTClient
+	parent *user.RESTClient
 }
 
 // NewSystemGarbageCollection creates a new garbage collection schedule.

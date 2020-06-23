@@ -1,8 +1,9 @@
-package goharborclient
+package user
 
 import (
 	"context"
 	"errors"
+	"github.com/mittwald/goharbor-client/api/v1.10.0/client"
 
 	"github.com/go-openapi/runtime"
 
@@ -10,9 +11,27 @@ import (
 	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
 )
 
-// UserRESTClient is a subclient for RESTClient handling user related actions.
-type UserRESTClient struct {
-	parent *RESTClient
+// RESTClient is a subclient for handling user related actions.
+type RESTClient struct {
+	// The swagger client
+	Client *client.Harbor
+
+	// AuthInfo contain auth information, which are provided on API calls.
+	AuthInfo runtime.ClientAuthInfoWriter
+}
+
+func NewClient(cl *client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
+	return &RESTClient{
+		Client:   cl,
+		AuthInfo: authInfo,
+	}
+}
+
+type Client interface {
+	NewUser(ctx context.Context, username, email, realname, password, comments string)
+	GetUser(ctx context.Context, username string) (*model.User, error)
+	DeleteUser(ctx context.Context, u *model.User) error
+	UpdateUser(ctx context.Context, u *model.User) error
 }
 
 // NewUser creates and returns a new user, or error in case of failure.
@@ -21,7 +40,7 @@ type UserRESTClient struct {
 // realname is the fullname of the user.
 // password is the password for this user.
 // comments as a comment attached to the user.
-func (c *UserRESTClient) NewUser(ctx context.Context, username, email, realname, password, comments string) (*model.User, error) {
+func (c *RESTClient) NewUser(ctx context.Context, username, email, realname, password, comments string) (*model.User, error) {
 	uReq := &model.User{
 		Username: username,
 		Password: password,
@@ -30,17 +49,17 @@ func (c *UserRESTClient) NewUser(ctx context.Context, username, email, realname,
 		Comment:  comments,
 	}
 
-	_, err := c.parent.Client.Products.PostUsers(&products.PostUsersParams{
+	_, err := c.Client.Products.PostUsers(&products.PostUsersParams{
 		User:    uReq,
 		Context: ctx,
-	}, c.parent.AuthInfo)
+	}, c.AuthInfo)
 
 	err = handleSwaggerUserErrors(err, username)
 	if err != nil {
 		return nil, err
 	}
 
-	user, err := c.Get(ctx, username)
+	user, err := c.GetUser(ctx, username)
 	if err != nil {
 		return nil, err
 	}
@@ -50,15 +69,15 @@ func (c *UserRESTClient) NewUser(ctx context.Context, username, email, realname,
 
 // Get fetches a user from Harbor given by username,
 // or an error in case of failure.
-func (c *UserRESTClient) Get(ctx context.Context, username string) (*model.User, error) {
+func (c *RESTClient) GetUser(ctx context.Context, username string) (*model.User, error) {
 	if username == "" {
 		return nil, errors.New("no username provided")
 	}
 
-	resp, err := c.parent.Client.Products.GetUsers(&products.GetUsersParams{
+	resp, err := c.Client.Products.GetUsers(&products.GetUsersParams{
 		Context:  ctx,
 		Username: &username,
-	}, c.parent.AuthInfo)
+	}, c.AuthInfo)
 
 	err = handleSwaggerUserErrors(err, username)
 	if err != nil {
@@ -76,12 +95,12 @@ func (c *UserRESTClient) Get(ctx context.Context, username string) (*model.User,
 
 // Delete deletes a user from Harbor given by a user model,
 // or error in case of failure.
-func (c *UserRESTClient) Delete(ctx context.Context, u *model.User) error {
+func (c *RESTClient) DeleteUser(ctx context.Context, u *model.User) error {
 	if u == nil {
 		return errors.New("no user provided")
 	}
 
-	user, err := c.Get(ctx, u.Username)
+	user, err := c.GetUser(ctx, u.Username)
 	if err != nil {
 		return err
 	}
@@ -90,10 +109,10 @@ func (c *UserRESTClient) Delete(ctx context.Context, u *model.User) error {
 		return &ErrUserMismatch{}
 	}
 
-	_, err = c.parent.Client.Products.DeleteUsersUserID(&products.DeleteUsersUserIDParams{
+	_, err = c.Client.Products.DeleteUsersUserID(&products.DeleteUsersUserIDParams{
 		UserID:  user.UserID,
 		Context: ctx,
-	}, c.parent.AuthInfo)
+	}, c.AuthInfo)
 
 	return handleSwaggerUserErrors(err, user.Username)
 }
@@ -101,12 +120,12 @@ func (c *UserRESTClient) Delete(ctx context.Context, u *model.User) error {
 // Update updates a user given by a user model,
 // or error in case of failure.
 // Note that only realname, email and comment properties are updateable.
-func (c *UserRESTClient) Update(ctx context.Context, u *model.User) error {
+func (c *RESTClient) UpdateUser(ctx context.Context, u *model.User) error {
 	if u == nil {
 		return errors.New("no user provided")
 	}
 
-	user, err := c.Get(ctx, u.Username)
+	user, err := c.GetUser(ctx, u.Username)
 	if err != nil {
 		return err
 	}
@@ -121,11 +140,11 @@ func (c *UserRESTClient) Update(ctx context.Context, u *model.User) error {
 		return &ErrUserMismatch{}
 	}
 
-	_, err = c.parent.Client.Products.PutUsersUserID(&products.PutUsersUserIDParams{
+	_, err = c.Client.Products.PutUsersUserID(&products.PutUsersUserIDParams{
 		UserID:  user.UserID,
 		Profile: profile,
 		Context: ctx,
-	}, c.parent.AuthInfo)
+	}, c.AuthInfo)
 
 	return handleSwaggerUserErrors(err, user.Username)
 }
@@ -152,8 +171,8 @@ func handleSwaggerUserErrors(in error, username string) error {
 	}
 }
 
-func (c *UserRESTClient) userExists(ctx context.Context, u *model.User) (bool, error) {
-	_, err := c.Get(ctx, u.Username)
+func (c *RESTClient) UserExists(ctx context.Context, u *model.User) (bool, error) {
+	_, err := c.GetUser(ctx, u.Username)
 
 	if err != nil {
 		if _, ok := err.(*ErrUserNotFound); ok {
