@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 SWAGGER_IMAGE="quay.io/goswagger/swagger"
-API_VERSION_V1="v1.10.0"
-API_VERSION_V2="v2.0.0"
-SWAGGER_FILE_V1="https://raw.githubusercontent.com/goharbor/harbor/${API_VERSION_V1}/api/harbor/swagger.yaml"
-SWAGGER_FILE_V2=https://raw.githubusercontent.com/goharbor/harbor/${API_VERSION_V2}/api/${API_VERSION_V2%.0}/swagger.yaml
 # go-swaggers documentation on swagger operations at the moment is really sparse,
 # so here is a bit of explanation from code observations.
 # go-swagger accepts operation names from command line "--operation" flag, to filter which operations to generate.
@@ -62,25 +58,27 @@ for i in "${swagger_operations[@]}"; do
   operation_flags+="--operation=${i} "
 done
 
-if [[ "$1" = "v1" ]]; then
-  echo "using the v1 swagger file (${API_VERSION_V1})"
-  docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
+if [[ "${1}" = *"v1"* ]]; then
+  SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${1}/api/harbor/swagger.yaml"
+  echo "using the v1 swagger file (${1})"
+  docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)/internal" ${SWAGGER_IMAGE} \
   generate client \
   --skip-validation \
-  --model-package="api/${API_VERSION_V1}/model" \
+  --model-package="api/${1}/model" \
   --name="harbor" \
-  --client-package="api/${API_VERSION_V1}/client" \
-  --spec="${SWAGGER_FILE_V1}" \
+  --client-package="api/${1}/client" \
+  --spec="${SWAGGER_FILE}" \
   ${operation_flags}
 fi
 
-if [[ "$1" = "v2" ]]; then
-  echo "using the v2 swagger file (${API_VERSION_V2})"
-    docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
+if [[ "${1}" = *"v2"* ]]; then
+  SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${1}/api/${1%.0}/swagger.yaml"
+  echo "using the v2 swagger file (${1%.0})"
+    docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)/internal" ${SWAGGER_IMAGE} \
   generate client \
   --skip-validation \
-  --model-package="api/${API_VERSION_V2%.0}/model" \
+  --model-package="api/${1%.0}/model" \
   --name="harbor" \
-  --client-package="api/${API_VERSION_V2%.0}/client" \
-  --spec="${SWAGGER_FILE_V2}"
+  --client-package="api/${1%.0}/client" \
+  --spec="${SWAGGER_FILE}"
 fi

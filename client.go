@@ -2,6 +2,9 @@ package goharborclient
 
 import (
 	"context"
+	"github.com/go-openapi/runtime"
+	"github.com/mittwald/goharbor-client/api/v1.10.0/client"
+
 	"github.com/mittwald/goharbor-client/project"
 	"github.com/mittwald/goharbor-client/registry"
 	"github.com/mittwald/goharbor-client/replication"
@@ -19,12 +22,25 @@ type Client interface {
 	system.Client
 }
 
+// RESTClient holds the individual sub-packages REST-clients
 type RESTClient struct {
 	user        *user.RESTClient
 	project     *project.RESTClient
 	registry    *registry.RESTClient
 	replication *replication.RESTClient
 	system      *system.RESTClient
+}
+
+// NewRESTClient constructs a new REST client containing each sub client
+func NewRESTClient(cl *client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
+	c := &RESTClient{
+		user:        user.NewClient(cl, authInfo),
+		project:     project.NewClient(cl, authInfo),
+		registry:    registry.NewClient(cl, authInfo),
+		replication: replication.NewClient(cl, authInfo),
+		system:      system.NewClient(cl, authInfo),
+	}
+	return c
 }
 
 // User Client

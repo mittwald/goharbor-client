@@ -3,10 +3,11 @@ package system
 import (
 	"context"
 	"flag"
+	"testing"
+
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 	"github.com/mittwald/goharbor-client/api/v1.10.0/client"
-	"testing"
 
 	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
 	"github.com/stretchr/testify/assert"

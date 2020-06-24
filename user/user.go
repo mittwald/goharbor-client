@@ -3,6 +3,7 @@ package user
 import (
 	"context"
 	"errors"
+
 	"github.com/mittwald/goharbor-client/api/v1.10.0/client"
 
 	"github.com/go-openapi/runtime"

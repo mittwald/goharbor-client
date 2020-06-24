@@ -1,9 +1,9 @@
 .PHONY: swagger-v1 swagger-v2 swaggerclientcleanup swaggermodelcleanup harbor-1.10.2 teardown-harbor integration-test-v1.10.1 integration-test-v1.10.0
 
-swagger-v1:
-	scripts/swagger-gen.sh v1
-swagger-v2:
-	scripts/swagger-gen.sh v2
+swagger-v1.10.0:
+	scripts/swagger-gen.sh v1.10.0
+swagger-v2.0.0:
+	scripts/swagger-gen.sh v2.0.0
 
 swaggercleanup: swaggerclientcleanup swaggermodelcleanup
 

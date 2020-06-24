@@ -2,6 +2,7 @@ package registry
 
 import (
 	"context"
+
 	"github.com/go-openapi/runtime"
 	"github.com/mittwald/goharbor-client/api/v1.10.0/client"
 

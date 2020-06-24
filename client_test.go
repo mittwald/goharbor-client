@@ -3,13 +3,14 @@ package goharborclient
 import (
 	"context"
 	"flag"
+	"os"
+	"os/exec"
+	"testing"
+
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 	"github.com/mittwald/goharbor-client/api/v1.10.0/client"
 	"github.com/mittwald/goharbor-client/system"
-	"os"
-	"os/exec"
-	"testing"
 
 	"github.com/stretchr/testify/require"
 )
