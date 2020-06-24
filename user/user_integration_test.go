@@ -7,7 +7,7 @@ import (
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/mittwald/goharbor-client/api/v1.10.0/client"
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

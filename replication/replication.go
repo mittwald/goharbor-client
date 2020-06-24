@@ -4,10 +4,10 @@ import (
 	"context"
 
 	"github.com/go-openapi/runtime"
-	"github.com/mittwald/goharbor-client/api/v1.10.0/client"
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client"
 
-	"github.com/mittwald/goharbor-client/api/v1.10.0/client/products"
-	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client/products"
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/model"
 )
 
 // RESTClient is a subclient for handling replication related actions.
