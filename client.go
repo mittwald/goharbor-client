@@ -4,79 +4,157 @@ import (
 	"context"
 
 	"github.com/go-openapi/runtime"
-	runtimeclient "github.com/go-openapi/runtime/client"
-	"github.com/go-openapi/strfmt"
-	"github.com/mittwald/goharbor-client/api/v1.10.0/client"
-	"github.com/mittwald/goharbor-client/api/v1.10.0/client/products"
-	"github.com/mittwald/goharbor-client/api/v1.10.0/model"
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client"
+
+	"github.com/mittwald/goharbor-client/project"
+	"github.com/mittwald/goharbor-client/registry"
+	"github.com/mittwald/goharbor-client/replication"
+	"github.com/mittwald/goharbor-client/system"
+	"github.com/mittwald/goharbor-client/user"
+
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/model"
 )
 
-// RESTClient implements a Harbor client capable of performing Harbor API
-// calls using a swagger generated REST client under the hood.
+type Client interface {
+	user.Client
+	project.Client
+	registry.Client
+	replication.Client
+	system.Client
+}
+
+// RESTClient holds the individual sub-packages REST-clients
 type RESTClient struct {
-	// The swagger client
-	Client *client.Harbor
-
-	// AuthInfo contain auth information, which are provided on API calls.
-	AuthInfo runtime.ClientAuthInfoWriter
+	user        *user.RESTClient
+	project     *project.RESTClient
+	registry    *registry.RESTClient
+	replication *replication.RESTClient
+	system      *system.RESTClient
 }
 
-// NewClient creates a new Harbor client.
-// host is the harbor hostname including the protocol scheme and port,
-// i.e. "https://harbor.example.com" or "http://harbor.example.com:30002".
-// user is the authentication username.
-// password is the authentication password.
-func NewClient(host, user, password string) *RESTClient {
-	return &RESTClient{
-		Client: client.New(runtimeclient.New(host,
-			"/api", []string{"http"}), strfmt.Default),
-		AuthInfo: runtimeclient.BasicAuth(user, password),
+// NewRESTClient constructs a new REST client containing each sub client
+func NewRESTClient(cl *client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
+	c := &RESTClient{
+		user:        user.NewClient(cl, authInfo),
+		project:     project.NewClient(cl, authInfo),
+		registry:    registry.NewClient(cl, authInfo),
+		replication: replication.NewClient(cl, authInfo),
+		system:      system.NewClient(cl, authInfo),
 	}
+	return c
 }
 
-// Projects returns a project subclient for handling project related actions.
-func (c *RESTClient) Projects() *ProjectRESTClient {
-	return &ProjectRESTClient{
-		parent: c,
-	}
+// User Client
+func (c *RESTClient) NewUser(ctx context.Context, username, email, realname, password, comments string) (*model.User, error) {
+	return c.user.NewUser(ctx, username, email, realname, password, comments)
 }
 
-// Users returns a user subclient for handling user related actions.
-func (c *RESTClient) Users() *UserRESTClient {
-	return &UserRESTClient{
-		parent: c,
-	}
+func (c *RESTClient) GetUser(ctx context.Context, username string) (*model.User, error) {
+	return c.user.GetUser(ctx, username)
+}
+func (c *RESTClient) DeleteUser(ctx context.Context, u *model.User) error {
+	return c.user.DeleteUser(ctx, u)
+}
+func (c *RESTClient) UpdateUser(ctx context.Context, u *model.User) error {
+	return c.user.UpdateUser(ctx, u)
 }
 
-// Registries returns a project subclient for handling project related actions.
-func (c *RESTClient) Registries() *RegistryRESTClient {
-	return &RegistryRESTClient{
-		parent: c,
-	}
+// Project Client
+func (c *RESTClient) NewProject(ctx context.Context, name string, countLimit int, storageLimit int) (*model.Project, error) {
+	return c.project.NewProject(ctx, name, countLimit, storageLimit)
+}
+func (c *RESTClient) DeleteProject(ctx context.Context, p *model.Project) error {
+	return c.project.DeleteProject(ctx, p)
+}
+func (c *RESTClient) GetProject(ctx context.Context, name string) (*model.Project, error) {
+	return c.project.GetProject(ctx, name)
+}
+func (c *RESTClient) ListProjects(ctx context.Context, nameFilter string) ([]*model.Project, error) {
+	return c.project.ListProjects(ctx, nameFilter)
+}
+func (c *RESTClient) UpdateProject(ctx context.Context, p *model.Project, countLimit int, storageLimit int) error {
+	return c.project.UpdateProject(ctx, p, countLimit, storageLimit)
 }
 
-// Replications returns a project subclient for handling replication related actions.
-func (c *RESTClient) Replications() *ReplicationRESTClient {
-	return &ReplicationRESTClient{
-		parent: c,
-	}
+func (c *RESTClient) AddProjectMember(ctx context.Context, p *model.Project, u *model.User, roleID int) error {
+	return c.project.AddProjectMember(ctx, p, u, roleID)
+}
+func (c *RESTClient) ListProjectMembers(ctx context.Context, p *model.Project) ([]*model.ProjectMemberEntity, error) {
+	return c.project.ListProjectMembers(ctx, p)
+}
+func (c *RESTClient) UpdateProjectMemberRole(ctx context.Context, p *model.Project, u *model.User, roleID int) error {
+	return c.project.UpdateProjectMemberRole(ctx, p, u, roleID)
+}
+func (c *RESTClient) DeleteProjectMember(ctx context.Context, p *model.Project, u *model.User) error {
+	return c.project.DeleteProjectMember(ctx, p, u)
 }
 
-// Registries returns a project subclient for handling project related actions.
-func (c *RESTClient) System() *SystemRESTClient {
-	return &SystemRESTClient{
-		parent: c,
-	}
+func (c *RESTClient) AddProjectMetadata(ctx context.Context, p *model.Project, key project.ProjectMetadataKey, value string) error {
+	return c.project.AddProjectMetadata(ctx, p, key, value)
 }
 
-// Health reports Harbor system health information.
-func (c *RESTClient) Health(ctx context.Context) (*model.OverallHealthStatus, error) {
-	resp, err := c.Client.Products.GetHealth(&products.GetHealthParams{
-		Context: ctx,
-	}, c.AuthInfo)
-	if err != nil {
-		return nil, err
-	}
+func (c *RESTClient) ListProjectMetadata(ctx context.Context, p *model.Project) (*model.ProjectMetadata, error) {
+	return c.project.ListProjectMetadata(ctx, p)
 
-	return resp.Payload, nil
+}
+func (c *RESTClient) UpdateProjectMetadata(ctx context.Context, p *model.Project, key project.ProjectMetadataKey, value string) error {
+	return c.project.UpdateProjectMetadata(ctx, p, key, value)
+}
+func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context, p *model.Project, key project.ProjectMetadataKey) error {
+	return c.project.DeleteProjectMetadataValue(ctx, p, key)
+}
+
+// Registry Client
+func (c *RESTClient) NewRegistry(ctx context.Context, name, registryType, url string,
+	credential *model.RegistryCredential, insecure bool) (*model.Registry, error) {
+
+	return c.registry.NewRegistry(ctx, name, registryType, url,
+		credential, insecure)
+}
+
+func (c *RESTClient) GetRegistry(ctx context.Context, name string) (*model.Registry, error) {
+	return c.registry.GetRegistry(ctx, name)
+
+}
+
+func (c *RESTClient) DeleteRegistry(ctx context.Context, r *model.Registry) error {
+	return c.registry.DeleteRegistry(ctx, r)
+}
+
+// Replication Client
+func (c *RESTClient) NewReplication(ctx context.Context, destRegistry, srcRegistry *model.Registry,
+	replicateDeletion, override, enablePolicy bool, filters []*model.ReplicationFilter,
+	trigger *model.ReplicationTrigger, destNamespace, description, name string) (*model.ReplicationPolicy, error) {
+
+	return c.replication.NewReplication(ctx, destRegistry, srcRegistry, replicateDeletion,
+		override, enablePolicy, filters, trigger, destNamespace, description, name)
+}
+
+func (c *RESTClient) GetReplication(ctx context.Context, name string) (*model.ReplicationPolicy, error) {
+	return c.replication.GetReplication(ctx, name)
+}
+
+func (c *RESTClient) DeleteReplication(ctx context.Context, r *model.ReplicationPolicy) error {
+	return c.replication.DeleteReplication(ctx, r)
+}
+
+func (c *RESTClient) UpdateReplication(ctx context.Context, r *model.ReplicationPolicy) error {
+	return c.replication.UpdateReplication(ctx, r)
+}
+
+// System Client
+func (c *RESTClient) NewSystemGarbageCollection(ctx context.Context, cron, scheduleType string) (*model.AdminJobSchedule, error) {
+	return c.system.NewSystemGarbageCollection(ctx, cron, scheduleType)
+}
+
+func (c *RESTClient) UpdateSystemGarbageCollection(ctx context.Context, newGcSchedule *model.AdminJobScheduleObj) error {
+	return c.system.UpdateSystemGarbageCollection(ctx, newGcSchedule)
+}
+
+func (c *RESTClient) GetSystemGarbageCollection(ctx context.Context) (*model.AdminJobSchedule, error) {
+	return c.system.GetSystemGarbageCollection(ctx)
+}
+
+func (c *RESTClient) ResetSystemGarbageCollection(ctx context.Context) error {
+	return c.system.ResetSystemGarbageCollection(ctx)
 }
