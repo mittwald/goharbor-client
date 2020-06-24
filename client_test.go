@@ -47,7 +47,6 @@ func testMain(m *testing.M) int {
 		if err != nil {
 			panic("error setting up harbor: " + err.Error())
 		}
-		defer teardownHarbor()
 	}
 
 	return m.Run()
@@ -60,19 +59,6 @@ func setupHarbor(version string) error {
 	}
 
 	cmd := exec.Command(cmdPath, version)
-	cmd.Stderr = os.Stderr
-	cmd.Stdout = os.Stdout
-
-	return cmd.Run()
-}
-
-func teardownHarbor() error {
-	cmdPath, err := exec.LookPath(teardownScript)
-	if err != nil {
-		return err
-	}
-
-	cmd := exec.Command(cmdPath)
 	cmd.Stderr = os.Stderr
 	cmd.Stdout = os.Stdout
 

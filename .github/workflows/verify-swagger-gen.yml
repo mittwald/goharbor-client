@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run code generation
-        run: make swagger
+        run: make swagger-v1
 
       - name: Test diff
         run: |
