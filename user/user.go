@@ -68,8 +68,7 @@ func (c *RESTClient) NewUser(ctx context.Context, username, email, realname, pas
 	return user, nil
 }
 
-// Get fetches a user from Harbor given by username,
-// or an error in case of failure.
+// GetUser returns an existing user or an error in case of failure.
 func (c *RESTClient) GetUser(ctx context.Context, username string) (*model.User, error) {
 	if username == "" {
 		return nil, errors.New("no username provided")
@@ -94,8 +93,7 @@ func (c *RESTClient) GetUser(ctx context.Context, username string) (*model.User,
 	return nil, &ErrUserNotFound{}
 }
 
-// Delete deletes a user from Harbor given by a user model,
-// or error in case of failure.
+// DeleteUser deletes the specified user.
 func (c *RESTClient) DeleteUser(ctx context.Context, u *model.User) error {
 	if u == nil {
 		return errors.New("no user provided")
@@ -118,8 +116,7 @@ func (c *RESTClient) DeleteUser(ctx context.Context, u *model.User) error {
 	return handleSwaggerUserErrors(err, user.Username)
 }
 
-// Update updates a user given by a user model,
-// or error in case of failure.
+// UpdateUser updates a user with the specified data.
 // Note that only realname, email and comment properties are updateable.
 func (c *RESTClient) UpdateUser(ctx context.Context, u *model.User) error {
 	if u == nil {

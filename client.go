@@ -15,6 +15,7 @@ import (
 	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/model"
 )
 
+// Client is an interface embedding all sub client interfaces.
 type Client interface {
 	user.Client
 	project.Client
@@ -23,7 +24,7 @@ type Client interface {
 	system.Client
 }
 
-// RESTClient holds the individual sub-packages REST-clients
+// RESTClient holds the individual sub-packages REST-clients.
 type RESTClient struct {
 	user        *user.RESTClient
 	project     *project.RESTClient
@@ -32,7 +33,7 @@ type RESTClient struct {
 	system      *system.RESTClient
 }
 
-// NewRESTClient constructs a new REST client containing each sub client
+// NewRESTClient constructs a new REST client containing each sub client.
 func NewRESTClient(cl *client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
 	c := &RESTClient{
 		user:        user.NewClient(cl, authInfo),
@@ -45,6 +46,7 @@ func NewRESTClient(cl *client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RE
 }
 
 // User Client
+
 func (c *RESTClient) NewUser(ctx context.Context, username, email, realname, password, comments string) (*model.User, error) {
 	return c.user.NewUser(ctx, username, email, realname, password, comments)
 }
@@ -52,26 +54,33 @@ func (c *RESTClient) NewUser(ctx context.Context, username, email, realname, pas
 func (c *RESTClient) GetUser(ctx context.Context, username string) (*model.User, error) {
 	return c.user.GetUser(ctx, username)
 }
+
 func (c *RESTClient) DeleteUser(ctx context.Context, u *model.User) error {
 	return c.user.DeleteUser(ctx, u)
 }
+
 func (c *RESTClient) UpdateUser(ctx context.Context, u *model.User) error {
 	return c.user.UpdateUser(ctx, u)
 }
 
 // Project Client
+
 func (c *RESTClient) NewProject(ctx context.Context, name string, countLimit int, storageLimit int) (*model.Project, error) {
 	return c.project.NewProject(ctx, name, countLimit, storageLimit)
 }
+
 func (c *RESTClient) DeleteProject(ctx context.Context, p *model.Project) error {
 	return c.project.DeleteProject(ctx, p)
 }
+
 func (c *RESTClient) GetProject(ctx context.Context, name string) (*model.Project, error) {
 	return c.project.GetProject(ctx, name)
 }
+
 func (c *RESTClient) ListProjects(ctx context.Context, nameFilter string) ([]*model.Project, error) {
 	return c.project.ListProjects(ctx, nameFilter)
 }
+
 func (c *RESTClient) UpdateProject(ctx context.Context, p *model.Project, countLimit int, storageLimit int) error {
 	return c.project.UpdateProject(ctx, p, countLimit, storageLimit)
 }
@@ -79,12 +88,15 @@ func (c *RESTClient) UpdateProject(ctx context.Context, p *model.Project, countL
 func (c *RESTClient) AddProjectMember(ctx context.Context, p *model.Project, u *model.User, roleID int) error {
 	return c.project.AddProjectMember(ctx, p, u, roleID)
 }
+
 func (c *RESTClient) ListProjectMembers(ctx context.Context, p *model.Project) ([]*model.ProjectMemberEntity, error) {
 	return c.project.ListProjectMembers(ctx, p)
 }
+
 func (c *RESTClient) UpdateProjectMemberRole(ctx context.Context, p *model.Project, u *model.User, roleID int) error {
 	return c.project.UpdateProjectMemberRole(ctx, p, u, roleID)
 }
+
 func (c *RESTClient) DeleteProjectMember(ctx context.Context, p *model.Project, u *model.User) error {
 	return c.project.DeleteProjectMember(ctx, p, u)
 }
@@ -97,9 +109,11 @@ func (c *RESTClient) ListProjectMetadata(ctx context.Context, p *model.Project) 
 	return c.project.ListProjectMetadata(ctx, p)
 
 }
+
 func (c *RESTClient) UpdateProjectMetadata(ctx context.Context, p *model.Project, key project.ProjectMetadataKey, value string) error {
 	return c.project.UpdateProjectMetadata(ctx, p, key, value)
 }
+
 func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context, p *model.Project, key project.ProjectMetadataKey) error {
 	return c.project.DeleteProjectMetadataValue(ctx, p, key)
 }
