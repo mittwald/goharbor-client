@@ -23,5 +23,9 @@ Install this library using `go get`:
 
     $ go get github.com/mittwald/goharbor-client
 
+## Usage
+
+Example usage of the client can be found in the [package examples](https://pkg.go.dev/github.com/mittwald/goharbor-client?tab=doc#pkg-examples).
+
 ## Documentation
 For more specific documentation, please refer to the [godoc](https://pkg.go.dev/github.com/mittwald/goharbor-client) of this library.
