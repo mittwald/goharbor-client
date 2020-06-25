@@ -5,10 +5,8 @@
 [![Go Doc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://pkg.go.dev/github.com/mittwald/goharbor-client)
 [![Release](https://img.shields.io/github/release/mittwald/goharbor-client.svg?style=flat-square)](https://github.com/mittwald/goharbor-client/releases/latest)
 
-
-[![Actions Status](https://github.com/mittwald/goharbor-client/workflows/Verify%20code%20generation%20integrity/badge.svg?style=flat-square)](https://github.com/mittwald/goharbor-client/actions)
-[![Actions Status](https://github.com/mittwald/goharbor-client/workflows/Test/badge.svg?style=flat-square)](https://github.com/mittwald/goharbor-client/actions)
-
+[![Actions Status](https://github.com/mittwald/goharbor-client/workflows/Verify%20code%20generation%20integrity/badge.svg)](https://github.com/mittwald/goharbor-client/actions)
+[![Actions Status](https://github.com/mittwald/goharbor-client/workflows/Test/badge.svg)](https://github.com/mittwald/goharbor-client/actions)
 ---
 
 :warning: **STABILITY NOTICE:** This project is still under development and not stable yet - breaking changes may happen at any time and without notice
