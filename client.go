@@ -15,6 +15,7 @@ import (
 	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/model"
 )
 
+//go:generate mockery -dir . -name .
 type Client interface {
 	user.Client
 	project.Client
