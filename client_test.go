@@ -2,78 +2,72 @@ package goharborclient
 
 import (
 	"context"
-	"flag"
-	"os"
-	"os/exec"
-	"testing"
-
-	runtimeclient "github.com/go-openapi/runtime/client"
-	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
 	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client"
-	"github.com/mittwald/goharbor-client/system"
-
-	"github.com/stretchr/testify/require"
+	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/model"
 )
 
-const (
-	setupScript    = "scripts/setup-harbor.sh"
-	teardownScript = "scripts/teardown-harbor.sh"
-	host           = "localhost:30002"
-	defaultUser    = "admin"
-	password       = "Harbor12345"
-)
+func ExampleNewRESTClient() {
+	var h *client.Harbor
+	var a runtime.ClientAuthInfoWriter
 
-var (
-	swaggerClient = client.New(runtimeclient.New(host, "/api", []string{"http"}), strfmt.Default)
-	authInfo      = runtimeclient.BasicAuth(defaultUser, password)
-
-	integrationTest = flag.Bool("integration", false,
-		"test against a real Harbor instance")
-	harborVersion = flag.String("version", "1.10.2",
-		"Harbor version, used in conjunction with -integration, "+
-			"defaults to 1.10.2")
-	skipSpinUp = flag.Bool("skip-spinup", false,
-		"Skip kind cluster creation")
-)
-
-func TestMain(m *testing.M) {
-	os.Exit(testMain(m))
-}
-
-func testMain(m *testing.M) int {
-	flag.Parse()
-
-	if *integrationTest && !*skipSpinUp {
-		err := setupHarbor(*harborVersion)
-		if err != nil {
-			panic("error setting up harbor: " + err.Error())
-		}
-	}
-
-	return m.Run()
-}
-
-func setupHarbor(version string) error {
-	cmdPath, err := exec.LookPath(setupScript)
-	if err != nil {
-		return err
-	}
-
-	cmd := exec.Command(cmdPath, version)
-	cmd.Stderr = os.Stderr
-	cmd.Stdout = os.Stdout
-
-	return cmd.Run()
-}
-
-func TestAPIHealth(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
+	// Construct an example client
+	cl := NewRESTClient(h, a)
 
 	ctx := context.Background()
-	c := system.NewClient(swaggerClient, authInfo)
 
-	_, err := c.Health(ctx)
-	require.NoError(t, err)
+	// Create an example project
+	project, err := cl.project.NewProject(ctx, "example-project", 100, 0)
+	if err != nil {
+		panic(err)
+	}
+
+	// Create an example user
+	usr, err := cl.user.NewUser(ctx, "example-user", "test@example.com", "Test User", "Sup3rS3cr3t!", "example comment")
+	if err != nil {
+		panic(err)
+	}
+
+	err = cl.project.AddProjectMember(ctx, project, usr, 1)
+	if err != nil {
+		panic(err)
+	}
+
+	// Registry Credentials using basic auth information
+	registryCredentials := &model.RegistryCredential{
+		AccessKey:    "admin",
+		AccessSecret: "Sup3rS3cr3t!",
+		Type:         "basic",
+	}
+
+	// Create an example registry
+	reg, err := cl.registry.NewRegistry(ctx, "example-registry", "harbor", "demo.goharbor.io", registryCredentials, false)
+	if err != nil {
+		panic(err)
+	}
+
+	// Replication filter values
+	replicationFilters := []*model.ReplicationFilter{
+		{
+			Type:  "name",
+			Value: "alpine",
+		},
+		{
+			Type:  "tag",
+			Value: "latest",
+		},
+	}
+
+	// Replication trigger defining an hourly interval
+	replicationTrigger := &model.ReplicationTrigger{
+		TriggerSettings: &model.TriggerSettings{Cron: "0 * * * *"},
+		Type:            "scheduled",
+	}
+
+	// Create an example replication using the registry as source registry
+	_, err = cl.replication.NewReplication(ctx, nil, reg, true, true, true,
+		replicationFilters, replicationTrigger, "", "", "example-replication")
+	if err != nil {
+		panic(err)
+	}
 }

@@ -58,10 +58,11 @@ const (
 	PreventVulProjectMetadataKey           ProjectMetadataKey = "prevent_vul"
 )
 
-// NewProject creates a new project with name as project name.
-// CountLimit and StorageLimit limits space and access for this project.
+// NewProject creates a new project with name as the project's name.
 // Returns the project as it is stored inside Harbor or an error,
 // if the project could not be created.
+// CountLimit limits the number of repositories for this project.
+// StorageLimit limits the allocatable space for this project.
 func (c *RESTClient) NewProject(ctx context.Context, name string,
 	countLimit int, storageLimit int) (*model.Project, error) {
 	pReq := &model.ProjectReq{
@@ -91,7 +92,7 @@ func (c *RESTClient) NewProject(ctx context.Context, name string,
 	return project, nil
 }
 
-// Delete deletes a project.
+// DeleteProject deletes the specified project.
 // Returns an error when no matching project is found or when
 // having difficulties talking to the API.
 func (c *RESTClient) DeleteProject(ctx context.Context,
@@ -117,7 +118,7 @@ func (c *RESTClient) DeleteProject(ctx context.Context,
 	return handleSwaggerProjectErrors(err)
 }
 
-// Get returns a project identified by name.
+// GetProject returns an existing project identified by name.
 // Returns an error if it cannot find a matching project or when
 // having difficulties talking to the API.
 func (c *RESTClient) GetProject(ctx context.Context,
@@ -145,7 +146,8 @@ func (c *RESTClient) GetProject(ctx context.Context,
 	return nil, &ErrProjectNotFound{}
 }
 
-// List retrieves projects filtered by name (all if name is empty string).
+// ListProjects returns a list of projects based on a name filter.
+// Returns all projects if name is an empty string.
 // Returns an error if no projects were found.
 func (c *RESTClient) ListProjects(ctx context.Context,
 	nameFilter string) ([]*model.Project, error) {
@@ -167,8 +169,8 @@ func (c *RESTClient) ListProjects(ctx context.Context,
 	return resp.Payload, nil
 }
 
-// Update overwrites properties of a stored project with properties of p.Update.
-// Return an error if Name/ID pair of p does not match a stored project.
+// UpdateProject updates a project with the specified data.
+// Returns an error if name/ID pair of p does not match a stored project.
 func (c *RESTClient) UpdateProject(ctx context.Context, p *model.Project,
 	countLimit int, storageLimit int) error {
 	project, err := c.GetProject(ctx, p.Name)
@@ -198,7 +200,7 @@ func (c *RESTClient) UpdateProject(ctx context.Context, p *model.Project,
 	return handleSwaggerProjectErrors(err)
 }
 
-// AddUserMember adds an existing user to a project with a role identified by roleID.
+// AddProjectMember creates a membership between a user and a project.
 func (c *RESTClient) AddProjectMember(ctx context.Context, p *model.Project, u *model.User, roleID int) error {
 	if p == nil {
 		return &ErrProjectNotProvided{}
@@ -243,7 +245,7 @@ func (c *RESTClient) AddProjectMember(ctx context.Context, p *model.Project, u *
 	return handleSwaggerProjectErrors(err)
 }
 
-// List members lists all members (users and groups alike) of a project.
+// ListProjectMembers returns a list of project members.
 func (c *RESTClient) ListProjectMembers(ctx context.Context, p *model.Project) ([]*model.ProjectMemberEntity, error) {
 	if p == nil {
 		return nil, &ErrProjectNotProvided{}
@@ -265,7 +267,7 @@ func (c *RESTClient) ListProjectMembers(ctx context.Context, p *model.Project) (
 	return resp.Payload, nil
 }
 
-// UpdateUserMemberRole updates the role of a member.
+// UpdateProjectMemberRole updates the role of a project member.
 func (c *RESTClient) UpdateProjectMemberRole(ctx context.Context, p *model.Project, u *model.User, roleID int) error {
 	if p == nil {
 		return &ErrProjectNotProvided{}
@@ -299,7 +301,7 @@ func (c *RESTClient) UpdateProjectMemberRole(ctx context.Context, p *model.Proje
 	return handleSwaggerProjectErrors(err)
 }
 
-// DeleteUserMember deletes the membership of a user on a project.
+// DeleteProjectMember deletes the membership between a user and a project.
 func (c *RESTClient) DeleteProjectMember(ctx context.Context, p *model.Project, u *model.User) error {
 	if p == nil {
 		return &ErrProjectNotProvided{}
