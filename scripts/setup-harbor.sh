@@ -5,7 +5,6 @@ HARBOR_VERSION="${1}"
 HARBOR_CHART_VERSION=""
 REGISTRY_IMAGE_TAG="2.7.1"
 
-
 echo "Check for existence of necessary tools..."
 
 docker --version &>/dev/null
@@ -67,7 +66,7 @@ if [[ -z "${HARBOR_CHART_VERSION}" ]]; then
 fi
 
 echo "Creating a new kind cluster to deploy Harbor into..."
-kind create cluster --config scripts/kind-config.yaml --name "${CLUSTER_NAME}"
+kind create cluster --config testdata/kind-config.yaml --name "${CLUSTER_NAME}"
 if [[ "$?" -ne "0" ]]; then
     >&2 echo "Could not create kind cluster, aborting."
     exit 1

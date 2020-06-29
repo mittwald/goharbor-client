@@ -23,7 +23,6 @@ var (
 )
 
 func TestRESTClient_NewUser(t *testing.T) {
-	// todo exclude ClientService.go from build
 	p := &mocks.MockClientService{}
 
 	c := &client.Harbor{

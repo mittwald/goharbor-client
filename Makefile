@@ -1,4 +1,5 @@
-.PHONY: swagger-v1 swagger-v2 swaggerclientcleanup swaggermodelcleanup harbor-1.10.2 teardown-harbor integration-test-v1.10.1 integration-test-v1.10.0 mock test
+.PHONY: swagger-v1 swagger-v2 swaggerclientcleanup swaggermodelcleanup harbor-1.10.2 \
+	teardown-harbor integration-test-v1.10.1 integration-test-v1.10.0 mock test
 
 swagger-v1.10.0:
 	scripts/swagger-gen.sh v1.10.0
@@ -31,7 +32,7 @@ test:
 	go test -v ./...
 
 mock:
-	mockery -name ClientService -dir internal/api/v1.10.0/client/products/. -filename client_service.go -structname MockClientService
+	scripts/gen-mock.sh
 
 # Testing on Harbor 1.10.2
 integration-test-v1.10.2:
