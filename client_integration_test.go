@@ -4,10 +4,11 @@ package goharborclient
 
 import (
 	"flag"
-	runtimeclient "github.com/go-openapi/runtime/client"
 	"os"
 	"os/exec"
 	"testing"
+
+	runtimeclient "github.com/go-openapi/runtime/client"
 )
 
 const (
