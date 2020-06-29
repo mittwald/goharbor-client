@@ -1,3 +1,5 @@
+// +build integration
+
 package user
 
 import (
@@ -22,9 +24,6 @@ const (
 var (
 	swaggerClient = client.New(runtimeclient.New(host, "/api", []string{"http"}), strfmt.Default)
 	authInfo      = runtimeclient.BasicAuth(user, password)
-
-	integrationTest = flag.Bool("integration", false,
-		"test against a real Harbor instance")
 	harborVersion = flag.String("version", "1.10.2",
 		"Harbor version, used in conjunction with -integration, "+
 			"defaults to 1.10.2")
@@ -33,9 +32,6 @@ var (
 )
 
 func TestAPIUserNew(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	ctx := context.Background()
 	username := "foobar"
@@ -58,9 +54,6 @@ func TestAPIUserNew(t *testing.T) {
 }
 
 func TestAPIUserAlreadyExists(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	ctx := context.Background()
 	username := "foobar"
@@ -85,9 +78,6 @@ func TestAPIUserAlreadyExists(t *testing.T) {
 }
 
 func TestAPIUserGet(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	ctx := context.Background()
 	username := "foobar"
@@ -113,9 +103,6 @@ func TestAPIUserGet(t *testing.T) {
 }
 
 func TestAPIUserDelete(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	ctx := context.Background()
 	username := "foobar"
@@ -140,9 +127,6 @@ func TestAPIUserDelete(t *testing.T) {
 }
 
 func TestAPIUserUpdate(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	ctx := context.Background()
 	username := "foobar"

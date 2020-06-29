@@ -1,3 +1,5 @@
+// +build integration
+
 package registry
 
 import (
@@ -23,9 +25,6 @@ const (
 var (
 	swaggerClient = client.New(runtimeclient.New(host, "/api", []string{"http"}), strfmt.Default)
 	authInfo      = runtimeclient.BasicAuth(user, password)
-
-	integrationTest = flag.Bool("integration", false,
-		"test against a real Harbor instance")
 	harborVersion = flag.String("version", "1.10.2",
 		"Harbor version, used in conjunction with -integration, "+
 			"defaults to 1.10.2")
@@ -34,10 +33,6 @@ var (
 )
 
 func TestAPIRegistryNew(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
-
 	name := "test-registry"
 	registryType := "harbor"
 	url := "http://registry-docker-registry:5000/"
@@ -58,9 +53,6 @@ func TestAPIRegistryNew(t *testing.T) {
 }
 
 func TestAPIRegistryGet(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	name := "test-registry"
 	registryType := "harbor"
@@ -84,9 +76,6 @@ func TestAPIRegistryGet(t *testing.T) {
 }
 
 func TestAPIRegistryDelete(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	name := "test-registry"
 	registryType := "harbor"

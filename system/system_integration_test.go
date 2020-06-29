@@ -1,3 +1,5 @@
+// +build integration
+
 package system
 
 import (
@@ -23,9 +25,6 @@ const (
 var (
 	swaggerClient = client.New(runtimeclient.New(host, "/api", []string{"http"}), strfmt.Default)
 	authInfo      = runtimeclient.BasicAuth(user, password)
-
-	integrationTest = flag.Bool("integration", false,
-		"test against a real Harbor instance")
 	harborVersion = flag.String("version", "1.10.2",
 		"Harbor version, used in conjunction with -integration, "+
 			"defaults to 1.10.2")
@@ -36,10 +35,6 @@ var (
 // TestAPISystemGcScheduleNew tests the creation of a new GC schedule
 // and resets it to the default schedule afterwards
 func TestAPISystemGcScheduleNew(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
-
 	cron := "0 * * * *"
 	scheduleType := "Hourly"
 
@@ -61,9 +56,6 @@ func TestAPISystemGcScheduleNew(t *testing.T) {
 // TestAPISystemGcScheduleUpdate tests the update of an existing GC schedule,
 // asserting the updated schedule cron matches the given values
 func TestAPISystemGcScheduleUpdate(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	cron := "0 * * * *"
 	scheduleType := "Hourly"
@@ -96,9 +88,6 @@ func TestAPISystemGcScheduleUpdate(t *testing.T) {
 
 // TestAPISystemGcScheduleReset tests the reset of an existing GC schedule
 func TestAPISystemGcScheduleReset(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	cron := "0 * * * *"
 	scheduleType := "Hourly"
@@ -117,4 +106,13 @@ func TestAPISystemGcScheduleReset(t *testing.T) {
 
 	_, err = c.GetSystemGarbageCollection(ctx)
 	require.IsType(t, &ErrSystemGcUndefined{}, err)
+}
+
+func TestAPIHealth(t *testing.T) {
+
+	ctx := context.Background()
+	c := NewClient(swaggerClient, authInfo)
+
+	_, err := c.Health(ctx)
+	require.NoError(t, err)
 }

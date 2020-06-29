@@ -1,4 +1,5 @@
-.PHONY: swagger-v1 swagger-v2 swaggerclientcleanup swaggermodelcleanup harbor-1.10.2 teardown-harbor integration-test-v1.10.1 integration-test-v1.10.0
+.PHONY: swagger-v1 swagger-v2 swaggerclientcleanup swaggermodelcleanup harbor-1.10.2 \
+	teardown-harbor integration-test-v1.10.1 integration-test-v1.10.0 mock test
 
 swagger-v1.10.0:
 	scripts/swagger-gen.sh v1.10.0
@@ -27,14 +28,20 @@ harbor-1.10.0:
 teardown-harbor:
 	scripts/teardown-harbor.sh
 
+test:
+	go test -v ./...
+
+mock:
+	scripts/gen-mock.sh
+
 # Testing on Harbor 1.10.2
 integration-test-v1.10.2:
-	CGO_ENABLED=0 go test -p 1 -count 1 -v ./... github.com/mittwald/goharbor-client -integration -version=1.10.2
+	CGO_ENABLED=0 go test -p 1 -count 1 -v ./... github.com/mittwald/goharbor-client -version=1.10.2 -tags integration
 
 # Testing on Harbor 1.10.1
 integration-test-v1.10.1:
-	CGO_ENABLED=0 go test -p 1 -count 1 -v ./... github.com/mittwald/goharbor-client -integration -version=1.10.1
+	CGO_ENABLED=0 go test -p 1 -count 1 -v ./... github.com/mittwald/goharbor-client -version=1.10.1 -tags integration
 
 # Testing on Harbor 1.10.0
 integration-test-v1.10.0:
-	CGO_ENABLED=0 go test -p 1 -count 1 -v ./... github.com/mittwald/goharbor-client -integration -version=1.10.0
+	CGO_ENABLED=0 go test -p 1 -count 1 -v ./... github.com/mittwald/goharbor-client -version=1.10.0 -tags integration

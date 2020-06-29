@@ -1,3 +1,5 @@
+// +build integration
+
 package replication
 
 import (
@@ -24,9 +26,6 @@ const (
 var (
 	swaggerClient = client.New(runtimeclient.New(host, "/api", []string{"http"}), strfmt.Default)
 	authInfo      = runtimeclient.BasicAuth(user, password)
-
-	integrationTest = flag.Bool("integration", false,
-		"test against a real Harbor instance")
 	harborVersion = flag.String("version", "1.10.2",
 		"Harbor version, used in conjunction with -integration, "+
 			"defaults to 1.10.2")
@@ -35,10 +34,6 @@ var (
 )
 
 func TestAPIReplicationNewDestRegistry(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
-
 	name := "test-project"
 
 	ctx := context.Background()
@@ -85,9 +80,6 @@ func TestAPIReplicationNewDestRegistry(t *testing.T) {
 }
 
 func TestAPIReplicationNewSrcRegistry(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	name := "test-project"
 
@@ -135,9 +127,6 @@ func TestAPIReplicationNewSrcRegistry(t *testing.T) {
 }
 
 func TestAPIReplicationDelete(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	name := "test-project"
 
@@ -190,9 +179,6 @@ func TestAPIReplicationDelete(t *testing.T) {
 }
 
 func TestAPIReplicationUpdate(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	name := "test-project"
 
