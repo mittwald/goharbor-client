@@ -1,3 +1,5 @@
+// +build integration
+
 package project
 
 import (
@@ -25,9 +27,6 @@ const (
 var (
 	swaggerClient = client.New(runtimeclient.New(host, "/api", []string{"http"}), strfmt.Default)
 	authInfo      = runtimeclient.BasicAuth(user, password)
-
-	integrationTest = flag.Bool("integration", false,
-		"test against a real Harbor instance")
 	harborVersion = flag.String("version", "1.10.2",
 		"Harbor version, used in conjunction with -integration, "+
 			"defaults to 1.10.2")
@@ -36,9 +35,6 @@ var (
 )
 
 func TestAPIProjectNew(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	name := "test-project"
 
@@ -54,9 +50,6 @@ func TestAPIProjectNew(t *testing.T) {
 }
 
 func TestAPIProjectGet(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	name := "test-project"
 
@@ -73,9 +66,6 @@ func TestAPIProjectGet(t *testing.T) {
 }
 
 func TestAPIProjectDelete(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	name := "test-project"
 	ctx := context.Background()
@@ -94,9 +84,6 @@ func TestAPIProjectDelete(t *testing.T) {
 }
 
 func TestAPIProjectList(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	namePrefix := "test-project"
 	ctx := context.Background()
@@ -123,9 +110,6 @@ func TestAPIProjectList(t *testing.T) {
 }
 
 func TestAPIProjectUpdate(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	name := "test-project"
 	ctx := context.Background()
@@ -145,9 +129,6 @@ func TestAPIProjectUpdate(t *testing.T) {
 }
 
 func TestAPIProjectUserMemberAdd(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	projectName := "test-project"
 	memberUsername := "foobar"
@@ -176,9 +157,6 @@ func TestAPIProjectUserMemberAdd(t *testing.T) {
 }
 
 func TestAPIProjectMemberList(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	projectName := "test-project"
 	memberUsername := "foobar"
@@ -216,9 +194,6 @@ func TestAPIProjectMemberList(t *testing.T) {
 }
 
 func TestAPIProjectUserMemberUpdate(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	projectName := "test-project"
 	memberUsername := "foobar"
@@ -263,9 +238,6 @@ func TestAPIProjectUserMemberUpdate(t *testing.T) {
 }
 
 func TestAPIProjectUserMemberDelete(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	projectName := "test-project"
 	memberUsername := "foobar"
@@ -308,9 +280,6 @@ func TestAPIProjectUserMemberDelete(t *testing.T) {
 }
 
 func TestAPIProjectMetadataAdd(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	projectName := "test-project"
 
@@ -334,9 +303,6 @@ func TestAPIProjectMetadataAdd(t *testing.T) {
 }
 
 func TestAPIProjectMetadataAlreadyExists(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	projectName := "test-project"
 
@@ -356,9 +322,6 @@ func TestAPIProjectMetadataAlreadyExists(t *testing.T) {
 }
 
 func TestAPIProjectMetadataAddInvalidKey(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	projectName := "test-project"
 
@@ -378,9 +341,6 @@ func TestAPIProjectMetadataAddInvalidKey(t *testing.T) {
 }
 
 func TestAPIProjectMetadataAddInvalidValue(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	projectName := "test-project"
 
@@ -400,9 +360,6 @@ func TestAPIProjectMetadataAddInvalidValue(t *testing.T) {
 }
 
 func TestAPIProjectMetadataGet(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	projectName := "test-project"
 
@@ -420,9 +377,6 @@ func TestAPIProjectMetadataGet(t *testing.T) {
 }
 
 func TestAPIProjectMetadataGetInvalidKey(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	projectName := "test-project"
 
@@ -444,9 +398,6 @@ func TestAPIProjectMetadataGetInvalidKey(t *testing.T) {
 }
 
 func TestAPIProjectMetadataList(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	projectName := "test-project"
 
@@ -479,9 +430,6 @@ func TestAPIProjectMetadataList(t *testing.T) {
 }
 
 func TestAPIProjectMetadataUpdate(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	projectName := "test-project"
 
@@ -504,9 +452,6 @@ func TestAPIProjectMetadataUpdate(t *testing.T) {
 }
 
 func TestAPIProjectMetadataDelete(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
 
 	projectName := "test-project"
 

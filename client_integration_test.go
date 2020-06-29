@@ -1,18 +1,13 @@
+// +build integration
+
 package goharborclient
 
 import (
-	"context"
 	"flag"
+	runtimeclient "github.com/go-openapi/runtime/client"
 	"os"
 	"os/exec"
 	"testing"
-
-	runtimeclient "github.com/go-openapi/runtime/client"
-	"github.com/go-openapi/strfmt"
-	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client"
-	"github.com/mittwald/goharbor-client/system"
-
-	"github.com/stretchr/testify/require"
 )
 
 const (
@@ -24,11 +19,7 @@ const (
 )
 
 var (
-	swaggerClient = client.New(runtimeclient.New(host, "/api", []string{"http"}), strfmt.Default)
 	authInfo      = runtimeclient.BasicAuth(defaultUser, password)
-
-	integrationTest = flag.Bool("integration", false,
-		"test against a real Harbor instance")
 	harborVersion = flag.String("version", "1.10.2",
 		"Harbor version, used in conjunction with -integration, "+
 			"defaults to 1.10.2")
@@ -43,7 +34,7 @@ func TestMain(m *testing.M) {
 func testMain(m *testing.M) int {
 	flag.Parse()
 
-	if *integrationTest && !*skipSpinUp {
+	if !*skipSpinUp {
 		err := setupHarbor(*harborVersion)
 		if err != nil {
 			panic("error setting up harbor: " + err.Error())
@@ -64,16 +55,4 @@ func setupHarbor(version string) error {
 	cmd.Stdout = os.Stdout
 
 	return cmd.Run()
-}
-
-func TestAPIHealth(t *testing.T) {
-	if !*integrationTest {
-		t.Skip()
-	}
-
-	ctx := context.Background()
-	c := system.NewClient(swaggerClient, authInfo)
-
-	_, err := c.Health(ctx)
-	require.NoError(t, err)
 }
