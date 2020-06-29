@@ -4,7 +4,6 @@ package user
 
 import (
 	"context"
-	"fmt"
 	"testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
@@ -124,7 +123,6 @@ func TestRESTClient_GetUser(t *testing.T) {
 
 		_, err := cl.GetUser(ctx, exampleUser)
 
-		fmt.Println(err)
 		assert.Error(t, err)
 
 		p.AssertExpectations(t)
