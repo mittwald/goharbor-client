@@ -161,34 +161,6 @@ func TestRESTClient_GetUser_EmptyUserName(t *testing.T) {
 
 }
 
-func TestRESTClient_GetUser_UserNotFound(t *testing.T) {
-	p := &mocks.MockClientService{}
-
-	c := &client.Harbor{
-		Products:  p,
-		Transport: nil,
-	}
-
-	cl := NewClient(c, authInfo)
-
-	ctx := context.Background()
-	getParams := &products.GetUsersParams{
-		Context:  ctx,
-		Username: &exampleUser,
-	}
-
-	p.On("GetUsers", getParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(nil, &ErrUserNotFound{})
-
-	u, err := cl.GetUser(ctx, exampleUser)
-
-	assert.Equal(t, u, nil)
-	assert.Equal(t, err, &ErrUserNotFound{})
-
-	p.AssertExpectations(t)
-
-}
-
 func TestRESTClient_UpdateUser(t *testing.T) {
 	p := &mocks.MockClientService{}
 
