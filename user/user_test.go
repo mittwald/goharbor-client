@@ -402,3 +402,33 @@ func TestRESTClient_UserExists(t *testing.T) {
 
 	p.AssertExpectations(t)
 }
+
+func TestErrUserAlreadyExists_Error(t *testing.T) {
+	var e ErrUserAlreadyExists
+
+	assert.Equal(t, ErrUserAlreadyExistsMsg, e.Error())
+}
+
+func TestErrUserBadRequest_Error(t *testing.T) {
+	var e ErrUserBadRequest
+
+	assert.Equal(t, ErrUserBadRequestMsg, e.Error())
+}
+
+func TestErrUserInvalidID_Error(t *testing.T) {
+	var e ErrUserInvalidID
+
+	assert.Equal(t, ErrUserInvalidIDMsg, e.Error())
+}
+
+func TestErrUserMismatch_Error(t *testing.T) {
+	var e ErrUserMismatch
+
+	assert.Equal(t, ErrUserMismatchMsg, e.Error())
+}
+
+func TestErrUserNotFound_Error(t *testing.T) {
+	var e ErrUserNotFound
+
+	assert.Equal(t, ErrUserNotFoundMsg, e.Error())
+}
