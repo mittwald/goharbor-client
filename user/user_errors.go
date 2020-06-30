@@ -42,10 +42,10 @@ func (e *ErrUserMismatch) Error() string {
 }
 
 // ErrUserAlreadyExist describes an error indicating that this user already exists.
-type ErrUserAlreadyExist struct{}
+type ErrUserAlreadyExists struct{}
 
 // Error returns the error message.
-func (e *ErrUserAlreadyExist) Error() string {
+func (e *ErrUserAlreadyExists) Error() string {
 	return ErrUserAlreadyExistMsg
 }
 

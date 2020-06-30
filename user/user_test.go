@@ -68,7 +68,46 @@ func TestRESTClient_NewUser(t *testing.T) {
 	assert.NoError(t, err)
 
 	p.AssertExpectations(t)
+}
 
+func TestRESTClient_NewUser_EmptyUserName(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	uReq := &model.User{
+		Username: exampleUser,
+		Password: examplePassword,
+		Email:    exampleEmail,
+		Realname: "",
+		Comment:  "",
+	}
+
+	postParams := &products.PostUsersParams{
+		User:    uReq,
+		Context: ctx,
+	}
+
+	uReq.Username = ""
+
+	p.On("PostUsers",
+		postParams,
+		mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PostUsersCreated{},
+			nil)
+
+	_, err := cl.NewUser(ctx, "", exampleEmail, "", examplePassword, "")
+
+	assert.Error(t, err)
+
+	p.AssertExpectations(t)
 }
 
 func TestRESTClient_GetUser(t *testing.T) {
@@ -83,51 +122,71 @@ func TestRESTClient_GetUser(t *testing.T) {
 
 	ctx := context.Background()
 
-	t.Run("NoUsernameProvided", func(t *testing.T) {
-		emptyUserName := ""
+	getParams := &products.GetUsersParams{
+		Context:  ctx,
+		Username: &exampleUser,
+	}
 
-		_, err := cl.GetUser(ctx, emptyUserName)
+	p.On("GetUsers", getParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetUsersOK{
+			Payload: []*model.User{{Username: exampleUser}},
+		}, nil)
 
-		assert.Error(t, err)
+	_, err := cl.GetUser(ctx, exampleUser)
 
-		p.AssertExpectations(t)
-	})
+	assert.NoError(t, err)
 
-	t.Run("GetUser", func(t *testing.T) {
-		getParams := &products.GetUsersParams{
-			Context:  ctx,
-			Username: &exampleUser}
+	p.AssertExpectations(t)
+}
 
-		p.On("GetUsers", getParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-			Return(&products.GetUsersOK{
-				Payload: []*model.User{{Username: ""}},
-			}, nil)
+func TestRESTClient_GetUser_EmptyUserName(t *testing.T) {
+	p := &mocks.MockClientService{}
 
-		_, err := cl.GetUser(ctx, exampleUser)
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
 
-		assert.Error(t, err)
+	cl := NewClient(c, authInfo)
 
-		p.AssertExpectations(t)
-	})
+	ctx := context.Background()
 
-	t.Run("UserNotFound", func(t *testing.T) {
-		nonexistentUser := "nonexistent-user"
-		getParams := &products.GetUsersParams{
-			Context:  ctx,
-			Username: &exampleUser}
+	emptyUserName := ""
 
-		p.On("GetUsers", getParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-			Return(&products.GetUsersOK{
-				Payload: []*model.User{{Username: nonexistentUser}},
-			}, nil)
+	_, err := cl.GetUser(ctx, emptyUserName)
 
-		_, err := cl.GetUser(ctx, exampleUser)
+	assert.Error(t, err)
 
-		assert.Error(t, err)
+	p.AssertExpectations(t)
 
-		p.AssertExpectations(t)
+}
 
-	})
+func TestRESTClient_GetUser_UserNotFound(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+	getParams := &products.GetUsersParams{
+		Context:  ctx,
+		Username: &exampleUser,
+	}
+
+	p.On("GetUsers", getParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(nil, &ErrUserNotFound{})
+
+	u, err := cl.GetUser(ctx, exampleUser)
+
+	assert.Equal(t, u, nil)
+	assert.Equal(t, err, &ErrUserNotFound{})
+
+	p.AssertExpectations(t)
+
 }
 
 func TestRESTClient_UpdateUser(t *testing.T) {
@@ -173,6 +232,49 @@ func TestRESTClient_UpdateUser(t *testing.T) {
 	p.AssertExpectations(t)
 }
 
+func TestRESTClient_UpdateUser_EmptyUserName(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	u := &model.User{Username: ""}
+
+	err := cl.UpdateUser(ctx, u)
+
+	assert.Error(t, err)
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_UpdateUser_UserNotProvided(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	u := &model.User{}
+	u = nil
+
+	err := cl.UpdateUser(ctx, u)
+
+	assert.Error(t, err)
+
+	p.AssertExpectations(t)
+}
+
 func TestRESTClient_DeleteUser(t *testing.T) {
 	p := &mocks.MockClientService{}
 
@@ -185,44 +287,114 @@ func TestRESTClient_DeleteUser(t *testing.T) {
 
 	ctx := context.Background()
 
-	t.Run("NoUsernameProvided", func(t *testing.T) {
-		emptyUserName := ""
+	u := &model.User{
+		Username: exampleUser,
+	}
 
-		_, err := cl.GetUser(ctx, emptyUserName)
+	deleteParams := &products.DeleteUsersUserIDParams{
+		UserID:  u.UserID,
+		Context: ctx,
+	}
 
-		assert.Error(t, err)
+	getParams := &products.GetUsersParams{
+		Context:  ctx,
+		Username: &u.Username}
 
-		p.AssertExpectations(t)
-	})
+	p.On("GetUsers", getParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetUsersOK{
+			Payload: []*model.User{{Username: exampleUser}},
+		}, nil)
 
-	t.Run("DeleteUser", func(t *testing.T) {
-		u := &model.User{
-			Username: exampleUser,
-		}
+	p.On("DeleteUsersUserID", deleteParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.DeleteUsersUserIDOK{}, nil)
 
-		deleteParams := &products.DeleteUsersUserIDParams{
-			UserID:  u.UserID,
-			Context: ctx,
-		}
+	err := cl.DeleteUser(ctx, u)
 
-		getParams := &products.GetUsersParams{
-			Context:  ctx,
-			Username: &u.Username}
+	assert.NoError(t, err)
 
-		p.On("GetUsers", getParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-			Return(&products.GetUsersOK{
-				Payload: []*model.User{{Username: exampleUser}},
-			}, nil)
+	p.AssertExpectations(t)
+}
 
-		p.On("DeleteUsersUserID", deleteParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-			Return(&products.DeleteUsersUserIDOK{}, nil)
+func TestRESTClient_DeleteUser_EmptyUserName(t *testing.T) {
+	p := &mocks.MockClientService{}
 
-		err := cl.DeleteUser(ctx, u)
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
 
-		assert.NoError(t, err)
+	cl := NewClient(c, authInfo)
 
-		p.AssertExpectations(t)
-	})
+	ctx := context.Background()
+
+	u := &model.User{Username: ""}
+
+	err := cl.DeleteUser(ctx, u)
+
+	assert.Error(t, err)
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_DeleteUser_UserNotProvided(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	u := &model.User{}
+	u = nil
+
+	err := cl.DeleteUser(ctx, u)
+
+	assert.Error(t, err)
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_DeleteUser_UserIDMismatch(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	u := &model.User{
+		Username: exampleUser,
+		UserID:   1,
+	}
+
+	u2 := &model.User{
+		Username: exampleUser,
+		UserID:   2,
+	}
+
+	getParams := &products.GetUsersParams{
+		Context:  ctx,
+		Username: &u.Username,
+	}
+
+	p.On("GetUsers", getParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetUsersOK{
+			Payload: []*model.User{u},
+		}, &ErrUserMismatch{})
+
+	err := cl.DeleteUser(ctx, u2)
+
+	assert.Equal(t, err, &ErrUserMismatch{})
+
+	p.AssertExpectations(t)
 }
 
 func TestRESTClient_UserExists(t *testing.T) {
@@ -255,4 +427,6 @@ func TestRESTClient_UserExists(t *testing.T) {
 	assert.NoError(t, err)
 
 	assert.Equal(t, exists, true)
+
+	p.AssertExpectations(t)
 }
