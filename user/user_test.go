@@ -4,6 +4,7 @@ package user
 
 import (
 	"context"
+	"errors"
 	"testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
@@ -105,7 +106,9 @@ func TestRESTClient_NewUser_EmptyUserName(t *testing.T) {
 
 	_, err := cl.NewUser(ctx, "", exampleEmail, "", examplePassword, "")
 
-	assert.Error(t, err)
+	if assert.Error(t, err) {
+		assert.Equal(t, errors.New("no username provided"), err)
+	}
 
 	p.AssertExpectations(t)
 }
@@ -155,10 +158,11 @@ func TestRESTClient_GetUser_EmptyUserName(t *testing.T) {
 
 	_, err := cl.GetUser(ctx, emptyUserName)
 
-	assert.Error(t, err)
+	if assert.Error(t, err) {
+		assert.Equal(t, errors.New("no username provided"), err)
+	}
 
 	p.AssertExpectations(t)
-
 }
 
 func TestRESTClient_UpdateUser(t *testing.T) {
@@ -220,7 +224,9 @@ func TestRESTClient_UpdateUser_EmptyUserName(t *testing.T) {
 
 	err := cl.UpdateUser(ctx, u)
 
-	assert.Error(t, err)
+	if assert.Error(t, err) {
+		assert.Equal(t, errors.New("no username provided"), err)
+	}
 
 	p.AssertExpectations(t)
 }
@@ -303,7 +309,9 @@ func TestRESTClient_DeleteUser_EmptyUserName(t *testing.T) {
 
 	err := cl.DeleteUser(ctx, u)
 
-	assert.Error(t, err)
+	if assert.Error(t, err) {
+		assert.Equal(t, errors.New("no username provided"), err)
+	}
 
 	p.AssertExpectations(t)
 }
@@ -320,12 +328,11 @@ func TestRESTClient_DeleteUser_UserNotProvided(t *testing.T) {
 
 	ctx := context.Background()
 
-	u := &model.User{}
-	u = nil
+	err := cl.DeleteUser(ctx, nil)
 
-	err := cl.DeleteUser(ctx, u)
-
-	assert.Error(t, err)
+	if assert.Error(t, err) {
+		assert.Equal(t, errors.New("no user provided"), err)
+	}
 
 	p.AssertExpectations(t)
 }
@@ -364,7 +371,7 @@ func TestRESTClient_DeleteUser_UserIDMismatch(t *testing.T) {
 
 	err := cl.DeleteUser(ctx, u2)
 
-	assert.Equal(t, err, &ErrUserMismatch{})
+	assert.IsType(t, err, &ErrUserMismatch{})
 
 	p.AssertExpectations(t)
 }
