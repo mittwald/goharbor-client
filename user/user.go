@@ -55,7 +55,7 @@ func (c *RESTClient) NewUser(ctx context.Context, username, email, realname, pas
 		Context: ctx,
 	}, c.AuthInfo)
 
-	err = handleSwaggerUserErrors(err, username)
+	err = handleSwaggerUserErrors(err)
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func (c *RESTClient) GetUser(ctx context.Context, username string) (*model.User,
 		Username: &username,
 	}, c.AuthInfo)
 
-	err = handleSwaggerUserErrors(err, username)
+	err = handleSwaggerUserErrors(err)
 	if err != nil {
 		return nil, err
 	}
@@ -113,7 +113,7 @@ func (c *RESTClient) DeleteUser(ctx context.Context, u *model.User) error {
 		Context: ctx,
 	}, c.AuthInfo)
 
-	return handleSwaggerUserErrors(err, user.Username)
+	return handleSwaggerUserErrors(err)
 }
 
 // UpdateUser updates a user with the specified data.
@@ -144,18 +144,18 @@ func (c *RESTClient) UpdateUser(ctx context.Context, u *model.User) error {
 		Context: ctx,
 	}, c.AuthInfo)
 
-	return handleSwaggerUserErrors(err, user.Username)
+	return handleSwaggerUserErrors(err)
 }
 
 // handleUserErrors takes a swagger generated error as input,
 // which usually does not contain any form of error message,
 // and outputs a new error with proper message.
-func handleSwaggerUserErrors(in error, username string) error {
+func handleSwaggerUserErrors(in error) error {
 	t, ok := in.(*runtime.APIError)
 	if ok {
 		switch t.Code {
 		case 409:
-			return &ErrUserAlreadyExist{}
+			return &ErrUserAlreadyExists{}
 		}
 	}
 

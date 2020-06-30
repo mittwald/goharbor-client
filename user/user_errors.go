@@ -10,8 +10,8 @@ const (
 	// ErrUserMismatchMsg is the error message for ErrUserMismatch error.
 	ErrUserMismatchMsg = "id/name pair not found on server side"
 
-	// ErrUserAlreadyExistMsg is the error message for ErrUserAlreadyExist error.
-	ErrUserAlreadyExistMsg = "user with this username already exists"
+	// ErrUserAlreadyExistMsg is the error message for ErrUserAlreadyExists error.
+	ErrUserAlreadyExistsMsg = "user with this username already exists"
 
 	// ErrUserInvalidIDMsg is the error message for ErrUserInvalidID error.
 	ErrUserInvalidIDMsg = "invalid user ID"
@@ -41,12 +41,12 @@ func (e *ErrUserMismatch) Error() string {
 	return ErrUserMismatchMsg
 }
 
-// ErrUserAlreadyExist describes an error indicating that this user already exists.
-type ErrUserAlreadyExist struct{}
+// ErrUserAlreadyExists describes an error indicating that this user already exists.
+type ErrUserAlreadyExists struct{}
 
 // Error returns the error message.
-func (e *ErrUserAlreadyExist) Error() string {
-	return ErrUserAlreadyExistMsg
+func (e *ErrUserAlreadyExists) Error() string {
+	return ErrUserAlreadyExistsMsg
 }
 
 // ErrUserInvalidID describes an error indicating an invalid user id.
