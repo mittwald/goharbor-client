@@ -6,13 +6,12 @@ import (
 	"context"
 	"testing"
 
-	"github.com/go-openapi/runtime"
-
 	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client"
 	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client/products"
 	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/model"
 	"github.com/mittwald/goharbor-client/mocks"
 
+	"github.com/go-openapi/runtime"
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 	"github.com/stretchr/testify/assert"
