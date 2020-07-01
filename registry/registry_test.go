@@ -1,3 +1,5 @@
+// +build !integration
+
 package registry
 
 import (
@@ -117,7 +119,7 @@ func TestRESTClient_NewRegistry_ErrOnPOST(t *testing.T) {
 	p.AssertExpectations(t)
 	assert.Nil(t, r)
 	if assert.Error(t, err) {
-		assert.Equal(t, "illegal format of provided ID value", err.Error())
+		assert.IsType(t, &ErrRegistryIllegalIDFormat{}, err)
 	}
 }
 
@@ -221,7 +223,6 @@ func TestRESTClient_GetRegistry_ErrRegistryNotProvided(t *testing.T) {
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
 	r, err := cl.GetRegistry(context.Background(), "")
 
-	p.AssertExpectations(t)
 	assert.Nil(t, r)
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrRegistryNotProvided{}, err)
@@ -310,7 +311,6 @@ func TestRESTClient_DeleteRegistry_ErrRegistryNotProvided(t *testing.T) {
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
 	err := cl.DeleteRegistry(context.Background(), nil)
 
-	p.AssertExpectations(t)
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrRegistryNotProvided{}, err)
 	}
