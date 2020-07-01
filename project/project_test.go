@@ -23,6 +23,17 @@ var (
 	exampleProjectID    = int64(0)
 	exampleUser         = "example-user"
 	exampleUserRoleID   = int64(1)
+	project             = &model.Project{Name: exampleProject, ProjectID: int32(exampleProjectID)}
+	usr                 = &model.User{Username: exampleUser}
+	pReq                = &model.ProjectReq{
+		CveWhitelist: nil,
+		Metadata:     nil,
+		ProjectName:  exampleProject,
+		CountLimit:   exampleCountLimit,
+		StorageLimit: exampleStorageLimit * 1024 * 1024,
+	}
+	exampleMetadataKey   = EnableContentTrustProjectMetadataKey
+	exampleMetadataValue = "true"
 )
 
 func TestRESTClient_NewProject(t *testing.T) {
@@ -36,14 +47,6 @@ func TestRESTClient_NewProject(t *testing.T) {
 	cl := NewClient(c, authInfo)
 
 	ctx := context.Background()
-
-	pReq := &model.ProjectReq{
-		CveWhitelist: nil,
-		Metadata:     nil,
-		ProjectName:  exampleProject,
-		CountLimit:   exampleCountLimit,
-		StorageLimit: exampleStorageLimit * 1024 * 1024,
-	}
 
 	postProjectParams := &products.PostProjectsParams{
 		Project: pReq,
@@ -81,19 +84,6 @@ func TestRESTClient_DeleteProject(t *testing.T) {
 
 	ctx := context.Background()
 
-	pReq := &model.ProjectReq{
-		CveWhitelist: nil,
-		Metadata:     nil,
-		ProjectName:  exampleProject,
-		CountLimit:   exampleCountLimit,
-		StorageLimit: exampleStorageLimit * 1024 * 1024,
-	}
-
-	project := &model.Project{
-		Name:      exampleProject,
-		ProjectID: int32(exampleProjectID),
-	}
-
 	getProjectParams := &products.GetProjectsParams{
 		Name:    &pReq.ProjectName,
 		Context: ctx,
@@ -130,14 +120,6 @@ func TestRESTClient_GetProject(t *testing.T) {
 
 	ctx := context.Background()
 
-	pReq := &model.ProjectReq{
-		CveWhitelist: nil,
-		Metadata:     nil,
-		ProjectName:  exampleProject,
-		CountLimit:   exampleCountLimit,
-		StorageLimit: exampleStorageLimit * 1024 * 1024,
-	}
-
 	getProjectParams := &products.GetProjectsParams{
 		Name:    &pReq.ProjectName,
 		Context: ctx,
@@ -166,14 +148,6 @@ func TestRESTClient_ListProjects(t *testing.T) {
 
 	ctx := context.Background()
 
-	pReq := &model.ProjectReq{
-		CveWhitelist: nil,
-		Metadata:     nil,
-		ProjectName:  exampleProject,
-		CountLimit:   exampleCountLimit,
-		StorageLimit: exampleStorageLimit * 1024 * 1024,
-	}
-
 	getProjectParams := &products.GetProjectsParams{
 		Name:    &pReq.ProjectName,
 		Context: ctx,
@@ -201,14 +175,6 @@ func TestRESTClient_UpdateProject(t *testing.T) {
 	cl := NewClient(c, authInfo)
 
 	ctx := context.Background()
-
-	pReq := &model.ProjectReq{
-		CveWhitelist: nil,
-		Metadata:     nil,
-		ProjectName:  exampleProject,
-		CountLimit:   exampleCountLimit,
-		StorageLimit: exampleStorageLimit * 1024 * 1024,
-	}
 
 	getProjectParams := &products.GetProjectsParams{
 		Name:    &pReq.ProjectName,
@@ -255,22 +221,9 @@ func TestRESTClient_UpdateProject_IDMismatch(t *testing.T) {
 
 	ctx := context.Background()
 
-	pReq := &model.ProjectReq{
-		CveWhitelist: nil,
-		Metadata:     nil,
-		ProjectName:  exampleProject,
-		CountLimit:   exampleCountLimit,
-		StorageLimit: exampleStorageLimit * 1024 * 1024,
-	}
-
 	getProjectParams := &products.GetProjectsParams{
 		Name:    &pReq.ProjectName,
 		Context: ctx,
-	}
-
-	project := &model.Project{
-		Name:      exampleProject,
-		ProjectID: int32(exampleProjectID),
 	}
 
 	p.On("GetProjects", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
@@ -297,21 +250,6 @@ func TestRESTClient_AddProjectMember(t *testing.T) {
 	cl := NewClient(c, authInfo)
 
 	ctx := context.Background()
-
-	project := &model.Project{
-		Name:      exampleProject,
-		ProjectID: int32(exampleProjectID),
-	}
-
-	usr := &model.User{Username: exampleUser}
-
-	pReq := &model.ProjectReq{
-		CveWhitelist: nil,
-		Metadata:     nil,
-		ProjectName:  exampleProject,
-		CountLimit:   exampleCountLimit,
-		StorageLimit: exampleStorageLimit * 1024 * 1024,
-	}
 
 	getProjectsParams := &products.GetProjectsParams{
 		Name:    &pReq.ProjectName,
@@ -370,11 +308,6 @@ func TestRESTClient_ListProjectMembers(t *testing.T) {
 
 	ctx := context.Background()
 
-	project := &model.Project{
-		Name:      exampleProject,
-		ProjectID: int32(exampleProjectID),
-	}
-
 	e := ""
 
 	getProjectsProjectIDMembersParams := products.GetProjectsProjectIDMembersParams{
@@ -409,14 +342,6 @@ func TestRESTClient_UpdateProjectMemberRole(t *testing.T) {
 
 	e := ""
 
-	pReq := &model.ProjectReq{
-		CveWhitelist: nil,
-		Metadata:     nil,
-		ProjectName:  exampleProject,
-		CountLimit:   exampleCountLimit,
-		StorageLimit: exampleStorageLimit * 1024 * 1024,
-	}
-
 	getProjectsParams := &products.GetProjectsParams{
 		Name:    &pReq.ProjectName,
 		Context: ctx,
@@ -425,13 +350,6 @@ func TestRESTClient_UpdateProjectMemberRole(t *testing.T) {
 	getUserParams := &products.GetUsersParams{
 		Context:  ctx,
 		Username: &exampleUser}
-
-	usr := &model.User{Username: exampleUser}
-
-	project := &model.Project{
-		Name:      exampleProject,
-		ProjectID: int32(exampleProjectID),
-	}
 
 	postProjectsProjectIDMembersParams := &products.PostProjectsProjectIDMembersParams{
 		ProjectID: exampleProjectID,
@@ -473,7 +391,7 @@ func TestRESTClient_UpdateProjectMemberRole(t *testing.T) {
 	}
 
 	putProjectsProjectIDMembersMidParams := products.PutProjectsProjectIDMembersMidParams{
-		Mid: 1,
+		Mid:       1,
 		ProjectID: exampleProjectID,
 		Role:      &model.RoleRequest{RoleID: exampleUserRoleID},
 		Context:   ctx,
@@ -488,7 +406,7 @@ func TestRESTClient_UpdateProjectMemberRole(t *testing.T) {
 			Payload: []*model.ProjectMemberEntity{{
 				EntityType: "u",
 				EntityName: exampleUser,
-				ID: exampleUserRoleID,
+				ID:         exampleUserRoleID,
 			}},
 		}, nil)
 
@@ -516,14 +434,6 @@ func TestRESTClient_UpdateProjectMemberRole_UserIsNoMember(t *testing.T) {
 
 	e := ""
 
-	pReq := &model.ProjectReq{
-		CveWhitelist: nil,
-		Metadata:     nil,
-		ProjectName:  exampleProject,
-		CountLimit:   exampleCountLimit,
-		StorageLimit: exampleStorageLimit * 1024 * 1024,
-	}
-
 	getProjectsParams := &products.GetProjectsParams{
 		Name:    &pReq.ProjectName,
 		Context: ctx,
@@ -534,13 +444,6 @@ func TestRESTClient_UpdateProjectMemberRole_UserIsNoMember(t *testing.T) {
 		ProjectID:  exampleProjectID,
 		Context:    ctx,
 	}
-
-	project := &model.Project{
-		Name:      exampleProject,
-		ProjectID: int32(exampleProjectID),
-	}
-
-	usr := &model.User{Username: exampleUser}
 
 	p.On("GetProjects", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsOK{
@@ -561,23 +464,311 @@ func TestRESTClient_UpdateProjectMemberRole_UserIsNoMember(t *testing.T) {
 }
 
 func TestRESTClient_DeleteProjectMember(t *testing.T) {
+	p := &mocks.MockClientService{}
 
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	e := ""
+
+	getProjectsParams := &products.GetProjectsParams{
+		Name:    &pReq.ProjectName,
+		Context: ctx,
+	}
+
+	getUserParams := &products.GetUsersParams{
+		Context:  ctx,
+		Username: &exampleUser}
+
+	postProjectsProjectIDMembersParams := &products.PostProjectsProjectIDMembersParams{
+		ProjectID: exampleProjectID,
+		ProjectMember: &model.ProjectMember{
+			MemberUser: &model.UserEntity{
+				Username: usr.Username,
+			},
+			MemberGroup: &model.UserGroup{
+				GroupName: "",
+				GroupType: 0,
+				ID:        0,
+			},
+			RoleID: exampleUserRoleID,
+		},
+		Context: ctx,
+	}
+
+	p.On("GetProjects", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetProjectsOK{
+			Payload: []*model.Project{{Name: exampleProject}}}, nil)
+
+	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetUsersOK{
+			Payload: []*model.User{{Username: exampleUser}},
+		}, nil)
+
+	p.On("PostProjectsProjectIDMembers", postProjectsProjectIDMembersParams,
+		mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PostProjectsProjectIDMembersCreated{}, nil)
+
+	err := cl.AddProjectMember(ctx, project, usr, int(exampleUserRoleID))
+
+	assert.NoError(t, err)
+
+	getProjectsProjectIDMembersParams := products.GetProjectsProjectIDMembersParams{
+		Entityname: &e,
+		ProjectID:  exampleProjectID,
+		Context:    ctx,
+	}
+
+	deleteProjectsProjectIDMembersMidParams := &products.DeleteProjectsProjectIDMembersMidParams{
+		Mid:       1,
+		ProjectID: exampleProjectID,
+		Context:   ctx,
+	}
+
+	p.On("GetProjects", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetProjectsOK{
+			Payload: []*model.Project{{Name: exampleProject}}}, nil)
+
+	p.On("GetProjectsProjectIDMembers", &getProjectsProjectIDMembersParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetProjectsProjectIDMembersOK{
+			Payload: []*model.ProjectMemberEntity{{
+				EntityType: "u",
+				EntityName: exampleUser,
+				ID:         exampleUserRoleID,
+			}},
+		}, nil)
+
+	p.On("DeleteProjectsProjectIDMembersMid", deleteProjectsProjectIDMembersMidParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.DeleteProjectsProjectIDMembersMidOK{}, nil)
+
+	err = cl.DeleteProjectMember(ctx, project, usr)
+
+	assert.NoError(t, err)
+
+	p.AssertExpectations(t)
 }
 
 func TestRESTClient_AddProjectMetadata(t *testing.T) {
+	p := &mocks.MockClientService{}
 
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	postProjectsProjectIDMetadatasParams := &products.PostProjectsProjectIDMetadatasParams{
+		Metadata: &model.ProjectMetadata{
+			EnableContentTrust: "true",
+		},
+		ProjectID: exampleProjectID,
+		Context:   ctx,
+	}
+
+	p.On("PostProjectsProjectIDMetadatas", postProjectsProjectIDMetadatasParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PostProjectsProjectIDMetadatasOK{}, nil)
+
+	err := cl.AddProjectMetadata(ctx, project, exampleMetadataKey, exampleMetadataValue)
+
+	assert.NoError(t, err)
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_GetProjectMetadataValue(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	keys := []ProjectMetadataKey{EnableContentTrustProjectMetadataKey,
+		AutoScanProjectMetadataKey,
+		SeverityProjectMetadataKey,
+		ReuseSysCVEWhitelistProjectMetadataKey,
+		PublicProjectMetadataKey,
+		PreventVulProjectMetadataKey}
+
+	for i := range keys {
+		getProjectsProjectIDMetadatasMetaNameParams := &products.GetProjectsProjectIDMetadatasMetaNameParams{
+			MetaName:  string(keys[i]),
+			ProjectID: exampleProjectID,
+			Context:   ctx,
+		}
+
+		p.On("GetProjectsProjectIDMetadatasMetaName", getProjectsProjectIDMetadatasMetaNameParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+			Return(&products.GetProjectsProjectIDMetadatasMetaNameOK{Payload: &model.ProjectMetadata{}}, nil)
+
+		_, err := cl.GetProjectMetadataValue(ctx, project, keys[i])
+
+		assert.NoError(t, err)
+
+		p.AssertExpectations(t)
+	}
 }
 
 func TestRESTClient_ListProjectMetadata(t *testing.T) {
+	p := &mocks.MockClientService{}
 
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	project := &model.Project{
+		ProjectID: int32(exampleProjectID),
+		Metadata: &model.ProjectMetadata{
+			EnableContentTrust: "true",
+		},
+	}
+
+	getProjectsProjectIDMetadatasParams := &products.GetProjectsProjectIDMetadatasParams{
+		ProjectID: exampleProjectID,
+		Context:   ctx,
+	}
+
+	p.On("GetProjectsProjectIDMetadatas", getProjectsProjectIDMetadatasParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetProjectsProjectIDMetadatasOK{Payload: &model.ProjectMetadata{
+			EnableContentTrust: "true",
+		}}, nil)
+
+	meta, err := cl.ListProjectMetadata(ctx, project)
+
+	assert.NoError(t, err)
+
+	assert.Equal(t, meta.EnableContentTrust, project.Metadata.EnableContentTrust)
+
+	p.AssertExpectations(t)
+
+}
+
+func TestRESTClient_ListProjectMetadata_NoProjectProvided(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	_, err := cl.ListProjectMetadata(ctx, nil)
+
+	if assert.Error(t, err) {
+		assert.Equal(t, &ErrProjectNotProvided{}, err)
+	}
 }
 
 func TestRESTClient_UpdateProjectMetadata(t *testing.T) {
+	p := &mocks.MockClientService{}
 
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	project := &model.Project{
+		ProjectID: int32(exampleProjectID),
+		Metadata: &model.ProjectMetadata{
+			EnableContentTrust: "true",
+		},
+	}
+
+	getProjectsProjectIDMetadatasMetaName := &products.GetProjectsProjectIDMetadatasMetaNameParams{
+		MetaName:  string(EnableContentTrustProjectMetadataKey),
+		ProjectID: exampleProjectID,
+		Context:   ctx,
+	}
+
+	deleteProjectsProjectIDMetadatasMetaName := &products.DeleteProjectsProjectIDMetadatasMetaNameParams{
+		MetaName:  string(EnableContentTrustProjectMetadataKey),
+		ProjectID: 0,
+		Context:   ctx,
+	}
+
+	postProjectsProjectIDMetadatas := &products.PostProjectsProjectIDMetadatasParams{
+		Metadata: &model.ProjectMetadata{
+			EnableContentTrust: exampleMetadataValue,
+		},
+		ProjectID: exampleProjectID,
+		Context:   ctx,
+	}
+
+	p.On("GetProjectsProjectIDMetadatasMetaName", getProjectsProjectIDMetadatasMetaName, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetProjectsProjectIDMetadatasMetaNameOK{Payload: &model.ProjectMetadata{
+			EnableContentTrust: exampleMetadataValue,
+		}}, nil)
+
+	p.On("DeleteProjectsProjectIDMetadatasMetaName", deleteProjectsProjectIDMetadatasMetaName, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.DeleteProjectsProjectIDMetadatasMetaNameOK{}, nil)
+
+	p.On("PostProjectsProjectIDMetadatas", postProjectsProjectIDMetadatas, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PostProjectsProjectIDMetadatasOK{}, nil)
+
+	err := cl.UpdateProjectMetadata(ctx, project, exampleMetadataKey, exampleMetadataValue)
+
+	assert.NoError(t, err)
+
+	p.AssertExpectations(t)
 }
 
 func TestRESTClient_DeleteProjectMetadataValue(t *testing.T) {
+	p := &mocks.MockClientService{}
 
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	project := &model.Project{
+		ProjectID: int32(exampleProjectID),
+		Metadata: &model.ProjectMetadata{
+			EnableContentTrust: "true",
+		},
+	}
+
+	deleteProjectsProjectIDMetadatasMetaName := &products.DeleteProjectsProjectIDMetadatasMetaNameParams{
+		MetaName:  string(EnableContentTrustProjectMetadataKey),
+		ProjectID: exampleProjectID,
+		Context:   ctx,
+	}
+
+	p.On("DeleteProjectsProjectIDMetadatasMetaName", deleteProjectsProjectIDMetadatasMetaName, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.DeleteProjectsProjectIDMetadatasMetaNameOK{}, nil)
+
+	err := cl.DeleteProjectMetadataValue(ctx, project, exampleMetadataKey)
+
+	assert.NoError(t, err)
+
+	p.AssertExpectations(t)
 }
 
 func TestErrProjectIDNotExists_Error(t *testing.T) {

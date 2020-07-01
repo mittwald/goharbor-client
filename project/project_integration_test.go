@@ -370,7 +370,7 @@ func TestAPIProjectMetadataGet(t *testing.T) {
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	m, err := c.getProjectMetadataValue(ctx, p, PublicProjectMetadataKey)
+	m, err := c.GetProjectMetadataValue(ctx, p, PublicProjectMetadataKey)
 	require.NoError(t, err)
 
 	assert.Equal(t, "false", m)
@@ -387,7 +387,7 @@ func TestAPIProjectMetadataGetInvalidKey(t *testing.T) {
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	m, err := c.getProjectMetadataValue(ctx, p, "foobar")
+	m, err := c.GetProjectMetadataValue(ctx, p, "foobar")
 
 	if assert.Error(t, err) {
 		assert.Equal(t, "resource unknown", err.Error())
@@ -445,7 +445,7 @@ func TestAPIProjectMetadataUpdate(t *testing.T) {
 
 	err = c.UpdateProjectMetadata(ctx, p, AutoScanProjectMetadataKey, "false")
 
-	k, err := c.getProjectMetadataValue(ctx, p, AutoScanProjectMetadataKey)
+	k, err := c.GetProjectMetadataValue(ctx, p, AutoScanProjectMetadataKey)
 	require.NoError(t, err)
 
 	assert.Equal(t, "false", k)
@@ -468,7 +468,7 @@ func TestAPIProjectMetadataDelete(t *testing.T) {
 	err = c.DeleteProjectMetadataValue(ctx, p, AutoScanProjectMetadataKey)
 	require.NoError(t, err)
 
-	m, err := c.getProjectMetadataValue(ctx, p, AutoScanProjectMetadataKey)
+	m, err := c.GetProjectMetadataValue(ctx, p, AutoScanProjectMetadataKey)
 
 	if assert.Error(t, err) {
 		assert.Equal(t, "resource unknown", err.Error())
