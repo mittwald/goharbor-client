@@ -35,8 +35,8 @@ type Client interface {
 
 // NewRegistry creates a new project with name as project name.
 // CountLimit and StorageLimit limits space and access for this project.
-// Returns the project as it is stored inside Harbor or an error,
-// if the project could not be created.
+// Returns the registry as it is stored inside Harbor or an error,
+// if it cannot be created.
 func (c *RESTClient) NewRegistry(ctx context.Context, name, registryType, url string,
 	credential *model.RegistryCredential, insecure bool) (*model.Registry, error) {
 	rReq := &model.Registry{
