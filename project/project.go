@@ -3,7 +3,6 @@ package project
 import (
 	"context"
 	"errors"
-
 	uc "github.com/mittwald/goharbor-client/user"
 
 	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client"
