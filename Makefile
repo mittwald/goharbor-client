@@ -9,10 +9,10 @@ swagger-v2.0.0:
 swaggercleanup: swaggerclientcleanup swaggermodelcleanup
 
 swaggerclientcleanup:
-	rm -rf ./internal/api/*/client
+	rm -rf ./internal/api/*
 
 swaggermodelcleanup:
-	rm -rf ./internal/api/*/model
+	rm -rf ./model/*/
 
 # Creates a Harbor instance as a docker container via Kind.
 # Delete cluster via scripts/teardown-harbor.sh
