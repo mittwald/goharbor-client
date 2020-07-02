@@ -44,22 +44,22 @@ func TestRESTClient_NewUser(t *testing.T) {
 		Comment:  "",
 	}
 
-	postParams := &products.PostUsersParams{
+	postUserParams := &products.PostUsersParams{
 		User:    uReq,
 		Context: ctx,
 	}
 
-	getParams := &products.GetUsersParams{
+	getUserParams := &products.GetUsersParams{
 		Context:  ctx,
 		Username: &exampleUser}
 
 	p.On("PostUsers",
-		postParams,
+		postUserParams,
 		mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.PostUsersCreated{},
 			nil)
 
-	p.On("GetUsers", getParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
 			Payload: []*model.User{{Username: exampleUser}},
 		}, nil)
@@ -91,7 +91,7 @@ func TestRESTClient_NewUser_EmptyUserName(t *testing.T) {
 		Comment:  "",
 	}
 
-	postParams := &products.PostUsersParams{
+	postUserParams := &products.PostUsersParams{
 		User:    uReq,
 		Context: ctx,
 	}
@@ -99,7 +99,7 @@ func TestRESTClient_NewUser_EmptyUserName(t *testing.T) {
 	uReq.Username = ""
 
 	p.On("PostUsers",
-		postParams,
+		postUserParams,
 		mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.PostUsersCreated{},
 			nil)
@@ -125,12 +125,12 @@ func TestRESTClient_GetUser(t *testing.T) {
 
 	ctx := context.Background()
 
-	getParams := &products.GetUsersParams{
+	getUserParams := &products.GetUsersParams{
 		Context:  ctx,
 		Username: &exampleUser,
 	}
 
-	p.On("GetUsers", getParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
 			Payload: []*model.User{{Username: exampleUser}},
 		}, nil)
@@ -177,11 +177,11 @@ func TestRESTClient_UpdateUser(t *testing.T) {
 
 	ctx := context.Background()
 
-	getParams := &products.GetUsersParams{
+	getUserParams := &products.GetUsersParams{
 		Context:  ctx,
 		Username: &exampleUser}
 
-	putParams := &products.PutUsersUserIDParams{
+	putUserParams := &products.PutUsersUserIDParams{
 		UserID: exampleUserID,
 		Profile: &model.UserProfile{
 			Comment:  "",
@@ -191,14 +191,14 @@ func TestRESTClient_UpdateUser(t *testing.T) {
 		Context: ctx,
 	}
 
-	p.On("GetUsers", getParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
 			Payload: []*model.User{{Username: exampleUser, UserID: exampleUserID, Email: exampleEmail, Password: examplePassword}},
 		}, nil)
 
 	u, err := cl.GetUser(ctx, exampleUser)
 
-	p.On("PutUsersUserID", putParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("PutUsersUserID", putUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.PutUsersUserIDOK{}, nil)
 
 	err = cl.UpdateUser(ctx, u)
@@ -269,21 +269,21 @@ func TestRESTClient_DeleteUser(t *testing.T) {
 		Username: exampleUser,
 	}
 
-	deleteParams := &products.DeleteUsersUserIDParams{
+	deleteUserParams := &products.DeleteUsersUserIDParams{
 		UserID:  u.UserID,
 		Context: ctx,
 	}
 
-	getParams := &products.GetUsersParams{
+	getUserParams := &products.GetUsersParams{
 		Context:  ctx,
 		Username: &u.Username}
 
-	p.On("GetUsers", getParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
 			Payload: []*model.User{{Username: exampleUser}},
 		}, nil)
 
-	p.On("DeleteUsersUserID", deleteParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("DeleteUsersUserID", deleteUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.DeleteUsersUserIDOK{}, nil)
 
 	err := cl.DeleteUser(ctx, u)
@@ -359,12 +359,12 @@ func TestRESTClient_DeleteUser_UserIDMismatch(t *testing.T) {
 		UserID:   2,
 	}
 
-	getParams := &products.GetUsersParams{
+	getUserParams := &products.GetUsersParams{
 		Context:  ctx,
 		Username: &u.Username,
 	}
 
-	p.On("GetUsers", getParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
 			Payload: []*model.User{u},
 		}, &ErrUserMismatch{})
@@ -392,11 +392,11 @@ func TestRESTClient_UserExists(t *testing.T) {
 		Username: exampleUser,
 	}
 
-	getParams := &products.GetUsersParams{
+	getUserParams := &products.GetUsersParams{
 		Context:  ctx,
 		Username: &u.Username}
 
-	p.On("GetUsers", getParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
 			Payload: []*model.User{{Username: exampleUser}},
 		}, nil)

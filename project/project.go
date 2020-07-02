@@ -43,6 +43,7 @@ type Client interface {
 
 	AddProjectMetadata(ctx context.Context, p *model.Project, key ProjectMetadataKey, value string) error
 	ListProjectMetadata(ctx context.Context, p *model.Project) (*model.ProjectMetadata, error)
+	GetProjectMetadataValue(ctx context.Context, p *model.Project, key ProjectMetadataKey) (string, error)
 	UpdateProjectMetadata(ctx context.Context, p *model.Project, key ProjectMetadataKey, value string) error
 	DeleteProjectMetadataValue(ctx context.Context, p *model.Project, key ProjectMetadataKey) error
 }
@@ -382,8 +383,8 @@ func (c *RESTClient) AddProjectMetadata(ctx context.Context, p *model.Project, k
 	return handleSwaggerProjectErrors(err)
 }
 
-// GetMetadataValue retrieves metadata with key of project p.
-func (c *RESTClient) getProjectMetadataValue(ctx context.Context, p *model.Project, key ProjectMetadataKey) (string, error) {
+// GetProjectMetadataValue retrieves metadata with key of project p.
+func (c *RESTClient) GetProjectMetadataValue(ctx context.Context, p *model.Project, key ProjectMetadataKey) (string, error) {
 	if p == nil {
 		return "", &ErrProjectNotProvided{}
 	}
