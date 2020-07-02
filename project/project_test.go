@@ -4,6 +4,7 @@ package project
 
 import (
 	"context"
+	"github.com/go-openapi/runtime"
 	"testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
@@ -227,13 +228,16 @@ func TestRESTClient_UpdateProject_IDMismatch(t *testing.T) {
 	}
 
 	p.On("GetProjects", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.GetProjectsOK{
-			Payload: []*model.Project{{Name: exampleProject}}}, &ErrProjectMismatch{})
+		Return(&products.GetProjectsOK{Payload: nil}, &runtime.APIError{
+			OperationName: "",
+			Response: nil,
+			Code: 500,
+	})
 
 	err := cl.UpdateProject(ctx, project, int(exampleCountLimit), int(exampleStorageLimit))
 
 	if assert.Error(t, err) {
-		assert.Equal(t, &ErrProjectMismatch{}, err)
+		assert.IsType(t, &ErrProjectInternalErrors{}, err)
 	}
 
 	p.AssertExpectations(t)
