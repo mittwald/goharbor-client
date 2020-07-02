@@ -4,14 +4,15 @@ package project
 
 import (
 	"context"
-	"github.com/go-openapi/runtime"
 	"testing"
 
+	"github.com/go-openapi/runtime"
+
 	runtimeclient "github.com/go-openapi/runtime/client"
-	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client"
-	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client/products"
-	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/model"
+	"github.com/mittwald/goharbor-client/internal/api/v1_10_0/client"
+	"github.com/mittwald/goharbor-client/internal/api/v1_10_0/client/products"
 	"github.com/mittwald/goharbor-client/mocks"
+	model "github.com/mittwald/goharbor-client/model/v1_10_0"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
@@ -230,9 +231,9 @@ func TestRESTClient_UpdateProject_IDMismatch(t *testing.T) {
 	p.On("GetProjects", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsOK{Payload: nil}, &runtime.APIError{
 			OperationName: "",
-			Response: nil,
-			Code: 500,
-	})
+			Response:      nil,
+			Code:          500,
+		})
 
 	err := cl.UpdateProject(ctx, project, int(exampleCountLimit), int(exampleStorageLimit))
 

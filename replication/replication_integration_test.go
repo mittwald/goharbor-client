@@ -9,10 +9,10 @@ import (
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/client"
+	"github.com/mittwald/goharbor-client/internal/api/v1_10_0/client"
 	"github.com/mittwald/goharbor-client/registry"
 
-	"github.com/mittwald/goharbor-client/internal/api/v1.10.0/model"
+	model "github.com/mittwald/goharbor-client/model/v1_10_0"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
