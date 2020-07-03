@@ -1,0 +1,4 @@
+# go-swagger generated files
+api/ linguist-generated=true
+# mockery generated files
+mocks/ linguist-generated=true

@@ -1,0 +1,31 @@
+name: Test
+
+on: pull_request
+
+env:
+  GOPROXY: https://proxy.golang.org
+
+jobs:
+  test-harbor:
+    name: Test on Harbor
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        harbor: [v1.10.0, v1.10.1, v1.10.2]
+        go: [1.13]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go }}
+      - name: Setup Kind
+        uses: engineerd/setup-kind@v0.4.0
+        with:
+          skipClusterCreation: "true"
+      - name: Setup Helm
+        run: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+      - name: Setup tools
+        run: sudo apt-get update && sudo apt-get install -y jq make
+      - name: Test
+        run: make integration-test-${{ matrix.harbor }}

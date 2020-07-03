@@ -1,0 +1,26 @@
+name: Verify code generation integrity
+
+on: pull_request
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Go 1.13
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.13.1'
+        id: go
+
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+
+      - name: Run code generation
+        run: make swagger-v1
+
+      - name: Test diff
+        run: |
+          git diff | cat
+          git status --porcelain=v1
+          test $(git status --porcelain=v1 | wc -l) -eq 0
