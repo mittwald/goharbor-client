@@ -1,4 +1,4 @@
 ## Exclude auto generated files
 exclude_patterns:
-  - "internal/"
+  - "internal/api/"
   - "model/"
