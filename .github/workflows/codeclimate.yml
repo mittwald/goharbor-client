@@ -1,0 +1,42 @@
+name: Go
+
+# Trigger the workflow on push or pull request
+on:
+  push:
+    branches:
+      - 'master'
+    tags:
+      - '*'
+  pull_request:
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Go 1.13
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.13
+        id: go
+
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+
+      - name: Hack Code Climate and Go Modules
+        if: github.event_name != 'pull_request'
+        run: mkdir -p github.com/mittwald && ln -sf $(pwd) github.com/mittwald/goharbor-client
+
+      - name: Test & publish code coverage
+        if: github.event_name != 'pull_request'
+        uses: paambaati/codeclimate-action@v2.6.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.codeClimateReporterID }}
+        with:
+          coverageCommand: go test -coverprofile=c.out ./...
+          debug: true
+          prefix: 'github.com/${{ github.repository }}/'
+
+      - name: Go Test
+        if: github.event_name == 'pull_request'
+        run: go test -coverprofile=c.out ./...
