@@ -3,6 +3,9 @@ package goharborclient
 import (
 	"context"
 
+	runtimeclient "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/runtime"
 	"github.com/mittwald/goharbor-client/internal/api/v1_10_0/client"
 
@@ -35,14 +38,22 @@ type RESTClient struct {
 
 // NewRESTClient constructs a new REST client containing each sub client.
 func NewRESTClient(cl *client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
-	c := &RESTClient{
+	return &RESTClient{
 		user:        user.NewClient(cl, authInfo),
 		project:     project.NewClient(cl, authInfo),
 		registry:    registry.NewClient(cl, authInfo),
 		replication: replication.NewClient(cl, authInfo),
 		system:      system.NewClient(cl, authInfo),
 	}
-	return c
+}
+
+// NewRESTClientForHost constructs a new REST client containing a swagger
+// API client using the defined host string + basePath as well as basic auth info.
+func NewRESTClientForHost(host, basePath, username, password string) *RESTClient {
+	swaggerClient := client.New(runtimeclient.New(host, basePath, []string{"http"}), strfmt.Default)
+	authInfo := runtimeclient.BasicAuth(username, password)
+
+	return NewRESTClient(swaggerClient, authInfo)
 }
 
 // User Client
