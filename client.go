@@ -47,19 +47,13 @@ func NewRESTClient(cl *client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RE
 	}
 }
 
-// NewRESTClientWithSwaggerClient constructs a new REST client containing a swagger
+// NewRESTClientForHost constructs a new REST client containing a swagger
 // API client using the defined host string + basePath as well as basic auth info.
-func NewRESTClientWithSwaggerClient(host, basePath, username, password string) *RESTClient {
+func NewRESTClientForHost(host, basePath, username, password string) *RESTClient {
 	swaggerClient := client.New(runtimeclient.New(host, basePath, []string{"http"}), strfmt.Default)
 	authInfo := runtimeclient.BasicAuth(username, password)
 
-	return &RESTClient{
-		user:        user.NewClient(swaggerClient, authInfo),
-		project:     project.NewClient(swaggerClient, authInfo),
-		registry:    registry.NewClient(swaggerClient, authInfo),
-		replication: replication.NewClient(swaggerClient, authInfo),
-		system:      system.NewClient(swaggerClient, authInfo),
-	}
+	return NewRESTClient(swaggerClient, authInfo)
 }
 
 // User Client
