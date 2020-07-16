@@ -75,7 +75,7 @@ func TestAPIReplicationNewDestRegistry(t *testing.T) {
 		"", "", name,
 	)
 	require.NoError(t, err)
-	defer c.DeleteReplication(ctx, r)
+	defer c.DeleteReplicationPolicy(ctx, r)
 
 	assert.Equal(t, name, r.Name)
 }
@@ -122,7 +122,7 @@ func TestAPIReplicationNewSrcRegistry(t *testing.T) {
 		"", "", name,
 	)
 	require.NoError(t, err)
-	defer c.DeleteReplication(ctx, r)
+	defer c.DeleteReplicationPolicy(ctx, r)
 
 	assert.Equal(t, name, r.Name)
 }
@@ -173,7 +173,7 @@ func TestAPIReplicationDelete(t *testing.T) {
 	err = c.DeleteReplicationPolicy(ctx, r)
 	require.NoError(t, err)
 
-	r, err = c.GetReplication(ctx, name)
+	r, err = c.GetReplicationPolicy(ctx, name)
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrReplicationNotFound{}, err)
 	}
