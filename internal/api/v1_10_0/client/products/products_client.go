@@ -95,6 +95,8 @@ type ClientService interface {
 
 	PutUsersUserID(params *PutUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutUsersUserIDOK, error)
 
+	PutUsersUserIDPassword(params *PutUsersUserIDPasswordParams, authInfo runtime.ClientAuthInfoWriter) (*PutUsersUserIDPasswordOK, error)
+
 	SetTransport(transport runtime.ClientTransport)
 }
 
@@ -1381,6 +1383,44 @@ func (a *Client) PutUsersUserID(params *PutUsersUserIDParams, authInfo runtime.C
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for PutUsersUserID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  PutUsersUserIDPassword changes the password on a user that already exists
+
+  This endpoint is for user to update password. Users with the admin role can change any user's password. Guest users can change only their own password.
+
+*/
+func (a *Client) PutUsersUserIDPassword(params *PutUsersUserIDPasswordParams, authInfo runtime.ClientAuthInfoWriter) (*PutUsersUserIDPasswordOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPutUsersUserIDPasswordParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PutUsersUserIDPassword",
+		Method:             "PUT",
+		PathPattern:        "/users/{user_id}/password",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PutUsersUserIDPasswordReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PutUsersUserIDPasswordOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PutUsersUserIDPassword: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

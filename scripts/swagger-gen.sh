@@ -42,6 +42,7 @@ swagger_operations+=("DeleteRegistriesID")
 swagger_operations+=("GetUsers")
 swagger_operations+=("PostUsers")
 swagger_operations+=("PutUsersUserID")
+swagger_operations+=("PutUsersUserIDPassword")
 swagger_operations+=("DeleteUsersUserID")
 
 swagger_operations+=("PostReplicationPolicies")

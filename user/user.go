@@ -33,6 +33,7 @@ type Client interface {
 	GetUser(ctx context.Context, username string) (*model.User, error)
 	DeleteUser(ctx context.Context, u *model.User) error
 	UpdateUser(ctx context.Context, u *model.User) error
+	UpdateUserPassword(ctx context.Context, id int64, password *model.Password) error
 }
 
 // NewUser creates and returns a new user, or error in case of failure.
@@ -147,6 +148,21 @@ func (c *RESTClient) UpdateUser(ctx context.Context, u *model.User) error {
 	return handleSwaggerUserErrors(err)
 }
 
+// UpdateUserPassword updates a users password
+func (c *RESTClient) UpdateUserPassword(ctx context.Context, id int64, password *model.Password) error {
+	if password == nil {
+		return errors.New("no password provided")
+	}
+
+	_, err := c.Client.Products.PutUsersUserIDPassword(&products.PutUsersUserIDPasswordParams{
+		Password: password,
+		UserID:   id,
+		Context:  ctx,
+	}, c.AuthInfo)
+
+	return handleSwaggerUserErrors(err)
+}
+
 // handleUserErrors takes a swagger generated error as input,
 // which usually does not contain any form of error message,
 // and outputs a new error with proper message.
@@ -164,6 +180,8 @@ func handleSwaggerUserErrors(in error) error {
 		return &ErrUserBadRequest{}
 	case *products.PutUsersUserIDBadRequest:
 		return &ErrUserInvalidID{}
+	case *products.PutUsersUserIDPasswordBadRequest:
+		return &ErrUserPasswordInvalid{}
 	default:
 		return in
 	}

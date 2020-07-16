@@ -78,6 +78,11 @@ func (c *RESTClient) UpdateUser(ctx context.Context, u *model.User) error {
 	return c.user.UpdateUser(ctx, u)
 }
 
+// UpdateUserPassword wraps the UpdateUserPassword method of the user sub-package.
+func (c *RESTClient) UpdateUserPassword(ctx context.Context, id int64, password *model.Password) error {
+	return c.user.UpdateUserPassword(ctx, id, password)
+}
+
 // Project Client
 
 // NewProject wraps the NewProject method of the project sub-package.

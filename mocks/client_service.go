@@ -795,6 +795,29 @@ func (_m *MockClientService) PutUsersUserID(params *products.PutUsersUserIDParam
 	return r0, r1
 }
 
+// PutUsersUserIDPassword provides a mock function with given fields: params, authInfo
+func (_m *MockClientService) PutUsersUserIDPassword(params *products.PutUsersUserIDPasswordParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutUsersUserIDPasswordOK, error) {
+	ret := _m.Called(params, authInfo)
+
+	var r0 *products.PutUsersUserIDPasswordOK
+	if rf, ok := ret.Get(0).(func(*products.PutUsersUserIDPasswordParams, runtime.ClientAuthInfoWriter) *products.PutUsersUserIDPasswordOK); ok {
+		r0 = rf(params, authInfo)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*products.PutUsersUserIDPasswordOK)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*products.PutUsersUserIDPasswordParams, runtime.ClientAuthInfoWriter) error); ok {
+		r1 = rf(params, authInfo)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // SetTransport provides a mock function with given fields: transport
 func (_m *MockClientService) SetTransport(transport runtime.ClientTransport) {
 	_m.Called(transport)
