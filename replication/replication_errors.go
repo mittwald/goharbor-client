@@ -47,7 +47,7 @@ const (
 
 	// ErrReplicationExecutionReplicationIDMismatchMsg describes an error
 	// caused by an ID mismatch of the desired replication execution and an existing replication
-	ErrReplicationExecutionReplicationIDMismatchMsg
+	ErrReplicationExecutionReplicationIDMismatchMsg = "received replication execution id doesn't match"
 )
 
 // ErrReplicationIllegalIDFormat describes an illegal request format.
