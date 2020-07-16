@@ -34,7 +34,7 @@ func TestNewClient(t *testing.T) {
 	assert.Equal(t, swaggerClient, c.Client)
 }
 
-func TestRESTClient_NewReplication(t *testing.T) {
+func TestRESTClient_NewReplicationPolicy(t *testing.T) {
 	ctx := context.Background()
 	destRegistry := &model.Registry{ID: 1, Name: "reg1"}
 	srcRegistry := &model.Registry{Name: "reg2"}
@@ -84,7 +84,7 @@ func TestRESTClient_NewReplication(t *testing.T) {
 
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
 
-	r, err := cl.NewReplication(ctx, destRegistry, srcRegistry, replicateDeletion, override, enablePolicy, filters,
+	r, err := cl.NewReplicationPolicy(ctx, destRegistry, srcRegistry, replicateDeletion, override, enablePolicy, filters,
 		trigger, destNamespace, description, name)
 
 	p.AssertExpectations(t)
@@ -92,7 +92,7 @@ func TestRESTClient_NewReplication(t *testing.T) {
 	assert.Equal(t, r, returnedReplication)
 }
 
-func TestRESTClient_NewReplication_ErrOnPOST(t *testing.T) {
+func TestRESTClient_NewReplicationPolicy_ErrOnPOST(t *testing.T) {
 	ctx := context.Background()
 	destRegistry := &model.Registry{ID: 1, Name: "reg1"}
 	srcRegistry := &model.Registry{Name: "reg2"}
@@ -128,7 +128,9 @@ func TestRESTClient_NewReplication_ErrOnPOST(t *testing.T) {
 
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
 
-	r, err := cl.NewReplication(ctx, destRegistry, srcRegistry, replicateDeletion, override, enablePolicy, filters,
+	r, err := cl.NewReplicationPolicy(
+		ctx, destRegistry, srcRegistry, replicateDeletion,
+		override, enablePolicy, filters,
 		trigger, destNamespace, description, name)
 
 	p.AssertExpectations(t)
@@ -138,7 +140,7 @@ func TestRESTClient_NewReplication_ErrOnPOST(t *testing.T) {
 	}
 }
 
-func TestRESTClient_NewReplication_ErrOnGET(t *testing.T) {
+func TestRESTClient_NewReplicationPolicy_ErrOnGET(t *testing.T) {
 	ctx := context.Background()
 	destRegistry := &model.Registry{ID: 1, Name: "reg1"}
 	srcRegistry := &model.Registry{Name: "reg2"}
@@ -179,7 +181,8 @@ func TestRESTClient_NewReplication_ErrOnGET(t *testing.T) {
 
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
 
-	r, err := cl.NewReplication(ctx, destRegistry, srcRegistry, replicateDeletion, override, enablePolicy, filters,
+	r, err := cl.NewReplicationPolicy(ctx, destRegistry, srcRegistry, replicateDeletion,
+		override, enablePolicy, filters,
 		trigger, destNamespace, description, name)
 
 	p.AssertExpectations(t)
@@ -189,7 +192,7 @@ func TestRESTClient_NewReplication_ErrOnGET(t *testing.T) {
 	}
 }
 
-func TestRESTClient_GetReplication(t *testing.T) {
+func TestRESTClient_GetReplicationPolicy(t *testing.T) {
 	repl := &model.ReplicationPolicy{
 		Deletion:      true,
 		Description:   "a replication policy",
@@ -213,18 +216,86 @@ func TestRESTClient_GetReplication(t *testing.T) {
 
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
 
-	r, err := cl.GetReplication(ctx, repl.Name)
+	r, err := cl.GetReplicationPolicy(ctx, repl.Name)
 
 	p.AssertExpectations(t)
 	assert.NoError(t, err)
 	assert.Equal(t, repl, r)
 }
 
-func TestRESTClient_GetReplication_EmptyName(t *testing.T) {
+func TestRESTClient_GetReplicationPolicyByID(t *testing.T) {
+	destRegistry := &model.Registry{ID: 1, Name: "reg1"}
+	srcRegistry := &model.Registry{Name: "reg2"}
+	replicateDeletion := true
+	override := true
+	enablePolicy := true
+	var filters []*model.ReplicationFilter
+	trigger := &model.ReplicationTrigger{}
+	destNamespace := "testnamespace"
+	description := "a test replication"
+	name := "testreplication"
+	replication := &model.ReplicationPolicy{
+		Deletion:      replicateDeletion,
+		Description:   description,
+		DestNamespace: destNamespace,
+		DestRegistry:  destRegistry,
+		Enabled:       enablePolicy,
+		Filters:       filters,
+		Name:          name,
+		Override:      override,
+		SrcRegistry:   srcRegistry,
+		Trigger:       trigger,
+	}
+	ctx := context.Background()
+
+	p := &mocks.MockClientService{}
+
+	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
+
+	p.On("PostReplicationPolicies", &products.PostReplicationPoliciesParams{
+		Policy: &model.ReplicationPolicy{
+			Deletion:      replicateDeletion,
+			Description:   description,
+			DestNamespace: destNamespace,
+			DestRegistry:  destRegistry,
+			Enabled:       enablePolicy,
+			Filters:       filters,
+			Name:          name,
+			Override:      override,
+			SrcRegistry:   srcRegistry,
+			Trigger:       trigger,
+		},
+		Context: ctx,
+	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
+		&products.PostReplicationPoliciesCreated{}, nil)
+
+	p.On("GetReplicationPolicies", &products.GetReplicationPoliciesParams{
+		Name:    &name,
+		Context: ctx,
+	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
+		&products.GetReplicationPoliciesOK{Payload: []*model.ReplicationPolicy{replication}}, nil)
+
+	p.On("GetReplicationPoliciesID", &products.GetReplicationPoliciesIDParams{
+		ID:      replication.ID,
+		Context: ctx,
+	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
+		&products.GetReplicationPoliciesIDOK{Payload: &model.ReplicationPolicy{}}, nil)
+
+	r, err := cl.NewReplicationPolicy(ctx, destRegistry, srcRegistry, replicateDeletion, override, enablePolicy,
+		filters,
+		trigger, destNamespace, description, name)
+	assert.NoError(t, err)
+
+	_, err = cl.GetReplicationPolicyByID(ctx, r.ID)
+	assert.NoError(t, err)
+
+}
+
+func TestRESTClient_GetReplicationPolicy_EmptyName(t *testing.T) {
 	p := &mocks.MockClientService{}
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
 
-	r, err := cl.GetReplication(context.Background(), "")
+	r, err := cl.GetReplicationPolicy(context.Background(), "")
 
 	assert.Nil(t, r)
 	if assert.Error(t, err) {
@@ -232,7 +303,7 @@ func TestRESTClient_GetReplication_EmptyName(t *testing.T) {
 	}
 }
 
-func TestRESTClient_GetReplication_NotFound(t *testing.T) {
+func TestRESTClient_GetReplicationPolicy_NotFound(t *testing.T) {
 	repl := &model.ReplicationPolicy{
 		Deletion:      true,
 		Description:   "a replication policy",
@@ -256,7 +327,7 @@ func TestRESTClient_GetReplication_NotFound(t *testing.T) {
 
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
 
-	r, err := cl.GetReplication(ctx, repl.Name)
+	r, err := cl.GetReplicationPolicy(ctx, repl.Name)
 
 	p.AssertExpectations(t)
 	assert.Nil(t, r)
@@ -265,7 +336,7 @@ func TestRESTClient_GetReplication_NotFound(t *testing.T) {
 	}
 }
 
-func TestRESTClient_DeleteReplication(t *testing.T) {
+func TestRESTClient_DeleteReplicationPolicy(t *testing.T) {
 	repl := &model.ReplicationPolicy{
 		Deletion:      true,
 		Description:   "a replication policy",
@@ -294,13 +365,13 @@ func TestRESTClient_DeleteReplication(t *testing.T) {
 
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
 
-	err := cl.DeleteReplication(ctx, repl)
+	err := cl.DeleteReplicationPolicy(ctx, repl)
 
 	p.AssertExpectations(t)
 	assert.NoError(t, err)
 }
 
-func TestRESTClient_DeleteReplication_NotFound(t *testing.T) {
+func TestRESTClient_DeleteReplicationPolicy_NotFound(t *testing.T) {
 	repl := &model.ReplicationPolicy{
 		Deletion:      true,
 		Description:   "a replication policy",
@@ -323,7 +394,7 @@ func TestRESTClient_DeleteReplication_NotFound(t *testing.T) {
 
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
 
-	err := cl.DeleteReplication(ctx, repl)
+	err := cl.DeleteReplicationPolicy(ctx, repl)
 
 	p.AssertExpectations(t)
 	if assert.Error(t, err) {
@@ -331,20 +402,20 @@ func TestRESTClient_DeleteReplication_NotFound(t *testing.T) {
 	}
 }
 
-func TestRESTClient_DeleteReplication_NilParam(t *testing.T) {
+func TestRESTClient_DeleteReplicationPolicy_NilParam(t *testing.T) {
 	ctx := context.Background()
 
 	p := &mocks.MockClientService{}
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
 
-	err := cl.DeleteReplication(ctx, nil)
+	err := cl.DeleteReplicationPolicy(ctx, nil)
 
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrReplicationNotProvided{}, err)
 	}
 }
 
-func TestRESTClient_UpdateReplication(t *testing.T) {
+func TestRESTClient_UpdateReplicationPolicy(t *testing.T) {
 	repl := &model.ReplicationPolicy{
 		Deletion:      true,
 		Description:   "a replication policy",
@@ -374,26 +445,26 @@ func TestRESTClient_UpdateReplication(t *testing.T) {
 		&products.PutReplicationPoliciesIDOK{}, nil)
 
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
-	err := cl.UpdateReplication(ctx, repl)
+	err := cl.UpdateReplicationPolicy(ctx, repl)
 
 	p.AssertExpectations(t)
 	assert.NoError(t, err)
 }
 
-func TestRESTClient_UpdateReplication_NilParam(t *testing.T) {
+func TestRESTClient_UpdateReplicationPolicy_NilParam(t *testing.T) {
 	ctx := context.Background()
 
 	p := &mocks.MockClientService{}
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
 
-	err := cl.UpdateReplication(ctx, nil)
+	err := cl.UpdateReplicationPolicy(ctx, nil)
 
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrReplicationNotProvided{}, err)
 	}
 }
 
-func TestRESTClient_UpdateReplication_NotFound(t *testing.T) {
+func TestRESTClient_UpdateReplicationPolicy_NotFound(t *testing.T) {
 	repl := &model.ReplicationPolicy{
 		Deletion:      true,
 		Description:   "a replication policy",
@@ -417,9 +488,309 @@ func TestRESTClient_UpdateReplication_NotFound(t *testing.T) {
 
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
 
-	err := cl.UpdateReplication(ctx, repl)
+	err := cl.UpdateReplicationPolicy(ctx, repl)
 
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrReplicationNotFound{}, err)
 	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_GetReplicationExecutions_ReplicationIDNotFound(t *testing.T) {
+	replExec := &model.ReplicationExecution{
+		ID:       1,
+		PolicyID: 1,
+	}
+
+	ctx := context.Background()
+
+	p := &mocks.MockClientService{}
+
+	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
+
+	p.On("GetReplicationPoliciesID", &products.GetReplicationPoliciesIDParams{
+		ID:      1,
+		Context: ctx,
+	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
+		&products.GetReplicationPoliciesIDOK{Payload: &model.ReplicationPolicy{}}, nil)
+
+	_, err := cl.GetReplicationExecutions(ctx, replExec)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrReplicationExecutionReplicationIDNotFound{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_TriggerReplicationExecution_ReplicationIDNotFound(t *testing.T) {
+	replExec := &model.ReplicationExecution{
+		ID:       1,
+		PolicyID: 1,
+	}
+
+	ctx := context.Background()
+
+	p := &mocks.MockClientService{}
+
+	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
+
+	p.On("GetReplicationPoliciesID", &products.GetReplicationPoliciesIDParams{
+		ID:      replExec.ID,
+		Context: ctx,
+	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
+		&products.GetReplicationPoliciesIDOK{Payload: &model.ReplicationPolicy{}}, nil)
+
+	err := cl.TriggerReplicationExecution(ctx, replExec)
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrReplicationExecutionReplicationIDNotFound{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_TriggerReplicationExecution(t *testing.T) {
+	replExec := &model.ReplicationExecution{
+		ID:       0,
+		PolicyID: 0,
+	}
+
+	ctx := context.Background()
+	destRegistry := &model.Registry{ID: 1, Name: "reg1"}
+	srcRegistry := &model.Registry{Name: "reg2"}
+	replicateDeletion := true
+	override := true
+	enablePolicy := true
+	var filters []*model.ReplicationFilter
+	trigger := &model.ReplicationTrigger{}
+	destNamespace := "testnamespace"
+	description := "a test replication"
+	name := "testreplication"
+	returnedReplication := &model.ReplicationPolicy{
+		Deletion:      replicateDeletion,
+		Description:   description,
+		DestNamespace: destNamespace,
+		DestRegistry:  destRegistry,
+		Enabled:       enablePolicy,
+		Filters:       filters,
+		Name:          name,
+		Override:      override,
+		SrcRegistry:   srcRegistry,
+		Trigger:       trigger,
+	}
+
+	p := &mocks.MockClientService{}
+
+	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
+
+	p.On("PostReplicationPolicies", &products.PostReplicationPoliciesParams{
+		Policy: &model.ReplicationPolicy{
+			Deletion:      replicateDeletion,
+			Description:   description,
+			DestNamespace: destNamespace,
+			DestRegistry:  destRegistry,
+			Enabled:       enablePolicy,
+			Filters:       filters,
+			Name:          name,
+			Override:      override,
+			SrcRegistry:   srcRegistry,
+			Trigger:       trigger,
+		},
+		Context: ctx,
+	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
+		&products.PostReplicationPoliciesCreated{}, nil)
+	p.On("GetReplicationPolicies", &products.GetReplicationPoliciesParams{
+		Name:    &name,
+		Context: ctx,
+	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
+		&products.GetReplicationPoliciesOK{Payload: []*model.ReplicationPolicy{returnedReplication}}, nil)
+
+	p.On("GetReplicationPoliciesID", &products.GetReplicationPoliciesIDParams{
+		ID:      replExec.ID,
+		Context: ctx,
+	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
+		&products.GetReplicationPoliciesIDOK{Payload: &model.ReplicationPolicy{}}, nil)
+
+	p.On("PostReplicationExecutions", &products.PostReplicationExecutionsParams{
+		Execution: replExec,
+		Context:   ctx,
+	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
+		&products.PostReplicationExecutionsCreated{}, nil)
+
+	r, err := cl.NewReplicationPolicy(ctx, destRegistry, srcRegistry, replicateDeletion, override, enablePolicy, filters,
+		trigger, destNamespace, description, name)
+
+	assert.NoError(t, err)
+	assert.Equal(t, r, returnedReplication)
+
+	err = cl.TriggerReplicationExecution(ctx, replExec)
+
+	assert.NoError(t, err)
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_GetReplicationExecutionsByID_ReplicationNotFound(t *testing.T) {
+	replExec := &model.ReplicationExecution{
+		ID:       1,
+		PolicyID: 1,
+	}
+
+	ctx := context.Background()
+
+	p := &mocks.MockClientService{}
+
+	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
+
+	p.On("GetReplicationPoliciesID", &products.GetReplicationPoliciesIDParams{
+		ID:      replExec.ID,
+		Context: ctx,
+	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
+		&products.GetReplicationPoliciesIDOK{Payload: &model.ReplicationPolicy{}}, nil)
+
+	_, err := cl.GetReplicationPolicyByID(ctx, replExec.ID)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrReplicationNotFound{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_GetReplicationExecutionsByID(t *testing.T) {
+	replExec := &model.ReplicationExecution{
+		ID:       0,
+		PolicyID: 0,
+	}
+
+	destRegistry := &model.Registry{ID: 1, Name: "reg1"}
+	srcRegistry := &model.Registry{Name: "reg2"}
+	replicateDeletion := true
+	override := true
+	enablePolicy := true
+	var filters []*model.ReplicationFilter
+	trigger := &model.ReplicationTrigger{}
+	destNamespace := "testnamespace"
+	description := "a test replication"
+	name := "testreplication"
+	replication := &model.ReplicationPolicy{
+		Deletion:      replicateDeletion,
+		Description:   description,
+		DestNamespace: destNamespace,
+		DestRegistry:  destRegistry,
+		Enabled:       enablePolicy,
+		Filters:       filters,
+		Name:          name,
+		Override:      override,
+		SrcRegistry:   srcRegistry,
+		Trigger:       trigger,
+	}
+	ctx := context.Background()
+
+	p := &mocks.MockClientService{}
+
+	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
+
+	p.On("PostReplicationPolicies", &products.PostReplicationPoliciesParams{
+		Policy: &model.ReplicationPolicy{
+			Deletion:      replicateDeletion,
+			Description:   description,
+			DestNamespace: destNamespace,
+			DestRegistry:  destRegistry,
+			Enabled:       enablePolicy,
+			Filters:       filters,
+			Name:          name,
+			Override:      override,
+			SrcRegistry:   srcRegistry,
+			Trigger:       trigger,
+		},
+		Context: ctx,
+	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
+		&products.PostReplicationPoliciesCreated{}, nil)
+
+	p.On("GetReplicationPolicies", &products.GetReplicationPoliciesParams{
+		Name:    &name,
+		Context: ctx,
+	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
+		&products.GetReplicationPoliciesOK{Payload: []*model.ReplicationPolicy{replication}}, nil)
+
+	p.On("GetReplicationPoliciesID", &products.GetReplicationPoliciesIDParams{
+		ID:      replExec.ID,
+		Context: ctx,
+	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
+		&products.GetReplicationPoliciesIDOK{Payload: &model.ReplicationPolicy{}}, nil)
+
+	_, err := cl.NewReplicationPolicy(ctx, destRegistry, srcRegistry, replicateDeletion, override, enablePolicy,
+		filters,
+		trigger, destNamespace, description, name)
+	assert.NoError(t, err)
+
+	_, err = cl.GetReplicationPolicyByID(ctx, replExec.ID)
+
+	assert.NoError(t, err)
+
+	p.AssertExpectations(t)
+}
+
+func TestErrReplicationExecutionNotProvided_Error(t *testing.T) {
+	var e ErrReplicationExecutionNotProvided
+
+	assert.Equal(t, ErrReplicationExecutionNotProvidedMsg, e.Error())
+}
+
+func TestErrReplicationExecutionReplicationIDMismatch_Error(t *testing.T) {
+	var e ErrReplicationExecutionReplicationIDMismatch
+
+	assert.Equal(t, ErrReplicationExecutionReplicationIDMismatchMsg, e.Error())
+}
+
+func TestErrReplicationExecutionReplicationIDNotFound_Error(t *testing.T) {
+	var e ErrReplicationExecutionReplicationIDNotFound
+
+	assert.Equal(t, ErrReplicationExecutionReplicationIDNotFoundMsg, e.Error())
+}
+
+func TestErrReplicationIllegalIDFormat_Error(t *testing.T) {
+	var e ErrReplicationIllegalIDFormat
+
+	assert.Equal(t, ErrReplicationIllegalIDFormatMsg, e.Error())
+}
+
+func TestErrReplicationInternalErrors_Error(t *testing.T) {
+	var e ErrReplicationInternalErrors
+
+	assert.Equal(t, ErrReplicationInternalErrorsMsg, e.Error())
+
+}
+
+func TestErrReplicationNameAlreadyExists_Error(t *testing.T) {
+	var e ErrReplicationNameAlreadyExists
+
+	assert.Equal(t, ErrReplicationNameAlreadyExistsMsg, e.Error())
+}
+
+func TestErrReplicationNoPermission_Error(t *testing.T) {
+	var e ErrReplicationNoPermission
+
+	assert.Equal(t, ErrReplicationNoPermissionMsg, e.Error())
+}
+
+func TestErrReplicationNotFound_Error(t *testing.T) {
+	var e ErrReplicationNotFound
+
+	assert.Equal(t, ErrReplicationNotFoundMsg, e.Error())
+
+}
+
+func TestErrReplicationNotProvided_Error(t *testing.T) {
+	var e ErrReplicationNotProvided
+
+	assert.Equal(t, ErrReplicationNotProvidedMsg, e.Error())
+}
+
+func TestErrReplicationUnauthorized_Error(t *testing.T) {
+	var e ErrReplicationUnauthorized
+
+	assert.Equal(t, ErrReplicationUnauthorizedMsg, e.Error())
 }

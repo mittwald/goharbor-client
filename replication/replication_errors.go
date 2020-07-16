@@ -36,6 +36,18 @@ const (
 	// ErrReplicationNotProvidedMsg describes an error
 	// caused by a missing replication object
 	ErrReplicationNotProvidedMsg = "no replication provided"
+
+	// ErrReplicationExecutionNotProvidedMsg describes an error
+	// caused by a missing replication execution object
+	ErrReplicationExecutionNotProvidedMsg = "no replication execution provided"
+
+	// ErrReplicationExecutionMissingIDMsg describes an error
+	// caused by a missing replication ID in a replication execution object
+	ErrReplicationExecutionReplicationIDNotFoundMsg = "no replication found for specified id"
+
+	// ErrReplicationExecutionReplicationIDMismatchMsg describes an error
+	// caused by an ID mismatch of the desired replication execution and an existing replication
+	ErrReplicationExecutionReplicationIDMismatchMsg
 )
 
 // ErrReplicationIllegalIDFormat describes an illegal request format.
@@ -110,6 +122,27 @@ type ErrReplicationNotProvided struct{}
 // Error returns the error message.
 func (e *ErrReplicationNotProvided) Error() string {
 	return ErrReplicationNotProvidedMsg
+}
+
+type ErrReplicationExecutionNotProvided struct{}
+
+// Error returns the error message.
+func (e *ErrReplicationExecutionNotProvided) Error() string {
+	return ErrReplicationExecutionNotProvidedMsg
+}
+
+type ErrReplicationExecutionReplicationIDNotFound struct{}
+
+// Error returns the error message.
+func (e *ErrReplicationExecutionReplicationIDNotFound) Error() string {
+	return ErrReplicationExecutionReplicationIDNotFoundMsg
+}
+
+type ErrReplicationExecutionReplicationIDMismatch struct{}
+
+// Error returns the error message.
+func (e *ErrReplicationExecutionReplicationIDMismatch) Error() string {
+	return ErrReplicationExecutionReplicationIDMismatchMsg
 }
 
 // handleReplicationErrors takes a swagger generated error as input,

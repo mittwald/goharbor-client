@@ -53,6 +53,10 @@ type ClientService interface {
 
 	GetRegistries(params *GetRegistriesParams, authInfo runtime.ClientAuthInfoWriter) (*GetRegistriesOK, error)
 
+	GetReplicationExecutions(params *GetReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationExecutionsOK, error)
+
+	GetReplicationExecutionsID(params *GetReplicationExecutionsIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationExecutionsIDOK, error)
+
 	GetReplicationPolicies(params *GetReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationPoliciesOK, error)
 
 	GetReplicationPoliciesID(params *GetReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationPoliciesIDOK, error)
@@ -68,6 +72,8 @@ type ClientService interface {
 	PostProjectsProjectIDMetadatas(params *PostProjectsProjectIDMetadatasParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsProjectIDMetadatasOK, error)
 
 	PostRegistries(params *PostRegistriesParams, authInfo runtime.ClientAuthInfoWriter) (*PostRegistriesCreated, error)
+
+	PostReplicationExecutions(params *PostReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*PostReplicationExecutionsCreated, error)
 
 	PostReplicationPolicies(params *PostReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*PostReplicationPoliciesCreated, error)
 
@@ -584,6 +590,82 @@ func (a *Client) GetRegistries(params *GetRegistriesParams, authInfo runtime.Cli
 }
 
 /*
+  GetReplicationExecutions lists replication executions
+
+  This endpoint let user list replication executions.
+
+*/
+func (a *Client) GetReplicationExecutions(params *GetReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationExecutionsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetReplicationExecutionsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetReplicationExecutions",
+		Method:             "GET",
+		PathPattern:        "/replication/executions",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetReplicationExecutionsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetReplicationExecutionsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetReplicationExecutions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetReplicationExecutionsID gets the execution of the replication
+
+  This endpoint is for user to get one execution of the replication.
+
+*/
+func (a *Client) GetReplicationExecutionsID(params *GetReplicationExecutionsIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationExecutionsIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetReplicationExecutionsIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetReplicationExecutionsID",
+		Method:             "GET",
+		PathPattern:        "/replication/executions/{id}",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetReplicationExecutionsIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetReplicationExecutionsIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetReplicationExecutionsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   GetReplicationPolicies lists replication policies
 
   This endpoint let user list replication policies
@@ -882,6 +964,44 @@ func (a *Client) PostRegistries(params *PostRegistriesParams, authInfo runtime.C
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for PostRegistries: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  PostReplicationExecutions starts one execution of the replication
+
+  This endpoint is for user to start one execution of the replication.
+
+*/
+func (a *Client) PostReplicationExecutions(params *PostReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*PostReplicationExecutionsCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostReplicationExecutionsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostReplicationExecutions",
+		Method:             "POST",
+		PathPattern:        "/replication/executions",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PostReplicationExecutionsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostReplicationExecutionsCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostReplicationExecutions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

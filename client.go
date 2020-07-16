@@ -169,28 +169,49 @@ func (c *RESTClient) DeleteRegistry(ctx context.Context, r *model.Registry) erro
 
 // Replication Client
 
-// NewReplication wraps the NewReplication method of the replication sub-package.
-func (c *RESTClient) NewReplication(ctx context.Context, destRegistry, srcRegistry *model.Registry,
+// NewReplicationPolicy wraps the NewReplicationPolicy method of the replication sub-package.
+func (c *RESTClient) NewReplicationPolicy(ctx context.Context, destRegistry, srcRegistry *model.Registry,
 	replicateDeletion, override, enablePolicy bool, filters []*model.ReplicationFilter,
 	trigger *model.ReplicationTrigger, destNamespace, description, name string) (*model.ReplicationPolicy, error) {
 
-	return c.replication.NewReplication(ctx, destRegistry, srcRegistry, replicateDeletion,
+	return c.replication.NewReplicationPolicy(ctx, destRegistry, srcRegistry, replicateDeletion,
 		override, enablePolicy, filters, trigger, destNamespace, description, name)
 }
 
-// GetReplication wraps the GetReplication method of the replication sub-package.
-func (c *RESTClient) GetReplication(ctx context.Context, name string) (*model.ReplicationPolicy, error) {
-	return c.replication.GetReplication(ctx, name)
+// GetReplicationPolicy wraps the GetReplicationPolicy method of the replication sub-package.
+func (c *RESTClient) GetReplicationPolicy(ctx context.Context, name string) (*model.ReplicationPolicy, error) {
+	return c.replication.GetReplicationPolicy(ctx, name)
 }
 
-// DeleteReplication wraps the DeleteReplication method of the replication sub-package.
-func (c *RESTClient) DeleteReplication(ctx context.Context, r *model.ReplicationPolicy) error {
-	return c.replication.DeleteReplication(ctx, r)
+// GetReplicationPolicyByID wraps the GetReplicationPolicyByID method of the replication sub-package.
+func (c *RESTClient) GetReplicationPolicyByID(ctx context.Context, id int64) (*model.ReplicationPolicy, error) {
+	return c.replication.GetReplicationPolicyByID(ctx, id)
 }
 
-// UpdateReplication wraps the UpdateReplication method of the replication sub-package.
-func (c *RESTClient) UpdateReplication(ctx context.Context, r *model.ReplicationPolicy) error {
-	return c.replication.UpdateReplication(ctx, r)
+// DeleteReplicationPolicy wraps the DeleteReplicationPolicy method of the replication sub-package.
+func (c *RESTClient) DeleteReplicationPolicy(ctx context.Context, r *model.ReplicationPolicy) error {
+	return c.replication.DeleteReplicationPolicy(ctx, r)
+}
+
+// UpdateReplicationPolicy wraps the UpdateReplicationPolicy method of the replication sub-package.
+func (c *RESTClient) UpdateReplicationPolicy(ctx context.Context, r *model.ReplicationPolicy) error {
+	return c.replication.UpdateReplicationPolicy(ctx, r)
+}
+
+// TriggerReplicationExecution wraps the TriggerReplicationExecution method of the replication sub-package.
+func (c *RESTClient) TriggerReplicationExecution(ctx context.Context, r *model.ReplicationExecution) error {
+	return c.replication.TriggerReplicationExecution(ctx, r)
+}
+
+// GetReplicationExecutions wraps the GetReplicationExecutions method of the replication sub-package.
+func (c *RESTClient) GetReplicationExecutions(ctx context.Context,
+	r *model.ReplicationExecution) ([]*model.ReplicationExecution, error) {
+	return c.replication.GetReplicationExecutions(ctx, r)
+}
+
+// GetReplicationExecutionsByID wraps the GetReplicationExecutionsByID method of the replication sub-package.
+func (c *RESTClient) GetReplicationExecutionsByID(ctx context.Context, id int64) (*model.ReplicationExecution, error) {
+	return c.replication.GetReplicationExecutionsByID(ctx, id)
 }
 
 // System Client
