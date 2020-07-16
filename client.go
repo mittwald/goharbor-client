@@ -167,6 +167,11 @@ func (c *RESTClient) DeleteRegistry(ctx context.Context, r *model.Registry) erro
 	return c.registry.DeleteRegistry(ctx, r)
 }
 
+// UpdateRegistry wraps the UpdateRegistry method of the registry sub-package.
+func (c *RESTClient) UpdateRegistry(ctx context.Context, r *model.Registry) error {
+	return c.registry.UpdateRegistry(ctx, r)
+}
+
 // Replication Client
 
 // NewReplicationPolicy wraps the NewReplicationPolicy method of the replication sub-package.

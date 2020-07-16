@@ -315,3 +315,113 @@ func TestRESTClient_DeleteRegistry_ErrRegistryNotProvided(t *testing.T) {
 		assert.IsType(t, &ErrRegistryNotProvided{}, err)
 	}
 }
+
+func TestRESTClient_UpdateRegistry(t *testing.T) {
+	ctx := context.Background()
+	registry := &model.Registry{
+		CreationTime: "",
+		Credential: &model.RegistryCredential{
+			AccessKey:    "",
+			AccessSecret: "",
+			Type:         "",
+		},
+		Description: "",
+		ID:          10,
+		Insecure:    false,
+		Name:        "restregistry",
+		Status:      "",
+		Type:        "harbor",
+		UpdateTime:  "",
+		URL:         "http://foo.bar",
+	}
+
+	rReq := &model.PutRegistry{
+		AccessKey:      registry.Credential.AccessKey,
+		AccessSecret:   registry.Credential.AccessSecret,
+		CredentialType: registry.Credential.Type,
+		Description:    registry.Description,
+		Insecure:       registry.Insecure,
+		Name:           registry.Name,
+		URL:            registry.URL,
+	}
+
+	p := &mocks.MockClientService{}
+
+	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
+
+	p.On("GetRegistries",
+		&products.GetRegistriesParams{
+			Name:    &registry.Name,
+			Context: ctx,
+		}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
+		&products.GetRegistriesOK{
+			Payload: []*model.Registry{registry},
+		}, nil)
+
+	p.On("PutRegistriesID",
+		&products.PutRegistriesIDParams{
+			ID:         registry.ID,
+			RepoTarget: rReq,
+			Context:    ctx,
+		}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
+		&products.PutRegistriesIDOK{}, nil)
+
+	err := cl.UpdateRegistry(ctx, registry)
+
+	assert.NoError(t, err)
+
+	p.AssertExpectations(t)
+}
+
+func TestErrRegistryIDNotExists_Error(t *testing.T) {
+	var e ErrRegistryIDNotExists
+
+	assert.Equal(t, ErrRegistryIDNotExistsMsg, e.Error())
+}
+
+func TestErrRegistryIllegalIDFormat_Error(t *testing.T) {
+	var e ErrRegistryIllegalIDFormat
+
+	assert.Equal(t, ErrRegistryIllegalIDFormatMsg, e.Error())
+}
+
+func TestErrRegistryInternalErrors_Error(t *testing.T) {
+	var e ErrRegistryInternalErrors
+
+	assert.Equal(t, ErrRegistryInternalErrorsMsg, e.Error())
+}
+
+func TestErrRegistryMismatch_Error(t *testing.T) {
+	var e ErrRegistryMismatch
+
+	assert.Equal(t, ErrRegistryMismatchMsg, e.Error())
+}
+
+func TestErrRegistryNameAlreadyExists_Error(t *testing.T) {
+	var e ErrRegistryNameAlreadyExists
+
+	assert.Equal(t, ErrRegistryNameAlreadyExistsMsg, e.Error())
+}
+
+func TestErrRegistryNoPermission_Error(t *testing.T) {
+	var e ErrRegistryNoPermission
+
+	assert.Equal(t, ErrRegistryNoPermissionMsg, e.Error())
+}
+
+func TestErrRegistryNotFound_Error(t *testing.T) {
+	var e ErrRegistryNotFound
+
+	assert.Equal(t, ErrRegistryNotFoundMsg, e.Error())
+
+}
+func TestErrRegistryNotProvided_Error(t *testing.T) {
+	var e ErrRegistryNotProvided
+
+	assert.Equal(t, ErrRegistryNotProvidedMsg, e.Error())
+}
+func TestErrRegistryUnauthorized_Error(t *testing.T) {
+	var e ErrRegistryUnauthorized
+
+	assert.Equal(t, ErrRegistryUnauthorizedMsg, e.Error())
+}

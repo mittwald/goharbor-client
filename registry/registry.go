@@ -31,6 +31,7 @@ type Client interface {
 		credential *model.RegistryCredential, insecure bool) (*model.Registry, error)
 	GetRegistry(ctx context.Context, name string) (*model.Registry, error)
 	DeleteRegistry(ctx context.Context, r *model.Registry) error
+	UpdateRegistry(ctx context.Context, r *model.Registry) error
 }
 
 // NewRegistry creates a new project with name as project name.
@@ -115,6 +116,40 @@ func (c *RESTClient) DeleteRegistry(ctx context.Context,
 		&products.DeleteRegistriesIDParams{
 			ID:      registry.ID,
 			Context: ctx,
+		}, c.AuthInfo)
+
+	return handleSwaggerRegistryErrors(err)
+}
+
+func (c *RESTClient) UpdateRegistry(ctx context.Context, r *model.Registry) error {
+	if r == nil {
+		return &ErrRegistryNotProvided{}
+	}
+
+	rReq := &model.PutRegistry{
+		AccessKey:      r.Credential.AccessKey,
+		AccessSecret:   r.Credential.AccessSecret,
+		CredentialType: r.Credential.Type,
+		Description:    r.Description,
+		Insecure:       r.Insecure,
+		Name:           r.Name,
+		URL:            r.URL,
+	}
+
+	registry, err := c.GetRegistry(ctx, r.Name)
+	if err != nil {
+		return err
+	}
+
+	if r.ID != registry.ID {
+		return &ErrRegistryMismatch{}
+	}
+
+	_, err = c.Client.Products.PutRegistriesID(
+		&products.PutRegistriesIDParams{
+			ID:         registry.ID,
+			RepoTarget: rReq,
+			Context:    ctx,
 		}, c.AuthInfo)
 
 	return handleSwaggerRegistryErrors(err)
