@@ -62,7 +62,8 @@ func TestAPIReplicationNewDestRegistry(t *testing.T) {
 	require.NoError(t, err)
 	defer rc.DeleteRegistry(ctx, reg)
 
-	r, err := c.NewReplication(
+	r, err := c.NewReplicationPolicy(
+
 		ctx,
 		reg,
 		nil,
@@ -109,7 +110,7 @@ func TestAPIReplicationNewSrcRegistry(t *testing.T) {
 	require.NoError(t, err)
 	defer rc.DeleteRegistry(ctx, reg)
 
-	r, err := c.NewReplication(
+	r, err := c.NewReplicationPolicy(
 		ctx,
 		nil,
 		reg,
@@ -155,7 +156,7 @@ func TestAPIReplicationDelete(t *testing.T) {
 	reg, err := rc.NewRegistry(ctx, regName, registryType, url, &credential, false)
 	require.NoError(t, err)
 
-	r, err := c.NewReplication(
+	r, err := c.NewReplicationPolicy(
 		ctx,
 		nil,
 		reg,
@@ -169,7 +170,7 @@ func TestAPIReplicationDelete(t *testing.T) {
 	require.NoError(t, err)
 	defer rc.DeleteRegistry(ctx, reg)
 
-	err = c.DeleteReplication(ctx, r)
+	err = c.DeleteReplicationPolicy(ctx, r)
 	require.NoError(t, err)
 
 	r, err = c.GetReplication(ctx, name)
@@ -208,7 +209,7 @@ func TestAPIReplicationUpdate(t *testing.T) {
 	require.NoError(t, err)
 	defer rc.DeleteRegistry(ctx, reg)
 
-	r, err := c.NewReplication(
+	r, err := c.NewReplicationPolicy(
 		ctx,
 		nil,
 		reg,
@@ -221,16 +222,16 @@ func TestAPIReplicationUpdate(t *testing.T) {
 	)
 
 	require.NoError(t, err)
-	defer c.DeleteReplication(ctx, r)
+	defer c.DeleteReplicationPolicy(ctx, r)
 
 	descBefore := r.Description
 
 	r.Description = "b"
 
-	err = c.UpdateReplication(ctx, r)
+	err = c.UpdateReplicationPolicy(ctx, r)
 	require.NoError(t, err)
 
-	r, err = c.GetReplication(ctx, name)
+	r, err = c.GetReplicationPolicy(ctx, name)
 	assert.NoError(t, err)
 
 	assert.NotEqual(t, descBefore, r.Description)
