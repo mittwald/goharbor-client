@@ -78,10 +78,16 @@ func (c *RESTClient) UpdateUser(ctx context.Context, u *model.User) error {
 	return c.user.UpdateUser(ctx, u)
 }
 
+// UpdateUserPassword wraps the UpdateUserPassword method of the user sub-package.
+func (c *RESTClient) UpdateUserPassword(ctx context.Context, id int64, password *model.Password) error {
+	return c.user.UpdateUserPassword(ctx, id, password)
+}
+
 // Project Client
 
 // NewProject wraps the NewProject method of the project sub-package.
-func (c *RESTClient) NewProject(ctx context.Context, name string, countLimit int, storageLimit int) (*model.Project, error) {
+func (c *RESTClient) NewProject(ctx context.Context, name string,
+	countLimit int, storageLimit int) (*model.Project, error) {
 	return c.project.NewProject(ctx, name, countLimit, storageLimit)
 }
 
@@ -127,23 +133,25 @@ func (c *RESTClient) DeleteProjectMember(ctx context.Context, p *model.Project, 
 }
 
 // AddProjectMetadata wraps the AddProjectMetadata method of the project sub-package.
-func (c *RESTClient) AddProjectMetadata(ctx context.Context, p *model.Project, key project.ProjectMetadataKey, value string) error {
+func (c *RESTClient) AddProjectMetadata(ctx context.Context,
+	p *model.Project, key project.ProjectMetadataKey, value string) error {
 	return c.project.AddProjectMetadata(ctx, p, key, value)
 }
 
 // ListProjectMetadata wraps the ListProjectMetadata method of the project sub-package.
 func (c *RESTClient) ListProjectMetadata(ctx context.Context, p *model.Project) (*model.ProjectMetadata, error) {
 	return c.project.ListProjectMetadata(ctx, p)
-
 }
 
 // UpdateProjectMetadata wraps the UpdateProjectMetadata method of the project sub-package.
-func (c *RESTClient) UpdateProjectMetadata(ctx context.Context, p *model.Project, key project.ProjectMetadataKey, value string) error {
+func (c *RESTClient) UpdateProjectMetadata(ctx context.Context,
+	p *model.Project, key project.ProjectMetadataKey, value string) error {
 	return c.project.UpdateProjectMetadata(ctx, p, key, value)
 }
 
 // DeleteProjectMetadataValue wraps the DeleteProjectMetadataValue method of the project sub-package.
-func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context, p *model.Project, key project.ProjectMetadataKey) error {
+func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context,
+	p *model.Project, key project.ProjectMetadataKey) error {
 	return c.project.DeleteProjectMetadataValue(ctx, p, key)
 }
 
@@ -159,7 +167,6 @@ func (c *RESTClient) NewRegistry(ctx context.Context, name, registryType, url st
 // GetRegistry wraps the GetRegistry method of the registry sub-package.
 func (c *RESTClient) GetRegistry(ctx context.Context, name string) (*model.Registry, error) {
 	return c.registry.GetRegistry(ctx, name)
-
 }
 
 // DeleteRegistry wraps the DeleteRegistry method of the registry sub-package.
@@ -167,41 +174,68 @@ func (c *RESTClient) DeleteRegistry(ctx context.Context, r *model.Registry) erro
 	return c.registry.DeleteRegistry(ctx, r)
 }
 
+// UpdateRegistry wraps the UpdateRegistry method of the registry sub-package.
+func (c *RESTClient) UpdateRegistry(ctx context.Context, r *model.Registry) error {
+	return c.registry.UpdateRegistry(ctx, r)
+}
+
 // Replication Client
 
-// NewReplication wraps the NewReplication method of the replication sub-package.
-func (c *RESTClient) NewReplication(ctx context.Context, destRegistry, srcRegistry *model.Registry,
+// NewReplicationPolicy wraps the NewReplicationPolicy method of the replication sub-package.
+func (c *RESTClient) NewReplicationPolicy(ctx context.Context, destRegistry, srcRegistry *model.Registry,
 	replicateDeletion, override, enablePolicy bool, filters []*model.ReplicationFilter,
 	trigger *model.ReplicationTrigger, destNamespace, description, name string) (*model.ReplicationPolicy, error) {
-
-	return c.replication.NewReplication(ctx, destRegistry, srcRegistry, replicateDeletion,
+	return c.replication.NewReplicationPolicy(ctx, destRegistry, srcRegistry, replicateDeletion,
 		override, enablePolicy, filters, trigger, destNamespace, description, name)
 }
 
-// GetReplication wraps the GetReplication method of the replication sub-package.
-func (c *RESTClient) GetReplication(ctx context.Context, name string) (*model.ReplicationPolicy, error) {
-	return c.replication.GetReplication(ctx, name)
+// GetReplicationPolicy wraps the GetReplicationPolicy method of the replication sub-package.
+func (c *RESTClient) GetReplicationPolicy(ctx context.Context, name string) (*model.ReplicationPolicy, error) {
+	return c.replication.GetReplicationPolicy(ctx, name)
 }
 
-// DeleteReplication wraps the DeleteReplication method of the replication sub-package.
-func (c *RESTClient) DeleteReplication(ctx context.Context, r *model.ReplicationPolicy) error {
-	return c.replication.DeleteReplication(ctx, r)
+// GetReplicationPolicyByID wraps the GetReplicationPolicyByID method of the replication sub-package.
+func (c *RESTClient) GetReplicationPolicyByID(ctx context.Context, id int64) (*model.ReplicationPolicy, error) {
+	return c.replication.GetReplicationPolicyByID(ctx, id)
 }
 
-// UpdateReplication wraps the UpdateReplication method of the replication sub-package.
-func (c *RESTClient) UpdateReplication(ctx context.Context, r *model.ReplicationPolicy) error {
-	return c.replication.UpdateReplication(ctx, r)
+// DeleteReplicationPolicy wraps the DeleteReplicationPolicy method of the replication sub-package.
+func (c *RESTClient) DeleteReplicationPolicy(ctx context.Context, r *model.ReplicationPolicy) error {
+	return c.replication.DeleteReplicationPolicy(ctx, r)
+}
+
+// UpdateReplicationPolicy wraps the UpdateReplicationPolicy method of the replication sub-package.
+func (c *RESTClient) UpdateReplicationPolicy(ctx context.Context, r *model.ReplicationPolicy) error {
+	return c.replication.UpdateReplicationPolicy(ctx, r)
+}
+
+// TriggerReplicationExecution wraps the TriggerReplicationExecution method of the replication sub-package.
+func (c *RESTClient) TriggerReplicationExecution(ctx context.Context, r *model.ReplicationExecution) error {
+	return c.replication.TriggerReplicationExecution(ctx, r)
+}
+
+// GetReplicationExecutions wraps the GetReplicationExecutions method of the replication sub-package.
+func (c *RESTClient) GetReplicationExecutions(ctx context.Context,
+	r *model.ReplicationExecution) ([]*model.ReplicationExecution, error) {
+	return c.replication.GetReplicationExecutions(ctx, r)
+}
+
+// GetReplicationExecutionsByID wraps the GetReplicationExecutionsByID method of the replication sub-package.
+func (c *RESTClient) GetReplicationExecutionsByID(ctx context.Context, id int64) (*model.ReplicationExecution, error) {
+	return c.replication.GetReplicationExecutionsByID(ctx, id)
 }
 
 // System Client
 
 // NewSystemGarbageCollection wraps the NewSystemGarbageCollection method of the system sub-package.
-func (c *RESTClient) NewSystemGarbageCollection(ctx context.Context, cron, scheduleType string) (*model.AdminJobSchedule, error) {
+func (c *RESTClient) NewSystemGarbageCollection(ctx context.Context,
+	cron, scheduleType string) (*model.AdminJobSchedule, error) {
 	return c.system.NewSystemGarbageCollection(ctx, cron, scheduleType)
 }
 
 // UpdateSystemGarbageCollection wraps the UpdateSystemGarbageCollection method of the system sub-package.
-func (c *RESTClient) UpdateSystemGarbageCollection(ctx context.Context, newGcSchedule *model.AdminJobScheduleObj) error {
+func (c *RESTClient) UpdateSystemGarbageCollection(ctx context.Context,
+	newGcSchedule *model.AdminJobScheduleObj) error {
 	return c.system.UpdateSystemGarbageCollection(ctx, newGcSchedule)
 }
 

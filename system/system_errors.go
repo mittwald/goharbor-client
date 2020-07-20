@@ -29,9 +29,18 @@ const (
 
 	// ErrSystemGcScheduleNotProvidedMsg describes the absence of a required schedule
 	ErrSystemGcScheduleNotProvidedMsg = "no schedule provided"
+
+	Status200 int = 200
+	Status201 int = 201
+	Status400 int = 400
+	Status401 int = 401
+	Status403 int = 403
+	Status404 int = 404
+	Status409 int = 409
+	Status500 int = 500
 )
 
-// ErrSystemInvalidSchedule describes an invalid schedule type request
+// ErrSystemInvalidSchedule describes an invalid schedule type request.
 type ErrSystemInvalidSchedule struct{}
 
 // Error returns the error message.
@@ -39,7 +48,7 @@ func (e *ErrSystemInvalidSchedule) Error() string {
 	return ErrSystemInvalidScheduleMsg
 }
 
-// ErrSystemGcInProgress describes that a gc progress is already running
+// ErrSystemGcInProgress describes that a gc progress is already running.
 type ErrSystemGcInProgress struct{}
 
 // Error returns the error message.
@@ -71,7 +80,7 @@ func (e *ErrSystemNoPermission) Error() string {
 	return ErrSystemNoPermissionMsg
 }
 
-// ErrSystemGcUndefined describes a server-side response returning an empty GC schedule
+// ErrSystemGcUndefined describes a server-side response returning an empty GC schedule.
 type ErrSystemGcUndefined struct{}
 
 // Error returns the error message.
@@ -79,7 +88,7 @@ func (e *ErrSystemGcUndefined) Error() string {
 	return ErrSystemGcUndefinedMsg
 }
 
-// ErrSystemGcScheduleIdentical describes equality between two GC schedules
+// ErrSystemGcScheduleIdentical describes equality between two GC schedules.
 type ErrSystemGcScheduleIdentical struct{}
 
 // Error returns the error message.
@@ -87,7 +96,7 @@ func (e *ErrSystemGcScheduleIdentical) Error() string {
 	return ErrSystemGcScheduleIdenticalMsg
 }
 
-// ErrSystemGcScheduleNotProvided describes the absence of a required schedule
+// ErrSystemGcScheduleNotProvided describes the absence of a required schedule.
 type ErrSystemGcScheduleNotProvided struct{}
 
 // Error returns the error message.
@@ -104,17 +113,17 @@ func handleSwaggerSystemErrors(in error) error {
 		switch t.Code {
 		// As per documentation '200' should be the status code for success,
 		// yet the API returns status code '201' when creating a GC schedule succeeds.
-		case 201:
+		case Status201:
 			return nil
-		case 400:
+		case Status400:
 			return &ErrSystemInvalidSchedule{}
-		case 401:
+		case Status401:
 			return &ErrSystemUnauthorized{}
-		case 403:
+		case Status403:
 			return &ErrSystemNoPermission{}
-		case 409:
+		case Status409:
 			return &ErrSystemGcInProgress{}
-		case 500:
+		case Status500:
 			return &ErrSystemInternalErrors{}
 		}
 	}

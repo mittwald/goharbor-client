@@ -27,17 +27,23 @@ func NewClient(cl *client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTCl
 }
 
 type Client interface {
-	NewReplication(ctx context.Context, destRegistry, srcRegistry *model.Registry,
+	NewReplicationPolicy(ctx context.Context, destRegistry, srcRegistry *model.Registry,
 		replicateDeletion, override, enablePolicy bool,
 		filters []*model.ReplicationFilter, trigger *model.ReplicationTrigger,
 		destNamespace, description, name string) (*model.ReplicationPolicy, error)
-	GetReplication(ctx context.Context, name string) (*model.ReplicationPolicy, error)
-	DeleteReplication(ctx context.Context, r *model.ReplicationPolicy) error
-	UpdateReplication(ctx context.Context, r *model.ReplicationPolicy) error
+	GetReplicationPolicy(ctx context.Context, name string) (*model.ReplicationPolicy, error)
+	GetReplicationPolicyByID(ctx context.Context, id int64) (*model.ReplicationPolicy, error)
+	DeleteReplicationPolicy(ctx context.Context, r *model.ReplicationPolicy) error
+	UpdateReplicationPolicy(ctx context.Context, r *model.ReplicationPolicy) error
+
+	TriggerReplicationExecution(ctx context.Context, r *model.ReplicationExecution) error
+	GetReplicationExecutions(ctx context.Context, r *model.ReplicationExecution) ([]*model.ReplicationExecution, error)
+	GetReplicationExecutionsByID(ctx context.Context,
+		r *model.ReplicationExecution) (*model.ReplicationExecution, error)
 }
 
 // NewReplication creates a new replication with the given arguments.
-func (c *RESTClient) NewReplication(ctx context.Context, destRegistry, srcRegistry *model.Registry,
+func (c *RESTClient) NewReplicationPolicy(ctx context.Context, destRegistry, srcRegistry *model.Registry,
 	replicateDeletion, override, enablePolicy bool,
 	filters []*model.ReplicationFilter, trigger *model.ReplicationTrigger,
 	destNamespace, description, name string) (*model.ReplicationPolicy, error) {
@@ -65,7 +71,7 @@ func (c *RESTClient) NewReplication(ctx context.Context, destRegistry, srcRegist
 		return nil, err
 	}
 
-	replication, err := c.GetReplication(ctx, name)
+	replication, err := c.GetReplicationPolicy(ctx, name)
 	if err != nil {
 		return nil, err
 	}
@@ -73,10 +79,10 @@ func (c *RESTClient) NewReplication(ctx context.Context, destRegistry, srcRegist
 	return replication, nil
 }
 
-// Get returns a replication identified by name.
+// GetReplicationPolicy returns a replication identified by name.
 // Returns an error if it cannot find a matching replication or when
 // having difficulties talking to the API.
-func (c *RESTClient) GetReplication(ctx context.Context, name string) (*model.ReplicationPolicy, error) {
+func (c *RESTClient) GetReplicationPolicy(ctx context.Context, name string) (*model.ReplicationPolicy, error) {
 	if name == "" {
 		return nil, &ErrReplicationNotProvided{}
 	}
@@ -100,16 +106,38 @@ func (c *RESTClient) GetReplication(ctx context.Context, name string) (*model.Re
 	return nil, &ErrReplicationNotFound{}
 }
 
+// GetReplicationPolicyByID returns a replication identified by id.
+// Returns an error if it cannot find a matching replication or when
+// having difficulties talking to the API.
+func (c *RESTClient) GetReplicationPolicyByID(ctx context.Context, id int64) (*model.ReplicationPolicy, error) {
+	resp, err := c.Client.Products.GetReplicationPoliciesID(
+		&products.GetReplicationPoliciesIDParams{
+			ID:      id,
+			Context: ctx,
+		}, c.AuthInfo)
+
+	err = handleSwaggerReplicationErrors(err)
+	if err != nil {
+		return nil, err
+	}
+
+	if resp.Payload.ID == id {
+		return resp.Payload, nil
+	}
+
+	return nil, &ErrReplicationNotFound{}
+}
+
 // Delete deletes a replication.
 // Returns an error when no matching replication is found or when
 // having difficulties talking to the API.
-func (c *RESTClient) DeleteReplication(ctx context.Context,
+func (c *RESTClient) DeleteReplicationPolicy(ctx context.Context,
 	r *model.ReplicationPolicy) error {
 	if r == nil {
 		return &ErrReplicationNotProvided{}
 	}
 
-	replication, err := c.GetReplication(ctx, r.Name)
+	replication, err := c.GetReplicationPolicy(ctx, r.Name)
 	if err != nil {
 		return err
 	}
@@ -128,13 +156,13 @@ func (c *RESTClient) DeleteReplication(ctx context.Context,
 }
 
 // Update updates a replication.
-func (c *RESTClient) UpdateReplication(ctx context.Context,
+func (c *RESTClient) UpdateReplicationPolicy(ctx context.Context,
 	r *model.ReplicationPolicy) error {
 	if r == nil {
 		return &ErrReplicationNotProvided{}
 	}
 
-	replication, err := c.GetReplication(ctx, r.Name)
+	replication, err := c.GetReplicationPolicy(ctx, r.Name)
 	if err != nil {
 		return err
 	}
@@ -151,4 +179,67 @@ func (c *RESTClient) UpdateReplication(ctx context.Context,
 		}, c.AuthInfo)
 
 	return handleSwaggerReplicationErrors(err)
+}
+
+// TriggerReplicationExecution triggers the execution of a replication where only the property "policy_id" is needed.
+func (c *RESTClient) TriggerReplicationExecution(ctx context.Context, r *model.ReplicationExecution) error {
+	if r == nil {
+		return &ErrReplicationExecutionNotProvided{}
+	}
+
+	if _, err := c.GetReplicationPolicyByID(ctx, r.ID); err != nil {
+		return &ErrReplicationExecutionReplicationIDNotFound{}
+	}
+
+	_, err := c.Client.Products.PostReplicationExecutions(
+		&products.PostReplicationExecutionsParams{
+			Execution: r,
+			Context:   ctx,
+		}, c.AuthInfo)
+
+	return handleSwaggerReplicationErrors(err)
+}
+
+// GetReplicationExecutions lists replication executions specified by ID, status or trigger.
+// Specifying the property "policy_id" will return executions of the specified policy.
+func (c *RESTClient) GetReplicationExecutions(ctx context.Context,
+	r *model.ReplicationExecution) ([]*model.ReplicationExecution, error) {
+	if _, err := c.GetReplicationPolicyByID(ctx, r.ID); err != nil {
+		return nil, &ErrReplicationExecutionReplicationIDNotFound{}
+	}
+
+	resp, err := c.Client.Products.GetReplicationExecutions(
+		&products.GetReplicationExecutionsParams{
+			PolicyID: &r.ID,
+			Status:   &r.Status,
+			Trigger:  &r.Trigger,
+			Context:  ctx,
+		}, c.AuthInfo)
+	if err != nil {
+		return nil, handleSwaggerReplicationErrors(err)
+	}
+
+	return resp.Payload, nil
+}
+
+func (c *RESTClient) GetReplicationExecutionsByID(ctx context.Context,
+	id int64) (*model.ReplicationExecution, error) {
+	if _, err := c.GetReplicationPolicyByID(ctx, id); err != nil {
+		return nil, &ErrReplicationExecutionReplicationIDNotFound{}
+	}
+
+	resp, err := c.Client.Products.GetReplicationExecutionsID(
+		&products.GetReplicationExecutionsIDParams{
+			ID:      id,
+			Context: ctx,
+		}, c.AuthInfo)
+	if err != nil {
+		return nil, handleSwaggerReplicationErrors(err)
+	}
+
+	if resp.Payload.ID != id {
+		return nil, &ErrReplicationExecutionReplicationIDMismatch{}
+	}
+
+	return resp.Payload, nil
 }

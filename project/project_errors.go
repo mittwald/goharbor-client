@@ -1,5 +1,10 @@
 package project
 
+import (
+	"github.com/go-openapi/runtime"
+	"github.com/mittwald/goharbor-client/internal/api/v1_10_0/client/products"
+)
+
 const (
 	// ErrProjectIllegalIDFormatMsg is the error message for ErrProjectIllegalIDFormat error.
 	ErrProjectIllegalIDFormatMsg = "illegal format of provided ID value"
@@ -185,4 +190,44 @@ type ErrProjectUnknownResource struct{}
 // Error returns the error message.
 func (e *ErrProjectUnknownResource) Error() string {
 	return ErrProjectUnknownResourceMsg
+}
+
+// handleProjectErrors takes a swagger generated error as input,
+// which usually does not contain any form of error message,
+// and outputs a new error with proper message.
+func handleSwaggerProjectErrors(in error) error {
+	t, ok := in.(*runtime.APIError)
+	if ok {
+		switch t.Code {
+		case Status201:
+			// Harbor sometimes return 201 instead of 200 despite the swagger spec
+			// not declaring it.
+			return nil
+		case Status400:
+			return &ErrProjectIllegalIDFormat{}
+		case Status401:
+			return &ErrProjectUnauthorized{}
+		case Status403:
+			return &ErrProjectNoPermission{}
+		case Status404:
+			return &ErrProjectUnknownResource{}
+		case Status500:
+			return &ErrProjectInternalErrors{}
+		}
+	}
+
+	switch in.(type) {
+	case *products.DeleteProjectsProjectIDNotFound:
+		return &ErrProjectIDNotExists{}
+	case *products.PutProjectsProjectIDNotFound:
+		return &ErrProjectIDNotExists{}
+	case *products.PostProjectsConflict:
+		return &ErrProjectNameAlreadyExists{}
+	case *products.PostProjectsProjectIDMembersBadRequest:
+		return &ErrProjectInvalidRequest{}
+	case *products.PostProjectsProjectIDMetadatasBadRequest:
+		return &ErrProjectInvalidRequest{}
+	default:
+		return in
+	}
 }

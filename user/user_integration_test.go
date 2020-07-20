@@ -32,7 +32,6 @@ var (
 )
 
 func TestAPIUserNew(t *testing.T) {
-
 	ctx := context.Background()
 	username := "foobar"
 	email := "foo@bar.com"
@@ -54,7 +53,6 @@ func TestAPIUserNew(t *testing.T) {
 }
 
 func TestAPIUserAlreadyExists(t *testing.T) {
-
 	ctx := context.Background()
 	username := "foobar"
 	email := "foo@bar.com"
@@ -78,7 +76,6 @@ func TestAPIUserAlreadyExists(t *testing.T) {
 }
 
 func TestAPIUserGet(t *testing.T) {
-
 	ctx := context.Background()
 	username := "foobar"
 	email := "foo@bar.com"
@@ -103,7 +100,6 @@ func TestAPIUserGet(t *testing.T) {
 }
 
 func TestAPIUserDelete(t *testing.T) {
-
 	ctx := context.Background()
 	username := "foobar"
 	email := "foo@bar.com"
@@ -127,7 +123,6 @@ func TestAPIUserDelete(t *testing.T) {
 }
 
 func TestAPIUserUpdate(t *testing.T) {
-
 	ctx := context.Background()
 	username := "foobar"
 	email := "foo@bar.com"

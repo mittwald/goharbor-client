@@ -51,7 +51,8 @@ func TestRESTClient_NewUser(t *testing.T) {
 
 	getUserParams := &products.GetUsersParams{
 		Context:  ctx,
-		Username: &exampleUser}
+		Username: &exampleUser,
+	}
 
 	p.On("PostUsers",
 		postUserParams,
@@ -179,7 +180,8 @@ func TestRESTClient_UpdateUser(t *testing.T) {
 
 	getUserParams := &products.GetUsersParams{
 		Context:  ctx,
-		Username: &exampleUser}
+		Username: &exampleUser,
+	}
 
 	putUserParams := &products.PutUsersUserIDParams{
 		UserID: exampleUserID,
@@ -193,10 +195,14 @@ func TestRESTClient_UpdateUser(t *testing.T) {
 
 	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
-			Payload: []*model.User{{Username: exampleUser, UserID: exampleUserID, Email: exampleEmail, Password: examplePassword}},
+			Payload: []*model.User{{
+				Username: exampleUser, UserID: exampleUserID, Email: exampleEmail,
+				Password: examplePassword,
+			}},
 		}, nil)
 
 	u, err := cl.GetUser(ctx, exampleUser)
+	assert.NoError(t, err)
 
 	p.On("PutUsersUserID", putUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.PutUsersUserIDOK{}, nil)
@@ -204,6 +210,61 @@ func TestRESTClient_UpdateUser(t *testing.T) {
 	err = cl.UpdateUser(ctx, u)
 
 	assert.NoError(t, err)
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_UpdateUserPassword(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	password := &model.Password{
+		NewPassword: "foo",
+		OldPassword: "bar",
+	}
+	putUserPasswordParams := &products.PutUsersUserIDPasswordParams{
+		Password: password,
+		UserID:   0,
+		Context:  ctx,
+	}
+
+	p.On("PutUsersUserIDPassword", putUserPasswordParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PutUsersUserIDPasswordOK{}, nil)
+
+	err := cl.UpdateUserPassword(ctx, 0, password)
+
+	assert.NoError(t, err)
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_UpdateUserPassword_NoPasswordProvided(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	password := &model.Password{}
+
+	password = nil
+
+	err := cl.UpdateUserPassword(ctx, 0, password)
+
+	assert.Errorf(t, err, "no password provided")
 
 	p.AssertExpectations(t)
 }
@@ -276,7 +337,8 @@ func TestRESTClient_DeleteUser(t *testing.T) {
 
 	getUserParams := &products.GetUsersParams{
 		Context:  ctx,
-		Username: &u.Username}
+		Username: &u.Username,
+	}
 
 	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
@@ -394,7 +456,8 @@ func TestRESTClient_UserExists(t *testing.T) {
 
 	getUserParams := &products.GetUsersParams{
 		Context:  ctx,
-		Username: &u.Username}
+		Username: &u.Username,
+	}
 
 	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
@@ -438,4 +501,10 @@ func TestErrUserNotFound_Error(t *testing.T) {
 	var e ErrUserNotFound
 
 	assert.Equal(t, ErrUserNotFoundMsg, e.Error())
+}
+
+func TestErrUserPasswordInvalid_Error(t *testing.T) {
+	var e ErrUserPasswordInvalid
+
+	assert.Equal(t, ErrUserPasswordInvalidMsg, e.Error())
 }

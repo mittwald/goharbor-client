@@ -1,5 +1,10 @@
 package user
 
+import (
+	"github.com/go-openapi/runtime"
+	"github.com/mittwald/goharbor-client/internal/api/v1_10_0/client/products"
+)
+
 const (
 	// ErrUserNotFoundMsg is the error message for ErrUserNotFound error.
 	ErrUserNotFoundMsg = "user not found on server side"
@@ -15,6 +20,11 @@ const (
 
 	// ErrUserInvalidIDMsg is the error message for ErrUserInvalidID error.
 	ErrUserInvalidIDMsg = "invalid user ID"
+
+	// ErrUserPasswordInvalid  is the error message for ErrUserPasswordInvalid error.
+	ErrUserPasswordInvalidMsg = "invalid user password"
+
+	Status409 int = 409
 )
 
 // ErrUserNotFound describes an error when a specific user was not found on server side.
@@ -55,4 +65,35 @@ type ErrUserInvalidID struct{}
 // Error returns the error message.
 func (e *ErrUserInvalidID) Error() string {
 	return ErrUserInvalidIDMsg
+}
+
+// ErrUserPasswordInvalid describes an error indicating an invalid password
+type ErrUserPasswordInvalid struct{}
+
+func (e *ErrUserPasswordInvalid) Error() string {
+	return ErrUserPasswordInvalidMsg
+}
+
+// handleUserErrors takes a swagger generated error as input,
+// which usually does not contain any form of error message,
+// and outputs a new error with proper message.
+func handleSwaggerUserErrors(in error) error {
+	t, ok := in.(*runtime.APIError)
+	if ok {
+		switch t.Code {
+		case Status409:
+			return &ErrUserAlreadyExists{}
+		}
+	}
+
+	switch in.(type) {
+	case *products.PostUsersBadRequest:
+		return &ErrUserBadRequest{}
+	case *products.PutUsersUserIDBadRequest:
+		return &ErrUserInvalidID{}
+	case *products.PutUsersUserIDPasswordBadRequest:
+		return &ErrUserPasswordInvalid{}
+	default:
+		return in
+	}
 }

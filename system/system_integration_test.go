@@ -56,7 +56,6 @@ func TestAPISystemGcScheduleNew(t *testing.T) {
 // TestAPISystemGcScheduleUpdate tests the update of an existing GC schedule,
 // asserting the updated schedule cron matches the given values
 func TestAPISystemGcScheduleUpdate(t *testing.T) {
-
 	cron := "0 * * * *"
 	scheduleType := "Hourly"
 
@@ -88,7 +87,6 @@ func TestAPISystemGcScheduleUpdate(t *testing.T) {
 
 // TestAPISystemGcScheduleReset tests the reset of an existing GC schedule
 func TestAPISystemGcScheduleReset(t *testing.T) {
-
 	cron := "0 * * * *"
 	scheduleType := "Hourly"
 
@@ -109,7 +107,6 @@ func TestAPISystemGcScheduleReset(t *testing.T) {
 }
 
 func TestAPIHealth(t *testing.T) {
-
 	ctx := context.Background()
 	c := NewClient(swaggerClient, authInfo)
 

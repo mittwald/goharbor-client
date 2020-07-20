@@ -36,6 +36,23 @@ const (
 	// ErrReplicationNotProvidedMsg describes an error
 	// caused by a missing replication object
 	ErrReplicationNotProvidedMsg = "no replication provided"
+
+	// ErrReplicationExecutionNotProvidedMsg describes an error
+	// caused by a missing replication execution object
+	ErrReplicationExecutionNotProvidedMsg = "no replication execution provided"
+
+	// ErrReplicationExecutionMissingIDMsg describes an error
+	// caused by a missing replication ID in a replication execution object
+	ErrReplicationExecutionReplicationIDNotFoundMsg = "no replication found for specified id"
+
+	// ErrReplicationExecutionReplicationIDMismatchMsg describes an error
+	// caused by an ID mismatch of the desired replication execution and an existing replication
+	ErrReplicationExecutionReplicationIDMismatchMsg = "received replication execution id doesn't match"
+
+	Status400 int = 400
+	Status401 int = 401
+	Status403 int = 403
+	Status500 int = 500
 )
 
 // ErrReplicationIllegalIDFormat describes an illegal request format.
@@ -112,6 +129,27 @@ func (e *ErrReplicationNotProvided) Error() string {
 	return ErrReplicationNotProvidedMsg
 }
 
+type ErrReplicationExecutionNotProvided struct{}
+
+// Error returns the error message.
+func (e *ErrReplicationExecutionNotProvided) Error() string {
+	return ErrReplicationExecutionNotProvidedMsg
+}
+
+type ErrReplicationExecutionReplicationIDNotFound struct{}
+
+// Error returns the error message.
+func (e *ErrReplicationExecutionReplicationIDNotFound) Error() string {
+	return ErrReplicationExecutionReplicationIDNotFoundMsg
+}
+
+type ErrReplicationExecutionReplicationIDMismatch struct{}
+
+// Error returns the error message.
+func (e *ErrReplicationExecutionReplicationIDMismatch) Error() string {
+	return ErrReplicationExecutionReplicationIDMismatchMsg
+}
+
 // handleReplicationErrors takes a swagger generated error as input,
 // which usually does not contain any form of error message,
 // and outputs a new error with proper message.
@@ -119,13 +157,13 @@ func handleSwaggerReplicationErrors(in error) error {
 	t, ok := in.(*runtime.APIError)
 	if ok {
 		switch t.Code {
-		case 400:
+		case Status400:
 			return &ErrReplicationIllegalIDFormat{}
-		case 401:
+		case Status401:
 			return &ErrReplicationUnauthorized{}
-		case 403:
+		case Status403:
 			return &ErrReplicationNoPermission{}
-		case 500:
+		case Status500:
 			return &ErrReplicationInternalErrors{}
 		}
 	}

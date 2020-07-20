@@ -35,7 +35,6 @@ var (
 )
 
 func TestAPIProjectNew(t *testing.T) {
-
 	name := "test-project"
 
 	ctx := context.Background()
@@ -50,7 +49,6 @@ func TestAPIProjectNew(t *testing.T) {
 }
 
 func TestAPIProjectGet(t *testing.T) {
-
 	name := "test-project"
 
 	ctx := context.Background()
@@ -66,7 +64,6 @@ func TestAPIProjectGet(t *testing.T) {
 }
 
 func TestAPIProjectDelete(t *testing.T) {
-
 	name := "test-project"
 	ctx := context.Background()
 	c := NewClient(swaggerClient, authInfo)
@@ -84,7 +81,6 @@ func TestAPIProjectDelete(t *testing.T) {
 }
 
 func TestAPIProjectList(t *testing.T) {
-
 	namePrefix := "test-project"
 	ctx := context.Background()
 	c := NewClient(swaggerClient, authInfo)
@@ -110,7 +106,6 @@ func TestAPIProjectList(t *testing.T) {
 }
 
 func TestAPIProjectUpdate(t *testing.T) {
-
 	name := "test-project"
 	ctx := context.Background()
 	c := NewClient(swaggerClient, authInfo)
@@ -129,7 +124,6 @@ func TestAPIProjectUpdate(t *testing.T) {
 }
 
 func TestAPIProjectUserMemberAdd(t *testing.T) {
-
 	projectName := "test-project"
 	memberUsername := "foobar"
 	memberEmail := "foo@bar.com"
@@ -153,11 +147,9 @@ func TestAPIProjectUserMemberAdd(t *testing.T) {
 
 	err = c.AddProjectMember(ctx, p, u, 1)
 	require.NoError(t, err)
-
 }
 
 func TestAPIProjectMemberList(t *testing.T) {
-
 	projectName := "test-project"
 	memberUsername := "foobar"
 	memberEmail := "foo@bar.com"
@@ -190,11 +182,9 @@ func TestAPIProjectMemberList(t *testing.T) {
 	require.NoError(t, err)
 
 	assert.Len(t, members, 2)
-
 }
 
 func TestAPIProjectUserMemberUpdate(t *testing.T) {
-
 	projectName := "test-project"
 	memberUsername := "foobar"
 	memberEmail := "foo@bar.com"
@@ -238,7 +228,6 @@ func TestAPIProjectUserMemberUpdate(t *testing.T) {
 }
 
 func TestAPIProjectUserMemberDelete(t *testing.T) {
-
 	projectName := "test-project"
 	memberUsername := "foobar"
 	memberEmail := "foo@bar.com"
@@ -280,7 +269,6 @@ func TestAPIProjectUserMemberDelete(t *testing.T) {
 }
 
 func TestAPIProjectMetadataAdd(t *testing.T) {
-
 	projectName := "test-project"
 
 	ctx := context.Background()
@@ -303,7 +291,6 @@ func TestAPIProjectMetadataAdd(t *testing.T) {
 }
 
 func TestAPIProjectMetadataAlreadyExists(t *testing.T) {
-
 	projectName := "test-project"
 
 	ctx := context.Background()
@@ -322,7 +309,6 @@ func TestAPIProjectMetadataAlreadyExists(t *testing.T) {
 }
 
 func TestAPIProjectMetadataAddInvalidKey(t *testing.T) {
-
 	projectName := "test-project"
 
 	ctx := context.Background()
@@ -341,7 +327,6 @@ func TestAPIProjectMetadataAddInvalidKey(t *testing.T) {
 }
 
 func TestAPIProjectMetadataAddInvalidValue(t *testing.T) {
-
 	projectName := "test-project"
 
 	ctx := context.Background()
@@ -360,7 +345,6 @@ func TestAPIProjectMetadataAddInvalidValue(t *testing.T) {
 }
 
 func TestAPIProjectMetadataGet(t *testing.T) {
-
 	projectName := "test-project"
 
 	ctx := context.Background()
@@ -377,7 +361,6 @@ func TestAPIProjectMetadataGet(t *testing.T) {
 }
 
 func TestAPIProjectMetadataGetInvalidKey(t *testing.T) {
-
 	projectName := "test-project"
 
 	ctx := context.Background()
@@ -398,7 +381,6 @@ func TestAPIProjectMetadataGetInvalidKey(t *testing.T) {
 }
 
 func TestAPIProjectMetadataList(t *testing.T) {
-
 	projectName := "test-project"
 
 	ctx := context.Background()
@@ -430,7 +412,6 @@ func TestAPIProjectMetadataList(t *testing.T) {
 }
 
 func TestAPIProjectMetadataUpdate(t *testing.T) {
-
 	projectName := "test-project"
 
 	ctx := context.Background()
@@ -452,7 +433,6 @@ func TestAPIProjectMetadataUpdate(t *testing.T) {
 }
 
 func TestAPIProjectMetadataDelete(t *testing.T) {
-
 	projectName := "test-project"
 
 	ctx := context.Background()

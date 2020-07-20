@@ -34,12 +34,14 @@ type Client interface {
 }
 
 // NewSystemGarbageCollection creates a new garbage collection schedule.
-func (c *RESTClient) NewSystemGarbageCollection(ctx context.Context, cron, scheduleType string) (*model.AdminJobSchedule, error) {
+func (c *RESTClient) NewSystemGarbageCollection(ctx context.Context, cron,
+	scheduleType string) (*model.AdminJobSchedule, error) {
 	gcReq := &model.AdminJobSchedule{
 		Schedule: &model.AdminJobScheduleObj{
 			Cron: cron,
 			Type: scheduleType,
-		}}
+		},
+	}
 
 	_, err := c.Client.Products.PostSystemGcSchedule(
 		&products.PostSystemGcScheduleParams{
@@ -61,7 +63,8 @@ func (c *RESTClient) NewSystemGarbageCollection(ctx context.Context, cron, sched
 }
 
 // UpdateSystemGarbageCollection updates the system GC schedule.
-func (c *RESTClient) UpdateSystemGarbageCollection(ctx context.Context, newGcSchedule *model.AdminJobScheduleObj) error {
+func (c *RESTClient) UpdateSystemGarbageCollection(ctx context.Context,
+	newGcSchedule *model.AdminJobScheduleObj) error {
 	if newGcSchedule == nil {
 		return &ErrSystemGcScheduleNotProvided{}
 	}
@@ -112,7 +115,8 @@ func (c *RESTClient) ResetSystemGarbageCollection(ctx context.Context) error {
 			Schedule: &model.AdminJobSchedule{
 				Schedule: &model.AdminJobScheduleObj{
 					Type: "None",
-				}},
+				},
+			},
 			Context: ctx,
 		}, c.AuthInfo)
 
