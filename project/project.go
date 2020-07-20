@@ -13,6 +13,16 @@ import (
 	model "github.com/mittwald/goharbor-client/model/v1_10_0"
 )
 
+const (
+	Status200 int = 200
+	Status201 int = 201
+	Status400 int = 400
+	Status401 int = 401
+	Status403 int = 403
+	Status404 int = 404
+	Status500 int = 500
+)
+
 // RESTClient is a subclient forhandling project related actions.
 type RESTClient struct {
 	// The swagger client
@@ -206,6 +216,7 @@ func (c *RESTClient) AddProjectMember(ctx context.Context, p *model.Project, u *
 	if p == nil {
 		return &ErrProjectNotProvided{}
 	}
+
 	if u == nil {
 		return &ErrProjectNoMemberProvided{}
 	}
@@ -214,6 +225,7 @@ func (c *RESTClient) AddProjectMember(ctx context.Context, p *model.Project, u *
 	if err != nil {
 		return err
 	}
+
 	if !projectExists {
 		return &ErrProjectMismatch{}
 	}
@@ -237,11 +249,12 @@ func (c *RESTClient) AddProjectMember(ctx context.Context, p *model.Project, u *
 		MemberGroup: &model.UserGroup{},
 	}
 
-	_, err = c.Client.Products.PostProjectsProjectIDMembers(&products.PostProjectsProjectIDMembersParams{
-		ProjectID:     int64(p.ProjectID),
-		ProjectMember: m,
-		Context:       ctx,
-	}, c.AuthInfo)
+	_, err = c.Client.Products.PostProjectsProjectIDMembers(
+		&products.PostProjectsProjectIDMembersParams{
+			ProjectID:     int64(p.ProjectID),
+			ProjectMember: m,
+			Context:       ctx,
+		}, c.AuthInfo)
 
 	return handleSwaggerProjectErrors(err)
 }
@@ -254,11 +267,12 @@ func (c *RESTClient) ListProjectMembers(ctx context.Context, p *model.Project) (
 
 	entityName := ""
 
-	resp, err := c.Client.Products.GetProjectsProjectIDMembers(&products.GetProjectsProjectIDMembersParams{
-		Entityname: &entityName,
-		ProjectID:  int64(p.ProjectID),
-		Context:    ctx,
-	}, c.AuthInfo)
+	resp, err := c.Client.Products.GetProjectsProjectIDMembers(
+		&products.GetProjectsProjectIDMembersParams{
+			Entityname: &entityName,
+			ProjectID:  int64(p.ProjectID),
+			Context:    ctx,
+		}, c.AuthInfo)
 
 	err = handleSwaggerProjectErrors(err)
 	if err != nil {
@@ -292,12 +306,13 @@ func (c *RESTClient) UpdateProjectMemberRole(ctx context.Context, p *model.Proje
 
 	roleRequest := &model.RoleRequest{RoleID: int64(roleID)}
 
-	_, err = c.Client.Products.PutProjectsProjectIDMembersMid(&products.PutProjectsProjectIDMembersMidParams{
-		Mid:       mid,
-		ProjectID: int64(p.ProjectID),
-		Role:      roleRequest,
-		Context:   ctx,
-	}, c.AuthInfo)
+	_, err = c.Client.Products.PutProjectsProjectIDMembersMid(
+		&products.PutProjectsProjectIDMembersMidParams{
+			Mid:       mid,
+			ProjectID: int64(p.ProjectID),
+			Role:      roleRequest,
+			Context:   ctx,
+		}, c.AuthInfo)
 
 	return handleSwaggerProjectErrors(err)
 }
@@ -338,6 +353,7 @@ func (c *RESTClient) DeleteProjectMember(ctx context.Context, p *model.Project, 
 // the provided key and containing the provided value.
 func getProjectMetadataByKey(key ProjectMetadataKey, value string) *model.ProjectMetadata {
 	var m model.ProjectMetadata
+
 	switch key {
 	case EnableContentTrustProjectMetadataKey:
 		m.EnableContentTrust = value
@@ -352,6 +368,7 @@ func getProjectMetadataByKey(key ProjectMetadataKey, value string) *model.Projec
 	case PreventVulProjectMetadataKey:
 		m.PreventVul = value
 	}
+
 	return &m
 }
 
@@ -363,11 +380,12 @@ func (c *RESTClient) AddProjectMetadata(ctx context.Context, p *model.Project, k
 		return &ErrProjectNotProvided{}
 	}
 
-	_, err := c.Client.Products.PostProjectsProjectIDMetadatas(&products.PostProjectsProjectIDMetadatasParams{
-		Metadata:  getProjectMetadataByKey(key, value),
-		ProjectID: int64(p.ProjectID),
-		Context:   ctx,
-	}, c.AuthInfo)
+	_, err := c.Client.Products.PostProjectsProjectIDMetadatas(
+		&products.PostProjectsProjectIDMetadatasParams{
+			Metadata:  getProjectMetadataByKey(key, value),
+			ProjectID: int64(p.ProjectID),
+			Context:   ctx,
+		}, c.AuthInfo)
 
 	err = handleSwaggerProjectErrors(err)
 	if err != nil {
@@ -377,6 +395,7 @@ func (c *RESTClient) AddProjectMetadata(ctx context.Context, p *model.Project, k
 			// is tried to create a second time.
 			return &ErrProjectMetadataAlreadyExists{}
 		}
+
 		return err
 	}
 
@@ -389,11 +408,12 @@ func (c *RESTClient) GetProjectMetadataValue(ctx context.Context, p *model.Proje
 		return "", &ErrProjectNotProvided{}
 	}
 
-	resp, err := c.Client.Products.GetProjectsProjectIDMetadatasMetaName(&products.GetProjectsProjectIDMetadatasMetaNameParams{
-		MetaName:  string(key),
-		ProjectID: int64(p.ProjectID),
-		Context:   ctx,
-	}, c.AuthInfo)
+	resp, err := c.Client.Products.GetProjectsProjectIDMetadatasMetaName(
+		&products.GetProjectsProjectIDMetadatasMetaNameParams{
+			MetaName:  string(key),
+			ProjectID: int64(p.ProjectID),
+			Context:   ctx,
+		}, c.AuthInfo)
 
 	err = handleSwaggerProjectErrors(err)
 	if err != nil {
@@ -401,6 +421,7 @@ func (c *RESTClient) GetProjectMetadataValue(ctx context.Context, p *model.Proje
 	}
 
 	var result string
+
 	switch key {
 	case EnableContentTrustProjectMetadataKey:
 		result = resp.Payload.EnableContentTrust
@@ -427,10 +448,11 @@ func (c *RESTClient) ListProjectMetadata(ctx context.Context, p *model.Project) 
 		return nil, &ErrProjectNotProvided{}
 	}
 
-	resp, err := c.Client.Products.GetProjectsProjectIDMetadatas(&products.GetProjectsProjectIDMetadatasParams{
-		ProjectID: int64(p.ProjectID),
-		Context:   ctx,
-	}, c.AuthInfo)
+	resp, err := c.Client.Products.GetProjectsProjectIDMetadatas(
+		&products.GetProjectsProjectIDMetadatasParams{
+			ProjectID: int64(p.ProjectID),
+			Context:   ctx,
+		}, c.AuthInfo)
 
 	err = handleSwaggerProjectErrors(err)
 	if err != nil {
@@ -450,31 +472,33 @@ func (c *RESTClient) UpdateProjectMetadata(ctx context.Context, p *model.Project
 	pID := int64(p.ProjectID)
 	metaKeyName := string(key)
 
-	_, err := c.Client.Products.GetProjectsProjectIDMetadatasMetaName(&products.GetProjectsProjectIDMetadatasMetaNameParams{
-		MetaName:  metaKeyName,
-		ProjectID: pID,
-		Context:   ctx,
-	}, c.AuthInfo)
+	_, err := c.Client.Products.GetProjectsProjectIDMetadatasMetaName(
+		&products.GetProjectsProjectIDMetadatasMetaNameParams{
+			MetaName:  metaKeyName,
+			ProjectID: pID,
+			Context:   ctx,
+		}, c.AuthInfo)
+	if err != nil {
+		return handleSwaggerProjectErrors(err)
+	}
+
+	_, err = c.Client.Products.DeleteProjectsProjectIDMetadatasMetaName(
+		&products.DeleteProjectsProjectIDMetadatasMetaNameParams{
+			MetaName:  metaKeyName,
+			ProjectID: pID,
+			Context:   ctx,
+		}, c.AuthInfo)
 
 	if err != nil {
 		return handleSwaggerProjectErrors(err)
 	}
 
-	_, err = c.Client.Products.DeleteProjectsProjectIDMetadatasMetaName(&products.DeleteProjectsProjectIDMetadatasMetaNameParams{
-		MetaName:  metaKeyName,
-		ProjectID: pID,
-		Context:   ctx,
-	}, c.AuthInfo)
-
-	if err != nil {
-		return handleSwaggerProjectErrors(err)
-	}
-
-	_, err = c.Client.Products.PostProjectsProjectIDMetadatas(&products.PostProjectsProjectIDMetadatasParams{
-		Metadata:  getProjectMetadataByKey(key, value),
-		ProjectID: pID,
-		Context:   ctx,
-	}, c.AuthInfo)
+	_, err = c.Client.Products.PostProjectsProjectIDMetadatas(
+		&products.PostProjectsProjectIDMetadatasParams{
+			Metadata:  getProjectMetadataByKey(key, value),
+			ProjectID: pID,
+			Context:   ctx,
+		}, c.AuthInfo)
 
 	return handleSwaggerProjectErrors(err)
 }
@@ -485,53 +509,14 @@ func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context, p *model.Pr
 		return &ErrProjectNotProvided{}
 	}
 
-	_, err := c.Client.Products.DeleteProjectsProjectIDMetadatasMetaName(&products.DeleteProjectsProjectIDMetadatasMetaNameParams{
-		MetaName:  string(key),
-		ProjectID: int64(p.ProjectID),
-		Context:   ctx,
-	}, c.AuthInfo)
+	_, err := c.Client.Products.DeleteProjectsProjectIDMetadatasMetaName(
+		&products.DeleteProjectsProjectIDMetadatasMetaNameParams{
+			MetaName:  string(key),
+			ProjectID: int64(p.ProjectID),
+			Context:   ctx,
+		}, c.AuthInfo)
 
 	return handleSwaggerProjectErrors(err)
-}
-
-// handleProjectErrors takes a swagger generated error as input,
-// which usually does not contain any form of error message,
-// and outputs a new error with proper message.
-func handleSwaggerProjectErrors(in error) error {
-	t, ok := in.(*runtime.APIError)
-	if ok {
-		switch t.Code {
-		case 201:
-			// Harbor sometimes return 201 instead of 200 despite the swagger spec
-			// not declaring it.
-			return nil
-		case 400:
-			return &ErrProjectIllegalIDFormat{}
-		case 401:
-			return &ErrProjectUnauthorized{}
-		case 403:
-			return &ErrProjectNoPermission{}
-		case 404:
-			return &ErrProjectUnknownResource{}
-		case 500:
-			return &ErrProjectInternalErrors{}
-		}
-	}
-
-	switch in.(type) {
-	case *products.DeleteProjectsProjectIDNotFound:
-		return &ErrProjectIDNotExists{}
-	case *products.PutProjectsProjectIDNotFound:
-		return &ErrProjectIDNotExists{}
-	case *products.PostProjectsConflict:
-		return &ErrProjectNameAlreadyExists{}
-	case *products.PostProjectsProjectIDMembersBadRequest:
-		return &ErrProjectInvalidRequest{}
-	case *products.PostProjectsProjectIDMetadatasBadRequest:
-		return &ErrProjectInvalidRequest{}
-	default:
-		return in
-	}
 }
 
 // projectExists returns true, if p matches a project on server side.
@@ -539,9 +524,8 @@ func handleSwaggerProjectErrors(in error) error {
 // Returns an error in case of communication problems.
 func (c *RESTClient) projectExists(ctx context.Context, p *model.Project) (bool, error) {
 	_, err := c.GetProject(ctx, p.Name)
-
 	if err != nil {
-		if _, ok := err.(*ErrProjectNotFound); ok {
+		if errors.Is(err, &ErrProjectNotFound{}) {
 			return false, nil
 		} else {
 			return false, err
@@ -553,12 +537,13 @@ func (c *RESTClient) projectExists(ctx context.Context, p *model.Project) (bool,
 
 // getMid returns the member ID of a user u in project p.
 // Returns an error, if user is not a member in project or
-// in case a communication error has occured.
+// in case a communication error has occurred.
 func (c *RESTClient) getMid(ctx context.Context, p *model.Project, u *model.User) (int64, error) {
 	members, err := c.ListProjectMembers(ctx, p)
 	if err != nil {
 		return 0, err
 	}
+
 	for _, v := range members {
 		if v.EntityType == "u" && v.EntityName == u.Username {
 			return v.ID, nil

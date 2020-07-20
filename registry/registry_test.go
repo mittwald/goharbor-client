@@ -20,6 +20,10 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+const (
+	name string = "test-registry"
+)
+
 var authInfo = runtimeclient.BasicAuth("foo", "bar")
 
 func TestNewClient(t *testing.T) {
@@ -39,7 +43,7 @@ func TestRESTClient_NewRegistry(t *testing.T) {
 	req := &model.Registry{
 		Credential: &model.RegistryCredential{},
 		Insecure:   true,
-		Name:       "testregistry",
+		Name:       name,
 		Type:       "harbor",
 		URL:        "http://test.reg",
 	}
@@ -92,7 +96,7 @@ func TestRESTClient_NewRegistry_ErrOnPOST(t *testing.T) {
 	req := &model.Registry{
 		Credential: &model.RegistryCredential{},
 		Insecure:   true,
-		Name:       "testregistry",
+		Name:       name,
 		Type:       "harbor",
 		URL:        "http://test.reg",
 	}
@@ -124,7 +128,7 @@ func TestRESTClient_NewRegistry_ErrOnPOST(t *testing.T) {
 }
 
 func TestRESTClient_GetRegistry(t *testing.T) {
-	name := "testregistry"
+	name := name
 	insecure := true
 	regType := "harbor"
 	url := "http://foo.bar"
@@ -167,7 +171,7 @@ func TestRESTClient_GetRegistry(t *testing.T) {
 }
 
 func TestRESTClient_GetRegistry_NotFound(t *testing.T) {
-	name := "testregistry"
+	name := name
 	ctx := context.Background()
 
 	p := &mocks.MockClientService{}
@@ -191,7 +195,7 @@ func TestRESTClient_GetRegistry_NotFound(t *testing.T) {
 }
 
 func TestRESTClient_GetRegistry_ErrOnGet(t *testing.T) {
-	name := "testregistry"
+	name := name
 	ctx := context.Background()
 	errorMsg := "error on server side"
 	errorCode := 500
@@ -413,13 +417,14 @@ func TestErrRegistryNotFound_Error(t *testing.T) {
 	var e ErrRegistryNotFound
 
 	assert.Equal(t, ErrRegistryNotFoundMsg, e.Error())
-
 }
+
 func TestErrRegistryNotProvided_Error(t *testing.T) {
 	var e ErrRegistryNotProvided
 
 	assert.Equal(t, ErrRegistryNotProvidedMsg, e.Error())
 }
+
 func TestErrRegistryUnauthorized_Error(t *testing.T) {
 	var e ErrRegistryUnauthorized
 

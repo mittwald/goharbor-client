@@ -19,6 +19,12 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+const (
+	name        string = "testreplication"
+	description string = "a test replication"
+	ns          string = "test-namespace"
+)
+
 var authInfo = runtimeclient.BasicAuth("foo", "bar")
 
 func TestNewClient(t *testing.T) {
@@ -41,11 +47,13 @@ func TestRESTClient_NewReplicationPolicy(t *testing.T) {
 	replicateDeletion := true
 	override := true
 	enablePolicy := true
-	var filters []*model.ReplicationFilter
 	trigger := &model.ReplicationTrigger{}
-	destNamespace := "testnamespace"
-	description := "a test replication"
-	name := "testreplication"
+
+	var filters []*model.ReplicationFilter
+
+	destNamespace := ns
+	description := description
+	name := name
 	returnedReplication := &model.ReplicationPolicy{
 		Deletion:      replicateDeletion,
 		Description:   description,
@@ -99,11 +107,13 @@ func TestRESTClient_NewReplicationPolicy_ErrOnPOST(t *testing.T) {
 	replicateDeletion := true
 	override := true
 	enablePolicy := true
-	var filters []*model.ReplicationFilter
 	trigger := &model.ReplicationTrigger{}
-	destNamespace := "testnamespace"
-	description := "a test replication"
-	name := "testreplication"
+
+	var filters []*model.ReplicationFilter
+
+	destNamespace := ns
+	description := description
+	name := name
 
 	p := &mocks.MockClientService{}
 	p.On("PostReplicationPolicies", &products.PostReplicationPoliciesParams{
@@ -147,11 +157,13 @@ func TestRESTClient_NewReplicationPolicy_ErrOnGET(t *testing.T) {
 	replicateDeletion := true
 	override := true
 	enablePolicy := true
-	var filters []*model.ReplicationFilter
 	trigger := &model.ReplicationTrigger{}
-	destNamespace := "testnamespace"
-	description := "a test replication"
-	name := "testreplication"
+
+	var filters []*model.ReplicationFilter
+
+	destNamespace := ns
+	description := description
+	name := name
 
 	p := &mocks.MockClientService{}
 	p.On("PostReplicationPolicies", &products.PostReplicationPoliciesParams{
@@ -196,14 +208,14 @@ func TestRESTClient_GetReplicationPolicy(t *testing.T) {
 	repl := &model.ReplicationPolicy{
 		Deletion:      true,
 		Description:   "a replication policy",
-		DestNamespace: "testnamespace",
+		DestNamespace: ns,
 		DestRegistry: &model.Registry{
 			Description: "a test registry",
 			ID:          11,
 			Name:        "testregistry",
 		},
 		ID:   1,
-		Name: "testreplication",
+		Name: name,
 	}
 	ctx := context.Background()
 
@@ -229,11 +241,13 @@ func TestRESTClient_GetReplicationPolicyByID(t *testing.T) {
 	replicateDeletion := true
 	override := true
 	enablePolicy := true
+
 	var filters []*model.ReplicationFilter
+
 	trigger := &model.ReplicationTrigger{}
-	destNamespace := "testnamespace"
-	description := "a test replication"
-	name := "testreplication"
+	destNamespace := ns
+	description := description
+	name := name
 	replication := &model.ReplicationPolicy{
 		Deletion:      replicateDeletion,
 		Description:   description,
@@ -280,7 +294,6 @@ func TestRESTClient_GetReplicationPolicyByID(t *testing.T) {
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
 		&products.GetReplicationPoliciesIDOK{Payload: &model.ReplicationPolicy{}}, nil)
-
 	r, err := cl.NewReplicationPolicy(ctx, destRegistry, srcRegistry, replicateDeletion, override, enablePolicy,
 		filters,
 		trigger, destNamespace, description, name)
@@ -288,7 +301,6 @@ func TestRESTClient_GetReplicationPolicyByID(t *testing.T) {
 
 	_, err = cl.GetReplicationPolicyByID(ctx, r.ID)
 	assert.NoError(t, err)
-
 }
 
 func TestRESTClient_GetReplicationPolicy_EmptyName(t *testing.T) {
@@ -307,14 +319,14 @@ func TestRESTClient_GetReplicationPolicy_NotFound(t *testing.T) {
 	repl := &model.ReplicationPolicy{
 		Deletion:      true,
 		Description:   "a replication policy",
-		DestNamespace: "testnamespace",
+		DestNamespace: ns,
 		DestRegistry: &model.Registry{
 			Description: "a test registry",
 			ID:          11,
 			Name:        "testregistry",
 		},
 		ID:   1,
-		Name: "testreplication",
+		Name: name,
 	}
 	ctx := context.Background()
 
@@ -340,14 +352,14 @@ func TestRESTClient_DeleteReplicationPolicy(t *testing.T) {
 	repl := &model.ReplicationPolicy{
 		Deletion:      true,
 		Description:   "a replication policy",
-		DestNamespace: "testnamespace",
+		DestNamespace: ns,
 		DestRegistry: &model.Registry{
 			Description: "a test registry",
 			ID:          11,
 			Name:        "testregistry",
 		},
 		ID:   1,
-		Name: "testreplication",
+		Name: name,
 	}
 	ctx := context.Background()
 
@@ -375,14 +387,14 @@ func TestRESTClient_DeleteReplicationPolicy_NotFound(t *testing.T) {
 	repl := &model.ReplicationPolicy{
 		Deletion:      true,
 		Description:   "a replication policy",
-		DestNamespace: "testnamespace",
+		DestNamespace: ns,
 		DestRegistry: &model.Registry{
 			Description: "a test registry",
 			ID:          11,
 			Name:        "testregistry",
 		},
 		ID:   1,
-		Name: "testreplication",
+		Name: name,
 	}
 	ctx := context.Background()
 	p := &mocks.MockClientService{}
@@ -419,14 +431,14 @@ func TestRESTClient_UpdateReplicationPolicy(t *testing.T) {
 	repl := &model.ReplicationPolicy{
 		Deletion:      true,
 		Description:   "a replication policy",
-		DestNamespace: "testnamespace",
+		DestNamespace: ns,
 		DestRegistry: &model.Registry{
 			Description: "a test registry",
 			ID:          11,
 			Name:        "testregistry",
 		},
 		ID:   1,
-		Name: "testreplication",
+		Name: name,
 	}
 	ctx := context.Background()
 
@@ -468,14 +480,14 @@ func TestRESTClient_UpdateReplicationPolicy_NotFound(t *testing.T) {
 	repl := &model.ReplicationPolicy{
 		Deletion:      true,
 		Description:   "a replication policy",
-		DestNamespace: "testnamespace",
+		DestNamespace: ns,
 		DestRegistry: &model.Registry{
 			Description: "a test registry",
 			ID:          11,
 			Name:        "testregistry",
 		},
 		ID:   1,
-		Name: "testreplication",
+		Name: name,
 	}
 	ctx := context.Background()
 
@@ -562,11 +574,13 @@ func TestRESTClient_TriggerReplicationExecution(t *testing.T) {
 	replicateDeletion := true
 	override := true
 	enablePolicy := true
+
 	var filters []*model.ReplicationFilter
+
 	trigger := &model.ReplicationTrigger{}
-	destNamespace := "testnamespace"
-	description := "a test replication"
-	name := "testreplication"
+	destNamespace := ns
+	description := description
+	name := name
 	returnedReplication := &model.ReplicationPolicy{
 		Deletion:      replicateDeletion,
 		Description:   description,
@@ -669,11 +683,13 @@ func TestRESTClient_GetReplicationExecutionsByID(t *testing.T) {
 	replicateDeletion := true
 	override := true
 	enablePolicy := true
+
 	var filters []*model.ReplicationFilter
+
 	trigger := &model.ReplicationTrigger{}
-	destNamespace := "testnamespace"
-	description := "a test replication"
-	name := "testreplication"
+	destNamespace := ns
+	description := description
+	name := name
 	replication := &model.ReplicationPolicy{
 		Deletion:      replicateDeletion,
 		Description:   description,
@@ -761,7 +777,6 @@ func TestErrReplicationInternalErrors_Error(t *testing.T) {
 	var e ErrReplicationInternalErrors
 
 	assert.Equal(t, ErrReplicationInternalErrorsMsg, e.Error())
-
 }
 
 func TestErrReplicationNameAlreadyExists_Error(t *testing.T) {
@@ -780,7 +795,6 @@ func TestErrReplicationNotFound_Error(t *testing.T) {
 	var e ErrReplicationNotFound
 
 	assert.Equal(t, ErrReplicationNotFoundMsg, e.Error())
-
 }
 
 func TestErrReplicationNotProvided_Error(t *testing.T) {

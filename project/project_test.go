@@ -65,7 +65,8 @@ func TestRESTClient_NewProject(t *testing.T) {
 
 	p.On("GetProjects", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsOK{
-			Payload: []*model.Project{{Name: exampleProject}}}, nil)
+			Payload: []*model.Project{{Name: exampleProject}},
+		}, nil)
 
 	_, err := cl.NewProject(ctx, exampleProject, int(exampleCountLimit), int(exampleStorageLimit))
 
@@ -98,9 +99,11 @@ func TestRESTClient_DeleteProject(t *testing.T) {
 
 	p.On("GetProjects", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsOK{
-			Payload: []*model.Project{{Name: exampleProject}}}, nil)
+			Payload: []*model.Project{{Name: exampleProject}},
+		}, nil)
 
-	p.On("DeleteProjectsProjectID", deleteProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("DeleteProjectsProjectID",
+		deleteProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.DeleteProjectsProjectIDOK{}, nil)
 
 	err := cl.DeleteProject(ctx, project)
@@ -129,7 +132,8 @@ func TestRESTClient_GetProject(t *testing.T) {
 
 	p.On("GetProjects", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsOK{
-			Payload: []*model.Project{{Name: exampleProject}}}, nil)
+			Payload: []*model.Project{{Name: exampleProject}},
+		}, nil)
 
 	_, err := cl.GetProject(ctx, exampleProject)
 
@@ -157,7 +161,8 @@ func TestRESTClient_ListProjects(t *testing.T) {
 
 	p.On("GetProjects", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsOK{
-			Payload: []*model.Project{{Name: exampleProject}}}, nil)
+			Payload: []*model.Project{{Name: exampleProject}},
+		}, nil)
 
 	_, err := cl.ListProjects(ctx, exampleProject)
 
@@ -191,13 +196,16 @@ func TestRESTClient_UpdateProject(t *testing.T) {
 
 	p.On("GetProjects", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsOK{
-			Payload: []*model.Project{{Name: exampleProject}}}, nil)
+			Payload: []*model.Project{{Name: exampleProject}},
+		}, nil)
 
 	p.On("GetProjects", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsOK{
-			Payload: []*model.Project{{Name: exampleProject}}}, nil)
+			Payload: []*model.Project{{Name: exampleProject}},
+		}, nil)
 
-	p.On("PutProjectsProjectID", putProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("PutProjectsProjectID",
+		putProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.PutProjectsProjectIDOK{}, nil)
 
 	project, err := cl.GetProject(ctx, exampleProject)
@@ -263,7 +271,8 @@ func TestRESTClient_AddProjectMember(t *testing.T) {
 
 	getUserParams := &products.GetUsersParams{
 		Context:  ctx,
-		Username: &exampleUser}
+		Username: &exampleUser,
+	}
 
 	postProjectsProjectIDMembersParams := &products.PostProjectsProjectIDMembersParams{
 		ProjectID: exampleProjectID,
@@ -283,7 +292,8 @@ func TestRESTClient_AddProjectMember(t *testing.T) {
 
 	p.On("GetProjects", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsOK{
-			Payload: []*model.Project{{Name: exampleProject}}}, nil)
+			Payload: []*model.Project{{Name: exampleProject}},
+		}, nil)
 
 	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
@@ -321,7 +331,8 @@ func TestRESTClient_ListProjectMembers(t *testing.T) {
 		Context:    ctx,
 	}
 
-	p.On("GetProjectsProjectIDMembers", &getProjectsProjectIDMembersParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("GetProjectsProjectIDMembers",
+		&getProjectsProjectIDMembersParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsProjectIDMembersOK{
 			Payload: []*model.ProjectMemberEntity{{}},
 		}, nil)
@@ -354,7 +365,8 @@ func TestRESTClient_UpdateProjectMemberRole(t *testing.T) {
 
 	getUserParams := &products.GetUsersParams{
 		Context:  ctx,
-		Username: &exampleUser}
+		Username: &exampleUser,
+	}
 
 	postProjectsProjectIDMembersParams := &products.PostProjectsProjectIDMembersParams{
 		ProjectID: exampleProjectID,
@@ -374,7 +386,8 @@ func TestRESTClient_UpdateProjectMemberRole(t *testing.T) {
 
 	p.On("GetProjects", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsOK{
-			Payload: []*model.Project{{Name: exampleProject}}}, nil)
+			Payload: []*model.Project{{Name: exampleProject}},
+		}, nil)
 
 	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
@@ -404,9 +417,11 @@ func TestRESTClient_UpdateProjectMemberRole(t *testing.T) {
 
 	p.On("GetProjects", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsOK{
-			Payload: []*model.Project{{Name: exampleProject}}}, nil)
+			Payload: []*model.Project{{Name: exampleProject}},
+		}, nil)
 
-	p.On("GetProjectsProjectIDMembers", &getProjectsProjectIDMembersParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("GetProjectsProjectIDMembers",
+		&getProjectsProjectIDMembersParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsProjectIDMembersOK{
 			Payload: []*model.ProjectMemberEntity{{
 				EntityType: "u",
@@ -415,7 +430,8 @@ func TestRESTClient_UpdateProjectMemberRole(t *testing.T) {
 			}},
 		}, nil)
 
-	p.On("PutProjectsProjectIDMembersMid", &putProjectsProjectIDMembersMidParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("PutProjectsProjectIDMembersMid",
+		&putProjectsProjectIDMembersMidParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.PutProjectsProjectIDMembersMidOK{}, nil)
 
 	err = cl.UpdateProjectMemberRole(ctx, project, usr, int(exampleUserRoleID))
@@ -452,9 +468,11 @@ func TestRESTClient_UpdateProjectMemberRole_UserIsNoMember(t *testing.T) {
 
 	p.On("GetProjects", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsOK{
-			Payload: []*model.Project{{Name: exampleProject}}}, nil)
+			Payload: []*model.Project{{Name: exampleProject}},
+		}, nil)
 
-	p.On("GetProjectsProjectIDMembers", &getProjectsProjectIDMembersParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("GetProjectsProjectIDMembers",
+		&getProjectsProjectIDMembersParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsProjectIDMembersOK{
 			Payload: []*model.ProjectMemberEntity{{}},
 		}, nil)
@@ -489,7 +507,8 @@ func TestRESTClient_DeleteProjectMember(t *testing.T) {
 
 	getUserParams := &products.GetUsersParams{
 		Context:  ctx,
-		Username: &exampleUser}
+		Username: &exampleUser,
+	}
 
 	postProjectsProjectIDMembersParams := &products.PostProjectsProjectIDMembersParams{
 		ProjectID: exampleProjectID,
@@ -509,7 +528,8 @@ func TestRESTClient_DeleteProjectMember(t *testing.T) {
 
 	p.On("GetProjects", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsOK{
-			Payload: []*model.Project{{Name: exampleProject}}}, nil)
+			Payload: []*model.Project{{Name: exampleProject}},
+		}, nil)
 
 	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
@@ -538,9 +558,11 @@ func TestRESTClient_DeleteProjectMember(t *testing.T) {
 
 	p.On("GetProjects", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsOK{
-			Payload: []*model.Project{{Name: exampleProject}}}, nil)
+			Payload: []*model.Project{{Name: exampleProject}},
+		}, nil)
 
-	p.On("GetProjectsProjectIDMembers", &getProjectsProjectIDMembersParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("GetProjectsProjectIDMembers",
+		&getProjectsProjectIDMembersParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsProjectIDMembersOK{
 			Payload: []*model.ProjectMemberEntity{{
 				EntityType: "u",
@@ -549,7 +571,8 @@ func TestRESTClient_DeleteProjectMember(t *testing.T) {
 			}},
 		}, nil)
 
-	p.On("DeleteProjectsProjectIDMembersMid", deleteProjectsProjectIDMembersMidParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("DeleteProjectsProjectIDMembersMid",
+		deleteProjectsProjectIDMembersMidParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.DeleteProjectsProjectIDMembersMidOK{}, nil)
 
 	err = cl.DeleteProjectMember(ctx, project, usr)
@@ -579,7 +602,8 @@ func TestRESTClient_AddProjectMetadata(t *testing.T) {
 		Context:   ctx,
 	}
 
-	p.On("PostProjectsProjectIDMetadatas", postProjectsProjectIDMetadatasParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("PostProjectsProjectIDMetadatas",
+		postProjectsProjectIDMetadatasParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.PostProjectsProjectIDMetadatasOK{}, nil)
 
 	err := cl.AddProjectMetadata(ctx, project, exampleMetadataKey, exampleMetadataValue)
@@ -601,12 +625,14 @@ func TestRESTClient_GetProjectMetadataValue(t *testing.T) {
 
 	ctx := context.Background()
 
-	keys := []ProjectMetadataKey{EnableContentTrustProjectMetadataKey,
+	keys := []ProjectMetadataKey{
+		EnableContentTrustProjectMetadataKey,
 		AutoScanProjectMetadataKey,
 		SeverityProjectMetadataKey,
 		ReuseSysCVEWhitelistProjectMetadataKey,
 		PublicProjectMetadataKey,
-		PreventVulProjectMetadataKey}
+		PreventVulProjectMetadataKey,
+	}
 
 	for i := range keys {
 		getProjectsProjectIDMetadatasMetaNameParams := &products.GetProjectsProjectIDMetadatasMetaNameParams{
@@ -615,7 +641,8 @@ func TestRESTClient_GetProjectMetadataValue(t *testing.T) {
 			Context:   ctx,
 		}
 
-		p.On("GetProjectsProjectIDMetadatasMetaName", getProjectsProjectIDMetadatasMetaNameParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		p.On("GetProjectsProjectIDMetadatasMetaName",
+			getProjectsProjectIDMetadatasMetaNameParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 			Return(&products.GetProjectsProjectIDMetadatasMetaNameOK{Payload: &model.ProjectMetadata{}}, nil)
 
 		_, err := cl.GetProjectMetadataValue(ctx, project, keys[i])
@@ -650,7 +677,8 @@ func TestRESTClient_ListProjectMetadata(t *testing.T) {
 		Context:   ctx,
 	}
 
-	p.On("GetProjectsProjectIDMetadatas", getProjectsProjectIDMetadatasParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("GetProjectsProjectIDMetadatas",
+		getProjectsProjectIDMetadatasParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsProjectIDMetadatasOK{Payload: &model.ProjectMetadata{
 			EnableContentTrust: "true",
 		}}, nil)
@@ -662,7 +690,6 @@ func TestRESTClient_ListProjectMetadata(t *testing.T) {
 	assert.Equal(t, meta.EnableContentTrust, project.Metadata.EnableContentTrust)
 
 	p.AssertExpectations(t)
-
 }
 
 func TestRESTClient_ListProjectMetadata_NoProjectProvided(t *testing.T) {
@@ -723,15 +750,18 @@ func TestRESTClient_UpdateProjectMetadata(t *testing.T) {
 		Context:   ctx,
 	}
 
-	p.On("GetProjectsProjectIDMetadatasMetaName", getProjectsProjectIDMetadatasMetaName, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("GetProjectsProjectIDMetadatasMetaName",
+		getProjectsProjectIDMetadatasMetaName, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsProjectIDMetadatasMetaNameOK{Payload: &model.ProjectMetadata{
 			EnableContentTrust: exampleMetadataValue,
 		}}, nil)
 
-	p.On("DeleteProjectsProjectIDMetadatasMetaName", deleteProjectsProjectIDMetadatasMetaName, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("DeleteProjectsProjectIDMetadatasMetaName",
+		deleteProjectsProjectIDMetadatasMetaName, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.DeleteProjectsProjectIDMetadatasMetaNameOK{}, nil)
 
-	p.On("PostProjectsProjectIDMetadatas", postProjectsProjectIDMetadatas, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("PostProjectsProjectIDMetadatas",
+		postProjectsProjectIDMetadatas, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.PostProjectsProjectIDMetadatasOK{}, nil)
 
 	err := cl.UpdateProjectMetadata(ctx, project, exampleMetadataKey, exampleMetadataValue)
@@ -766,7 +796,8 @@ func TestRESTClient_DeleteProjectMetadataValue(t *testing.T) {
 		Context:   ctx,
 	}
 
-	p.On("DeleteProjectsProjectIDMetadatasMetaName", deleteProjectsProjectIDMetadatasMetaName, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	p.On("DeleteProjectsProjectIDMetadatasMetaName",
+		deleteProjectsProjectIDMetadatasMetaName, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.DeleteProjectsProjectIDMetadatasMetaNameOK{}, nil)
 
 	err := cl.DeleteProjectMetadataValue(ctx, project, exampleMetadataKey)

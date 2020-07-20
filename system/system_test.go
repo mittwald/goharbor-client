@@ -37,7 +37,8 @@ func TestRESTClient_NewSystemGarbageCollection(t *testing.T) {
 		Schedule: &model.AdminJobScheduleObj{
 			Cron: exampleCron,
 			Type: exampleScheduleType,
-		}}
+		},
+	}
 
 	getGcParams := &products.GetSystemGcScheduleParams{
 		Context: ctx,
@@ -77,7 +78,8 @@ func TestRESTClient_GetSystemGarbageCollection(t *testing.T) {
 		Schedule: &model.AdminJobScheduleObj{
 			Cron: exampleCron,
 			Type: exampleScheduleType,
-		}}
+		},
+	}
 
 	getGcParams := &products.GetSystemGcScheduleParams{
 		Context: ctx,
@@ -325,7 +327,6 @@ func TestErrSystemInvalidSchedule_Error(t *testing.T) {
 	var e ErrSystemInvalidSchedule
 
 	assert.Equal(t, ErrSystemInvalidScheduleMsg, e.Error())
-
 }
 
 func TestErrSystemNoPermission_Error(t *testing.T) {

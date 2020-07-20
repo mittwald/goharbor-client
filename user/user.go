@@ -42,7 +42,8 @@ type Client interface {
 // realname is the fullname of the user.
 // password is the password for this user.
 // comments as a comment attached to the user.
-func (c *RESTClient) NewUser(ctx context.Context, username, email, realname, password, comments string) (*model.User, error) {
+func (c *RESTClient) NewUser(ctx context.Context, username, email, realname, password,
+	comments string) (*model.User, error) {
 	uReq := &model.User{
 		Username: username,
 		Password: password,
@@ -163,33 +164,8 @@ func (c *RESTClient) UpdateUserPassword(ctx context.Context, id int64, password 
 	return handleSwaggerUserErrors(err)
 }
 
-// handleUserErrors takes a swagger generated error as input,
-// which usually does not contain any form of error message,
-// and outputs a new error with proper message.
-func handleSwaggerUserErrors(in error) error {
-	t, ok := in.(*runtime.APIError)
-	if ok {
-		switch t.Code {
-		case 409:
-			return &ErrUserAlreadyExists{}
-		}
-	}
-
-	switch in.(type) {
-	case *products.PostUsersBadRequest:
-		return &ErrUserBadRequest{}
-	case *products.PutUsersUserIDBadRequest:
-		return &ErrUserInvalidID{}
-	case *products.PutUsersUserIDPasswordBadRequest:
-		return &ErrUserPasswordInvalid{}
-	default:
-		return in
-	}
-}
-
 func (c *RESTClient) UserExists(ctx context.Context, u *model.User) (bool, error) {
 	_, err := c.GetUser(ctx, u.Username)
-
 	if err != nil {
 		if _, ok := err.(*ErrUserNotFound); ok {
 			return false, nil

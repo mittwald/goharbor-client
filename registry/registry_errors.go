@@ -26,6 +26,11 @@ const (
 	// when a specific registry is not found
 	ErrRegistryNotFoundMsg    = "registry not found on server side"
 	ErrRegistryNotProvidedMsg = "no registry provided"
+
+	Status400 int = 400
+	Status401 int = 401
+	Status403 int = 403
+	Status500 int = 500
 )
 
 // ErrRegistryIllegalIDFormat describes an illegal request format.
@@ -109,13 +114,13 @@ func handleSwaggerRegistryErrors(in error) error {
 	t, ok := in.(*runtime.APIError)
 	if ok {
 		switch t.Code {
-		case 400:
+		case Status400:
 			return &ErrRegistryIllegalIDFormat{}
-		case 401:
+		case Status401:
 			return &ErrRegistryUnauthorized{}
-		case 403:
+		case Status403:
 			return &ErrRegistryNoPermission{}
-		case 500:
+		case Status500:
 			return &ErrRegistryInternalErrors{}
 		}
 	}

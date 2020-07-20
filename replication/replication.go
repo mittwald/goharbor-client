@@ -215,7 +215,6 @@ func (c *RESTClient) GetReplicationExecutions(ctx context.Context,
 			Trigger:  &r.Trigger,
 			Context:  ctx,
 		}, c.AuthInfo)
-
 	if err != nil {
 		return nil, handleSwaggerReplicationErrors(err)
 	}
@@ -225,7 +224,6 @@ func (c *RESTClient) GetReplicationExecutions(ctx context.Context,
 
 func (c *RESTClient) GetReplicationExecutionsByID(ctx context.Context,
 	id int64) (*model.ReplicationExecution, error) {
-
 	if _, err := c.GetReplicationPolicyByID(ctx, id); err != nil {
 		return nil, &ErrReplicationExecutionReplicationIDNotFound{}
 	}
@@ -235,7 +233,6 @@ func (c *RESTClient) GetReplicationExecutionsByID(ctx context.Context,
 			ID:      id,
 			Context: ctx,
 		}, c.AuthInfo)
-
 	if err != nil {
 		return nil, handleSwaggerReplicationErrors(err)
 	}

@@ -53,7 +53,6 @@ func TestAPIRegistryNew(t *testing.T) {
 }
 
 func TestAPIRegistryGet(t *testing.T) {
-
 	name := "test-registry"
 	registryType := "harbor"
 	url := "http://registry-docker-registry:5000/"
@@ -76,7 +75,6 @@ func TestAPIRegistryGet(t *testing.T) {
 }
 
 func TestAPIRegistryDelete(t *testing.T) {
-
 	name := "test-registry"
 	registryType := "harbor"
 	url := "http://registry-docker-registry:5000/"

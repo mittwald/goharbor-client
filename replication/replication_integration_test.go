@@ -81,7 +81,6 @@ func TestAPIReplicationNewDestRegistry(t *testing.T) {
 }
 
 func TestAPIReplicationNewSrcRegistry(t *testing.T) {
-
 	name := "test-project"
 
 	ctx := context.Background()
@@ -128,7 +127,6 @@ func TestAPIReplicationNewSrcRegistry(t *testing.T) {
 }
 
 func TestAPIReplicationDelete(t *testing.T) {
-
 	name := "test-project"
 
 	ctx := context.Background()
@@ -180,7 +178,6 @@ func TestAPIReplicationDelete(t *testing.T) {
 }
 
 func TestAPIReplicationUpdate(t *testing.T) {
-
 	name := "test-project"
 
 	ctx := context.Background()
