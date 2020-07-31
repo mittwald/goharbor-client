@@ -48,8 +48,10 @@ func (c *RESTClient) NewSystemGarbageCollection(ctx context.Context, cron,
 			Schedule: gcReq,
 			Context:  ctx,
 		}, c.AuthInfo)
+
+	err = handleSwaggerSystemErrors(err)
 	if err != nil {
-		return nil, handleSwaggerSystemErrors(err)
+		return nil, err
 	}
 
 	systemGc, err := c.GetSystemGarbageCollection(ctx)
