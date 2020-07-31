@@ -134,7 +134,7 @@ func (c *RESTClient) DeleteProjectMember(ctx context.Context, p *model.Project, 
 
 // AddProjectMetadata wraps the AddProjectMetadata method of the project sub-package.
 func (c *RESTClient) AddProjectMetadata(ctx context.Context,
-	p *model.Project, key project.ProjectMetadataKey, value string) error {
+	p *model.Project, key project.MetadataKey, value string) error {
 	return c.project.AddProjectMetadata(ctx, p, key, value)
 }
 
@@ -145,13 +145,13 @@ func (c *RESTClient) ListProjectMetadata(ctx context.Context, p *model.Project) 
 
 // UpdateProjectMetadata wraps the UpdateProjectMetadata method of the project sub-package.
 func (c *RESTClient) UpdateProjectMetadata(ctx context.Context,
-	p *model.Project, key project.ProjectMetadataKey, value string) error {
+	p *model.Project, key project.MetadataKey, value string) error {
 	return c.project.UpdateProjectMetadata(ctx, p, key, value)
 }
 
 // DeleteProjectMetadataValue wraps the DeleteProjectMetadataValue method of the project sub-package.
 func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context,
-	p *model.Project, key project.ProjectMetadataKey) error {
+	p *model.Project, key project.MetadataKey) error {
 	return c.project.DeleteProjectMetadataValue(ctx, p, key)
 }
 

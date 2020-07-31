@@ -65,10 +65,8 @@ func (c *RESTClient) NewReplicationPolicy(ctx context.Context, destRegistry, src
 			Policy:  pReq,
 			Context: ctx,
 		}, c.AuthInfo)
-
-	err = handleSwaggerReplicationErrors(err)
 	if err != nil {
-		return nil, err
+		return nil, handleSwaggerReplicationErrors(err)
 	}
 
 	replication, err := c.GetReplicationPolicy(ctx, name)
@@ -91,10 +89,8 @@ func (c *RESTClient) GetReplicationPolicy(ctx context.Context, name string) (*mo
 			Name:    &name,
 			Context: ctx,
 		}, c.AuthInfo)
-
-	err = handleSwaggerReplicationErrors(err)
 	if err != nil {
-		return nil, err
+		return nil, handleSwaggerReplicationErrors(err)
 	}
 
 	for _, p := range resp.Payload {
@@ -115,10 +111,8 @@ func (c *RESTClient) GetReplicationPolicyByID(ctx context.Context, id int64) (*m
 			ID:      id,
 			Context: ctx,
 		}, c.AuthInfo)
-
-	err = handleSwaggerReplicationErrors(err)
 	if err != nil {
-		return nil, err
+		return nil, handleSwaggerReplicationErrors(err)
 	}
 
 	if resp.Payload.ID == id {

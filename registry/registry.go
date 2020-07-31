@@ -53,10 +53,8 @@ func (c *RESTClient) NewRegistry(ctx context.Context, name, registryType, url st
 			Registry: rReq,
 			Context:  ctx,
 		}, c.AuthInfo)
-
-	err = handleSwaggerRegistryErrors(err)
 	if err != nil {
-		return nil, err
+		return nil, handleSwaggerRegistryErrors(err)
 	}
 
 	registry, err := c.GetRegistry(ctx, name)
@@ -79,10 +77,8 @@ func (c *RESTClient) GetRegistry(ctx context.Context, name string) (*model.Regis
 			Name:    &name,
 			Context: ctx,
 		}, c.AuthInfo)
-
-	err = handleSwaggerRegistryErrors(err)
 	if err != nil {
-		return nil, err
+		return nil, handleSwaggerRegistryErrors(err)
 	}
 
 	for _, r := range resp.Payload {

@@ -75,6 +75,469 @@ func TestRESTClient_NewProject(t *testing.T) {
 	p.AssertExpectations(t)
 }
 
+// A workaround to test the successful return of the "201" status on a NewProject() call
+func TestRESTClient_NewProject_201(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	postProjectParams := &products.PostProjectsParams{
+		Project: pReq,
+		Context: ctx,
+	}
+
+	p.On("PostProjects", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PostProjectsCreated{}, &runtime.APIError{Code: Status201})
+
+	_, err := cl.NewProject(ctx, exampleProject, int(exampleCountLimit), int(exampleStorageLimit))
+
+	assert.NoError(t, err)
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_NewProject_ErrProjectNotFound(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	n := "example-nonexistent"
+
+	postProjectParams := &products.PostProjectsParams{
+		Project: pReq,
+		Context: ctx,
+	}
+
+	getProjectParams := &products.GetProjectsParams{
+		Name:    &pReq.ProjectName,
+		Context: ctx,
+	}
+
+	p.On("PostProjects", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PostProjectsCreated{}, nil)
+
+	p.On("GetProjects", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetProjectsOK{
+			Payload: []*model.Project{{Name: n}},
+		}, nil)
+
+	_, err := cl.NewProject(ctx, exampleProject, int(exampleCountLimit), int(exampleStorageLimit))
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrProjectNotFound{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_NewProject_ErrProjectIllegalIDFormat(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	postProjectParams := &products.PostProjectsParams{
+		Project: pReq,
+		Context: ctx,
+	}
+
+	p.On("PostProjects", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PostProjectsCreated{}, &runtime.APIError{Code: Status400})
+
+	_, err := cl.NewProject(ctx, exampleProject, int(exampleCountLimit), int(exampleStorageLimit))
+
+	if assert.Error(t, err) {
+		assert.Equal(t, &ErrProjectIllegalIDFormat{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_NewProject_ErrProjectUnauthorized(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	postProjectParams := &products.PostProjectsParams{
+		Project: pReq,
+		Context: ctx,
+	}
+
+	p.On("PostProjects", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PostProjectsCreated{}, &runtime.APIError{Code: Status401})
+
+	_, err := cl.NewProject(ctx, exampleProject, int(exampleCountLimit), int(exampleStorageLimit))
+
+	if assert.Error(t, err) {
+		assert.Equal(t, &ErrProjectUnauthorized{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_NewProject_ErrProjectNoPermission(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	postProjectParams := &products.PostProjectsParams{
+		Project: pReq,
+		Context: ctx,
+	}
+
+	p.On("PostProjects", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PostProjectsCreated{}, &runtime.APIError{Code: Status403})
+
+	_, err := cl.NewProject(ctx, exampleProject, int(exampleCountLimit), int(exampleStorageLimit))
+
+	if assert.Error(t, err) {
+		assert.Equal(t, &ErrProjectNoPermission{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_NewProject_ErrProjectUnknownResource(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	postProjectParams := &products.PostProjectsParams{
+		Project: pReq,
+		Context: ctx,
+	}
+
+	p.On("PostProjects", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PostProjectsCreated{}, &runtime.APIError{Code: Status404})
+
+	_, err := cl.NewProject(ctx, exampleProject, int(exampleCountLimit), int(exampleStorageLimit))
+
+	if assert.Error(t, err) {
+		assert.Equal(t, &ErrProjectUnknownResource{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_NewProject_ErrProjectInternalErrors(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	postProjectParams := &products.PostProjectsParams{
+		Project: pReq,
+		Context: ctx,
+	}
+
+	p.On("PostProjects", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PostProjectsCreated{}, &runtime.APIError{Code: Status500})
+
+	_, err := cl.NewProject(ctx, exampleProject, int(exampleCountLimit), int(exampleStorageLimit))
+
+	if assert.Error(t, err) {
+		assert.Equal(t, &ErrProjectInternalErrors{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_NewProject_ErrProjectIDNotExists(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	postProjectParams := &products.PostProjectsParams{
+		Project: pReq,
+		Context: ctx,
+	}
+
+	p.On("PostProjects", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PostProjectsCreated{}, &products.DeleteProjectsProjectIDNotFound{})
+
+	_, err := cl.NewProject(ctx, exampleProject, int(exampleCountLimit), int(exampleStorageLimit))
+
+	if assert.Error(t, err) {
+		assert.Equal(t, &ErrProjectIDNotExists{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_NewProject_ErrProjectIDNotExists_2(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	postProjectParams := &products.PostProjectsParams{
+		Project: pReq,
+		Context: ctx,
+	}
+
+	p.On("PostProjects", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PostProjectsCreated{}, &products.PutProjectsProjectIDNotFound{})
+
+	_, err := cl.NewProject(ctx, exampleProject, int(exampleCountLimit), int(exampleStorageLimit))
+
+	if assert.Error(t, err) {
+		assert.Equal(t, &ErrProjectIDNotExists{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_NewProject_ErrProjectNameAlreadyExists(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	postProjectParams := &products.PostProjectsParams{
+		Project: pReq,
+		Context: ctx,
+	}
+
+	p.On("PostProjects", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PostProjectsCreated{}, &products.PostProjectsConflict{})
+
+	_, err := cl.NewProject(ctx, exampleProject, int(exampleCountLimit), int(exampleStorageLimit))
+
+	if assert.Error(t, err) {
+		assert.Equal(t, &ErrProjectNameAlreadyExists{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_NewProject_ErrProjectInvalidRequest(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	postProjectParams := &products.PostProjectsParams{
+		Project: pReq,
+		Context: ctx,
+	}
+
+	p.On("PostProjects", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PostProjectsCreated{}, &products.PostProjectsProjectIDMembersBadRequest{})
+
+	_, err := cl.NewProject(ctx, exampleProject, int(exampleCountLimit), int(exampleStorageLimit))
+
+	if assert.Error(t, err) {
+		assert.Equal(t, &ErrProjectInvalidRequest{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_NewProject_ErrProjectInvalidRequest_2(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	postProjectParams := &products.PostProjectsParams{
+		Project: pReq,
+		Context: ctx,
+	}
+
+	p.On("PostProjects", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PostProjectsCreated{}, &products.PostProjectsProjectIDMetadatasBadRequest{})
+
+	_, err := cl.NewProject(ctx, exampleProject, int(exampleCountLimit), int(exampleStorageLimit))
+
+	if assert.Error(t, err) {
+		assert.Equal(t, &ErrProjectInvalidRequest{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_Project_ErrProjectNotProvided(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	nilProject := project
+	nilProject = nil
+
+	t.Run("DeleteProject_ErrProjectNotProvided", func(t *testing.T) {
+		err := cl.DeleteProject(ctx, nilProject)
+
+		if assert.Error(t, err) {
+			assert.IsType(t, &ErrProjectNotProvided{}, err)
+		}
+	})
+
+	t.Run("AddProjectMember_ErrProjectNotProvided", func(t *testing.T) {
+		err := cl.AddProjectMember(ctx, nilProject, usr, 1)
+
+		if assert.Error(t, err) {
+			assert.Equal(t, &ErrProjectNotProvided{}, err)
+		}
+	})
+
+	t.Run("AddProjectMember_ErrProjectNotProvided", func(t *testing.T) {
+		err := cl.AddProjectMember(ctx, nilProject, usr, 1)
+
+		if assert.Error(t, err) {
+			assert.Equal(t, &ErrProjectNotProvided{}, err)
+		}
+	})
+
+	t.Run("ListProjectMembers_ErrProjectNotProvided", func(t *testing.T) {
+		_, err := cl.ListProjectMembers(ctx, nilProject)
+
+		if assert.Error(t, err) {
+			assert.IsType(t, &ErrProjectNotProvided{}, err)
+		}
+	})
+
+	t.Run("UpdateProjectMemberRole_ErrProjectNotProvided", func(t *testing.T) {
+		err := cl.UpdateProjectMemberRole(ctx, nilProject, usr, int(exampleUserRoleID))
+
+		if assert.Error(t, err) {
+			assert.Equal(t, &ErrProjectNotProvided{}, err)
+		}
+	})
+
+	t.Run("DeleteProjectMember_ErrProjectNotProvided", func(t *testing.T) {
+		err := cl.DeleteProjectMember(ctx, nilProject, usr)
+
+		if assert.Error(t, err) {
+			assert.IsType(t, &ErrProjectNotProvided{}, err)
+		}
+	})
+
+	t.Run("GetProjectMetadataValue_ErrProjectNotProvided", func(t *testing.T) {
+		_, err := cl.GetProjectMetadataValue(ctx, nilProject, EnableContentTrustProjectMetadataKey)
+
+		if assert.Error(t, err) {
+			assert.IsType(t, &ErrProjectNotProvided{}, err)
+		}
+	})
+
+	t.Run("UpdateProjectMetadata_ErrProjectNotProvided", func(t *testing.T) {
+		err := cl.UpdateProjectMetadata(ctx, nilProject, exampleMetadataKey, exampleMetadataValue)
+
+		if assert.Error(t, err) {
+			assert.IsType(t, &ErrProjectNotProvided{}, err)
+		}
+	})
+
+	t.Run("ListProjectMetadata_ErrProjectNotProvided", func(t *testing.T) {
+		_, err := cl.ListProjectMetadata(ctx, nil)
+
+		if assert.Error(t, err) {
+			assert.Equal(t, &ErrProjectNotProvided{}, err)
+		}
+	})
+
+	t.Run("DeleteProjectMetadataValue_ErrProjectNotProvided", func(t *testing.T) {
+		err := cl.DeleteProjectMetadataValue(ctx, nilProject, exampleMetadataKey)
+
+		if assert.Error(t, err) {
+			assert.IsType(t, &ErrProjectNotProvided{}, err)
+		}
+	})
+
+	t.Run("AddProjectMetadata_ErrProjectNotProvided", func(t *testing.T) {
+		err := cl.AddProjectMetadata(ctx, nilProject, exampleMetadataKey, exampleMetadataValue)
+
+		if assert.Error(t, err) {
+			assert.IsType(t, &ErrProjectNotProvided{}, err)
+		}
+	})
+}
+
 func TestRESTClient_DeleteProject(t *testing.T) {
 	p := &mocks.MockClientService{}
 
@@ -113,6 +576,89 @@ func TestRESTClient_DeleteProject(t *testing.T) {
 	p.AssertExpectations(t)
 }
 
+func TestRESTClient_DeleteProject_ErrProjectMismatch(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	n := "example-nonexistent"
+	nonExistentProject := &model.Project{Name: n}
+
+	pReq2 := &model.ProjectReq{
+		CveWhitelist: nil,
+		Metadata:     nil,
+		ProjectName:  n,
+		CountLimit:   exampleCountLimit,
+		StorageLimit: exampleStorageLimit * 1024 * 1024,
+	}
+
+	getProjectParams := &products.GetProjectsParams{
+		Name:    &pReq2.ProjectName,
+		Context: ctx,
+	}
+
+	p.On("GetProjects", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetProjectsOK{
+			Payload: nil,
+		}, nil)
+
+	err := cl.DeleteProject(ctx, nonExistentProject)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrProjectMismatch{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_DeleteProject_ErrProjectUnknownResource(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	n := "example-nonexistent"
+	nonExistentProject := &model.Project{Name: n}
+
+	pReq2 := &model.ProjectReq{
+		CveWhitelist: nil,
+		Metadata:     nil,
+		ProjectName:  n,
+		CountLimit:   exampleCountLimit,
+		StorageLimit: exampleStorageLimit * 1024 * 1024,
+	}
+
+	getProjectParams := &products.GetProjectsParams{
+		Name:    &pReq2.ProjectName,
+		Context: ctx,
+	}
+
+	p.On("GetProjects", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetProjectsOK{
+			Payload: nil,
+		}, &runtime.APIError{Code: Status404})
+
+	err := cl.DeleteProject(ctx, nonExistentProject)
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrProjectUnknownResource{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
 func TestRESTClient_GetProject(t *testing.T) {
 	p := &mocks.MockClientService{}
 
@@ -142,6 +688,25 @@ func TestRESTClient_GetProject(t *testing.T) {
 	p.AssertExpectations(t)
 }
 
+func TestRESTClient_GetProject_ErrProjectNameNotProvided(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	_, err := cl.GetProject(ctx, "")
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrProjectNameNotProvided{}, err)
+	}
+}
+
 func TestRESTClient_ListProjects(t *testing.T) {
 	p := &mocks.MockClientService{}
 
@@ -169,6 +734,64 @@ func TestRESTClient_ListProjects(t *testing.T) {
 	assert.NoError(t, err)
 
 	p.AssertExpectations(t)
+}
+
+func TestRESTClient_ListProjectsErrProjectNotFound(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	getProjectParams := &products.GetProjectsParams{
+		Name:    &pReq.ProjectName,
+		Context: ctx,
+	}
+
+	p.On("GetProjects", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetProjectsOK{
+			Payload: nil,
+		}, nil)
+
+	_, err := cl.ListProjects(ctx, exampleProject)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrProjectNotFound{}, err)
+	}
+}
+
+func TestRESTClient_ListProjects_ErrProjectUnknownResource(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	getProjectParams := &products.GetProjectsParams{
+		Name:    &pReq.ProjectName,
+		Context: ctx,
+	}
+
+	p.On("GetProjects", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetProjectsOK{
+			Payload: nil,
+		}, &runtime.APIError{Code: Status404})
+
+	_, err := cl.ListProjects(ctx, exampleProject)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrProjectUnknownResource{}, err)
+	}
 }
 
 func TestRESTClient_UpdateProject(t *testing.T) {
@@ -219,7 +842,7 @@ func TestRESTClient_UpdateProject(t *testing.T) {
 	p.AssertExpectations(t)
 }
 
-func TestRESTClient_UpdateProject_IDMismatch(t *testing.T) {
+func TestRESTClient_UpdateProject_ErrProjectInternalErrors(t *testing.T) {
 	p := &mocks.MockClientService{}
 
 	c := &client.Harbor{
@@ -247,6 +870,39 @@ func TestRESTClient_UpdateProject_IDMismatch(t *testing.T) {
 
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrProjectInternalErrors{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_UpdateProject_ErrProjectInternalErrors_(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	getProjectParams := &products.GetProjectsParams{
+		Name:    &pReq.ProjectName,
+		Context: ctx,
+	}
+
+	var project2 model.Project
+	project2 = *project
+
+	p.On("GetProjects", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetProjectsOK{Payload: []*model.Project{{Name: exampleProject}}}, nil)
+
+	project2.ProjectID = 100
+	err := cl.UpdateProject(ctx, &project2, int(exampleCountLimit), int(exampleStorageLimit))
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrProjectMismatch{}, err)
 	}
 
 	p.AssertExpectations(t)
@@ -311,6 +967,131 @@ func TestRESTClient_AddProjectMember(t *testing.T) {
 	p.AssertExpectations(t)
 }
 
+func TestRESTClient_AddProjectMember_ErrProjectUnknownResource(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	getProjectsParams := &products.GetProjectsParams{
+		Name:    &pReq.ProjectName,
+		Context: ctx,
+	}
+
+	p.On("GetProjects", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetProjectsOK{
+			Payload: nil,
+		}, &runtime.APIError{Code: Status404})
+
+	err := cl.AddProjectMember(ctx, project, usr, 1)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrProjectUnknownResource{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_AddProjectMember_ErrProjectNoMemberProvided(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	nilUsr := &model.User{}
+	nilUsr = nil
+
+	err := cl.AddProjectMember(ctx, project, nilUsr, 1)
+
+	if assert.Error(t, err) {
+		assert.Equal(t, &ErrProjectNoMemberProvided{}, err)
+	}
+}
+
+func TestRESTClient_AddProjectMember_ErrProjectMismatch(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	project2 := &model.Project{Name: "example-nonexistent"}
+
+	getProjectsParams := &products.GetProjectsParams{
+		Name:    &project2.Name,
+		Context: ctx,
+	}
+
+	p.On("GetProjects", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetProjectsOK{
+			Payload: nil,
+		}, &ErrProjectNotFound{})
+
+	err := cl.AddProjectMember(ctx, project2, usr, 1)
+
+	if assert.Error(t, err) {
+		assert.Equal(t, &ErrProjectMismatch{}, err)
+	}
+}
+
+func TestRESTClient_AddProjectMember_ErrProjectMemberMismatch(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	getProjectsParams := &products.GetProjectsParams{
+		Name:    &pReq.ProjectName,
+		Context: ctx,
+	}
+
+	getUserParams := &products.GetUsersParams{
+		Context:  ctx,
+		Username: &exampleUser,
+	}
+
+	p.On("GetProjects", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetProjectsOK{
+			Payload: []*model.Project{{Name: pReq.ProjectName}},
+		}, nil)
+
+	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetUsersOK{
+			Payload: []*model.User{{Username: "example-nonexistent"}},
+		}, nil)
+
+	err := cl.AddProjectMember(ctx, project, usr, 1)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrProjectMemberMismatch{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
 func TestRESTClient_ListProjectMembers(t *testing.T) {
 	p := &mocks.MockClientService{}
 
@@ -340,6 +1121,41 @@ func TestRESTClient_ListProjectMembers(t *testing.T) {
 	_, err := cl.ListProjectMembers(ctx, project)
 
 	assert.NoError(t, err)
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_ListProjectMembers_ErrProjectUnknownResource(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	e := ""
+
+	getProjectsProjectIDMembersParams := products.GetProjectsProjectIDMembersParams{
+		Entityname: &e,
+		ProjectID:  exampleProjectID,
+		Context:    ctx,
+	}
+
+	p.On("GetProjectsProjectIDMembers",
+		&getProjectsProjectIDMembersParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetProjectsProjectIDMembersOK{
+			Payload: nil,
+		}, &runtime.APIError{Code: Status404})
+
+	_, err := cl.ListProjectMembers(ctx, project)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrProjectUnknownResource{}, err)
+	}
 
 	p.AssertExpectations(t)
 }
@@ -486,6 +1302,28 @@ func TestRESTClient_UpdateProjectMemberRole_UserIsNoMember(t *testing.T) {
 	p.AssertExpectations(t)
 }
 
+func TestRESTClient_UpdateProjectMemberRole_ErrProjectNoMemberProvided(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	nilUsr := &model.User{}
+	nilUsr = nil
+
+	err := cl.UpdateProjectMemberRole(ctx, project, nilUsr, int(exampleUserRoleID))
+
+	if assert.Error(t, err) {
+		assert.Equal(t, &ErrProjectNoMemberProvided{}, err)
+	}
+}
+
 func TestRESTClient_DeleteProjectMember(t *testing.T) {
 	p := &mocks.MockClientService{}
 
@@ -582,6 +1420,57 @@ func TestRESTClient_DeleteProjectMember(t *testing.T) {
 	p.AssertExpectations(t)
 }
 
+func TestRESTClient_DeleteProjectMember_ErrProjectNoMemberProvided(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	nilUsr := &model.User{}
+	nilUsr = nil
+
+	err := cl.DeleteProjectMember(ctx, project, nilUsr)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrProjectNoMemberProvided{}, err)
+	}
+}
+
+func TestRESTClient_DeleteProjectMember_ErrProjectMismatch(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	getProjectsParams := &products.GetProjectsParams{
+		Name:    &pReq.ProjectName,
+		Context: ctx,
+	}
+
+	p.On("GetProjects", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetProjectsOK{
+			Payload: []*model.Project{{Name: "example-nonexistent"}},
+		}, nil)
+
+	err := cl.DeleteProjectMember(ctx, project, usr)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrProjectMismatch{}, err)
+	}
+}
+
 func TestRESTClient_AddProjectMetadata(t *testing.T) {
 	p := &mocks.MockClientService{}
 
@@ -613,6 +1502,39 @@ func TestRESTClient_AddProjectMetadata(t *testing.T) {
 	p.AssertExpectations(t)
 }
 
+func TestRESTClient_AddProjectMetadata_ErrProjectMetadataAlreadyExists(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	postProjectsProjectIDMetadatasParams := &products.PostProjectsProjectIDMetadatasParams{
+		Metadata: &model.ProjectMetadata{
+			EnableContentTrust: "true",
+		},
+		ProjectID: exampleProjectID,
+		Context:   ctx,
+	}
+
+	p.On("PostProjectsProjectIDMetadatas",
+		postProjectsProjectIDMetadatasParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PostProjectsProjectIDMetadatasOK{}, &runtime.APIError{Code: Status409})
+
+	err := cl.AddProjectMetadata(ctx, project, exampleMetadataKey, exampleMetadataValue)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrProjectMetadataAlreadyExists{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
 func TestRESTClient_GetProjectMetadataValue(t *testing.T) {
 	p := &mocks.MockClientService{}
 
@@ -625,7 +1547,7 @@ func TestRESTClient_GetProjectMetadataValue(t *testing.T) {
 
 	ctx := context.Background()
 
-	keys := []ProjectMetadataKey{
+	keys := []MetadataKey{
 		EnableContentTrustProjectMetadataKey,
 		AutoScanProjectMetadataKey,
 		SeverityProjectMetadataKey,
@@ -648,6 +1570,49 @@ func TestRESTClient_GetProjectMetadataValue(t *testing.T) {
 		_, err := cl.GetProjectMetadataValue(ctx, project, keys[i])
 
 		assert.NoError(t, err)
+
+		p.AssertExpectations(t)
+	}
+}
+
+func TestRESTClient_GetProjectMetadataValue_ErrProjectUnknownResource(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	keys := []MetadataKey{
+		EnableContentTrustProjectMetadataKey,
+		AutoScanProjectMetadataKey,
+		SeverityProjectMetadataKey,
+		ReuseSysCVEWhitelistProjectMetadataKey,
+		PublicProjectMetadataKey,
+		PreventVulProjectMetadataKey,
+	}
+
+	for i := range keys {
+		getProjectsProjectIDMetadatasMetaNameParams := &products.GetProjectsProjectIDMetadatasMetaNameParams{
+			MetaName:  string(keys[i]),
+			ProjectID: exampleProjectID,
+			Context:   ctx,
+		}
+
+		p.On("GetProjectsProjectIDMetadatasMetaName",
+			getProjectsProjectIDMetadatasMetaNameParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+			Return(&products.GetProjectsProjectIDMetadatasMetaNameOK{Payload: &model.ProjectMetadata{}},
+				&runtime.APIError{Code: Status404})
+
+		_, err := cl.GetProjectMetadataValue(ctx, project, keys[i])
+
+		if assert.Error(t, err) {
+			assert.IsType(t, &ErrProjectUnknownResource{}, err)
+		}
 
 		p.AssertExpectations(t)
 	}
@@ -692,7 +1657,7 @@ func TestRESTClient_ListProjectMetadata(t *testing.T) {
 	p.AssertExpectations(t)
 }
 
-func TestRESTClient_ListProjectMetadata_NoProjectProvided(t *testing.T) {
+func TestRESTClient_ListProjectMetadata_ErrProjectUnknownResource(t *testing.T) {
 	p := &mocks.MockClientService{}
 
 	c := &client.Harbor{
@@ -704,11 +1669,27 @@ func TestRESTClient_ListProjectMetadata_NoProjectProvided(t *testing.T) {
 
 	ctx := context.Background()
 
-	_, err := cl.ListProjectMetadata(ctx, nil)
+	project := &model.Project{
+		ProjectID: int32(exampleProjectID),
+		Metadata:  nil,
+	}
+
+	getProjectsProjectIDMetadatasParams := &products.GetProjectsProjectIDMetadatasParams{
+		ProjectID: exampleProjectID,
+		Context:   ctx,
+	}
+
+	p.On("GetProjectsProjectIDMetadatas",
+		getProjectsProjectIDMetadatasParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(nil, &runtime.APIError{Code: Status404})
+
+	_, err := cl.ListProjectMetadata(ctx, project)
 
 	if assert.Error(t, err) {
-		assert.Equal(t, &ErrProjectNotProvided{}, err)
+		assert.IsType(t, &ErrProjectUnknownResource{}, err)
 	}
+
+	p.AssertExpectations(t)
 }
 
 func TestRESTClient_UpdateProjectMetadata(t *testing.T) {
@@ -771,6 +1752,96 @@ func TestRESTClient_UpdateProjectMetadata(t *testing.T) {
 	p.AssertExpectations(t)
 }
 
+func TestRESTClient_UpdateProjectMetadata_GetProjectMeta_ErrProjectUnknownResource(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	project := &model.Project{
+		ProjectID: int32(exampleProjectID),
+		Metadata: &model.ProjectMetadata{
+			EnableContentTrust: "true",
+		},
+	}
+
+	getProjectsProjectIDMetadatasMetaName := &products.GetProjectsProjectIDMetadatasMetaNameParams{
+		MetaName:  string(EnableContentTrustProjectMetadataKey),
+		ProjectID: exampleProjectID,
+		Context:   ctx,
+	}
+
+	p.On("GetProjectsProjectIDMetadatasMetaName",
+		getProjectsProjectIDMetadatasMetaName, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetProjectsProjectIDMetadatasMetaNameOK{Payload: &model.ProjectMetadata{
+			EnableContentTrust: exampleMetadataValue,
+		}}, &runtime.APIError{Code: Status404})
+
+	err := cl.UpdateProjectMetadata(ctx, project, exampleMetadataKey, exampleMetadataValue)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrProjectUnknownResource{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_UpdateProjectMetadata_DeleteProjectMeta_ErrProjectUnknownResource(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	project := &model.Project{
+		ProjectID: int32(exampleProjectID),
+		Metadata: &model.ProjectMetadata{
+			EnableContentTrust: "true",
+		},
+	}
+
+	getProjectsProjectIDMetadatasMetaName := &products.GetProjectsProjectIDMetadatasMetaNameParams{
+		MetaName:  string(EnableContentTrustProjectMetadataKey),
+		ProjectID: exampleProjectID,
+		Context:   ctx,
+	}
+
+	deleteProjectsProjectIDMetadatasMetaName := &products.DeleteProjectsProjectIDMetadatasMetaNameParams{
+		MetaName:  string(EnableContentTrustProjectMetadataKey),
+		ProjectID: 0,
+		Context:   ctx,
+	}
+
+	p.On("GetProjectsProjectIDMetadatasMetaName",
+		getProjectsProjectIDMetadatasMetaName, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetProjectsProjectIDMetadatasMetaNameOK{Payload: &model.ProjectMetadata{
+			EnableContentTrust: exampleMetadataValue,
+		}}, nil)
+
+	p.On("DeleteProjectsProjectIDMetadatasMetaName",
+		deleteProjectsProjectIDMetadatasMetaName, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.DeleteProjectsProjectIDMetadatasMetaNameOK{}, &runtime.APIError{Code: Status404})
+
+	err := cl.UpdateProjectMetadata(ctx, project, exampleMetadataKey, exampleMetadataValue)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrProjectUnknownResource{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
 func TestRESTClient_DeleteProjectMetadataValue(t *testing.T) {
 	p := &mocks.MockClientService{}
 
@@ -805,6 +1876,12 @@ func TestRESTClient_DeleteProjectMetadataValue(t *testing.T) {
 	assert.NoError(t, err)
 
 	p.AssertExpectations(t)
+}
+
+func TestErrProjectNameNotProvided_Error(t *testing.T) {
+	var e ErrProjectNameNotProvided
+
+	assert.Equal(t, ErrProjectNameNotProvidedMsg, e.Error())
 }
 
 func TestErrProjectIDNotExists_Error(t *testing.T) {

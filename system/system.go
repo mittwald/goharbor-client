@@ -48,10 +48,8 @@ func (c *RESTClient) NewSystemGarbageCollection(ctx context.Context, cron,
 			Schedule: gcReq,
 			Context:  ctx,
 		}, c.AuthInfo)
-
-	err = handleSwaggerSystemErrors(err)
 	if err != nil {
-		return nil, err
+		return nil, handleSwaggerSystemErrors(err)
 	}
 
 	systemGc, err := c.GetSystemGarbageCollection(ctx)
@@ -93,10 +91,8 @@ func (c *RESTClient) GetSystemGarbageCollection(ctx context.Context) (*model.Adm
 		&products.GetSystemGcScheduleParams{
 			Context: ctx,
 		}, c.AuthInfo)
-
-	err = handleSwaggerSystemErrors(err)
 	if err != nil {
-		return nil, err
+		return nil, handleSwaggerSystemErrors(err)
 	}
 
 	if systemGc.Payload.Schedule == nil {

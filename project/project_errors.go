@@ -53,7 +53,18 @@ const (
 
 	// ErrProjectUnknownResourceMsg is the error message for ErrProjectUnknownResource error.
 	ErrProjectUnknownResourceMsg = "resource unknown"
+
+	// ErrProjectNameNotProvidedMsg is the error message for ErrProjectNameNotProvided error.
+	ErrProjectNameNotProvidedMsg = "project name not provided"
 )
+
+// ErrProjectNameNotProvided describes a missing project name.
+type ErrProjectNameNotProvided struct{}
+
+// Error returns the error message.
+func (e *ErrProjectNameNotProvided) Error() string {
+	return ErrProjectNameNotProvidedMsg
+}
 
 // ErrProjectIllegalIDFormat describes an illegal request format.
 type ErrProjectIllegalIDFormat struct{}

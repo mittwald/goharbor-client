@@ -14,13 +14,20 @@ import (
 )
 
 const (
-	Status200 int = 200
 	Status201 int = 201
 	Status400 int = 400
 	Status401 int = 401
 	Status403 int = 403
 	Status404 int = 404
+	Status409 int = 409
 	Status500 int = 500
+
+	EnableContentTrustProjectMetadataKey   MetadataKey = "enable_content_trust"
+	AutoScanProjectMetadataKey             MetadataKey = "auto_scan"
+	SeverityProjectMetadataKey             MetadataKey = "severity"
+	ReuseSysCVEWhitelistProjectMetadataKey MetadataKey = "reuse_sys_cve_whitelist"
+	PublicProjectMetadataKey               MetadataKey = "public"
+	PreventVulProjectMetadataKey           MetadataKey = "prevent_vul"
 )
 
 // RESTClient is a subclient forhandling project related actions.
@@ -39,6 +46,8 @@ func NewClient(cl *client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTCl
 	}
 }
 
+type MetadataKey string
+
 type Client interface {
 	NewProject(ctx context.Context, name string, countLimit int, storageLimit int)
 	DeleteProject(ctx context.Context, p *model.Project) error
@@ -51,23 +60,12 @@ type Client interface {
 	UpdateProjectMemberRole(ctx context.Context, p *model.Project, u *model.User, roleID int) error
 	DeleteProjectMember(ctx context.Context, p *model.Project, u *model.User) error
 
-	AddProjectMetadata(ctx context.Context, p *model.Project, key ProjectMetadataKey, value string) error
+	AddProjectMetadata(ctx context.Context, p *model.Project, key MetadataKey, value string) error
 	ListProjectMetadata(ctx context.Context, p *model.Project) (*model.ProjectMetadata, error)
-	GetProjectMetadataValue(ctx context.Context, p *model.Project, key ProjectMetadataKey) (string, error)
-	UpdateProjectMetadata(ctx context.Context, p *model.Project, key ProjectMetadataKey, value string) error
-	DeleteProjectMetadataValue(ctx context.Context, p *model.Project, key ProjectMetadataKey) error
+	GetProjectMetadataValue(ctx context.Context, p *model.Project, key MetadataKey) (string, error)
+	UpdateProjectMetadata(ctx context.Context, p *model.Project, key MetadataKey, value string) error
+	DeleteProjectMetadataValue(ctx context.Context, p *model.Project, key MetadataKey) error
 }
-
-type ProjectMetadataKey string
-
-const (
-	EnableContentTrustProjectMetadataKey   ProjectMetadataKey = "enable_content_trust"
-	AutoScanProjectMetadataKey             ProjectMetadataKey = "auto_scan"
-	SeverityProjectMetadataKey             ProjectMetadataKey = "severity"
-	ReuseSysCVEWhitelistProjectMetadataKey ProjectMetadataKey = "reuse_sys_cve_whitelist"
-	PublicProjectMetadataKey               ProjectMetadataKey = "public"
-	PreventVulProjectMetadataKey           ProjectMetadataKey = "prevent_vul"
-)
 
 // NewProject creates a new project with name as the project's name.
 // Returns the project as it is stored inside Harbor or an error,
@@ -89,10 +87,8 @@ func (c *RESTClient) NewProject(ctx context.Context, name string,
 			Project: pReq,
 			Context: ctx,
 		}, c.AuthInfo)
-
-	err = handleSwaggerProjectErrors(err)
 	if err != nil {
-		return nil, err
+		return nil, handleSwaggerProjectErrors(err)
 	}
 
 	project, err := c.GetProject(ctx, name)
@@ -135,17 +131,15 @@ func (c *RESTClient) DeleteProject(ctx context.Context,
 func (c *RESTClient) GetProject(ctx context.Context,
 	name string) (*model.Project, error) {
 	if name == "" {
-		return nil, errors.New("no name provided")
+		return nil, &ErrProjectNameNotProvided{}
 	}
 	resp, err := c.Client.Products.GetProjects(
 		&products.GetProjectsParams{
 			Name:    &name,
 			Context: ctx,
 		}, c.AuthInfo)
-
-	err = handleSwaggerProjectErrors(err)
 	if err != nil {
-		return nil, err
+		return nil, handleSwaggerProjectErrors(err)
 	}
 
 	for _, p := range resp.Payload {
@@ -167,10 +161,8 @@ func (c *RESTClient) ListProjects(ctx context.Context,
 			Name:    &nameFilter,
 			Context: ctx,
 		}, c.AuthInfo)
-
-	err = handleSwaggerProjectErrors(err)
 	if err != nil {
-		return nil, err
+		return nil, handleSwaggerProjectErrors(err)
 	}
 
 	if len(resp.Payload) == 0 {
@@ -273,10 +265,8 @@ func (c *RESTClient) ListProjectMembers(ctx context.Context, p *model.Project) (
 			ProjectID:  int64(p.ProjectID),
 			Context:    ctx,
 		}, c.AuthInfo)
-
-	err = handleSwaggerProjectErrors(err)
 	if err != nil {
-		return nil, err
+		return nil, handleSwaggerProjectErrors(err)
 	}
 
 	return resp.Payload, nil
@@ -351,7 +341,7 @@ func (c *RESTClient) DeleteProjectMember(ctx context.Context, p *model.Project, 
 
 // GetMetadataByKey returns a ProjectMetadata object matching
 // the provided key and containing the provided value.
-func getProjectMetadataByKey(key ProjectMetadataKey, value string) *model.ProjectMetadata {
+func getProjectMetadataByKey(key MetadataKey, value string) *model.ProjectMetadata {
 	var m model.ProjectMetadata
 
 	switch key {
@@ -375,7 +365,7 @@ func getProjectMetadataByKey(key ProjectMetadataKey, value string) *model.Projec
 // AddMetadata adds metadata with a specific key and value to project p.
 // See this for more explanation of possible keys and values:
 // https://github.com/goharbor/harbor/blob/v1.10.2/api/harbor/swagger.yaml#L4894
-func (c *RESTClient) AddProjectMetadata(ctx context.Context, p *model.Project, key ProjectMetadataKey, value string) error {
+func (c *RESTClient) AddProjectMetadata(ctx context.Context, p *model.Project, key MetadataKey, value string) error {
 	if p == nil {
 		return &ErrProjectNotProvided{}
 	}
@@ -391,8 +381,7 @@ func (c *RESTClient) AddProjectMetadata(ctx context.Context, p *model.Project, k
 	if err != nil {
 		t, ok := err.(*runtime.APIError)
 		if ok && t.Code == 409 {
-			// Unspecified error, which is returned when an existing metadata key
-			// is tried to create a second time.
+			// Unspecified error that returns when a metadata key is already defined.
 			return &ErrProjectMetadataAlreadyExists{}
 		}
 
@@ -403,7 +392,7 @@ func (c *RESTClient) AddProjectMetadata(ctx context.Context, p *model.Project, k
 }
 
 // GetProjectMetadataValue retrieves metadata with key of project p.
-func (c *RESTClient) GetProjectMetadataValue(ctx context.Context, p *model.Project, key ProjectMetadataKey) (string, error) {
+func (c *RESTClient) GetProjectMetadataValue(ctx context.Context, p *model.Project, key MetadataKey) (string, error) {
 	if p == nil {
 		return "", &ErrProjectNotProvided{}
 	}
@@ -414,10 +403,8 @@ func (c *RESTClient) GetProjectMetadataValue(ctx context.Context, p *model.Proje
 			ProjectID: int64(p.ProjectID),
 			Context:   ctx,
 		}, c.AuthInfo)
-
-	err = handleSwaggerProjectErrors(err)
 	if err != nil {
-		return "", err
+		return "", handleSwaggerProjectErrors(err)
 	}
 
 	var result string
@@ -453,10 +440,8 @@ func (c *RESTClient) ListProjectMetadata(ctx context.Context, p *model.Project) 
 			ProjectID: int64(p.ProjectID),
 			Context:   ctx,
 		}, c.AuthInfo)
-
-	err = handleSwaggerProjectErrors(err)
 	if err != nil {
-		return nil, err
+		return nil, handleSwaggerProjectErrors(err)
 	}
 
 	return resp.Payload, nil
@@ -464,7 +449,7 @@ func (c *RESTClient) ListProjectMetadata(ctx context.Context, p *model.Project) 
 
 // UpdateMetadata deletes the specified metadata key, if it exists and re-adds this metadata key with the given value.
 // This function works around the faulty behaviour of the corresponding 'Update' endpoint of the Harbor API.
-func (c *RESTClient) UpdateProjectMetadata(ctx context.Context, p *model.Project, key ProjectMetadataKey, value string) error {
+func (c *RESTClient) UpdateProjectMetadata(ctx context.Context, p *model.Project, key MetadataKey, value string) error {
 	if p == nil {
 		return &ErrProjectNotProvided{}
 	}
@@ -504,7 +489,7 @@ func (c *RESTClient) UpdateProjectMetadata(ctx context.Context, p *model.Project
 }
 
 // DeleteMetadataValue deletes metadata of project p given by key.
-func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context, p *model.Project, key ProjectMetadataKey) error {
+func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context, p *model.Project, key MetadataKey) error {
 	if p == nil {
 		return &ErrProjectNotProvided{}
 	}
