@@ -35,6 +35,7 @@ func (m *AdminJobSchedule) Validate(formats strfmt.Registry) error {
 }
 
 func (m *AdminJobSchedule) validateSchedule(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Schedule) { // not required
 		return nil
 	}

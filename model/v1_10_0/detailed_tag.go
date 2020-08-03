@@ -71,6 +71,7 @@ func (m *DetailedTag) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DetailedTag) validateLabels(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Labels) { // not required
 		return nil
 	}
@@ -95,6 +96,7 @@ func (m *DetailedTag) validateLabels(formats strfmt.Registry) error {
 }
 
 func (m *DetailedTag) validateScanOverview(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ScanOverview) { // not required
 		return nil
 	}

@@ -79,6 +79,7 @@ func (o *PostProjectsCreated) Error() string {
 }
 
 func (o *PostProjectsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -99,6 +100,7 @@ func (o *PostProjectsBadRequest) Error() string {
 }
 
 func (o *PostProjectsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -119,6 +121,7 @@ func (o *PostProjectsUnauthorized) Error() string {
 }
 
 func (o *PostProjectsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -139,6 +142,7 @@ func (o *PostProjectsConflict) Error() string {
 }
 
 func (o *PostProjectsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -159,6 +163,7 @@ func (o *PostProjectsUnsupportedMediaType) Error() string {
 }
 
 func (o *PostProjectsUnsupportedMediaType) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -179,5 +184,6 @@ func (o *PostProjectsInternalServerError) Error() string {
 }
 
 func (o *PostProjectsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }

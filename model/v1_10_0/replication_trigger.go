@@ -38,6 +38,7 @@ func (m *ReplicationTrigger) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ReplicationTrigger) validateTriggerSettings(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.TriggerSettings) { // not required
 		return nil
 	}

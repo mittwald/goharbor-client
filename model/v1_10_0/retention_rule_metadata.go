@@ -46,6 +46,7 @@ func (m *RetentionRuleMetadata) Validate(formats strfmt.Registry) error {
 }
 
 func (m *RetentionRuleMetadata) validateParams(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Params) { // not required
 		return nil
 	}

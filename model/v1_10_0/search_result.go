@@ -41,6 +41,7 @@ func (m *SearchResult) Validate(formats strfmt.Registry) error {
 }
 
 func (m *SearchResult) validateChart(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Chart) { // not required
 		return nil
 	}

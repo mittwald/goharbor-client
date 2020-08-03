@@ -79,6 +79,7 @@ func (o *PutProjectsProjectIDOK) Error() string {
 }
 
 func (o *PutProjectsProjectIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -99,6 +100,7 @@ func (o *PutProjectsProjectIDBadRequest) Error() string {
 }
 
 func (o *PutProjectsProjectIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -119,6 +121,7 @@ func (o *PutProjectsProjectIDUnauthorized) Error() string {
 }
 
 func (o *PutProjectsProjectIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -139,6 +142,7 @@ func (o *PutProjectsProjectIDForbidden) Error() string {
 }
 
 func (o *PutProjectsProjectIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -159,6 +163,7 @@ func (o *PutProjectsProjectIDNotFound) Error() string {
 }
 
 func (o *PutProjectsProjectIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -179,5 +184,6 @@ func (o *PutProjectsProjectIDInternalServerError) Error() string {
 }
 
 func (o *PutProjectsProjectIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }

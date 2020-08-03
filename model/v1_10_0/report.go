@@ -50,6 +50,7 @@ func (m *Report) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Report) validateScanner(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Scanner) { // not required
 		return nil
 	}
@@ -67,6 +68,7 @@ func (m *Report) validateScanner(formats strfmt.Registry) error {
 }
 
 func (m *Report) validateVulnerabilities(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Vulnerabilities) { // not required
 		return nil
 	}

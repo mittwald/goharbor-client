@@ -81,6 +81,7 @@ func (o *GetUsersOK) GetPayload() []*v1_10_0.User {
 }
 
 func (o *GetUsersOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
@@ -106,6 +107,7 @@ func (o *GetUsersBadRequest) Error() string {
 }
 
 func (o *GetUsersBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -126,6 +128,7 @@ func (o *GetUsersUnauthorized) Error() string {
 }
 
 func (o *GetUsersUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -146,6 +149,7 @@ func (o *GetUsersForbidden) Error() string {
 }
 
 func (o *GetUsersForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -166,5 +170,6 @@ func (o *GetUsersInternalServerError) Error() string {
 }
 
 func (o *GetUsersInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }

@@ -79,6 +79,7 @@ func (o *PutRegistriesIDOK) Error() string {
 }
 
 func (o *PutRegistriesIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -99,6 +100,7 @@ func (o *PutRegistriesIDBadRequest) Error() string {
 }
 
 func (o *PutRegistriesIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -119,6 +121,7 @@ func (o *PutRegistriesIDUnauthorized) Error() string {
 }
 
 func (o *PutRegistriesIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -139,6 +142,7 @@ func (o *PutRegistriesIDNotFound) Error() string {
 }
 
 func (o *PutRegistriesIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -159,6 +163,7 @@ func (o *PutRegistriesIDConflict) Error() string {
 }
 
 func (o *PutRegistriesIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -179,5 +184,6 @@ func (o *PutRegistriesIDInternalServerError) Error() string {
 }
 
 func (o *PutRegistriesIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }

@@ -258,6 +258,7 @@ func (m *ConfigurationsResponse) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ConfigurationsResponse) validateAuthMode(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.AuthMode) { // not required
 		return nil
 	}
@@ -275,6 +276,7 @@ func (m *ConfigurationsResponse) validateAuthMode(formats strfmt.Registry) error
 }
 
 func (m *ConfigurationsResponse) validateCountPerProject(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.CountPerProject) { // not required
 		return nil
 	}
@@ -292,6 +294,7 @@ func (m *ConfigurationsResponse) validateCountPerProject(formats strfmt.Registry
 }
 
 func (m *ConfigurationsResponse) validateEmailFrom(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.EmailFrom) { // not required
 		return nil
 	}
@@ -309,6 +312,7 @@ func (m *ConfigurationsResponse) validateEmailFrom(formats strfmt.Registry) erro
 }
 
 func (m *ConfigurationsResponse) validateEmailHost(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.EmailHost) { // not required
 		return nil
 	}
@@ -326,6 +330,7 @@ func (m *ConfigurationsResponse) validateEmailHost(formats strfmt.Registry) erro
 }
 
 func (m *ConfigurationsResponse) validateEmailIdentity(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.EmailIdentity) { // not required
 		return nil
 	}
@@ -343,6 +348,7 @@ func (m *ConfigurationsResponse) validateEmailIdentity(formats strfmt.Registry) 
 }
 
 func (m *ConfigurationsResponse) validateEmailInsecure(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.EmailInsecure) { // not required
 		return nil
 	}
@@ -360,6 +366,7 @@ func (m *ConfigurationsResponse) validateEmailInsecure(formats strfmt.Registry) 
 }
 
 func (m *ConfigurationsResponse) validateEmailPort(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.EmailPort) { // not required
 		return nil
 	}
@@ -377,6 +384,7 @@ func (m *ConfigurationsResponse) validateEmailPort(formats strfmt.Registry) erro
 }
 
 func (m *ConfigurationsResponse) validateEmailSsl(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.EmailSsl) { // not required
 		return nil
 	}
@@ -394,6 +402,7 @@ func (m *ConfigurationsResponse) validateEmailSsl(formats strfmt.Registry) error
 }
 
 func (m *ConfigurationsResponse) validateEmailUsername(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.EmailUsername) { // not required
 		return nil
 	}
@@ -411,6 +420,7 @@ func (m *ConfigurationsResponse) validateEmailUsername(formats strfmt.Registry) 
 }
 
 func (m *ConfigurationsResponse) validateLdapBaseDn(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.LdapBaseDn) { // not required
 		return nil
 	}
@@ -428,6 +438,7 @@ func (m *ConfigurationsResponse) validateLdapBaseDn(formats strfmt.Registry) err
 }
 
 func (m *ConfigurationsResponse) validateLdapFilter(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.LdapFilter) { // not required
 		return nil
 	}
@@ -445,6 +456,7 @@ func (m *ConfigurationsResponse) validateLdapFilter(formats strfmt.Registry) err
 }
 
 func (m *ConfigurationsResponse) validateLdapGroupAdminDn(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.LdapGroupAdminDn) { // not required
 		return nil
 	}
@@ -462,6 +474,7 @@ func (m *ConfigurationsResponse) validateLdapGroupAdminDn(formats strfmt.Registr
 }
 
 func (m *ConfigurationsResponse) validateLdapGroupAttributeName(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.LdapGroupAttributeName) { // not required
 		return nil
 	}
@@ -479,6 +492,7 @@ func (m *ConfigurationsResponse) validateLdapGroupAttributeName(formats strfmt.R
 }
 
 func (m *ConfigurationsResponse) validateLdapGroupBaseDn(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.LdapGroupBaseDn) { // not required
 		return nil
 	}
@@ -496,6 +510,7 @@ func (m *ConfigurationsResponse) validateLdapGroupBaseDn(formats strfmt.Registry
 }
 
 func (m *ConfigurationsResponse) validateLdapGroupSearchFilter(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.LdapGroupSearchFilter) { // not required
 		return nil
 	}
@@ -513,6 +528,7 @@ func (m *ConfigurationsResponse) validateLdapGroupSearchFilter(formats strfmt.Re
 }
 
 func (m *ConfigurationsResponse) validateLdapGroupSearchScope(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.LdapGroupSearchScope) { // not required
 		return nil
 	}
@@ -530,6 +546,7 @@ func (m *ConfigurationsResponse) validateLdapGroupSearchScope(formats strfmt.Reg
 }
 
 func (m *ConfigurationsResponse) validateLdapTimeout(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.LdapTimeout) { // not required
 		return nil
 	}
@@ -547,6 +564,7 @@ func (m *ConfigurationsResponse) validateLdapTimeout(formats strfmt.Registry) er
 }
 
 func (m *ConfigurationsResponse) validateLdapUID(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.LdapUID) { // not required
 		return nil
 	}
@@ -564,6 +582,7 @@ func (m *ConfigurationsResponse) validateLdapUID(formats strfmt.Registry) error 
 }
 
 func (m *ConfigurationsResponse) validateLdapURL(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.LdapURL) { // not required
 		return nil
 	}
@@ -581,6 +600,7 @@ func (m *ConfigurationsResponse) validateLdapURL(formats strfmt.Registry) error 
 }
 
 func (m *ConfigurationsResponse) validateOidcClientID(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.OidcClientID) { // not required
 		return nil
 	}
@@ -598,6 +618,7 @@ func (m *ConfigurationsResponse) validateOidcClientID(formats strfmt.Registry) e
 }
 
 func (m *ConfigurationsResponse) validateOidcEndpoint(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.OidcEndpoint) { // not required
 		return nil
 	}
@@ -615,6 +636,7 @@ func (m *ConfigurationsResponse) validateOidcEndpoint(formats strfmt.Registry) e
 }
 
 func (m *ConfigurationsResponse) validateOidcName(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.OidcName) { // not required
 		return nil
 	}
@@ -632,6 +654,7 @@ func (m *ConfigurationsResponse) validateOidcName(formats strfmt.Registry) error
 }
 
 func (m *ConfigurationsResponse) validateOidcScope(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.OidcScope) { // not required
 		return nil
 	}
@@ -649,6 +672,7 @@ func (m *ConfigurationsResponse) validateOidcScope(formats strfmt.Registry) erro
 }
 
 func (m *ConfigurationsResponse) validateOidcVerifyCert(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.OidcVerifyCert) { // not required
 		return nil
 	}
@@ -666,6 +690,7 @@ func (m *ConfigurationsResponse) validateOidcVerifyCert(formats strfmt.Registry)
 }
 
 func (m *ConfigurationsResponse) validateProjectCreationRestriction(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ProjectCreationRestriction) { // not required
 		return nil
 	}
@@ -683,6 +708,7 @@ func (m *ConfigurationsResponse) validateProjectCreationRestriction(formats strf
 }
 
 func (m *ConfigurationsResponse) validateQuotaPerProjectEnable(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.QuotaPerProjectEnable) { // not required
 		return nil
 	}
@@ -700,6 +726,7 @@ func (m *ConfigurationsResponse) validateQuotaPerProjectEnable(formats strfmt.Re
 }
 
 func (m *ConfigurationsResponse) validateReadOnly(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ReadOnly) { // not required
 		return nil
 	}
@@ -717,6 +744,7 @@ func (m *ConfigurationsResponse) validateReadOnly(formats strfmt.Registry) error
 }
 
 func (m *ConfigurationsResponse) validateScanAllPolicy(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ScanAllPolicy) { // not required
 		return nil
 	}
@@ -734,6 +762,7 @@ func (m *ConfigurationsResponse) validateScanAllPolicy(formats strfmt.Registry) 
 }
 
 func (m *ConfigurationsResponse) validateSelfRegistration(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.SelfRegistration) { // not required
 		return nil
 	}
@@ -751,6 +780,7 @@ func (m *ConfigurationsResponse) validateSelfRegistration(formats strfmt.Registr
 }
 
 func (m *ConfigurationsResponse) validateStoragePerProject(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.StoragePerProject) { // not required
 		return nil
 	}
@@ -768,6 +798,7 @@ func (m *ConfigurationsResponse) validateStoragePerProject(formats strfmt.Regist
 }
 
 func (m *ConfigurationsResponse) validateTokenExpiration(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.TokenExpiration) { // not required
 		return nil
 	}
@@ -785,6 +816,7 @@ func (m *ConfigurationsResponse) validateTokenExpiration(formats strfmt.Registry
 }
 
 func (m *ConfigurationsResponse) validateVerifyRemoteCert(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.VerifyRemoteCert) { // not required
 		return nil
 	}
@@ -846,6 +878,7 @@ func (m *ConfigurationsResponseScanAllPolicy) Validate(formats strfmt.Registry) 
 }
 
 func (m *ConfigurationsResponseScanAllPolicy) validateParameter(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Parameter) { // not required
 		return nil
 	}

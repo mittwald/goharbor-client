@@ -92,6 +92,7 @@ func (m *ChartMetadata) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ChartMetadata) validateAPIVersion(formats strfmt.Registry) error {
+
 	if err := validate.Required("apiVersion", "body", m.APIVersion); err != nil {
 		return err
 	}
@@ -100,6 +101,7 @@ func (m *ChartMetadata) validateAPIVersion(formats strfmt.Registry) error {
 }
 
 func (m *ChartMetadata) validateAppVersion(formats strfmt.Registry) error {
+
 	if err := validate.Required("appVersion", "body", m.AppVersion); err != nil {
 		return err
 	}
@@ -108,6 +110,7 @@ func (m *ChartMetadata) validateAppVersion(formats strfmt.Registry) error {
 }
 
 func (m *ChartMetadata) validateEngine(formats strfmt.Registry) error {
+
 	if err := validate.Required("engine", "body", m.Engine); err != nil {
 		return err
 	}
@@ -116,6 +119,7 @@ func (m *ChartMetadata) validateEngine(formats strfmt.Registry) error {
 }
 
 func (m *ChartMetadata) validateIcon(formats strfmt.Registry) error {
+
 	if err := validate.Required("icon", "body", m.Icon); err != nil {
 		return err
 	}
@@ -124,6 +128,7 @@ func (m *ChartMetadata) validateIcon(formats strfmt.Registry) error {
 }
 
 func (m *ChartMetadata) validateName(formats strfmt.Registry) error {
+
 	if err := validate.Required("name", "body", m.Name); err != nil {
 		return err
 	}
@@ -132,6 +137,7 @@ func (m *ChartMetadata) validateName(formats strfmt.Registry) error {
 }
 
 func (m *ChartMetadata) validateVersion(formats strfmt.Registry) error {
+
 	if err := validate.Required("version", "body", m.Version); err != nil {
 		return err
 	}

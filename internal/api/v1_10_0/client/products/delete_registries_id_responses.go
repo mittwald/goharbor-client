@@ -73,6 +73,7 @@ func (o *DeleteRegistriesIDOK) Error() string {
 }
 
 func (o *DeleteRegistriesIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -93,6 +94,7 @@ func (o *DeleteRegistriesIDBadRequest) Error() string {
 }
 
 func (o *DeleteRegistriesIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -113,6 +115,7 @@ func (o *DeleteRegistriesIDUnauthorized) Error() string {
 }
 
 func (o *DeleteRegistriesIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -133,6 +136,7 @@ func (o *DeleteRegistriesIDNotFound) Error() string {
 }
 
 func (o *DeleteRegistriesIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -153,5 +157,6 @@ func (o *DeleteRegistriesIDInternalServerError) Error() string {
 }
 
 func (o *DeleteRegistriesIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }

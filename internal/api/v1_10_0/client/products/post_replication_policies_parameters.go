@@ -119,6 +119,7 @@ func (o *PostReplicationPoliciesParams) SetPolicy(policy *v1_10_0.ReplicationPol
 
 // WriteToRequest writes these params to a swagger request
 func (o *PostReplicationPoliciesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
+
 	if err := r.SetTimeout(o.timeout); err != nil {
 		return err
 	}

@@ -37,6 +37,7 @@ func (m *Resource) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Resource) validateReplicationPolicies(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ReplicationPolicies) { // not required
 		return nil
 	}

@@ -143,6 +143,7 @@ func (m *ChartVersion) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ChartVersion) validateLabels(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Labels) { // not required
 		return nil
 	}

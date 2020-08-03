@@ -63,6 +63,7 @@ func (m *RetentionRule) Validate(formats strfmt.Registry) error {
 }
 
 func (m *RetentionRule) validateScopeSelectors(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ScopeSelectors) { // not required
 		return nil
 	}
@@ -74,12 +75,14 @@ func (m *RetentionRule) validateScopeSelectors(formats strfmt.Registry) error {
 		}
 
 		for i := 0; i < len(m.ScopeSelectors[k]); i++ {
+
 			if err := m.ScopeSelectors[k][i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("scope_selectors" + "." + k + "." + strconv.Itoa(i))
 				}
 				return err
 			}
+
 		}
 
 	}
@@ -88,6 +91,7 @@ func (m *RetentionRule) validateScopeSelectors(formats strfmt.Registry) error {
 }
 
 func (m *RetentionRule) validateTagSelectors(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.TagSelectors) { // not required
 		return nil
 	}

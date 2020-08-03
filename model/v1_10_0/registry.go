@@ -62,6 +62,7 @@ func (m *Registry) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Registry) validateCredential(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Credential) { // not required
 		return nil
 	}

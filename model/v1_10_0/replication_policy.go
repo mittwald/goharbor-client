@@ -85,6 +85,7 @@ func (m *ReplicationPolicy) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ReplicationPolicy) validateDestRegistry(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.DestRegistry) { // not required
 		return nil
 	}
@@ -102,6 +103,7 @@ func (m *ReplicationPolicy) validateDestRegistry(formats strfmt.Registry) error 
 }
 
 func (m *ReplicationPolicy) validateFilters(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Filters) { // not required
 		return nil
 	}
@@ -126,6 +128,7 @@ func (m *ReplicationPolicy) validateFilters(formats strfmt.Registry) error {
 }
 
 func (m *ReplicationPolicy) validateSrcRegistry(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.SrcRegistry) { // not required
 		return nil
 	}
@@ -143,6 +146,7 @@ func (m *ReplicationPolicy) validateSrcRegistry(formats strfmt.Registry) error {
 }
 
 func (m *ReplicationPolicy) validateTrigger(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Trigger) { // not required
 		return nil
 	}

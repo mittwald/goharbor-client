@@ -37,6 +37,7 @@ func (m *SystemInfo) Validate(formats strfmt.Registry) error {
 }
 
 func (m *SystemInfo) validateStorage(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Storage) { // not required
 		return nil
 	}

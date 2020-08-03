@@ -69,6 +69,7 @@ func (o *GetRegistriesOK) GetPayload() []*v1_10_0.Registry {
 }
 
 func (o *GetRegistriesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
@@ -94,6 +95,7 @@ func (o *GetRegistriesUnauthorized) Error() string {
 }
 
 func (o *GetRegistriesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }
 
@@ -114,5 +116,6 @@ func (o *GetRegistriesInternalServerError) Error() string {
 }
 
 func (o *GetRegistriesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	return nil
 }

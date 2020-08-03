@@ -68,6 +68,7 @@ func (m *ChartInfoEntry) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ChartInfoEntry) validateCreated(formats strfmt.Registry) error {
+
 	if err := validate.Required("created", "body", m.Created); err != nil {
 		return err
 	}
@@ -76,6 +77,7 @@ func (m *ChartInfoEntry) validateCreated(formats strfmt.Registry) error {
 }
 
 func (m *ChartInfoEntry) validateName(formats strfmt.Registry) error {
+
 	if err := validate.Required("name", "body", m.Name); err != nil {
 		return err
 	}
@@ -84,6 +86,7 @@ func (m *ChartInfoEntry) validateName(formats strfmt.Registry) error {
 }
 
 func (m *ChartInfoEntry) validateTotalVersions(formats strfmt.Registry) error {
+
 	if err := validate.Required("total_versions", "body", m.TotalVersions); err != nil {
 		return err
 	}

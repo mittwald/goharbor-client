@@ -51,6 +51,7 @@ func (m *RetentionMetadata) Validate(formats strfmt.Registry) error {
 }
 
 func (m *RetentionMetadata) validateScopeSelectors(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ScopeSelectors) { // not required
 		return nil
 	}
@@ -75,6 +76,7 @@ func (m *RetentionMetadata) validateScopeSelectors(formats strfmt.Registry) erro
 }
 
 func (m *RetentionMetadata) validateTagSelectors(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.TagSelectors) { // not required
 		return nil
 	}
@@ -99,6 +101,7 @@ func (m *RetentionMetadata) validateTagSelectors(formats strfmt.Registry) error 
 }
 
 func (m *RetentionMetadata) validateTemplates(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Templates) { // not required
 		return nil
 	}

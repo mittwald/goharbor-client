@@ -48,6 +48,7 @@ func (m *Dependency) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Dependency) validateName(formats strfmt.Registry) error {
+
 	if err := validate.Required("name", "body", m.Name); err != nil {
 		return err
 	}
@@ -56,6 +57,7 @@ func (m *Dependency) validateName(formats strfmt.Registry) error {
 }
 
 func (m *Dependency) validateVersion(formats strfmt.Registry) error {
+
 	if err := validate.Required("version", "body", m.Version); err != nil {
 		return err
 	}

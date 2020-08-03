@@ -43,6 +43,7 @@ func (m *RobotAccountCreate) Validate(formats strfmt.Registry) error {
 }
 
 func (m *RobotAccountCreate) validateAccess(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Access) { // not required
 		return nil
 	}

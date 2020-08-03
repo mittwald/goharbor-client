@@ -35,6 +35,7 @@ func (m *SecurityReport) Validate(formats strfmt.Registry) error {
 }
 
 func (m *SecurityReport) validateSignature(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Signature) { // not required
 		return nil
 	}
