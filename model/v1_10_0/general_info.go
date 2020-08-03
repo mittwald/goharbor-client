@@ -73,7 +73,6 @@ func (m *GeneralInfo) Validate(formats strfmt.Registry) error {
 }
 
 func (m *GeneralInfo) validateClairVulnerabilityStatus(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ClairVulnerabilityStatus) { // not required
 		return nil
 	}
@@ -135,7 +134,6 @@ func (m *GeneralInfoClairVulnerabilityStatus) Validate(formats strfmt.Registry) 
 }
 
 func (m *GeneralInfoClairVulnerabilityStatus) validateDetails(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Details) { // not required
 		return nil
 	}

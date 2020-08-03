@@ -73,7 +73,6 @@ func (o *DeleteProjectsProjectIDMetadatasMetaNameOK) Error() string {
 }
 
 func (o *DeleteProjectsProjectIDMetadatasMetaNameOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -94,7 +93,6 @@ func (o *DeleteProjectsProjectIDMetadatasMetaNameBadRequest) Error() string {
 }
 
 func (o *DeleteProjectsProjectIDMetadatasMetaNameBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -115,7 +113,6 @@ func (o *DeleteProjectsProjectIDMetadatasMetaNameForbidden) Error() string {
 }
 
 func (o *DeleteProjectsProjectIDMetadatasMetaNameForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -136,7 +133,6 @@ func (o *DeleteProjectsProjectIDMetadatasMetaNameNotFound) Error() string {
 }
 
 func (o *DeleteProjectsProjectIDMetadatasMetaNameNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -157,6 +153,5 @@ func (o *DeleteProjectsProjectIDMetadatasMetaNameInternalServerError) Error() st
 }
 
 func (o *DeleteProjectsProjectIDMetadatasMetaNameInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }

@@ -79,7 +79,6 @@ func (o *DeleteUsersUserIDOK) Error() string {
 }
 
 func (o *DeleteUsersUserIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -100,7 +99,6 @@ func (o *DeleteUsersUserIDBadRequest) Error() string {
 }
 
 func (o *DeleteUsersUserIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -121,7 +119,6 @@ func (o *DeleteUsersUserIDUnauthorized) Error() string {
 }
 
 func (o *DeleteUsersUserIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -142,7 +139,6 @@ func (o *DeleteUsersUserIDForbidden) Error() string {
 }
 
 func (o *DeleteUsersUserIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -163,7 +159,6 @@ func (o *DeleteUsersUserIDNotFound) Error() string {
 }
 
 func (o *DeleteUsersUserIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -184,6 +179,5 @@ func (o *DeleteUsersUserIDInternalServerError) Error() string {
 }
 
 func (o *DeleteUsersUserIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }

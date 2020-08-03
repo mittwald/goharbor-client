@@ -69,7 +69,6 @@ func (o *GetProjectsProjectIDOK) GetPayload() *v1_10_0.Project {
 }
 
 func (o *GetProjectsProjectIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(v1_10_0.Project)
 
 	// response payload
@@ -97,7 +96,6 @@ func (o *GetProjectsProjectIDUnauthorized) Error() string {
 }
 
 func (o *GetProjectsProjectIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -118,6 +116,5 @@ func (o *GetProjectsProjectIDInternalServerError) Error() string {
 }
 
 func (o *GetProjectsProjectIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }

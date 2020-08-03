@@ -137,7 +137,6 @@ func (m *Configurations) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Configurations) validateScanAllPolicy(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ScanAllPolicy) { // not required
 		return nil
 	}
@@ -199,7 +198,6 @@ func (m *ConfigurationsScanAllPolicy) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ConfigurationsScanAllPolicy) validateParameter(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Parameter) { // not required
 		return nil
 	}

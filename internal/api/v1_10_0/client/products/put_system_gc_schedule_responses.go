@@ -73,7 +73,6 @@ func (o *PutSystemGcScheduleOK) Error() string {
 }
 
 func (o *PutSystemGcScheduleOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -94,7 +93,6 @@ func (o *PutSystemGcScheduleBadRequest) Error() string {
 }
 
 func (o *PutSystemGcScheduleBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -115,7 +113,6 @@ func (o *PutSystemGcScheduleUnauthorized) Error() string {
 }
 
 func (o *PutSystemGcScheduleUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -136,7 +133,6 @@ func (o *PutSystemGcScheduleForbidden) Error() string {
 }
 
 func (o *PutSystemGcScheduleForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -157,6 +153,5 @@ func (o *PutSystemGcScheduleInternalServerError) Error() string {
 }
 
 func (o *PutSystemGcScheduleInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }

@@ -64,7 +64,6 @@ func (m *ChartVersionDetails) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ChartVersionDetails) validateDependencies(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Dependencies) { // not required
 		return nil
 	}
@@ -89,7 +88,6 @@ func (m *ChartVersionDetails) validateDependencies(formats strfmt.Registry) erro
 }
 
 func (m *ChartVersionDetails) validateLabels(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Labels) { // not required
 		return nil
 	}
@@ -105,7 +103,6 @@ func (m *ChartVersionDetails) validateLabels(formats strfmt.Registry) error {
 }
 
 func (m *ChartVersionDetails) validateMetadata(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Metadata) { // not required
 		return nil
 	}
@@ -123,7 +120,6 @@ func (m *ChartVersionDetails) validateMetadata(formats strfmt.Registry) error {
 }
 
 func (m *ChartVersionDetails) validateSecurity(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Security) { // not required
 		return nil
 	}

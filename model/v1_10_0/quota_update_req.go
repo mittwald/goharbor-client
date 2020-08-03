@@ -35,7 +35,6 @@ func (m *QuotaUpdateReq) Validate(formats strfmt.Registry) error {
 }
 
 func (m *QuotaUpdateReq) validateHard(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Hard) { // not required
 		return nil
 	}

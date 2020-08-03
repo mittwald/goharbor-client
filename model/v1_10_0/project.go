@@ -78,7 +78,6 @@ func (m *Project) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Project) validateCveWhitelist(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CveWhitelist) { // not required
 		return nil
 	}
@@ -96,7 +95,6 @@ func (m *Project) validateCveWhitelist(formats strfmt.Registry) error {
 }
 
 func (m *Project) validateMetadata(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Metadata) { // not required
 		return nil
 	}

@@ -20,11 +20,27 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-const (
-	name string = "test-registry"
-)
+const name string = "example-registry"
 
-var authInfo = runtimeclient.BasicAuth("foo", "bar")
+var (
+	authInfo = runtimeclient.BasicAuth("foo", "bar")
+	registry = &model.Registry{
+		CreationTime: "",
+		Credential: &model.RegistryCredential{
+			AccessKey:    "",
+			AccessSecret: "",
+			Type:         "",
+		},
+		Description: "",
+		ID:          10,
+		Insecure:    false,
+		Name:        name,
+		Status:      "",
+		Type:        "harbor",
+		UpdateTime:  "",
+		URL:         "http://foo.bar",
+	}
+)
 
 func TestNewClient(t *testing.T) {
 	swaggerClient := client.New(runtimeclient.New("foobar:30002", "/api",
@@ -127,12 +143,54 @@ func TestRESTClient_NewRegistry_ErrOnPOST(t *testing.T) {
 	}
 }
 
+func TestRESTClient_NewRegistry_ErrRegistryNotFound(t *testing.T) {
+	req := &model.Registry{
+		Credential: &model.RegistryCredential{},
+		Insecure:   true,
+		Name:       name,
+		Type:       "harbor",
+		URL:        "http://test.reg",
+	}
+
+	ctx := context.Background()
+
+	p := &mocks.MockClientService{}
+	p.On("PostRegistries",
+		&products.PostRegistriesParams{
+			Registry: req,
+			Context:  ctx,
+		},
+		mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc"),
+	).Return(&products.PostRegistriesCreated{}, nil)
+
+	p.On("GetRegistries",
+		&products.GetRegistriesParams{
+			Name:    &req.Name,
+			Context: ctx,
+		}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc"),
+	).Return(
+		&products.GetRegistriesOK{
+			Payload: nil,
+		}, &ErrRegistryNotFound{})
+
+	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
+
+	_, err := cl.NewRegistry(ctx, req.Name, req.Type,
+		req.URL, &model.RegistryCredential{}, true)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrRegistryNotFound{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
 func TestRESTClient_GetRegistry(t *testing.T) {
 	name := name
-	insecure := true
+	insecure := false
 	regType := "harbor"
 	url := "http://foo.bar"
-	id := int64(11)
+	id := int64(10)
 	ctx := context.Background()
 
 	p := &mocks.MockClientService{}
@@ -142,20 +200,7 @@ func TestRESTClient_GetRegistry(t *testing.T) {
 			Context: ctx,
 		}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc"),
 	).Return(&products.GetRegistriesOK{
-		Payload: []*model.Registry{
-			{
-				CreationTime: "",
-				Credential:   nil,
-				Description:  "",
-				ID:           id,
-				Insecure:     insecure,
-				Name:         name,
-				Status:       "",
-				Type:         regType,
-				UpdateTime:   "",
-				URL:          url,
-			},
-		},
+		Payload: []*model.Registry{registry},
 	}, nil)
 
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
@@ -192,6 +237,172 @@ func TestRESTClient_GetRegistry_NotFound(t *testing.T) {
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrRegistryNotFound{}, err)
 	}
+}
+
+func TestRESTClient_GetRegistry_Err(t *testing.T) {
+	name := name
+	ctx := context.Background()
+
+	p := &mocks.MockClientService{}
+
+	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
+
+	p.On("GetRegistries",
+		&products.GetRegistriesParams{
+			Name:    &name,
+			Context: ctx,
+		}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc"),
+	).Return(&products.GetRegistriesOK{
+		Payload: []*model.Registry{},
+	}, &runtime.APIError{Code: Status401})
+
+	_, err := cl.GetRegistry(ctx, name)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrRegistryUnauthorized{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_GetRegistry_ErrRegistryNoPermission(t *testing.T) {
+	name := name
+	ctx := context.Background()
+
+	p := &mocks.MockClientService{}
+
+	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
+
+	p.On("GetRegistries",
+		&products.GetRegistriesParams{
+			Name:    &name,
+			Context: ctx,
+		}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc"),
+	).Return(&products.GetRegistriesOK{
+		Payload: []*model.Registry{},
+	}, &runtime.APIError{Code: Status403})
+
+	_, err := cl.GetRegistry(ctx, name)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrRegistryNoPermission{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_GetRegistry_ErrRegistryIDNotExists(t *testing.T) {
+	name := name
+	ctx := context.Background()
+
+	p := &mocks.MockClientService{}
+
+	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
+
+	p.On("GetRegistries",
+		&products.GetRegistriesParams{
+			Name:    &name,
+			Context: ctx,
+		}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc"),
+	).Return(&products.GetRegistriesOK{
+		Payload: []*model.Registry{},
+	}, &ErrRegistryIDNotExists{})
+
+	_, err := cl.GetRegistry(ctx, name)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrRegistryIDNotExists{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_DeleteRegistry_DeleteRegistriesIDNotFound(t *testing.T) {
+	name := name
+	ctx := context.Background()
+
+	p := &mocks.MockClientService{}
+
+	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
+
+	p.On("GetRegistries",
+		&products.GetRegistriesParams{
+			Name:    &name,
+			Context: ctx,
+		}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc"),
+	).Return(&products.GetRegistriesOK{
+		Payload: []*model.Registry{},
+	}, &products.DeleteRegistriesIDNotFound{})
+
+	err := cl.DeleteRegistry(ctx, registry)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrRegistryIDNotExists{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_UpdateRegistry_PutRegistriesIDNotFound(t *testing.T) {
+	name := name
+	ctx := context.Background()
+
+	p := &mocks.MockClientService{}
+
+	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
+
+	p.On("GetRegistries",
+		&products.GetRegistriesParams{
+			Name:    &name,
+			Context: ctx,
+		}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc"),
+	).Return(&products.GetRegistriesOK{
+		Payload: []*model.Registry{},
+	}, &products.PutRegistriesIDNotFound{})
+
+	err := cl.UpdateRegistry(ctx, registry)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrRegistryIDNotExists{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_NewRegistry_PostRegistriesConflict(t *testing.T) {
+	name := name
+	ctx := context.Background()
+
+	p := &mocks.MockClientService{}
+
+	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
+
+	p.On("PostRegistries",
+		&products.PostRegistriesParams{
+			Registry: &model.Registry{
+				ID:         0,
+				Name:       name,
+				Type:       registry.Type,
+				URL:        registry.URL,
+				Credential: registry.Credential,
+				Insecure:   registry.Insecure,
+			},
+			Context: ctx,
+		}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc"),
+	).Return(nil, &products.PostRegistriesConflict{})
+
+	_, err := cl.NewRegistry(ctx,
+		name,
+		registry.Type,
+		registry.URL,
+		registry.Credential,
+		registry.Insecure)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrRegistryNameAlreadyExists{}, err)
+	}
+
+	p.AssertExpectations(t)
 }
 
 func TestRESTClient_GetRegistry_ErrOnGet(t *testing.T) {
@@ -235,18 +446,6 @@ func TestRESTClient_GetRegistry_ErrRegistryNotProvided(t *testing.T) {
 
 func TestRESTClient_DeleteRegistry(t *testing.T) {
 	ctx := context.Background()
-	registry := &model.Registry{
-		CreationTime: "",
-		Credential:   nil,
-		Description:  "",
-		ID:           10,
-		Insecure:     false,
-		Name:         "restregistry",
-		Status:       "",
-		Type:         "harbor",
-		UpdateTime:   "",
-		URL:          "http://foo.bar",
-	}
 
 	p := &mocks.MockClientService{}
 	p.On("GetRegistries",
@@ -273,18 +472,6 @@ func TestRESTClient_DeleteRegistry(t *testing.T) {
 
 func TestRESTClient_DeleteRegistry_NotFound(t *testing.T) {
 	ctx := context.Background()
-	registry := &model.Registry{
-		CreationTime: "",
-		Credential:   nil,
-		Description:  "",
-		ID:           10,
-		Insecure:     false,
-		Name:         "restregistry",
-		Status:       "",
-		Type:         "harbor",
-		UpdateTime:   "",
-		URL:          "http://foo.bar",
-	}
 
 	p := &mocks.MockClientService{}
 	p.On("GetRegistries",
@@ -310,6 +497,32 @@ func TestRESTClient_DeleteRegistry_NotFound(t *testing.T) {
 	}
 }
 
+func TestRESTClient_DeleteRegistry_ErrRegistryMismatch(t *testing.T) {
+	ctx := context.Background()
+
+	p := &mocks.MockClientService{}
+
+	p.On("GetRegistries",
+		&products.GetRegistriesParams{
+			Name:    &registry.Name,
+			Context: ctx,
+		}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc"),
+	).Return(&products.GetRegistriesOK{Payload: []*model.Registry{{
+		Name: name,
+		ID:   1,
+	}}}, nil)
+
+	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
+
+	err := cl.DeleteRegistry(ctx, registry)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrRegistryMismatch{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
 func TestRESTClient_DeleteRegistry_ErrRegistryNotProvided(t *testing.T) {
 	p := &mocks.MockClientService{}
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
@@ -322,22 +535,6 @@ func TestRESTClient_DeleteRegistry_ErrRegistryNotProvided(t *testing.T) {
 
 func TestRESTClient_UpdateRegistry(t *testing.T) {
 	ctx := context.Background()
-	registry := &model.Registry{
-		CreationTime: "",
-		Credential: &model.RegistryCredential{
-			AccessKey:    "",
-			AccessSecret: "",
-			Type:         "",
-		},
-		Description: "",
-		ID:          10,
-		Insecure:    false,
-		Name:        "restregistry",
-		Status:      "",
-		Type:        "harbor",
-		UpdateTime:  "",
-		URL:         "http://foo.bar",
-	}
 
 	rReq := &model.PutRegistry{
 		AccessKey:      registry.Credential.AccessKey,
@@ -373,6 +570,74 @@ func TestRESTClient_UpdateRegistry(t *testing.T) {
 	err := cl.UpdateRegistry(ctx, registry)
 
 	assert.NoError(t, err)
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_UpdateRegistry_ErrRegistryNotProvided(t *testing.T) {
+	ctx := context.Background()
+
+	p := &mocks.MockClientService{}
+
+	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
+
+	nilRegistry := &model.Registry{}
+	nilRegistry = nil
+
+	err := cl.UpdateRegistry(ctx, nilRegistry)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrRegistryNotProvided{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_UpdateRegistry_ErrRegistryNotFound(t *testing.T) {
+	ctx := context.Background()
+
+	p := &mocks.MockClientService{}
+
+	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
+
+	p.On("GetRegistries",
+		&products.GetRegistriesParams{
+			Name:    &registry.Name,
+			Context: ctx,
+		}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
+		&products.GetRegistriesOK{}, &ErrRegistryNotFound{})
+
+	err := cl.UpdateRegistry(ctx, registry)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrRegistryNotFound{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_UpdateRegistry_ErrRegistryMismatch_2(t *testing.T) {
+	ctx := context.Background()
+
+	p := &mocks.MockClientService{}
+
+	p.On("GetRegistries",
+		&products.GetRegistriesParams{
+			Name:    &registry.Name,
+			Context: ctx,
+		}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc"),
+	).Return(&products.GetRegistriesOK{Payload: []*model.Registry{{
+		Name: name,
+		ID:   1,
+	}}}, nil)
+
+	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
+
+	err := cl.UpdateRegistry(ctx, registry)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrRegistryMismatch{}, err)
+	}
 
 	p.AssertExpectations(t)
 }

@@ -75,7 +75,6 @@ func (o *GetReplicationExecutionsOK) GetPayload() []*v1_10_0.ReplicationExecutio
 }
 
 func (o *GetReplicationExecutionsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
@@ -101,7 +100,6 @@ func (o *GetReplicationExecutionsUnauthorized) Error() string {
 }
 
 func (o *GetReplicationExecutionsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -122,7 +120,6 @@ func (o *GetReplicationExecutionsForbidden) Error() string {
 }
 
 func (o *GetReplicationExecutionsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -143,6 +140,5 @@ func (o *GetReplicationExecutionsInternalServerError) Error() string {
 }
 
 func (o *GetReplicationExecutionsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }

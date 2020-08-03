@@ -56,7 +56,6 @@ func (m *GCResult) Validate(formats strfmt.Registry) error {
 }
 
 func (m *GCResult) validateSchedule(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Schedule) { // not required
 		return nil
 	}

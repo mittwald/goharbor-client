@@ -58,7 +58,6 @@ func (m *JobStatus) Validate(formats strfmt.Registry) error {
 }
 
 func (m *JobStatus) validateTags(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Tags) { // not required
 		return nil
 	}

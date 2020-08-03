@@ -46,7 +46,6 @@ func (m *RegistryInfo) Validate(formats strfmt.Registry) error {
 }
 
 func (m *RegistryInfo) validateSupportedResourceFilters(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SupportedResourceFilters) { // not required
 		return nil
 	}

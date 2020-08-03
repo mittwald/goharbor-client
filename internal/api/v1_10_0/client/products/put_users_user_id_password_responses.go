@@ -73,7 +73,6 @@ func (o *PutUsersUserIDPasswordOK) Error() string {
 }
 
 func (o *PutUsersUserIDPasswordOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -94,7 +93,6 @@ func (o *PutUsersUserIDPasswordBadRequest) Error() string {
 }
 
 func (o *PutUsersUserIDPasswordBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -115,7 +113,6 @@ func (o *PutUsersUserIDPasswordUnauthorized) Error() string {
 }
 
 func (o *PutUsersUserIDPasswordUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -136,7 +133,6 @@ func (o *PutUsersUserIDPasswordForbidden) Error() string {
 }
 
 func (o *PutUsersUserIDPasswordForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -157,6 +153,5 @@ func (o *PutUsersUserIDPasswordInternalServerError) Error() string {
 }
 
 func (o *PutUsersUserIDPasswordInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }

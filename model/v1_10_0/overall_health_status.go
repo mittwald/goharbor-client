@@ -40,7 +40,6 @@ func (m *OverallHealthStatus) Validate(formats strfmt.Registry) error {
 }
 
 func (m *OverallHealthStatus) validateComponents(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Components) { // not required
 		return nil
 	}

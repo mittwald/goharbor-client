@@ -47,7 +47,6 @@ func (m *ScannerAdapterMetadata) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ScannerAdapterMetadata) validateCapabilities(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Capabilities) { // not required
 		return nil
 	}
@@ -72,7 +71,6 @@ func (m *ScannerAdapterMetadata) validateCapabilities(formats strfmt.Registry) e
 }
 
 func (m *ScannerAdapterMetadata) validateName(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Name) { // not required
 		return nil
 	}

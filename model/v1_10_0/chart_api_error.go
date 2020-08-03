@@ -37,7 +37,6 @@ func (m *ChartAPIError) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ChartAPIError) validateError(formats strfmt.Registry) error {
-
 	if err := validate.Required("error", "body", m.Error); err != nil {
 		return err
 	}

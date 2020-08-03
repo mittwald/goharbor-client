@@ -19,7 +19,6 @@ import (
 // NewGetSystemGcScheduleParams creates a new GetSystemGcScheduleParams object
 // with the default values initialized.
 func NewGetSystemGcScheduleParams() *GetSystemGcScheduleParams {
-
 	return &GetSystemGcScheduleParams{
 
 		timeout: cr.DefaultTimeout,
@@ -29,7 +28,6 @@ func NewGetSystemGcScheduleParams() *GetSystemGcScheduleParams {
 // NewGetSystemGcScheduleParamsWithTimeout creates a new GetSystemGcScheduleParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewGetSystemGcScheduleParamsWithTimeout(timeout time.Duration) *GetSystemGcScheduleParams {
-
 	return &GetSystemGcScheduleParams{
 
 		timeout: timeout,
@@ -39,7 +37,6 @@ func NewGetSystemGcScheduleParamsWithTimeout(timeout time.Duration) *GetSystemGc
 // NewGetSystemGcScheduleParamsWithContext creates a new GetSystemGcScheduleParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewGetSystemGcScheduleParamsWithContext(ctx context.Context) *GetSystemGcScheduleParams {
-
 	return &GetSystemGcScheduleParams{
 
 		Context: ctx,
@@ -49,7 +46,6 @@ func NewGetSystemGcScheduleParamsWithContext(ctx context.Context) *GetSystemGcSc
 // NewGetSystemGcScheduleParamsWithHTTPClient creates a new GetSystemGcScheduleParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetSystemGcScheduleParamsWithHTTPClient(client *http.Client) *GetSystemGcScheduleParams {
-
 	return &GetSystemGcScheduleParams{
 		HTTPClient: client,
 	}
@@ -99,7 +95,6 @@ func (o *GetSystemGcScheduleParams) SetHTTPClient(client *http.Client) {
 
 // WriteToRequest writes these params to a swagger request
 func (o *GetSystemGcScheduleParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
 	if err := r.SetTimeout(o.timeout); err != nil {
 		return err
 	}

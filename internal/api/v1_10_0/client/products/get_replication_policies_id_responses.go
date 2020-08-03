@@ -87,7 +87,6 @@ func (o *GetReplicationPoliciesIDOK) GetPayload() *v1_10_0.ReplicationPolicy {
 }
 
 func (o *GetReplicationPoliciesIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(v1_10_0.ReplicationPolicy)
 
 	// response payload
@@ -115,7 +114,6 @@ func (o *GetReplicationPoliciesIDBadRequest) Error() string {
 }
 
 func (o *GetReplicationPoliciesIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -136,7 +134,6 @@ func (o *GetReplicationPoliciesIDUnauthorized) Error() string {
 }
 
 func (o *GetReplicationPoliciesIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -157,7 +154,6 @@ func (o *GetReplicationPoliciesIDForbidden) Error() string {
 }
 
 func (o *GetReplicationPoliciesIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -178,7 +174,6 @@ func (o *GetReplicationPoliciesIDNotFound) Error() string {
 }
 
 func (o *GetReplicationPoliciesIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -199,6 +194,5 @@ func (o *GetReplicationPoliciesIDInternalServerError) Error() string {
 }
 
 func (o *GetReplicationPoliciesIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }

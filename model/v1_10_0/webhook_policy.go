@@ -64,7 +64,6 @@ func (m *WebhookPolicy) Validate(formats strfmt.Registry) error {
 }
 
 func (m *WebhookPolicy) validateTargets(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Targets) { // not required
 		return nil
 	}

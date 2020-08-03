@@ -54,7 +54,6 @@ func (m *Quota) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Quota) validateHard(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Hard) { // not required
 		return nil
 	}
@@ -70,7 +69,6 @@ func (m *Quota) validateHard(formats strfmt.Registry) error {
 }
 
 func (m *Quota) validateUsed(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Used) { // not required
 		return nil
 	}

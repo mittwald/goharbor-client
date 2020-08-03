@@ -73,7 +73,6 @@ func (o *DeleteProjectsProjectIDMembersMidOK) Error() string {
 }
 
 func (o *DeleteProjectsProjectIDMembersMidOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -94,7 +93,6 @@ func (o *DeleteProjectsProjectIDMembersMidBadRequest) Error() string {
 }
 
 func (o *DeleteProjectsProjectIDMembersMidBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -115,7 +113,6 @@ func (o *DeleteProjectsProjectIDMembersMidUnauthorized) Error() string {
 }
 
 func (o *DeleteProjectsProjectIDMembersMidUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -136,7 +133,6 @@ func (o *DeleteProjectsProjectIDMembersMidForbidden) Error() string {
 }
 
 func (o *DeleteProjectsProjectIDMembersMidForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -157,6 +153,5 @@ func (o *DeleteProjectsProjectIDMembersMidInternalServerError) Error() string {
 }
 
 func (o *DeleteProjectsProjectIDMembersMidInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }

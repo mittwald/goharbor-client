@@ -182,7 +182,6 @@ func (o *GetProjectsParams) SetPublic(public *bool) {
 
 // WriteToRequest writes these params to a swagger request
 func (o *GetProjectsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
 	if err := r.SetTimeout(o.timeout); err != nil {
 		return err
 	}

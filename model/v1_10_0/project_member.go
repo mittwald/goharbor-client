@@ -45,7 +45,6 @@ func (m *ProjectMember) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ProjectMember) validateMemberGroup(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.MemberGroup) { // not required
 		return nil
 	}
@@ -63,7 +62,6 @@ func (m *ProjectMember) validateMemberGroup(formats strfmt.Registry) error {
 }
 
 func (m *ProjectMember) validateMemberUser(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.MemberUser) { // not required
 		return nil
 	}

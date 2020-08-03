@@ -78,7 +78,6 @@ func (o *GetProjectsOK) GetPayload() []*v1_10_0.Project {
 }
 
 func (o *GetProjectsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	// response header Link
 	o.Link = response.GetHeader("Link")
 
@@ -114,7 +113,6 @@ func (o *GetProjectsUnauthorized) Error() string {
 }
 
 func (o *GetProjectsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -135,6 +133,5 @@ func (o *GetProjectsInternalServerError) Error() string {
 }
 
 func (o *GetProjectsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }

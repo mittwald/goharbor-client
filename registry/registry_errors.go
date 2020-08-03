@@ -30,6 +30,7 @@ const (
 	Status400 int = 400
 	Status401 int = 401
 	Status403 int = 403
+	Status404 int = 404
 	Status500 int = 500
 )
 

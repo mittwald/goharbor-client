@@ -69,7 +69,6 @@ func (o *GetProjectsProjectIDMetadatasMetaNameOK) GetPayload() *v1_10_0.ProjectM
 }
 
 func (o *GetProjectsProjectIDMetadatasMetaNameOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(v1_10_0.ProjectMetadata)
 
 	// response payload
@@ -97,7 +96,6 @@ func (o *GetProjectsProjectIDMetadatasMetaNameUnauthorized) Error() string {
 }
 
 func (o *GetProjectsProjectIDMetadatasMetaNameUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -118,6 +116,5 @@ func (o *GetProjectsProjectIDMetadatasMetaNameInternalServerError) Error() strin
 }
 
 func (o *GetProjectsProjectIDMetadatasMetaNameInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }

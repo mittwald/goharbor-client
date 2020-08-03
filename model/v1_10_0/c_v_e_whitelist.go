@@ -46,7 +46,6 @@ func (m *CVEWhitelist) Validate(formats strfmt.Registry) error {
 }
 
 func (m *CVEWhitelist) validateItems(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Items) { // not required
 		return nil
 	}

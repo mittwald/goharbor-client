@@ -57,7 +57,6 @@ func (o *GetHealthOK) GetPayload() *v1_10_0.OverallHealthStatus {
 }
 
 func (o *GetHealthOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(v1_10_0.OverallHealthStatus)
 
 	// response payload

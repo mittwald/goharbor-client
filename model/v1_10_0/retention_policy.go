@@ -57,7 +57,6 @@ func (m *RetentionPolicy) Validate(formats strfmt.Registry) error {
 }
 
 func (m *RetentionPolicy) validateRules(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Rules) { // not required
 		return nil
 	}
@@ -82,7 +81,6 @@ func (m *RetentionPolicy) validateRules(formats strfmt.Registry) error {
 }
 
 func (m *RetentionPolicy) validateScope(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Scope) { // not required
 		return nil
 	}
@@ -100,7 +98,6 @@ func (m *RetentionPolicy) validateScope(formats strfmt.Registry) error {
 }
 
 func (m *RetentionPolicy) validateTrigger(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Trigger) { // not required
 		return nil
 	}

@@ -51,7 +51,6 @@ func (m *Search) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Search) validateChart(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Chart) { // not required
 		return nil
 	}
@@ -76,7 +75,6 @@ func (m *Search) validateChart(formats strfmt.Registry) error {
 }
 
 func (m *Search) validateProject(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Project) { // not required
 		return nil
 	}
@@ -101,7 +99,6 @@ func (m *Search) validateProject(formats strfmt.Registry) error {
 }
 
 func (m *Search) validateRepository(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Repository) { // not required
 		return nil
 	}

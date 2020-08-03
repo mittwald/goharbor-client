@@ -64,7 +64,6 @@ func (m *NativeReportSummary) Validate(formats strfmt.Registry) error {
 }
 
 func (m *NativeReportSummary) validateEndTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.EndTime) { // not required
 		return nil
 	}
@@ -77,7 +76,6 @@ func (m *NativeReportSummary) validateEndTime(formats strfmt.Registry) error {
 }
 
 func (m *NativeReportSummary) validateStartTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StartTime) { // not required
 		return nil
 	}
@@ -90,7 +88,6 @@ func (m *NativeReportSummary) validateStartTime(formats strfmt.Registry) error {
 }
 
 func (m *NativeReportSummary) validateSummary(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Summary) { // not required
 		return nil
 	}

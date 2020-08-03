@@ -79,7 +79,6 @@ func (o *DeleteProjectsProjectIDOK) Error() string {
 }
 
 func (o *DeleteProjectsProjectIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -100,7 +99,6 @@ func (o *DeleteProjectsProjectIDBadRequest) Error() string {
 }
 
 func (o *DeleteProjectsProjectIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -121,7 +119,6 @@ func (o *DeleteProjectsProjectIDForbidden) Error() string {
 }
 
 func (o *DeleteProjectsProjectIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -142,7 +139,6 @@ func (o *DeleteProjectsProjectIDNotFound) Error() string {
 }
 
 func (o *DeleteProjectsProjectIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -163,7 +159,6 @@ func (o *DeleteProjectsProjectIDPreconditionFailed) Error() string {
 }
 
 func (o *DeleteProjectsProjectIDPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -184,6 +179,5 @@ func (o *DeleteProjectsProjectIDInternalServerError) Error() string {
 }
 
 func (o *DeleteProjectsProjectIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }

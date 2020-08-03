@@ -79,7 +79,6 @@ func (o *PostRegistriesCreated) Error() string {
 }
 
 func (o *PostRegistriesCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -100,7 +99,6 @@ func (o *PostRegistriesBadRequest) Error() string {
 }
 
 func (o *PostRegistriesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -121,7 +119,6 @@ func (o *PostRegistriesUnauthorized) Error() string {
 }
 
 func (o *PostRegistriesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -142,7 +139,6 @@ func (o *PostRegistriesConflict) Error() string {
 }
 
 func (o *PostRegistriesConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -163,7 +159,6 @@ func (o *PostRegistriesUnsupportedMediaType) Error() string {
 }
 
 func (o *PostRegistriesUnsupportedMediaType) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -184,6 +179,5 @@ func (o *PostRegistriesInternalServerError) Error() string {
 }
 
 func (o *PostRegistriesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }

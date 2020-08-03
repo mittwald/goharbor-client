@@ -75,7 +75,6 @@ func (o *GetSystemGcScheduleOK) GetPayload() *v1_10_0.AdminJobSchedule {
 }
 
 func (o *GetSystemGcScheduleOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(v1_10_0.AdminJobSchedule)
 
 	// response payload
@@ -103,7 +102,6 @@ func (o *GetSystemGcScheduleUnauthorized) Error() string {
 }
 
 func (o *GetSystemGcScheduleUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -124,7 +122,6 @@ func (o *GetSystemGcScheduleForbidden) Error() string {
 }
 
 func (o *GetSystemGcScheduleForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -145,6 +142,5 @@ func (o *GetSystemGcScheduleInternalServerError) Error() string {
 }
 
 func (o *GetSystemGcScheduleInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }

@@ -53,7 +53,6 @@ func (m *ProjectSummary) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ProjectSummary) validateQuota(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Quota) { // not required
 		return nil
 	}
@@ -119,7 +118,6 @@ func (m *ProjectSummaryQuota) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ProjectSummaryQuota) validateHard(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Hard) { // not required
 		return nil
 	}
@@ -135,7 +133,6 @@ func (m *ProjectSummaryQuota) validateHard(formats strfmt.Registry) error {
 }
 
 func (m *ProjectSummaryQuota) validateUsed(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Used) { // not required
 		return nil
 	}
