@@ -4,6 +4,7 @@ package registry
 
 import (
 	"context"
+	"net/http"
 	"testing"
 
 	"github.com/go-openapi/runtime"
@@ -254,7 +255,7 @@ func TestRESTClient_GetRegistry_Err(t *testing.T) {
 		}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc"),
 	).Return(&products.GetRegistriesOK{
 		Payload: []*model.Registry{},
-	}, &runtime.APIError{Code: Status401})
+	}, &runtime.APIError{Code: http.StatusUnauthorized})
 
 	_, err := cl.GetRegistry(ctx, name)
 
@@ -280,7 +281,7 @@ func TestRESTClient_GetRegistry_ErrRegistryNoPermission(t *testing.T) {
 		}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc"),
 	).Return(&products.GetRegistriesOK{
 		Payload: []*model.Registry{},
-	}, &runtime.APIError{Code: Status403})
+	}, &runtime.APIError{Code: http.StatusForbidden})
 
 	_, err := cl.GetRegistry(ctx, name)
 

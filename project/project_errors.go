@@ -3,6 +3,7 @@ package project
 import (
 	"github.com/go-openapi/runtime"
 	"github.com/mittwald/goharbor-client/internal/api/v1_10_0/client/products"
+	"net/http"
 )
 
 const (
@@ -210,19 +211,19 @@ func handleSwaggerProjectErrors(in error) error {
 	t, ok := in.(*runtime.APIError)
 	if ok {
 		switch t.Code {
-		case Status201:
+		case http.StatusCreated:
 			// Harbor sometimes return 201 instead of 200 despite the swagger spec
 			// not declaring it.
 			return nil
-		case Status400:
+		case http.StatusBadRequest:
 			return &ErrProjectIllegalIDFormat{}
-		case Status401:
+		case http.StatusUnauthorized:
 			return &ErrProjectUnauthorized{}
-		case Status403:
+		case http.StatusForbidden:
 			return &ErrProjectNoPermission{}
-		case Status404:
+		case http.StatusNotFound:
 			return &ErrProjectUnknownResource{}
-		case Status500:
+		case http.StatusInternalServerError:
 			return &ErrProjectInternalErrors{}
 		}
 	}

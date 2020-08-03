@@ -3,6 +3,7 @@ package system
 import (
 	"github.com/go-openapi/runtime"
 	"github.com/mittwald/goharbor-client/internal/api/v1_10_0/client/products"
+	"net/http"
 )
 
 const (
@@ -29,15 +30,6 @@ const (
 
 	// ErrSystemGcScheduleNotProvidedMsg describes the absence of a required schedule
 	ErrSystemGcScheduleNotProvidedMsg = "no schedule provided"
-
-	Status200 int = 200
-	Status201 int = 201
-	Status400 int = 400
-	Status401 int = 401
-	Status403 int = 403
-	Status404 int = 404
-	Status409 int = 409
-	Status500 int = 500
 )
 
 // ErrSystemInvalidSchedule describes an invalid schedule type request.
@@ -113,17 +105,17 @@ func handleSwaggerSystemErrors(in error) error {
 		switch t.Code {
 		// As per documentation '200' should be the status code for success,
 		// yet the API returns status code '201' when creating a GC schedule succeeds.
-		case Status201:
+		case http.StatusCreated:
 			return nil
-		case Status400:
+		case http.StatusBadRequest:
 			return &ErrSystemInvalidSchedule{}
-		case Status401:
+		case http.StatusUnauthorized:
 			return &ErrSystemUnauthorized{}
-		case Status403:
+		case http.StatusForbidden:
 			return &ErrSystemNoPermission{}
-		case Status409:
+		case http.StatusConflict:
 			return &ErrSystemGcInProgress{}
-		case Status500:
+		case http.StatusInternalServerError:
 			return &ErrSystemInternalErrors{}
 		}
 	}

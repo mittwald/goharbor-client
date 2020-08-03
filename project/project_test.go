@@ -4,6 +4,7 @@ package project
 
 import (
 	"context"
+	"net/http"
 	"testing"
 
 	"github.com/go-openapi/runtime"
@@ -94,7 +95,7 @@ func TestRESTClient_NewProject_201(t *testing.T) {
 	}
 
 	p.On("PostProjects", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.PostProjectsCreated{}, &runtime.APIError{Code: Status201})
+		Return(&products.PostProjectsCreated{}, &runtime.APIError{Code: http.StatusCreated})
 
 	_, err := cl.NewProject(ctx, exampleProject, int(exampleCountLimit), int(exampleStorageLimit))
 
@@ -162,7 +163,7 @@ func TestRESTClient_NewProject_ErrProjectIllegalIDFormat(t *testing.T) {
 	}
 
 	p.On("PostProjects", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.PostProjectsCreated{}, &runtime.APIError{Code: Status400})
+		Return(&products.PostProjectsCreated{}, &runtime.APIError{Code: http.StatusBadRequest})
 
 	_, err := cl.NewProject(ctx, exampleProject, int(exampleCountLimit), int(exampleStorageLimit))
 
@@ -191,7 +192,7 @@ func TestRESTClient_NewProject_ErrProjectUnauthorized(t *testing.T) {
 	}
 
 	p.On("PostProjects", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.PostProjectsCreated{}, &runtime.APIError{Code: Status401})
+		Return(&products.PostProjectsCreated{}, &runtime.APIError{Code: http.StatusUnauthorized})
 
 	_, err := cl.NewProject(ctx, exampleProject, int(exampleCountLimit), int(exampleStorageLimit))
 
@@ -220,7 +221,7 @@ func TestRESTClient_NewProject_ErrProjectNoPermission(t *testing.T) {
 	}
 
 	p.On("PostProjects", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.PostProjectsCreated{}, &runtime.APIError{Code: Status403})
+		Return(&products.PostProjectsCreated{}, &runtime.APIError{Code: http.StatusForbidden})
 
 	_, err := cl.NewProject(ctx, exampleProject, int(exampleCountLimit), int(exampleStorageLimit))
 
@@ -249,7 +250,7 @@ func TestRESTClient_NewProject_ErrProjectUnknownResource(t *testing.T) {
 	}
 
 	p.On("PostProjects", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.PostProjectsCreated{}, &runtime.APIError{Code: Status404})
+		Return(&products.PostProjectsCreated{}, &runtime.APIError{Code: http.StatusNotFound})
 
 	_, err := cl.NewProject(ctx, exampleProject, int(exampleCountLimit), int(exampleStorageLimit))
 
@@ -278,7 +279,7 @@ func TestRESTClient_NewProject_ErrProjectInternalErrors(t *testing.T) {
 	}
 
 	p.On("PostProjects", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.PostProjectsCreated{}, &runtime.APIError{Code: Status500})
+		Return(&products.PostProjectsCreated{}, &runtime.APIError{Code: http.StatusInternalServerError})
 
 	_, err := cl.NewProject(ctx, exampleProject, int(exampleCountLimit), int(exampleStorageLimit))
 
@@ -649,7 +650,7 @@ func TestRESTClient_DeleteProject_ErrProjectUnknownResource(t *testing.T) {
 	p.On("GetProjects", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsOK{
 			Payload: nil,
-		}, &runtime.APIError{Code: Status404})
+		}, &runtime.APIError{Code: http.StatusNotFound})
 
 	err := cl.DeleteProject(ctx, nonExistentProject)
 	if assert.Error(t, err) {
@@ -785,7 +786,7 @@ func TestRESTClient_ListProjects_ErrProjectUnknownResource(t *testing.T) {
 	p.On("GetProjects", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsOK{
 			Payload: nil,
-		}, &runtime.APIError{Code: Status404})
+		}, &runtime.APIError{Code: http.StatusNotFound})
 
 	_, err := cl.ListProjects(ctx, exampleProject)
 
@@ -987,7 +988,7 @@ func TestRESTClient_AddProjectMember_ErrProjectUnknownResource(t *testing.T) {
 	p.On("GetProjects", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsOK{
 			Payload: nil,
-		}, &runtime.APIError{Code: Status404})
+		}, &runtime.APIError{Code: http.StatusNotFound})
 
 	err := cl.AddProjectMember(ctx, project, usr, 1)
 
@@ -1149,7 +1150,7 @@ func TestRESTClient_ListProjectMembers_ErrProjectUnknownResource(t *testing.T) {
 		&getProjectsProjectIDMembersParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsProjectIDMembersOK{
 			Payload: nil,
-		}, &runtime.APIError{Code: Status404})
+		}, &runtime.APIError{Code: http.StatusNotFound})
 
 	_, err := cl.ListProjectMembers(ctx, project)
 
@@ -1524,7 +1525,7 @@ func TestRESTClient_AddProjectMetadata_ErrProjectMetadataAlreadyExists(t *testin
 
 	p.On("PostProjectsProjectIDMetadatas",
 		postProjectsProjectIDMetadatasParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.PostProjectsProjectIDMetadatasOK{}, &runtime.APIError{Code: Status409})
+		Return(&products.PostProjectsProjectIDMetadatasOK{}, &runtime.APIError{Code: http.StatusConflict})
 
 	err := cl.AddProjectMetadata(ctx, project, exampleMetadataKey, exampleMetadataValue)
 
@@ -1606,7 +1607,7 @@ func TestRESTClient_GetProjectMetadataValue_ErrProjectUnknownResource(t *testing
 		p.On("GetProjectsProjectIDMetadatasMetaName",
 			getProjectsProjectIDMetadatasMetaNameParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 			Return(&products.GetProjectsProjectIDMetadatasMetaNameOK{Payload: &model.ProjectMetadata{}},
-				&runtime.APIError{Code: Status404})
+				&runtime.APIError{Code: http.StatusNotFound})
 
 		_, err := cl.GetProjectMetadataValue(ctx, project, keys[i])
 
@@ -1681,7 +1682,7 @@ func TestRESTClient_ListProjectMetadata_ErrProjectUnknownResource(t *testing.T) 
 
 	p.On("GetProjectsProjectIDMetadatas",
 		getProjectsProjectIDMetadatasParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(nil, &runtime.APIError{Code: Status404})
+		Return(nil, &runtime.APIError{Code: http.StatusNotFound})
 
 	_, err := cl.ListProjectMetadata(ctx, project)
 
@@ -1781,7 +1782,7 @@ func TestRESTClient_UpdateProjectMetadata_GetProjectMeta_ErrProjectUnknownResour
 		getProjectsProjectIDMetadatasMetaName, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsProjectIDMetadatasMetaNameOK{Payload: &model.ProjectMetadata{
 			EnableContentTrust: exampleMetadataValue,
-		}}, &runtime.APIError{Code: Status404})
+		}}, &runtime.APIError{Code: http.StatusNotFound})
 
 	err := cl.UpdateProjectMetadata(ctx, project, exampleMetadataKey, exampleMetadataValue)
 
@@ -1831,7 +1832,7 @@ func TestRESTClient_UpdateProjectMetadata_DeleteProjectMeta_ErrProjectUnknownRes
 
 	p.On("DeleteProjectsProjectIDMetadatasMetaName",
 		deleteProjectsProjectIDMetadatasMetaName, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.DeleteProjectsProjectIDMetadatasMetaNameOK{}, &runtime.APIError{Code: Status404})
+		Return(&products.DeleteProjectsProjectIDMetadatasMetaNameOK{}, &runtime.APIError{Code: http.StatusNotFound})
 
 	err := cl.UpdateProjectMetadata(ctx, project, exampleMetadataKey, exampleMetadataValue)
 

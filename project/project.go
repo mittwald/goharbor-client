@@ -14,14 +14,6 @@ import (
 )
 
 const (
-	Status201 int = 201
-	Status400 int = 400
-	Status401 int = 401
-	Status403 int = 403
-	Status404 int = 404
-	Status409 int = 409
-	Status500 int = 500
-
 	EnableContentTrustProjectMetadataKey   MetadataKey = "enable_content_trust"
 	AutoScanProjectMetadataKey             MetadataKey = "auto_scan"
 	SeverityProjectMetadataKey             MetadataKey = "severity"
