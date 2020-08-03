@@ -258,11 +258,7 @@ func TestRESTClient_UpdateUserPassword_NoPasswordProvided(t *testing.T) {
 
 	ctx := context.Background()
 
-	password := &model.Password{}
-
-	password = nil
-
-	err := cl.UpdateUserPassword(ctx, 0, password)
+	err := cl.UpdateUserPassword(ctx, 0, nil)
 
 	assert.Errorf(t, err, "no password provided")
 
@@ -304,10 +300,7 @@ func TestRESTClient_UpdateUser_UserNotProvided(t *testing.T) {
 
 	ctx := context.Background()
 
-	u := &model.User{}
-	u = nil
-
-	err := cl.UpdateUser(ctx, u)
+	err := cl.UpdateUser(ctx, nil)
 
 	assert.Error(t, err)
 

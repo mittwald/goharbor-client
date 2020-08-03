@@ -543,10 +543,7 @@ func TestRESTClient_TriggerReplicationExecution_ErrReplicationExecutionNotProvid
 
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
 
-	nilReplicationExecution := &model.ReplicationExecution{}
-	nilReplicationExecution = nil
-
-	err := cl.TriggerReplicationExecution(ctx, nilReplicationExecution)
+	err := cl.TriggerReplicationExecution(ctx, nil)
 
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrReplicationExecutionNotProvided{}, err)

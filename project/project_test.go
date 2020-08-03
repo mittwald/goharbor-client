@@ -447,11 +447,8 @@ func TestRESTClient_Project_ErrProjectNotProvided(t *testing.T) {
 
 	ctx := context.Background()
 
-	nilProject := project
-	nilProject = nil
-
 	t.Run("DeleteProject_ErrProjectNotProvided", func(t *testing.T) {
-		err := cl.DeleteProject(ctx, nilProject)
+		err := cl.DeleteProject(ctx, nil)
 
 		if assert.Error(t, err) {
 			assert.IsType(t, &ErrProjectNotProvided{}, err)
@@ -459,7 +456,7 @@ func TestRESTClient_Project_ErrProjectNotProvided(t *testing.T) {
 	})
 
 	t.Run("AddProjectMember_ErrProjectNotProvided", func(t *testing.T) {
-		err := cl.AddProjectMember(ctx, nilProject, usr, 1)
+		err := cl.AddProjectMember(ctx, nil, usr, 1)
 
 		if assert.Error(t, err) {
 			assert.Equal(t, &ErrProjectNotProvided{}, err)
@@ -467,7 +464,7 @@ func TestRESTClient_Project_ErrProjectNotProvided(t *testing.T) {
 	})
 
 	t.Run("AddProjectMember_ErrProjectNotProvided", func(t *testing.T) {
-		err := cl.AddProjectMember(ctx, nilProject, usr, 1)
+		err := cl.AddProjectMember(ctx, nil, usr, 1)
 
 		if assert.Error(t, err) {
 			assert.Equal(t, &ErrProjectNotProvided{}, err)
@@ -475,7 +472,7 @@ func TestRESTClient_Project_ErrProjectNotProvided(t *testing.T) {
 	})
 
 	t.Run("ListProjectMembers_ErrProjectNotProvided", func(t *testing.T) {
-		_, err := cl.ListProjectMembers(ctx, nilProject)
+		_, err := cl.ListProjectMembers(ctx, nil)
 
 		if assert.Error(t, err) {
 			assert.IsType(t, &ErrProjectNotProvided{}, err)
@@ -483,7 +480,7 @@ func TestRESTClient_Project_ErrProjectNotProvided(t *testing.T) {
 	})
 
 	t.Run("UpdateProjectMemberRole_ErrProjectNotProvided", func(t *testing.T) {
-		err := cl.UpdateProjectMemberRole(ctx, nilProject, usr, int(exampleUserRoleID))
+		err := cl.UpdateProjectMemberRole(ctx, nil, usr, int(exampleUserRoleID))
 
 		if assert.Error(t, err) {
 			assert.Equal(t, &ErrProjectNotProvided{}, err)
@@ -491,7 +488,7 @@ func TestRESTClient_Project_ErrProjectNotProvided(t *testing.T) {
 	})
 
 	t.Run("DeleteProjectMember_ErrProjectNotProvided", func(t *testing.T) {
-		err := cl.DeleteProjectMember(ctx, nilProject, usr)
+		err := cl.DeleteProjectMember(ctx, nil, usr)
 
 		if assert.Error(t, err) {
 			assert.IsType(t, &ErrProjectNotProvided{}, err)
@@ -499,7 +496,7 @@ func TestRESTClient_Project_ErrProjectNotProvided(t *testing.T) {
 	})
 
 	t.Run("GetProjectMetadataValue_ErrProjectNotProvided", func(t *testing.T) {
-		_, err := cl.GetProjectMetadataValue(ctx, nilProject, EnableContentTrustProjectMetadataKey)
+		_, err := cl.GetProjectMetadataValue(ctx, nil, EnableContentTrustProjectMetadataKey)
 
 		if assert.Error(t, err) {
 			assert.IsType(t, &ErrProjectNotProvided{}, err)
@@ -507,7 +504,7 @@ func TestRESTClient_Project_ErrProjectNotProvided(t *testing.T) {
 	})
 
 	t.Run("UpdateProjectMetadata_ErrProjectNotProvided", func(t *testing.T) {
-		err := cl.UpdateProjectMetadata(ctx, nilProject, exampleMetadataKey, exampleMetadataValue)
+		err := cl.UpdateProjectMetadata(ctx, nil, exampleMetadataKey, exampleMetadataValue)
 
 		if assert.Error(t, err) {
 			assert.IsType(t, &ErrProjectNotProvided{}, err)
@@ -523,7 +520,7 @@ func TestRESTClient_Project_ErrProjectNotProvided(t *testing.T) {
 	})
 
 	t.Run("DeleteProjectMetadataValue_ErrProjectNotProvided", func(t *testing.T) {
-		err := cl.DeleteProjectMetadataValue(ctx, nilProject, exampleMetadataKey)
+		err := cl.DeleteProjectMetadataValue(ctx, nil, exampleMetadataKey)
 
 		if assert.Error(t, err) {
 			assert.IsType(t, &ErrProjectNotProvided{}, err)
@@ -531,7 +528,7 @@ func TestRESTClient_Project_ErrProjectNotProvided(t *testing.T) {
 	})
 
 	t.Run("AddProjectMetadata_ErrProjectNotProvided", func(t *testing.T) {
-		err := cl.AddProjectMetadata(ctx, nilProject, exampleMetadataKey, exampleMetadataValue)
+		err := cl.AddProjectMetadata(ctx, nil, exampleMetadataKey, exampleMetadataValue)
 
 		if assert.Error(t, err) {
 			assert.IsType(t, &ErrProjectNotProvided{}, err)
@@ -1011,10 +1008,7 @@ func TestRESTClient_AddProjectMember_ErrProjectNoMemberProvided(t *testing.T) {
 
 	ctx := context.Background()
 
-	nilUsr := &model.User{}
-	nilUsr = nil
-
-	err := cl.AddProjectMember(ctx, project, nilUsr, 1)
+	err := cl.AddProjectMember(ctx, project, nil, 1)
 
 	if assert.Error(t, err) {
 		assert.Equal(t, &ErrProjectNoMemberProvided{}, err)
@@ -1315,10 +1309,7 @@ func TestRESTClient_UpdateProjectMemberRole_ErrProjectNoMemberProvided(t *testin
 
 	ctx := context.Background()
 
-	nilUsr := &model.User{}
-	nilUsr = nil
-
-	err := cl.UpdateProjectMemberRole(ctx, project, nilUsr, int(exampleUserRoleID))
+	err := cl.UpdateProjectMemberRole(ctx, project, nil, int(exampleUserRoleID))
 
 	if assert.Error(t, err) {
 		assert.Equal(t, &ErrProjectNoMemberProvided{}, err)
@@ -1433,10 +1424,7 @@ func TestRESTClient_DeleteProjectMember_ErrProjectNoMemberProvided(t *testing.T)
 
 	ctx := context.Background()
 
-	nilUsr := &model.User{}
-	nilUsr = nil
-
-	err := cl.DeleteProjectMember(ctx, project, nilUsr)
+	err := cl.DeleteProjectMember(ctx, project, nil)
 
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrProjectNoMemberProvided{}, err)

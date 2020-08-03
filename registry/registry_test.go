@@ -582,10 +582,7 @@ func TestRESTClient_UpdateRegistry_ErrRegistryNotProvided(t *testing.T) {
 
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
 
-	nilRegistry := &model.Registry{}
-	nilRegistry = nil
-
-	err := cl.UpdateRegistry(ctx, nilRegistry)
+	err := cl.UpdateRegistry(ctx, nil)
 
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrRegistryNotProvided{}, err)
