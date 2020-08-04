@@ -166,11 +166,11 @@ func handleSwaggerReplicationErrors(in error) error {
 	}
 
 	switch in.(type) {
-	case *products.DeleteRegistriesIDNotFound:
+	case *products.DeleteReplicationPoliciesIDNotFound:
 		return &ErrReplicationIDNotExists{}
-	case *products.PutRegistriesIDNotFound:
+	case *products.PutReplicationPoliciesIDNotFound:
 		return &ErrReplicationIDNotExists{}
-	case *products.PostRegistriesConflict:
+	case *products.PostReplicationPoliciesConflict:
 		return &ErrReplicationNameAlreadyExists{}
 	default:
 		return in
