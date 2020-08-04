@@ -50,7 +50,7 @@ func NewRESTClient(cl *client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RE
 // NewRESTClientForHost constructs a new REST client containing a swagger
 // API client using the defined host string + basePath as well as basic auth info.
 func NewRESTClientForHost(host, basePath, username, password string) *RESTClient {
-	swaggerClient := client.New(runtimeclient.New(host, basePath, []string{"http"}), strfmt.Default)
+	swaggerClient := client.New(runtimeclient.New(host, basePath, nil), strfmt.Default)
 	authInfo := runtimeclient.BasicAuth(username, password)
 
 	return NewRESTClient(swaggerClient, authInfo)
