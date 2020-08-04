@@ -5,7 +5,10 @@ package user
 import (
 	"context"
 	"errors"
+	"net/http"
 	"testing"
+
+	"github.com/go-openapi/runtime"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/mittwald/goharbor-client/internal/api/v1_10_0/client"
@@ -114,6 +117,90 @@ func TestRESTClient_NewUser_EmptyUserName(t *testing.T) {
 	p.AssertExpectations(t)
 }
 
+func TestRESTClient_NewUser_StatusConflict(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	uReq := &model.User{
+		Username: exampleUser,
+		Password: examplePassword,
+		Email:    exampleEmail,
+		Realname: "",
+		Comment:  "",
+	}
+
+	postUserParams := &products.PostUsersParams{
+		User:    uReq,
+		Context: ctx,
+	}
+
+	uReq.Username = ""
+
+	p.On("PostUsers",
+		postUserParams,
+		mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(nil,
+			&runtime.APIError{Code: http.StatusConflict})
+
+	_, err := cl.NewUser(ctx, "", exampleEmail, "", examplePassword, "")
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrUserAlreadyExists{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_NewUser_ErrUserBadRequest(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	uReq := &model.User{
+		Username: exampleUser,
+		Password: examplePassword,
+		Email:    exampleEmail,
+		Realname: "",
+		Comment:  "",
+	}
+
+	postUserParams := &products.PostUsersParams{
+		User:    uReq,
+		Context: ctx,
+	}
+
+	uReq.Username = ""
+
+	p.On("PostUsers",
+		postUserParams,
+		mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(nil,
+			&products.PostUsersBadRequest{})
+
+	_, err := cl.NewUser(ctx, "", exampleEmail, "", examplePassword, "")
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrUserBadRequest{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
 func TestRESTClient_GetUser(t *testing.T) {
 	p := &mocks.MockClientService{}
 
@@ -161,6 +248,37 @@ func TestRESTClient_GetUser_EmptyUserName(t *testing.T) {
 
 	if assert.Error(t, err) {
 		assert.Equal(t, errors.New("no username provided"), err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_GetUser_ErrUserNotFound(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	getUserParams := &products.GetUsersParams{
+		Context:  ctx,
+		Username: &exampleUser,
+	}
+
+	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetUsersOK{
+			Payload: nil,
+		}, nil)
+
+	_, err := cl.GetUser(ctx, exampleUser)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrUserNotFound{}, err)
 	}
 
 	p.AssertExpectations(t)
@@ -265,6 +383,40 @@ func TestRESTClient_UpdateUserPassword_NoPasswordProvided(t *testing.T) {
 	p.AssertExpectations(t)
 }
 
+func TestRESTClient_UpdateUserPassword_ErrUserPasswordInvalid(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	password := &model.Password{
+		NewPassword: "",
+		OldPassword: "",
+	}
+	putUserPasswordParams := &products.PutUsersUserIDPasswordParams{
+		Password: password,
+		UserID:   0,
+		Context:  ctx,
+	}
+
+	p.On("PutUsersUserIDPassword", putUserPasswordParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(nil, &products.PutUsersUserIDPasswordBadRequest{})
+
+	err := cl.UpdateUserPassword(ctx, 0, password)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrUserPasswordInvalid{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
 func TestRESTClient_UpdateUser_EmptyUserName(t *testing.T) {
 	p := &mocks.MockClientService{}
 
@@ -303,6 +455,95 @@ func TestRESTClient_UpdateUser_UserNotProvided(t *testing.T) {
 	err := cl.UpdateUser(ctx, nil)
 
 	assert.Error(t, err)
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_UpdateUser_UserIDMismatch(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	u := &model.User{
+		Username: exampleUser,
+		UserID:   1,
+	}
+
+	u2 := &model.User{
+		Username: exampleUser,
+		UserID:   2,
+	}
+
+	getUserParams := &products.GetUsersParams{
+		Context:  ctx,
+		Username: &u.Username,
+	}
+
+	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetUsersOK{Payload: []*model.User{u}}, nil)
+
+	err := cl.UpdateUser(ctx, u2)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, err, &ErrUserMismatch{})
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_UpdateUser_PutUsersUserIDBadRequest(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	getUserParams := &products.GetUsersParams{
+		Context:  ctx,
+		Username: &exampleUser,
+	}
+
+	putUserParams := &products.PutUsersUserIDParams{
+		UserID: exampleUserID,
+		Profile: &model.UserProfile{
+			Comment:  "",
+			Email:    exampleEmail,
+			Realname: "",
+		},
+		Context: ctx,
+	}
+
+	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetUsersOK{
+			Payload: []*model.User{{
+				Username: exampleUser, UserID: exampleUserID, Email: exampleEmail,
+				Password: examplePassword,
+			}},
+		}, nil)
+
+	u, err := cl.GetUser(ctx, exampleUser)
+	assert.NoError(t, err)
+
+	p.On("PutUsersUserID", putUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(nil, &products.PutUsersUserIDBadRequest{})
+
+	err = cl.UpdateUser(ctx, u)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrUserInvalidID{}, err)
+	}
 
 	p.AssertExpectations(t)
 }
@@ -367,8 +608,6 @@ func TestRESTClient_DeleteUser_EmptyUserName(t *testing.T) {
 	if assert.Error(t, err) {
 		assert.Equal(t, errors.New("no username provided"), err)
 	}
-
-	p.AssertExpectations(t)
 }
 
 func TestRESTClient_DeleteUser_UserNotProvided(t *testing.T) {
@@ -388,8 +627,6 @@ func TestRESTClient_DeleteUser_UserNotProvided(t *testing.T) {
 	if assert.Error(t, err) {
 		assert.Equal(t, errors.New("no user provided"), err)
 	}
-
-	p.AssertExpectations(t)
 }
 
 func TestRESTClient_DeleteUser_UserIDMismatch(t *testing.T) {
@@ -420,13 +657,13 @@ func TestRESTClient_DeleteUser_UserIDMismatch(t *testing.T) {
 	}
 
 	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.GetUsersOK{
-			Payload: []*model.User{u},
-		}, &ErrUserMismatch{})
+		Return(&products.GetUsersOK{Payload: []*model.User{u}}, nil)
 
 	err := cl.DeleteUser(ctx, u2)
 
-	assert.IsType(t, err, &ErrUserMismatch{})
+	if assert.Error(t, err) {
+		assert.IsType(t, err, &ErrUserMismatch{})
+	}
 
 	p.AssertExpectations(t)
 }
@@ -462,6 +699,61 @@ func TestRESTClient_UserExists(t *testing.T) {
 	assert.NoError(t, err)
 
 	assert.Equal(t, exists, true)
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_UserExists_ErrUserNotFound(t *testing.T) {
+	p := &mocks.MockClientService{}
+
+	c := &client.Harbor{
+		Products:  p,
+		Transport: nil,
+	}
+
+	cl := NewClient(c, authInfo)
+
+	ctx := context.Background()
+
+	u := &model.User{
+		Username: exampleUser,
+	}
+
+	getUserParams := &products.GetUsersParams{
+		Context:  ctx,
+		Username: &u.Username,
+	}
+
+	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetUsersOK{
+			Payload: nil,
+		}, &ErrUserNotFound{})
+
+	exists, err := cl.UserExists(ctx, u)
+
+	assert.Equal(t, false, exists)
+	assert.NoError(t, err)
+
+	u2 := &model.User{
+		Username: "",
+	}
+
+	getUserParams2 := &products.GetUsersParams{
+		Context:  ctx,
+		Username: &u.Username,
+	}
+
+	p.On("GetUsers", getUserParams2, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetUsersOK{
+			Payload: nil,
+		}, &ErrUserNotFound{})
+
+	exists, err = cl.UserExists(ctx, u2)
+
+	assert.Equal(t, false, exists)
+	if assert.Error(t, err) {
+		assert.Equal(t, errors.New("no username provided"), err)
+	}
 
 	p.AssertExpectations(t)
 }
