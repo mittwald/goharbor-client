@@ -14,12 +14,12 @@ import (
 )
 
 const (
-	EnableContentTrustProjectMetadataKey   MetadataKey = "enable_content_trust"
-	AutoScanProjectMetadataKey             MetadataKey = "auto_scan"
-	SeverityProjectMetadataKey             MetadataKey = "severity"
-	ReuseSysCVEWhitelistProjectMetadataKey MetadataKey = "reuse_sys_cve_whitelist"
-	PublicProjectMetadataKey               MetadataKey = "public"
-	PreventVulProjectMetadataKey           MetadataKey = "prevent_vul"
+	ProjectMetadataKeyEnableContentTrust   MetadataKey = "enable_content_trust"
+	ProjectMetadataKeyAutoScan             MetadataKey = "auto_scan"
+	ProjectMetadataKeySeverity             MetadataKey = "severity"
+	ProjectMetadataKeyReuseSysCVEWhitelist MetadataKey = "reuse_sys_cve_whitelist"
+	ProjectMetadataKeyPublic               MetadataKey = "public"
+	ProjectMetadataKeyPreventVul           MetadataKey = "prevent_vul"
 )
 
 // RESTClient is a subclient forhandling project related actions.
@@ -337,17 +337,17 @@ func getProjectMetadataByKey(key MetadataKey, value string) *model.ProjectMetada
 	var m model.ProjectMetadata
 
 	switch key {
-	case EnableContentTrustProjectMetadataKey:
+	case ProjectMetadataKeyEnableContentTrust:
 		m.EnableContentTrust = value
-	case AutoScanProjectMetadataKey:
+	case ProjectMetadataKeyAutoScan:
 		m.AutoScan = value
-	case SeverityProjectMetadataKey:
+	case ProjectMetadataKeySeverity:
 		m.Severity = value
-	case ReuseSysCVEWhitelistProjectMetadataKey:
+	case ProjectMetadataKeyReuseSysCVEWhitelist:
 		m.ReuseSysCveWhitelist = value
-	case PublicProjectMetadataKey:
+	case ProjectMetadataKeyPublic:
 		m.Public = value
-	case PreventVulProjectMetadataKey:
+	case ProjectMetadataKeyPreventVul:
 		m.PreventVul = value
 	}
 
@@ -402,17 +402,17 @@ func (c *RESTClient) GetProjectMetadataValue(ctx context.Context, p *model.Proje
 	var result string
 
 	switch key {
-	case EnableContentTrustProjectMetadataKey:
+	case ProjectMetadataKeyEnableContentTrust:
 		result = resp.Payload.EnableContentTrust
-	case AutoScanProjectMetadataKey:
+	case ProjectMetadataKeyAutoScan:
 		result = resp.Payload.AutoScan
-	case SeverityProjectMetadataKey:
+	case ProjectMetadataKeySeverity:
 		result = resp.Payload.Severity
-	case ReuseSysCVEWhitelistProjectMetadataKey:
+	case ProjectMetadataKeyReuseSysCVEWhitelist:
 		result = resp.Payload.ReuseSysCveWhitelist
-	case PublicProjectMetadataKey:
+	case ProjectMetadataKeyPublic:
 		result = resp.Payload.Public
-	case PreventVulProjectMetadataKey:
+	case ProjectMetadataKeyPreventVul:
 		result = resp.Payload.PreventVul
 	default:
 		return "", &ErrProjectInvalidRequest{}

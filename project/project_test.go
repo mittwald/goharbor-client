@@ -35,7 +35,7 @@ var (
 		CountLimit:   exampleCountLimit,
 		StorageLimit: exampleStorageLimit * 1024 * 1024,
 	}
-	exampleMetadataKey   = EnableContentTrustProjectMetadataKey
+	exampleMetadataKey   = ProjectMetadataKeyEnableContentTrust
 	exampleMetadataValue = "true"
 )
 
@@ -496,7 +496,7 @@ func TestRESTClient_Project_ErrProjectNotProvided(t *testing.T) {
 	})
 
 	t.Run("GetProjectMetadataValue_ErrProjectNotProvided", func(t *testing.T) {
-		_, err := cl.GetProjectMetadataValue(ctx, nil, EnableContentTrustProjectMetadataKey)
+		_, err := cl.GetProjectMetadataValue(ctx, nil, ProjectMetadataKeyEnableContentTrust)
 
 		if assert.Error(t, err) {
 			assert.IsType(t, &ErrProjectNotProvided{}, err)
@@ -1537,12 +1537,12 @@ func TestRESTClient_GetProjectMetadataValue(t *testing.T) {
 	ctx := context.Background()
 
 	keys := []MetadataKey{
-		EnableContentTrustProjectMetadataKey,
-		AutoScanProjectMetadataKey,
-		SeverityProjectMetadataKey,
-		ReuseSysCVEWhitelistProjectMetadataKey,
-		PublicProjectMetadataKey,
-		PreventVulProjectMetadataKey,
+		ProjectMetadataKeyEnableContentTrust,
+		ProjectMetadataKeyAutoScan,
+		ProjectMetadataKeySeverity,
+		ProjectMetadataKeyReuseSysCVEWhitelist,
+		ProjectMetadataKeyPublic,
+		ProjectMetadataKeyPreventVul,
 	}
 
 	for i := range keys {
@@ -1577,12 +1577,12 @@ func TestRESTClient_GetProjectMetadataValue_ErrProjectUnknownResource(t *testing
 	ctx := context.Background()
 
 	keys := []MetadataKey{
-		EnableContentTrustProjectMetadataKey,
-		AutoScanProjectMetadataKey,
-		SeverityProjectMetadataKey,
-		ReuseSysCVEWhitelistProjectMetadataKey,
-		PublicProjectMetadataKey,
-		PreventVulProjectMetadataKey,
+		ProjectMetadataKeyEnableContentTrust,
+		ProjectMetadataKeyAutoScan,
+		ProjectMetadataKeySeverity,
+		ProjectMetadataKeyReuseSysCVEWhitelist,
+		ProjectMetadataKeyPublic,
+		ProjectMetadataKeyPreventVul,
 	}
 
 	for i := range keys {
@@ -1701,13 +1701,13 @@ func TestRESTClient_UpdateProjectMetadata(t *testing.T) {
 	}
 
 	getProjectsProjectIDMetadatasMetaName := &products.GetProjectsProjectIDMetadatasMetaNameParams{
-		MetaName:  string(EnableContentTrustProjectMetadataKey),
+		MetaName:  string(ProjectMetadataKeyEnableContentTrust),
 		ProjectID: exampleProjectID,
 		Context:   ctx,
 	}
 
 	deleteProjectsProjectIDMetadatasMetaName := &products.DeleteProjectsProjectIDMetadatasMetaNameParams{
-		MetaName:  string(EnableContentTrustProjectMetadataKey),
+		MetaName:  string(ProjectMetadataKeyEnableContentTrust),
 		ProjectID: 0,
 		Context:   ctx,
 	}
@@ -1761,7 +1761,7 @@ func TestRESTClient_UpdateProjectMetadata_GetProjectMeta_ErrProjectUnknownResour
 	}
 
 	getProjectsProjectIDMetadatasMetaName := &products.GetProjectsProjectIDMetadatasMetaNameParams{
-		MetaName:  string(EnableContentTrustProjectMetadataKey),
+		MetaName:  string(ProjectMetadataKeyEnableContentTrust),
 		ProjectID: exampleProjectID,
 		Context:   ctx,
 	}
@@ -1801,13 +1801,13 @@ func TestRESTClient_UpdateProjectMetadata_DeleteProjectMeta_ErrProjectUnknownRes
 	}
 
 	getProjectsProjectIDMetadatasMetaName := &products.GetProjectsProjectIDMetadatasMetaNameParams{
-		MetaName:  string(EnableContentTrustProjectMetadataKey),
+		MetaName:  string(ProjectMetadataKeyEnableContentTrust),
 		ProjectID: exampleProjectID,
 		Context:   ctx,
 	}
 
 	deleteProjectsProjectIDMetadatasMetaName := &products.DeleteProjectsProjectIDMetadatasMetaNameParams{
-		MetaName:  string(EnableContentTrustProjectMetadataKey),
+		MetaName:  string(ProjectMetadataKeyEnableContentTrust),
 		ProjectID: 0,
 		Context:   ctx,
 	}
@@ -1851,7 +1851,7 @@ func TestRESTClient_DeleteProjectMetadataValue(t *testing.T) {
 	}
 
 	deleteProjectsProjectIDMetadatasMetaName := &products.DeleteProjectsProjectIDMetadatasMetaNameParams{
-		MetaName:  string(EnableContentTrustProjectMetadataKey),
+		MetaName:  string(ProjectMetadataKeyEnableContentTrust),
 		ProjectID: exampleProjectID,
 		Context:   ctx,
 	}
