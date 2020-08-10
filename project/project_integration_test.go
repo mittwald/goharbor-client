@@ -6,7 +6,9 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	goharborclient "github.com/mittwald/goharbor-client"
+	"github.com/go-openapi/strfmt"
+	"github.com/mittwald/goharbor-client/internal/api/v1_10_0/client"
+	"net/url"
 	"testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
@@ -23,7 +25,8 @@ const (
 )
 
 var (
-	swaggerClient = goharborclient.NewRESTClientForHost(host, user, password)
+	u, _          = url.Parse(host)
+	swaggerClient = client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
 	authInfo      = runtimeclient.BasicAuth(user, password)
 	harborVersion = flag.String("version", "1.10.2",
 		"Harbor version, used in conjunction with -integration, "+
