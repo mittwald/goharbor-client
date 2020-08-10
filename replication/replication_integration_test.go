@@ -8,8 +8,6 @@ import (
 	"testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
-	"github.com/go-openapi/strfmt"
-	"github.com/mittwald/goharbor-client/internal/api/v1_10_0/client"
 	"github.com/mittwald/goharbor-client/registry"
 
 	model "github.com/mittwald/goharbor-client/model/v1_10_0"
@@ -18,13 +16,13 @@ import (
 )
 
 const (
-	host     = "localhost:30002"
+	host     = "http://localhost:30002/api"
 	user     = "admin"
 	password = "Harbor12345"
 )
 
 var (
-	swaggerClient = client.New(runtimeclient.New(host, "/api", []string{"http"}), strfmt.Default)
+	swaggerClient = goharborclient.NewRESTClientForHost(host, user, password)
 	authInfo      = runtimeclient.BasicAuth(user, password)
 	harborVersion = flag.String("version", "1.10.2",
 		"Harbor version, used in conjunction with -integration, "+
