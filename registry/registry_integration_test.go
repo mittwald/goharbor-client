@@ -5,6 +5,7 @@ package registry
 import (
 	"context"
 	"flag"
+	"net/url"
 	"testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
@@ -17,13 +18,14 @@ import (
 )
 
 const (
-	host     = "localhost:30002"
+	host     = "http://localhost:30002/api"
 	user     = "admin"
 	password = "Harbor12345"
 )
 
 var (
-	swaggerClient = client.New(runtimeclient.New(host, "/api", []string{"http"}), strfmt.Default)
+	u, _          = url.Parse(host)
+	swaggerClient = client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
 	authInfo      = runtimeclient.BasicAuth(user, password)
 	harborVersion = flag.String("version", "1.10.2",
 		"Harbor version, used in conjunction with -integration, "+
