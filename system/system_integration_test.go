@@ -48,6 +48,8 @@ func TestAPISystemGcScheduleNew(t *testing.T) {
 	gcSchedule, err := c.NewSystemGarbageCollection(ctx, cron, scheduleType)
 	require.NoError(t, err)
 
+	assert.NotNil(t, gcSchedule)
+
 	defer c.ResetSystemGarbageCollection(ctx)
 
 	assert.Equal(t, gcSchedule.Schedule.Cron, cron)

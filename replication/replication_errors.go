@@ -1,6 +1,8 @@
 package replication
 
 import (
+	"net/http"
+
 	"github.com/go-openapi/runtime"
 	"github.com/mittwald/goharbor-client/internal/api/v1_10_0/client/products"
 )
@@ -48,11 +50,6 @@ const (
 	// ErrReplicationExecutionReplicationIDMismatchMsg describes an error
 	// caused by an ID mismatch of the desired replication execution and an existing replication
 	ErrReplicationExecutionReplicationIDMismatchMsg = "received replication execution id doesn't match"
-
-	Status400 int = 400
-	Status401 int = 401
-	Status403 int = 403
-	Status500 int = 500
 )
 
 // ErrReplicationIllegalIDFormat describes an illegal request format.
@@ -157,23 +154,23 @@ func handleSwaggerReplicationErrors(in error) error {
 	t, ok := in.(*runtime.APIError)
 	if ok {
 		switch t.Code {
-		case Status400:
+		case http.StatusBadRequest:
 			return &ErrReplicationIllegalIDFormat{}
-		case Status401:
+		case http.StatusUnauthorized:
 			return &ErrReplicationUnauthorized{}
-		case Status403:
+		case http.StatusForbidden:
 			return &ErrReplicationNoPermission{}
-		case Status500:
+		case http.StatusInternalServerError:
 			return &ErrReplicationInternalErrors{}
 		}
 	}
 
 	switch in.(type) {
-	case *products.DeleteRegistriesIDNotFound:
+	case *products.DeleteReplicationPoliciesIDNotFound:
 		return &ErrReplicationIDNotExists{}
-	case *products.PutRegistriesIDNotFound:
+	case *products.PutReplicationPoliciesIDNotFound:
 		return &ErrReplicationIDNotExists{}
-	case *products.PostRegistriesConflict:
+	case *products.PostReplicationPoliciesConflict:
 		return &ErrReplicationNameAlreadyExists{}
 	default:
 		return in

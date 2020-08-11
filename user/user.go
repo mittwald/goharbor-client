@@ -56,10 +56,8 @@ func (c *RESTClient) NewUser(ctx context.Context, username, email, realname, pas
 		User:    uReq,
 		Context: ctx,
 	}, c.AuthInfo)
-
-	err = handleSwaggerUserErrors(err)
 	if err != nil {
-		return nil, err
+		return nil, handleSwaggerUserErrors(err)
 	}
 
 	user, err := c.GetUser(ctx, username)
@@ -80,10 +78,8 @@ func (c *RESTClient) GetUser(ctx context.Context, username string) (*model.User,
 		Context:  ctx,
 		Username: &username,
 	}, c.AuthInfo)
-
-	err = handleSwaggerUserErrors(err)
 	if err != nil {
-		return nil, err
+		return nil, handleSwaggerUserErrors(err)
 	}
 
 	for _, v := range resp.Payload {

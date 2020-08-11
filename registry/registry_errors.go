@@ -3,6 +3,7 @@ package registry
 import (
 	"github.com/go-openapi/runtime"
 	"github.com/mittwald/goharbor-client/internal/api/v1_10_0/client/products"
+	"net/http"
 )
 
 const (
@@ -26,11 +27,6 @@ const (
 	// when a specific registry is not found
 	ErrRegistryNotFoundMsg    = "registry not found on server side"
 	ErrRegistryNotProvidedMsg = "no registry provided"
-
-	Status400 int = 400
-	Status401 int = 401
-	Status403 int = 403
-	Status500 int = 500
 )
 
 // ErrRegistryIllegalIDFormat describes an illegal request format.
@@ -114,13 +110,13 @@ func handleSwaggerRegistryErrors(in error) error {
 	t, ok := in.(*runtime.APIError)
 	if ok {
 		switch t.Code {
-		case Status400:
+		case http.StatusBadRequest:
 			return &ErrRegistryIllegalIDFormat{}
-		case Status401:
+		case http.StatusUnauthorized:
 			return &ErrRegistryUnauthorized{}
-		case Status403:
+		case http.StatusForbidden:
 			return &ErrRegistryNoPermission{}
-		case Status500:
+		case http.StatusInternalServerError:
 			return &ErrRegistryInternalErrors{}
 		}
 	}

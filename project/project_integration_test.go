@@ -279,15 +279,15 @@ func TestAPIProjectMetadataAdd(t *testing.T) {
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	err = c.AddProjectMetadata(ctx, p, AutoScanProjectMetadataKey, "true")
+	err = c.AddProjectMetadata(ctx, p, ProjectMetadataKeyAutoScan, "true")
 	require.NoError(t, err)
-	err = c.AddProjectMetadata(ctx, p, EnableContentTrustProjectMetadataKey, "true")
+	err = c.AddProjectMetadata(ctx, p, ProjectMetadataKeyEnableContentTrust, "true")
 	require.NoError(t, err)
-	err = c.AddProjectMetadata(ctx, p, PreventVulProjectMetadataKey, "true")
+	err = c.AddProjectMetadata(ctx, p, ProjectMetadataKeyPreventVul, "true")
 	require.NoError(t, err)
-	err = c.AddProjectMetadata(ctx, p, ReuseSysCVEWhitelistProjectMetadataKey, "true")
+	err = c.AddProjectMetadata(ctx, p, ProjectMetadataKeyReuseSysCVEWhitelist, "true")
 	require.NoError(t, err)
-	err = c.AddProjectMetadata(ctx, p, SeverityProjectMetadataKey, "medium")
+	err = c.AddProjectMetadata(ctx, p, ProjectMetadataKeySeverity, "medium")
 	require.NoError(t, err)
 }
 
@@ -301,7 +301,7 @@ func TestAPIProjectMetadataAlreadyExists(t *testing.T) {
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	err = c.AddProjectMetadata(ctx, p, PublicProjectMetadataKey, "false")
+	err = c.AddProjectMetadata(ctx, p, ProjectMetadataKeyPublic, "false")
 
 	if assert.Error(t, err) {
 		assert.Equal(t, "metadata key already exists", err.Error())
@@ -337,7 +337,7 @@ func TestAPIProjectMetadataAddInvalidValue(t *testing.T) {
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	err = c.AddProjectMetadata(ctx, p, AutoScanProjectMetadataKey, "foobar")
+	err = c.AddProjectMetadata(ctx, p, ProjectMetadataKeyAutoScan, "foobar")
 
 	if assert.Error(t, err) {
 		assert.Equal(t, "invalid request", err.Error())
@@ -355,7 +355,7 @@ func TestAPIProjectMetadataGet(t *testing.T) {
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	m, err := c.GetProjectMetadataValue(ctx, p, PublicProjectMetadataKey)
+	m, err := c.GetProjectMetadataValue(ctx, p, ProjectMetadataKeyPublic)
 	require.NoError(t, err)
 
 	assert.Equal(t, "false", m)
@@ -391,15 +391,15 @@ func TestAPIProjectMetadataList(t *testing.T) {
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	err = c.AddProjectMetadata(ctx, p, AutoScanProjectMetadataKey, "true")
+	err = c.AddProjectMetadata(ctx, p, ProjectMetadataKeyAutoScan, "true")
 	require.NoError(t, err)
-	err = c.AddProjectMetadata(ctx, p, EnableContentTrustProjectMetadataKey, "true")
+	err = c.AddProjectMetadata(ctx, p, ProjectMetadataKeyEnableContentTrust, "true")
 	require.NoError(t, err)
-	err = c.AddProjectMetadata(ctx, p, PreventVulProjectMetadataKey, "true")
+	err = c.AddProjectMetadata(ctx, p, ProjectMetadataKeyPreventVul, "true")
 	require.NoError(t, err)
-	err = c.AddProjectMetadata(ctx, p, ReuseSysCVEWhitelistProjectMetadataKey, "true")
+	err = c.AddProjectMetadata(ctx, p, ProjectMetadataKeyReuseSysCVEWhitelist, "true")
 	require.NoError(t, err)
-	err = c.AddProjectMetadata(ctx, p, SeverityProjectMetadataKey, "medium")
+	err = c.AddProjectMetadata(ctx, p, ProjectMetadataKeySeverity, "medium")
 	require.NoError(t, err)
 
 	m, err := c.ListProjectMetadata(ctx, p)
@@ -422,12 +422,12 @@ func TestAPIProjectMetadataUpdate(t *testing.T) {
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	err = c.AddProjectMetadata(ctx, p, AutoScanProjectMetadataKey, "true")
+	err = c.AddProjectMetadata(ctx, p, ProjectMetadataKeyAutoScan, "true")
 	require.NoError(t, err)
 
-	err = c.UpdateProjectMetadata(ctx, p, AutoScanProjectMetadataKey, "false")
+	err = c.UpdateProjectMetadata(ctx, p, ProjectMetadataKeyAutoScan, "false")
 
-	k, err := c.GetProjectMetadataValue(ctx, p, AutoScanProjectMetadataKey)
+	k, err := c.GetProjectMetadataValue(ctx, p, ProjectMetadataKeyAutoScan)
 	require.NoError(t, err)
 
 	assert.Equal(t, "false", k)
@@ -443,13 +443,13 @@ func TestAPIProjectMetadataDelete(t *testing.T) {
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	err = c.AddProjectMetadata(ctx, p, AutoScanProjectMetadataKey, "true")
+	err = c.AddProjectMetadata(ctx, p, ProjectMetadataKeyAutoScan, "true")
 	require.NoError(t, err)
 
-	err = c.DeleteProjectMetadataValue(ctx, p, AutoScanProjectMetadataKey)
+	err = c.DeleteProjectMetadataValue(ctx, p, ProjectMetadataKeyAutoScan)
 	require.NoError(t, err)
 
-	m, err := c.GetProjectMetadataValue(ctx, p, AutoScanProjectMetadataKey)
+	m, err := c.GetProjectMetadataValue(ctx, p, ProjectMetadataKeyAutoScan)
 
 	if assert.Error(t, err) {
 		assert.Equal(t, "resource unknown", err.Error())

@@ -1,6 +1,8 @@
 package user
 
 import (
+	"net/http"
+
 	"github.com/go-openapi/runtime"
 	"github.com/mittwald/goharbor-client/internal/api/v1_10_0/client/products"
 )
@@ -23,8 +25,6 @@ const (
 
 	// ErrUserPasswordInvalid  is the error message for ErrUserPasswordInvalid error.
 	ErrUserPasswordInvalidMsg = "invalid user password"
-
-	Status409 int = 409
 )
 
 // ErrUserNotFound describes an error when a specific user was not found on server side.
@@ -81,7 +81,7 @@ func handleSwaggerUserErrors(in error) error {
 	t, ok := in.(*runtime.APIError)
 	if ok {
 		switch t.Code {
-		case Status409:
+		case http.StatusConflict:
 			return &ErrUserAlreadyExists{}
 		}
 	}
