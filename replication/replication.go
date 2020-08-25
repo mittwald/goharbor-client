@@ -182,7 +182,7 @@ func (c *RESTClient) TriggerReplicationExecution(ctx context.Context, r *model.R
 	}
 
 	if _, err := c.GetReplicationPolicyByID(ctx, r.PolicyID); err != nil {
-		return &ErrReplicationExecutionReplicationIDNotFound{}
+		return &ErrReplicationExecutionReplicationPolicyIDNotFound{}
 	}
 
 	_, err := c.Client.Products.PostReplicationExecutions(
@@ -199,7 +199,7 @@ func (c *RESTClient) TriggerReplicationExecution(ctx context.Context, r *model.R
 func (c *RESTClient) GetReplicationExecutions(ctx context.Context,
 	r *model.ReplicationExecution) ([]*model.ReplicationExecution, error) {
 	if _, err := c.GetReplicationPolicyByID(ctx, r.PolicyID); err != nil {
-		return nil, &ErrReplicationExecutionReplicationIDNotFound{}
+		return nil, &ErrReplicationExecutionReplicationPolicyIDNotFound{}
 	}
 
 	resp, err := c.Client.Products.GetReplicationExecutions(
@@ -219,7 +219,7 @@ func (c *RESTClient) GetReplicationExecutions(ctx context.Context,
 func (c *RESTClient) GetReplicationExecutionsByID(ctx context.Context,
 	id int64) (*model.ReplicationExecution, error) {
 	if _, err := c.GetReplicationPolicyByID(ctx, id); err != nil {
-		return nil, &ErrReplicationExecutionReplicationIDNotFound{}
+		return nil, &ErrReplicationExecutionReplicationPolicyIDNotFound{}
 	}
 
 	resp, err := c.Client.Products.GetReplicationExecutionsID(

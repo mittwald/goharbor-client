@@ -513,12 +513,12 @@ func TestRESTClient_GetReplicationExecutions_ErrReplicationExecutionReplicationI
 		ID:      replication.ID,
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		nil, &ErrReplicationExecutionReplicationIDNotFound{})
+		nil, &ErrReplicationExecutionReplicationPolicyIDNotFound{})
 
 	_, err := cl.GetReplicationExecutions(ctx, replExec)
 
 	if assert.Error(t, err) {
-		assert.IsType(t, &ErrReplicationExecutionReplicationIDNotFound{}, err)
+		assert.IsType(t, &ErrReplicationExecutionReplicationPolicyIDNotFound{}, err)
 	}
 
 	p.AssertExpectations(t)
@@ -653,7 +653,7 @@ func TestRESTClient_GetReplicationExecutions_ReplicationIDNotFound(t *testing.T)
 	_, err := cl.GetReplicationExecutions(ctx, replicationExecution)
 
 	if assert.Error(t, err) {
-		assert.IsType(t, &ErrReplicationExecutionReplicationIDNotFound{}, err)
+		assert.IsType(t, &ErrReplicationExecutionReplicationPolicyIDNotFound{}, err)
 	}
 
 	p.AssertExpectations(t)
@@ -670,11 +670,11 @@ func TestRESTClient_TriggerReplicationExecution_ReplicationIDNotFound(t *testing
 		ID:      replExec.ID,
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		nil, &ErrReplicationExecutionReplicationIDNotFound{})
+		nil, &ErrReplicationExecutionReplicationPolicyIDNotFound{})
 
 	err := cl.TriggerReplicationExecution(ctx, replExec)
 	if assert.Error(t, err) {
-		assert.IsType(t, &ErrReplicationExecutionReplicationIDNotFound{}, err)
+		assert.IsType(t, &ErrReplicationExecutionReplicationPolicyIDNotFound{}, err)
 	}
 
 	p.AssertExpectations(t)
@@ -819,7 +819,7 @@ func TestRESTClient_GetReplicationExecutionsByID_ErrReplicationExecutionReplicat
 	_, err := cl.GetReplicationExecutionsByID(ctx, replExec.ID)
 
 	if assert.Error(t, err) {
-		assert.IsType(t, &ErrReplicationExecutionReplicationIDNotFound{}, err)
+		assert.IsType(t, &ErrReplicationExecutionReplicationPolicyIDNotFound{}, err)
 	}
 
 	p.AssertExpectations(t)
@@ -866,9 +866,9 @@ func TestErrReplicationExecutionReplicationIDMismatch_Error(t *testing.T) {
 }
 
 func TestErrReplicationExecutionReplicationIDNotFound_Error(t *testing.T) {
-	var e ErrReplicationExecutionReplicationIDNotFound
+	var e ErrReplicationExecutionReplicationPolicyIDNotFound
 
-	assert.Equal(t, ErrReplicationExecutionReplicationIDNotFoundMsg, e.Error())
+	assert.Equal(t, ErrReplicationExecutionReplicationPolicyIDNotFoundMsg, e.Error())
 }
 
 func TestErrReplicationIllegalIDFormat_Error(t *testing.T) {
