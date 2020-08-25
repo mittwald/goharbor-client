@@ -44,8 +44,8 @@ const (
 	ErrReplicationExecutionNotProvidedMsg = "no replication execution provided"
 
 	// ErrReplicationExecutionMissingIDMsg describes an error
-	// caused by a missing replication ID in a replication execution object
-	ErrReplicationExecutionReplicationIDNotFoundMsg = "no replication found for specified id"
+	// caused by the replication ID of a replication execution object not being found on the server side
+	ErrReplicationExecutionReplicationPolicyIDNotFoundMsg = "no replication policy found for specified id"
 
 	// ErrReplicationExecutionReplicationIDMismatchMsg describes an error
 	// caused by an ID mismatch of the desired replication execution and an existing replication
@@ -133,11 +133,11 @@ func (e *ErrReplicationExecutionNotProvided) Error() string {
 	return ErrReplicationExecutionNotProvidedMsg
 }
 
-type ErrReplicationExecutionReplicationIDNotFound struct{}
+type ErrReplicationExecutionReplicationPolicyIDNotFound struct{}
 
 // Error returns the error message.
-func (e *ErrReplicationExecutionReplicationIDNotFound) Error() string {
-	return ErrReplicationExecutionReplicationIDNotFoundMsg
+func (e *ErrReplicationExecutionReplicationPolicyIDNotFound) Error() string {
+	return ErrReplicationExecutionReplicationPolicyIDNotFoundMsg
 }
 
 type ErrReplicationExecutionReplicationIDMismatch struct{}
