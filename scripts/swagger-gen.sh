@@ -68,7 +68,7 @@ if [[ "${1}" = *"v1"* ]]; then
   docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
   generate client \
   --skip-validation \
-  --model-package=model/${1//./_}\
+  --model-package"=model/${1//./_}"\
   --name="harbor" \
   --client-package="internal/api/${1//./_}/client" \
   --spec="${SWAGGER_FILE}" \
@@ -76,7 +76,8 @@ if [[ "${1}" = *"v1"* ]]; then
 fi
 
 if [[ "${1}" = *"v2"* ]]; then
-  SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${1}/api/${1%.0}/swagger.yaml"
+
+  SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${1}/api/$(echo "${1}"|cut -f1,2 -d'.')/swagger.yaml"
   echo "using the v2 swagger file (${1%.0})"
     docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
   generate client \

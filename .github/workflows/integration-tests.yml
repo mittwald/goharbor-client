@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        harbor: [v1.10.0, v1.10.1, v1.10.2]
-        go: [1.13]
+        harbor: [v1.10.3, v1.10.4]
+        go: [1.15]
     steps:
       - uses: actions/checkout@v2
       - name: Setup Go

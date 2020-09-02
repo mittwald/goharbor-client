@@ -2,7 +2,7 @@ package project
 
 import (
 	"github.com/go-openapi/runtime"
-	"github.com/mittwald/goharbor-client/internal/api/v1_10_0/client/products"
+	"github.com/mittwald/goharbor-client/internal/api/v1_10_4/client/products"
 	"net/http"
 )
 

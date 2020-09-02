@@ -8,7 +8,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/runtime"
-	"github.com/mittwald/goharbor-client/internal/api/v1_10_0/client"
+	"github.com/mittwald/goharbor-client/internal/api/v1_10_4/client"
 
 	"github.com/mittwald/goharbor-client/project"
 	"github.com/mittwald/goharbor-client/registry"
@@ -16,7 +16,7 @@ import (
 	"github.com/mittwald/goharbor-client/system"
 	"github.com/mittwald/goharbor-client/user"
 
-	model "github.com/mittwald/goharbor-client/model/v1_10_0"
+	model "github.com/mittwald/goharbor-client/model/v1_10_4"
 )
 
 // Client is an interface that groups all sub-package methods.

@@ -6,12 +6,12 @@ import (
 	"context"
 	"flag"
 	"github.com/go-openapi/strfmt"
-	"github.com/mittwald/goharbor-client/internal/api/v1_10_0/client"
+	"github.com/mittwald/goharbor-client/internal/api/v1_10_4/client"
 	"net/url"
 	"testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
-	model "github.com/mittwald/goharbor-client/model/v1_10_0"
+	model "github.com/mittwald/goharbor-client/model/v1_10_4"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
