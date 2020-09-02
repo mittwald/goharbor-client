@@ -11,8 +11,8 @@ import (
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/internal/api/v1_10_0/client"
-	model "github.com/mittwald/goharbor-client/model/v1_10_0"
+	"github.com/mittwald/goharbor-client/internal/api/v1_10_4/client"
+	model "github.com/mittwald/goharbor-client/model/v1_10_4"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

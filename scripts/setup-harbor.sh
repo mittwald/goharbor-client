@@ -42,7 +42,10 @@ while read CHART HARBOR; do
     if [[ "${HARBOR_VERSION}" == "${HARBOR}" ]]; then
         HARBOR_CHART_VERSION="${CHART}"
     fi
-done <<< "1.4.0 2.0.0
+done <<< "1.4.2 2.0.2
+1.4.1 2.0.1
+1.4.0 2.0.0
+1.3.4 1.10.4
 1.3.2 1.10.2
 1.3.1 1.10.1
 1.3.0 1.10.0
@@ -60,6 +63,7 @@ done <<< "1.4.0 2.0.0
 1.1.0 1.8.0
 1.0.1 1.7.5
 1.0.0 1.7.0"
+
 if [[ -z "${HARBOR_CHART_VERSION}" ]]; then
     >&2 echo "Unsupported Harbor version, aborting."
     exit 1

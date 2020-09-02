@@ -6,7 +6,7 @@ import (
 	"context"
 	"flag"
 	"github.com/go-openapi/strfmt"
-	"github.com/mittwald/goharbor-client/internal/api/v1_10_0/client"
+	"github.com/mittwald/goharbor-client/internal/api/v1_10_4/client"
 	"net/url"
 	"testing"
 

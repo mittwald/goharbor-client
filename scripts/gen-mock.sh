@@ -7,7 +7,7 @@ if ! mockery --version; then
     exit 1
 fi
 
-if ! mockery --name ClientService --dir ./internal/api/v1_10_0/client/products/ \
+if ! mockery --name ClientService --dir ./internal/api/"${1}"/client/products/ \
   --filename client_service.go --structname MockClientService --log-level debug; then
   >&2 echo "Mockery command failed."
   exit 1
