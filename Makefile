@@ -1,9 +1,9 @@
 .PHONY: swagger-v1.10.4 swagger-v2.0.2 swagger-cleanup
 
-swagger-v1.10.4:
+swagger-v1:
 	scripts/swagger-gen.sh v1.10.4
 
-swagger-v2.0.2:
+swagger-v2:
 	scripts/swagger-gen.sh v2.0.2
 
 mock-v1:

@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        harbor: [v1.10.4]
+        harbor: [v1, v2]
     steps:
       - name: Set up Go 1.15.1
         uses: actions/setup-go@v2
