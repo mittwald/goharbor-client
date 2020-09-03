@@ -1,4 +1,5 @@
 # go-swagger generated files
-api/ linguist-generated=true
+apiv*/internal/** linguist-generated=true
+apiv*/model/** linguist-generated=true
 # mockery generated files
-mocks/ linguist-generated=true
+apiv*/mocks/** linguist-generated=true
