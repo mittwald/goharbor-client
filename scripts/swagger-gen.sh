@@ -68,22 +68,24 @@ if [[ "${1}" = *"v1"* ]]; then
   docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
   generate client \
   --skip-validation \
-  --model-package"=model/${1//./_}"\
+  --model-package"=apiv1/model/"\
   --name="harbor" \
-  --client-package="internal/api/${1//./_}/client" \
+  --client-package="apiv1/internal/api/client" \
   --spec="${SWAGGER_FILE}" \
   ${operation_flags}
 fi
 
 if [[ "${1}" = *"v2"* ]]; then
-
+  LEGACY_SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${1}/api/$(echo "${1}"|cut -f1,2 -d'.')/legacy_swagger.yaml"
   SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${1}/api/$(echo "${1}"|cut -f1,2 -d'.')/swagger.yaml"
+  for FILE in $LEGACY_SWAGGER_FILE $SWAGGER_FILE; do
   echo "using the v2 swagger file (${1%.0})"
     docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
   generate client \
   --skip-validation \
-  --model-package="model/${1//./_}/" \
+  --model-package="apiv2/model/" \
   --name="harbor" \
-  --client-package="internal/api/${1//./_}/client" \
-  --spec="${SWAGGER_FILE}"
+  --client-package="apiv2/internal/api/client" \
+  --spec="${FILE}"
+  done
 fi

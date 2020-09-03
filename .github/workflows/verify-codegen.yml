@@ -1,0 +1,32 @@
+name: Verify code generation integrity
+
+on: pull_request
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        harbor: [v1.10.4]
+    steps:
+      - name: Set up Go 1.15.1
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.15.1'
+        id: go
+
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+
+      - name: Run swagger code generation
+        run: make swagger-${{ matrix.harbor }}
+
+      - name: Run mockery code generation
+        run: make mock-${{ matrix.harbor }}
+
+      - name: Test diff
+        run: |
+          git diff | cat
+          git status --porcelain=v1
+          test $(git status --porcelain=v1 | wc -l) -eq 0
