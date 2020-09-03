@@ -37,7 +37,7 @@ if [[ -z "${HARBOR_VERSION}" ]]; then
     exit 1
 fi
 
-# map Harbor version to it's helm chart version
+# Map Goharbor versions to their corresponding helmchart version
 while read CHART HARBOR; do
     if [[ "${HARBOR_VERSION}" == "${HARBOR}" ]]; then
         HARBOR_CHART_VERSION="${CHART}"

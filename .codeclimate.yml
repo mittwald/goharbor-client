@@ -1,4 +1,5 @@
 ## Exclude auto generated files
 exclude_patterns:
-  - "internal/api/"
-  - "model/"
+  - "apiv*/internal/api/"
+  - "apiv*/model/"
+  - "apiv*/mocks/"
