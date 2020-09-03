@@ -29,8 +29,8 @@ swagger-cleanup:
 
 # Testing on Harbor 1.10.3
 integration-test-v1.10.3:
-	CGO_ENABLED=0 go test -p 1 -count 1 -v ./... github.com/mittwald/goharbor-client -version=1.10.3 -tags integration
+	CGO_ENABLED=0 go test -p 1 -count 1 -v ./... github.com/mittwald/goharbor-client/apiv1 -version=1.10.3 -tags integration
 
 # Testing on Harbor 1.10.4
 integration-test-v1.10.4:
-	CGO_ENABLED=0 go test -p 1 -count 1 -v ./... github.com/mittwald/goharbor-client -version=1.10.4 -tags integration
+	CGO_ENABLED=0 go test -p 1 -count 1 -v ./... github.com/mittwald/goharbor-client/apiv1 -version=1.10.4 -tags integration

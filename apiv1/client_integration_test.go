@@ -12,8 +12,8 @@ import (
 )
 
 const (
-	setupScript    = "scripts/setup-harbor.sh"
-	teardownScript = "scripts/teardown-harbor.sh"
+	setupScript    = "../scripts/setup-harbor.sh"
+	teardownScript = "../scripts/teardown-harbor.sh"
 	host           = "localhost:30002"
 	defaultUser    = "admin"
 	password       = "Harbor12345"
@@ -21,9 +21,9 @@ const (
 
 var (
 	authInfo      = runtimeclient.BasicAuth(defaultUser, password)
-	harborVersion = flag.String("version", "1.10.2",
+	harborVersion = flag.String("version", "1.10.4",
 		"Harbor version, used in conjunction with -integration, "+
-			"defaults to 1.10.2")
+			"defaults to 1.10.4")
 	skipSpinUp = flag.Bool("skip-spinup", false,
 		"Skip kind cluster creation")
 )
