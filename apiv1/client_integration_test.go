@@ -12,8 +12,8 @@ import (
 )
 
 const (
-	setupScript    = "../scripts/setup-harbor.sh"
-	teardownScript = "../scripts/teardown-harbor.sh"
+	setupScript    = "scripts/setup-harbor.sh"
+	teardownScript = "scripts/teardown-harbor.sh"
 	host           = "localhost:30002"
 	defaultUser    = "admin"
 	password       = "Harbor12345"
