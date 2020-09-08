@@ -12,6 +12,8 @@ import (
 
 	"github.com/mittwald/goharbor-client/apiv2/internal/api/client/artifact"
 	"github.com/mittwald/goharbor-client/apiv2/internal/api/client/auditlog"
+	"github.com/mittwald/goharbor-client/apiv2/internal/api/client/icon"
+	"github.com/mittwald/goharbor-client/apiv2/internal/api/client/preheat"
 	"github.com/mittwald/goharbor-client/apiv2/internal/api/client/project"
 	"github.com/mittwald/goharbor-client/apiv2/internal/api/client/repository"
 	"github.com/mittwald/goharbor-client/apiv2/internal/api/client/scan"
@@ -61,6 +63,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Harbor {
 	cli.Transport = transport
 	cli.Artifact = artifact.New(transport, formats)
 	cli.Auditlog = auditlog.New(transport, formats)
+	cli.Icon = icon.New(transport, formats)
+	cli.Preheat = preheat.New(transport, formats)
 	cli.Project = project.New(transport, formats)
 	cli.Repository = repository.New(transport, formats)
 	cli.Scan = scan.New(transport, formats)
@@ -112,6 +116,10 @@ type Harbor struct {
 
 	Auditlog auditlog.ClientService
 
+	Icon icon.ClientService
+
+	Preheat preheat.ClientService
+
 	Project project.ClientService
 
 	Repository repository.ClientService
@@ -126,6 +134,8 @@ func (c *Harbor) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 	c.Artifact.SetTransport(transport)
 	c.Auditlog.SetTransport(transport)
+	c.Icon.SetTransport(transport)
+	c.Preheat.SetTransport(transport)
 	c.Project.SetTransport(transport)
 	c.Repository.SetTransport(transport)
 	c.Scan.SetTransport(transport)

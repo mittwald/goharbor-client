@@ -14,7 +14,7 @@ fi
 
 # v2 API
 if [[ "${1}" = *"v2"* ]]; then
-  for CLIENT in artifact auditlog project repository scan; do
+  for CLIENT in artifact auditlog icon preheat project repository scan; do
     MOCK_FILE=apiv2/mocks/${CLIENT}_client_service.go
     echo "generating mocks for the '${CLIENT}' client using the v2 API"
     docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${MOCKERY_IMAGE} \

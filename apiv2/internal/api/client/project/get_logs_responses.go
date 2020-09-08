@@ -117,14 +117,14 @@ type GetLogsBadRequest struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *GetLogsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/logs][%d] getLogsBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetLogsBadRequest) GetPayload() model.Errors {
+func (o *GetLogsBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -133,8 +133,10 @@ func (o *GetLogsBadRequest) readResponse(response runtime.ClientResponse, consum
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -155,14 +157,14 @@ type GetLogsUnauthorized struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *GetLogsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/logs][%d] getLogsUnauthorized  %+v", 401, o.Payload)
 }
 
-func (o *GetLogsUnauthorized) GetPayload() model.Errors {
+func (o *GetLogsUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -171,8 +173,10 @@ func (o *GetLogsUnauthorized) readResponse(response runtime.ClientResponse, cons
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -193,14 +197,14 @@ type GetLogsInternalServerError struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *GetLogsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/logs][%d] getLogsInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetLogsInternalServerError) GetPayload() model.Errors {
+func (o *GetLogsInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -209,8 +213,10 @@ func (o *GetLogsInternalServerError) readResponse(response runtime.ClientRespons
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

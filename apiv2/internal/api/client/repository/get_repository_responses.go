@@ -112,14 +112,14 @@ type GetRepositoryBadRequest struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *GetRepositoryBadRequest) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}][%d] getRepositoryBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetRepositoryBadRequest) GetPayload() model.Errors {
+func (o *GetRepositoryBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -128,8 +128,10 @@ func (o *GetRepositoryBadRequest) readResponse(response runtime.ClientResponse, 
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -150,14 +152,14 @@ type GetRepositoryUnauthorized struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *GetRepositoryUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}][%d] getRepositoryUnauthorized  %+v", 401, o.Payload)
 }
 
-func (o *GetRepositoryUnauthorized) GetPayload() model.Errors {
+func (o *GetRepositoryUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -166,8 +168,10 @@ func (o *GetRepositoryUnauthorized) readResponse(response runtime.ClientResponse
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -188,14 +192,14 @@ type GetRepositoryForbidden struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *GetRepositoryForbidden) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}][%d] getRepositoryForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetRepositoryForbidden) GetPayload() model.Errors {
+func (o *GetRepositoryForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -204,8 +208,10 @@ func (o *GetRepositoryForbidden) readResponse(response runtime.ClientResponse, c
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -226,14 +232,14 @@ type GetRepositoryNotFound struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *GetRepositoryNotFound) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}][%d] getRepositoryNotFound  %+v", 404, o.Payload)
 }
 
-func (o *GetRepositoryNotFound) GetPayload() model.Errors {
+func (o *GetRepositoryNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -242,8 +248,10 @@ func (o *GetRepositoryNotFound) readResponse(response runtime.ClientResponse, co
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -264,14 +272,14 @@ type GetRepositoryInternalServerError struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *GetRepositoryInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}][%d] getRepositoryInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetRepositoryInternalServerError) GetPayload() model.Errors {
+func (o *GetRepositoryInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -280,8 +288,10 @@ func (o *GetRepositoryInternalServerError) readResponse(response runtime.ClientR
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

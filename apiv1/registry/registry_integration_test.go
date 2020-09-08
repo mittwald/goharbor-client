@@ -5,6 +5,7 @@ package registry
 import (
 	"context"
 	"flag"
+	integrationtest "github.com/mittwald/goharbor-client/apiv2/testing"
 	"net/url"
 	"testing"
 
@@ -17,19 +18,14 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-const (
-	host     = "http://localhost:30002/api"
-	user     = "admin"
-	password = "Harbor12345"
-)
 
 var (
-	u, _          = url.Parse(host)
+	u, _          = url.Parse(integrationtest.Host)
 	swaggerClient = client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
-	authInfo      = runtimeclient.BasicAuth(user, password)
-	harborVersion = flag.String("version", "1.10.2",
+	authInfo      = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
+	harborVersion = flag.String("version", "1.10.4",
 		"Harbor version, used in conjunction with -integration, "+
-			"defaults to 1.10.2")
+			"defaults to 1.10.4")
 	skipSpinUp = flag.Bool("skip-spinup", false,
 		"Skip kind cluster creation")
 )
@@ -39,8 +35,8 @@ func TestAPIRegistryNew(t *testing.T) {
 	registryType := "harbor"
 	url := "http://registry-docker-registry:5000/"
 	credential := model.RegistryCredential{
-		AccessKey:    user,
-		AccessSecret: password,
+		AccessKey:    integrationtest.User,
+		AccessSecret: integrationtest.Password,
 		Type:         "basic",
 	}
 
@@ -59,8 +55,8 @@ func TestAPIRegistryGet(t *testing.T) {
 	registryType := "harbor"
 	url := "http://registry-docker-registry:5000/"
 	credential := model.RegistryCredential{
-		AccessKey:    user,
-		AccessSecret: password,
+		AccessKey:    integrationtest.User,
+		AccessSecret: integrationtest.Password,
 		Type:         "basic",
 	}
 
@@ -81,8 +77,8 @@ func TestAPIRegistryDelete(t *testing.T) {
 	registryType := "harbor"
 	url := "http://registry-docker-registry:5000/"
 	credential := model.RegistryCredential{
-		AccessKey:    user,
-		AccessSecret: password,
+		AccessKey:    integrationtest.User,
+		AccessSecret: integrationtest.Password,
 		Type:         "basic",
 	}
 

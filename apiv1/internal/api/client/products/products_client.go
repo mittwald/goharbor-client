@@ -61,6 +61,10 @@ type ClientService interface {
 
 	GetReplicationPoliciesID(params *GetReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationPoliciesIDOK, error)
 
+	GetRetentionsID(params *GetRetentionsIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetRetentionsIDOK, error)
+
+	GetRetentionsMetadatas(params *GetRetentionsMetadatasParams, authInfo runtime.ClientAuthInfoWriter) (*GetRetentionsMetadatasOK, error)
+
 	GetSystemGcSchedule(params *GetSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*GetSystemGcScheduleOK, error)
 
 	GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersOK, error)
@@ -76,6 +80,8 @@ type ClientService interface {
 	PostReplicationExecutions(params *PostReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*PostReplicationExecutionsCreated, error)
 
 	PostReplicationPolicies(params *PostReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*PostReplicationPoliciesCreated, error)
+
+	PostRetentions(params *PostRetentionsParams, authInfo runtime.ClientAuthInfoWriter) (*PostRetentionsCreated, error)
 
 	PostSystemGcSchedule(params *PostSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*PostSystemGcScheduleOK, error)
 
@@ -744,6 +750,80 @@ func (a *Client) GetReplicationPoliciesID(params *GetReplicationPoliciesIDParams
 }
 
 /*
+  GetRetentionsID gets retention policy
+
+  Get Retention Policy.
+*/
+func (a *Client) GetRetentionsID(params *GetRetentionsIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetRetentionsIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetRetentionsIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetRetentionsID",
+		Method:             "GET",
+		PathPattern:        "/retentions/{id}",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetRetentionsIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetRetentionsIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetRetentionsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetRetentionsMetadatas gets retention metadatas
+
+  Get Retention Metadatas.
+*/
+func (a *Client) GetRetentionsMetadatas(params *GetRetentionsMetadatasParams, authInfo runtime.ClientAuthInfoWriter) (*GetRetentionsMetadatasOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetRetentionsMetadatasParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetRetentionsMetadatas",
+		Method:             "GET",
+		PathPattern:        "/retentions/metadatas",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetRetentionsMetadatasReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetRetentionsMetadatasOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetRetentionsMetadatas: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   GetSystemGcSchedule gets gc s schedule
 
   This endpoint is for get schedule of gc job.
@@ -1042,6 +1122,46 @@ func (a *Client) PostReplicationPolicies(params *PostReplicationPoliciesParams, 
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for PostReplicationPolicies: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  PostRetentions creates retention policy
+
+  Create Retention Policy, you can reference metadatas API for the policy model.
+You can check project metadatas to find whether a retention policy is already binded.
+This method should only be called when no retention policy binded to project yet.
+
+*/
+func (a *Client) PostRetentions(params *PostRetentionsParams, authInfo runtime.ClientAuthInfoWriter) (*PostRetentionsCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostRetentionsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostRetentions",
+		Method:             "POST",
+		PathPattern:        "/retentions",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &PostRetentionsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostRetentionsCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostRetentions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

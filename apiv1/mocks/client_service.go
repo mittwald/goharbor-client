@@ -405,6 +405,52 @@ func (_m *MockClientService) GetReplicationPoliciesID(params *products.GetReplic
 	return r0, r1
 }
 
+// GetRetentionsID provides a mock function with given fields: params, authInfo
+func (_m *MockClientService) GetRetentionsID(params *products.GetRetentionsIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetRetentionsIDOK, error) {
+	ret := _m.Called(params, authInfo)
+
+	var r0 *products.GetRetentionsIDOK
+	if rf, ok := ret.Get(0).(func(*products.GetRetentionsIDParams, runtime.ClientAuthInfoWriter) *products.GetRetentionsIDOK); ok {
+		r0 = rf(params, authInfo)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*products.GetRetentionsIDOK)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*products.GetRetentionsIDParams, runtime.ClientAuthInfoWriter) error); ok {
+		r1 = rf(params, authInfo)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// GetRetentionsMetadatas provides a mock function with given fields: params, authInfo
+func (_m *MockClientService) GetRetentionsMetadatas(params *products.GetRetentionsMetadatasParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetRetentionsMetadatasOK, error) {
+	ret := _m.Called(params, authInfo)
+
+	var r0 *products.GetRetentionsMetadatasOK
+	if rf, ok := ret.Get(0).(func(*products.GetRetentionsMetadatasParams, runtime.ClientAuthInfoWriter) *products.GetRetentionsMetadatasOK); ok {
+		r0 = rf(params, authInfo)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*products.GetRetentionsMetadatasOK)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*products.GetRetentionsMetadatasParams, runtime.ClientAuthInfoWriter) error); ok {
+		r1 = rf(params, authInfo)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // GetSystemGcSchedule provides a mock function with given fields: params, authInfo
 func (_m *MockClientService) GetSystemGcSchedule(params *products.GetSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetSystemGcScheduleOK, error) {
 	ret := _m.Called(params, authInfo)
@@ -581,6 +627,29 @@ func (_m *MockClientService) PostReplicationPolicies(params *products.PostReplic
 
 	var r1 error
 	if rf, ok := ret.Get(1).(func(*products.PostReplicationPoliciesParams, runtime.ClientAuthInfoWriter) error); ok {
+		r1 = rf(params, authInfo)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// PostRetentions provides a mock function with given fields: params, authInfo
+func (_m *MockClientService) PostRetentions(params *products.PostRetentionsParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostRetentionsCreated, error) {
+	ret := _m.Called(params, authInfo)
+
+	var r0 *products.PostRetentionsCreated
+	if rf, ok := ret.Get(0).(func(*products.PostRetentionsParams, runtime.ClientAuthInfoWriter) *products.PostRetentionsCreated); ok {
+		r0 = rf(params, authInfo)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*products.PostRetentionsCreated)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*products.PostRetentionsParams, runtime.ClientAuthInfoWriter) error); ok {
 		r1 = rf(params, authInfo)
 	} else {
 		r1 = ret.Error(1)

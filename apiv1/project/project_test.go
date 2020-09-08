@@ -890,8 +890,7 @@ func TestRESTClient_UpdateProject_ErrProjectInternalErrors_(t *testing.T) {
 		Context: ctx,
 	}
 
-	var project2 model.Project
-	project2 = *project
+	var project2 = *project
 
 	p.On("GetProjects", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsOK{Payload: []*model.Project{{Name: exampleProject}}}, nil)

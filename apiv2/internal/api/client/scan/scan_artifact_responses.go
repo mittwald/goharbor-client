@@ -100,14 +100,14 @@ type ScanArtifactUnauthorized struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *ScanArtifactUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/scan][%d] scanArtifactUnauthorized  %+v", 401, o.Payload)
 }
 
-func (o *ScanArtifactUnauthorized) GetPayload() model.Errors {
+func (o *ScanArtifactUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -116,8 +116,10 @@ func (o *ScanArtifactUnauthorized) readResponse(response runtime.ClientResponse,
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -138,14 +140,14 @@ type ScanArtifactForbidden struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *ScanArtifactForbidden) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/scan][%d] scanArtifactForbidden  %+v", 403, o.Payload)
 }
 
-func (o *ScanArtifactForbidden) GetPayload() model.Errors {
+func (o *ScanArtifactForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -154,8 +156,10 @@ func (o *ScanArtifactForbidden) readResponse(response runtime.ClientResponse, co
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -176,14 +180,14 @@ type ScanArtifactNotFound struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *ScanArtifactNotFound) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/scan][%d] scanArtifactNotFound  %+v", 404, o.Payload)
 }
 
-func (o *ScanArtifactNotFound) GetPayload() model.Errors {
+func (o *ScanArtifactNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -192,8 +196,10 @@ func (o *ScanArtifactNotFound) readResponse(response runtime.ClientResponse, con
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -214,14 +220,14 @@ type ScanArtifactInternalServerError struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *ScanArtifactInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/scan][%d] scanArtifactInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *ScanArtifactInternalServerError) GetPayload() model.Errors {
+func (o *ScanArtifactInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -230,8 +236,10 @@ func (o *ScanArtifactInternalServerError) readResponse(response runtime.ClientRe
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

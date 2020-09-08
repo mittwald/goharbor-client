@@ -106,14 +106,14 @@ type RemoveLabelUnauthorized struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *RemoveLabelUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/labels/{label_id}][%d] removeLabelUnauthorized  %+v", 401, o.Payload)
 }
 
-func (o *RemoveLabelUnauthorized) GetPayload() model.Errors {
+func (o *RemoveLabelUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -122,8 +122,10 @@ func (o *RemoveLabelUnauthorized) readResponse(response runtime.ClientResponse, 
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -144,14 +146,14 @@ type RemoveLabelForbidden struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *RemoveLabelForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/labels/{label_id}][%d] removeLabelForbidden  %+v", 403, o.Payload)
 }
 
-func (o *RemoveLabelForbidden) GetPayload() model.Errors {
+func (o *RemoveLabelForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -160,8 +162,10 @@ func (o *RemoveLabelForbidden) readResponse(response runtime.ClientResponse, con
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -182,14 +186,14 @@ type RemoveLabelNotFound struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *RemoveLabelNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/labels/{label_id}][%d] removeLabelNotFound  %+v", 404, o.Payload)
 }
 
-func (o *RemoveLabelNotFound) GetPayload() model.Errors {
+func (o *RemoveLabelNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -198,8 +202,10 @@ func (o *RemoveLabelNotFound) readResponse(response runtime.ClientResponse, cons
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -220,14 +226,14 @@ type RemoveLabelConflict struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *RemoveLabelConflict) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/labels/{label_id}][%d] removeLabelConflict  %+v", 409, o.Payload)
 }
 
-func (o *RemoveLabelConflict) GetPayload() model.Errors {
+func (o *RemoveLabelConflict) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -236,8 +242,10 @@ func (o *RemoveLabelConflict) readResponse(response runtime.ClientResponse, cons
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -258,14 +266,14 @@ type RemoveLabelInternalServerError struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *RemoveLabelInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/labels/{label_id}][%d] removeLabelInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *RemoveLabelInternalServerError) GetPayload() model.Errors {
+func (o *RemoveLabelInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -274,8 +282,10 @@ func (o *RemoveLabelInternalServerError) readResponse(response runtime.ClientRes
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
