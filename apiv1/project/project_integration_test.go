@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"github.com/go-openapi/strfmt"
 	"github.com/mittwald/goharbor-client/apiv1/internal/api/client"
-	integrationtest "github.com/mittwald/goharbor-client/apiv2/testing"
+	integrationtest "github.com/mittwald/goharbor-client/apiv1/testing"
 	"net/url"
 	"testing"
 

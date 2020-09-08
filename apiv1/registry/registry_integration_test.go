@@ -5,7 +5,7 @@ package registry
 import (
 	"context"
 	"flag"
-	integrationtest "github.com/mittwald/goharbor-client/apiv2/testing"
+	integrationtest "github.com/mittwald/goharbor-client/apiv1/testing"
 	"net/url"
 	"testing"
 
