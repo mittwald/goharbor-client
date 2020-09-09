@@ -12,8 +12,8 @@ if [[ "${1}" = *"v1"* ]]; then
   printf "%s\n" 1 i "${BUILD_FLAG}" . w | ed -s "${MOCK_FILE}" &>/dev/null
 fi
 
-# v2 API
 if [[ "${1}" = *"v2"* ]]; then
+  # v2 API
   for CLIENT in artifact auditlog icon preheat project repository scan; do
     MOCK_FILE=apiv2/mocks/${CLIENT}_client_service.go
     echo "generating mocks for the '${CLIENT}' client using the v2 API"
@@ -22,16 +22,13 @@ if [[ "${1}" = *"v2"* ]]; then
     --output ./apiv2/mocks --filename ${CLIENT}_client_service.go --structname Mock${CLIENT^}ClientService
     printf "%s\n" 1 i "${BUILD_FLAG}" . w | ed -s "${MOCK_FILE}" &>/dev/null
   done
-fi
-
-# v2 legacy API
-if [[ "${1}" = *"v2"* ]]; then
-    for CLIENT in products scanners; do
-      MOCK_FILE=apiv2/mocks/${CLIENT}_client_service.go
-      echo "generating mocks for the '${CLIENT}' client using the v2 legacy API"
-      docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${MOCKERY_IMAGE} \
-      --name ClientService --dir apiv2/internal/legacyapi/client/${CLIENT} -r \
-      --output ./apiv2/mocks --filename ${CLIENT}_client_service.go --structname Mock${CLIENT^}ClientService
-      printf "%s\n" 1 i "${BUILD_FLAG}" . w | ed -s "${MOCK_FILE}" &>/dev/null
-    done
+  # v2 legacy API
+  for CLIENT in products scanners; do
+    MOCK_FILE=apiv2/mocks/${CLIENT}_client_service.go
+    echo "generating mocks for the '${CLIENT}' client using the v2 legacy API"
+    docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${MOCKERY_IMAGE} \
+    --name ClientService --dir apiv2/internal/legacyapi/client/${CLIENT} -r \
+    --output ./apiv2/mocks --filename ${CLIENT}_client_service.go --structname Mock${CLIENT^}ClientService
+    printf "%s\n" 1 i "${BUILD_FLAG}" . w | ed -s "${MOCK_FILE}" &>/dev/null
+  done
 fi
