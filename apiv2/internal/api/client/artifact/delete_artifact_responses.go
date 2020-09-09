@@ -100,14 +100,14 @@ type DeleteArtifactUnauthorized struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *DeleteArtifactUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}][%d] deleteArtifactUnauthorized  %+v", 401, o.Payload)
 }
 
-func (o *DeleteArtifactUnauthorized) GetPayload() model.Errors {
+func (o *DeleteArtifactUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -116,8 +116,10 @@ func (o *DeleteArtifactUnauthorized) readResponse(response runtime.ClientRespons
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -138,14 +140,14 @@ type DeleteArtifactForbidden struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *DeleteArtifactForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}][%d] deleteArtifactForbidden  %+v", 403, o.Payload)
 }
 
-func (o *DeleteArtifactForbidden) GetPayload() model.Errors {
+func (o *DeleteArtifactForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -154,8 +156,10 @@ func (o *DeleteArtifactForbidden) readResponse(response runtime.ClientResponse, 
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -176,14 +180,14 @@ type DeleteArtifactNotFound struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *DeleteArtifactNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}][%d] deleteArtifactNotFound  %+v", 404, o.Payload)
 }
 
-func (o *DeleteArtifactNotFound) GetPayload() model.Errors {
+func (o *DeleteArtifactNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -192,8 +196,10 @@ func (o *DeleteArtifactNotFound) readResponse(response runtime.ClientResponse, c
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -214,14 +220,14 @@ type DeleteArtifactInternalServerError struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *DeleteArtifactInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}][%d] deleteArtifactInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *DeleteArtifactInternalServerError) GetPayload() model.Errors {
+func (o *DeleteArtifactInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -230,8 +236,10 @@ func (o *DeleteArtifactInternalServerError) readResponse(response runtime.Client
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

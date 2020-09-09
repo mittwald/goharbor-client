@@ -6,8 +6,10 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // AuditLog audit log
@@ -19,7 +21,8 @@ type AuditLog struct {
 	ID int64 `json:"id,omitempty"`
 
 	// The time when this operation is triggered.
-	OpTime string `json:"op_time,omitempty"`
+	// Format: date-time
+	OpTime strfmt.DateTime `json:"op_time,omitempty"`
 
 	// The operation against the repository in this log entry.
 	Operation string `json:"operation,omitempty"`
@@ -36,6 +39,28 @@ type AuditLog struct {
 
 // Validate validates this audit log
 func (m *AuditLog) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateOpTime(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *AuditLog) validateOpTime(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.OpTime) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("op_time", "body", "date-time", m.OpTime.String(), formats); err != nil {
+		return err
+	}
+
 	return nil
 }
 

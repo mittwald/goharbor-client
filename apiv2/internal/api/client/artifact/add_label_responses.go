@@ -112,14 +112,14 @@ type AddLabelBadRequest struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *AddLabelBadRequest) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/labels][%d] addLabelBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *AddLabelBadRequest) GetPayload() model.Errors {
+func (o *AddLabelBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -128,8 +128,10 @@ func (o *AddLabelBadRequest) readResponse(response runtime.ClientResponse, consu
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -150,14 +152,14 @@ type AddLabelUnauthorized struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *AddLabelUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/labels][%d] addLabelUnauthorized  %+v", 401, o.Payload)
 }
 
-func (o *AddLabelUnauthorized) GetPayload() model.Errors {
+func (o *AddLabelUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -166,8 +168,10 @@ func (o *AddLabelUnauthorized) readResponse(response runtime.ClientResponse, con
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -188,14 +192,14 @@ type AddLabelForbidden struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *AddLabelForbidden) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/labels][%d] addLabelForbidden  %+v", 403, o.Payload)
 }
 
-func (o *AddLabelForbidden) GetPayload() model.Errors {
+func (o *AddLabelForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -204,8 +208,10 @@ func (o *AddLabelForbidden) readResponse(response runtime.ClientResponse, consum
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -226,14 +232,14 @@ type AddLabelNotFound struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *AddLabelNotFound) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/labels][%d] addLabelNotFound  %+v", 404, o.Payload)
 }
 
-func (o *AddLabelNotFound) GetPayload() model.Errors {
+func (o *AddLabelNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -242,8 +248,10 @@ func (o *AddLabelNotFound) readResponse(response runtime.ClientResponse, consume
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -264,14 +272,14 @@ type AddLabelConflict struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *AddLabelConflict) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/labels][%d] addLabelConflict  %+v", 409, o.Payload)
 }
 
-func (o *AddLabelConflict) GetPayload() model.Errors {
+func (o *AddLabelConflict) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -280,8 +288,10 @@ func (o *AddLabelConflict) readResponse(response runtime.ClientResponse, consume
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -302,14 +312,14 @@ type AddLabelInternalServerError struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *AddLabelInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/labels][%d] addLabelInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *AddLabelInternalServerError) GetPayload() model.Errors {
+func (o *AddLabelInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -318,8 +328,10 @@ func (o *AddLabelInternalServerError) readResponse(response runtime.ClientRespon
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

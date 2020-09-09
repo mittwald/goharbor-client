@@ -104,14 +104,14 @@ type GetReportLogUnauthorized struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *GetReportLogUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/scan/{report_id}/log][%d] getReportLogUnauthorized  %+v", 401, o.Payload)
 }
 
-func (o *GetReportLogUnauthorized) GetPayload() model.Errors {
+func (o *GetReportLogUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -120,8 +120,10 @@ func (o *GetReportLogUnauthorized) readResponse(response runtime.ClientResponse,
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -142,14 +144,14 @@ type GetReportLogForbidden struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *GetReportLogForbidden) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/scan/{report_id}/log][%d] getReportLogForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetReportLogForbidden) GetPayload() model.Errors {
+func (o *GetReportLogForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -158,8 +160,10 @@ func (o *GetReportLogForbidden) readResponse(response runtime.ClientResponse, co
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -180,14 +184,14 @@ type GetReportLogNotFound struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *GetReportLogNotFound) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/scan/{report_id}/log][%d] getReportLogNotFound  %+v", 404, o.Payload)
 }
 
-func (o *GetReportLogNotFound) GetPayload() model.Errors {
+func (o *GetReportLogNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -196,8 +200,10 @@ func (o *GetReportLogNotFound) readResponse(response runtime.ClientResponse, con
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -218,14 +224,14 @@ type GetReportLogInternalServerError struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *GetReportLogInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/scan/{report_id}/log][%d] getReportLogInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetReportLogInternalServerError) GetPayload() model.Errors {
+func (o *GetReportLogInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -234,8 +240,10 @@ func (o *GetReportLogInternalServerError) readResponse(response runtime.ClientRe
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

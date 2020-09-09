@@ -58,6 +58,11 @@ swagger_operations+=("PostSystemGcSchedule")
 swagger_operations+=("GetSystemGcSchedule")
 swagger_operations+=("PutSystemGcSchedule")
 
+swagger_operations+=("GetRetentionsMetadatas")
+swagger_operations+=("PostRetentions")
+swagger_operations+=("GetRetentionsID")
+
+
 for i in "${swagger_operations[@]}"; do
   operation_flags+="--operation=${i} "
 done
@@ -78,16 +83,25 @@ fi
 
 if [[ "${1}" = *"v2"* ]]; then
   LEGACY_SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${1}/api/$(echo "${1}"|cut -f1,2 -d'.')/legacy_swagger.yaml"
-  SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${1}/api/$(echo "${1}"|cut -f1,2 -d'.')/swagger.yaml"
+  # Hard override for missing types in the latest v2 swagger spec.
+  SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/v2.1.0-rc1/api/$(echo "${1}"|cut -f1,2 -d'.')/swagger.yaml"
   echo "using the v2 swagger files (${1%.0})"
-  for FILE in $LEGACY_SWAGGER_FILE $SWAGGER_FILE; do
-    docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
+  # Generate using the Harbor v2 legacy API
+  docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
+  generate client \
+  -q \
+  --skip-validation \
+  --model-package="apiv2/model/legacy" \
+  --name="harbor" \
+  --client-package="apiv2/internal/legacyapi/client" \
+  --spec="${LEGACY_SWAGGER_FILE}"
+  # Generate using the new / changed Harbor v2 API
+  docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
   generate client \
   -q \
   --skip-validation \
   --model-package="apiv2/model/" \
   --name="harbor" \
   --client-package="apiv2/internal/api/client" \
-  --spec="${FILE}"
-  done
+  --spec="${SWAGGER_FILE}"
 fi

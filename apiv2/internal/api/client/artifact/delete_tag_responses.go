@@ -100,14 +100,14 @@ type DeleteTagUnauthorized struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *DeleteTagUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags/{tag_name}][%d] deleteTagUnauthorized  %+v", 401, o.Payload)
 }
 
-func (o *DeleteTagUnauthorized) GetPayload() model.Errors {
+func (o *DeleteTagUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -116,8 +116,10 @@ func (o *DeleteTagUnauthorized) readResponse(response runtime.ClientResponse, co
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -138,14 +140,14 @@ type DeleteTagForbidden struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *DeleteTagForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags/{tag_name}][%d] deleteTagForbidden  %+v", 403, o.Payload)
 }
 
-func (o *DeleteTagForbidden) GetPayload() model.Errors {
+func (o *DeleteTagForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -154,8 +156,10 @@ func (o *DeleteTagForbidden) readResponse(response runtime.ClientResponse, consu
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -176,14 +180,14 @@ type DeleteTagNotFound struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *DeleteTagNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags/{tag_name}][%d] deleteTagNotFound  %+v", 404, o.Payload)
 }
 
-func (o *DeleteTagNotFound) GetPayload() model.Errors {
+func (o *DeleteTagNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -192,8 +196,10 @@ func (o *DeleteTagNotFound) readResponse(response runtime.ClientResponse, consum
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -214,14 +220,14 @@ type DeleteTagInternalServerError struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *DeleteTagInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags/{tag_name}][%d] deleteTagInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *DeleteTagInternalServerError) GetPayload() model.Errors {
+func (o *DeleteTagInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -230,8 +236,10 @@ func (o *DeleteTagInternalServerError) readResponse(response runtime.ClientRespo
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

@@ -7,7 +7,7 @@ import (
 	"github.com/mittwald/goharbor-client/apiv1/internal/api/client"
 
 	"github.com/mittwald/goharbor-client/apiv1/internal/api/client/products"
-	model "github.com/mittwald/goharbor-client/apiv1/model"
+	"github.com/mittwald/goharbor-client/apiv1/model"
 )
 
 // RESTClient is a subclient for handling system related actions.

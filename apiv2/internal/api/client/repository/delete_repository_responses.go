@@ -106,14 +106,14 @@ type DeleteRepositoryBadRequest struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *DeleteRepositoryBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}][%d] deleteRepositoryBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *DeleteRepositoryBadRequest) GetPayload() model.Errors {
+func (o *DeleteRepositoryBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -122,8 +122,10 @@ func (o *DeleteRepositoryBadRequest) readResponse(response runtime.ClientRespons
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -144,14 +146,14 @@ type DeleteRepositoryUnauthorized struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *DeleteRepositoryUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}][%d] deleteRepositoryUnauthorized  %+v", 401, o.Payload)
 }
 
-func (o *DeleteRepositoryUnauthorized) GetPayload() model.Errors {
+func (o *DeleteRepositoryUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -160,8 +162,10 @@ func (o *DeleteRepositoryUnauthorized) readResponse(response runtime.ClientRespo
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -182,14 +186,14 @@ type DeleteRepositoryForbidden struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *DeleteRepositoryForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}][%d] deleteRepositoryForbidden  %+v", 403, o.Payload)
 }
 
-func (o *DeleteRepositoryForbidden) GetPayload() model.Errors {
+func (o *DeleteRepositoryForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -198,8 +202,10 @@ func (o *DeleteRepositoryForbidden) readResponse(response runtime.ClientResponse
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -220,14 +226,14 @@ type DeleteRepositoryNotFound struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *DeleteRepositoryNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}][%d] deleteRepositoryNotFound  %+v", 404, o.Payload)
 }
 
-func (o *DeleteRepositoryNotFound) GetPayload() model.Errors {
+func (o *DeleteRepositoryNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -236,8 +242,10 @@ func (o *DeleteRepositoryNotFound) readResponse(response runtime.ClientResponse,
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -258,14 +266,14 @@ type DeleteRepositoryInternalServerError struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *DeleteRepositoryInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}][%d] deleteRepositoryInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *DeleteRepositoryInternalServerError) GetPayload() model.Errors {
+func (o *DeleteRepositoryInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -274,8 +282,10 @@ func (o *DeleteRepositoryInternalServerError) readResponse(response runtime.Clie
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

@@ -53,6 +53,12 @@ func (o *CopyArtifactReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
+	case 405:
+		result := NewCopyArtifactMethodNotAllowed()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 500:
 		result := NewCopyArtifactInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -112,14 +118,14 @@ type CopyArtifactBadRequest struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *CopyArtifactBadRequest) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts][%d] copyArtifactBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *CopyArtifactBadRequest) GetPayload() model.Errors {
+func (o *CopyArtifactBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -128,8 +134,10 @@ func (o *CopyArtifactBadRequest) readResponse(response runtime.ClientResponse, c
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -150,14 +158,14 @@ type CopyArtifactUnauthorized struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *CopyArtifactUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts][%d] copyArtifactUnauthorized  %+v", 401, o.Payload)
 }
 
-func (o *CopyArtifactUnauthorized) GetPayload() model.Errors {
+func (o *CopyArtifactUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -166,8 +174,10 @@ func (o *CopyArtifactUnauthorized) readResponse(response runtime.ClientResponse,
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -188,14 +198,14 @@ type CopyArtifactForbidden struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *CopyArtifactForbidden) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts][%d] copyArtifactForbidden  %+v", 403, o.Payload)
 }
 
-func (o *CopyArtifactForbidden) GetPayload() model.Errors {
+func (o *CopyArtifactForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -204,8 +214,10 @@ func (o *CopyArtifactForbidden) readResponse(response runtime.ClientResponse, co
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -226,14 +238,14 @@ type CopyArtifactNotFound struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *CopyArtifactNotFound) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts][%d] copyArtifactNotFound  %+v", 404, o.Payload)
 }
 
-func (o *CopyArtifactNotFound) GetPayload() model.Errors {
+func (o *CopyArtifactNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -242,8 +254,50 @@ func (o *CopyArtifactNotFound) readResponse(response runtime.ClientResponse, con
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCopyArtifactMethodNotAllowed creates a CopyArtifactMethodNotAllowed with default headers values
+func NewCopyArtifactMethodNotAllowed() *CopyArtifactMethodNotAllowed {
+	return &CopyArtifactMethodNotAllowed{}
+}
+
+/*CopyArtifactMethodNotAllowed handles this case with default header values.
+
+Method not allowed
+*/
+type CopyArtifactMethodNotAllowed struct {
+	/*The ID of the corresponding request for the response
+	 */
+	XRequestID string
+
+	Payload *model.Errors
+}
+
+func (o *CopyArtifactMethodNotAllowed) Error() string {
+	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts][%d] copyArtifactMethodNotAllowed  %+v", 405, o.Payload)
+}
+
+func (o *CopyArtifactMethodNotAllowed) GetPayload() *model.Errors {
+	return o.Payload
+}
+
+func (o *CopyArtifactMethodNotAllowed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
+
+	o.Payload = new(model.Errors)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -264,14 +318,14 @@ type CopyArtifactInternalServerError struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *CopyArtifactInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts][%d] copyArtifactInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *CopyArtifactInternalServerError) GetPayload() model.Errors {
+func (o *CopyArtifactInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -280,8 +334,10 @@ func (o *CopyArtifactInternalServerError) readResponse(response runtime.ClientRe
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

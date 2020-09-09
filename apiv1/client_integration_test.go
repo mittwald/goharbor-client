@@ -4,6 +4,7 @@ package apiv1
 
 import (
 	"flag"
+	integrationtest "github.com/mittwald/goharbor-client/apiv1/testing"
 	"os"
 	"os/exec"
 	"testing"
@@ -11,16 +12,8 @@ import (
 	runtimeclient "github.com/go-openapi/runtime/client"
 )
 
-const (
-	setupScript    = "../scripts/setup-harbor.sh"
-	teardownScript = "../scripts/teardown-harbor.sh"
-	host           = "localhost:30002"
-	defaultUser    = "admin"
-	password       = "Harbor12345"
-)
-
 var (
-	authInfo      = runtimeclient.BasicAuth(defaultUser, password)
+	authInfo      = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
 	harborVersion = flag.String("version", "1.10.4",
 		"Harbor version, used in conjunction with -integration, "+
 			"defaults to 1.10.4")
@@ -46,7 +39,7 @@ func testMain(m *testing.M) int {
 }
 
 func setupHarbor(version string) error {
-	cmdPath, err := exec.LookPath(setupScript)
+	cmdPath, err := exec.LookPath(integrationtest.SetupScript)
 	if err != nil {
 		return err
 	}

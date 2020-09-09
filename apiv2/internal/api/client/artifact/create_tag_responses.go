@@ -53,6 +53,12 @@ func (o *CreateTagReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return nil, result
+	case 405:
+		result := NewCreateTagMethodNotAllowed()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 409:
 		result := NewCreateTagConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -118,14 +124,14 @@ type CreateTagBadRequest struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *CreateTagBadRequest) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags][%d] createTagBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *CreateTagBadRequest) GetPayload() model.Errors {
+func (o *CreateTagBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -134,8 +140,10 @@ func (o *CreateTagBadRequest) readResponse(response runtime.ClientResponse, cons
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -156,14 +164,14 @@ type CreateTagUnauthorized struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *CreateTagUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags][%d] createTagUnauthorized  %+v", 401, o.Payload)
 }
 
-func (o *CreateTagUnauthorized) GetPayload() model.Errors {
+func (o *CreateTagUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -172,8 +180,10 @@ func (o *CreateTagUnauthorized) readResponse(response runtime.ClientResponse, co
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -194,14 +204,14 @@ type CreateTagForbidden struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *CreateTagForbidden) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags][%d] createTagForbidden  %+v", 403, o.Payload)
 }
 
-func (o *CreateTagForbidden) GetPayload() model.Errors {
+func (o *CreateTagForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -210,8 +220,10 @@ func (o *CreateTagForbidden) readResponse(response runtime.ClientResponse, consu
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -232,14 +244,14 @@ type CreateTagNotFound struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *CreateTagNotFound) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags][%d] createTagNotFound  %+v", 404, o.Payload)
 }
 
-func (o *CreateTagNotFound) GetPayload() model.Errors {
+func (o *CreateTagNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -248,8 +260,50 @@ func (o *CreateTagNotFound) readResponse(response runtime.ClientResponse, consum
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateTagMethodNotAllowed creates a CreateTagMethodNotAllowed with default headers values
+func NewCreateTagMethodNotAllowed() *CreateTagMethodNotAllowed {
+	return &CreateTagMethodNotAllowed{}
+}
+
+/*CreateTagMethodNotAllowed handles this case with default header values.
+
+Method not allowed
+*/
+type CreateTagMethodNotAllowed struct {
+	/*The ID of the corresponding request for the response
+	 */
+	XRequestID string
+
+	Payload *model.Errors
+}
+
+func (o *CreateTagMethodNotAllowed) Error() string {
+	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags][%d] createTagMethodNotAllowed  %+v", 405, o.Payload)
+}
+
+func (o *CreateTagMethodNotAllowed) GetPayload() *model.Errors {
+	return o.Payload
+}
+
+func (o *CreateTagMethodNotAllowed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
+
+	o.Payload = new(model.Errors)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -270,14 +324,14 @@ type CreateTagConflict struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *CreateTagConflict) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags][%d] createTagConflict  %+v", 409, o.Payload)
 }
 
-func (o *CreateTagConflict) GetPayload() model.Errors {
+func (o *CreateTagConflict) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -286,8 +340,10 @@ func (o *CreateTagConflict) readResponse(response runtime.ClientResponse, consum
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -308,14 +364,14 @@ type CreateTagInternalServerError struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *CreateTagInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags][%d] createTagInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *CreateTagInternalServerError) GetPayload() model.Errors {
+func (o *CreateTagInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -324,8 +380,10 @@ func (o *CreateTagInternalServerError) readResponse(response runtime.ClientRespo
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

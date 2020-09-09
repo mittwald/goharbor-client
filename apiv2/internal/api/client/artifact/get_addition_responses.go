@@ -117,14 +117,14 @@ type GetAdditionBadRequest struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *GetAdditionBadRequest) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/additions/{addition}][%d] getAdditionBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetAdditionBadRequest) GetPayload() model.Errors {
+func (o *GetAdditionBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -133,8 +133,10 @@ func (o *GetAdditionBadRequest) readResponse(response runtime.ClientResponse, co
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -155,14 +157,14 @@ type GetAdditionUnauthorized struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *GetAdditionUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/additions/{addition}][%d] getAdditionUnauthorized  %+v", 401, o.Payload)
 }
 
-func (o *GetAdditionUnauthorized) GetPayload() model.Errors {
+func (o *GetAdditionUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -171,8 +173,10 @@ func (o *GetAdditionUnauthorized) readResponse(response runtime.ClientResponse, 
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -193,14 +197,14 @@ type GetAdditionForbidden struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *GetAdditionForbidden) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/additions/{addition}][%d] getAdditionForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetAdditionForbidden) GetPayload() model.Errors {
+func (o *GetAdditionForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -209,8 +213,10 @@ func (o *GetAdditionForbidden) readResponse(response runtime.ClientResponse, con
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -231,14 +237,14 @@ type GetAdditionNotFound struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *GetAdditionNotFound) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/additions/{addition}][%d] getAdditionNotFound  %+v", 404, o.Payload)
 }
 
-func (o *GetAdditionNotFound) GetPayload() model.Errors {
+func (o *GetAdditionNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -247,8 +253,10 @@ func (o *GetAdditionNotFound) readResponse(response runtime.ClientResponse, cons
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -269,14 +277,14 @@ type GetAdditionInternalServerError struct {
 	 */
 	XRequestID string
 
-	Payload model.Errors
+	Payload *model.Errors
 }
 
 func (o *GetAdditionInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/additions/{addition}][%d] getAdditionInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetAdditionInternalServerError) GetPayload() model.Errors {
+func (o *GetAdditionInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
@@ -285,8 +293,10 @@ func (o *GetAdditionInternalServerError) readResponse(response runtime.ClientRes
 	// response header X-Request-Id
 	o.XRequestID = response.GetHeader("X-Request-Id")
 
+	o.Payload = new(model.Errors)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

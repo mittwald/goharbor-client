@@ -9,6 +9,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Project project
@@ -20,7 +21,8 @@ type Project struct {
 	ChartCount int64 `json:"chart_count,omitempty"`
 
 	// The creation time of the project.
-	CreationTime string `json:"creation_time,omitempty"`
+	// Format: date-time
+	CreationTime strfmt.DateTime `json:"creation_time,omitempty"`
 
 	// The role ID with highest permission of the current user who triggered the API (for UI).  This attribute is deprecated and will be removed in future versions.
 	CurrentUserRoleID int64 `json:"current_user_role_id,omitempty"`
@@ -28,8 +30,8 @@ type Project struct {
 	// The list of role ID of the current user who triggered the API (for UI)
 	CurrentUserRoleIds []int32 `json:"current_user_role_ids"`
 
-	// The CVE whitelist of this project.
-	CveWhitelist *CVEWhitelist `json:"cve_whitelist,omitempty"`
+	// The CVE allowlist of this project.
+	CveAllowlist *CVEAllowlist `json:"cve_allowlist,omitempty"`
 
 	// A deletion mark of the project.
 	Deleted bool `json:"deleted,omitempty"`
@@ -49,6 +51,9 @@ type Project struct {
 	// Project ID
 	ProjectID int32 `json:"project_id,omitempty"`
 
+	// The ID of referenced registry when the project is a proxy cache project.
+	RegistryID int64 `json:"registry_id,omitempty"`
+
 	// The number of the repositories under this project.
 	RepoCount int64 `json:"repo_count,omitempty"`
 
@@ -56,18 +61,27 @@ type Project struct {
 	Togglable bool `json:"togglable,omitempty"`
 
 	// The update time of the project.
-	UpdateTime string `json:"update_time,omitempty"`
+	// Format: date-time
+	UpdateTime strfmt.DateTime `json:"update_time,omitempty"`
 }
 
 // Validate validates this project
 func (m *Project) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateCveWhitelist(formats); err != nil {
+	if err := m.validateCreationTime(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCveAllowlist(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateMetadata(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUpdateTime(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -77,16 +91,29 @@ func (m *Project) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Project) validateCveWhitelist(formats strfmt.Registry) error {
+func (m *Project) validateCreationTime(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.CveWhitelist) { // not required
+	if swag.IsZero(m.CreationTime) { // not required
 		return nil
 	}
 
-	if m.CveWhitelist != nil {
-		if err := m.CveWhitelist.Validate(formats); err != nil {
+	if err := validate.FormatOf("creation_time", "body", "date-time", m.CreationTime.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Project) validateCveAllowlist(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CveAllowlist) { // not required
+		return nil
+	}
+
+	if m.CveAllowlist != nil {
+		if err := m.CveAllowlist.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("cve_whitelist")
+				return ve.ValidateName("cve_allowlist")
 			}
 			return err
 		}
@@ -108,6 +135,19 @@ func (m *Project) validateMetadata(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *Project) validateUpdateTime(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.UpdateTime) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("update_time", "body", "date-time", m.UpdateTime.String(), formats); err != nil {
+		return err
 	}
 
 	return nil

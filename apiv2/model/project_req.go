@@ -16,11 +16,8 @@ import (
 // swagger:model ProjectReq
 type ProjectReq struct {
 
-	// The count quota of the project.
-	CountLimit int64 `json:"count_limit,omitempty"`
-
-	// The CVE whitelist of the project.
-	CveWhitelist *CVEWhitelist `json:"cve_whitelist,omitempty"`
+	// The CVE allowlist of the project.
+	CveAllowlist *CVEAllowlist `json:"cve_allowlist,omitempty"`
 
 	// The metadata of the project.
 	Metadata *ProjectMetadata `json:"metadata,omitempty"`
@@ -28,15 +25,21 @@ type ProjectReq struct {
 	// The name of the project.
 	ProjectName string `json:"project_name,omitempty"`
 
+	// deprecated, reserved for project creation in replication
+	Public *bool `json:"public,omitempty"`
+
+	// The ID of referenced registry when creating the proxy cache project
+	RegistryID *int64 `json:"registry_id,omitempty"`
+
 	// The storage quota of the project.
-	StorageLimit int64 `json:"storage_limit,omitempty"`
+	StorageLimit *int64 `json:"storage_limit,omitempty"`
 }
 
 // Validate validates this project req
 func (m *ProjectReq) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateCveWhitelist(formats); err != nil {
+	if err := m.validateCveAllowlist(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -50,16 +53,16 @@ func (m *ProjectReq) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ProjectReq) validateCveWhitelist(formats strfmt.Registry) error {
+func (m *ProjectReq) validateCveAllowlist(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.CveWhitelist) { // not required
+	if swag.IsZero(m.CveAllowlist) { // not required
 		return nil
 	}
 
-	if m.CveWhitelist != nil {
-		if err := m.CveWhitelist.Validate(formats); err != nil {
+	if m.CveAllowlist != nil {
+		if err := m.CveAllowlist.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("cve_whitelist")
+				return ve.ValidateName("cve_allowlist")
 			}
 			return err
 		}

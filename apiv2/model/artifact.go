@@ -31,6 +31,9 @@ type Artifact struct {
 	// extra attrs
 	ExtraAttrs ExtraAttrs `json:"extra_attrs,omitempty"`
 
+	// The digest of the icon
+	Icon string `json:"icon,omitempty"`
+
 	// The ID of the artifact
 	ID int64 `json:"id,omitempty"`
 
