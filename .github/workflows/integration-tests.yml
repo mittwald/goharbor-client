@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        harbor: [v1.10.3, v1.10.4]
+        harbor: [v1.10.3, v1.10.4, v2.0.2]
         go: [1.15]
     steps:
       - uses: actions/checkout@v2
