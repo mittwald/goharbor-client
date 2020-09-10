@@ -1,0 +1,219 @@
+package retention
+
+import (
+	"context"
+	"errors"
+	"strconv"
+
+	"github.com/go-openapi/runtime"
+	v2client "github.com/mittwald/goharbor-client/apiv2/internal/api/client"
+	"github.com/mittwald/goharbor-client/apiv2/internal/legacyapi/client"
+	"github.com/mittwald/goharbor-client/apiv2/internal/legacyapi/client/products"
+	model "github.com/mittwald/goharbor-client/apiv2/model/legacy"
+	"github.com/mittwald/goharbor-client/apiv2/project"
+	pc "github.com/mittwald/goharbor-client/apiv2/project"
+)
+
+const (
+	AlgorithmOr string = "or"
+
+	// Key for defining matching repositories
+	ScopeSelectorRepoMatches ScopeSelector = "repoMatches"
+
+	// Key for defining excluded repositories
+	ScopeSelectorRepoExcludes ScopeSelector = "repoExcludes"
+
+	// Key for defining matching tag expressions
+	TagSelectorMatches TagSelector = "matches"
+
+	// Key for defining excluded tag expressions
+	TagSelectorExcludes TagSelector = "excludes"
+
+	// The kind of the retention selector, _always_ defaults to 'doublestar'
+	SelectorTypeDefault string = "doublestar"
+
+	// Retain the most recently pushed n artifacts - count
+	PolicyTemplateLatestPushedArtifacts PolicyTemplate = "latestPushedK"
+
+	// Retain the most recently pulled n artifacts - count
+	PolicyTemplateLatestPulledArtifacts PolicyTemplate = "latestPulledN"
+
+	// Retain the artifacts pushed within the last n days
+	PolicyTemplateDaysSinceLastPush PolicyTemplate = "nDaysSinceLastPush"
+
+	// Retain the artifacts pulled within the last n days
+	PolicyTemplateDaysSinceLastPull PolicyTemplate = "nDaysSinceLastPull"
+
+	// Retain always
+	PolicyTemplateRetainAlways PolicyTemplate = "always"
+)
+
+type Client interface {
+	NewRetentionPolicy(ctx context.Context, scopeSelector ScopeSelector, projectRef int64,
+		retentionPolicyTemplate PolicyTemplate, tagSelector TagSelector, retentionRuleParam map[PolicyTemplate]interface{},
+		repoPattern, tagPattern, cronSchedule string, untaggedArtifacts bool) error
+	GetRetentionPolicyByProjectID(ctx context.Context, projectID int64) (*model.RetentionPolicy, error)
+}
+
+// RESTClient is a subclient forhandling retention related actions.
+type RESTClient struct {
+	// The swagger client
+	LegacyClient *client.Harbor
+
+	V2Client *v2client.Harbor
+
+	// AuthInfo contains the auth information that is provided on API calls.
+	AuthInfo runtime.ClientAuthInfoWriter
+}
+
+func NewClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
+	return &RESTClient{
+		LegacyClient: legacyClient,
+		V2Client:     v2Client,
+		AuthInfo:     authInfo,
+	}
+}
+
+type ScopeSelector string
+
+func (r ScopeSelector) String() string {
+	return string(r)
+}
+
+// PolicyTemplate defines the possible values used for the policy matching mechanism.
+type PolicyTemplate string
+
+func (p PolicyTemplate) String() string {
+	return string(p)
+}
+
+// TagSelector defines the possible values used for the tag matching mechanism. Valid values are: "matches, excludes".
+type TagSelector string
+
+// String returns the string value of a TagSelector.
+func (t TagSelector) String() string {
+	return string(t)
+}
+
+type RepoRule string
+
+// NewRetentionPolicy creates a new tag retention policy for a project.
+func (c *RESTClient) NewRetentionPolicy(ctx context.Context, scopeSelector ScopeSelector, projectRef int64,
+	retentionPolicyTemplate PolicyTemplate, tagSelector TagSelector, retentionRuleParam map[PolicyTemplate]interface{},
+	repoPattern, tagPattern, cronSchedule string, untaggedArtifacts bool) error {
+	evaluatedParams, err := evaluateRetentionRuleParams(retentionRuleParam)
+	if err != nil {
+		return err
+	}
+
+	rReq := &model.RetentionPolicy{
+		Rules: []*model.RetentionRule{
+			{
+				Action:   "retain",
+				Disabled: false,
+				Params:   evaluatedParams,
+				ScopeSelectors: map[string][]model.RetentionSelector{
+					"repository": {{
+						Decoration: scopeSelector.String(),
+						Kind:       SelectorTypeDefault,
+						Pattern:    repoPattern,
+						Extras:     "", // The "Extras" field is unused for scope selectors.
+					}},
+				},
+				TagSelectors: []*model.RetentionSelector{{
+					Decoration: tagSelector.String(),
+					Extras:     ToTagSelectorExtras(untaggedArtifacts),
+					Kind:       SelectorTypeDefault,
+					Pattern:    tagPattern,
+				}},
+				Template: retentionPolicyTemplate.String(),
+			},
+		},
+		// Scope references to a project by its project ID.
+		Scope: &model.RetentionPolicyScope{
+			Level: "project",
+			Ref:   projectRef,
+		},
+		Algorithm: AlgorithmOr,
+		Trigger: &model.RetentionRuleTrigger{
+			Kind:     "Schedule", // Trigger kind is _always_ 'Schedule'.
+			Settings: map[string]interface{}{"cron": cronSchedule},
+		},
+	}
+
+	_, err = c.LegacyClient.Products.PostRetentions(
+		&products.PostRetentionsParams{
+			Policy:  rReq,
+			Context: ctx,
+		}, c.AuthInfo)
+	if err != nil {
+		return handleSwaggerRetentionErrors(err)
+	}
+
+	return nil
+}
+
+// GetRetentionPolicyByProjectID returns a retention policy identified by the corresponding project ID.
+// The retention ID is stored in a project's metadata.
+func (c *RESTClient) GetRetentionPolicyByProjectID(ctx context.Context, projectID int64) (*model.RetentionPolicy, error) {
+	pc := pc.NewClient(c.LegacyClient, c.V2Client, c.AuthInfo)
+
+	val, err := pc.GetProjectMetadataValueV2(ctx, projectID, project.ProjectMetadataKeyRetentionID)
+	if err != nil {
+		return nil, err
+	}
+
+	id, err := strconv.Atoi(val)
+
+	resp, err := c.LegacyClient.Products.GetRetentionsID(&products.GetRetentionsIDParams{
+		ID:      int64(id),
+		Context: ctx,
+	}, c.AuthInfo)
+	if err != nil {
+		return nil, handleSwaggerRetentionErrors(err)
+	}
+
+	return resp.Payload, nil
+}
+
+// ToTagSelectorExtras converts a boolean to the representative string value used by Harbor.
+// Represents the functionality of the 'untagged artifacts' checkbox when editing tag retention rules in the Harbor UI.
+func ToTagSelectorExtras(untagged bool) string {
+	if untagged {
+		return `{"untagged":"true"}`
+	}
+	return `{"untagged":"false"}`
+}
+
+// evaluateRetentionRuleParams evaluates the provided map of PolicyTemplate by comparing the keys to the pre-defined PolicyTemplates.
+// Returns an error if the provided or resulting map is empty.
+func evaluateRetentionRuleParams(params map[PolicyTemplate]interface{}) (map[string]interface{}, error) {
+	res := make(map[string]interface{})
+
+	if len(params) == 0 {
+		return nil, errors.New("no retention rule params provided")
+	}
+
+	for k, v := range params {
+		if _, ok := params[k]; ok {
+			switch k {
+			case PolicyTemplateDaysSinceLastPull:
+				res[k.String()] = v
+			case PolicyTemplateDaysSinceLastPush:
+				res[k.String()] = v
+			case PolicyTemplateLatestPulledArtifacts:
+				res[k.String()] = v
+			case PolicyTemplateLatestPushedArtifacts:
+				res[k.String()] = v
+			default:
+				continue
+			}
+		}
+	}
+
+	if len(res) == 0 {
+		return nil, errors.New("invalid params provided")
+	}
+
+	return res, nil
+}

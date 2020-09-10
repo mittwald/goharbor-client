@@ -9,7 +9,6 @@ if [[ "${1}" = *"v1"* ]]; then
   docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${MOCKERY_IMAGE} \
   --name ClientService --dir apiv1/internal/api/client/products/ \
   --output ./apiv1/mocks --filename client_service.go --structname MockClientService
-  printf "%s\n" 1 i "${BUILD_FLAG}" . w | ed -s "${MOCK_FILE}" &>/dev/null
 fi
 
 if [[ "${1}" = *"v2"* ]]; then
@@ -20,7 +19,6 @@ if [[ "${1}" = *"v2"* ]]; then
     docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${MOCKERY_IMAGE} \
     --name ClientService --dir apiv2/internal/api/client/${CLIENT} -r \
     --output ./apiv2/mocks --filename ${CLIENT}_client_service.go --structname Mock${CLIENT^}ClientService
-    printf "%s\n" 1 i "${BUILD_FLAG}" . w | ed -s "${MOCK_FILE}" &>/dev/null
   done
   # v2 legacy API
   for CLIENT in products scanners; do
@@ -29,6 +27,5 @@ if [[ "${1}" = *"v2"* ]]; then
     docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${MOCKERY_IMAGE} \
     --name ClientService --dir apiv2/internal/legacyapi/client/${CLIENT} -r \
     --output ./apiv2/mocks --filename ${CLIENT}_client_service.go --structname Mock${CLIENT^}ClientService
-    printf "%s\n" 1 i "${BUILD_FLAG}" . w | ed -s "${MOCK_FILE}" &>/dev/null
   done
 fi

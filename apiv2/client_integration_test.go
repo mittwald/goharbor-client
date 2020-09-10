@@ -1,6 +1,6 @@
 // +build integration
 
-package apiv1
+package apiv2
 
 import (
 	"flag"
@@ -8,16 +8,15 @@ import (
 	"os/exec"
 	"testing"
 
-	integrationtest "github.com/mittwald/goharbor-client/apiv1/testing"
-
 	runtimeclient "github.com/go-openapi/runtime/client"
+	integrationtest "github.com/mittwald/goharbor-client/apiv2/testing"
 )
 
 var (
 	authInfo      = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
-	harborVersion = flag.String("version", "1.10.4",
+	harborVersion = flag.String("version", "2.0.2",
 		"Harbor version, used in conjunction with -integration, "+
-			"defaults to 1.10.4")
+			"defaults to 2.0.2")
 	skipSpinUp = flag.Bool("skip-spinup", false,
 		"Skip kind cluster creation")
 )

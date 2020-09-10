@@ -4,13 +4,15 @@ import (
 	"context"
 	"errors"
 
-	uc "github.com/mittwald/goharbor-client/apiv1/user"
+	modelv2 "github.com/mittwald/goharbor-client/apiv2/model"
+	uc "github.com/mittwald/goharbor-client/apiv2/user"
 
-	"github.com/mittwald/goharbor-client/apiv1/internal/api/client"
+	v2client "github.com/mittwald/goharbor-client/apiv2/internal/api/client"
+	"github.com/mittwald/goharbor-client/apiv2/internal/legacyapi/client"
 
 	"github.com/go-openapi/runtime"
-	"github.com/mittwald/goharbor-client/apiv1/internal/api/client/products"
-	"github.com/mittwald/goharbor-client/apiv1/model"
+	"github.com/mittwald/goharbor-client/apiv2/internal/legacyapi/client/products"
+	model "github.com/mittwald/goharbor-client/apiv2/model/legacy"
 )
 
 const (
@@ -20,25 +22,27 @@ const (
 	ProjectMetadataKeyReuseSysCVEWhitelist MetadataKey = "reuse_sys_cve_whitelist"
 	ProjectMetadataKeyPublic               MetadataKey = "public"
 	ProjectMetadataKeyPreventVul           MetadataKey = "prevent_vul"
+	ProjectMetadataKeyRetentionID          MetadataKey = "retention_id"
 )
 
-// RESTClient is a subclient forhandling project related actions.
+// RESTClient is a subclient for handling project related actions.
 type RESTClient struct {
-	// The swagger client
-	Client *client.Harbor
+	// The legacy swagger client
+	LegacyClient *client.Harbor
 
-	// AuthInfo contain auth information, which are provided on API calls.
+	V2Client *v2client.Harbor
+
+	// AuthInfo contains the auth information that is provided on API calls.
 	AuthInfo runtime.ClientAuthInfoWriter
 }
 
-func NewClient(cl *client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
+func NewClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
 	return &RESTClient{
-		Client:   cl,
-		AuthInfo: authInfo,
+		LegacyClient: legacyClient,
+		V2Client:     v2Client,
+		AuthInfo:     authInfo,
 	}
 }
-
-type MetadataKey string
 
 type Client interface {
 	NewProject(ctx context.Context, name string, countLimit int, storageLimit int)
@@ -57,7 +61,16 @@ type Client interface {
 	GetProjectMetadataValue(ctx context.Context, p *model.Project, key MetadataKey) (string, error)
 	UpdateProjectMetadata(ctx context.Context, p *model.Project, key MetadataKey, value string) error
 	DeleteProjectMetadataValue(ctx context.Context, p *model.Project, key MetadataKey) error
+
+	// v2 methods
+	GetProjectV2(ctx context.Context, projectID int64) (*modelv2.Project, error)
+
+	AddProjectMetadataV2(ctx context.Context, p *modelv2.Project, key MetadataKey, value string) error
+
+	GetProjectMetadataValueV2(ctx context.Context, projectID int64, key MetadataKey) (string, error)
 }
+
+type MetadataKey string
 
 // NewProject creates a new project with name as the project's name.
 // Returns the project as it is stored inside Harbor or an error,
@@ -74,7 +87,7 @@ func (c *RESTClient) NewProject(ctx context.Context, name string,
 		StorageLimit: int64(storageLimit) * 1024 * 1024,
 	}
 
-	_, err := c.Client.Products.PostProjects(
+	_, err := c.LegacyClient.Products.PostProjects(
 		&products.PostProjectsParams{
 			Project: pReq,
 			Context: ctx,
@@ -108,7 +121,7 @@ func (c *RESTClient) DeleteProject(ctx context.Context,
 		return &ErrProjectMismatch{}
 	}
 
-	_, err = c.Client.Products.DeleteProjectsProjectID(
+	_, err = c.LegacyClient.Products.DeleteProjectsProjectID(
 		&products.DeleteProjectsProjectIDParams{
 			ProjectID: int64(p.ProjectID),
 			Context:   ctx,
@@ -125,7 +138,7 @@ func (c *RESTClient) GetProject(ctx context.Context,
 	if name == "" {
 		return nil, &ErrProjectNameNotProvided{}
 	}
-	resp, err := c.Client.Products.GetProjects(
+	resp, err := c.LegacyClient.Products.GetProjects(
 		&products.GetProjectsParams{
 			Name:    &name,
 			Context: ctx,
@@ -148,7 +161,7 @@ func (c *RESTClient) GetProject(ctx context.Context,
 // Returns an error if no projects were found.
 func (c *RESTClient) ListProjects(ctx context.Context,
 	nameFilter string) ([]*model.Project, error) {
-	resp, err := c.Client.Products.GetProjects(
+	resp, err := c.LegacyClient.Products.GetProjects(
 		&products.GetProjectsParams{
 			Name:    &nameFilter,
 			Context: ctx,
@@ -185,7 +198,7 @@ func (c *RESTClient) UpdateProject(ctx context.Context, p *model.Project,
 		StorageLimit: int64(storageLimit) * 1024 * 1024,
 	}
 
-	_, err = c.Client.Products.PutProjectsProjectID(
+	_, err = c.LegacyClient.Products.PutProjectsProjectID(
 		&products.PutProjectsProjectIDParams{
 			Project:   pReq,
 			ProjectID: int64(p.ProjectID),
@@ -214,7 +227,7 @@ func (c *RESTClient) AddProjectMember(ctx context.Context, p *model.Project, u *
 		return &ErrProjectMismatch{}
 	}
 
-	userClient := uc.NewClient(c.Client, c.AuthInfo)
+	userClient := uc.NewClient(c.LegacyClient, c.V2Client, c.AuthInfo)
 
 	userExists, err := userClient.UserExists(ctx, u)
 	if err != nil {
@@ -233,7 +246,7 @@ func (c *RESTClient) AddProjectMember(ctx context.Context, p *model.Project, u *
 		MemberGroup: &model.UserGroup{},
 	}
 
-	_, err = c.Client.Products.PostProjectsProjectIDMembers(
+	_, err = c.LegacyClient.Products.PostProjectsProjectIDMembers(
 		&products.PostProjectsProjectIDMembersParams{
 			ProjectID:     int64(p.ProjectID),
 			ProjectMember: m,
@@ -251,7 +264,7 @@ func (c *RESTClient) ListProjectMembers(ctx context.Context, p *model.Project) (
 
 	entityName := ""
 
-	resp, err := c.Client.Products.GetProjectsProjectIDMembers(
+	resp, err := c.LegacyClient.Products.GetProjectsProjectIDMembers(
 		&products.GetProjectsProjectIDMembersParams{
 			Entityname: &entityName,
 			ProjectID:  int64(p.ProjectID),
@@ -288,7 +301,7 @@ func (c *RESTClient) UpdateProjectMemberRole(ctx context.Context, p *model.Proje
 
 	roleRequest := &model.RoleRequest{RoleID: int64(roleID)}
 
-	_, err = c.Client.Products.PutProjectsProjectIDMembersMid(
+	_, err = c.LegacyClient.Products.PutProjectsProjectIDMembersMid(
 		&products.PutProjectsProjectIDMembersMidParams{
 			Mid:       mid,
 			ProjectID: int64(p.ProjectID),
@@ -321,7 +334,7 @@ func (c *RESTClient) DeleteProjectMember(ctx context.Context, p *model.Project, 
 		return err
 	}
 
-	_, err = c.Client.Products.DeleteProjectsProjectIDMembersMid(
+	_, err = c.LegacyClient.Products.DeleteProjectsProjectIDMembersMid(
 		&products.DeleteProjectsProjectIDMembersMidParams{
 			Mid:       mid,
 			ProjectID: int64(p.ProjectID),
@@ -362,7 +375,7 @@ func (c *RESTClient) AddProjectMetadata(ctx context.Context, p *model.Project, k
 		return &ErrProjectNotProvided{}
 	}
 
-	_, err := c.Client.Products.PostProjectsProjectIDMetadatas(
+	_, err := c.LegacyClient.Products.PostProjectsProjectIDMetadatas(
 		&products.PostProjectsProjectIDMetadatasParams{
 			Metadata:  getProjectMetadataByKey(key, value),
 			ProjectID: int64(p.ProjectID),
@@ -384,15 +397,11 @@ func (c *RESTClient) AddProjectMetadata(ctx context.Context, p *model.Project, k
 }
 
 // GetProjectMetadataValue retrieves metadata with key of project p.
-func (c *RESTClient) GetProjectMetadataValue(ctx context.Context, p *model.Project, key MetadataKey) (string, error) {
-	if p == nil {
-		return "", &ErrProjectNotProvided{}
-	}
-
-	resp, err := c.Client.Products.GetProjectsProjectIDMetadatasMetaName(
+func (c *RESTClient) GetProjectMetadataValue(ctx context.Context, projectID int64, key MetadataKey) (string, error) {
+	resp, err := c.LegacyClient.Products.GetProjectsProjectIDMetadatasMetaName(
 		&products.GetProjectsProjectIDMetadatasMetaNameParams{
 			MetaName:  string(key),
-			ProjectID: int64(p.ProjectID),
+			ProjectID: projectID,
 			Context:   ctx,
 		}, c.AuthInfo)
 	if err != nil {
@@ -427,7 +436,7 @@ func (c *RESTClient) ListProjectMetadata(ctx context.Context, p *model.Project) 
 		return nil, &ErrProjectNotProvided{}
 	}
 
-	resp, err := c.Client.Products.GetProjectsProjectIDMetadatas(
+	resp, err := c.LegacyClient.Products.GetProjectsProjectIDMetadatas(
 		&products.GetProjectsProjectIDMetadatasParams{
 			ProjectID: int64(p.ProjectID),
 			Context:   ctx,
@@ -449,7 +458,7 @@ func (c *RESTClient) UpdateProjectMetadata(ctx context.Context, p *model.Project
 	pID := int64(p.ProjectID)
 	metaKeyName := string(key)
 
-	_, err := c.Client.Products.GetProjectsProjectIDMetadatasMetaName(
+	_, err := c.LegacyClient.Products.GetProjectsProjectIDMetadatasMetaName(
 		&products.GetProjectsProjectIDMetadatasMetaNameParams{
 			MetaName:  metaKeyName,
 			ProjectID: pID,
@@ -459,7 +468,7 @@ func (c *RESTClient) UpdateProjectMetadata(ctx context.Context, p *model.Project
 		return handleSwaggerProjectErrors(err)
 	}
 
-	_, err = c.Client.Products.DeleteProjectsProjectIDMetadatasMetaName(
+	_, err = c.LegacyClient.Products.DeleteProjectsProjectIDMetadatasMetaName(
 		&products.DeleteProjectsProjectIDMetadatasMetaNameParams{
 			MetaName:  metaKeyName,
 			ProjectID: pID,
@@ -470,7 +479,7 @@ func (c *RESTClient) UpdateProjectMetadata(ctx context.Context, p *model.Project
 		return handleSwaggerProjectErrors(err)
 	}
 
-	_, err = c.Client.Products.PostProjectsProjectIDMetadatas(
+	_, err = c.LegacyClient.Products.PostProjectsProjectIDMetadatas(
 		&products.PostProjectsProjectIDMetadatasParams{
 			Metadata:  getProjectMetadataByKey(key, value),
 			ProjectID: pID,
@@ -486,7 +495,7 @@ func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context, p *model.Pr
 		return &ErrProjectNotProvided{}
 	}
 
-	_, err := c.Client.Products.DeleteProjectsProjectIDMetadatasMetaName(
+	_, err := c.LegacyClient.Products.DeleteProjectsProjectIDMetadatasMetaName(
 		&products.DeleteProjectsProjectIDMetadatasMetaNameParams{
 			MetaName:  string(key),
 			ProjectID: int64(p.ProjectID),

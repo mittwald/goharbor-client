@@ -10,23 +10,25 @@ import (
 	"testing"
 
 	"github.com/go-openapi/strfmt"
-	"github.com/mittwald/goharbor-client/apiv1/internal/api/client"
-	integrationtest "github.com/mittwald/goharbor-client/apiv1/testing"
+	v2client "github.com/mittwald/goharbor-client/apiv2/internal/api/client"
+	"github.com/mittwald/goharbor-client/apiv2/internal/legacyapi/client"
+	integrationtest "github.com/mittwald/goharbor-client/apiv2/testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
-	uc "github.com/mittwald/goharbor-client/apiv1/user"
+	uc "github.com/mittwald/goharbor-client/apiv2/user"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 var (
-	u, _          = url.Parse(integrationtest.Host)
-	swaggerClient = client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
-	authInfo      = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
-	harborVersion = flag.String("version", "1.10.4",
+	u, _                = url.Parse(integrationtest.Host)
+	legacySwaggerClient = client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
+	v2SwaggerClient     = v2client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
+	authInfo            = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
+	harborVersion       = flag.String("version", "2.0.2",
 		"Harbor version, used in conjunction with -integration, "+
-			"defaults to 1.10.4")
+			"defaults to 2.0.2")
 	skipSpinUp = flag.Bool("skip-spinup", false,
 		"Skip kind cluster creation")
 )
@@ -35,7 +37,7 @@ func TestAPIProjectNew(t *testing.T) {
 	name := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	p, err := c.NewProject(ctx, name, 3, 3)
 	defer c.DeleteProject(ctx, p)
@@ -49,7 +51,7 @@ func TestAPIProjectGet(t *testing.T) {
 	name := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	p, err := c.NewProject(ctx, name, 3, 3)
 	require.NoError(t, err)
@@ -63,7 +65,7 @@ func TestAPIProjectGet(t *testing.T) {
 func TestAPIProjectDelete(t *testing.T) {
 	name := "test-project"
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	p, err := c.NewProject(ctx, name, 3, 3)
 	require.NoError(t, err)
@@ -80,7 +82,7 @@ func TestAPIProjectDelete(t *testing.T) {
 func TestAPIProjectList(t *testing.T) {
 	namePrefix := "test-project"
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	for i := 0; i < 10; i++ {
 		name := fmt.Sprintf("%s-%d", namePrefix, i)
@@ -105,7 +107,7 @@ func TestAPIProjectList(t *testing.T) {
 func TestAPIProjectUpdate(t *testing.T) {
 	name := "test-project"
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	p, err := c.NewProject(ctx, name, 3, 3)
 	require.NoError(t, err)
@@ -129,13 +131,13 @@ func TestAPIProjectUserMemberAdd(t *testing.T) {
 	memberComments := "Some comments"
 
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	p, err := c.NewProject(ctx, projectName, 3, 3)
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	uc := uc.NewClient(swaggerClient, authInfo)
+	uc := uc.NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	u, err := uc.NewUser(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
 	require.NoError(t, err)
@@ -155,13 +157,13 @@ func TestAPIProjectMemberList(t *testing.T) {
 	memberComments := "Some comments"
 
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	p, err := c.NewProject(ctx, projectName, 3, 3)
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	uc := uc.NewClient(swaggerClient, authInfo)
+	uc := uc.NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	u, err := uc.NewUser(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
 	require.NoError(t, err)
@@ -190,13 +192,13 @@ func TestAPIProjectUserMemberUpdate(t *testing.T) {
 	memberComments := "Some comments"
 
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	p, err := c.NewProject(ctx, projectName, 3, 3)
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	uc := uc.NewClient(swaggerClient, authInfo)
+	uc := uc.NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	u, err := uc.NewUser(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
 	require.NoError(t, err)
@@ -233,13 +235,13 @@ func TestAPIProjectUserMemberDelete(t *testing.T) {
 	memberComments := "Some comments"
 
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	p, err := c.NewProject(ctx, projectName, 3, 3)
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	uc := uc.NewClient(swaggerClient, authInfo)
+	uc := uc.NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	u, err := uc.NewUser(ctx, memberUsername, memberEmail, memberRealname, memberPassword, memberComments)
 	require.NoError(t, err)
@@ -269,7 +271,7 @@ func TestAPIProjectMetadataAdd(t *testing.T) {
 	projectName := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	p, err := c.NewProject(ctx, projectName, 3, 3)
 	defer c.DeleteProject(ctx, p)
@@ -291,7 +293,7 @@ func TestAPIProjectMetadataAlreadyExists(t *testing.T) {
 	projectName := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	p, err := c.NewProject(ctx, projectName, 3, 3)
 	defer c.DeleteProject(ctx, p)
@@ -309,7 +311,7 @@ func TestAPIProjectMetadataAddInvalidKey(t *testing.T) {
 	projectName := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	p, err := c.NewProject(ctx, projectName, 3, 3)
 	defer c.DeleteProject(ctx, p)
@@ -327,7 +329,7 @@ func TestAPIProjectMetadataAddInvalidValue(t *testing.T) {
 	projectName := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	p, err := c.NewProject(ctx, projectName, 3, 3)
 	defer c.DeleteProject(ctx, p)
@@ -345,13 +347,13 @@ func TestAPIProjectMetadataGet(t *testing.T) {
 	projectName := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	p, err := c.NewProject(ctx, projectName, 3, 3)
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	m, err := c.GetProjectMetadataValue(ctx, p, ProjectMetadataKeyPublic)
+	m, err := c.GetProjectMetadataValue(ctx, int64(p.ProjectID), ProjectMetadataKeyPublic)
 	require.NoError(t, err)
 
 	assert.Equal(t, "false", m)
@@ -361,13 +363,13 @@ func TestAPIProjectMetadataGetInvalidKey(t *testing.T) {
 	projectName := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	p, err := c.NewProject(ctx, projectName, 3, 3)
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	m, err := c.GetProjectMetadataValue(ctx, p, "foobar")
+	m, err := c.GetProjectMetadataValue(ctx, int64(p.ProjectID), "foobar")
 
 	if assert.Error(t, err) {
 		assert.Equal(t, "resource unknown", err.Error())
@@ -381,7 +383,7 @@ func TestAPIProjectMetadataList(t *testing.T) {
 	projectName := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	p, err := c.NewProject(ctx, projectName, 3, 3)
 	defer c.DeleteProject(ctx, p)
@@ -408,11 +410,12 @@ func TestAPIProjectMetadataList(t *testing.T) {
 	assert.Equal(t, "medium", m.Severity)
 }
 
+/* TODO: re-introduce this, once https://github.com/goharbor/harbor/issues/12570 is resolved.
 func TestAPIProjectMetadataUpdate(t *testing.T) {
 	projectName := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	p, err := c.NewProject(ctx, projectName, 3, 3)
 	defer c.DeleteProject(ctx, p)
@@ -427,13 +430,14 @@ func TestAPIProjectMetadataUpdate(t *testing.T) {
 	require.NoError(t, err)
 
 	assert.Equal(t, "false", k)
-}
+}*/
 
+/* TODO: re-introduce this, once https://github.com/goharbor/harbor/issues/12570 is resolved.
 func TestAPIProjectMetadataDelete(t *testing.T) {
 	projectName := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	p, err := c.NewProject(ctx, projectName, 3, 3)
 	defer c.DeleteProject(ctx, p)
@@ -443,6 +447,7 @@ func TestAPIProjectMetadataDelete(t *testing.T) {
 	require.NoError(t, err)
 
 	err = c.DeleteProjectMetadataValue(ctx, p, ProjectMetadataKeyAutoScan)
+
 	require.NoError(t, err)
 
 	m, err := c.GetProjectMetadataValue(ctx, p, ProjectMetadataKeyAutoScan)
@@ -451,4 +456,4 @@ func TestAPIProjectMetadataDelete(t *testing.T) {
 		assert.Equal(t, "resource unknown", err.Error())
 	}
 	assert.Equal(t, "", m)
-}
+}*/

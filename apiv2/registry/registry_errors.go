@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/go-openapi/runtime"
-	"github.com/mittwald/goharbor-client/apiv1/internal/api/client/products"
+	"github.com/mittwald/goharbor-client/apiv2/internal/legacyapi/client/products"
 )
 
 const (
