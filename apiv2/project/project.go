@@ -133,6 +133,10 @@ func (c *RESTClient) GetProjectByName(ctx context.Context, name string) (*modelv
 
 	projectList, err := c.ListProjects(ctx, name)
 
+	if err != nil {
+		return nil, handleSwaggerProjectErrors(err)
+	}
+
 	var projectID int64
 
 	for _, p := range projectList {

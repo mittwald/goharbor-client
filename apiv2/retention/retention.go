@@ -3,6 +3,7 @@ package retention
 import (
 	"context"
 	"errors"
+	"fmt"
 	modelv2 "github.com/mittwald/goharbor-client/apiv2/model"
 	"strconv"
 
@@ -120,7 +121,7 @@ func (c *RESTClient) NewRetentionPolicy(ctx context.Context, rep *model.Retentio
 	return nil
 }
 
-// GetRetentionPolicyByProjectID returns a retention policy identified by the corresponding project ID.
+// GetRetentionPolicyByProject returns a retention policy identified by the corresponding project resource.
 // The retention ID is stored in a project's metadata.
 func (c *RESTClient) GetRetentionPolicyByProject(ctx context.Context, project *modelv2.Project) (*model.RetentionPolicy, error) {
 	pc := pc.NewClient(c.LegacyClient, c.V2Client, c.AuthInfo)
@@ -131,6 +132,9 @@ func (c *RESTClient) GetRetentionPolicyByProject(ctx context.Context, project *m
 	}
 
 	id, err := strconv.Atoi(val)
+	if err != nil {
+		return nil, fmt.Errorf("could not convert retention id %q to int, project: %d", val, project.ProjectID)
+	}
 
 	resp, err := c.LegacyClient.Products.GetRetentionsID(&products.GetRetentionsIDParams{
 		ID:      int64(id),
