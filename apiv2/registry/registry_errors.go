@@ -26,7 +26,9 @@ const (
 	ErrRegistryMismatchMsg = "id/name pair not found on server side"
 	// ErrRegistryNotFound describes an error
 	// when a specific registry is not found
-	ErrRegistryNotFoundMsg    = "registry not found on server side"
+	ErrRegistryNotFoundMsg = "registry not found on server side"
+	// ErrRegistryNotProvidedMsg describes an error
+	// when no registry was provided by the user
 	ErrRegistryNotProvidedMsg = "no registry provided"
 )
 
@@ -97,6 +99,8 @@ func (e *ErrRegistryNotFound) Error() string {
 	return ErrRegistryNotFoundMsg
 }
 
+// ErrRegistryNotProvided describes an error
+// when no registry was provided.
 type ErrRegistryNotProvided struct{}
 
 // Error returns the error message.

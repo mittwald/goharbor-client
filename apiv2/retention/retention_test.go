@@ -140,8 +140,7 @@ func TestRESTClient_NewRetentionPolicy(t *testing.T) {
 	p.On("PostRetentions", postRetentionParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.PostRetentionsCreated{}, &runtime.APIError{Code: http.StatusCreated})
 
-	err := cl.NewRetentionPolicy(ctx, ScopeSelectorRepoMatches, 0, PolicyTemplateDaysSinceLastPush, TagSelectorMatches,
-		map[PolicyTemplate]interface{}{PolicyTemplateDaysSinceLastPush: 1}, "**", "**", "0 * * * *", true)
+	err := cl.NewRetentionPolicy(ctx, postRetentionParams.Policy)
 
 	assert.NoError(t, err)
 }

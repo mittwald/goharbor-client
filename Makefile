@@ -42,6 +42,6 @@ integration-test-v1.10.4:
 integration-test-v2.0.2:
 	CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/apiv2/... -version=2.0.2 -tags integration
 
-gofumpt:
+gofmt:
 	find . \( -path "./apiv*/internal" -o -path "./apiv*/mocks" -o -path "./apiv*/model" \)  \
-	-prune -false -o -name '*.go' -exec gofumpt -s -w {} \;
+	-prune -false -o -name '*.go' -exec gofmt -l -w {} \;

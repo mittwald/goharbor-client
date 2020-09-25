@@ -3,6 +3,7 @@ package retention
 import (
 	"context"
 	"errors"
+	modelv2 "github.com/mittwald/goharbor-client/apiv2/model"
 	"strconv"
 
 	"github.com/go-openapi/runtime"
@@ -10,11 +11,12 @@ import (
 	"github.com/mittwald/goharbor-client/apiv2/internal/legacyapi/client"
 	"github.com/mittwald/goharbor-client/apiv2/internal/legacyapi/client/products"
 	model "github.com/mittwald/goharbor-client/apiv2/model/legacy"
-	"github.com/mittwald/goharbor-client/apiv2/project"
+	p "github.com/mittwald/goharbor-client/apiv2/project"
 	pc "github.com/mittwald/goharbor-client/apiv2/project"
 )
 
 const (
+	// AlgorithmOr is the default algorithm when operating on harbor retention rules
 	AlgorithmOr string = "or"
 
 	// Key for defining matching repositories
@@ -49,10 +51,8 @@ const (
 )
 
 type Client interface {
-	NewRetentionPolicy(ctx context.Context, scopeSelector ScopeSelector, projectRef int64,
-		retentionPolicyTemplate PolicyTemplate, tagSelector TagSelector, retentionRuleParam map[PolicyTemplate]interface{},
-		repoPattern, tagPattern, cronSchedule string, untaggedArtifacts bool) error
-	GetRetentionPolicyByProjectID(ctx context.Context, projectID int64) (*model.RetentionPolicy, error)
+	NewRetentionPolicy(ctx context.Context, rep *model.RetentionPolicy) error
+	GetRetentionPolicyByProject(ctx context.Context, project *modelv2.Project) (*model.RetentionPolicy, error)
 }
 
 // RESTClient is a subclient forhandling retention related actions.
@@ -74,6 +74,7 @@ func NewClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authInfo 
 	}
 }
 
+// ScopeSelector is the retention selector decoration used for operations on retention objects.
 type ScopeSelector string
 
 func (r ScopeSelector) String() string {
@@ -95,55 +96,21 @@ func (t TagSelector) String() string {
 	return string(t)
 }
 
-type RepoRule string
-
 // NewRetentionPolicy creates a new tag retention policy for a project.
-func (c *RESTClient) NewRetentionPolicy(ctx context.Context, scopeSelector ScopeSelector, projectRef int64,
-	retentionPolicyTemplate PolicyTemplate, tagSelector TagSelector, retentionRuleParam map[PolicyTemplate]interface{},
-	repoPattern, tagPattern, cronSchedule string, untaggedArtifacts bool) error {
-	evaluatedParams, err := evaluateRetentionRuleParams(retentionRuleParam)
-	if err != nil {
-		return err
+
+//func (c *RESTClient) NewRetentionPolicy(ctx context.Context, scopeSelector ScopeSelector, projectRef int64,
+//	retentionPolicyTemplate PolicyTemplate, tagSelector TagSelector, retentionRuleParam map[PolicyTemplate]interface{},
+//	repoPattern, tagPattern, cronSchedule string, untaggedArtifacts bool) error {
+//
+
+func (c *RESTClient) NewRetentionPolicy(ctx context.Context, rep *model.RetentionPolicy) error {
+	if rep == nil {
+		return &ErrRetentionNotProvided{}
 	}
 
-	rReq := &model.RetentionPolicy{
-		Rules: []*model.RetentionRule{
-			{
-				Action:   "retain",
-				Disabled: false,
-				Params:   evaluatedParams,
-				ScopeSelectors: map[string][]model.RetentionSelector{
-					"repository": {{
-						Decoration: scopeSelector.String(),
-						Kind:       SelectorTypeDefault,
-						Pattern:    repoPattern,
-						Extras:     "", // The "Extras" field is unused for scope selectors.
-					}},
-				},
-				TagSelectors: []*model.RetentionSelector{{
-					Decoration: tagSelector.String(),
-					Extras:     ToTagSelectorExtras(untaggedArtifacts),
-					Kind:       SelectorTypeDefault,
-					Pattern:    tagPattern,
-				}},
-				Template: retentionPolicyTemplate.String(),
-			},
-		},
-		// Scope references to a project by its project ID.
-		Scope: &model.RetentionPolicyScope{
-			Level: "project",
-			Ref:   projectRef,
-		},
-		Algorithm: AlgorithmOr,
-		Trigger: &model.RetentionRuleTrigger{
-			Kind:     "Schedule", // Trigger kind is _always_ 'Schedule'.
-			Settings: map[string]interface{}{"cron": cronSchedule},
-		},
-	}
-
-	_, err = c.LegacyClient.Products.PostRetentions(
+	_, err := c.LegacyClient.Products.PostRetentions(
 		&products.PostRetentionsParams{
-			Policy:  rReq,
+			Policy:  rep,
 			Context: ctx,
 		}, c.AuthInfo)
 	if err != nil {
@@ -155,10 +122,10 @@ func (c *RESTClient) NewRetentionPolicy(ctx context.Context, scopeSelector Scope
 
 // GetRetentionPolicyByProjectID returns a retention policy identified by the corresponding project ID.
 // The retention ID is stored in a project's metadata.
-func (c *RESTClient) GetRetentionPolicyByProjectID(ctx context.Context, projectID int64) (*model.RetentionPolicy, error) {
+func (c *RESTClient) GetRetentionPolicyByProject(ctx context.Context, project *modelv2.Project) (*model.RetentionPolicy, error) {
 	pc := pc.NewClient(c.LegacyClient, c.V2Client, c.AuthInfo)
 
-	val, err := pc.GetProjectMetadataValueV2(ctx, projectID, project.ProjectMetadataKeyRetentionID)
+	val, err := pc.GetProjectMetadataValue(ctx, int64(project.ProjectID), p.ProjectMetadataKeyRetentionID)
 	if err != nil {
 		return nil, err
 	}

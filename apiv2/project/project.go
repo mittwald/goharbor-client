@@ -31,6 +31,7 @@ type RESTClient struct {
 	// The legacy swagger client
 	LegacyClient *client.Harbor
 
+	// The new client of the harbor v2 API
 	V2Client *v2client.Harbor
 
 	// AuthInfo contains the auth information that is provided on API calls.

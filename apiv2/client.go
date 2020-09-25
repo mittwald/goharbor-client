@@ -2,6 +2,7 @@ package apiv2
 
 import (
 	"context"
+	modelv2 "github.com/mittwald/goharbor-client/apiv2/model"
 	"github.com/mittwald/goharbor-client/apiv2/retention"
 	"net/url"
 	"strings"
@@ -100,76 +101,79 @@ func (c *RESTClient) UpdateUserPassword(ctx context.Context, id int64, password 
 // Project Client
 
 // NewProject wraps the NewProject method of the project sub-package.
-func (c *RESTClient) NewProject(ctx context.Context, name string,
-	countLimit int, storageLimit int) (*model.Project, error) {
-	return c.project.NewProject(ctx, name, countLimit, storageLimit)
+func (c *RESTClient) NewProject(ctx context.Context, name string, storageLimit int) (*modelv2.Project, error) {
+	return c.project.NewProject(ctx, name, storageLimit)
 }
 
-// DeleteProject wraps the DeleteProject method of the project sub-package.
-
-func (c *RESTClient) DeleteProject(ctx context.Context, p *model.Project) error {
+// DeleteProject wraps the DeleteProject method of the registry sub-package.
+func (c *RESTClient) DeleteProject(ctx context.Context, p *modelv2.Project) error {
 	return c.project.DeleteProject(ctx, p)
 }
 
-// GetProject wraps the GetProject method of the project sub-package.
-func (c *RESTClient) GetProject(ctx context.Context, name string) (*model.Project, error) {
-	return c.project.GetProject(ctx, name)
+// GetProjectByName wraps the GetProjectByName method of the registry sub-package.
+func (c *RESTClient) GetProjectByName(ctx context.Context, name string) (*modelv2.Project, error) {
+	return c.project.GetProjectByName(ctx, name)
 }
 
-// ListProjects wraps the ListProjects method of the project sub-package.
-func (c *RESTClient) ListProjects(ctx context.Context, nameFilter string) ([]*model.Project, error) {
+// GetProjectByID wraps the GetProjectByID method of the registry sub-package.
+func (c *RESTClient) GetProjectByID(ctx context.Context, projectID int64) (*modelv2.Project, error) {
+	return c.project.GetProjectByID(ctx, projectID)
+}
+
+// ListProjects wraps the ListProjects method of the registry sub-package.
+func (c *RESTClient) ListProjects(ctx context.Context, nameFilter string) ([]*modelv2.Project, error) {
 	return c.project.ListProjects(ctx, nameFilter)
 }
 
-// UpdateProject wraps the UpdateProject method of the project sub-package.
-func (c *RESTClient) UpdateProject(ctx context.Context, p *model.Project, countLimit int, storageLimit int) error {
-	return c.project.UpdateProject(ctx, p, countLimit, storageLimit)
+// UpdateProject wraps the UpdateProject method of the registry sub-package.
+func (c *RESTClient) UpdateProject(ctx context.Context, p *modelv2.Project, storageLimit int) error {
+	return c.project.UpdateProject(ctx, p, storageLimit)
 }
 
-// AddProjectMember wraps the AddProjectMember method of the project sub-package.
-func (c *RESTClient) AddProjectMember(ctx context.Context, p *model.Project, u *model.User, roleID int) error {
+// AddProjectMember wraps the AddProjectMember method of the registry sub-package.
+func (c *RESTClient) AddProjectMember(ctx context.Context, p *modelv2.Project, u *model.User, roleID int) error {
 	return c.project.AddProjectMember(ctx, p, u, roleID)
 }
 
-// ListProjectMembers wraps the ListProjectMembers method of the project sub-package.
-func (c *RESTClient) ListProjectMembers(ctx context.Context, p *model.Project) ([]*model.ProjectMemberEntity, error) {
+// ListProjectMembers wraps the ListProjectMembers method of the registry sub-package.
+func (c *RESTClient) ListProjectMembers(ctx context.Context, p *modelv2.Project) ([]*model.ProjectMemberEntity, error) {
 	return c.project.ListProjectMembers(ctx, p)
 }
 
-// UpdateProjectMemberRole wraps the UpdateProjectMemberRole method of the project sub-package.
-func (c *RESTClient) UpdateProjectMemberRole(ctx context.Context, p *model.Project, u *model.User, roleID int) error {
+// UpdateProjectMemberRole wraps the UpdateProjectMemberRole method of the registry sub-package.
+func (c *RESTClient) UpdateProjectMemberRole(ctx context.Context, p *modelv2.Project, u *model.User, roleID int) error {
 	return c.project.UpdateProjectMemberRole(ctx, p, u, roleID)
 }
 
-// DeleteProjectMember wraps the DeleteProjectMember method of the project sub-package.
-func (c *RESTClient) DeleteProjectMember(ctx context.Context, p *model.Project, u *model.User) error {
+// DeleteProjectMember wraps the DeleteProjectMember method of the registry sub-package.
+func (c *RESTClient) DeleteProjectMember(ctx context.Context, p *modelv2.Project, u *model.User) error {
 	return c.project.DeleteProjectMember(ctx, p, u)
 }
 
-// AddProjectMetadata wraps the AddProjectMetadata method of the project sub-package.
-func (c *RESTClient) AddProjectMetadata(ctx context.Context,
-	p *model.Project, key project.MetadataKey, value string) error {
+// AddProjectMetadata wraps the AddProjectMetadata method of the registry sub-package.
+func (c *RESTClient) AddProjectMetadata(ctx context.Context, p *modelv2.Project, key project.MetadataKey, value string) error {
 	return c.project.AddProjectMetadata(ctx, p, key, value)
 }
 
-// ListProjectMetadata wraps the ListProjectMetadata method of the project sub-package.
-func (c *RESTClient) ListProjectMetadata(ctx context.Context, p *model.Project) (*model.ProjectMetadata, error) {
+// ListProjectMetadata wraps the ListProjectMetadata method of the registry sub-package.
+func (c *RESTClient) ListProjectMetadata(ctx context.Context, p *modelv2.Project) (*modelv2.ProjectMetadata, error) {
 	return c.project.ListProjectMetadata(ctx, p)
 }
 
-/* TODO: re-introduce this, once https://github.com/goharbor/harbor/issues/12570 is resolved.
-// UpdateProjectMetadata wraps the UpdateProjectMetadata method of the project sub-package.
-func (c *RESTClient) UpdateProjectMetadata(ctx context.Context,
-	p *model.Project, key project.MetadataKey, value string) error {
-	return c.project.UpdateProjectMetadata(ctx, p, key, value)
-}*/
+// GetProjectMetadataValue wraps the GetProjectMetadataValue method of the registry sub-package.
+func (c *RESTClient) GetProjectMetadataValue(ctx context.Context, projectID int64, key project.MetadataKey) (string, error) {
+	return c.project.GetProjectMetadataValue(ctx, projectID, key)
+}
 
-/* TODO: re-introduce this, once https://github.com/goharbor/harbor/issues/12570 is resolved.
-// DeleteProjectMetadataValue wraps the DeleteProjectMetadataValue method of the project sub-package.
-func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context,
-	p *model.Project, key project.MetadataKey) error {
+// UpdateProjectMetadata wraps the UpdateProjectMetadata method of the registry sub-package.
+func (c *RESTClient) UpdateProjectMetadata(ctx context.Context, p *modelv2.Project, key project.MetadataKey, value string) error {
+	return c.project.UpdateProjectMetadata(ctx, p, key, value)
+}
+
+// DeleteProjectMetadataValue wraps the DeleteProjectMetadataValue method of the registry sub-package.
+func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context, p *modelv2.Project, key project.MetadataKey) error {
 	return c.project.DeleteProjectMetadataValue(ctx, p, key)
-}*/
+}
 
 // Registry Client
 
@@ -268,16 +272,11 @@ func (c *RESTClient) ResetSystemGarbageCollection(ctx context.Context) error {
 // Retention Client
 
 // NewRetentionPolicy wraps the NewRetentionPolicy method of the retention sub-package.
-func (c *RESTClient) NewRetentionPolicy(ctx context.Context, scopeSelector retention.ScopeSelector, projectRef int64,
-	retentionPolicyTemplate retention.PolicyTemplate, tagSelector retention.TagSelector,
-	retentionRuleParam map[retention.PolicyTemplate]interface{}, repoPattern, tagPattern, cronSchedule string, untaggedArtifacts bool) error {
-
-	return c.retention.NewRetentionPolicy(ctx, scopeSelector, projectRef,
-		retentionPolicyTemplate, tagSelector, retentionRuleParam,
-		repoPattern, tagPattern, cronSchedule, untaggedArtifacts)
+func (c *RESTClient) NewRetentionPolicy(ctx context.Context, rep *model.RetentionPolicy) error {
+	return c.retention.NewRetentionPolicy(ctx, rep)
 }
 
-// GetRetentionPolicyByProjectID wraps the GetRetentionPolicyByProjectID method of the retention sub-package.
-func (c *RESTClient) GetRetentionPolicyByProjectID(ctx context.Context, projectID int64) (*model.RetentionPolicy, error) {
-	return c.retention.GetRetentionPolicyByProjectID(ctx, projectID)
+// GetRetentionPolicyByProjectID wraps the GetRetentionPolicyByProject method of the retention sub-package.
+func (c *RESTClient) GetRetentionPolicyByProject(ctx context.Context, project *modelv2.Project) (*model.RetentionPolicy, error) {
+	return c.retention.GetRetentionPolicyByProject(ctx, project)
 }

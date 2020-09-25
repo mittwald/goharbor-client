@@ -17,6 +17,7 @@ type RESTClient struct {
 	// The legacy swagger client
 	LegacyClient *client.Harbor
 
+	// The new client of the harbor v2 API
 	V2Client *v2client.Harbor
 
 	// AuthInfo contains the auth information that is provided on API calls.
@@ -40,7 +41,6 @@ type Client interface {
 	GetReplicationPolicyByID(ctx context.Context, id int64) (*model.ReplicationPolicy, error)
 	DeleteReplicationPolicy(ctx context.Context, r *model.ReplicationPolicy) error
 	UpdateReplicationPolicy(ctx context.Context, r *model.ReplicationPolicy) error
-
 	TriggerReplicationExecution(ctx context.Context, r *model.ReplicationExecution) error
 	GetReplicationExecutions(ctx context.Context, r *model.ReplicationExecution) ([]*model.ReplicationExecution, error)
 	GetReplicationExecutionsByID(ctx context.Context,

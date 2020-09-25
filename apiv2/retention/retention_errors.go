@@ -16,6 +16,9 @@ const (
 
 	// ErrRetentionInternalErrorsMsg is the error message for ErrRetentionInternalErrors error.
 	ErrRetentionInternalErrorsMsg = "unexpected internal errors"
+
+	// ErrRetentionNotProvidedMsg is the error message for ErrRetentionNotProvided error.
+	ErrRetentionNotProvidedMsg = "no retention policy provided"
 )
 
 // ErrRetentionUnauthorized describes an unauthorized request.
@@ -24,6 +27,14 @@ type ErrRetentionUnauthorized struct{}
 // Error returns the error message.
 func (e *ErrRetentionUnauthorized) Error() string {
 	return ErrRetentionUnauthorizedMsg
+}
+
+// ErrRetentionNotProvided describes a missing retention instance
+type ErrRetentionNotProvided struct{}
+
+// Error returns the error message.
+func (e *ErrRetentionNotProvided) Error() string {
+	return ErrRetentionNotProvidedMsg
 }
 
 // ErrRetentionNoPermission describes a request error without permission.

@@ -192,7 +192,7 @@ func (e *ErrProjectInvalidRequest) Error() string {
 }
 
 // ErrProjectMetadataUndefined describes an error accessing a project's metadata.
-type ErrProjectMetadataUndefined struct {}
+type ErrProjectMetadataUndefined struct{}
 
 // Error returns the error message.
 func (e *ErrProjectMetadataUndefined) Error() string {
