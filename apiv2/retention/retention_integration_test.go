@@ -5,6 +5,7 @@ package retention
 import (
 	"context"
 	"flag"
+	model "github.com/mittwald/goharbor-client/apiv2/model/legacy"
 	"net/url"
 	"testing"
 
@@ -37,15 +38,47 @@ func TestAPIRetentionNew(t *testing.T) {
 
 	pc := pc.NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
-	p, err := pc.NewProject(ctx, projectName, 0, 0)
+	p, err := pc.NewProject(ctx, projectName, 1)
 	require.NoError(t, err)
 
 	defer pc.DeleteProject(ctx, p)
 
-	p, err = pc.GetProject(ctx, projectName)
+	p, err = pc.GetProjectByName(ctx, projectName)
 
-	err = c.NewRetentionPolicy(ctx, ScopeSelectorRepoMatches, int64(p.ProjectID), PolicyTemplateDaysSinceLastPush, TagSelectorMatches,
-		map[PolicyTemplate]interface{}{PolicyTemplateDaysSinceLastPush: 1}, "**", "**", "0 * * * *", true)
+	rep := &model.RetentionPolicy{
+		Algorithm: AlgorithmOr,
+		Rules: []*model.RetentionRule{{
+			Action:   "retain",
+			Disabled: false,
+			Params: map[string]interface{}{
+				PolicyTemplateDaysSinceLastPush.String(): 1,
+			},
+			ScopeSelectors: map[string][]model.RetentionSelector{
+				"repository": {{
+					Decoration: ScopeSelectorRepoMatches.String(),
+					Kind:       SelectorTypeDefault,
+					Pattern:    "**",
+					Extras:     "", // The "Extras" field is unused for scope selectors.
+				}}},
+			TagSelectors: []*model.RetentionSelector{{
+				Decoration: TagSelectorMatches.String(),
+				Extras:     ToTagSelectorExtras(true),
+				Kind:       SelectorTypeDefault,
+				Pattern:    "**",
+			}},
+			Template: PolicyTemplateDaysSinceLastPush.String(),
+		}},
+		Scope: &model.RetentionPolicyScope{
+			Level: "project",
+			Ref:   int64(p.ProjectID),
+		},
+		Trigger: &model.RetentionRuleTrigger{
+			Kind:       "Schedule",
+			Settings:   map[string]interface{}{"cron": "0 * * * *"},
+		},
+	}
+
+	err = c.NewRetentionPolicy(ctx, rep)
 
 	require.NoError(t, err)
 
@@ -59,20 +92,52 @@ func TestAPIRetentionGet(t *testing.T) {
 
 	pc := pc.NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
-	p, err := pc.NewProject(ctx, projectName, 0, 0)
+	p, err := pc.NewProject(ctx, projectName, 1)
 	require.NoError(t, err)
 
 	defer pc.DeleteProject(ctx, p)
 
-	p, err = pc.GetProject(ctx, projectName)
+	p, err = pc.GetProjectByName(ctx, projectName)
 
-	err = c.NewRetentionPolicy(ctx, ScopeSelectorRepoMatches, int64(p.ProjectID), PolicyTemplateDaysSinceLastPush, TagSelectorMatches,
-		map[PolicyTemplate]interface{}{PolicyTemplateDaysSinceLastPush: 1}, "**", "**", "0 * * * *", true)
+	rep := &model.RetentionPolicy{
+		Algorithm: AlgorithmOr,
+		Rules: []*model.RetentionRule{{
+			Action:   "retain",
+			Disabled: false,
+			Params: map[string]interface{}{
+				PolicyTemplateDaysSinceLastPush.String(): 1,
+			},
+			ScopeSelectors: map[string][]model.RetentionSelector{
+				"repository": {{
+					Decoration: ScopeSelectorRepoMatches.String(),
+					Kind:       SelectorTypeDefault,
+					Pattern:    "**",
+					Extras:     "", // The "Extras" field is unused for scope selectors.
+				}}},
+			TagSelectors: []*model.RetentionSelector{{
+				Decoration: TagSelectorMatches.String(),
+				Extras:     ToTagSelectorExtras(true),
+				Kind:       SelectorTypeDefault,
+				Pattern:    "**",
+			}},
+			Template: PolicyTemplateDaysSinceLastPush.String(),
+		}},
+		Scope: &model.RetentionPolicyScope{
+			Level: "project",
+			Ref:   int64(p.ProjectID),
+		},
+		Trigger: &model.RetentionRuleTrigger{
+			Kind:       "Schedule",
+			Settings:   map[string]interface{}{"cron": "0 * * * *"},
+		},
+	}
+
+	err = c.NewRetentionPolicy(ctx, rep)
 
 	require.NoError(t, err)
 	require.Nil(t, err)
 
-	rp, err := c.GetRetentionPolicyByProjectID(ctx, int64(p.ProjectID))
+	rp, err := c.GetRetentionPolicyByProject(ctx, p)
 	require.NoError(t, err)
 	require.NotNil(t, rp)
 }

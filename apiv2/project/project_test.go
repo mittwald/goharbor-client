@@ -1,4 +1,4 @@
-// /#/ +bu#ild !i#ntegration
+// +build !integration
 
 package project
 
