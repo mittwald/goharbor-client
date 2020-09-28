@@ -356,7 +356,6 @@ func TestAPIProjectMetadataList(t *testing.T) {
 	m, err := c.ListProjectMetadata(ctx, p)
 	require.NoError(t, err)
 
-
 	var sPtrTrue = "true"
 	var sPtrMedium = "medium"
 	var sPtrRID = "1"

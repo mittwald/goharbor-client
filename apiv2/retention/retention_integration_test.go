@@ -73,8 +73,8 @@ func TestAPIRetentionNew(t *testing.T) {
 			Ref:   int64(p.ProjectID),
 		},
 		Trigger: &model.RetentionRuleTrigger{
-			Kind:       "Schedule",
-			Settings:   map[string]interface{}{"cron": "0 * * * *"},
+			Kind:     "Schedule",
+			Settings: map[string]interface{}{"cron": "0 * * * *"},
 		},
 	}
 
@@ -127,8 +127,8 @@ func TestAPIRetentionGet(t *testing.T) {
 			Ref:   int64(p.ProjectID),
 		},
 		Trigger: &model.RetentionRuleTrigger{
-			Kind:       "Schedule",
-			Settings:   map[string]interface{}{"cron": "0 * * * *"},
+			Kind:     "Schedule",
+			Settings: map[string]interface{}{"cron": "0 * * * *"},
 		},
 	}
 

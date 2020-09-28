@@ -24,7 +24,6 @@ import (
 
 var (
 	authInfo            = runtimeclient.BasicAuth("foo", "bar")
-	exampleCountLimit   = int64(1)
 	exampleStorageLimit = int64(1)
 	exampleProjectID    = int64(0)
 	exampleUser         = "example-user"

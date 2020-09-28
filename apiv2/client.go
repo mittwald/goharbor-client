@@ -56,7 +56,7 @@ func NewRESTClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authI
 // host string and basePath, the additional Harbor v2 API suffix as well as basic auth info.
 func NewRESTClientForHost(u, username, password string) (*RESTClient, error) {
 	if !strings.HasSuffix(u, v2URLSuffix) {
-		u = u + v2URLSuffix
+		u += v2URLSuffix
 	}
 
 	harborURL, err := url.Parse(u)

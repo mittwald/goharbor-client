@@ -98,12 +98,6 @@ func (t TagSelector) String() string {
 }
 
 // NewRetentionPolicy creates a new tag retention policy for a project.
-
-//func (c *RESTClient) NewRetentionPolicy(ctx context.Context, scopeSelector ScopeSelector, projectRef int64,
-//	retentionPolicyTemplate PolicyTemplate, tagSelector TagSelector, retentionRuleParam map[PolicyTemplate]interface{},
-//	repoPattern, tagPattern, cronSchedule string, untaggedArtifacts bool) error {
-//
-
 func (c *RESTClient) NewRetentionPolicy(ctx context.Context, rep *model.RetentionPolicy) error {
 	if rep == nil {
 		return &ErrRetentionNotProvided{}
