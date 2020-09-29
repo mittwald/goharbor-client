@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/mittwald/goharbor-client/apiv2/model/legacy"
+	"github.com/mittwald/goharbor-client/v2/apiv2/model/legacy"
 )
 
 // GetQuotasReader is a Reader for the GetQuotas structure.

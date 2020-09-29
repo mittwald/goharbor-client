@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/apiv2/model/legacy"
+	"github.com/mittwald/goharbor-client/v2/apiv2/model/legacy"
 )
 
 // DeleteScannersRegistrationIDReader is a Reader for the DeleteScannersRegistrationID structure.

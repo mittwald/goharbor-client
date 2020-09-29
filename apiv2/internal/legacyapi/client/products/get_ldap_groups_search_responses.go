@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/apiv2/model/legacy"
+	"github.com/mittwald/goharbor-client/v2/apiv2/model/legacy"
 )
 
 // GetLdapGroupsSearchReader is a Reader for the GetLdapGroupsSearch structure.

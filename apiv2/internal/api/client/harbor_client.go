@@ -10,13 +10,13 @@ import (
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/apiv2/internal/api/client/artifact"
-	"github.com/mittwald/goharbor-client/apiv2/internal/api/client/auditlog"
-	"github.com/mittwald/goharbor-client/apiv2/internal/api/client/icon"
-	"github.com/mittwald/goharbor-client/apiv2/internal/api/client/preheat"
-	"github.com/mittwald/goharbor-client/apiv2/internal/api/client/project"
-	"github.com/mittwald/goharbor-client/apiv2/internal/api/client/repository"
-	"github.com/mittwald/goharbor-client/apiv2/internal/api/client/scan"
+	"github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client/artifact"
+	"github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client/auditlog"
+	"github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client/icon"
+	"github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client/preheat"
+	"github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client/project"
+	"github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client/repository"
+	"github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client/scan"
 )
 
 // Default harbor HTTP client.

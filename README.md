@@ -25,13 +25,13 @@ This library includes separate clients for the `v1` & `v2` versions of Harbor.
 Install the desired library version using `go get`:
 
 ```shell script
-go get github.com/mittwald/goharbor-client/apiv1
+go get github.com/mittwald/goharbor-client/v2/apiv1
 ```
 
 or
 
 ```shell script
-go get github.com/mittwald/goharbor-client/apiv2
+go get github.com/mittwald/goharbor-client/v2/apiv2
 ```
 
 ## Usage

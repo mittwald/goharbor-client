@@ -4,7 +4,7 @@ package mocks
 
 import (
 	runtime "github.com/go-openapi/runtime"
-	preheat "github.com/mittwald/goharbor-client/apiv2/internal/api/client/preheat"
+	preheat "github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client/preheat"
 	mock "github.com/stretchr/testify/mock"
 )
 

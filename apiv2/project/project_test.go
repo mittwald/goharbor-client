@@ -4,20 +4,19 @@ package project
 
 import (
 	"context"
-	projectapi "github.com/mittwald/goharbor-client/apiv2/internal/api/client/project"
-	modelv2 "github.com/mittwald/goharbor-client/apiv2/model"
+	projectapi "github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client/project"
+	modelv2 "github.com/mittwald/goharbor-client/v2/apiv2/model"
 	"net/http"
 	"testing"
 
-	v2client "github.com/mittwald/goharbor-client/apiv2/internal/api/client"
-
+	v2client "github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client"
 	"github.com/go-openapi/runtime"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
-	"github.com/mittwald/goharbor-client/apiv2/internal/legacyapi/client"
-	"github.com/mittwald/goharbor-client/apiv2/internal/legacyapi/client/products"
-	"github.com/mittwald/goharbor-client/apiv2/mocks"
-	model "github.com/mittwald/goharbor-client/apiv2/model/legacy"
+	"github.com/mittwald/goharbor-client/v2/apiv2/internal/legacyapi/client"
+	"github.com/mittwald/goharbor-client/v2/apiv2/internal/legacyapi/client/products"
+	"github.com/mittwald/goharbor-client/v2/apiv2/mocks"
+	model "github.com/mittwald/goharbor-client/v2/apiv2/model/legacy"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
