@@ -1,5 +1,5 @@
 .PHONY: swagger-v1 swagger-v2 mock-v1 mock-v2 harbor-1.10.4 harbor-2.0.2 teardown-harbor test swagger-cleanup \
-integration-test-v1.10.3 integration-test-v1.10.4 integration-test-v2.0.2
+integration-test-v1.10.3 integration-test-v1.10.4 integration-test-v2.0.2 gofmt
 
 swagger-v1:
 	scripts/swagger-gen.sh v1.10.4
@@ -41,3 +41,7 @@ integration-test-v1.10.4:
 # Testing on Harbor 2.0.2
 integration-test-v2.0.2:
 	CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/apiv2/... -version=2.0.2 -tags integration
+
+gofmt:
+	find . \( -path "./apiv*/internal" -o -path "./apiv*/mocks" -o -path "./apiv*/model" \)  \
+	-prune -false -o -name '*.go' -exec gofmt -l -w {} \;

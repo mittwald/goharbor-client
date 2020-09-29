@@ -9,8 +9,9 @@ import (
 	"testing"
 
 	"github.com/go-openapi/strfmt"
-	"github.com/mittwald/goharbor-client/apiv1/internal/api/client"
-	integrationtest "github.com/mittwald/goharbor-client/apiv1/testing"
+	v2client "github.com/mittwald/goharbor-client/apiv2/internal/api/client"
+	"github.com/mittwald/goharbor-client/apiv2/internal/legacyapi/client"
+	integrationtest "github.com/mittwald/goharbor-client/apiv2/testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/stretchr/testify/assert"
@@ -18,12 +19,13 @@ import (
 )
 
 var (
-	u, _          = url.Parse(integrationtest.Host)
-	swaggerClient = client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
-	authInfo      = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
-	harborVersion = flag.String("version", "1.10.4",
+	u, _                = url.Parse(integrationtest.Host)
+	legacySwaggerClient = client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
+	v2SwaggerClient     = v2client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
+	authInfo            = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
+	harborVersion       = flag.String("version", "2.0.2",
 		"Harbor version, used in conjunction with -integration, "+
-			"defaults to 1.10.4")
+			"defaults to 2.0.2")
 	skipSpinUp = flag.Bool("skip-spinup", false,
 		"Skip kind cluster creation")
 )
@@ -36,7 +38,7 @@ func TestAPIUserNew(t *testing.T) {
 	password := "1VerySeriousPassword"
 	comments := "Some comments"
 
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 	user, err := c.NewUser(ctx, username, email, realname, password, comments)
 
 	require.NoError(t, err)
@@ -57,7 +59,7 @@ func TestAPIUserAlreadyExists(t *testing.T) {
 	password := "1VerySeriousPassword"
 	comments := "Some comments"
 
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 	user, err := c.NewUser(ctx, username, email, realname, password, comments)
 
 	require.NoError(t, err)
@@ -80,7 +82,7 @@ func TestAPIUserGet(t *testing.T) {
 	password := "1VerySeriousPassword"
 	comments := "Some comments"
 
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 	user, err := c.NewUser(ctx, username, email, realname, password, comments)
 
 	require.NoError(t, err)
@@ -104,7 +106,7 @@ func TestAPIUserDelete(t *testing.T) {
 	password := "1VerySeriousPassword"
 	comments := "Some comments"
 
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 	user, err := c.NewUser(ctx, username, email, realname, password, comments)
 
 	require.NoError(t, err)
@@ -127,7 +129,7 @@ func TestAPIUserUpdate(t *testing.T) {
 	password := "1VerySeriousPassword"
 	comments := "Some comments"
 
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 	user, err := c.NewUser(ctx, username, email, realname, password, comments)
 
 	require.NoError(t, err)

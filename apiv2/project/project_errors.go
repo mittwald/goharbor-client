@@ -1,10 +1,11 @@
 package project
 
 import (
+	projectapi "github.com/mittwald/goharbor-client/apiv2/internal/api/client/project"
 	"net/http"
 
 	"github.com/go-openapi/runtime"
-	"github.com/mittwald/goharbor-client/apiv1/internal/api/client/products"
+	"github.com/mittwald/goharbor-client/apiv2/internal/legacyapi/client/products"
 )
 
 const (
@@ -58,6 +59,9 @@ const (
 
 	// ErrProjectNameNotProvidedMsg is the error message for ErrProjectNameNotProvided error.
 	ErrProjectNameNotProvidedMsg = "project name not provided"
+
+	// ErrProjectMetadataUndefinedMsg is the error message for ErrProjectMetadataUndefined error.
+	ErrProjectMetadataUndefinedMsg = "project metadata undefined"
 )
 
 // ErrProjectNameNotProvided describes a missing project name.
@@ -187,6 +191,14 @@ func (e *ErrProjectInvalidRequest) Error() string {
 	return ErrProjectInvalidRequestMsg
 }
 
+// ErrProjectMetadataUndefined describes an error accessing a project's metadata.
+type ErrProjectMetadataUndefined struct{}
+
+// Error returns the error message.
+func (e *ErrProjectMetadataUndefined) Error() string {
+	return ErrProjectMetadataUndefinedMsg
+}
+
 // ErrProjectMetadataAlreadyExists describes an error, which happens
 // when a metadata key of a project is tried to be created a second time.
 type ErrProjectMetadataAlreadyExists struct{}
@@ -230,11 +242,11 @@ func handleSwaggerProjectErrors(in error) error {
 	}
 
 	switch in.(type) {
-	case *products.DeleteProjectsProjectIDNotFound:
+	case *projectapi.DeleteProjectNotFound:
 		return &ErrProjectIDNotExists{}
-	case *products.PutProjectsProjectIDNotFound:
+	case *projectapi.UpdateProjectNotFound:
 		return &ErrProjectIDNotExists{}
-	case *products.PostProjectsConflict:
+	case *projectapi.CreateProjectConflict:
 		return &ErrProjectNameAlreadyExists{}
 	case *products.PostProjectsProjectIDMembersBadRequest:
 		return &ErrProjectInvalidRequest{}

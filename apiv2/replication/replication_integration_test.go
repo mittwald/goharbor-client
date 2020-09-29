@@ -9,24 +9,26 @@ import (
 	"testing"
 
 	"github.com/go-openapi/strfmt"
-	"github.com/mittwald/goharbor-client/apiv1/internal/api/client"
-	integrationtest "github.com/mittwald/goharbor-client/apiv1/testing"
+	v2client "github.com/mittwald/goharbor-client/apiv2/internal/api/client"
+	"github.com/mittwald/goharbor-client/apiv2/internal/legacyapi/client"
+	integrationtest "github.com/mittwald/goharbor-client/apiv2/testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
-	"github.com/mittwald/goharbor-client/apiv1/registry"
+	"github.com/mittwald/goharbor-client/apiv2/registry"
 
-	model "github.com/mittwald/goharbor-client/apiv1/model"
+	model "github.com/mittwald/goharbor-client/apiv2/model/legacy"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 var (
-	u, _          = url.Parse(integrationtest.Host)
-	swaggerClient = client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
-	authInfo      = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
-	harborVersion = flag.String("version", "1.10.4",
+	u, _                = url.Parse(integrationtest.Host)
+	legacySwaggerClient = client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
+	v2SwaggerClient     = v2client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
+	authInfo            = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
+	harborVersion       = flag.String("version", "2.0.2",
 		"Harbor version, used in conjunction with -integration, "+
-			"defaults to 1.10.4")
+			"defaults to 2.0.2")
 	skipSpinUp = flag.Bool("skip-spinup", false,
 		"Skip kind cluster creation")
 )
@@ -35,7 +37,7 @@ func TestAPIReplicationNewDestRegistry(t *testing.T) {
 	name := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	regName := "test-registry"
 	registryType := "harbor"
@@ -54,7 +56,7 @@ func TestAPIReplicationNewDestRegistry(t *testing.T) {
 		Type: "manual",
 	}
 
-	rc := registry.NewClient(c.Client, c.AuthInfo)
+	rc := registry.NewClient(c.LegacyClient, c.V2Client, c.AuthInfo)
 
 	reg, err := rc.NewRegistry(ctx, regName, registryType, url, &credential, false)
 	require.NoError(t, err)
@@ -82,7 +84,7 @@ func TestAPIReplicationNewSrcRegistry(t *testing.T) {
 	name := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	regName := "test-registry"
 	registryType := "harbor"
@@ -101,7 +103,7 @@ func TestAPIReplicationNewSrcRegistry(t *testing.T) {
 		Type: "manual",
 	}
 
-	rc := registry.NewClient(c.Client, c.AuthInfo)
+	rc := registry.NewClient(c.LegacyClient, c.V2Client, c.AuthInfo)
 
 	reg, err := rc.NewRegistry(ctx, regName, registryType, url, &credential, false)
 	require.NoError(t, err)
@@ -128,7 +130,7 @@ func TestAPIReplicationDelete(t *testing.T) {
 	name := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	regName := "test-registry"
 	registryType := "harbor"
@@ -147,7 +149,7 @@ func TestAPIReplicationDelete(t *testing.T) {
 		Type: "manual",
 	}
 
-	rc := registry.NewClient(c.Client, c.AuthInfo)
+	rc := registry.NewClient(c.LegacyClient, c.V2Client, c.AuthInfo)
 
 	reg, err := rc.NewRegistry(ctx, regName, registryType, url, &credential, false)
 	require.NoError(t, err)
@@ -179,7 +181,7 @@ func TestAPIReplicationUpdate(t *testing.T) {
 	name := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(swaggerClient, authInfo)
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	regName := "test-registry"
 	registryType := "harbor"
@@ -198,7 +200,7 @@ func TestAPIReplicationUpdate(t *testing.T) {
 		Type: "manual",
 	}
 
-	rc := registry.NewClient(c.Client, c.AuthInfo)
+	rc := registry.NewClient(c.LegacyClient, c.V2Client, c.AuthInfo)
 
 	reg, err := rc.NewRegistry(ctx, regName, registryType, url, &credential, false)
 	require.NoError(t, err)
