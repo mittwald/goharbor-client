@@ -32,15 +32,15 @@ swagger-cleanup:
 
 # Testing on Harbor 1.10.3
 integration-test-v1.10.3:
-	CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/apiv1/... -version=1.10.3 -tags integration
+	CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v2/apiv1/... -version=1.10.3 -tags integration
 
 # Testing on Harbor 1.10.4
 integration-test-v1.10.4:
-	CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/apiv1/... -version=1.10.4 -tags integration
+	CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v2/apiv1/... -version=1.10.4 -tags integration
 
 # Testing on Harbor 2.0.2
 integration-test-v2.0.2:
-	CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/apiv2/... -version=2.0.2 -tags integration
+	CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v2/apiv2/... -version=2.0.2 -tags integration
 
 gofmt:
 	find . \( -path "./apiv*/internal" -o -path "./apiv*/mocks" -o -path "./apiv*/model" \)  \

@@ -16,7 +16,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/mittwald/goharbor-client/apiv2/model"
+	"github.com/mittwald/goharbor-client/v2/apiv2/model"
 )
 
 // NewStopExecutionParams creates a new StopExecutionParams object

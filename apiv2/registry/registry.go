@@ -3,13 +3,12 @@ package registry
 import (
 	"context"
 
-	v2client "github.com/mittwald/goharbor-client/apiv2/internal/api/client"
-
+	v2client "github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client"
 	"github.com/go-openapi/runtime"
-	"github.com/mittwald/goharbor-client/apiv2/internal/legacyapi/client"
+	"github.com/mittwald/goharbor-client/v2/apiv2/internal/legacyapi/client"
 
-	"github.com/mittwald/goharbor-client/apiv2/internal/legacyapi/client/products"
-	model "github.com/mittwald/goharbor-client/apiv2/model/legacy"
+	"github.com/mittwald/goharbor-client/v2/apiv2/internal/legacyapi/client/products"
+	model "github.com/mittwald/goharbor-client/v2/apiv2/model/legacy"
 )
 
 // RESTClient is a subclient for handling registry related actions.

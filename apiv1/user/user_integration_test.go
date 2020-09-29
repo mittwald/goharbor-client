@@ -9,7 +9,7 @@ import (
 	"testing"
 
 	"github.com/go-openapi/strfmt"
-	"github.com/mittwald/goharbor-client/apiv1/internal/api/client"
+	"github.com/mittwald/goharbor-client/v2/apiv1/internal/api/client"
 	integrationtest "github.com/mittwald/goharbor-client/apiv1/testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"

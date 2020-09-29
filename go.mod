@@ -13,6 +13,7 @@ require (
 	github.com/google/go-cmp v0.4.0 // indirect
 	github.com/mailru/easyjson v0.7.6 // indirect
 	github.com/mitchellh/mapstructure v1.3.3 // indirect
+	github.com/mittwald/goharbor-client v1.0.7
 	github.com/stretchr/testify v1.6.1
 	go.mongodb.org/mongo-driver v1.4.1 // indirect
 	golang.org/x/net v0.0.0-20200904194848-62affa334b73 // indirect

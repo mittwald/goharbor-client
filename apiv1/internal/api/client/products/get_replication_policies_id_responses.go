@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/apiv1/model"
+	"github.com/mittwald/goharbor-client/v2/apiv1/model"
 )
 
 // GetReplicationPoliciesIDReader is a Reader for the GetReplicationPoliciesID structure.

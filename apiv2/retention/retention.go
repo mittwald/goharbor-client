@@ -4,16 +4,16 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	modelv2 "github.com/mittwald/goharbor-client/apiv2/model"
+	modelv2 "github.com/mittwald/goharbor-client/v2/apiv2/model"
 	"strconv"
 
 	"github.com/go-openapi/runtime"
-	v2client "github.com/mittwald/goharbor-client/apiv2/internal/api/client"
-	"github.com/mittwald/goharbor-client/apiv2/internal/legacyapi/client"
-	"github.com/mittwald/goharbor-client/apiv2/internal/legacyapi/client/products"
-	model "github.com/mittwald/goharbor-client/apiv2/model/legacy"
-	p "github.com/mittwald/goharbor-client/apiv2/project"
-	pc "github.com/mittwald/goharbor-client/apiv2/project"
+	v2client "github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client"
+	"github.com/mittwald/goharbor-client/v2/apiv2/internal/legacyapi/client"
+	"github.com/mittwald/goharbor-client/v2/apiv2/internal/legacyapi/client/products"
+	model "github.com/mittwald/goharbor-client/v2/apiv2/model/legacy"
+	p "github.com/mittwald/goharbor-client/v2/apiv2/project"
+	pc "github.com/mittwald/goharbor-client/v2/apiv2/project"
 )
 
 const (
