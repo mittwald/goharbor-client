@@ -767,8 +767,9 @@ func TestRESTClient_ListProjectsErrProjectNotFound(t *testing.T) {
 
 	resp, err := cl.ListProjects(ctx, exampleProject.Name)
 
-	if assert.NoError(t, err) {
-		assert.Equal(t, len(resp), 0)
+	if assert.Error(t, err) {
+		assert.Equal(t, &ErrProjectNotFound{}, err)
+		assert.Nil(t, resp)
 	}
 
 	p.AssertExpectations(t)

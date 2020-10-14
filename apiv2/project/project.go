@@ -192,6 +192,10 @@ func (c *RESTClient) ListProjects(ctx context.Context, nameFilter string) ([]*mo
 		return nil, handleSwaggerProjectErrors(err)
 	}
 
+	if len(resp.Payload) == 0 {
+		return nil, &ErrProjectNotFound{}
+	}
+
 	return resp.Payload, nil
 }
 

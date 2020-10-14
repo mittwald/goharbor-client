@@ -10,22 +10,22 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// RoleRequest role request
+// CVEAllowlistItem The item in CVE allowlist
 //
-// swagger:model RoleRequest
-type RoleRequest struct {
+// swagger:model CVEAllowlistItem
+type CVEAllowlistItem struct {
 
-	// The role id 1 for projectAdmin, 2 for developer, 3 for guest, 4 for maintainer
-	RoleID int64 `json:"role_id,omitempty"`
+	// The ID of the CVE, such as "CVE-2019-10164"
+	CveID string `json:"cve_id,omitempty"`
 }
 
-// Validate validates this role request
-func (m *RoleRequest) Validate(formats strfmt.Registry) error {
+// Validate validates this c v e allowlist item
+func (m *CVEAllowlistItem) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *RoleRequest) MarshalBinary() ([]byte, error) {
+func (m *CVEAllowlistItem) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -33,8 +33,8 @@ func (m *RoleRequest) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *RoleRequest) UnmarshalBinary(b []byte) error {
-	var res RoleRequest
+func (m *CVEAllowlistItem) UnmarshalBinary(b []byte) error {
+	var res CVEAllowlistItem
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

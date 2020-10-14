@@ -25,14 +25,17 @@ type ProjectSummary struct {
 	// The total number of guest members.
 	GuestCount int64 `json:"guest_count,omitempty"`
 
-	// The total number of master members.
-	MasterCount int64 `json:"master_count,omitempty"`
+	// The total number of maintainer members.
+	MaintainerCount int64 `json:"maintainer_count,omitempty"`
 
 	// The total number of project admin members.
 	ProjectAdminCount int64 `json:"project_admin_count,omitempty"`
 
 	// quota
 	Quota *ProjectSummaryQuota `json:"quota,omitempty"`
+
+	// registry
+	Registry *Registry `json:"registry,omitempty"`
 
 	// The number of the repositories under this project.
 	RepoCount int64 `json:"repo_count,omitempty"`
@@ -43,6 +46,10 @@ func (m *ProjectSummary) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateQuota(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRegistry(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -62,6 +69,24 @@ func (m *ProjectSummary) validateQuota(formats strfmt.Registry) error {
 		if err := m.Quota.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("quota")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ProjectSummary) validateRegistry(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Registry) { // not required
+		return nil
+	}
+
+	if m.Registry != nil {
+		if err := m.Registry.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("registry")
 			}
 			return err
 		}

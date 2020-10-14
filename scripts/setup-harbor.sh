@@ -42,9 +42,12 @@ while read CHART HARBOR; do
     if [[ "${HARBOR_VERSION}" == "${HARBOR}" ]]; then
         HARBOR_CHART_VERSION="${CHART}"
     fi
-done <<< "1.4.2 2.0.2
+done <<< "1.5.0 2.1.0
+1.4.3 2.0.3
+1.4.2 2.0.2
 1.4.1 2.0.1
 1.4.0 2.0.0
+1.3.5 1.10.5
 1.3.4 1.10.4
 1.3.2 1.10.3
 1.3.2 1.10.2
