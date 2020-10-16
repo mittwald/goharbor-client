@@ -24,9 +24,9 @@ var (
 	legacySwaggerClient = client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
 	v2SwaggerClient     = v2client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
 	authInfo            = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
-	harborVersion       = flag.String("version", "2.0.2",
+	harborVersion       = flag.String("version", "2.1.0",
 		"Harbor version, used in conjunction with -integration, "+
-			"defaults to 2.0.2")
+			"defaults to 2.1.0")
 	skipSpinUp = flag.Bool("skip-spinup", false,
 		"Skip kind cluster creation")
 )
