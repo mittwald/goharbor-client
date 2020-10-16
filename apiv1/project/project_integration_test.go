@@ -10,8 +10,8 @@ import (
 	"testing"
 
 	"github.com/go-openapi/strfmt"
-	"github.com/mittwald/goharbor-client/v2/apiv1/internal/api/client"
 	integrationtest "github.com/mittwald/goharbor-client/apiv1/testing"
+	"github.com/mittwald/goharbor-client/v2/apiv1/internal/api/client"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 	uc "github.com/mittwald/goharbor-client/v2/apiv1/user"

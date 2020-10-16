@@ -8,8 +8,8 @@ import (
 	"net/url"
 	"testing"
 
-	v2client "github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client"
 	integrationtest "github.com/mittwald/goharbor-client/apiv2/testing"
+	v2client "github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"

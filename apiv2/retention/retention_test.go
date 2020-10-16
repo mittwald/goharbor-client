@@ -9,7 +9,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 	runtimeclient "github.com/go-openapi/runtime/client"
-	v2client "github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client"	
+	v2client "github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v2/apiv2/internal/legacyapi/client"
 	"github.com/mittwald/goharbor-client/v2/apiv2/internal/legacyapi/client/products"
 	"github.com/mittwald/goharbor-client/v2/apiv2/mocks"
