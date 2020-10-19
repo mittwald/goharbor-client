@@ -30,6 +30,10 @@ var (
 		"Skip kind cluster creation")
 )
 
+const (
+	projectName string = "test-project"
+)
+
 func TestAPIRetentionNew(t *testing.T) {
 	ctx := context.Background()
 

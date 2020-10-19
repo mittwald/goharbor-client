@@ -75,7 +75,7 @@ func TestAPIProjectDelete(t *testing.T) {
 
 	p, err = c.GetProjectByName(ctx, name)
 	if assert.Error(t, err) {
-		assert.IsType(t, &ErrProjectIllegalIDFormat{}, err)
+		assert.IsType(t, &ErrProjectNotFound{}, err)
 	}
 }
 
@@ -124,7 +124,7 @@ func TestAPIProjectUpdate(t *testing.T) {
 	p2, err := c.GetProjectByName(ctx, name)
 	require.NoError(t, err)
 
-	assert.Equal(t, p, p2)
+	assert.NotEqual(t, p, p2)
 }
 
 func TestAPIProjectUserMemberAdd(t *testing.T) {
