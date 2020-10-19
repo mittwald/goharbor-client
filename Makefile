@@ -1,16 +1,12 @@
-.PHONY: swagger-v1 swagger-v2 mock-v1 mock-v2 harbor-1.10.4 harbor-2.0.2 teardown-harbor test swagger-cleanup \
-integration-test-v1.10.3 integration-test-v1.10.4 integration-test-v2.0.2 gofmt
+.PHONY: swagger-generate mock harbor-1.10.4 harbor-2.0.2 teardown-harbor test swagger-cleanup \
+integration-test-v1.10.3 integration-test-v1.10.4 integration-test-v2.0.2 gofmt mock-cleanup
 
-swagger-v1:
+swagger-generate: swagger-cleanup
 	scripts/swagger-gen.sh v1.10.5
-
-swagger-v2:
 	scripts/swagger-gen.sh v2.1.0
 
-mock-v1:
+mock: mock-cleanup
 	scripts/gen-mock.sh v1
-
-mock-v2:
 	scripts/gen-mock.sh v2
 
 # Creates a Harbor instance as a docker container via Kind.
@@ -29,6 +25,9 @@ test:
 
 swagger-cleanup:
 	rm -rf ./apiv*/internal ./apiv*/model/
+
+mock-cleanup:
+	rm -rf ./apiv*/mocks/*
 
 # Testing on Harbor 1.10.5
 integration-test-v1.10.5:
