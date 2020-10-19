@@ -13,26 +13,26 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// CVEWhitelist The CVE Whitelist for system or project
+// CVEAllowlist The CVE Allowlist for system or project
 //
-// swagger:model CVEWhitelist
-type CVEWhitelist struct {
+// swagger:model CVEAllowlist
+type CVEAllowlist struct {
 
-	// the time for expiration of the whitelist, in the form of seconds since epoch.  This is an optional attribute, if it's not set the CVE whitelist does not expire.
+	// the time for expiration of the allowlist, in the form of seconds since epoch.  This is an optional attribute, if it's not set the CVE allowlist does not expire.
 	ExpiresAt int64 `json:"expires_at,omitempty"`
 
-	// ID of the whitelist
+	// ID of the allowlist
 	ID int64 `json:"id,omitempty"`
 
 	// items
-	Items []*CVEWhitelistItem `json:"items"`
+	Items []*CVEAllowlistItem `json:"items"`
 
-	// ID of the project which the whitelist belongs to.  For system level whitelist this attribute is zero.
+	// ID of the project which the allowlist belongs to.  For system level allowlist this attribute is zero.
 	ProjectID int64 `json:"project_id,omitempty"`
 }
 
-// Validate validates this c v e whitelist
-func (m *CVEWhitelist) Validate(formats strfmt.Registry) error {
+// Validate validates this c v e allowlist
+func (m *CVEAllowlist) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateItems(formats); err != nil {
@@ -45,7 +45,7 @@ func (m *CVEWhitelist) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *CVEWhitelist) validateItems(formats strfmt.Registry) error {
+func (m *CVEAllowlist) validateItems(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Items) { // not required
 		return nil
@@ -71,7 +71,7 @@ func (m *CVEWhitelist) validateItems(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *CVEWhitelist) MarshalBinary() ([]byte, error) {
+func (m *CVEAllowlist) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -79,8 +79,8 @@ func (m *CVEWhitelist) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *CVEWhitelist) UnmarshalBinary(b []byte) error {
-	var res CVEWhitelist
+func (m *CVEAllowlist) UnmarshalBinary(b []byte) error {
+	var res CVEAllowlist
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

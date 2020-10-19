@@ -11,10 +11,10 @@ import (
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	integrationtest "github.com/mittwald/goharbor-client/apiv2/testing"
 	v2client "github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v2/apiv2/internal/legacyapi/client"
 	pc "github.com/mittwald/goharbor-client/v2/apiv2/project"
-	integrationtest "github.com/mittwald/goharbor-client/apiv2/testing"
 	"github.com/stretchr/testify/require"
 )
 
@@ -23,12 +23,15 @@ var (
 	legacySwaggerClient = client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
 	v2SwaggerClient     = v2client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
 	authInfo            = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
-	harborVersion       = flag.String("version", "2.0.2",
+	harborVersion       = flag.String("version", "2.1.0",
 		"Harbor version, used in conjunction with -integration, "+
-			"defaults to 2.0.2")
+			"defaults to 2.1.0")
 	skipSpinUp = flag.Bool("skip-spinup", false,
 		"Skip kind cluster creation")
-	projectName = "test-project"
+)
+
+const (
+	projectName string = "test-project"
 )
 
 func TestAPIRetentionNew(t *testing.T) {

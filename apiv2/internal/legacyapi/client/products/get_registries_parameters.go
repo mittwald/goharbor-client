@@ -61,10 +61,15 @@ for the get registries operation typically these are written to a http.Request
 type GetRegistriesParams struct {
 
 	/*Name
-	  Registry's name.
+	  Deprecated, use `q` instead.
 
 	*/
 	Name *string
+	/*Q
+	  Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+
+	*/
+	Q *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -115,6 +120,17 @@ func (o *GetRegistriesParams) SetName(name *string) {
 	o.Name = name
 }
 
+// WithQ adds the q to the get registries params
+func (o *GetRegistriesParams) WithQ(q *string) *GetRegistriesParams {
+	o.SetQ(q)
+	return o
+}
+
+// SetQ adds the q to the get registries params
+func (o *GetRegistriesParams) SetQ(q *string) {
+	o.Q = q
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetRegistriesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -133,6 +149,22 @@ func (o *GetRegistriesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		qName := qrName
 		if qName != "" {
 			if err := r.SetQueryParam("name", qName); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.Q != nil {
+
+		// query param q
+		var qrQ string
+		if o.Q != nil {
+			qrQ = *o.Q
+		}
+		qQ := qrQ
+		if qQ != "" {
+			if err := r.SetQueryParam("q", qQ); err != nil {
 				return err
 			}
 		}

@@ -9,8 +9,8 @@ import (
 	"net/http"
 	"testing"
 
-	v2client "github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client"
 	"github.com/go-openapi/runtime"
+	v2client "github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/mittwald/goharbor-client/v2/apiv2/internal/legacyapi/client"
@@ -617,7 +617,7 @@ func TestRESTClient_DeleteProject_ErrProjectMismatch(t *testing.T) {
 	}
 
 	p.On("ListProjects", listProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: nil}, nil)
+		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{Payload: nil}, nil)
@@ -650,7 +650,7 @@ func TestRESTClient_DeleteProject_ErrProjectUnknownResource(t *testing.T) {
 	}
 
 	p.On("ListProjects", listProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: nil}, nil)
+		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	getProjectParams := &projectapi.GetProjectParams{
 		ProjectID: exampleProjectID,
@@ -691,7 +691,7 @@ func TestRESTClient_GetProject(t *testing.T) {
 	}
 
 	p.On("ListProjects", listProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: nil}, nil)
+		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{
@@ -738,7 +738,7 @@ func TestRESTClient_ListProjects(t *testing.T) {
 	}
 
 	p.On("ListProjects", listProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: nil}, nil)
+		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	_, err := cl.ListProjects(ctx, exampleProject.Name)
 
@@ -763,12 +763,13 @@ func TestRESTClient_ListProjectsErrProjectNotFound(t *testing.T) {
 	}
 
 	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: nil}, nil)
+		Return(&projectapi.ListProjectsOK{}, nil)
 
 	resp, err := cl.ListProjects(ctx, exampleProject.Name)
 
-	if assert.NoError(t, err) {
-		assert.Equal(t, len(resp), 0)
+	if assert.Error(t, err) {
+		assert.Equal(t, &ErrProjectNotFound{}, err)
+		assert.Nil(t, resp)
 	}
 
 	p.AssertExpectations(t)
@@ -790,7 +791,7 @@ func TestRESTClient_ListProjects_ErrProjectUnknownResource(t *testing.T) {
 	}
 
 	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: nil}, &runtime.APIError{Code: http.StatusNotFound})
+		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, &runtime.APIError{Code: http.StatusNotFound})
 
 	_, err := cl.ListProjects(ctx, exampleProject.Name)
 
@@ -826,7 +827,7 @@ func TestRESTClient_UpdateProject(t *testing.T) {
 	}
 
 	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{}, nil)
+		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{
@@ -869,7 +870,7 @@ func TestRESTClient_UpdateProject_ErrProjectInternalErrors(t *testing.T) {
 	}
 
 	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{}, nil)
+		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{}, &runtime.APIError{
@@ -910,7 +911,7 @@ func TestRESTClient_UpdateProject_ErrProjectMismatch(t *testing.T) {
 	}
 
 	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{}, nil)
+		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{Payload: exampleProject}, nil)
@@ -968,7 +969,7 @@ func TestRESTClient_AddProjectMember(t *testing.T) {
 	}
 
 	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{}, nil)
+		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{
@@ -1014,7 +1015,7 @@ func TestRESTClient_AddProjectMember_ErrProjectUnknownResource(t *testing.T) {
 	}
 
 	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{}, nil)
+		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{
@@ -1075,7 +1076,7 @@ func TestRESTClient_AddProjectMember_ErrProjectMemberMismatch(t *testing.T) {
 	}
 
 	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{}, nil)
+		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{
@@ -1206,7 +1207,7 @@ func TestRESTClient_UpdateProjectMemberRole(t *testing.T) {
 	}
 
 	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{}, nil)
+		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{
@@ -1240,7 +1241,7 @@ func TestRESTClient_UpdateProjectMemberRole(t *testing.T) {
 	}
 
 	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{}, nil)
+		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{
@@ -1299,7 +1300,7 @@ func TestRESTClient_UpdateProjectMemberRole_UserIsNoMember(t *testing.T) {
 	}
 
 	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{}, nil)
+		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{
@@ -1384,7 +1385,7 @@ func TestRESTClient_DeleteProjectMember(t *testing.T) {
 	}
 
 	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{}, nil)
+		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{
@@ -1481,7 +1482,7 @@ func TestRESTClient_DeleteProjectMember_ErrProjectMismatch(t *testing.T) {
 	}
 
 	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{}, nil)
+		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{Payload: nil}, nil)

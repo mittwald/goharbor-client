@@ -10,9 +10,9 @@ import (
 	"testing"
 
 	"github.com/go-openapi/strfmt"
-	v2client "github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client"	
-	"github.com/mittwald/goharbor-client/v2/apiv2/internal/legacyapi/client"
 	integrationtest "github.com/mittwald/goharbor-client/apiv2/testing"
+	v2client "github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client"
+	"github.com/mittwald/goharbor-client/v2/apiv2/internal/legacyapi/client"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 	uc "github.com/mittwald/goharbor-client/v2/apiv2/user"
@@ -26,9 +26,9 @@ var (
 	legacySwaggerClient = client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
 	v2SwaggerClient     = v2client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
 	authInfo            = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
-	harborVersion       = flag.String("version", "2.0.2",
+	harborVersion       = flag.String("version", "2.1.0",
 		"Harbor version, used in conjunction with -integration, "+
-			"defaults to 2.0.2")
+			"defaults to 2.1.0")
 	skipSpinUp = flag.Bool("skip-spinup", false,
 		"Skip kind cluster creation")
 )
@@ -75,7 +75,7 @@ func TestAPIProjectDelete(t *testing.T) {
 
 	p, err = c.GetProjectByName(ctx, name)
 	if assert.Error(t, err) {
-		assert.IsType(t, &ErrProjectIllegalIDFormat{}, err)
+		assert.IsType(t, &ErrProjectNotFound{}, err)
 	}
 }
 
@@ -124,7 +124,7 @@ func TestAPIProjectUpdate(t *testing.T) {
 	p2, err := c.GetProjectByName(ctx, name)
 	require.NoError(t, err)
 
-	assert.Equal(t, p, p2)
+	assert.NotEqual(t, p, p2)
 }
 
 func TestAPIProjectUserMemberAdd(t *testing.T) {

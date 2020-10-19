@@ -6,9 +6,6 @@ jobs:
   verify:
     name: Verify
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        harbor: [v1, v2]
     steps:
       - name: Set up Go 1.15.1
         uses: actions/setup-go@v2
@@ -20,10 +17,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run swagger code generation
-        run: make swagger-${{ matrix.harbor }}
+        run: make swagger-generate
 
       - name: Run mockery code generation
-        run: make mock-${{ matrix.harbor }}
+        run: make mock
 
       - name: Test diff
         run: |

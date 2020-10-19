@@ -82,10 +82,9 @@ if [[ "${1}" = *"v1"* ]]; then
 fi
 
 if [[ "${1}" = *"v2"* ]]; then
-  LEGACY_SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${1}/api/$(echo "${1}"|cut -f1,2 -d'.')/legacy_swagger.yaml"
-  # Hard override for missing types in the latest v2 swagger spec.
-  SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/v2.1.0-rc1/api/$(echo "${1}"|cut -f1,2 -d'.')/swagger.yaml"
-  echo "using the v2 swagger files (${1%.0})"
+  LEGACY_SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${1}/api/v2.0/legacy_swagger.yaml"
+  SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${1}/api/v2.0/swagger.yaml"
+  echo "using the v2 swagger files (${1})"
   # Generate using the Harbor v2 legacy API
   docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
   generate client \

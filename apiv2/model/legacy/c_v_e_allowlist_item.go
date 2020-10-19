@@ -10,22 +10,22 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// CVEWhitelistItem The item in CVE whitelist
+// CVEAllowlistItem The item in CVE allowlist
 //
-// swagger:model CVEWhitelistItem
-type CVEWhitelistItem struct {
+// swagger:model CVEAllowlistItem
+type CVEAllowlistItem struct {
 
 	// The ID of the CVE, such as "CVE-2019-10164"
 	CveID string `json:"cve_id,omitempty"`
 }
 
-// Validate validates this c v e whitelist item
-func (m *CVEWhitelistItem) Validate(formats strfmt.Registry) error {
+// Validate validates this c v e allowlist item
+func (m *CVEAllowlistItem) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *CVEWhitelistItem) MarshalBinary() ([]byte, error) {
+func (m *CVEAllowlistItem) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -33,8 +33,8 @@ func (m *CVEWhitelistItem) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *CVEWhitelistItem) UnmarshalBinary(b []byte) error {
-	var res CVEWhitelistItem
+func (m *CVEAllowlistItem) UnmarshalBinary(b []byte) error {
+	var res CVEAllowlistItem
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

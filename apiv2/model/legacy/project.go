@@ -28,8 +28,8 @@ type Project struct {
 	// The list of role ID of the current user who triggered the API (for UI)
 	CurrentUserRoleIds []int32 `json:"current_user_role_ids"`
 
-	// The CVE whitelist of this project.
-	CveWhitelist *CVEWhitelist `json:"cve_whitelist,omitempty"`
+	// The CVE allowlist of this project.
+	CveAllowlist *CVEAllowlist `json:"cve_allowlist,omitempty"`
 
 	// A deletion mark of the project.
 	Deleted bool `json:"deleted,omitempty"`
@@ -49,6 +49,9 @@ type Project struct {
 	// Project ID
 	ProjectID int32 `json:"project_id,omitempty"`
 
+	// The ID of referenced registry when the project is a proxy cache project.
+	RegistryID int64 `json:"registry_id,omitempty"`
+
 	// The number of the repositories under this project.
 	RepoCount int64 `json:"repo_count,omitempty"`
 
@@ -63,7 +66,7 @@ type Project struct {
 func (m *Project) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateCveWhitelist(formats); err != nil {
+	if err := m.validateCveAllowlist(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -77,16 +80,16 @@ func (m *Project) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Project) validateCveWhitelist(formats strfmt.Registry) error {
+func (m *Project) validateCveAllowlist(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.CveWhitelist) { // not required
+	if swag.IsZero(m.CveAllowlist) { // not required
 		return nil
 	}
 
-	if m.CveWhitelist != nil {
-		if err := m.CveWhitelist.Validate(formats); err != nil {
+	if m.CveAllowlist != nil {
+		if err := m.CveAllowlist.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("cve_whitelist")
+				return ve.ValidateName("cve_allowlist")
 			}
 			return err
 		}

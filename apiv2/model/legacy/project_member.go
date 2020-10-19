@@ -22,7 +22,7 @@ type ProjectMember struct {
 	// member user
 	MemberUser *UserEntity `json:"member_user,omitempty"`
 
-	// The role id 1 for projectAdmin, 2 for developer, 3 for guest, 4 for master
+	// The role id 1 for projectAdmin, 2 for developer, 3 for guest, 4 for maintainer
 	RoleID int64 `json:"role_id,omitempty"`
 }
 

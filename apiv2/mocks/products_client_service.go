@@ -59,29 +59,6 @@ func (_m *MockProductsClientService) DeleteLabelsID(params *products.DeleteLabel
 	return r0, r1
 }
 
-// DeleteProjectsProjectID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) DeleteProjectsProjectID(params *products.DeleteProjectsProjectIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.DeleteProjectsProjectIDOK, error) {
-	ret := _m.Called(params, authInfo)
-
-	var r0 *products.DeleteProjectsProjectIDOK
-	if rf, ok := ret.Get(0).(func(*products.DeleteProjectsProjectIDParams, runtime.ClientAuthInfoWriter) *products.DeleteProjectsProjectIDOK); ok {
-		r0 = rf(params, authInfo)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*products.DeleteProjectsProjectIDOK)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.DeleteProjectsProjectIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
 // DeleteProjectsProjectIDImmutabletagrulesID provides a mock function with given fields: params, authInfo
 func (_m *MockProductsClientService) DeleteProjectsProjectIDImmutabletagrulesID(params *products.DeleteProjectsProjectIDImmutabletagrulesIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.DeleteProjectsProjectIDImmutabletagrulesIDOK, error) {
 	ret := _m.Called(params, authInfo)
@@ -450,52 +427,6 @@ func (_m *MockProductsClientService) GetLdapUsersSearch(params *products.GetLdap
 	return r0, r1
 }
 
-// GetProjects provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetProjects(params *products.GetProjectsParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetProjectsOK, error) {
-	ret := _m.Called(params, authInfo)
-
-	var r0 *products.GetProjectsOK
-	if rf, ok := ret.Get(0).(func(*products.GetProjectsParams, runtime.ClientAuthInfoWriter) *products.GetProjectsOK); ok {
-		r0 = rf(params, authInfo)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*products.GetProjectsOK)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetProjectsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
-// GetProjectsProjectID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetProjectsProjectID(params *products.GetProjectsProjectIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetProjectsProjectIDOK, error) {
-	ret := _m.Called(params, authInfo)
-
-	var r0 *products.GetProjectsProjectIDOK
-	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDParams, runtime.ClientAuthInfoWriter) *products.GetProjectsProjectIDOK); ok {
-		r0 = rf(params, authInfo)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*products.GetProjectsProjectIDOK)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
 // GetProjectsProjectIDImmutabletagrules provides a mock function with given fields: params, authInfo
 func (_m *MockProductsClientService) GetProjectsProjectIDImmutabletagrules(params *products.GetProjectsProjectIDImmutabletagrulesParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetProjectsProjectIDImmutabletagrulesOK, error) {
 	ret := _m.Called(params, authInfo)
@@ -695,29 +626,6 @@ func (_m *MockProductsClientService) GetProjectsProjectIDScannerCandidates(param
 
 	var r1 error
 	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDScannerCandidatesParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
-// GetProjectsProjectIDSummary provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetProjectsProjectIDSummary(params *products.GetProjectsProjectIDSummaryParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetProjectsProjectIDSummaryOK, error) {
-	ret := _m.Called(params, authInfo)
-
-	var r0 *products.GetProjectsProjectIDSummaryOK
-	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDSummaryParams, runtime.ClientAuthInfoWriter) *products.GetProjectsProjectIDSummaryOK); ok {
-		r0 = rf(params, authInfo)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*products.GetProjectsProjectIDSummaryOK)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDSummaryParams, runtime.ClientAuthInfoWriter) error); ok {
 		r1 = rf(params, authInfo)
 	} else {
 		r1 = ret.Error(1)
@@ -1416,21 +1324,21 @@ func (_m *MockProductsClientService) GetStatistics(params *products.GetStatistic
 	return r0, r1
 }
 
-// GetSystemCVEWhitelist provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetSystemCVEWhitelist(params *products.GetSystemCVEWhitelistParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetSystemCVEWhitelistOK, error) {
+// GetSystemCVEAllowlist provides a mock function with given fields: params, authInfo
+func (_m *MockProductsClientService) GetSystemCVEAllowlist(params *products.GetSystemCVEAllowlistParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetSystemCVEAllowlistOK, error) {
 	ret := _m.Called(params, authInfo)
 
-	var r0 *products.GetSystemCVEWhitelistOK
-	if rf, ok := ret.Get(0).(func(*products.GetSystemCVEWhitelistParams, runtime.ClientAuthInfoWriter) *products.GetSystemCVEWhitelistOK); ok {
+	var r0 *products.GetSystemCVEAllowlistOK
+	if rf, ok := ret.Get(0).(func(*products.GetSystemCVEAllowlistParams, runtime.ClientAuthInfoWriter) *products.GetSystemCVEAllowlistOK); ok {
 		r0 = rf(params, authInfo)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*products.GetSystemCVEWhitelistOK)
+			r0 = ret.Get(0).(*products.GetSystemCVEAllowlistOK)
 		}
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetSystemCVEWhitelistParams, runtime.ClientAuthInfoWriter) error); ok {
+	if rf, ok := ret.Get(1).(func(*products.GetSystemCVEAllowlistParams, runtime.ClientAuthInfoWriter) error); ok {
 		r1 = rf(params, authInfo)
 	} else {
 		r1 = ret.Error(1)
@@ -1784,29 +1692,6 @@ func (_m *MockProductsClientService) GetUsersUserID(params *products.GetUsersUse
 	return r0, r1
 }
 
-// HeadProjects provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) HeadProjects(params *products.HeadProjectsParams, authInfo runtime.ClientAuthInfoWriter) (*products.HeadProjectsOK, error) {
-	ret := _m.Called(params, authInfo)
-
-	var r0 *products.HeadProjectsOK
-	if rf, ok := ret.Get(0).(func(*products.HeadProjectsParams, runtime.ClientAuthInfoWriter) *products.HeadProjectsOK); ok {
-		r0 = rf(params, authInfo)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*products.HeadProjectsOK)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.HeadProjectsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
 // PatchRetentionsIDExecutionsEid provides a mock function with given fields: params, authInfo
 func (_m *MockProductsClientService) PatchRetentionsIDExecutionsEid(params *products.PatchRetentionsIDExecutionsEidParams, authInfo runtime.ClientAuthInfoWriter) (*products.PatchRetentionsIDExecutionsEidOK, error) {
 	ret := _m.Called(params, authInfo)
@@ -1937,29 +1822,6 @@ func (_m *MockProductsClientService) PostLdapUsersImport(params *products.PostLd
 
 	var r1 error
 	if rf, ok := ret.Get(1).(func(*products.PostLdapUsersImportParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
-// PostProjects provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostProjects(params *products.PostProjectsParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostProjectsCreated, error) {
-	ret := _m.Called(params, authInfo)
-
-	var r0 *products.PostProjectsCreated
-	if rf, ok := ret.Get(0).(func(*products.PostProjectsParams, runtime.ClientAuthInfoWriter) *products.PostProjectsCreated); ok {
-		r0 = rf(params, authInfo)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*products.PostProjectsCreated)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostProjectsParams, runtime.ClientAuthInfoWriter) error); ok {
 		r1 = rf(params, authInfo)
 	} else {
 		r1 = ret.Error(1)
@@ -2428,29 +2290,6 @@ func (_m *MockProductsClientService) PutLabelsID(params *products.PutLabelsIDPar
 	return r0, r1
 }
 
-// PutProjectsProjectID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutProjectsProjectID(params *products.PutProjectsProjectIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutProjectsProjectIDOK, error) {
-	ret := _m.Called(params, authInfo)
-
-	var r0 *products.PutProjectsProjectIDOK
-	if rf, ok := ret.Get(0).(func(*products.PutProjectsProjectIDParams, runtime.ClientAuthInfoWriter) *products.PutProjectsProjectIDOK); ok {
-		r0 = rf(params, authInfo)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*products.PutProjectsProjectIDOK)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutProjectsProjectIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
 // PutProjectsProjectIDImmutabletagrulesID provides a mock function with given fields: params, authInfo
 func (_m *MockProductsClientService) PutProjectsProjectIDImmutabletagrulesID(params *products.PutProjectsProjectIDImmutabletagrulesIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutProjectsProjectIDImmutabletagrulesIDOK, error) {
 	ret := _m.Called(params, authInfo)
@@ -2681,21 +2520,21 @@ func (_m *MockProductsClientService) PutRetentionsID(params *products.PutRetenti
 	return r0, r1
 }
 
-// PutSystemCVEWhitelist provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutSystemCVEWhitelist(params *products.PutSystemCVEWhitelistParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutSystemCVEWhitelistOK, error) {
+// PutSystemCVEAllowlist provides a mock function with given fields: params, authInfo
+func (_m *MockProductsClientService) PutSystemCVEAllowlist(params *products.PutSystemCVEAllowlistParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutSystemCVEAllowlistOK, error) {
 	ret := _m.Called(params, authInfo)
 
-	var r0 *products.PutSystemCVEWhitelistOK
-	if rf, ok := ret.Get(0).(func(*products.PutSystemCVEWhitelistParams, runtime.ClientAuthInfoWriter) *products.PutSystemCVEWhitelistOK); ok {
+	var r0 *products.PutSystemCVEAllowlistOK
+	if rf, ok := ret.Get(0).(func(*products.PutSystemCVEAllowlistParams, runtime.ClientAuthInfoWriter) *products.PutSystemCVEAllowlistOK); ok {
 		r0 = rf(params, authInfo)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*products.PutSystemCVEWhitelistOK)
+			r0 = ret.Get(0).(*products.PutSystemCVEAllowlistOK)
 		}
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutSystemCVEWhitelistParams, runtime.ClientAuthInfoWriter) error); ok {
+	if rf, ok := ret.Get(1).(func(*products.PutSystemCVEAllowlistParams, runtime.ClientAuthInfoWriter) error); ok {
 		r1 = rf(params, authInfo)
 	} else {
 		r1 = ret.Error(1)

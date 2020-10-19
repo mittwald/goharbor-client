@@ -3,8 +3,8 @@ package replication
 import (
 	"context"
 
-	v2client "github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client"
 	"github.com/go-openapi/runtime"
+	v2client "github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v2/apiv2/internal/legacyapi/client"
 
 	"github.com/mittwald/goharbor-client/v2/apiv2/internal/legacyapi/client/products"
