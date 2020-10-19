@@ -31,11 +31,11 @@ mock-cleanup:
 
 # Testing on Harbor 1.10.5
 integration-test-v1.10.5:
-	CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v2/apiv1/... -version=1.10.5 -tags integration
+	CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v3/apiv1/... -version=1.10.5 -tags integration
 
 # Testing on Harbor 2.1.0
 integration-test-v2.1.0:
-	CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v2/apiv2/... -version=2.1.0 -tags integration
+	CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v3/apiv2/... -version=2.1.0 -tags integration
 
 gofmt:
 	find . \( -path "./apiv*/internal" -o -path "./apiv*/mocks" -o -path "./apiv*/model" \)  \

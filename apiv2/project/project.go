@@ -3,17 +3,17 @@ package project
 import (
 	"context"
 	"errors"
-	projectapi "github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client/project"
+	projectapi "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/project"
 
-	modelv2 "github.com/mittwald/goharbor-client/v2/apiv2/model"
-	uc "github.com/mittwald/goharbor-client/v2/apiv2/user"
+	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
+	uc "github.com/mittwald/goharbor-client/v3/apiv2/user"
 
-	v2client "github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client"
-	"github.com/mittwald/goharbor-client/v2/apiv2/internal/legacyapi/client"
+	v2client "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client"
+	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client"
 
 	"github.com/go-openapi/runtime"
-	"github.com/mittwald/goharbor-client/v2/apiv2/internal/legacyapi/client/products"
-	model "github.com/mittwald/goharbor-client/v2/apiv2/model/legacy"
+	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client/products"
+	model "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
 const (

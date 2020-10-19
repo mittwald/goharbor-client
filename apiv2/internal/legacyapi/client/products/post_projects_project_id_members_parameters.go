@@ -16,7 +16,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/mittwald/goharbor-client/v2/apiv2/model/legacy"
+	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
 // NewPostProjectsProjectIDMembersParams creates a new PostProjectsProjectIDMembersParams object
