@@ -1,4 +1,4 @@
-module github.com/mittwald/goharbor-client/v2
+module github.com/mittwald/goharbor-client/v3
 
 go 1.15
 

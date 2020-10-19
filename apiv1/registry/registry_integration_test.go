@@ -13,8 +13,8 @@ import (
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v2/apiv1/internal/api/client"
-	model "github.com/mittwald/goharbor-client/v2/apiv1/model"
+	"github.com/mittwald/goharbor-client/v3/apiv1/internal/api/client"
+	model "github.com/mittwald/goharbor-client/v3/apiv1/model"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

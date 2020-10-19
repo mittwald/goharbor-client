@@ -2,22 +2,22 @@ package apiv2
 
 import (
 	"context"
-	modelv2 "github.com/mittwald/goharbor-client/v2/apiv2/model"
-	"github.com/mittwald/goharbor-client/v2/apiv2/retention"
+	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
+	"github.com/mittwald/goharbor-client/v3/apiv2/retention"
 	"net/url"
 	"strings"
 
 	"github.com/go-openapi/runtime"
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	v2client "github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client"
-	"github.com/mittwald/goharbor-client/v2/apiv2/internal/legacyapi/client"
-	model "github.com/mittwald/goharbor-client/v2/apiv2/model/legacy"
-	"github.com/mittwald/goharbor-client/v2/apiv2/project"
-	"github.com/mittwald/goharbor-client/v2/apiv2/registry"
-	"github.com/mittwald/goharbor-client/v2/apiv2/replication"
-	"github.com/mittwald/goharbor-client/v2/apiv2/system"
-	"github.com/mittwald/goharbor-client/v2/apiv2/user"
+	v2client "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client"
+	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client"
+	model "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
+	"github.com/mittwald/goharbor-client/v3/apiv2/project"
+	"github.com/mittwald/goharbor-client/v3/apiv2/registry"
+	"github.com/mittwald/goharbor-client/v3/apiv2/replication"
+	"github.com/mittwald/goharbor-client/v3/apiv2/system"
+	"github.com/mittwald/goharbor-client/v3/apiv2/user"
 )
 
 const v2URLSuffix string = "/v2.0"

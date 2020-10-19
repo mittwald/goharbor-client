@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v2/apiv2/model"
+	"github.com/mittwald/goharbor-client/v3/apiv2/model"
 )
 
 // UpdateProjectReader is a Reader for the UpdateProject structure.

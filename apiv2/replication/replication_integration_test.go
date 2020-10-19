@@ -10,13 +10,13 @@ import (
 
 	"github.com/go-openapi/strfmt"
 	integrationtest "github.com/mittwald/goharbor-client/apiv2/testing"
-	v2client "github.com/mittwald/goharbor-client/v2/apiv2/internal/api/client"
-	"github.com/mittwald/goharbor-client/v2/apiv2/internal/legacyapi/client"
+	v2client "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client"
+	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
-	"github.com/mittwald/goharbor-client/v2/apiv2/registry"
+	"github.com/mittwald/goharbor-client/v3/apiv2/registry"
 
-	model "github.com/mittwald/goharbor-client/v2/apiv2/model/legacy"
+	model "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
