@@ -1,5 +1,5 @@
-.PHONY: swagger-generate mock harbor-1.10.4 harbor-2.0.2 teardown-harbor test swagger-cleanup \
-integration-test-v1.10.3 integration-test-v1.10.4 integration-test-v2.0.2 gofmt mock-cleanup
+.PHONY: swagger-generate mock harbor-1.10.5 harbor-2.1.0 teardown-harbor test swagger-cleanup \
+mock-cleanup integration-test-v1.10.5 integration-test-v2.1.0
 
 swagger-generate: swagger-cleanup
 	scripts/swagger-gen.sh v1.10.5
