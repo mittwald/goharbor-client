@@ -659,27 +659,6 @@ func TestRESTClient_GetReplicationExecutions_ReplicationIDNotFound(t *testing.T)
 	p.AssertExpectations(t)
 }
 
-func TestRESTClient_TriggerReplicationExecution_ReplicationIDNotFound(t *testing.T) {
-	ctx := context.Background()
-
-	p := &mocks.MockClientService{}
-
-	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
-
-	p.On("GetReplicationPoliciesID", &products.GetReplicationPoliciesIDParams{
-		ID:      replExec.ID,
-		Context: ctx,
-	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		nil, &ErrReplicationExecutionReplicationPolicyIDNotFound{})
-
-	err := cl.TriggerReplicationExecution(ctx, replExec)
-	if assert.Error(t, err) {
-		assert.IsType(t, &ErrReplicationExecutionReplicationPolicyIDNotFound{}, err)
-	}
-
-	p.AssertExpectations(t)
-}
-
 func TestRESTClient_TriggerReplicationExecution(t *testing.T) {
 	ctx := context.Background()
 	destRegistry := &model.Registry{ID: 1, Name: "reg1"}
@@ -709,12 +688,6 @@ func TestRESTClient_TriggerReplicationExecution(t *testing.T) {
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
 		&products.GetReplicationPoliciesOK{Payload: []*model.ReplicationPolicy{replication}}, nil)
-
-	p.On("GetReplicationPoliciesID", &products.GetReplicationPoliciesIDParams{
-		ID:      replExec.ID,
-		Context: ctx,
-	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		&products.GetReplicationPoliciesIDOK{Payload: &model.ReplicationPolicy{}}, nil)
 
 	p.On("PostReplicationExecutions", &products.PostReplicationExecutionsParams{
 		Execution: replExec,
@@ -756,19 +729,13 @@ func TestRESTClient_GetReplicationExecutionsByID(t *testing.T) {
 
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
 
-	p.On("GetReplicationPoliciesID", &products.GetReplicationPoliciesIDParams{
-		ID:      replExec.ID,
-		Context: ctx,
-	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		&products.GetReplicationPoliciesIDOK{Payload: &model.ReplicationPolicy{}}, nil)
-
 	p.On("GetReplicationExecutionsID", &products.GetReplicationExecutionsIDParams{
 		ID:      replExec.ID,
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
 		&products.GetReplicationExecutionsIDOK{Payload: &model.ReplicationExecution{}}, nil)
 
-	_, err := cl.GetReplicationExecutionsByID(ctx, replExec.ID)
+	_, err := cl.GetReplicationExecutionByID(ctx, replExec.ID)
 
 	assert.NoError(t, err)
 
@@ -782,44 +749,16 @@ func TestRESTClient_GetReplicationExecutionsByID_ErrReplicationIllegalIDFormat(t
 
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
 
-	p.On("GetReplicationPoliciesID", &products.GetReplicationPoliciesIDParams{
-		ID:      replExec.ID,
-		Context: ctx,
-	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		&products.GetReplicationPoliciesIDOK{Payload: &model.ReplicationPolicy{}}, nil)
-
 	p.On("GetReplicationExecutionsID", &products.GetReplicationExecutionsIDParams{
 		ID:      replExec.ID,
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
 		nil, &runtime.APIError{Code: http.StatusBadRequest})
 
-	_, err := cl.GetReplicationExecutionsByID(ctx, replExec.ID)
+	_, err := cl.GetReplicationExecutionByID(ctx, replExec.ID)
 
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrReplicationIllegalIDFormat{}, err)
-	}
-
-	p.AssertExpectations(t)
-}
-
-func TestRESTClient_GetReplicationExecutionsByID_ErrReplicationExecutionReplicationIDNotFound(t *testing.T) {
-	ctx := context.Background()
-
-	p := &mocks.MockClientService{}
-
-	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
-
-	p.On("GetReplicationPoliciesID", &products.GetReplicationPoliciesIDParams{
-		ID:      replExec.ID,
-		Context: ctx,
-	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		nil, &ErrReplicationNotFound{})
-
-	_, err := cl.GetReplicationExecutionsByID(ctx, replExec.ID)
-
-	if assert.Error(t, err) {
-		assert.IsType(t, &ErrReplicationExecutionReplicationPolicyIDNotFound{}, err)
 	}
 
 	p.AssertExpectations(t)
@@ -832,19 +771,13 @@ func TestRESTClient_GetReplicationExecutionsByID_ErrReplicationExecutionReplicat
 
 	cl := NewClient(&client.Harbor{Products: p, Transport: nil}, authInfo)
 
-	p.On("GetReplicationPoliciesID", &products.GetReplicationPoliciesIDParams{
-		ID:      replExec.ID,
-		Context: ctx,
-	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		&products.GetReplicationPoliciesIDOK{Payload: &model.ReplicationPolicy{}}, nil)
-
 	p.On("GetReplicationExecutionsID", &products.GetReplicationExecutionsIDParams{
 		ID:      replExec.ID,
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
 		&products.GetReplicationExecutionsIDOK{Payload: &model.ReplicationExecution{ID: 1}}, nil)
 
-	_, err := cl.GetReplicationExecutionsByID(ctx, replExec.ID)
+	_, err := cl.GetReplicationExecutionByID(ctx, replExec.ID)
 
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrReplicationExecutionReplicationIDMismatch{}, err)

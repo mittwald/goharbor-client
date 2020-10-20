@@ -241,8 +241,8 @@ func (c *RESTClient) GetReplicationExecutions(ctx context.Context,
 }
 
 // GetReplicationExecutionsByID wraps the GetReplicationExecutionsByID method of the replication sub-package.
-func (c *RESTClient) GetReplicationExecutionsByID(ctx context.Context, id int64) (*model.ReplicationExecution, error) {
-	return c.replication.GetReplicationExecutionsByID(ctx, id)
+func (c *RESTClient) GetReplicationExecutionByID(ctx context.Context, id int64) (*model.ReplicationExecution, error) {
+	return c.replication.GetReplicationExecutionByID(ctx, id)
 }
 
 // System Client
