@@ -194,9 +194,6 @@ func (c *RESTClient) TriggerReplicationExecution(ctx context.Context, r *model.R
 // Specifying the property "policy_id" will return executions of the specified policy.
 func (c *RESTClient) GetReplicationExecutions(ctx context.Context,
 	r *model.ReplicationExecution) ([]*model.ReplicationExecution, error) {
-	if _, err := c.GetReplicationPolicyByID(ctx, r.PolicyID); err != nil {
-		return nil, &ErrReplicationExecutionReplicationPolicyIDNotFound{}
-	}
 
 	resp, err := c.Client.Products.GetReplicationExecutions(
 		&products.GetReplicationExecutionsParams{
