@@ -204,7 +204,7 @@ func (c *RESTClient) GetReplicationExecutions(ctx context.Context,
 
 	resp, err := c.Client.Products.GetReplicationExecutions(
 		&products.GetReplicationExecutionsParams{
-			PolicyID: &r.ID,
+			PolicyID: &r.PolicyID,
 			Status:   &r.Status,
 			Trigger:  &r.Trigger,
 			Context:  ctx,
