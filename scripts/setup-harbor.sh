@@ -39,7 +39,7 @@ fi
 
 # Map Goharbor versions to their corresponding helmchart version
 while read CHART HARBOR; do
-    if [[ "${HARBOR_VERSION}" == "${HARBOR}" ]]; then
+    if [[ "${HARBOR_VERSION#v}" == "${HARBOR}" ]]; then
         HARBOR_CHART_VERSION="${CHART}"
     fi
 done <<< "1.5.0 2.1.0
@@ -92,7 +92,7 @@ if [[ "$?" -ne "0" ]]; then
     exit 1
 fi
 
-echo "Installing seperate docker registry for integration tests..."
+echo "Installing separate docker registry for integration tests..."
 helm repo add stable https://kubernetes-charts.storage.googleapis.com && helm repo update
 helm install registry stable/docker-registry \
     --set service.port=5000,image.tag=${REGISTRY_IMAGE_TAG}
