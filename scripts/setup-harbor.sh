@@ -93,8 +93,8 @@ if [[ "$?" -ne "0" ]]; then
     exit 1
 fi
 
-echo "Installing separate docker registry for integration tests..."
-helm repo add stable https://kubernetes-charts.storage.googleapis.com && helm repo update
+echo "Installing seperate docker registry for integration tests..."
+helm repo add stable https://charts.helm.sh/stable && helm repo update
 helm install registry stable/docker-registry \
     --set service.port=5000,image.tag=${REGISTRY_IMAGE_TAG}
 if [[ "$?" -ne "0" ]]; then
