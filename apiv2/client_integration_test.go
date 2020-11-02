@@ -9,7 +9,7 @@ import (
 	"testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
-	integrationtest "github.com/mittwald/goharbor-client/apiv2/testing"
+	integrationtest "github.com/mittwald/goharbor-client/v3/apiv2/testing"
 )
 
 var (
