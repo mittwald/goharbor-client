@@ -108,8 +108,8 @@ if [[ "${HARBOR_VERSION}" =~ ^2 ]]; then
     API_URL_PREFIX="http://localhost:30002/api/v2.0"
 fi
 
-for i in {1..100}; do
-    echo "Pinging Harbor instance ($i/100)..."
+for i in {1..360}; do
+    echo "Pinging Harbor instance ($i/360)..."
     STATUS="$(curl -s -X GET --connect-timeout 3 "${API_URL_PREFIX}/health" | jq '.status' 2>/dev/null)"
     if [[ "${STATUS}" == "\"healthy\"" ]]; then
         echo "Harbor installation finished successfully. Visit at http://localhost:30002"
