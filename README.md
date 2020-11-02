@@ -10,8 +10,6 @@
 [![Actions Status](https://github.com/mittwald/goharbor-client/workflows/Test/badge.svg)](https://github.com/mittwald/goharbor-client/actions)
 ---
 
-:warning: **STABILITY NOTICE:** This project is still under development and not stable yet - breaking changes may happen at any time and without notice
-
 ---
 
 A Go client library enabling programs to perform CRUD operations on the [goharbor](https://github.com/goharbor/harbor) API.
