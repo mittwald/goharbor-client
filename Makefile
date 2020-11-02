@@ -1,9 +1,12 @@
-.PHONY: swagger-generate mock harbor-1.10.5 harbor-2.1.0 teardown-harbor test swagger-cleanup \
-mock-cleanup integration-test-v1.10.5 integration-test-v2.1.0
+.PHONY: swagger-generate mock harbor-v1 harbor-v2 teardown-harbor test swagger-cleanup \
+mock-cleanup integration-test-v1 integration-test-v2
+
+V1_VERSION = v1.10.5
+V2_VERSION = v2.1.1
 
 swagger-generate: swagger-cleanup
-	scripts/swagger-gen.sh v1.10.5
-	scripts/swagger-gen.sh v2.1.0
+	scripts/swagger-gen.sh $(V1_VERSION)
+	scripts/swagger-gen.sh $(V2_VERSION)
 
 mock: mock-cleanup
 	scripts/gen-mock.sh v1
@@ -11,11 +14,11 @@ mock: mock-cleanup
 
 # Creates a Harbor instance as a docker container via Kind.
 # Delete cluster via scripts/teardown-harbor.sh
-harbor-1.10.5:
-	scripts/setup-harbor.sh 1.10.5
+harbor-v1:
+	scripts/setup-harbor.sh $(V1_VERSION)
 
-harbor-2.1.0:
-	scripts/setup-harbor.sh 2.1.0
+harbor-v2:
+	scripts/setup-harbor.sh $(V2_VERSION)
 
 teardown-harbor:
 	scripts/teardown-harbor.sh
@@ -30,12 +33,12 @@ mock-cleanup:
 	rm -rf ./apiv*/mocks/*
 
 # Testing on Harbor 1.10.5
-integration-test-v1.10.5:
-	CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v3/apiv1/... -version=1.10.5 -tags integration
+integration-test-v1:
+	CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v3/apiv1/... -version=$(V1_VERSION) -tags integration
 
 # Testing on Harbor 2.1.0
-integration-test-v2.1.0:
-	CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v3/apiv2/... -version=2.1.0 -tags integration
+integration-test-v2:
+	CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v3/apiv2/... -version=$(V2_VERSION) -tags integration
 
 gofmt:
 	find . \( -path "./apiv*/internal" -o -path "./apiv*/mocks" -o -path "./apiv*/model" \)  \
