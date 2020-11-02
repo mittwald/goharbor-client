@@ -8,7 +8,7 @@ import (
 	"os/exec"
 	"testing"
 
-	integrationtest "github.com/mittwald/goharbor-client/apiv1/testing"
+	integrationtest "github.com/mittwald/goharbor-client/v3/apiv1/testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 )
