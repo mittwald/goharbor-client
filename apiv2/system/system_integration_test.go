@@ -4,7 +4,6 @@ package system
 
 import (
 	"context"
-	"flag"
 	"net/url"
 	"testing"
 
@@ -24,11 +23,6 @@ var (
 	legacySwaggerClient = client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
 	v2SwaggerClient     = v2client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
 	authInfo            = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
-	harborVersion       = flag.String("version", "2.1.1",
-		"Harbor version, used in conjunction with -integration, "+
-			"defaults to 2.1.1")
-	skipSpinUp = flag.Bool("skip-spinup", false,
-		"Skip kind cluster creation")
 )
 
 // TestAPISystemGcScheduleNew tests the creation of a new GC schedule
