@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CLUSTER_NAME="goharbor-client-integration-tests"
+CLUSTER_NAME="goharbor-client-integration-tests-${1}"
 HARBOR_VERSION="${1}"
 HARBOR_CHART_VERSION=""
 REGISTRY_IMAGE_TAG="2.7.1"
@@ -104,12 +104,12 @@ fi
 
 echo "Waiting for Harbor to become ready..."
 API_URL_PREFIX="http://localhost:30002/api"
-if [[ "${HARBOR_VERSION}" =~ ^2 ]]; then
+if [[ "${HARBOR_VERSION}" =~ ^v2 ]]; then
     API_URL_PREFIX="http://localhost:30002/api/v2.0"
 fi
 
-for i in {1..360}; do
-    echo "Pinging Harbor instance ($i/360)..."
+for i in {1..100}; do
+    echo "Pinging Harbor instance ($i/100)..."
     STATUS="$(curl -s -X GET --connect-timeout 3 "${API_URL_PREFIX}/health" | jq '.status' 2>/dev/null)"
     if [[ "${STATUS}" == "\"healthy\"" ]]; then
         echo "Harbor installation finished successfully. Visit at http://localhost:30002"
