@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CLUSTER_NAME="goharbor-client-integration-tests"
+CLUSTER_NAME="goharbor-client-integration-tests-${1}"
 HARBOR_VERSION="${1}"
 HARBOR_CHART_VERSION=""
 REGISTRY_IMAGE_TAG="2.7.1"
@@ -39,10 +39,11 @@ fi
 
 # Map Goharbor versions to their corresponding helmchart version
 while read CHART HARBOR; do
-    if [[ "${HARBOR_VERSION}" == "${HARBOR}" ]]; then
+    if [[ "${HARBOR_VERSION#v}" == "${HARBOR}" ]]; then
         HARBOR_CHART_VERSION="${CHART}"
     fi
-done <<< "1.5.0 2.1.0
+done <<< "1.5.1 2.1.1
+1.5.0 2.1.0
 1.4.3 2.0.3
 1.4.2 2.0.2
 1.4.1 2.0.1
@@ -103,7 +104,7 @@ fi
 
 echo "Waiting for Harbor to become ready..."
 API_URL_PREFIX="http://localhost:30002/api"
-if [[ "${HARBOR_VERSION}" =~ ^2 ]]; then
+if [[ "${HARBOR_VERSION}" =~ ^v2 ]]; then
     API_URL_PREFIX="http://localhost:30002/api/v2.0"
 fi
 
