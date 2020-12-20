@@ -3,6 +3,7 @@ package project
 import (
 	"context"
 	"errors"
+
 	projectapi "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/project"
 
 	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
@@ -532,6 +533,43 @@ func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context, p *modelv2.
 		}, c.AuthInfo)
 
 	return handleSwaggerProjectErrors(err)
+}
+
+// ListProjectRobots returns a list of all robot accounts in project p.
+func (c *RESTClient) ListProjectRobots(ctx context.Context, p *modelv2.Project) ([]*model.RobotAccount, error) {
+	if p == nil {
+		return nil, &ErrProjectNotProvided{}
+	}
+
+	resp, err := c.LegacyClient.Products.GetProjectsProjectIDRobots(
+		&products.GetProjectsProjectIDRobotsParams{
+			ProjectID: int64(p.ProjectID),
+			Context:   ctx,
+		}, c.AuthInfo)
+	if err != nil {
+		return nil, handleSwaggerProjectErrors(err)
+	}
+
+	return resp.Payload, nil
+}
+
+// AddProjectRobot adds a robot account to project p and returns the token.
+func (c *RESTClient) AddProjectRobot(ctx context.Context, p *modelv2.Project, robot *model.RobotAccountCreate) (string, error) {
+	if p == nil {
+		return "", &ErrProjectNotProvided{}
+	}
+
+	resp, err := c.LegacyClient.Products.PostProjectsProjectIDRobots(
+		&products.PostProjectsProjectIDRobotsParams{
+			Robot:      robot,
+			ProjectID:  int64(p.ProjectID),
+			Context:    ctx,
+		}, c.AuthInfo)
+	if err != nil {
+		return "", handleSwaggerProjectErrors(err)
+	}
+
+	return resp.Payload.Token, nil
 }
 
 // projectExists returns true, if p matches a project on server side.

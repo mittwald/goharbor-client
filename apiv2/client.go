@@ -2,10 +2,11 @@ package apiv2
 
 import (
 	"context"
-	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
-	"github.com/mittwald/goharbor-client/v3/apiv2/retention"
 	"net/url"
 	"strings"
+
+	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
+	"github.com/mittwald/goharbor-client/v3/apiv2/retention"
 
 	"github.com/go-openapi/runtime"
 	runtimeclient "github.com/go-openapi/runtime/client"
@@ -173,6 +174,16 @@ func (c *RESTClient) UpdateProjectMetadata(ctx context.Context, p *modelv2.Proje
 // DeleteProjectMetadataValue wraps the DeleteProjectMetadataValue method of the registry sub-package.
 func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context, p *modelv2.Project, key project.MetadataKey) error {
 	return c.project.DeleteProjectMetadataValue(ctx, p, key)
+}
+
+// ListProjectRobots wraps the ListProjectRobots method of the project sub-package.
+func (c *RESTClient) ListProjectRobots(ctx context.Context, p *modelv2.Project) ([]*model.RobotAccount, error) {
+	return c.project.ListProjectRobots(ctx, p)
+}
+
+// AddProjectRobot wraps the AddProjectRobot method of the project sub-package.
+func (c *RESTClient) AddProjectRobot(ctx context.Context, p *modelv2.Project, robot *model.RobotAccountCreate) (string, error) {
+	return c.project.AddProjectRobot(ctx, p, robot)
 }
 
 // Registry Client
