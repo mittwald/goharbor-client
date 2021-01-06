@@ -4,10 +4,12 @@ package project
 
 import (
 	"context"
-	projectapi "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/project"
-	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
+	"fmt"
 	"net/http"
 	"testing"
+
+	projectapi "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/project"
+	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
 
 	"github.com/go-openapi/runtime"
 	v2client "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client"
@@ -1882,6 +1884,149 @@ func TestRESTClient_DeleteProjectMetadataValue(t *testing.T) {
 	assert.NoError(t, err)
 
 	l.AssertExpectations(t)
+}
+
+func TestRESTClient_ListProjectRobots(t *testing.T) {
+	p := &mocks.MockProductsClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(p)
+	v2Client := BuildProjectClientWithMocks(nil)
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	expectedRobots := []*model.RobotAccount{
+		&model.RobotAccount{
+			Description: "some robot account",
+			Disabled:    false,
+			ID:          42,
+			Name:        "robot$account",
+			ProjectID:   exampleProjectID,
+		},
+	}
+
+	params := &products.GetProjectsProjectIDRobotsParams{
+		ProjectID: exampleProjectID,
+		Context:   ctx,
+	}
+
+	p.On("GetProjectsProjectIDRobots", params, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetProjectsProjectIDRobotsOK{Payload: expectedRobots}, nil)
+
+	robots, err := cl.ListProjectRobots(ctx, exampleProject)
+
+	assert.NoError(t, err)
+
+	assert.Equal(t, expectedRobots, robots)
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_AddProjectRobot(t *testing.T) {
+	p := &mocks.MockProductsClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(p)
+	v2Client := BuildProjectClientWithMocks(nil)
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	newRobot := &model.RobotAccountCreate{
+		Access: []*model.RobotAccountAccess{
+			{
+				Action:   "push",
+				Resource: fmt.Sprintf("/project/%d/repository", exampleProjectID),
+			},
+		},
+		Description: "some robot account",
+		ExpiresAt:   0,
+		Name:        "my-account",
+	}
+
+	params := &products.PostProjectsProjectIDRobotsParams{
+		ProjectID: exampleProjectID,
+		Robot:     newRobot,
+		Context:   ctx,
+	}
+
+	expectedPayload := &model.RobotAccountPostRep{
+		Name:  "robot$my-account",
+		Token: "very-secret-token-here",
+	}
+
+	p.On("PostProjectsProjectIDRobots", params, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PostProjectsProjectIDRobotsCreated{Payload: expectedPayload}, nil)
+
+	token, err := cl.AddProjectRobot(ctx, exampleProject, newRobot)
+
+	assert.NoError(t, err)
+
+	assert.Equal(t, expectedPayload.Token, token)
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_UpdateProjectRobot(t *testing.T) {
+	p := &mocks.MockProductsClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(p)
+	v2Client := BuildProjectClientWithMocks(nil)
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	const exampleRobotID = 42
+
+	updateRobot := &model.RobotAccountUpdate{
+		Disabled: true,
+	}
+
+	params := &products.PutProjectsProjectIDRobotsRobotIDParams{
+		ProjectID: exampleProjectID,
+		RobotID:   exampleRobotID,
+		Robot:     updateRobot,
+		Context:   ctx,
+	}
+
+	p.On("PutProjectsProjectIDRobotsRobotID", params, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PutProjectsProjectIDRobotsRobotIDOK{}, nil)
+
+	err := cl.UpdateProjectRobot(ctx, exampleProject, exampleRobotID, updateRobot)
+
+	assert.NoError(t, err)
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_DeleteProjectRobot(t *testing.T) {
+	p := &mocks.MockProductsClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(p)
+	v2Client := BuildProjectClientWithMocks(nil)
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	const exampleRobotID = 42
+
+	params := &products.DeleteProjectsProjectIDRobotsRobotIDParams{
+		ProjectID: exampleProjectID,
+		RobotID:   exampleRobotID,
+		Context:   ctx,
+	}
+
+	p.On("DeleteProjectsProjectIDRobotsRobotID", params, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.DeleteProjectsProjectIDRobotsRobotIDOK{}, nil)
+
+	err := cl.DeleteProjectRobot(ctx, exampleProject, exampleRobotID)
+
+	assert.NoError(t, err)
+
+	p.AssertExpectations(t)
 }
 
 func TestErrProjectNameNotProvided_Error(t *testing.T) {

@@ -561,15 +561,54 @@ func (c *RESTClient) AddProjectRobot(ctx context.Context, p *modelv2.Project, ro
 
 	resp, err := c.LegacyClient.Products.PostProjectsProjectIDRobots(
 		&products.PostProjectsProjectIDRobotsParams{
-			Robot:      robot,
-			ProjectID:  int64(p.ProjectID),
-			Context:    ctx,
+			Robot:     robot,
+			ProjectID: int64(p.ProjectID),
+			Context:   ctx,
 		}, c.AuthInfo)
 	if err != nil {
 		return "", handleSwaggerProjectErrors(err)
 	}
 
 	return resp.Payload.Token, nil
+}
+
+// UpdateProjectRobot updates a robot account in project p.
+func (c *RESTClient) UpdateProjectRobot(ctx context.Context, p *modelv2.Project, robotID int, robot *model.RobotAccountUpdate) error {
+	if p == nil {
+		return &ErrProjectNotProvided{}
+	}
+
+	_, err := c.LegacyClient.Products.PutProjectsProjectIDRobotsRobotID(
+		&products.PutProjectsProjectIDRobotsRobotIDParams{
+			ProjectID: int64(p.ProjectID),
+			Robot:     robot,
+			RobotID:   int64(robotID),
+			Context:   ctx,
+		}, c.AuthInfo)
+	if err != nil {
+		return handleSwaggerProjectErrors(err)
+	}
+
+	return nil
+}
+
+// DeleteProjectRobot deletes a robot account from project p.
+func (c *RESTClient) DeleteProjectRobot(ctx context.Context, p *modelv2.Project, robotID int) error {
+	if p == nil {
+		return &ErrProjectNotProvided{}
+	}
+
+	_, err := c.LegacyClient.Products.DeleteProjectsProjectIDRobotsRobotID(
+		&products.DeleteProjectsProjectIDRobotsRobotIDParams{
+			ProjectID: int64(p.ProjectID),
+			RobotID:   int64(robotID),
+			Context:   ctx,
+		}, c.AuthInfo)
+	if err != nil {
+		return handleSwaggerProjectErrors(err)
+	}
+
+	return nil
 }
 
 // projectExists returns true, if p matches a project on server side.

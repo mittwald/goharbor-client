@@ -186,6 +186,16 @@ func (c *RESTClient) AddProjectRobot(ctx context.Context, p *modelv2.Project, ro
 	return c.project.AddProjectRobot(ctx, p, robot)
 }
 
+// UpdateProjectRobot wraps the UpdateProjectRobot method of the project sub-package.
+func (c *RESTClient) UpdateProjectRobot(ctx context.Context, p *modelv2.Project, robotID int, robot *model.RobotAccountUpdate) error {
+	return c.project.UpdateProjectRobot(ctx, p, robotID, robot)
+}
+
+// DeleteProjectRobot wraps the DeleteProjectRobot method of the project sub-package.
+func (c *RESTClient) DeleteProjectRobot(ctx context.Context, p *modelv2.Project, robotID int) error {
+	return c.project.DeleteProjectRobot(ctx, p, robotID)
+}
+
 // Registry Client
 
 // NewRegistry wraps the NewRegistry method of the registry sub-package.
