@@ -20,7 +20,7 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
       - name: Setup Kind
-        uses: engineerd/setup-kind@v0.4.0
+        uses: engineerd/setup-kind@v0.5.0
         with:
           skipClusterCreation: "true"
       - name: Setup Helm
