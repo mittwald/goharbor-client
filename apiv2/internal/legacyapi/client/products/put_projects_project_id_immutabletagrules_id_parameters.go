@@ -63,13 +63,13 @@ for the put projects project ID immutabletagrules ID operation typically these a
 */
 type PutProjectsProjectIDImmutabletagrulesIDParams struct {
 
+	/*RetentionRule*/
+	RetentionRule *legacy.RetentionRule
 	/*ID
 	  Immutable tag rule ID.
 
 	*/
 	ID int64
-	/*Immutabletagrule*/
-	Immutabletagrule *legacy.ImmutableTagRule
 	/*ProjectID
 	  Relevant project ID.
 
@@ -114,6 +114,17 @@ func (o *PutProjectsProjectIDImmutabletagrulesIDParams) SetHTTPClient(client *ht
 	o.HTTPClient = client
 }
 
+// WithRetentionRule adds the retentionRule to the put projects project ID immutabletagrules ID params
+func (o *PutProjectsProjectIDImmutabletagrulesIDParams) WithRetentionRule(retentionRule *legacy.RetentionRule) *PutProjectsProjectIDImmutabletagrulesIDParams {
+	o.SetRetentionRule(retentionRule)
+	return o
+}
+
+// SetRetentionRule adds the retentionRule to the put projects project ID immutabletagrules ID params
+func (o *PutProjectsProjectIDImmutabletagrulesIDParams) SetRetentionRule(retentionRule *legacy.RetentionRule) {
+	o.RetentionRule = retentionRule
+}
+
 // WithID adds the id to the put projects project ID immutabletagrules ID params
 func (o *PutProjectsProjectIDImmutabletagrulesIDParams) WithID(id int64) *PutProjectsProjectIDImmutabletagrulesIDParams {
 	o.SetID(id)
@@ -123,17 +134,6 @@ func (o *PutProjectsProjectIDImmutabletagrulesIDParams) WithID(id int64) *PutPro
 // SetID adds the id to the put projects project ID immutabletagrules ID params
 func (o *PutProjectsProjectIDImmutabletagrulesIDParams) SetID(id int64) {
 	o.ID = id
-}
-
-// WithImmutabletagrule adds the immutabletagrule to the put projects project ID immutabletagrules ID params
-func (o *PutProjectsProjectIDImmutabletagrulesIDParams) WithImmutabletagrule(immutabletagrule *legacy.ImmutableTagRule) *PutProjectsProjectIDImmutabletagrulesIDParams {
-	o.SetImmutabletagrule(immutabletagrule)
-	return o
-}
-
-// SetImmutabletagrule adds the immutabletagrule to the put projects project ID immutabletagrules ID params
-func (o *PutProjectsProjectIDImmutabletagrulesIDParams) SetImmutabletagrule(immutabletagrule *legacy.ImmutableTagRule) {
-	o.Immutabletagrule = immutabletagrule
 }
 
 // WithProjectID adds the projectID to the put projects project ID immutabletagrules ID params
@@ -155,15 +155,15 @@ func (o *PutProjectsProjectIDImmutabletagrulesIDParams) WriteToRequest(r runtime
 	}
 	var res []error
 
+	if o.RetentionRule != nil {
+		if err := r.SetBodyParam(o.RetentionRule); err != nil {
+			return err
+		}
+	}
+
 	// path param id
 	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
 		return err
-	}
-
-	if o.Immutabletagrule != nil {
-		if err := r.SetBodyParam(o.Immutabletagrule); err != nil {
-			return err
-		}
 	}
 
 	// path param project_id

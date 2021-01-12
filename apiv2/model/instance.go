@@ -22,13 +22,13 @@ type Instance struct {
 	AuthMode string `json:"auth_mode,omitempty"`
 
 	// Whether the instance is default or not
-	Default bool `json:"default,omitempty"`
+	Default bool `json:"default"`
 
 	// Description of instance
 	Description string `json:"description,omitempty"`
 
 	// Whether the instance is activated or not
-	Enabled bool `json:"enabled,omitempty"`
+	Enabled bool `json:"enabled"`
 
 	// The service endpoint of this instance
 	Endpoint string `json:"endpoint,omitempty"`
@@ -37,7 +37,7 @@ type Instance struct {
 	ID int64 `json:"id,omitempty"`
 
 	// Whether the instance endpoint is insecure or not
-	Insecure bool `json:"insecure,omitempty"`
+	Insecure bool `json:"insecure"`
 
 	// Instance name
 	Name string `json:"name,omitempty"`

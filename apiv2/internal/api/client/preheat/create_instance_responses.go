@@ -78,28 +78,28 @@ func NewCreateInstanceCreated() *CreateInstanceCreated {
 
 /*CreateInstanceCreated handles this case with default header values.
 
-Response to insatnce created
+Created
 */
 type CreateInstanceCreated struct {
-	Payload *model.InstanceCreatedResp
+	/*The location of the resource
+	 */
+	Location string
+	/*The ID of the corresponding request for the response
+	 */
+	XRequestID string
 }
 
 func (o *CreateInstanceCreated) Error() string {
-	return fmt.Sprintf("[POST /p2p/preheat/instances][%d] createInstanceCreated  %+v", 201, o.Payload)
-}
-
-func (o *CreateInstanceCreated) GetPayload() *model.InstanceCreatedResp {
-	return o.Payload
+	return fmt.Sprintf("[POST /p2p/preheat/instances][%d] createInstanceCreated ", 201)
 }
 
 func (o *CreateInstanceCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.InstanceCreatedResp)
+	// response header Location
+	o.Location = response.GetHeader("Location")
 
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }

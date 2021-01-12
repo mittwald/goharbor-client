@@ -1,8 +1,10 @@
-.PHONY: swagger-generate mock harbor-v1 harbor-v2 teardown-harbor test swagger-cleanup \
+.PHONY: generate swagger-generate mock harbor-v1 harbor-v2 teardown-harbor test swagger-cleanup \
 mock-cleanup integration-test-v1 integration-test-v2
 
-V1_VERSION = v1.10.5
-V2_VERSION = v2.1.1
+V1_VERSION = v1.10.6
+V2_VERSION = v2.1.3
+
+generate: swagger-generate mock
 
 swagger-generate: swagger-cleanup
 	scripts/swagger-gen.sh $(V1_VERSION)

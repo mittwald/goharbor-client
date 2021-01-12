@@ -54,9 +54,11 @@ const (
 type Client interface {
 	NewRetentionPolicy(ctx context.Context, rep *model.RetentionPolicy) error
 	GetRetentionPolicyByProject(ctx context.Context, project *modelv2.Project) (*model.RetentionPolicy, error)
+	DeleteRetentionPolicy(ctx context.Context, rep *model.RetentionPolicy) error
+	UpdateRetentionPolicy(ctx context.Context, rep *model.RetentionPolicy) error
 }
 
-// RESTClient is a subclient forhandling retention related actions.
+// RESTClient is a subclient for handling retention related actions.
 type RESTClient struct {
 	// The swagger client
 	LegacyClient *client.Harbor
@@ -139,6 +141,47 @@ func (c *RESTClient) GetRetentionPolicyByProject(ctx context.Context, project *m
 	}
 
 	return resp.Payload, nil
+}
+
+// DeleteRetentionPolicy fetches the existing retention policy, replacing its array of rules with an empty array.
+// As of now (Harbor v2.1.3) the swagger specifications do not contain a DELETE route for
+// retention policies, but instead PUT a retention policy with a dummy retention rule.
+// This function provides the same functionality as "Action -> Delete" when editing retention rules in the GUI.
+func (c *RESTClient) DeleteRetentionPolicy(ctx context.Context, rep *model.RetentionPolicy) error {
+	if rep == nil {
+		return &ErrRetentionNotProvided{}
+	}
+
+	var deletedPolicy model.RetentionPolicy
+
+	deletedPolicy.ID = rep.ID
+
+	return c.UpdateRetentionPolicy(ctx, deletedPolicy.ID, &deletedPolicy)
+}
+
+// UpdateRetentionPolicy updates the specified retention policy rep.
+// The replication ID is passed as a separate argument, to make deletion of
+func (c *RESTClient) UpdateRetentionPolicy(ctx context.Context, replicationID int64, rep *model.RetentionPolicy) error {
+	if rep == nil {
+		return &ErrRetentionNotProvided{}
+	}
+
+	// The harbor API will return an empty
+	resp, err := c.LegacyClient.Products.PutRetentionsID(&products.PutRetentionsIDParams{
+		ID:      replicationID,
+		Policy:  rep,
+		Context: ctx,
+	}, c.AuthInfo)
+
+	if resp == nil {
+		return &ErrRetentionDoesNotExist{}
+	}
+
+	if err != nil {
+		return handleSwaggerRetentionErrors(err)
+	}
+
+	return nil
 }
 
 // ToTagSelectorExtras converts a boolean to the representative string value used by Harbor.

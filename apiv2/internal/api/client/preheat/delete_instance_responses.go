@@ -66,28 +66,22 @@ func NewDeleteInstanceOK() *DeleteInstanceOK {
 
 /*DeleteInstanceOK handles this case with default header values.
 
-Instance ID deleted
+Success
 */
 type DeleteInstanceOK struct {
-	Payload *model.InstanceDeletedResp
+	/*The ID of the corresponding request for the response
+	 */
+	XRequestID string
 }
 
 func (o *DeleteInstanceOK) Error() string {
-	return fmt.Sprintf("[DELETE /p2p/preheat/instances/{preheat_instance_name}][%d] deleteInstanceOK  %+v", 200, o.Payload)
-}
-
-func (o *DeleteInstanceOK) GetPayload() *model.InstanceDeletedResp {
-	return o.Payload
+	return fmt.Sprintf("[DELETE /p2p/preheat/instances/{preheat_instance_name}][%d] deleteInstanceOK ", 200)
 }
 
 func (o *DeleteInstanceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.InstanceDeletedResp)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
