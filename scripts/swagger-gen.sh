@@ -69,7 +69,7 @@ done
 
 if [[ "${1}" = *"v1"* ]]; then
   SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${1}/api/harbor/swagger.yaml"
-  echo "generating client using the v1 swagger file (${1})"
+  echo "generating client API using the v1 swagger file (${1})"
   docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
   generate client \
   -q \
@@ -84,7 +84,7 @@ fi
 if [[ "${1}" = *"v2"* ]]; then
   LEGACY_SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${1}/api/v2.0/legacy_swagger.yaml"
   SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${1}/api/v2.0/swagger.yaml"
-  echo "generating client using the v2 swagger files (${1})"
+  echo "generating client API using the v2 swagger files (${1})"
   # Generate client using the Harbor v2 legacy API
   docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
   generate client \

@@ -48,12 +48,13 @@ func (e *ErrRetentionNoPermission) Error() string {
 	return ErrRetentionNoPermissionMsg
 }
 
-// ErrRetentionDoesNotExist describes the absence of a retention policy.
+// ErrRetentionDoesNotExist describes the  absence of a retention policy.
+type ErrRetentionDoesNotExist struct{}
+
+// Error returns the error message.
 func (e *ErrRetentionDoesNotExist) Error() string {
 	return ErrRetentionDoesNotExistMsg
 }
-
-type ErrRetentionDoesNotExist struct{}
 
 // ErrRetentionInternalErrors describes server-side internal errors.
 type ErrRetentionInternalErrors struct{}
@@ -70,12 +71,12 @@ func handleSwaggerRetentionErrors(in error) error {
 	t, ok := in.(*runtime.APIError)
 	if ok {
 		switch t.Code {
-		// Status 200 should not result in a client error.
+		// In case of a "status 200" response, do not return an error.
 		case http.StatusOK:
 			return nil
 		case http.StatusCreated:
-			// Harbor sometimes returns 201 instead of 200 despite the swagger spec
-			// not declaring it.
+			// This is a workaround for the Harbor API sometimes returning a "status 201" response
+			// instead of a "status 200" response.
 			return nil
 		case http.StatusUnauthorized:
 			return &ErrRetentionUnauthorized{}

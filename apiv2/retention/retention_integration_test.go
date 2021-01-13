@@ -28,7 +28,7 @@ const (
 	projectName string = "test-project"
 )
 
-func NewTestRetention(projectID int64) model.RetentionPolicy {
+func newTestRetention(projectID int64) model.RetentionPolicy {
 	return model.RetentionPolicy{
 		Algorithm: AlgorithmOr,
 		Rules: []*model.RetentionRule{{
@@ -75,7 +75,7 @@ func TestAPIRetentionNew(t *testing.T) {
 
 	defer pc.DeleteProject(ctx, p)
 
-	ret := NewTestRetention(int64(p.ProjectID))
+	ret := newTestRetention(int64(p.ProjectID))
 
 	p, err = pc.GetProjectByName(ctx, projectName)
 
@@ -100,7 +100,7 @@ func TestAPIRetentionGet(t *testing.T) {
 
 	p, err = pc.GetProjectByName(ctx, projectName)
 
-	ret := NewTestRetention(int64(p.ProjectID))
+	ret := newTestRetention(int64(p.ProjectID))
 
 	err = c.NewRetentionPolicy(ctx, &ret)
 
@@ -126,7 +126,7 @@ func TestAPIRetentionUpdate(t *testing.T) {
 
 	p, err = pc.GetProjectByName(ctx, projectName)
 
-	ret := NewTestRetention(int64(p.ProjectID))
+	ret := newTestRetention(int64(p.ProjectID))
 
 	err = c.NewRetentionPolicy(ctx, &ret)
 
@@ -181,7 +181,7 @@ func TestAPIRetentionDelete(t *testing.T) {
 
 	p, err = pc.GetProjectByName(ctx, projectName)
 
-	ret := NewTestRetention(int64(p.ProjectID))
+	ret := newTestRetention(int64(p.ProjectID))
 
 	err = c.NewRetentionPolicy(ctx, &ret)
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 BUILD_FLAG="// +build !integration"
-MOCKERY_IMAGE="vektra/mockery:v2.2.1"
+MOCKERY_IMAGE="vektra/mockery:${2}"
 
 # v1 API
 if [[ "${1}" = *"v1"* ]]; then
