@@ -16,11 +16,8 @@ jobs:
       - name: Check out code into the Go module directory
         uses: actions/checkout@v2
 
-      - name: Run swagger code generation
-        run: make swagger-generate
-
-      - name: Run mockery code generation
-        run: make mock-generate
+      - name: Run code generation
+        run: make generate
 
       - name: Test diff
         run: |
