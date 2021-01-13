@@ -173,7 +173,7 @@ func TestRESTClient_UpdateRetentionPolicy(t *testing.T) {
 	p.On("PutRetentionsID", putRetentionParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.PutRetentionsIDOK{}, &runtime.APIError{Code: http.StatusOK})
 
-	err := cl.UpdateRetentionPolicy(ctx, putRetentionParams.ID, putRetentionParams.Policy)
+	err := cl.UpdateRetentionPolicy(ctx, putRetentionParams.Policy)
 
 	assert.NoError(t, err)
 	p.AssertExpectations(t)
@@ -190,7 +190,7 @@ func TestRESTClient_UpdateRetentionPolicy_PolicyNotProvided(t *testing.T) {
 	ctx := context.Background()
 	putRetentionParams := &products.PutRetentionsIDParams{}
 
-	err := cl.UpdateRetentionPolicy(ctx, putRetentionParams.ID, putRetentionParams.Policy)
+	err := cl.UpdateRetentionPolicy(ctx, putRetentionParams.Policy)
 
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrRetentionNotProvided{}, err)
@@ -221,14 +221,14 @@ func TestRESTClient_UpdateRetentionPolicy_PolicyDoesNotExist(t *testing.T) {
 	p.On("PutRetentionsID", putRetentionParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(nil, &runtime.APIError{Code: http.StatusOK})
 
-	err := cl.UpdateRetentionPolicy(ctx, putRetentionParams.ID, putRetentionParams.Policy)
+	err := cl.UpdateRetentionPolicy(ctx, putRetentionParams.Policy)
 
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrRetentionDoesNotExist{}, err)
 	}
 }
 
-func TestRESTClient_DeleteRetentionPolicy(t *testing.T) {
+func TestRESTClient_DisableRetentionPolicy(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
@@ -241,9 +241,7 @@ func TestRESTClient_DeleteRetentionPolicy(t *testing.T) {
 	policy := &model.RetentionPolicy{
 		Algorithm: "",
 		ID:        1,
-		Rules:     nil,
-		Scope:     nil,
-		Trigger:   nil,
+		Rules:     []*model.RetentionRule{},
 	}
 
 	putRetentionParams := &products.PutRetentionsIDParams{
@@ -255,7 +253,7 @@ func TestRESTClient_DeleteRetentionPolicy(t *testing.T) {
 	p.On("PutRetentionsID", putRetentionParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.PutRetentionsIDOK{}, &runtime.APIError{Code: http.StatusOK})
 
-	err := cl.DeleteRetentionPolicy(ctx, policy)
+	err := cl.DisableRetentionPolicy(ctx, policy)
 
 	assert.NoError(t, err)
 	p.AssertExpectations(t)

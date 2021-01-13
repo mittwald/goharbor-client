@@ -50,6 +50,7 @@ func NewRESTClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authI
 		registry:    registry.NewClient(legacyClient, v2Client, authInfo),
 		replication: replication.NewClient(legacyClient, v2Client, authInfo),
 		system:      system.NewClient(legacyClient, v2Client, authInfo),
+		retention:   retention.NewClient(legacyClient, v2Client, authInfo),
 	}
 }
 
@@ -300,4 +301,14 @@ func (c *RESTClient) NewRetentionPolicy(ctx context.Context, rep *model.Retentio
 // GetRetentionPolicyByProjectID wraps the GetRetentionPolicyByProject method of the retention sub-package.
 func (c *RESTClient) GetRetentionPolicyByProject(ctx context.Context, project *modelv2.Project) (*model.RetentionPolicy, error) {
 	return c.retention.GetRetentionPolicyByProject(ctx, project)
+}
+
+// UpdateRetentionPolicy wraps the UpdateRetentionPolicy method of the retention sub-package.
+func (c *RESTClient) UpdateRetentionPolicy(ctx context.Context, ret *model.RetentionPolicy) error {
+	return c.retention.UpdateRetentionPolicy(ctx, ret)
+}
+
+// DisableRetentionPolicy wraps the DisableRetentionPolicy method of the retention sub-package.
+func (c *RESTClient) DisableRetentionPolicy(ctx context.Context, ret *model.RetentionPolicy) error {
+	return c.retention.DisableRetentionPolicy(ctx, ret)
 }
