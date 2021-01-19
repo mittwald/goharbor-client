@@ -432,28 +432,11 @@ func (c *RESTClient) GetProjectMetadataValue(ctx context.Context, projectID int6
 		return "", handleSwaggerProjectErrors(err)
 	}
 
-	var result string
-
-	switch key {
-	case ProjectMetadataKeyEnableContentTrust:
-		result = *project.Metadata.EnableContentTrust
-	case ProjectMetadataKeyAutoScan:
-		result = *project.Metadata.AutoScan
-	case ProjectMetadataKeySeverity:
-		result = *project.Metadata.Severity
-	case ProjectMetadataKeyReuseSysCveAllowlist:
-		result = *project.Metadata.ReuseSysCveAllowlist
-	case ProjectMetadataKeyPublic:
-		result = project.Metadata.Public
-	case ProjectMetadataKeyPreventVul:
-		result = *project.Metadata.PreventVul
-	case ProjectMetadataKeyRetentionID:
-		result = *project.Metadata.RetentionID
-	default:
-		return "", &ErrProjectInvalidRequest{}
+	if project.Metadata == nil {
+		return "", &ErrProjectMetadataUndefined{}
 	}
 
-	return result, nil
+	return retrieveMetadataValue(key, project.Metadata)
 }
 
 // ListMetadata lists all metadata of a project
