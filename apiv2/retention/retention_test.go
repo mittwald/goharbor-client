@@ -143,4 +143,118 @@ func TestRESTClient_NewRetentionPolicy(t *testing.T) {
 	err := cl.NewRetentionPolicy(ctx, postRetentionParams.Policy)
 
 	assert.NoError(t, err)
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_UpdateRetentionPolicy(t *testing.T) {
+	p := &mocks.MockProductsClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(p)
+	v2Client := BuildV2ClientWithMocks()
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	policy := &model.RetentionPolicy{
+		Algorithm: "",
+		ID:        1,
+		Rules:     nil,
+		Scope:     nil,
+		Trigger:   nil,
+	}
+
+	putRetentionParams := &products.PutRetentionsIDParams{
+		ID:      1,
+		Policy:  policy,
+		Context: ctx,
+	}
+
+	p.On("PutRetentionsID", putRetentionParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PutRetentionsIDOK{}, &runtime.APIError{Code: http.StatusOK})
+
+	err := cl.UpdateRetentionPolicy(ctx, putRetentionParams.Policy)
+
+	assert.NoError(t, err)
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_UpdateRetentionPolicy_PolicyNotProvided(t *testing.T) {
+	p := &mocks.MockProductsClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(p)
+	v2Client := BuildV2ClientWithMocks()
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+	putRetentionParams := &products.PutRetentionsIDParams{}
+
+	err := cl.UpdateRetentionPolicy(ctx, putRetentionParams.Policy)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrRetentionNotProvided{}, err)
+	}
+}
+
+func TestRESTClient_UpdateRetentionPolicy_PolicyDoesNotExist(t *testing.T) {
+	p := &mocks.MockProductsClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(p)
+	v2Client := BuildV2ClientWithMocks()
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	policy := &model.RetentionPolicy{
+		Algorithm: "",
+		ID:        1,
+	}
+
+	putRetentionParams := &products.PutRetentionsIDParams{
+		ID:      1,
+		Policy:  policy,
+		Context: ctx,
+	}
+
+	p.On("PutRetentionsID", putRetentionParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(nil, &runtime.APIError{Code: http.StatusOK})
+
+	err := cl.UpdateRetentionPolicy(ctx, putRetentionParams.Policy)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrRetentionDoesNotExist{}, err)
+	}
+}
+
+func TestRESTClient_DisableRetentionPolicy(t *testing.T) {
+	p := &mocks.MockProductsClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(p)
+	v2Client := BuildV2ClientWithMocks()
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	policy := &model.RetentionPolicy{
+		Algorithm: "",
+		ID:        1,
+		Rules:     []*model.RetentionRule{},
+	}
+
+	putRetentionParams := &products.PutRetentionsIDParams{
+		ID:      1,
+		Policy:  policy,
+		Context: ctx,
+	}
+
+	p.On("PutRetentionsID", putRetentionParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PutRetentionsIDOK{}, &runtime.APIError{Code: http.StatusOK})
+
+	err := cl.DisableRetentionPolicy(ctx, policy)
+
+	assert.NoError(t, err)
+	p.AssertExpectations(t)
 }

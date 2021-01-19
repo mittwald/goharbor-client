@@ -75,25 +75,19 @@ func NewUpdateInstanceOK() *UpdateInstanceOK {
 Success
 */
 type UpdateInstanceOK struct {
-	Payload *model.InstanceUpdateResp
+	/*The ID of the corresponding request for the response
+	 */
+	XRequestID string
 }
 
 func (o *UpdateInstanceOK) Error() string {
-	return fmt.Sprintf("[PUT /p2p/preheat/instances/{preheat_instance_name}][%d] updateInstanceOK  %+v", 200, o.Payload)
-}
-
-func (o *UpdateInstanceOK) GetPayload() *model.InstanceUpdateResp {
-	return o.Payload
+	return fmt.Sprintf("[PUT /p2p/preheat/instances/{preheat_instance_name}][%d] updateInstanceOK ", 200)
 }
 
 func (o *UpdateInstanceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(model.InstanceUpdateResp)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }

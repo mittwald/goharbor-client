@@ -69,7 +69,7 @@ done
 
 if [[ "${1}" = *"v1"* ]]; then
   SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${1}/api/harbor/swagger.yaml"
-  echo "using the v1 swagger file (${1})"
+  echo "generating client API using the v1 swagger file (${1})"
   docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
   generate client \
   -q \
@@ -84,8 +84,8 @@ fi
 if [[ "${1}" = *"v2"* ]]; then
   LEGACY_SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${1}/api/v2.0/legacy_swagger.yaml"
   SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${1}/api/v2.0/swagger.yaml"
-  echo "using the v2 swagger files (${1})"
-  # Generate using the Harbor v2 legacy API
+  echo "generating client API using the v2 swagger files (${1})"
+  # Generate client using the Harbor v2 legacy API
   docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
   generate client \
   -q \
@@ -94,7 +94,7 @@ if [[ "${1}" = *"v2"* ]]; then
   --name="harbor" \
   --client-package="apiv2/internal/legacyapi/client" \
   --spec="${LEGACY_SWAGGER_FILE}"
-  # Generate using the new / changed Harbor v2 API
+  # Generate client using the new / changed Harbor v2 API
   docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
   generate client \
   -q \

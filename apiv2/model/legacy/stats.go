@@ -21,6 +21,9 @@ type Stats struct {
 	// The metrics data for the each status
 	Metrics map[string]int64 `json:"metrics,omitempty"`
 
+	// A flag indicating job status of scan all .
+	Ongoing bool `json:"ongoing,omitempty"`
+
 	// The requester identity which usually uses the ID of the scan all job
 	Requester string `json:"requester,omitempty"`
 

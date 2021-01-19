@@ -63,8 +63,8 @@ for the post projects project ID immutabletagrules operation typically these are
 */
 type PostProjectsProjectIDImmutabletagrulesParams struct {
 
-	/*Immutabletagrule*/
-	Immutabletagrule *legacy.ImmutableTagRule
+	/*RetentionRule*/
+	RetentionRule *legacy.RetentionRule
 	/*ProjectID
 	  Relevant project ID.
 
@@ -109,15 +109,15 @@ func (o *PostProjectsProjectIDImmutabletagrulesParams) SetHTTPClient(client *htt
 	o.HTTPClient = client
 }
 
-// WithImmutabletagrule adds the immutabletagrule to the post projects project ID immutabletagrules params
-func (o *PostProjectsProjectIDImmutabletagrulesParams) WithImmutabletagrule(immutabletagrule *legacy.ImmutableTagRule) *PostProjectsProjectIDImmutabletagrulesParams {
-	o.SetImmutabletagrule(immutabletagrule)
+// WithRetentionRule adds the retentionRule to the post projects project ID immutabletagrules params
+func (o *PostProjectsProjectIDImmutabletagrulesParams) WithRetentionRule(retentionRule *legacy.RetentionRule) *PostProjectsProjectIDImmutabletagrulesParams {
+	o.SetRetentionRule(retentionRule)
 	return o
 }
 
-// SetImmutabletagrule adds the immutabletagrule to the post projects project ID immutabletagrules params
-func (o *PostProjectsProjectIDImmutabletagrulesParams) SetImmutabletagrule(immutabletagrule *legacy.ImmutableTagRule) {
-	o.Immutabletagrule = immutabletagrule
+// SetRetentionRule adds the retentionRule to the post projects project ID immutabletagrules params
+func (o *PostProjectsProjectIDImmutabletagrulesParams) SetRetentionRule(retentionRule *legacy.RetentionRule) {
+	o.RetentionRule = retentionRule
 }
 
 // WithProjectID adds the projectID to the post projects project ID immutabletagrules params
@@ -139,8 +139,8 @@ func (o *PostProjectsProjectIDImmutabletagrulesParams) WriteToRequest(r runtime.
 	}
 	var res []error
 
-	if o.Immutabletagrule != nil {
-		if err := r.SetBodyParam(o.Immutabletagrule); err != nil {
+	if o.RetentionRule != nil {
+		if err := r.SetBodyParam(o.RetentionRule); err != nil {
 			return err
 		}
 	}

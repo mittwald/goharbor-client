@@ -25,7 +25,7 @@ type PreheatPolicy struct {
 	Description string `json:"description,omitempty"`
 
 	// Whether the preheat policy enabled
-	Enabled bool `json:"enabled,omitempty"`
+	Enabled bool `json:"enabled"`
 
 	// The Filters of preheat policy
 	Filters string `json:"filters,omitempty"`
