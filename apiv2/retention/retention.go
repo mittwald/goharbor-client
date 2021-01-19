@@ -12,8 +12,7 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client"
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client/products"
 	model "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
-	p "github.com/mittwald/goharbor-client/v3/apiv2/project"
-	pc "github.com/mittwald/goharbor-client/v3/apiv2/project"
+	projectapi "github.com/mittwald/goharbor-client/v3/apiv2/project"
 )
 
 const (
@@ -120,9 +119,9 @@ func (c *RESTClient) NewRetentionPolicy(ctx context.Context, ret *model.Retentio
 // GetRetentionPolicyByProject returns a retention policy identified by the corresponding project resource.
 // The retention ID is stored in a project's metadata.
 func (c *RESTClient) GetRetentionPolicyByProject(ctx context.Context, project *modelv2.Project) (*model.RetentionPolicy, error) {
-	pc := pc.NewClient(c.LegacyClient, c.V2Client, c.AuthInfo)
+	pc := projectapi.NewClient(c.LegacyClient, c.V2Client, c.AuthInfo)
 
-	val, err := pc.GetProjectMetadataValue(ctx, int64(project.ProjectID), p.ProjectMetadataKeyRetentionID)
+	val, err := pc.GetProjectMetadataValue(ctx, int64(project.ProjectID), projectapi.ProjectMetadataKeyRetentionID)
 	if err != nil {
 		return nil, err
 	}

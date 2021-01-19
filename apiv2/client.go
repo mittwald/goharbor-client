@@ -294,8 +294,8 @@ func (c *RESTClient) ResetSystemGarbageCollection(ctx context.Context) error {
 // Retention Client
 
 // NewRetentionPolicy wraps the NewRetentionPolicy method of the retention sub-package.
-func (c *RESTClient) NewRetentionPolicy(ctx context.Context, rep *model.RetentionPolicy) error {
-	return c.retention.NewRetentionPolicy(ctx, rep)
+func (c *RESTClient) NewRetentionPolicy(ctx context.Context, ret *model.RetentionPolicy) error {
+	return c.retention.NewRetentionPolicy(ctx, ret)
 }
 
 // GetRetentionPolicyByProjectID wraps the GetRetentionPolicyByProject method of the retention sub-package.
