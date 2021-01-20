@@ -98,48 +98,6 @@ func TestRESTClient_NewProject(t *testing.T) {
 	p.AssertExpectations(t)
 }
 
-// A workaround to test the successful return of the "201" status on a NewProject() call
-func TestRESTClient_NewProject_201(t *testing.T) {
-	p := &mocks.MockProjectClientService{}
-
-	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
-
-	cl := NewClient(legacyClient, v2Client, authInfo)
-
-	ctx := context.Background()
-
-	postProjectParams := &projectapi.CreateProjectParams{
-		Project: pReq,
-		Context: ctx,
-	}
-
-	listProjectParams := &projectapi.ListProjectsParams{
-		Name:    &pReq.ProjectName,
-		Context: ctx,
-	}
-
-	getProjectParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
-	}
-
-	p.On("CreateProject", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.CreateProjectCreated{}, nil)
-
-	p.On("ListProjects", listProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
-
-	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.GetProjectOK{Payload: exampleProject}, nil)
-
-	_, err := cl.NewProject(ctx, exampleProject.Name, int(exampleStorageLimit))
-
-	assert.NoError(t, err)
-
-	p.AssertExpectations(t)
-}
-
 func TestRESTClient_NewProject_ErrProjectNotFound(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
@@ -1583,7 +1541,8 @@ func TestRESTClient_GetProjectMetadataValue(t *testing.T) {
 	}
 
 	var sPtr = "test"
-	for i := range keys {
+
+	for _, k := range keys {
 		getProjectsParams := &projectapi.GetProjectParams{
 			ProjectID: exampleProjectID,
 			Context:   ctx,
@@ -1603,7 +1562,7 @@ func TestRESTClient_GetProjectMetadataValue(t *testing.T) {
 				ProjectID: int32(exampleProjectID),
 			}}, nil)
 
-		val, err := cl.GetProjectMetadataValue(ctx, exampleProjectID, keys[i])
+		val, err := cl.GetProjectMetadataValue(ctx, exampleProjectID, k)
 
 		assert.Equal(t, val, sPtr)
 
@@ -1611,6 +1570,154 @@ func TestRESTClient_GetProjectMetadataValue(t *testing.T) {
 
 		p.AssertExpectations(t)
 	}
+}
+
+func TestRESTClient_GetProjectMetadataValue_ValuesUndefined(t *testing.T) {
+	t.Parallel()
+
+	p := &mocks.MockProjectClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(nil)
+	v2Client := BuildProjectClientWithMocks(p)
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	getProjectsParams := &projectapi.GetProjectParams{
+		ProjectID: exampleProjectID,
+		Context:   ctx,
+	}
+
+	var k MetadataKey
+	t.Run("ProjectMetadataValueEnableContentTrustUndefined", func(t *testing.T) {
+		k = ProjectMetadataKeyEnableContentTrust
+		p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+			Return(&projectapi.GetProjectOK{Payload: &modelv2.Project{
+				Metadata:  &modelv2.ProjectMetadata{},
+				ProjectID: int32(exampleProjectID),
+			}}, nil)
+		val, err := cl.GetProjectMetadataValue(ctx, exampleProjectID, k)
+		if assert.Error(t, err) {
+			assert.Equal(t, val, "")
+			assert.IsType(t, &ErrProjectMetadataValueEnableContentTrustUndefined{}, err)
+		}
+		p.AssertExpectations(t)
+	})
+	t.Run("ProjectMetadataValueAutoScanUndefined", func(t *testing.T) {
+		k = ProjectMetadataKeyAutoScan
+		p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+			Return(&projectapi.GetProjectOK{Payload: &modelv2.Project{
+				Metadata:  &modelv2.ProjectMetadata{},
+				ProjectID: int32(exampleProjectID),
+			}}, nil)
+		val, err := cl.GetProjectMetadataValue(ctx, exampleProjectID, k)
+		if assert.Error(t, err) {
+			assert.Equal(t, val, "")
+			assert.IsType(t, &ErrProjectMetadataValueAutoScanUndefined{}, err)
+		}
+		p.AssertExpectations(t)
+	})
+	t.Run("ProjectMetadataValueSeverityUndefined", func(t *testing.T) {
+		k = ProjectMetadataKeySeverity
+		p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+			Return(&projectapi.GetProjectOK{Payload: &modelv2.Project{
+				Metadata:  &modelv2.ProjectMetadata{},
+				ProjectID: int32(exampleProjectID),
+			}}, nil)
+		val, err := cl.GetProjectMetadataValue(ctx, exampleProjectID, k)
+		if assert.Error(t, err) {
+			assert.Equal(t, val, "")
+			assert.IsType(t, &ErrProjectMetadataValueSeverityUndefined{}, err)
+		}
+		p.AssertExpectations(t)
+	})
+	t.Run("ProjectMetadataValueReuseSysCveAllowlistUndefined", func(t *testing.T) {
+		k = ProjectMetadataKeyReuseSysCveAllowlist
+		p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+			Return(&projectapi.GetProjectOK{Payload: &modelv2.Project{
+				Metadata:  &modelv2.ProjectMetadata{},
+				ProjectID: int32(exampleProjectID),
+			}}, nil)
+		val, err := cl.GetProjectMetadataValue(ctx, exampleProjectID, k)
+		if assert.Error(t, err) {
+			assert.Equal(t, val, "")
+			assert.IsType(t, &ErrProjectMetadataValueReuseSysCveAllowlistUndefined{}, err)
+		}
+		p.AssertExpectations(t)
+	})
+	t.Run("ProjectMetadataValueRetentionIDUndefined", func(t *testing.T) {
+		k = ProjectMetadataKeyRetentionID
+		p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+			Return(&projectapi.GetProjectOK{Payload: &modelv2.Project{
+				Metadata:  &modelv2.ProjectMetadata{},
+				ProjectID: int32(exampleProjectID),
+			}}, nil)
+		val, err := cl.GetProjectMetadataValue(ctx, exampleProjectID, k)
+		if assert.Error(t, err) {
+			assert.Equal(t, val, "")
+			assert.IsType(t, &ErrProjectMetadataValueRetentionIDUndefined{}, err)
+		}
+		p.AssertExpectations(t)
+	})
+	t.Run("ProjectMetadataValuePublicUndefined", func(t *testing.T) {
+		k = ProjectMetadataKeyPublic
+		p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+			Return(&projectapi.GetProjectOK{Payload: &modelv2.Project{
+				Metadata:  &modelv2.ProjectMetadata{},
+				ProjectID: int32(exampleProjectID),
+			}}, nil)
+		val, err := cl.GetProjectMetadataValue(ctx, exampleProjectID, k)
+		if assert.Error(t, err) {
+			assert.Equal(t, val, "")
+			assert.IsType(t, &ErrProjectMetadataValuePublicUndefined{}, err)
+		}
+		p.AssertExpectations(t)
+	})
+	t.Run("ProjectMetadataValuePreventVulUndefined", func(t *testing.T) {
+		k = ProjectMetadataKeyPreventVul
+		p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+			Return(&projectapi.GetProjectOK{Payload: &modelv2.Project{
+				Metadata:  &modelv2.ProjectMetadata{},
+				ProjectID: int32(exampleProjectID),
+			}}, nil)
+		val, err := cl.GetProjectMetadataValue(ctx, exampleProjectID, k)
+		if assert.Error(t, err) {
+			assert.Equal(t, val, "")
+			assert.IsType(t, &ErrProjectMetadataValuePreventVulUndefined{}, err)
+		}
+		p.AssertExpectations(t)
+	})
+}
+
+func TestRESTClient_GetProjectMetadataValue_MetadataNil(t *testing.T) {
+	p := &mocks.MockProjectClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(nil)
+	v2Client := BuildProjectClientWithMocks(p)
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	getProjectsParams := &projectapi.GetProjectParams{
+		ProjectID: exampleProjectID,
+		Context:   ctx,
+	}
+
+	p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&projectapi.GetProjectOK{Payload: &modelv2.Project{
+			Metadata:  nil,
+			ProjectID: int32(exampleProjectID),
+		}}, nil)
+
+	_, err := cl.GetProjectMetadataValue(ctx, exampleProjectID, ProjectMetadataKeyRetentionID)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrProjectMetadataUndefined{}, err)
+	}
+
+	p.AssertExpectations(t)
 }
 
 func TestRESTClient_GetProjectMetadataValue_ErrProjectUnknownResource(t *testing.T) {

@@ -10,10 +10,13 @@ import (
 	"github.com/go-openapi/runtime"
 	runtimeclient "github.com/go-openapi/runtime/client"
 	v2client "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client"
+	projectapi "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/project"
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client"
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client/products"
 	"github.com/mittwald/goharbor-client/v3/apiv2/mocks"
-	model "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
+	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
+	legacymodel "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
+	projectsv2 "github.com/mittwald/goharbor-client/v3/apiv2/project"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
@@ -40,6 +43,11 @@ func BuildV2ClientWithMocks() *v2client.Harbor {
 	}
 }
 
+func BuildProjectClientWithMocks(project *mocks.MockProjectClientService) *v2client.Harbor {
+	return &v2client.Harbor{
+		Project: project,
+	}
+}
 func TestNewClient(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
@@ -101,35 +109,33 @@ func TestRESTClient_NewRetentionPolicy(t *testing.T) {
 	ctx := context.Background()
 
 	postRetentionParams := &products.PostRetentionsParams{
-		Policy: &model.RetentionPolicy{
+		Policy: &legacymodel.RetentionPolicy{
 			Algorithm: AlgorithmOr,
-			Rules: []*model.RetentionRule{{
+			Rules: []*legacymodel.RetentionRule{{
 				Action:   "retain",
 				Disabled: false,
 				Params: map[string]interface{}{
 					PolicyTemplateDaysSinceLastPush.String(): 1,
 				},
-				ScopeSelectors: map[string][]model.RetentionSelector{
+				ScopeSelectors: map[string][]legacymodel.RetentionSelector{
 					"repository": {{
 						Decoration: ScopeSelectorRepoMatches.String(),
 						Kind:       SelectorTypeDefault,
 						Pattern:    "**",
-						Extras:     "", // The "Extras" field is unused for scope selectors.
 					}},
 				},
-				TagSelectors: []*model.RetentionSelector{{
+				TagSelectors: []*legacymodel.RetentionSelector{{
 					Decoration: TagSelectorMatches.String(),
-					Extras:     ToTagSelectorExtras(true),
 					Kind:       SelectorTypeDefault,
 					Pattern:    "**",
 				}},
 				Template: PolicyTemplateDaysSinceLastPush.String(),
 			}},
-			Scope: &model.RetentionPolicyScope{
+			Scope: &legacymodel.RetentionPolicyScope{
 				Level: "project",
 				Ref:   0,
 			},
-			Trigger: &model.RetentionRuleTrigger{
+			Trigger: &legacymodel.RetentionRuleTrigger{
 				Kind:     "Schedule", // Trigger kind is _always_ 'Schedule'.
 				Settings: map[string]interface{}{"cron": "0 * * * *"},
 			},
@@ -146,6 +152,130 @@ func TestRESTClient_NewRetentionPolicy(t *testing.T) {
 	p.AssertExpectations(t)
 }
 
+func TestRESTClient_GetRetentionPolicy(t *testing.T) {
+	p := &mocks.MockProductsClientService{}
+	pc := &mocks.MockProjectClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(p)
+	v2Client := BuildProjectClientWithMocks(pc)
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	var retentionIDPtr = "1"
+
+	project := &modelv2.Project{
+		Deleted: false,
+		Metadata: &modelv2.ProjectMetadata{
+			RetentionID: &retentionIDPtr,
+		},
+		Name:      "test-project",
+		ProjectID: 1,
+	}
+
+	getProjectParams := &projectapi.GetProjectParams{
+		ProjectID: 1,
+		Context:   ctx,
+	}
+	getRetentionParams := &products.GetRetentionsIDParams{
+		ID:      1,
+		Context: ctx,
+	}
+
+	pc.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&projectapi.GetProjectOK{Payload: project}, nil)
+
+	p.On("GetRetentionsID", getRetentionParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetRetentionsIDOK{}, nil)
+
+	_, err := cl.GetRetentionPolicyByProject(ctx, project)
+
+	assert.NoError(t, err)
+}
+
+func TestRESTClient_GetRetentionPolicy_ErrProjectNotFound(t *testing.T) {
+	p := &mocks.MockProductsClientService{}
+	pc := &mocks.MockProjectClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(p)
+	v2Client := BuildProjectClientWithMocks(pc)
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	var retentionIDPtr = "1"
+
+	project := &modelv2.Project{
+		Deleted: false,
+		Metadata: &modelv2.ProjectMetadata{
+			RetentionID: &retentionIDPtr,
+		},
+		Name:      "test-project",
+		ProjectID: 1,
+	}
+
+	getProjectParams := &projectapi.GetProjectParams{
+		ProjectID: 1,
+		Context:   ctx,
+	}
+
+	pc.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(nil, &projectsv2.ErrProjectNotFound{})
+
+	_, err := cl.GetRetentionPolicyByProject(ctx, project)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &projectsv2.ErrProjectNotFound{}, err)
+	}
+}
+
+func TestRESTClient_GetRetentionPolicy_ErrRetentionUnauthorized(t *testing.T) {
+	p := &mocks.MockProductsClientService{}
+	pc := &mocks.MockProjectClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(p)
+	v2Client := BuildProjectClientWithMocks(pc)
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	var retentionIDPtr = "10"
+
+	project := &modelv2.Project{
+		Deleted: false,
+		Metadata: &modelv2.ProjectMetadata{
+			RetentionID: &retentionIDPtr,
+		},
+		Name:      "test-project",
+		ProjectID: 1,
+	}
+
+	getProjectParams := &projectapi.GetProjectParams{
+		ProjectID: 1,
+		Context:   ctx,
+	}
+
+	getRetentionParams := &products.GetRetentionsIDParams{
+		ID:      10,
+		Context: ctx,
+	}
+
+	pc.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&projectapi.GetProjectOK{Payload: project}, nil)
+
+	p.On("GetRetentionsID", getRetentionParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(nil, &runtime.APIError{Code: http.StatusUnauthorized})
+
+	_, err := cl.GetRetentionPolicyByProject(ctx, project)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrRetentionUnauthorized{}, err)
+	}
+}
+
 func TestRESTClient_UpdateRetentionPolicy(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
@@ -156,7 +286,7 @@ func TestRESTClient_UpdateRetentionPolicy(t *testing.T) {
 
 	ctx := context.Background()
 
-	policy := &model.RetentionPolicy{
+	policy := &legacymodel.RetentionPolicy{
 		Algorithm: "",
 		ID:        1,
 		Rules:     nil,
@@ -179,7 +309,7 @@ func TestRESTClient_UpdateRetentionPolicy(t *testing.T) {
 	p.AssertExpectations(t)
 }
 
-func TestRESTClient_UpdateRetentionPolicy_PolicyNotProvided(t *testing.T) {
+func TestRESTClient_UpdateRetentionPolicy_ErrRetentionNotProvided(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
@@ -197,7 +327,7 @@ func TestRESTClient_UpdateRetentionPolicy_PolicyNotProvided(t *testing.T) {
 	}
 }
 
-func TestRESTClient_UpdateRetentionPolicy_PolicyDoesNotExist(t *testing.T) {
+func TestRESTClient_UpdateRetentionPolicy_ErrRetentionDoesNotExist(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
@@ -207,7 +337,7 @@ func TestRESTClient_UpdateRetentionPolicy_PolicyDoesNotExist(t *testing.T) {
 
 	ctx := context.Background()
 
-	policy := &model.RetentionPolicy{
+	policy := &legacymodel.RetentionPolicy{
 		Algorithm: "",
 		ID:        1,
 	}
@@ -238,10 +368,10 @@ func TestRESTClient_DisableRetentionPolicy(t *testing.T) {
 
 	ctx := context.Background()
 
-	policy := &model.RetentionPolicy{
+	policy := &legacymodel.RetentionPolicy{
 		Algorithm: "",
 		ID:        1,
-		Rules:     []*model.RetentionRule{},
+		Rules:     []*legacymodel.RetentionRule{},
 	}
 
 	putRetentionParams := &products.PutRetentionsIDParams{
@@ -257,4 +387,65 @@ func TestRESTClient_DisableRetentionPolicy(t *testing.T) {
 
 	assert.NoError(t, err)
 	p.AssertExpectations(t)
+}
+
+func TestRESTClient_DisableRetentionPolicy_ErrRetentionDoesNotExist(t *testing.T) {
+	p := &mocks.MockProductsClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(p)
+	v2Client := BuildV2ClientWithMocks()
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	policy := &legacymodel.RetentionPolicy{
+		Algorithm: "",
+		ID:        1,
+		Rules:     []*legacymodel.RetentionRule{},
+	}
+
+	putRetentionParams := &products.PutRetentionsIDParams{
+		ID:      1,
+		Policy:  policy,
+		Context: ctx,
+	}
+
+	p.On("PutRetentionsID", putRetentionParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(nil, nil)
+
+	err := cl.DisableRetentionPolicy(ctx, policy)
+
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrRetentionDoesNotExist{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
+func TestErrRetentionUnauthorized_Error(t *testing.T) {
+	var e ErrRetentionUnauthorized
+
+	assert.Equal(t, ErrRetentionUnauthorizedMsg, e.Error())
+}
+
+func TestErrRetentionNotProvided_Error(t *testing.T) {
+	var e ErrRetentionNotProvided
+
+	assert.Equal(t, ErrRetentionNotProvidedMsg, e.Error())
+}
+func TestErrRetentionNoPermission_Error(t *testing.T) {
+	var e ErrRetentionNoPermission
+
+	assert.Equal(t, ErrRetentionNoPermissionMsg, e.Error())
+}
+func TestErrRetentionDoesNotExist_Error(t *testing.T) {
+	var e ErrRetentionDoesNotExist
+
+	assert.Equal(t, ErrRetentionDoesNotExistMsg, e.Error())
+}
+func TestErrRetentionInternalErrors_Error(t *testing.T) {
+	var e ErrRetentionInternalErrors
+
+	assert.Equal(t, ErrRetentionInternalErrorsMsg, e.Error())
 }
