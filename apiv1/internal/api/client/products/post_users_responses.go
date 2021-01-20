@@ -50,7 +50,6 @@ func (o *PostUsersReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -61,7 +60,7 @@ func NewPostUsersCreated() *PostUsersCreated {
 	return &PostUsersCreated{}
 }
 
-/*PostUsersCreated handles this case with default header values.
+/* PostUsersCreated describes a response with status code 201, with default header values.
 
 User created successfully.
 */
@@ -82,7 +81,7 @@ func NewPostUsersBadRequest() *PostUsersBadRequest {
 	return &PostUsersBadRequest{}
 }
 
-/*PostUsersBadRequest handles this case with default header values.
+/* PostUsersBadRequest describes a response with status code 400, with default header values.
 
 Unsatisfied with constraints of the user creation.
 */
@@ -103,7 +102,7 @@ func NewPostUsersForbidden() *PostUsersForbidden {
 	return &PostUsersForbidden{}
 }
 
-/*PostUsersForbidden handles this case with default header values.
+/* PostUsersForbidden describes a response with status code 403, with default header values.
 
 User registration can only be used by admin role user when self-registration is off.
 */
@@ -124,7 +123,7 @@ func NewPostUsersUnsupportedMediaType() *PostUsersUnsupportedMediaType {
 	return &PostUsersUnsupportedMediaType{}
 }
 
-/*PostUsersUnsupportedMediaType handles this case with default header values.
+/* PostUsersUnsupportedMediaType describes a response with status code 415, with default header values.
 
 The Media Type of the request is not supported, it has to be "application/json"
 */
@@ -145,7 +144,7 @@ func NewPostUsersInternalServerError() *PostUsersInternalServerError {
 	return &PostUsersInternalServerError{}
 }
 
-/*PostUsersInternalServerError handles this case with default header values.
+/* PostUsersInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

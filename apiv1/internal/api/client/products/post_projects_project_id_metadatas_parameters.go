@@ -19,64 +19,81 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv1/model"
 )
 
-// NewPostProjectsProjectIDMetadatasParams creates a new PostProjectsProjectIDMetadatasParams object
-// with the default values initialized.
+// NewPostProjectsProjectIDMetadatasParams creates a new PostProjectsProjectIDMetadatasParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostProjectsProjectIDMetadatasParams() *PostProjectsProjectIDMetadatasParams {
-	var ()
 	return &PostProjectsProjectIDMetadatasParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostProjectsProjectIDMetadatasParamsWithTimeout creates a new PostProjectsProjectIDMetadatasParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostProjectsProjectIDMetadatasParamsWithTimeout(timeout time.Duration) *PostProjectsProjectIDMetadatasParams {
-	var ()
 	return &PostProjectsProjectIDMetadatasParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostProjectsProjectIDMetadatasParamsWithContext creates a new PostProjectsProjectIDMetadatasParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostProjectsProjectIDMetadatasParamsWithContext(ctx context.Context) *PostProjectsProjectIDMetadatasParams {
-	var ()
 	return &PostProjectsProjectIDMetadatasParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostProjectsProjectIDMetadatasParamsWithHTTPClient creates a new PostProjectsProjectIDMetadatasParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostProjectsProjectIDMetadatasParamsWithHTTPClient(client *http.Client) *PostProjectsProjectIDMetadatasParams {
-	var ()
 	return &PostProjectsProjectIDMetadatasParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostProjectsProjectIDMetadatasParams contains all the parameters to send to the API endpoint
-for the post projects project ID metadatas operation typically these are written to a http.Request
+/* PostProjectsProjectIDMetadatasParams contains all the parameters to send to the API endpoint
+   for the post projects project ID metadatas operation.
+
+   Typically these are written to a http.Request.
 */
 type PostProjectsProjectIDMetadatasParams struct {
 
-	/*Metadata
-	  The metadata of project.
+	/* Metadata.
 
+	   The metadata of project.
 	*/
 	Metadata *model.ProjectMetadata
-	/*ProjectID
-	  Selected project ID.
 
+	/* ProjectID.
+
+	   Selected project ID.
+
+	   Format: int64
 	*/
 	ProjectID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post projects project ID metadatas params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostProjectsProjectIDMetadatasParams) WithDefaults() *PostProjectsProjectIDMetadatasParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post projects project ID metadatas params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostProjectsProjectIDMetadatasParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post projects project ID metadatas params
@@ -141,7 +158,6 @@ func (o *PostProjectsProjectIDMetadatasParams) WriteToRequest(r runtime.ClientRe
 		return err
 	}
 	var res []error
-
 	if o.Metadata != nil {
 		if err := r.SetBodyParam(o.Metadata); err != nil {
 			return err

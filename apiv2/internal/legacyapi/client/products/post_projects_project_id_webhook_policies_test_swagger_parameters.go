@@ -19,64 +19,81 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPostProjectsProjectIDWebhookPoliciesTestParams creates a new PostProjectsProjectIDWebhookPoliciesTestParams object
-// with the default values initialized.
+// NewPostProjectsProjectIDWebhookPoliciesTestParams creates a new PostProjectsProjectIDWebhookPoliciesTestParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostProjectsProjectIDWebhookPoliciesTestParams() *PostProjectsProjectIDWebhookPoliciesTestParams {
-	var ()
 	return &PostProjectsProjectIDWebhookPoliciesTestParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostProjectsProjectIDWebhookPoliciesTestParamsWithTimeout creates a new PostProjectsProjectIDWebhookPoliciesTestParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostProjectsProjectIDWebhookPoliciesTestParamsWithTimeout(timeout time.Duration) *PostProjectsProjectIDWebhookPoliciesTestParams {
-	var ()
 	return &PostProjectsProjectIDWebhookPoliciesTestParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostProjectsProjectIDWebhookPoliciesTestParamsWithContext creates a new PostProjectsProjectIDWebhookPoliciesTestParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostProjectsProjectIDWebhookPoliciesTestParamsWithContext(ctx context.Context) *PostProjectsProjectIDWebhookPoliciesTestParams {
-	var ()
 	return &PostProjectsProjectIDWebhookPoliciesTestParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostProjectsProjectIDWebhookPoliciesTestParamsWithHTTPClient creates a new PostProjectsProjectIDWebhookPoliciesTestParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostProjectsProjectIDWebhookPoliciesTestParamsWithHTTPClient(client *http.Client) *PostProjectsProjectIDWebhookPoliciesTestParams {
-	var ()
 	return &PostProjectsProjectIDWebhookPoliciesTestParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostProjectsProjectIDWebhookPoliciesTestParams contains all the parameters to send to the API endpoint
-for the post projects project ID webhook policies test operation typically these are written to a http.Request
+/* PostProjectsProjectIDWebhookPoliciesTestParams contains all the parameters to send to the API endpoint
+   for the post projects project ID webhook policies test operation.
+
+   Typically these are written to a http.Request.
 */
 type PostProjectsProjectIDWebhookPoliciesTestParams struct {
 
-	/*Policy
-	  Only property "targets" needed.
+	/* Policy.
 
+	   Only property "targets" needed.
 	*/
 	Policy *legacy.WebhookPolicy
-	/*ProjectID
-	  Relevant project ID.
 
+	/* ProjectID.
+
+	   Relevant project ID.
+
+	   Format: int64
 	*/
 	ProjectID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post projects project ID webhook policies test params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostProjectsProjectIDWebhookPoliciesTestParams) WithDefaults() *PostProjectsProjectIDWebhookPoliciesTestParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post projects project ID webhook policies test params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostProjectsProjectIDWebhookPoliciesTestParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post projects project ID webhook policies test params
@@ -141,7 +158,6 @@ func (o *PostProjectsProjectIDWebhookPoliciesTestParams) WriteToRequest(r runtim
 		return err
 	}
 	var res []error
-
 	if o.Policy != nil {
 		if err := r.SetBodyParam(o.Policy); err != nil {
 			return err

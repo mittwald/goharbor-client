@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -18,22 +20,28 @@ import (
 type NativeReportSummary struct {
 
 	// The seconds spent for generating the report
+	// Example: 300
 	Duration int64 `json:"duration,omitempty"`
 
 	// The end time of the scan process that generating report
+	// Example: 2006-01-02T15:04:05
 	// Format: date-time
 	EndTime strfmt.DateTime `json:"end_time,omitempty"`
 
 	// id of the native scan report
+	// Example: 5f62c830-f996-11e9-957f-0242c0a89008
 	ReportID string `json:"report_id,omitempty"`
 
 	// The status of the report generating process
+	// Example: Success
 	ScanStatus string `json:"scan_status,omitempty"`
 
 	// The overall severity
+	// Example: High
 	Severity string `json:"severity,omitempty"`
 
 	// The start time of the scan process that generating report
+	// Example: 2006-01-02T14:04:05
 	// Format: date-time
 	StartTime strfmt.DateTime `json:"start_time,omitempty"`
 
@@ -64,7 +72,6 @@ func (m *NativeReportSummary) Validate(formats strfmt.Registry) error {
 }
 
 func (m *NativeReportSummary) validateEndTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.EndTime) { // not required
 		return nil
 	}
@@ -77,7 +84,6 @@ func (m *NativeReportSummary) validateEndTime(formats strfmt.Registry) error {
 }
 
 func (m *NativeReportSummary) validateStartTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StartTime) { // not required
 		return nil
 	}
@@ -90,13 +96,40 @@ func (m *NativeReportSummary) validateStartTime(formats strfmt.Registry) error {
 }
 
 func (m *NativeReportSummary) validateSummary(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Summary) { // not required
 		return nil
 	}
 
 	if m.Summary != nil {
 		if err := m.Summary.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("summary")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this native report summary based on the context it is used
+func (m *NativeReportSummary) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateSummary(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *NativeReportSummary) contextValidateSummary(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Summary != nil {
+		if err := m.Summary.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("summary")
 			}

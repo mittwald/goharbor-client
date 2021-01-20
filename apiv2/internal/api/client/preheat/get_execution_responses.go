@@ -59,7 +59,6 @@ func (o *GetExecutionReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -70,7 +69,7 @@ func NewGetExecutionOK() *GetExecutionOK {
 	return &GetExecutionOK{}
 }
 
-/*GetExecutionOK handles this case with default header values.
+/* GetExecutionOK describes a response with status code 200, with default header values.
 
 Get execution success
 */
@@ -81,7 +80,6 @@ type GetExecutionOK struct {
 func (o *GetExecutionOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}][%d] getExecutionOK  %+v", 200, o.Payload)
 }
-
 func (o *GetExecutionOK) GetPayload() *model.Execution {
 	return o.Payload
 }
@@ -103,12 +101,13 @@ func NewGetExecutionBadRequest() *GetExecutionBadRequest {
 	return &GetExecutionBadRequest{}
 }
 
-/*GetExecutionBadRequest handles this case with default header values.
+/* GetExecutionBadRequest describes a response with status code 400, with default header values.
 
 Bad request
 */
 type GetExecutionBadRequest struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -118,15 +117,18 @@ type GetExecutionBadRequest struct {
 func (o *GetExecutionBadRequest) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}][%d] getExecutionBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetExecutionBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetExecutionBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -143,12 +145,13 @@ func NewGetExecutionUnauthorized() *GetExecutionUnauthorized {
 	return &GetExecutionUnauthorized{}
 }
 
-/*GetExecutionUnauthorized handles this case with default header values.
+/* GetExecutionUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
 type GetExecutionUnauthorized struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -158,15 +161,18 @@ type GetExecutionUnauthorized struct {
 func (o *GetExecutionUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}][%d] getExecutionUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetExecutionUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetExecutionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -183,12 +189,13 @@ func NewGetExecutionForbidden() *GetExecutionForbidden {
 	return &GetExecutionForbidden{}
 }
 
-/*GetExecutionForbidden handles this case with default header values.
+/* GetExecutionForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
 type GetExecutionForbidden struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -198,15 +205,18 @@ type GetExecutionForbidden struct {
 func (o *GetExecutionForbidden) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}][%d] getExecutionForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetExecutionForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetExecutionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -223,12 +233,13 @@ func NewGetExecutionNotFound() *GetExecutionNotFound {
 	return &GetExecutionNotFound{}
 }
 
-/*GetExecutionNotFound handles this case with default header values.
+/* GetExecutionNotFound describes a response with status code 404, with default header values.
 
 Not found
 */
 type GetExecutionNotFound struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -238,15 +249,18 @@ type GetExecutionNotFound struct {
 func (o *GetExecutionNotFound) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}][%d] getExecutionNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetExecutionNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetExecutionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -263,12 +277,13 @@ func NewGetExecutionInternalServerError() *GetExecutionInternalServerError {
 	return &GetExecutionInternalServerError{}
 }
 
-/*GetExecutionInternalServerError handles this case with default header values.
+/* GetExecutionInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error
 */
 type GetExecutionInternalServerError struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -278,15 +293,18 @@ type GetExecutionInternalServerError struct {
 func (o *GetExecutionInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}][%d] getExecutionInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetExecutionInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetExecutionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 

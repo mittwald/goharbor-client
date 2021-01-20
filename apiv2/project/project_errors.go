@@ -1,10 +1,10 @@
 package project
 
 import (
+	"net/http"
+
 	projectapi "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/project"
 	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
-
-	"net/http"
 
 	"github.com/go-openapi/runtime"
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client/products"

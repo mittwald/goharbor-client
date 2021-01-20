@@ -1466,7 +1466,7 @@ func TestRESTClient_AddProjectMetadata(t *testing.T) {
 
 	ctx := context.Background()
 
-	var mPtr = "true"
+	mPtr := "true"
 
 	pReq.Metadata = &modelv2.ProjectMetadata{}
 	pReq.Metadata.EnableContentTrust = &mPtr
@@ -1498,7 +1498,7 @@ func TestRESTClient_AddProjectMetadata_ErrProjectMetadataAlreadyExists(t *testin
 
 	ctx := context.Background()
 
-	var mPtr = "true"
+	mPtr := "true"
 	pReq.Metadata.EnableContentTrust = &mPtr
 	pReq.StorageLimit = nil
 
@@ -1540,7 +1540,7 @@ func TestRESTClient_GetProjectMetadataValue(t *testing.T) {
 		ProjectMetadataKeyPreventVul,
 	}
 
-	var sPtr = "test"
+	sPtr := "test"
 
 	for _, k := range keys {
 		getProjectsParams := &projectapi.GetProjectParams{
@@ -1740,7 +1740,7 @@ func TestRESTClient_GetProjectMetadataValue_ErrProjectUnknownResource(t *testing
 		ProjectMetadataKeyPreventVul,
 	}
 
-	var sPtr = "test"
+	sPtr := "test"
 
 	exampleProject.Metadata = &modelv2.ProjectMetadata{
 		AutoScan:             &sPtr,
@@ -1781,7 +1781,7 @@ func TestRESTClient_ListProjectMetadata(t *testing.T) {
 
 	ctx := context.Background()
 
-	var sPtr = "true"
+	sPtr := "true"
 
 	exampleProject2 := exampleProject
 
@@ -1835,7 +1835,7 @@ func TestRESTClient_UpdateProjectMetadata(t *testing.T) {
 		Context:   ctx,
 	}
 
-	var mPtr = "true"
+	mPtr := "true"
 	pReq2.Metadata.EnableContentTrust = &mPtr
 	updateProjectParams := &projectapi.UpdateProjectParams{
 		Project:   pReq2,
@@ -1876,7 +1876,7 @@ func TestRESTClient_UpdateProjectMetadata_GetProjectMeta_ErrProjectUnknownResour
 
 	ctx := context.Background()
 
-	var metaPtr = "true"
+	metaPtr := "true"
 
 	project := &modelv2.Project{
 		ProjectID: int32(exampleProjectID),
@@ -1917,7 +1917,7 @@ func TestRESTClient_UpdateProjectMetadata_DeleteProjectMeta_ErrProjectUnknownRes
 
 	ctx := context.Background()
 
-	var metaPtr = "true"
+	metaPtr := "true"
 
 	project := &modelv2.Project{
 		ProjectID: int32(exampleProjectID),
@@ -1967,7 +1967,7 @@ func TestRESTClient_DeleteProjectMetadataValue(t *testing.T) {
 
 	ctx := context.Background()
 
-	var metaPtr = "true"
+	metaPtr := "true"
 
 	project := &modelv2.Project{
 		ProjectID: int32(exampleProjectID),
@@ -2004,7 +2004,7 @@ func TestRESTClient_ListProjectRobots(t *testing.T) {
 	ctx := context.Background()
 
 	expectedRobots := []*model.RobotAccount{
-		&model.RobotAccount{
+		{
 			Description: "some robot account",
 			Disabled:    false,
 			ID:          42,

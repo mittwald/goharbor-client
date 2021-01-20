@@ -75,7 +75,7 @@ type MetadataKey string
 // CountLimit limits the number of repositories for this project.
 // StorageLimit limits the allocatable space for this project.
 func (c *RESTClient) NewProject(ctx context.Context, name string, storageLimit int) (*modelv2.Project, error) {
-	var sPtr = int64(storageLimit) * 1024 * 1024
+	sPtr := int64(storageLimit) * 1024 * 1024
 
 	pReq := &modelv2.ProjectReq{
 		ProjectName:  name,
@@ -133,7 +133,6 @@ func (c *RESTClient) GetProjectByName(ctx context.Context, name string) (*modelv
 	}
 
 	projectList, err := c.ListProjects(ctx, name)
-
 	if err != nil {
 		return nil, handleSwaggerProjectErrors(err)
 	}
@@ -150,7 +149,6 @@ func (c *RESTClient) GetProjectByName(ctx context.Context, name string) (*modelv
 		ProjectID: projectID,
 		Context:   ctx,
 	}, c.AuthInfo)
-
 	if err != nil {
 		return nil, handleSwaggerProjectErrors(err)
 	}
@@ -168,7 +166,6 @@ func (c *RESTClient) GetProjectByID(ctx context.Context, projectID int64) (*mode
 		ProjectID: projectID,
 		Context:   ctx,
 	}, c.AuthInfo)
-
 	if err != nil {
 		return nil, handleSwaggerProjectErrors(err)
 	}
@@ -188,7 +185,6 @@ func (c *RESTClient) ListProjects(ctx context.Context, nameFilter string) ([]*mo
 		Name:    &nameFilter,
 		Context: ctx,
 	}, c.AuthInfo)
-
 	if err != nil {
 		return nil, handleSwaggerProjectErrors(err)
 	}
@@ -212,7 +208,7 @@ func (c *RESTClient) UpdateProject(ctx context.Context, p *modelv2.Project, stor
 		return &ErrProjectMismatch{}
 	}
 
-	var sPtr = int64(storageLimit) * 1024 * 1024
+	sPtr := int64(storageLimit) * 1024 * 1024
 
 	pReq := &modelv2.ProjectReq{
 		CveAllowlist: p.CveAllowlist,
@@ -427,7 +423,6 @@ func (c *RESTClient) AddProjectMetadata(ctx context.Context, p *modelv2.Project,
 // GetProjectMetadataValue retrieves metadata with key of project p.
 func (c *RESTClient) GetProjectMetadataValue(ctx context.Context, projectID int64, key MetadataKey) (string, error) {
 	project, err := c.GetProjectByID(ctx, projectID)
-
 	if err != nil {
 		return "", handleSwaggerProjectErrors(err)
 	}

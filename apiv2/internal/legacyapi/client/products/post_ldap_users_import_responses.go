@@ -53,7 +53,6 @@ func (o *PostLdapUsersImportReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -64,7 +63,7 @@ func NewPostLdapUsersImportOK() *PostLdapUsersImportOK {
 	return &PostLdapUsersImportOK{}
 }
 
-/*PostLdapUsersImportOK handles this case with default header values.
+/* PostLdapUsersImportOK describes a response with status code 200, with default header values.
 
 Add ldap users successfully.
 */
@@ -85,7 +84,7 @@ func NewPostLdapUsersImportUnauthorized() *PostLdapUsersImportUnauthorized {
 	return &PostLdapUsersImportUnauthorized{}
 }
 
-/*PostLdapUsersImportUnauthorized handles this case with default header values.
+/* PostLdapUsersImportUnauthorized describes a response with status code 401, with default header values.
 
 User need to login first.
 */
@@ -106,7 +105,7 @@ func NewPostLdapUsersImportForbidden() *PostLdapUsersImportForbidden {
 	return &PostLdapUsersImportForbidden{}
 }
 
-/*PostLdapUsersImportForbidden handles this case with default header values.
+/* PostLdapUsersImportForbidden describes a response with status code 403, with default header values.
 
 Only admin has this authority.
 */
@@ -127,7 +126,7 @@ func NewPostLdapUsersImportNotFound() *PostLdapUsersImportNotFound {
 	return &PostLdapUsersImportNotFound{}
 }
 
-/*PostLdapUsersImportNotFound handles this case with default header values.
+/* PostLdapUsersImportNotFound describes a response with status code 404, with default header values.
 
 Failed import some users.
 */
@@ -138,7 +137,6 @@ type PostLdapUsersImportNotFound struct {
 func (o *PostLdapUsersImportNotFound) Error() string {
 	return fmt.Sprintf("[POST /ldap/users/import][%d] postLdapUsersImportNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PostLdapUsersImportNotFound) GetPayload() []*legacy.LdapFailedImportUsers {
 	return o.Payload
 }
@@ -158,7 +156,7 @@ func NewPostLdapUsersImportUnsupportedMediaType() *PostLdapUsersImportUnsupporte
 	return &PostLdapUsersImportUnsupportedMediaType{}
 }
 
-/*PostLdapUsersImportUnsupportedMediaType handles this case with default header values.
+/* PostLdapUsersImportUnsupportedMediaType describes a response with status code 415, with default header values.
 
 The Media Type of the request is not supported, it has to be "application/json"
 */

@@ -6,6 +6,7 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -63,7 +64,6 @@ func (m *CVEAllowlist) Validate(formats strfmt.Registry) error {
 }
 
 func (m *CVEAllowlist) validateCreationTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CreationTime) { // not required
 		return nil
 	}
@@ -76,7 +76,6 @@ func (m *CVEAllowlist) validateCreationTime(formats strfmt.Registry) error {
 }
 
 func (m *CVEAllowlist) validateItems(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Items) { // not required
 		return nil
 	}
@@ -101,13 +100,44 @@ func (m *CVEAllowlist) validateItems(formats strfmt.Registry) error {
 }
 
 func (m *CVEAllowlist) validateUpdateTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.UpdateTime) { // not required
 		return nil
 	}
 
 	if err := validate.FormatOf("update_time", "body", "date-time", m.UpdateTime.String(), formats); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this c v e allowlist based on the context it is used
+func (m *CVEAllowlist) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateItems(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CVEAllowlist) contextValidateItems(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Items); i++ {
+
+		if m.Items[i] != nil {
+			if err := m.Items[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("items" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

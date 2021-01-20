@@ -47,7 +47,6 @@ func (o *GetRegistriesIDInfoReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -58,7 +57,7 @@ func NewGetRegistriesIDInfoOK() *GetRegistriesIDInfoOK {
 	return &GetRegistriesIDInfoOK{}
 }
 
-/*GetRegistriesIDInfoOK handles this case with default header values.
+/* GetRegistriesIDInfoOK describes a response with status code 200, with default header values.
 
 Get registry successfully.
 */
@@ -69,7 +68,6 @@ type GetRegistriesIDInfoOK struct {
 func (o *GetRegistriesIDInfoOK) Error() string {
 	return fmt.Sprintf("[GET /registries/{id}/info][%d] getRegistriesIdInfoOK  %+v", 200, o.Payload)
 }
-
 func (o *GetRegistriesIDInfoOK) GetPayload() *legacy.RegistryInfo {
 	return o.Payload
 }
@@ -91,7 +89,7 @@ func NewGetRegistriesIDInfoUnauthorized() *GetRegistriesIDInfoUnauthorized {
 	return &GetRegistriesIDInfoUnauthorized{}
 }
 
-/*GetRegistriesIDInfoUnauthorized handles this case with default header values.
+/* GetRegistriesIDInfoUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -112,7 +110,7 @@ func NewGetRegistriesIDInfoNotFound() *GetRegistriesIDInfoNotFound {
 	return &GetRegistriesIDInfoNotFound{}
 }
 
-/*GetRegistriesIDInfoNotFound handles this case with default header values.
+/* GetRegistriesIDInfoNotFound describes a response with status code 404, with default header values.
 
 Registry not found
 */
@@ -133,7 +131,7 @@ func NewGetRegistriesIDInfoInternalServerError() *GetRegistriesIDInfoInternalSer
 	return &GetRegistriesIDInfoInternalServerError{}
 }
 
-/*GetRegistriesIDInfoInternalServerError handles this case with default header values.
+/* GetRegistriesIDInfoInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

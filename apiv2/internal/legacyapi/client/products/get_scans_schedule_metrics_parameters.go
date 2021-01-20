@@ -16,52 +16,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetScansScheduleMetricsParams creates a new GetScansScheduleMetricsParams object
-// with the default values initialized.
+// NewGetScansScheduleMetricsParams creates a new GetScansScheduleMetricsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetScansScheduleMetricsParams() *GetScansScheduleMetricsParams {
-
 	return &GetScansScheduleMetricsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetScansScheduleMetricsParamsWithTimeout creates a new GetScansScheduleMetricsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetScansScheduleMetricsParamsWithTimeout(timeout time.Duration) *GetScansScheduleMetricsParams {
-
 	return &GetScansScheduleMetricsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetScansScheduleMetricsParamsWithContext creates a new GetScansScheduleMetricsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetScansScheduleMetricsParamsWithContext(ctx context.Context) *GetScansScheduleMetricsParams {
-
 	return &GetScansScheduleMetricsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetScansScheduleMetricsParamsWithHTTPClient creates a new GetScansScheduleMetricsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetScansScheduleMetricsParamsWithHTTPClient(client *http.Client) *GetScansScheduleMetricsParams {
-
 	return &GetScansScheduleMetricsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetScansScheduleMetricsParams contains all the parameters to send to the API endpoint
-for the get scans schedule metrics operation typically these are written to a http.Request
+/* GetScansScheduleMetricsParams contains all the parameters to send to the API endpoint
+   for the get scans schedule metrics operation.
+
+   Typically these are written to a http.Request.
 */
 type GetScansScheduleMetricsParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get scans schedule metrics params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetScansScheduleMetricsParams) WithDefaults() *GetScansScheduleMetricsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get scans schedule metrics params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetScansScheduleMetricsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get scans schedule metrics params

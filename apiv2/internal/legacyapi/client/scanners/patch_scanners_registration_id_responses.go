@@ -44,7 +44,6 @@ func (o *PatchScannersRegistrationIDReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -55,7 +54,7 @@ func NewPatchScannersRegistrationIDOK() *PatchScannersRegistrationIDOK {
 	return &PatchScannersRegistrationIDOK{}
 }
 
-/*PatchScannersRegistrationIDOK handles this case with default header values.
+/* PatchScannersRegistrationIDOK describes a response with status code 200, with default header values.
 
 Successfully set the specified scanner registration as system default
 */
@@ -76,7 +75,7 @@ func NewPatchScannersRegistrationIDUnauthorized() *PatchScannersRegistrationIDUn
 	return &PatchScannersRegistrationIDUnauthorized{}
 }
 
-/*PatchScannersRegistrationIDUnauthorized handles this case with default header values.
+/* PatchScannersRegistrationIDUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized request
 */
@@ -97,7 +96,7 @@ func NewPatchScannersRegistrationIDForbidden() *PatchScannersRegistrationIDForbi
 	return &PatchScannersRegistrationIDForbidden{}
 }
 
-/*PatchScannersRegistrationIDForbidden handles this case with default header values.
+/* PatchScannersRegistrationIDForbidden describes a response with status code 403, with default header values.
 
 Request is not allowed
 */
@@ -118,7 +117,7 @@ func NewPatchScannersRegistrationIDInternalServerError() *PatchScannersRegistrat
 	return &PatchScannersRegistrationIDInternalServerError{}
 }
 
-/*PatchScannersRegistrationIDInternalServerError handles this case with default header values.
+/* PatchScannersRegistrationIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error happened
 */

@@ -53,7 +53,6 @@ func (o *GetProjectsProjectIDWebhookJobsReader) ReadResponse(response runtime.Cl
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -64,7 +63,7 @@ func NewGetProjectsProjectIDWebhookJobsOK() *GetProjectsProjectIDWebhookJobsOK {
 	return &GetProjectsProjectIDWebhookJobsOK{}
 }
 
-/*GetProjectsProjectIDWebhookJobsOK handles this case with default header values.
+/* GetProjectsProjectIDWebhookJobsOK describes a response with status code 200, with default header values.
 
 List project webhook jobs successfully.
 */
@@ -75,7 +74,6 @@ type GetProjectsProjectIDWebhookJobsOK struct {
 func (o *GetProjectsProjectIDWebhookJobsOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}/webhook/jobs][%d] getProjectsProjectIdWebhookJobsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetProjectsProjectIDWebhookJobsOK) GetPayload() []*legacy.WebhookJob {
 	return o.Payload
 }
@@ -95,7 +93,7 @@ func NewGetProjectsProjectIDWebhookJobsBadRequest() *GetProjectsProjectIDWebhook
 	return &GetProjectsProjectIDWebhookJobsBadRequest{}
 }
 
-/*GetProjectsProjectIDWebhookJobsBadRequest handles this case with default header values.
+/* GetProjectsProjectIDWebhookJobsBadRequest describes a response with status code 400, with default header values.
 
 Illegal format of provided ID value.
 */
@@ -116,7 +114,7 @@ func NewGetProjectsProjectIDWebhookJobsUnauthorized() *GetProjectsProjectIDWebho
 	return &GetProjectsProjectIDWebhookJobsUnauthorized{}
 }
 
-/*GetProjectsProjectIDWebhookJobsUnauthorized handles this case with default header values.
+/* GetProjectsProjectIDWebhookJobsUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -137,7 +135,7 @@ func NewGetProjectsProjectIDWebhookJobsForbidden() *GetProjectsProjectIDWebhookJ
 	return &GetProjectsProjectIDWebhookJobsForbidden{}
 }
 
-/*GetProjectsProjectIDWebhookJobsForbidden handles this case with default header values.
+/* GetProjectsProjectIDWebhookJobsForbidden describes a response with status code 403, with default header values.
 
 User have no permission to list webhook jobs of the project.
 */
@@ -158,7 +156,7 @@ func NewGetProjectsProjectIDWebhookJobsInternalServerError() *GetProjectsProject
 	return &GetProjectsProjectIDWebhookJobsInternalServerError{}
 }
 
-/*GetProjectsProjectIDWebhookJobsInternalServerError handles this case with default header values.
+/* GetProjectsProjectIDWebhookJobsInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

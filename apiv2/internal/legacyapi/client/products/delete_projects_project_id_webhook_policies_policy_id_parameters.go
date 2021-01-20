@@ -17,64 +17,83 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteProjectsProjectIDWebhookPoliciesPolicyIDParams creates a new DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams object
-// with the default values initialized.
+// NewDeleteProjectsProjectIDWebhookPoliciesPolicyIDParams creates a new DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteProjectsProjectIDWebhookPoliciesPolicyIDParams() *DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams {
-	var ()
 	return &DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteProjectsProjectIDWebhookPoliciesPolicyIDParamsWithTimeout creates a new DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteProjectsProjectIDWebhookPoliciesPolicyIDParamsWithTimeout(timeout time.Duration) *DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams {
-	var ()
 	return &DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteProjectsProjectIDWebhookPoliciesPolicyIDParamsWithContext creates a new DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteProjectsProjectIDWebhookPoliciesPolicyIDParamsWithContext(ctx context.Context) *DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams {
-	var ()
 	return &DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteProjectsProjectIDWebhookPoliciesPolicyIDParamsWithHTTPClient creates a new DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteProjectsProjectIDWebhookPoliciesPolicyIDParamsWithHTTPClient(client *http.Client) *DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams {
-	var ()
 	return &DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams contains all the parameters to send to the API endpoint
-for the delete projects project ID webhook policies policy ID operation typically these are written to a http.Request
+/* DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams contains all the parameters to send to the API endpoint
+   for the delete projects project ID webhook policies policy ID operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams struct {
 
-	/*PolicyID
-	  The id of webhook policy.
+	/* PolicyID.
 
+	   The id of webhook policy.
+
+	   Format: int64
 	*/
 	PolicyID int64
-	/*ProjectID
-	  Relevant project ID.
 
+	/* ProjectID.
+
+	   Relevant project ID.
+
+	   Format: int64
 	*/
 	ProjectID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete projects project ID webhook policies policy ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams) WithDefaults() *DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete projects project ID webhook policies policy ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete projects project ID webhook policies policy ID params

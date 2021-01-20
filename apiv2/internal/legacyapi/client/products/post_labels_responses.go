@@ -56,7 +56,6 @@ func (o *PostLabelsReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -67,7 +66,7 @@ func NewPostLabelsCreated() *PostLabelsCreated {
 	return &PostLabelsCreated{}
 }
 
-/*PostLabelsCreated handles this case with default header values.
+/* PostLabelsCreated describes a response with status code 201, with default header values.
 
 Create successfully.
 */
@@ -88,7 +87,7 @@ func NewPostLabelsBadRequest() *PostLabelsBadRequest {
 	return &PostLabelsBadRequest{}
 }
 
-/*PostLabelsBadRequest handles this case with default header values.
+/* PostLabelsBadRequest describes a response with status code 400, with default header values.
 
 Invalid parameters.
 */
@@ -109,7 +108,7 @@ func NewPostLabelsUnauthorized() *PostLabelsUnauthorized {
 	return &PostLabelsUnauthorized{}
 }
 
-/*PostLabelsUnauthorized handles this case with default header values.
+/* PostLabelsUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -130,7 +129,7 @@ func NewPostLabelsConflict() *PostLabelsConflict {
 	return &PostLabelsConflict{}
 }
 
-/*PostLabelsConflict handles this case with default header values.
+/* PostLabelsConflict describes a response with status code 409, with default header values.
 
 Label with the same name and same scope already exists.
 */
@@ -151,7 +150,7 @@ func NewPostLabelsUnsupportedMediaType() *PostLabelsUnsupportedMediaType {
 	return &PostLabelsUnsupportedMediaType{}
 }
 
-/*PostLabelsUnsupportedMediaType handles this case with default header values.
+/* PostLabelsUnsupportedMediaType describes a response with status code 415, with default header values.
 
 The Media Type of the request is not supported, it has to be "application/json"
 */
@@ -172,7 +171,7 @@ func NewPostLabelsInternalServerError() *PostLabelsInternalServerError {
 	return &PostLabelsInternalServerError{}
 }
 
-/*PostLabelsInternalServerError handles this case with default header values.
+/* PostLabelsInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

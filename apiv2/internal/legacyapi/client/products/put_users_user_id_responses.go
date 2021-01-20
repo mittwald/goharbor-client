@@ -56,7 +56,6 @@ func (o *PutUsersUserIDReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -67,7 +66,7 @@ func NewPutUsersUserIDOK() *PutUsersUserIDOK {
 	return &PutUsersUserIDOK{}
 }
 
-/*PutUsersUserIDOK handles this case with default header values.
+/* PutUsersUserIDOK describes a response with status code 200, with default header values.
 
 Updated user's profile successfully.
 */
@@ -88,7 +87,7 @@ func NewPutUsersUserIDBadRequest() *PutUsersUserIDBadRequest {
 	return &PutUsersUserIDBadRequest{}
 }
 
-/*PutUsersUserIDBadRequest handles this case with default header values.
+/* PutUsersUserIDBadRequest describes a response with status code 400, with default header values.
 
 Invalid user ID.
 */
@@ -109,7 +108,7 @@ func NewPutUsersUserIDUnauthorized() *PutUsersUserIDUnauthorized {
 	return &PutUsersUserIDUnauthorized{}
 }
 
-/*PutUsersUserIDUnauthorized handles this case with default header values.
+/* PutUsersUserIDUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -130,7 +129,7 @@ func NewPutUsersUserIDForbidden() *PutUsersUserIDForbidden {
 	return &PutUsersUserIDForbidden{}
 }
 
-/*PutUsersUserIDForbidden handles this case with default header values.
+/* PutUsersUserIDForbidden describes a response with status code 403, with default header values.
 
 User does not have permission of admin role.
 */
@@ -151,7 +150,7 @@ func NewPutUsersUserIDNotFound() *PutUsersUserIDNotFound {
 	return &PutUsersUserIDNotFound{}
 }
 
-/*PutUsersUserIDNotFound handles this case with default header values.
+/* PutUsersUserIDNotFound describes a response with status code 404, with default header values.
 
 User ID does not exist.
 */
@@ -172,7 +171,7 @@ func NewPutUsersUserIDInternalServerError() *PutUsersUserIDInternalServerError {
 	return &PutUsersUserIDInternalServerError{}
 }
 
-/*PutUsersUserIDInternalServerError handles this case with default header values.
+/* PutUsersUserIDInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

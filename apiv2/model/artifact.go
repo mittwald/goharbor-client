@@ -6,6 +6,7 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -123,55 +124,57 @@ func (m *Artifact) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Artifact) validateAdditionLinks(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AdditionLinks) { // not required
 		return nil
 	}
 
-	if err := m.AdditionLinks.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("addition_links")
+	if m.AdditionLinks != nil {
+		if err := m.AdditionLinks.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("addition_links")
+			}
+			return err
 		}
-		return err
 	}
 
 	return nil
 }
 
 func (m *Artifact) validateAnnotations(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Annotations) { // not required
 		return nil
 	}
 
-	if err := m.Annotations.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("annotations")
+	if m.Annotations != nil {
+		if err := m.Annotations.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("annotations")
+			}
+			return err
 		}
-		return err
 	}
 
 	return nil
 }
 
 func (m *Artifact) validateExtraAttrs(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ExtraAttrs) { // not required
 		return nil
 	}
 
-	if err := m.ExtraAttrs.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("extra_attrs")
+	if m.ExtraAttrs != nil {
+		if err := m.ExtraAttrs.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("extra_attrs")
+			}
+			return err
 		}
-		return err
 	}
 
 	return nil
 }
 
 func (m *Artifact) validateLabels(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Labels) { // not required
 		return nil
 	}
@@ -196,7 +199,6 @@ func (m *Artifact) validateLabels(formats strfmt.Registry) error {
 }
 
 func (m *Artifact) validatePullTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.PullTime) { // not required
 		return nil
 	}
@@ -209,7 +211,6 @@ func (m *Artifact) validatePullTime(formats strfmt.Registry) error {
 }
 
 func (m *Artifact) validatePushTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.PushTime) { // not required
 		return nil
 	}
@@ -222,7 +223,6 @@ func (m *Artifact) validatePushTime(formats strfmt.Registry) error {
 }
 
 func (m *Artifact) validateReferences(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.References) { // not required
 		return nil
 	}
@@ -247,23 +247,23 @@ func (m *Artifact) validateReferences(formats strfmt.Registry) error {
 }
 
 func (m *Artifact) validateScanOverview(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ScanOverview) { // not required
 		return nil
 	}
 
-	if err := m.ScanOverview.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("scan_overview")
+	if m.ScanOverview != nil {
+		if err := m.ScanOverview.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("scan_overview")
+			}
+			return err
 		}
-		return err
 	}
 
 	return nil
 }
 
 func (m *Artifact) validateTags(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Tags) { // not required
 		return nil
 	}
@@ -275,6 +275,146 @@ func (m *Artifact) validateTags(formats strfmt.Registry) error {
 
 		if m.Tags[i] != nil {
 			if err := m.Tags[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this artifact based on the context it is used
+func (m *Artifact) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAdditionLinks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateAnnotations(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateExtraAttrs(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLabels(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateReferences(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateScanOverview(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTags(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Artifact) contextValidateAdditionLinks(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.AdditionLinks.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("addition_links")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *Artifact) contextValidateAnnotations(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Annotations.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("annotations")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *Artifact) contextValidateExtraAttrs(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.ExtraAttrs.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("extra_attrs")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *Artifact) contextValidateLabels(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Labels); i++ {
+
+		if m.Labels[i] != nil {
+			if err := m.Labels[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("labels" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Artifact) contextValidateReferences(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.References); i++ {
+
+		if m.References[i] != nil {
+			if err := m.References[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("references" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Artifact) contextValidateScanOverview(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.ScanOverview.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("scan_overview")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *Artifact) contextValidateTags(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Tags); i++ {
+
+		if m.Tags[i] != nil {
+			if err := m.Tags[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
 				}

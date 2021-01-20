@@ -18,59 +18,73 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPostLdapUsersImportParams creates a new PostLdapUsersImportParams object
-// with the default values initialized.
+// NewPostLdapUsersImportParams creates a new PostLdapUsersImportParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostLdapUsersImportParams() *PostLdapUsersImportParams {
-	var ()
 	return &PostLdapUsersImportParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostLdapUsersImportParamsWithTimeout creates a new PostLdapUsersImportParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostLdapUsersImportParamsWithTimeout(timeout time.Duration) *PostLdapUsersImportParams {
-	var ()
 	return &PostLdapUsersImportParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostLdapUsersImportParamsWithContext creates a new PostLdapUsersImportParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostLdapUsersImportParamsWithContext(ctx context.Context) *PostLdapUsersImportParams {
-	var ()
 	return &PostLdapUsersImportParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostLdapUsersImportParamsWithHTTPClient creates a new PostLdapUsersImportParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostLdapUsersImportParamsWithHTTPClient(client *http.Client) *PostLdapUsersImportParams {
-	var ()
 	return &PostLdapUsersImportParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostLdapUsersImportParams contains all the parameters to send to the API endpoint
-for the post ldap users import operation typically these are written to a http.Request
+/* PostLdapUsersImportParams contains all the parameters to send to the API endpoint
+   for the post ldap users import operation.
+
+   Typically these are written to a http.Request.
 */
 type PostLdapUsersImportParams struct {
 
-	/*UIDList
-	  The uid listed for importing. This list will check users validity of ldap service based on configuration from the system.
+	/* UIDList.
 
+	   The uid listed for importing. This list will check users validity of ldap service based on configuration from the system.
 	*/
 	UIDList *legacy.LdapImportUsers
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post ldap users import params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostLdapUsersImportParams) WithDefaults() *PostLdapUsersImportParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post ldap users import params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostLdapUsersImportParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post ldap users import params
@@ -124,7 +138,6 @@ func (o *PostLdapUsersImportParams) WriteToRequest(r runtime.ClientRequest, reg 
 		return err
 	}
 	var res []error
-
 	if o.UIDList != nil {
 		if err := r.SetBodyParam(o.UIDList); err != nil {
 			return err

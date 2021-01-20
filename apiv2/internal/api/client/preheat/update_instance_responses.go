@@ -59,7 +59,6 @@ func (o *UpdateInstanceReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -70,12 +69,13 @@ func NewUpdateInstanceOK() *UpdateInstanceOK {
 	return &UpdateInstanceOK{}
 }
 
-/*UpdateInstanceOK handles this case with default header values.
+/* UpdateInstanceOK describes a response with status code 200, with default header values.
 
 Success
 */
 type UpdateInstanceOK struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -86,8 +86,12 @@ func (o *UpdateInstanceOK) Error() string {
 
 func (o *UpdateInstanceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	return nil
 }
@@ -97,12 +101,13 @@ func NewUpdateInstanceBadRequest() *UpdateInstanceBadRequest {
 	return &UpdateInstanceBadRequest{}
 }
 
-/*UpdateInstanceBadRequest handles this case with default header values.
+/* UpdateInstanceBadRequest describes a response with status code 400, with default header values.
 
 Bad request
 */
 type UpdateInstanceBadRequest struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -112,15 +117,18 @@ type UpdateInstanceBadRequest struct {
 func (o *UpdateInstanceBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /p2p/preheat/instances/{preheat_instance_name}][%d] updateInstanceBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *UpdateInstanceBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateInstanceBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -137,12 +145,13 @@ func NewUpdateInstanceUnauthorized() *UpdateInstanceUnauthorized {
 	return &UpdateInstanceUnauthorized{}
 }
 
-/*UpdateInstanceUnauthorized handles this case with default header values.
+/* UpdateInstanceUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
 type UpdateInstanceUnauthorized struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -152,15 +161,18 @@ type UpdateInstanceUnauthorized struct {
 func (o *UpdateInstanceUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /p2p/preheat/instances/{preheat_instance_name}][%d] updateInstanceUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *UpdateInstanceUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateInstanceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -177,12 +189,13 @@ func NewUpdateInstanceForbidden() *UpdateInstanceForbidden {
 	return &UpdateInstanceForbidden{}
 }
 
-/*UpdateInstanceForbidden handles this case with default header values.
+/* UpdateInstanceForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
 type UpdateInstanceForbidden struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -192,15 +205,18 @@ type UpdateInstanceForbidden struct {
 func (o *UpdateInstanceForbidden) Error() string {
 	return fmt.Sprintf("[PUT /p2p/preheat/instances/{preheat_instance_name}][%d] updateInstanceForbidden  %+v", 403, o.Payload)
 }
-
 func (o *UpdateInstanceForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateInstanceForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -217,12 +233,13 @@ func NewUpdateInstanceNotFound() *UpdateInstanceNotFound {
 	return &UpdateInstanceNotFound{}
 }
 
-/*UpdateInstanceNotFound handles this case with default header values.
+/* UpdateInstanceNotFound describes a response with status code 404, with default header values.
 
 Not found
 */
 type UpdateInstanceNotFound struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -232,15 +249,18 @@ type UpdateInstanceNotFound struct {
 func (o *UpdateInstanceNotFound) Error() string {
 	return fmt.Sprintf("[PUT /p2p/preheat/instances/{preheat_instance_name}][%d] updateInstanceNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpdateInstanceNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateInstanceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -257,12 +277,13 @@ func NewUpdateInstanceInternalServerError() *UpdateInstanceInternalServerError {
 	return &UpdateInstanceInternalServerError{}
 }
 
-/*UpdateInstanceInternalServerError handles this case with default header values.
+/* UpdateInstanceInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error
 */
 type UpdateInstanceInternalServerError struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -272,15 +293,18 @@ type UpdateInstanceInternalServerError struct {
 func (o *UpdateInstanceInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /p2p/preheat/instances/{preheat_instance_name}][%d] updateInstanceInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *UpdateInstanceInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateInstanceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 

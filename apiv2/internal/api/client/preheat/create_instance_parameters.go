@@ -18,64 +18,79 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model"
 )
 
-// NewCreateInstanceParams creates a new CreateInstanceParams object
-// with the default values initialized.
+// NewCreateInstanceParams creates a new CreateInstanceParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateInstanceParams() *CreateInstanceParams {
-	var ()
 	return &CreateInstanceParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateInstanceParamsWithTimeout creates a new CreateInstanceParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreateInstanceParamsWithTimeout(timeout time.Duration) *CreateInstanceParams {
-	var ()
 	return &CreateInstanceParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewCreateInstanceParamsWithContext creates a new CreateInstanceParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreateInstanceParamsWithContext(ctx context.Context) *CreateInstanceParams {
-	var ()
 	return &CreateInstanceParams{
-
 		Context: ctx,
 	}
 }
 
 // NewCreateInstanceParamsWithHTTPClient creates a new CreateInstanceParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreateInstanceParamsWithHTTPClient(client *http.Client) *CreateInstanceParams {
-	var ()
 	return &CreateInstanceParams{
 		HTTPClient: client,
 	}
 }
 
-/*CreateInstanceParams contains all the parameters to send to the API endpoint
-for the create instance operation typically these are written to a http.Request
+/* CreateInstanceParams contains all the parameters to send to the API endpoint
+   for the create instance operation.
+
+   Typically these are written to a http.Request.
 */
 type CreateInstanceParams struct {
 
-	/*XRequestID
-	  An unique ID for the request
+	/* XRequestID.
 
+	   An unique ID for the request
 	*/
 	XRequestID *string
-	/*Instance
-	  The JSON object of instance.
 
+	/* Instance.
+
+	   The JSON object of instance.
 	*/
 	Instance *model.Instance
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create instance params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateInstanceParams) WithDefaults() *CreateInstanceParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create instance params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateInstanceParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create instance params
@@ -147,9 +162,7 @@ func (o *CreateInstanceParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
-
 	}
-
 	if o.Instance != nil {
 		if err := r.SetBodyParam(o.Instance); err != nil {
 			return err

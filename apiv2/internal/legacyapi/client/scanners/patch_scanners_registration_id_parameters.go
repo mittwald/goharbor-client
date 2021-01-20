@@ -18,61 +18,76 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPatchScannersRegistrationIDParams creates a new PatchScannersRegistrationIDParams object
-// with the default values initialized.
+// NewPatchScannersRegistrationIDParams creates a new PatchScannersRegistrationIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPatchScannersRegistrationIDParams() *PatchScannersRegistrationIDParams {
-	var ()
 	return &PatchScannersRegistrationIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPatchScannersRegistrationIDParamsWithTimeout creates a new PatchScannersRegistrationIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPatchScannersRegistrationIDParamsWithTimeout(timeout time.Duration) *PatchScannersRegistrationIDParams {
-	var ()
 	return &PatchScannersRegistrationIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPatchScannersRegistrationIDParamsWithContext creates a new PatchScannersRegistrationIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPatchScannersRegistrationIDParamsWithContext(ctx context.Context) *PatchScannersRegistrationIDParams {
-	var ()
 	return &PatchScannersRegistrationIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPatchScannersRegistrationIDParamsWithHTTPClient creates a new PatchScannersRegistrationIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPatchScannersRegistrationIDParamsWithHTTPClient(client *http.Client) *PatchScannersRegistrationIDParams {
-	var ()
 	return &PatchScannersRegistrationIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*PatchScannersRegistrationIDParams contains all the parameters to send to the API endpoint
-for the patch scanners registration ID operation typically these are written to a http.Request
+/* PatchScannersRegistrationIDParams contains all the parameters to send to the API endpoint
+   for the patch scanners registration ID operation.
+
+   Typically these are written to a http.Request.
 */
 type PatchScannersRegistrationIDParams struct {
 
-	/*Payload*/
+	// Payload.
 	Payload *legacy.IsDefault
-	/*RegistrationID
-	  The scanner registration identifier.
 
+	/* RegistrationID.
+
+	   The scanner registration identifier.
 	*/
 	RegistrationID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the patch scanners registration ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PatchScannersRegistrationIDParams) WithDefaults() *PatchScannersRegistrationIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the patch scanners registration ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PatchScannersRegistrationIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the patch scanners registration ID params
@@ -137,7 +152,6 @@ func (o *PatchScannersRegistrationIDParams) WriteToRequest(r runtime.ClientReque
 		return err
 	}
 	var res []error
-
 	if o.Payload != nil {
 		if err := r.SetBodyParam(o.Payload); err != nil {
 			return err

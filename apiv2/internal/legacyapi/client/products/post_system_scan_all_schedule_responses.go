@@ -62,7 +62,6 @@ func (o *PostSystemScanAllScheduleReader) ReadResponse(response runtime.ClientRe
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -73,7 +72,7 @@ func NewPostSystemScanAllScheduleOK() *PostSystemScanAllScheduleOK {
 	return &PostSystemScanAllScheduleOK{}
 }
 
-/*PostSystemScanAllScheduleOK handles this case with default header values.
+/* PostSystemScanAllScheduleOK describes a response with status code 200, with default header values.
 
 Updated scan_all's schedule successfully.
 */
@@ -94,7 +93,7 @@ func NewPostSystemScanAllScheduleBadRequest() *PostSystemScanAllScheduleBadReque
 	return &PostSystemScanAllScheduleBadRequest{}
 }
 
-/*PostSystemScanAllScheduleBadRequest handles this case with default header values.
+/* PostSystemScanAllScheduleBadRequest describes a response with status code 400, with default header values.
 
 Invalid schedule type.
 */
@@ -115,7 +114,7 @@ func NewPostSystemScanAllScheduleUnauthorized() *PostSystemScanAllScheduleUnauth
 	return &PostSystemScanAllScheduleUnauthorized{}
 }
 
-/*PostSystemScanAllScheduleUnauthorized handles this case with default header values.
+/* PostSystemScanAllScheduleUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -136,7 +135,7 @@ func NewPostSystemScanAllScheduleForbidden() *PostSystemScanAllScheduleForbidden
 	return &PostSystemScanAllScheduleForbidden{}
 }
 
-/*PostSystemScanAllScheduleForbidden handles this case with default header values.
+/* PostSystemScanAllScheduleForbidden describes a response with status code 403, with default header values.
 
 User does not have permission of admin role.
 */
@@ -157,7 +156,7 @@ func NewPostSystemScanAllScheduleConflict() *PostSystemScanAllScheduleConflict {
 	return &PostSystemScanAllScheduleConflict{}
 }
 
-/*PostSystemScanAllScheduleConflict handles this case with default header values.
+/* PostSystemScanAllScheduleConflict describes a response with status code 409, with default header values.
 
 There is a "scanall" job in progress, so the request cannot be served.
 */
@@ -178,7 +177,7 @@ func NewPostSystemScanAllScheduleInternalServerError() *PostSystemScanAllSchedul
 	return &PostSystemScanAllScheduleInternalServerError{}
 }
 
-/*PostSystemScanAllScheduleInternalServerError handles this case with default header values.
+/* PostSystemScanAllScheduleInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */
@@ -199,7 +198,7 @@ func NewPostSystemScanAllScheduleServiceUnavailable() *PostSystemScanAllSchedule
 	return &PostSystemScanAllScheduleServiceUnavailable{}
 }
 
-/*PostSystemScanAllScheduleServiceUnavailable handles this case with default header values.
+/* PostSystemScanAllScheduleServiceUnavailable describes a response with status code 503, with default header values.
 
 Harbor is not deployed with scanners.
 */

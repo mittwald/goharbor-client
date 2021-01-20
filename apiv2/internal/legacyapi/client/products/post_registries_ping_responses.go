@@ -56,7 +56,6 @@ func (o *PostRegistriesPingReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -67,7 +66,7 @@ func NewPostRegistriesPingOK() *PostRegistriesPingOK {
 	return &PostRegistriesPingOK{}
 }
 
-/*PostRegistriesPingOK handles this case with default header values.
+/* PostRegistriesPingOK describes a response with status code 200, with default header values.
 
 Registry is healthy.
 */
@@ -88,7 +87,7 @@ func NewPostRegistriesPingBadRequest() *PostRegistriesPingBadRequest {
 	return &PostRegistriesPingBadRequest{}
 }
 
-/*PostRegistriesPingBadRequest handles this case with default header values.
+/* PostRegistriesPingBadRequest describes a response with status code 400, with default header values.
 
 No proper registry information provided.
 */
@@ -109,7 +108,7 @@ func NewPostRegistriesPingUnauthorized() *PostRegistriesPingUnauthorized {
 	return &PostRegistriesPingUnauthorized{}
 }
 
-/*PostRegistriesPingUnauthorized handles this case with default header values.
+/* PostRegistriesPingUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -130,7 +129,7 @@ func NewPostRegistriesPingNotFound() *PostRegistriesPingNotFound {
 	return &PostRegistriesPingNotFound{}
 }
 
-/*PostRegistriesPingNotFound handles this case with default header values.
+/* PostRegistriesPingNotFound describes a response with status code 404, with default header values.
 
 Registry not found (when registry is provided by ID).
 */
@@ -151,7 +150,7 @@ func NewPostRegistriesPingUnsupportedMediaType() *PostRegistriesPingUnsupportedM
 	return &PostRegistriesPingUnsupportedMediaType{}
 }
 
-/*PostRegistriesPingUnsupportedMediaType handles this case with default header values.
+/* PostRegistriesPingUnsupportedMediaType describes a response with status code 415, with default header values.
 
 The Media Type of the request is not supported, it has to be "application/json"
 */
@@ -172,7 +171,7 @@ func NewPostRegistriesPingInternalServerError() *PostRegistriesPingInternalServe
 	return &PostRegistriesPingInternalServerError{}
 }
 
-/*PostRegistriesPingInternalServerError handles this case with default header values.
+/* PostRegistriesPingInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

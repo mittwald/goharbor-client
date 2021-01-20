@@ -17,59 +17,75 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetReplicationExecutionsIDTasksParams creates a new GetReplicationExecutionsIDTasksParams object
-// with the default values initialized.
+// NewGetReplicationExecutionsIDTasksParams creates a new GetReplicationExecutionsIDTasksParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetReplicationExecutionsIDTasksParams() *GetReplicationExecutionsIDTasksParams {
-	var ()
 	return &GetReplicationExecutionsIDTasksParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetReplicationExecutionsIDTasksParamsWithTimeout creates a new GetReplicationExecutionsIDTasksParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetReplicationExecutionsIDTasksParamsWithTimeout(timeout time.Duration) *GetReplicationExecutionsIDTasksParams {
-	var ()
 	return &GetReplicationExecutionsIDTasksParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetReplicationExecutionsIDTasksParamsWithContext creates a new GetReplicationExecutionsIDTasksParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetReplicationExecutionsIDTasksParamsWithContext(ctx context.Context) *GetReplicationExecutionsIDTasksParams {
-	var ()
 	return &GetReplicationExecutionsIDTasksParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetReplicationExecutionsIDTasksParamsWithHTTPClient creates a new GetReplicationExecutionsIDTasksParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetReplicationExecutionsIDTasksParamsWithHTTPClient(client *http.Client) *GetReplicationExecutionsIDTasksParams {
-	var ()
 	return &GetReplicationExecutionsIDTasksParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetReplicationExecutionsIDTasksParams contains all the parameters to send to the API endpoint
-for the get replication executions ID tasks operation typically these are written to a http.Request
+/* GetReplicationExecutionsIDTasksParams contains all the parameters to send to the API endpoint
+   for the get replication executions ID tasks operation.
+
+   Typically these are written to a http.Request.
 */
 type GetReplicationExecutionsIDTasksParams struct {
 
-	/*ID
-	  The execution ID.
+	/* ID.
 
+	   The execution ID.
+
+	   Format: int64
 	*/
 	ID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get replication executions ID tasks params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetReplicationExecutionsIDTasksParams) WithDefaults() *GetReplicationExecutionsIDTasksParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get replication executions ID tasks params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetReplicationExecutionsIDTasksParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get replication executions ID tasks params

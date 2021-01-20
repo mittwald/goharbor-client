@@ -19,64 +19,81 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv1/model"
 )
 
-// NewPutReplicationPoliciesIDParams creates a new PutReplicationPoliciesIDParams object
-// with the default values initialized.
+// NewPutReplicationPoliciesIDParams creates a new PutReplicationPoliciesIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPutReplicationPoliciesIDParams() *PutReplicationPoliciesIDParams {
-	var ()
 	return &PutReplicationPoliciesIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutReplicationPoliciesIDParamsWithTimeout creates a new PutReplicationPoliciesIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPutReplicationPoliciesIDParamsWithTimeout(timeout time.Duration) *PutReplicationPoliciesIDParams {
-	var ()
 	return &PutReplicationPoliciesIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPutReplicationPoliciesIDParamsWithContext creates a new PutReplicationPoliciesIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPutReplicationPoliciesIDParamsWithContext(ctx context.Context) *PutReplicationPoliciesIDParams {
-	var ()
 	return &PutReplicationPoliciesIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPutReplicationPoliciesIDParamsWithHTTPClient creates a new PutReplicationPoliciesIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPutReplicationPoliciesIDParamsWithHTTPClient(client *http.Client) *PutReplicationPoliciesIDParams {
-	var ()
 	return &PutReplicationPoliciesIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*PutReplicationPoliciesIDParams contains all the parameters to send to the API endpoint
-for the put replication policies ID operation typically these are written to a http.Request
+/* PutReplicationPoliciesIDParams contains all the parameters to send to the API endpoint
+   for the put replication policies ID operation.
+
+   Typically these are written to a http.Request.
 */
 type PutReplicationPoliciesIDParams struct {
 
-	/*ID
-	  policy ID
+	/* ID.
 
+	   policy ID
+
+	   Format: int64
 	*/
 	ID int64
-	/*Policy
-	  The replication policy model.
 
+	/* Policy.
+
+	   The replication policy model.
 	*/
 	Policy *model.ReplicationPolicy
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the put replication policies ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutReplicationPoliciesIDParams) WithDefaults() *PutReplicationPoliciesIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the put replication policies ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutReplicationPoliciesIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put replication policies ID params
@@ -146,7 +163,6 @@ func (o *PutReplicationPoliciesIDParams) WriteToRequest(r runtime.ClientRequest,
 	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
 		return err
 	}
-
 	if o.Policy != nil {
 		if err := r.SetBodyParam(o.Policy); err != nil {
 			return err

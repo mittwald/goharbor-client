@@ -6,6 +6,7 @@ package legacy
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -51,7 +52,6 @@ func (m *RetentionMetadata) Validate(formats strfmt.Registry) error {
 }
 
 func (m *RetentionMetadata) validateScopeSelectors(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ScopeSelectors) { // not required
 		return nil
 	}
@@ -76,7 +76,6 @@ func (m *RetentionMetadata) validateScopeSelectors(formats strfmt.Registry) erro
 }
 
 func (m *RetentionMetadata) validateTagSelectors(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.TagSelectors) { // not required
 		return nil
 	}
@@ -101,7 +100,6 @@ func (m *RetentionMetadata) validateTagSelectors(formats strfmt.Registry) error 
 }
 
 func (m *RetentionMetadata) validateTemplates(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Templates) { // not required
 		return nil
 	}
@@ -113,6 +111,82 @@ func (m *RetentionMetadata) validateTemplates(formats strfmt.Registry) error {
 
 		if m.Templates[i] != nil {
 			if err := m.Templates[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("templates" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this retention metadata based on the context it is used
+func (m *RetentionMetadata) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateScopeSelectors(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTagSelectors(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTemplates(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RetentionMetadata) contextValidateScopeSelectors(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.ScopeSelectors); i++ {
+
+		if m.ScopeSelectors[i] != nil {
+			if err := m.ScopeSelectors[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("scope_selectors" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *RetentionMetadata) contextValidateTagSelectors(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.TagSelectors); i++ {
+
+		if m.TagSelectors[i] != nil {
+			if err := m.TagSelectors[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("tag_selectors" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *RetentionMetadata) contextValidateTemplates(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Templates); i++ {
+
+		if m.Templates[i] != nil {
+			if err := m.Templates[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("templates" + "." + strconv.Itoa(i))
 				}

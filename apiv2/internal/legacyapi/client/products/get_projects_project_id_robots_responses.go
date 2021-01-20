@@ -59,7 +59,6 @@ func (o *GetProjectsProjectIDRobotsReader) ReadResponse(response runtime.ClientR
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -70,7 +69,7 @@ func NewGetProjectsProjectIDRobotsOK() *GetProjectsProjectIDRobotsOK {
 	return &GetProjectsProjectIDRobotsOK{}
 }
 
-/*GetProjectsProjectIDRobotsOK handles this case with default header values.
+/* GetProjectsProjectIDRobotsOK describes a response with status code 200, with default header values.
 
 Get project robot accounts successfully.
 */
@@ -81,7 +80,6 @@ type GetProjectsProjectIDRobotsOK struct {
 func (o *GetProjectsProjectIDRobotsOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}/robots][%d] getProjectsProjectIdRobotsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetProjectsProjectIDRobotsOK) GetPayload() []*legacy.RobotAccount {
 	return o.Payload
 }
@@ -101,7 +99,7 @@ func NewGetProjectsProjectIDRobotsBadRequest() *GetProjectsProjectIDRobotsBadReq
 	return &GetProjectsProjectIDRobotsBadRequest{}
 }
 
-/*GetProjectsProjectIDRobotsBadRequest handles this case with default header values.
+/* GetProjectsProjectIDRobotsBadRequest describes a response with status code 400, with default header values.
 
 The project id is invalid.
 */
@@ -122,7 +120,7 @@ func NewGetProjectsProjectIDRobotsUnauthorized() *GetProjectsProjectIDRobotsUnau
 	return &GetProjectsProjectIDRobotsUnauthorized{}
 }
 
-/*GetProjectsProjectIDRobotsUnauthorized handles this case with default header values.
+/* GetProjectsProjectIDRobotsUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -143,7 +141,7 @@ func NewGetProjectsProjectIDRobotsForbidden() *GetProjectsProjectIDRobotsForbidd
 	return &GetProjectsProjectIDRobotsForbidden{}
 }
 
-/*GetProjectsProjectIDRobotsForbidden handles this case with default header values.
+/* GetProjectsProjectIDRobotsForbidden describes a response with status code 403, with default header values.
 
 User in session does not have permission to the project.
 */
@@ -164,7 +162,7 @@ func NewGetProjectsProjectIDRobotsNotFound() *GetProjectsProjectIDRobotsNotFound
 	return &GetProjectsProjectIDRobotsNotFound{}
 }
 
-/*GetProjectsProjectIDRobotsNotFound handles this case with default header values.
+/* GetProjectsProjectIDRobotsNotFound describes a response with status code 404, with default header values.
 
 Project ID does not exist.
 */
@@ -185,7 +183,7 @@ func NewGetProjectsProjectIDRobotsInternalServerError() *GetProjectsProjectIDRob
 	return &GetProjectsProjectIDRobotsInternalServerError{}
 }
 
-/*GetProjectsProjectIDRobotsInternalServerError handles this case with default header values.
+/* GetProjectsProjectIDRobotsInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

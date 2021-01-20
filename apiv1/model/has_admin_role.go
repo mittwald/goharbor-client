@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -21,6 +23,11 @@ type HasAdminRole struct {
 
 // Validate validates this has admin role
 func (m *HasAdminRole) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this has admin role based on context it is used
+func (m *HasAdminRole) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

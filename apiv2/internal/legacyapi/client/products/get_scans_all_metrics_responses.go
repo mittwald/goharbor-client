@@ -47,7 +47,6 @@ func (o *GetScansAllMetricsReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -58,7 +57,7 @@ func NewGetScansAllMetricsOK() *GetScansAllMetricsOK {
 	return &GetScansAllMetricsOK{}
 }
 
-/*GetScansAllMetricsOK handles this case with default header values.
+/* GetScansAllMetricsOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -69,7 +68,6 @@ type GetScansAllMetricsOK struct {
 func (o *GetScansAllMetricsOK) Error() string {
 	return fmt.Sprintf("[GET /scans/all/metrics][%d] getScansAllMetricsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetScansAllMetricsOK) GetPayload() *legacy.Stats {
 	return o.Payload
 }
@@ -91,7 +89,7 @@ func NewGetScansAllMetricsUnauthorized() *GetScansAllMetricsUnauthorized {
 	return &GetScansAllMetricsUnauthorized{}
 }
 
-/*GetScansAllMetricsUnauthorized handles this case with default header values.
+/* GetScansAllMetricsUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized request
 */
@@ -112,7 +110,7 @@ func NewGetScansAllMetricsForbidden() *GetScansAllMetricsForbidden {
 	return &GetScansAllMetricsForbidden{}
 }
 
-/*GetScansAllMetricsForbidden handles this case with default header values.
+/* GetScansAllMetricsForbidden describes a response with status code 403, with default header values.
 
 Request is not allowed
 */
@@ -133,7 +131,7 @@ func NewGetScansAllMetricsInternalServerError() *GetScansAllMetricsInternalServe
 	return &GetScansAllMetricsInternalServerError{}
 }
 
-/*GetScansAllMetricsInternalServerError handles this case with default header values.
+/* GetScansAllMetricsInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error happened
 */

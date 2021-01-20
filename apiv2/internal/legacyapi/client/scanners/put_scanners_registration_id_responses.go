@@ -50,7 +50,6 @@ func (o *PutScannersRegistrationIDReader) ReadResponse(response runtime.ClientRe
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -61,7 +60,7 @@ func NewPutScannersRegistrationIDOK() *PutScannersRegistrationIDOK {
 	return &PutScannersRegistrationIDOK{}
 }
 
-/*PutScannersRegistrationIDOK handles this case with default header values.
+/* PutScannersRegistrationIDOK describes a response with status code 200, with default header values.
 
 Updated successfully
 */
@@ -82,7 +81,7 @@ func NewPutScannersRegistrationIDUnauthorized() *PutScannersRegistrationIDUnauth
 	return &PutScannersRegistrationIDUnauthorized{}
 }
 
-/*PutScannersRegistrationIDUnauthorized handles this case with default header values.
+/* PutScannersRegistrationIDUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized request
 */
@@ -103,7 +102,7 @@ func NewPutScannersRegistrationIDForbidden() *PutScannersRegistrationIDForbidden
 	return &PutScannersRegistrationIDForbidden{}
 }
 
-/*PutScannersRegistrationIDForbidden handles this case with default header values.
+/* PutScannersRegistrationIDForbidden describes a response with status code 403, with default header values.
 
 Request is not allowed, system role required
 */
@@ -124,7 +123,7 @@ func NewPutScannersRegistrationIDNotFound() *PutScannersRegistrationIDNotFound {
 	return &PutScannersRegistrationIDNotFound{}
 }
 
-/*PutScannersRegistrationIDNotFound handles this case with default header values.
+/* PutScannersRegistrationIDNotFound describes a response with status code 404, with default header values.
 
 The requested object is not found
 */
@@ -145,7 +144,7 @@ func NewPutScannersRegistrationIDInternalServerError() *PutScannersRegistrationI
 	return &PutScannersRegistrationIDInternalServerError{}
 }
 
-/*PutScannersRegistrationIDInternalServerError handles this case with default header values.
+/* PutScannersRegistrationIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error happened
 */

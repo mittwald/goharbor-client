@@ -6,6 +6,8 @@ package legacy
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/strfmt"
 )
 
@@ -16,5 +18,10 @@ type ResourceList map[string]int64
 
 // Validate validates this resource list
 func (m ResourceList) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this resource list based on context it is used
+func (m ResourceList) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }

@@ -56,7 +56,6 @@ func (o *DeleteProjectsProjectIDReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -67,7 +66,7 @@ func NewDeleteProjectsProjectIDOK() *DeleteProjectsProjectIDOK {
 	return &DeleteProjectsProjectIDOK{}
 }
 
-/*DeleteProjectsProjectIDOK handles this case with default header values.
+/* DeleteProjectsProjectIDOK describes a response with status code 200, with default header values.
 
 Project is deleted successfully.
 */
@@ -88,7 +87,7 @@ func NewDeleteProjectsProjectIDBadRequest() *DeleteProjectsProjectIDBadRequest {
 	return &DeleteProjectsProjectIDBadRequest{}
 }
 
-/*DeleteProjectsProjectIDBadRequest handles this case with default header values.
+/* DeleteProjectsProjectIDBadRequest describes a response with status code 400, with default header values.
 
 Invalid project id.
 */
@@ -109,7 +108,7 @@ func NewDeleteProjectsProjectIDForbidden() *DeleteProjectsProjectIDForbidden {
 	return &DeleteProjectsProjectIDForbidden{}
 }
 
-/*DeleteProjectsProjectIDForbidden handles this case with default header values.
+/* DeleteProjectsProjectIDForbidden describes a response with status code 403, with default header values.
 
 User need to log in first.
 */
@@ -130,7 +129,7 @@ func NewDeleteProjectsProjectIDNotFound() *DeleteProjectsProjectIDNotFound {
 	return &DeleteProjectsProjectIDNotFound{}
 }
 
-/*DeleteProjectsProjectIDNotFound handles this case with default header values.
+/* DeleteProjectsProjectIDNotFound describes a response with status code 404, with default header values.
 
 Project does not exist.
 */
@@ -151,7 +150,7 @@ func NewDeleteProjectsProjectIDPreconditionFailed() *DeleteProjectsProjectIDPrec
 	return &DeleteProjectsProjectIDPreconditionFailed{}
 }
 
-/*DeleteProjectsProjectIDPreconditionFailed handles this case with default header values.
+/* DeleteProjectsProjectIDPreconditionFailed describes a response with status code 412, with default header values.
 
 Project contains policies, can not be deleted.
 */
@@ -172,7 +171,7 @@ func NewDeleteProjectsProjectIDInternalServerError() *DeleteProjectsProjectIDInt
 	return &DeleteProjectsProjectIDInternalServerError{}
 }
 
-/*DeleteProjectsProjectIDInternalServerError handles this case with default header values.
+/* DeleteProjectsProjectIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal errors.
 */

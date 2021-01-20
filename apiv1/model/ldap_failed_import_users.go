@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -24,6 +26,11 @@ type LdapFailedImportUsers struct {
 
 // Validate validates this ldap failed import users
 func (m *LdapFailedImportUsers) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this ldap failed import users based on context it is used
+func (m *LdapFailedImportUsers) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

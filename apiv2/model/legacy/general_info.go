@@ -6,6 +6,8 @@ package legacy
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -45,6 +47,11 @@ type GeneralInfo struct {
 
 // Validate validates this general info
 func (m *GeneralInfo) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this general info based on context it is used
+func (m *GeneralInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

@@ -6,6 +6,7 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -64,7 +65,6 @@ func (m *ChartVersionDetails) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ChartVersionDetails) validateDependencies(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Dependencies) { // not required
 		return nil
 	}
@@ -89,7 +89,6 @@ func (m *ChartVersionDetails) validateDependencies(formats strfmt.Registry) erro
 }
 
 func (m *ChartVersionDetails) validateLabels(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Labels) { // not required
 		return nil
 	}
@@ -105,7 +104,6 @@ func (m *ChartVersionDetails) validateLabels(formats strfmt.Registry) error {
 }
 
 func (m *ChartVersionDetails) validateMetadata(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Metadata) { // not required
 		return nil
 	}
@@ -123,13 +121,96 @@ func (m *ChartVersionDetails) validateMetadata(formats strfmt.Registry) error {
 }
 
 func (m *ChartVersionDetails) validateSecurity(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Security) { // not required
 		return nil
 	}
 
 	if m.Security != nil {
 		if err := m.Security.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("security")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this chart version details based on the context it is used
+func (m *ChartVersionDetails) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateDependencies(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLabels(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSecurity(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ChartVersionDetails) contextValidateDependencies(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Dependencies); i++ {
+
+		if m.Dependencies[i] != nil {
+			if err := m.Dependencies[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("dependencies" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ChartVersionDetails) contextValidateLabels(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Labels.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("labels")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *ChartVersionDetails) contextValidateMetadata(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Metadata != nil {
+		if err := m.Metadata.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("metadata")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ChartVersionDetails) contextValidateSecurity(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Security != nil {
+		if err := m.Security.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("security")
 			}

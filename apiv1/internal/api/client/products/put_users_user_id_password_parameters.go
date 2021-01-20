@@ -19,64 +19,81 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv1/model"
 )
 
-// NewPutUsersUserIDPasswordParams creates a new PutUsersUserIDPasswordParams object
-// with the default values initialized.
+// NewPutUsersUserIDPasswordParams creates a new PutUsersUserIDPasswordParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPutUsersUserIDPasswordParams() *PutUsersUserIDPasswordParams {
-	var ()
 	return &PutUsersUserIDPasswordParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutUsersUserIDPasswordParamsWithTimeout creates a new PutUsersUserIDPasswordParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPutUsersUserIDPasswordParamsWithTimeout(timeout time.Duration) *PutUsersUserIDPasswordParams {
-	var ()
 	return &PutUsersUserIDPasswordParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPutUsersUserIDPasswordParamsWithContext creates a new PutUsersUserIDPasswordParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPutUsersUserIDPasswordParamsWithContext(ctx context.Context) *PutUsersUserIDPasswordParams {
-	var ()
 	return &PutUsersUserIDPasswordParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPutUsersUserIDPasswordParamsWithHTTPClient creates a new PutUsersUserIDPasswordParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPutUsersUserIDPasswordParamsWithHTTPClient(client *http.Client) *PutUsersUserIDPasswordParams {
-	var ()
 	return &PutUsersUserIDPasswordParams{
 		HTTPClient: client,
 	}
 }
 
-/*PutUsersUserIDPasswordParams contains all the parameters to send to the API endpoint
-for the put users user ID password operation typically these are written to a http.Request
+/* PutUsersUserIDPasswordParams contains all the parameters to send to the API endpoint
+   for the put users user ID password operation.
+
+   Typically these are written to a http.Request.
 */
 type PutUsersUserIDPasswordParams struct {
 
-	/*Password
-	  Password to be updated, the attribute 'old_password' is optional when the API is called by the system administrator.
+	/* Password.
 
+	   Password to be updated, the attribute 'old_password' is optional when the API is called by the system administrator.
 	*/
 	Password *model.Password
-	/*UserID
-	  Registered user ID.
 
+	/* UserID.
+
+	   Registered user ID.
+
+	   Format: int
 	*/
 	UserID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the put users user ID password params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutUsersUserIDPasswordParams) WithDefaults() *PutUsersUserIDPasswordParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the put users user ID password params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutUsersUserIDPasswordParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put users user ID password params
@@ -141,7 +158,6 @@ func (o *PutUsersUserIDPasswordParams) WriteToRequest(r runtime.ClientRequest, r
 		return err
 	}
 	var res []error
-
 	if o.Password != nil {
 		if err := r.SetBodyParam(o.Password); err != nil {
 			return err

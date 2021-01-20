@@ -18,59 +18,73 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv1/model"
 )
 
-// NewPostRetentionsParams creates a new PostRetentionsParams object
-// with the default values initialized.
+// NewPostRetentionsParams creates a new PostRetentionsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostRetentionsParams() *PostRetentionsParams {
-	var ()
 	return &PostRetentionsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostRetentionsParamsWithTimeout creates a new PostRetentionsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostRetentionsParamsWithTimeout(timeout time.Duration) *PostRetentionsParams {
-	var ()
 	return &PostRetentionsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostRetentionsParamsWithContext creates a new PostRetentionsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostRetentionsParamsWithContext(ctx context.Context) *PostRetentionsParams {
-	var ()
 	return &PostRetentionsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostRetentionsParamsWithHTTPClient creates a new PostRetentionsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostRetentionsParamsWithHTTPClient(client *http.Client) *PostRetentionsParams {
-	var ()
 	return &PostRetentionsParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostRetentionsParams contains all the parameters to send to the API endpoint
-for the post retentions operation typically these are written to a http.Request
+/* PostRetentionsParams contains all the parameters to send to the API endpoint
+   for the post retentions operation.
+
+   Typically these are written to a http.Request.
 */
 type PostRetentionsParams struct {
 
-	/*Policy
-	  Create Retention Policy successfully.
+	/* Policy.
 
+	   Create Retention Policy successfully.
 	*/
 	Policy *model.RetentionPolicy
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post retentions params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostRetentionsParams) WithDefaults() *PostRetentionsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post retentions params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostRetentionsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post retentions params
@@ -124,7 +138,6 @@ func (o *PostRetentionsParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		return err
 	}
 	var res []error
-
 	if o.Policy != nil {
 		if err := r.SetBodyParam(o.Policy); err != nil {
 			return err

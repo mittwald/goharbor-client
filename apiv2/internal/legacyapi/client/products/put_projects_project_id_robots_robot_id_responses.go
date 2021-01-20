@@ -32,7 +32,6 @@ func (o *PutProjectsProjectIDRobotsRobotIDReader) ReadResponse(response runtime.
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -43,7 +42,7 @@ func NewPutProjectsProjectIDRobotsRobotIDOK() *PutProjectsProjectIDRobotsRobotID
 	return &PutProjectsProjectIDRobotsRobotIDOK{}
 }
 
-/*PutProjectsProjectIDRobotsRobotIDOK handles this case with default header values.
+/* PutProjectsProjectIDRobotsRobotIDOK describes a response with status code 200, with default header values.
 
 Robot account has been modified success.
 */
@@ -64,7 +63,7 @@ func NewPutProjectsProjectIDRobotsRobotIDInternalServerError() *PutProjectsProje
 	return &PutProjectsProjectIDRobotsRobotIDInternalServerError{}
 }
 
-/*PutProjectsProjectIDRobotsRobotIDInternalServerError handles this case with default header values.
+/* PutProjectsProjectIDRobotsRobotIDInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

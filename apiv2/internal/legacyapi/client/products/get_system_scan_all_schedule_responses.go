@@ -47,7 +47,6 @@ func (o *GetSystemScanAllScheduleReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -58,7 +57,7 @@ func NewGetSystemScanAllScheduleOK() *GetSystemScanAllScheduleOK {
 	return &GetSystemScanAllScheduleOK{}
 }
 
-/*GetSystemScanAllScheduleOK handles this case with default header values.
+/* GetSystemScanAllScheduleOK describes a response with status code 200, with default header values.
 
 Get a schedule for the scan all job, which scans all of images in Harbor.
 */
@@ -69,7 +68,6 @@ type GetSystemScanAllScheduleOK struct {
 func (o *GetSystemScanAllScheduleOK) Error() string {
 	return fmt.Sprintf("[GET /system/scanAll/schedule][%d] getSystemScanAllScheduleOK  %+v", 200, o.Payload)
 }
-
 func (o *GetSystemScanAllScheduleOK) GetPayload() *legacy.AdminJobSchedule {
 	return o.Payload
 }
@@ -91,7 +89,7 @@ func NewGetSystemScanAllScheduleUnauthorized() *GetSystemScanAllScheduleUnauthor
 	return &GetSystemScanAllScheduleUnauthorized{}
 }
 
-/*GetSystemScanAllScheduleUnauthorized handles this case with default header values.
+/* GetSystemScanAllScheduleUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -112,7 +110,7 @@ func NewGetSystemScanAllScheduleForbidden() *GetSystemScanAllScheduleForbidden {
 	return &GetSystemScanAllScheduleForbidden{}
 }
 
-/*GetSystemScanAllScheduleForbidden handles this case with default header values.
+/* GetSystemScanAllScheduleForbidden describes a response with status code 403, with default header values.
 
 Only admin has this authority.
 */
@@ -133,7 +131,7 @@ func NewGetSystemScanAllScheduleInternalServerError() *GetSystemScanAllScheduleI
 	return &GetSystemScanAllScheduleInternalServerError{}
 }
 
-/*GetSystemScanAllScheduleInternalServerError handles this case with default header values.
+/* GetSystemScanAllScheduleInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

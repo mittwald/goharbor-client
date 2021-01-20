@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -42,6 +44,11 @@ type RobotAccount struct {
 
 // Validate validates this robot account
 func (m *RobotAccount) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this robot account based on context it is used
+func (m *RobotAccount) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

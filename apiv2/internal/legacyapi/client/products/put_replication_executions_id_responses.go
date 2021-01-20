@@ -62,7 +62,6 @@ func (o *PutReplicationExecutionsIDReader) ReadResponse(response runtime.ClientR
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -73,7 +72,7 @@ func NewPutReplicationExecutionsIDOK() *PutReplicationExecutionsIDOK {
 	return &PutReplicationExecutionsIDOK{}
 }
 
-/*PutReplicationExecutionsIDOK handles this case with default header values.
+/* PutReplicationExecutionsIDOK describes a response with status code 200, with default header values.
 
 Success.
 */
@@ -94,7 +93,7 @@ func NewPutReplicationExecutionsIDBadRequest() *PutReplicationExecutionsIDBadReq
 	return &PutReplicationExecutionsIDBadRequest{}
 }
 
-/*PutReplicationExecutionsIDBadRequest handles this case with default header values.
+/* PutReplicationExecutionsIDBadRequest describes a response with status code 400, with default header values.
 
 Bad request.
 */
@@ -115,7 +114,7 @@ func NewPutReplicationExecutionsIDUnauthorized() *PutReplicationExecutionsIDUnau
 	return &PutReplicationExecutionsIDUnauthorized{}
 }
 
-/*PutReplicationExecutionsIDUnauthorized handles this case with default header values.
+/* PutReplicationExecutionsIDUnauthorized describes a response with status code 401, with default header values.
 
 User need to login first.
 */
@@ -136,7 +135,7 @@ func NewPutReplicationExecutionsIDForbidden() *PutReplicationExecutionsIDForbidd
 	return &PutReplicationExecutionsIDForbidden{}
 }
 
-/*PutReplicationExecutionsIDForbidden handles this case with default header values.
+/* PutReplicationExecutionsIDForbidden describes a response with status code 403, with default header values.
 
 User has no privilege for the operation.
 */
@@ -157,7 +156,7 @@ func NewPutReplicationExecutionsIDNotFound() *PutReplicationExecutionsIDNotFound
 	return &PutReplicationExecutionsIDNotFound{}
 }
 
-/*PutReplicationExecutionsIDNotFound handles this case with default header values.
+/* PutReplicationExecutionsIDNotFound describes a response with status code 404, with default header values.
 
 Resource requested does not exist.
 */
@@ -178,7 +177,7 @@ func NewPutReplicationExecutionsIDUnsupportedMediaType() *PutReplicationExecutio
 	return &PutReplicationExecutionsIDUnsupportedMediaType{}
 }
 
-/*PutReplicationExecutionsIDUnsupportedMediaType handles this case with default header values.
+/* PutReplicationExecutionsIDUnsupportedMediaType describes a response with status code 415, with default header values.
 
 The Media Type of the request is not supported, it has to be "application/json"
 */
@@ -199,7 +198,7 @@ func NewPutReplicationExecutionsIDInternalServerError() *PutReplicationExecution
 	return &PutReplicationExecutionsIDInternalServerError{}
 }
 
-/*PutReplicationExecutionsIDInternalServerError handles this case with default header values.
+/* PutReplicationExecutionsIDInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

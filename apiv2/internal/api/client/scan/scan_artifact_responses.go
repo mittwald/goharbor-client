@@ -53,7 +53,6 @@ func (o *ScanArtifactReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -64,12 +63,13 @@ func NewScanArtifactAccepted() *ScanArtifactAccepted {
 	return &ScanArtifactAccepted{}
 }
 
-/*ScanArtifactAccepted handles this case with default header values.
+/* ScanArtifactAccepted describes a response with status code 202, with default header values.
 
 Accepted
 */
 type ScanArtifactAccepted struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -80,8 +80,12 @@ func (o *ScanArtifactAccepted) Error() string {
 
 func (o *ScanArtifactAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	return nil
 }
@@ -91,12 +95,13 @@ func NewScanArtifactUnauthorized() *ScanArtifactUnauthorized {
 	return &ScanArtifactUnauthorized{}
 }
 
-/*ScanArtifactUnauthorized handles this case with default header values.
+/* ScanArtifactUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
 type ScanArtifactUnauthorized struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -106,15 +111,18 @@ type ScanArtifactUnauthorized struct {
 func (o *ScanArtifactUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/scan][%d] scanArtifactUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *ScanArtifactUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ScanArtifactUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -131,12 +139,13 @@ func NewScanArtifactForbidden() *ScanArtifactForbidden {
 	return &ScanArtifactForbidden{}
 }
 
-/*ScanArtifactForbidden handles this case with default header values.
+/* ScanArtifactForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
 type ScanArtifactForbidden struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -146,15 +155,18 @@ type ScanArtifactForbidden struct {
 func (o *ScanArtifactForbidden) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/scan][%d] scanArtifactForbidden  %+v", 403, o.Payload)
 }
-
 func (o *ScanArtifactForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ScanArtifactForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -171,12 +183,13 @@ func NewScanArtifactNotFound() *ScanArtifactNotFound {
 	return &ScanArtifactNotFound{}
 }
 
-/*ScanArtifactNotFound handles this case with default header values.
+/* ScanArtifactNotFound describes a response with status code 404, with default header values.
 
 Not found
 */
 type ScanArtifactNotFound struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -186,15 +199,18 @@ type ScanArtifactNotFound struct {
 func (o *ScanArtifactNotFound) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/scan][%d] scanArtifactNotFound  %+v", 404, o.Payload)
 }
-
 func (o *ScanArtifactNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ScanArtifactNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -211,12 +227,13 @@ func NewScanArtifactInternalServerError() *ScanArtifactInternalServerError {
 	return &ScanArtifactInternalServerError{}
 }
 
-/*ScanArtifactInternalServerError handles this case with default header values.
+/* ScanArtifactInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error
 */
 type ScanArtifactInternalServerError struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -226,15 +243,18 @@ type ScanArtifactInternalServerError struct {
 func (o *ScanArtifactInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/scan][%d] scanArtifactInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *ScanArtifactInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ScanArtifactInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 

@@ -18,59 +18,73 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv1/model"
 )
 
-// NewPostRegistriesParams creates a new PostRegistriesParams object
-// with the default values initialized.
+// NewPostRegistriesParams creates a new PostRegistriesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostRegistriesParams() *PostRegistriesParams {
-	var ()
 	return &PostRegistriesParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostRegistriesParamsWithTimeout creates a new PostRegistriesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostRegistriesParamsWithTimeout(timeout time.Duration) *PostRegistriesParams {
-	var ()
 	return &PostRegistriesParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostRegistriesParamsWithContext creates a new PostRegistriesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostRegistriesParamsWithContext(ctx context.Context) *PostRegistriesParams {
-	var ()
 	return &PostRegistriesParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostRegistriesParamsWithHTTPClient creates a new PostRegistriesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostRegistriesParamsWithHTTPClient(client *http.Client) *PostRegistriesParams {
-	var ()
 	return &PostRegistriesParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostRegistriesParams contains all the parameters to send to the API endpoint
-for the post registries operation typically these are written to a http.Request
+/* PostRegistriesParams contains all the parameters to send to the API endpoint
+   for the post registries operation.
+
+   Typically these are written to a http.Request.
 */
 type PostRegistriesParams struct {
 
-	/*Registry
-	  New created registry.
+	/* Registry.
 
+	   New created registry.
 	*/
 	Registry *model.Registry
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post registries params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostRegistriesParams) WithDefaults() *PostRegistriesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post registries params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostRegistriesParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post registries params
@@ -124,7 +138,6 @@ func (o *PostRegistriesParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		return err
 	}
 	var res []error
-
 	if o.Registry != nil {
 		if err := r.SetBodyParam(o.Registry); err != nil {
 			return err

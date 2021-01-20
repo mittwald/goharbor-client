@@ -17,169 +17,170 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetArtifactParams creates a new GetArtifactParams object
-// with the default values initialized.
+// NewGetArtifactParams creates a new GetArtifactParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetArtifactParams() *GetArtifactParams {
-	var (
-		pageDefault                = int64(1)
-		pageSizeDefault            = int64(10)
-		withImmutableStatusDefault = bool(false)
-		withLabelDefault           = bool(false)
-		withScanOverviewDefault    = bool(false)
-		withSignatureDefault       = bool(false)
-		withTagDefault             = bool(true)
-	)
 	return &GetArtifactParams{
-		Page:                &pageDefault,
-		PageSize:            &pageSizeDefault,
-		WithImmutableStatus: &withImmutableStatusDefault,
-		WithLabel:           &withLabelDefault,
-		WithScanOverview:    &withScanOverviewDefault,
-		WithSignature:       &withSignatureDefault,
-		WithTag:             &withTagDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetArtifactParamsWithTimeout creates a new GetArtifactParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetArtifactParamsWithTimeout(timeout time.Duration) *GetArtifactParams {
-	var (
-		pageDefault                = int64(1)
-		pageSizeDefault            = int64(10)
-		withImmutableStatusDefault = bool(false)
-		withLabelDefault           = bool(false)
-		withScanOverviewDefault    = bool(false)
-		withSignatureDefault       = bool(false)
-		withTagDefault             = bool(true)
-	)
 	return &GetArtifactParams{
-		Page:                &pageDefault,
-		PageSize:            &pageSizeDefault,
-		WithImmutableStatus: &withImmutableStatusDefault,
-		WithLabel:           &withLabelDefault,
-		WithScanOverview:    &withScanOverviewDefault,
-		WithSignature:       &withSignatureDefault,
-		WithTag:             &withTagDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewGetArtifactParamsWithContext creates a new GetArtifactParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetArtifactParamsWithContext(ctx context.Context) *GetArtifactParams {
-	var (
-		pageDefault                = int64(1)
-		pageSizeDefault            = int64(10)
-		withImmutableStatusDefault = bool(false)
-		withLabelDefault           = bool(false)
-		withScanOverviewDefault    = bool(false)
-		withSignatureDefault       = bool(false)
-		withTagDefault             = bool(true)
-	)
 	return &GetArtifactParams{
-		Page:                &pageDefault,
-		PageSize:            &pageSizeDefault,
-		WithImmutableStatus: &withImmutableStatusDefault,
-		WithLabel:           &withLabelDefault,
-		WithScanOverview:    &withScanOverviewDefault,
-		WithSignature:       &withSignatureDefault,
-		WithTag:             &withTagDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewGetArtifactParamsWithHTTPClient creates a new GetArtifactParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetArtifactParamsWithHTTPClient(client *http.Client) *GetArtifactParams {
-	var (
-		pageDefault                = int64(1)
-		pageSizeDefault            = int64(10)
-		withImmutableStatusDefault = bool(false)
-		withLabelDefault           = bool(false)
-		withScanOverviewDefault    = bool(false)
-		withSignatureDefault       = bool(false)
-		withTagDefault             = bool(true)
-	)
 	return &GetArtifactParams{
-		Page:                &pageDefault,
-		PageSize:            &pageSizeDefault,
-		WithImmutableStatus: &withImmutableStatusDefault,
-		WithLabel:           &withLabelDefault,
-		WithScanOverview:    &withScanOverviewDefault,
-		WithSignature:       &withSignatureDefault,
-		WithTag:             &withTagDefault,
-		HTTPClient:          client,
+		HTTPClient: client,
 	}
 }
 
-/*GetArtifactParams contains all the parameters to send to the API endpoint
-for the get artifact operation typically these are written to a http.Request
+/* GetArtifactParams contains all the parameters to send to the API endpoint
+   for the get artifact operation.
+
+   Typically these are written to a http.Request.
 */
 type GetArtifactParams struct {
 
-	/*XRequestID
-	  An unique ID for the request
+	/* XRequestID.
 
+	   An unique ID for the request
 	*/
 	XRequestID *string
-	/*Page
-	  The page number
 
+	/* Page.
+
+	   The page number
+
+	   Format: int64
+	   Default: 1
 	*/
 	Page *int64
-	/*PageSize
-	  The size of per page
 
+	/* PageSize.
+
+	   The size of per page
+
+	   Format: int64
+	   Default: 10
 	*/
 	PageSize *int64
-	/*ProjectName
-	  The name of the project
 
+	/* ProjectName.
+
+	   The name of the project
 	*/
 	ProjectName string
-	/*Reference
-	  The reference of the artifact, can be digest or tag
 
+	/* Reference.
+
+	   The reference of the artifact, can be digest or tag
 	*/
 	Reference string
-	/*RepositoryName
-	  The name of the repository. If it contains slash, encode it with URL encoding. e.g. a/b -> a%252Fb
 
+	/* RepositoryName.
+
+	   The name of the repository. If it contains slash, encode it with URL encoding. e.g. a/b -> a%252Fb
 	*/
 	RepositoryName string
-	/*WithImmutableStatus
-	  Specify whether the immutable status is inclued inside the tags of the returning artifacts. Only works when setting "with_tag=true"
 
+	/* WithImmutableStatus.
+
+	   Specify whether the immutable status is inclued inside the tags of the returning artifacts. Only works when setting "with_tag=true"
 	*/
 	WithImmutableStatus *bool
-	/*WithLabel
-	  Specify whether the labels are inclued inside the returning artifacts
 
+	/* WithLabel.
+
+	   Specify whether the labels are inclued inside the returning artifacts
 	*/
 	WithLabel *bool
-	/*WithScanOverview
-	  Specify whether the scan overview is inclued inside the returning artifacts
 
+	/* WithScanOverview.
+
+	   Specify whether the scan overview is inclued inside the returning artifacts
 	*/
 	WithScanOverview *bool
-	/*WithSignature
-	  Specify whether the signature is inclued inside the returning artifacts
 
+	/* WithSignature.
+
+	   Specify whether the signature is inclued inside the returning artifacts
 	*/
 	WithSignature *bool
-	/*WithTag
-	  Specify whether the tags are inclued inside the returning artifacts
 
+	/* WithTag.
+
+	   Specify whether the tags are inclued inside the returning artifacts
+
+	   Default: true
 	*/
 	WithTag *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get artifact params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetArtifactParams) WithDefaults() *GetArtifactParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get artifact params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetArtifactParams) SetDefaults() {
+	var (
+		pageDefault = int64(1)
+
+		pageSizeDefault = int64(10)
+
+		withImmutableStatusDefault = bool(false)
+
+		withLabelDefault = bool(false)
+
+		withScanOverviewDefault = bool(false)
+
+		withSignatureDefault = bool(false)
+
+		withTagDefault = bool(true)
+	)
+
+	val := GetArtifactParams{
+		Page:                &pageDefault,
+		PageSize:            &pageSizeDefault,
+		WithImmutableStatus: &withImmutableStatusDefault,
+		WithLabel:           &withLabelDefault,
+		WithScanOverview:    &withScanOverviewDefault,
+		WithSignature:       &withSignatureDefault,
+		WithTag:             &withTagDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the get artifact params
@@ -350,39 +351,40 @@ func (o *GetArtifactParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
-
 	}
 
 	if o.Page != nil {
 
 		// query param page
 		var qrPage int64
+
 		if o.Page != nil {
 			qrPage = *o.Page
 		}
 		qPage := swag.FormatInt64(qrPage)
 		if qPage != "" {
+
 			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.PageSize != nil {
 
 		// query param page_size
 		var qrPageSize int64
+
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt64(qrPageSize)
 		if qPageSize != "" {
+
 			if err := r.SetQueryParam("page_size", qPageSize); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param project_name
@@ -404,80 +406,85 @@ func (o *GetArtifactParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 
 		// query param with_immutable_status
 		var qrWithImmutableStatus bool
+
 		if o.WithImmutableStatus != nil {
 			qrWithImmutableStatus = *o.WithImmutableStatus
 		}
 		qWithImmutableStatus := swag.FormatBool(qrWithImmutableStatus)
 		if qWithImmutableStatus != "" {
+
 			if err := r.SetQueryParam("with_immutable_status", qWithImmutableStatus); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.WithLabel != nil {
 
 		// query param with_label
 		var qrWithLabel bool
+
 		if o.WithLabel != nil {
 			qrWithLabel = *o.WithLabel
 		}
 		qWithLabel := swag.FormatBool(qrWithLabel)
 		if qWithLabel != "" {
+
 			if err := r.SetQueryParam("with_label", qWithLabel); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.WithScanOverview != nil {
 
 		// query param with_scan_overview
 		var qrWithScanOverview bool
+
 		if o.WithScanOverview != nil {
 			qrWithScanOverview = *o.WithScanOverview
 		}
 		qWithScanOverview := swag.FormatBool(qrWithScanOverview)
 		if qWithScanOverview != "" {
+
 			if err := r.SetQueryParam("with_scan_overview", qWithScanOverview); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.WithSignature != nil {
 
 		// query param with_signature
 		var qrWithSignature bool
+
 		if o.WithSignature != nil {
 			qrWithSignature = *o.WithSignature
 		}
 		qWithSignature := swag.FormatBool(qrWithSignature)
 		if qWithSignature != "" {
+
 			if err := r.SetQueryParam("with_signature", qWithSignature); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.WithTag != nil {
 
 		// query param with_tag
 		var qrWithTag bool
+
 		if o.WithTag != nil {
 			qrWithTag = *o.WithTag
 		}
 		qWithTag := swag.FormatBool(qrWithTag)
 		if qWithTag != "" {
+
 			if err := r.SetQueryParam("with_tag", qWithTag); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

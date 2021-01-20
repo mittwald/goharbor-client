@@ -41,7 +41,6 @@ func (o *GetUsersCurrentPermissionsReader) ReadResponse(response runtime.ClientR
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -52,7 +51,7 @@ func NewGetUsersCurrentPermissionsOK() *GetUsersCurrentPermissionsOK {
 	return &GetUsersCurrentPermissionsOK{}
 }
 
-/*GetUsersCurrentPermissionsOK handles this case with default header values.
+/* GetUsersCurrentPermissionsOK describes a response with status code 200, with default header values.
 
 Get current user permission successfully.
 */
@@ -63,7 +62,6 @@ type GetUsersCurrentPermissionsOK struct {
 func (o *GetUsersCurrentPermissionsOK) Error() string {
 	return fmt.Sprintf("[GET /users/current/permissions][%d] getUsersCurrentPermissionsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetUsersCurrentPermissionsOK) GetPayload() []*legacy.Permission {
 	return o.Payload
 }
@@ -83,7 +81,7 @@ func NewGetUsersCurrentPermissionsUnauthorized() *GetUsersCurrentPermissionsUnau
 	return &GetUsersCurrentPermissionsUnauthorized{}
 }
 
-/*GetUsersCurrentPermissionsUnauthorized handles this case with default header values.
+/* GetUsersCurrentPermissionsUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -104,7 +102,7 @@ func NewGetUsersCurrentPermissionsInternalServerError() *GetUsersCurrentPermissi
 	return &GetUsersCurrentPermissionsInternalServerError{}
 }
 
-/*GetUsersCurrentPermissionsInternalServerError handles this case with default header values.
+/* GetUsersCurrentPermissionsInternalServerError describes a response with status code 500, with default header values.
 
 Internal errors.
 */

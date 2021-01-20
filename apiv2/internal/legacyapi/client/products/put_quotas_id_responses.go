@@ -56,7 +56,6 @@ func (o *PutQuotasIDReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -67,7 +66,7 @@ func NewPutQuotasIDOK() *PutQuotasIDOK {
 	return &PutQuotasIDOK{}
 }
 
-/*PutQuotasIDOK handles this case with default header values.
+/* PutQuotasIDOK describes a response with status code 200, with default header values.
 
 Updated quota hard limits successfully.
 */
@@ -88,7 +87,7 @@ func NewPutQuotasIDBadRequest() *PutQuotasIDBadRequest {
 	return &PutQuotasIDBadRequest{}
 }
 
-/*PutQuotasIDBadRequest handles this case with default header values.
+/* PutQuotasIDBadRequest describes a response with status code 400, with default header values.
 
 Illegal format of quota update request.
 */
@@ -109,7 +108,7 @@ func NewPutQuotasIDUnauthorized() *PutQuotasIDUnauthorized {
 	return &PutQuotasIDUnauthorized{}
 }
 
-/*PutQuotasIDUnauthorized handles this case with default header values.
+/* PutQuotasIDUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -130,7 +129,7 @@ func NewPutQuotasIDForbidden() *PutQuotasIDForbidden {
 	return &PutQuotasIDForbidden{}
 }
 
-/*PutQuotasIDForbidden handles this case with default header values.
+/* PutQuotasIDForbidden describes a response with status code 403, with default header values.
 
 User does not have permission to the quota.
 */
@@ -151,7 +150,7 @@ func NewPutQuotasIDNotFound() *PutQuotasIDNotFound {
 	return &PutQuotasIDNotFound{}
 }
 
-/*PutQuotasIDNotFound handles this case with default header values.
+/* PutQuotasIDNotFound describes a response with status code 404, with default header values.
 
 Quota ID does not exist.
 */
@@ -172,7 +171,7 @@ func NewPutQuotasIDInternalServerError() *PutQuotasIDInternalServerError {
 	return &PutQuotasIDInternalServerError{}
 }
 
-/*PutQuotasIDInternalServerError handles this case with default header values.
+/* PutQuotasIDInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

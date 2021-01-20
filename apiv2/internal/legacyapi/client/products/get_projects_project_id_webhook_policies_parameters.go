@@ -17,59 +17,75 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetProjectsProjectIDWebhookPoliciesParams creates a new GetProjectsProjectIDWebhookPoliciesParams object
-// with the default values initialized.
+// NewGetProjectsProjectIDWebhookPoliciesParams creates a new GetProjectsProjectIDWebhookPoliciesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetProjectsProjectIDWebhookPoliciesParams() *GetProjectsProjectIDWebhookPoliciesParams {
-	var ()
 	return &GetProjectsProjectIDWebhookPoliciesParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetProjectsProjectIDWebhookPoliciesParamsWithTimeout creates a new GetProjectsProjectIDWebhookPoliciesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetProjectsProjectIDWebhookPoliciesParamsWithTimeout(timeout time.Duration) *GetProjectsProjectIDWebhookPoliciesParams {
-	var ()
 	return &GetProjectsProjectIDWebhookPoliciesParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetProjectsProjectIDWebhookPoliciesParamsWithContext creates a new GetProjectsProjectIDWebhookPoliciesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetProjectsProjectIDWebhookPoliciesParamsWithContext(ctx context.Context) *GetProjectsProjectIDWebhookPoliciesParams {
-	var ()
 	return &GetProjectsProjectIDWebhookPoliciesParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetProjectsProjectIDWebhookPoliciesParamsWithHTTPClient creates a new GetProjectsProjectIDWebhookPoliciesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetProjectsProjectIDWebhookPoliciesParamsWithHTTPClient(client *http.Client) *GetProjectsProjectIDWebhookPoliciesParams {
-	var ()
 	return &GetProjectsProjectIDWebhookPoliciesParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetProjectsProjectIDWebhookPoliciesParams contains all the parameters to send to the API endpoint
-for the get projects project ID webhook policies operation typically these are written to a http.Request
+/* GetProjectsProjectIDWebhookPoliciesParams contains all the parameters to send to the API endpoint
+   for the get projects project ID webhook policies operation.
+
+   Typically these are written to a http.Request.
 */
 type GetProjectsProjectIDWebhookPoliciesParams struct {
 
-	/*ProjectID
-	  Relevant project ID.
+	/* ProjectID.
 
+	   Relevant project ID.
+
+	   Format: int64
 	*/
 	ProjectID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get projects project ID webhook policies params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectsProjectIDWebhookPoliciesParams) WithDefaults() *GetProjectsProjectIDWebhookPoliciesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get projects project ID webhook policies params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectsProjectIDWebhookPoliciesParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get projects project ID webhook policies params

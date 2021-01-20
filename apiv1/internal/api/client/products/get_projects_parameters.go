@@ -17,79 +17,103 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetProjectsParams creates a new GetProjectsParams object
-// with the default values initialized.
+// NewGetProjectsParams creates a new GetProjectsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetProjectsParams() *GetProjectsParams {
-	var ()
 	return &GetProjectsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetProjectsParamsWithTimeout creates a new GetProjectsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetProjectsParamsWithTimeout(timeout time.Duration) *GetProjectsParams {
-	var ()
 	return &GetProjectsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetProjectsParamsWithContext creates a new GetProjectsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetProjectsParamsWithContext(ctx context.Context) *GetProjectsParams {
-	var ()
 	return &GetProjectsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetProjectsParamsWithHTTPClient creates a new GetProjectsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetProjectsParamsWithHTTPClient(client *http.Client) *GetProjectsParams {
-	var ()
 	return &GetProjectsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetProjectsParams contains all the parameters to send to the API endpoint
-for the get projects operation typically these are written to a http.Request
+/* GetProjectsParams contains all the parameters to send to the API endpoint
+   for the get projects operation.
+
+   Typically these are written to a http.Request.
 */
 type GetProjectsParams struct {
 
-	/*Name
-	  The name of project.
+	/* Name.
 
+	   The name of project.
 	*/
 	Name *string
-	/*Owner
-	  The name of project owner.
 
+	/* Owner.
+
+	   The name of project owner.
 	*/
 	Owner *string
-	/*Page
-	  The page number, default is 1.
 
+	/* Page.
+
+	   The page number, default is 1.
+
+	   Format: int32
 	*/
 	Page *int32
-	/*PageSize
-	  The size of per page, default is 10, maximum is 100.
 
+	/* PageSize.
+
+	   The size of per page, default is 10, maximum is 100.
+
+	   Format: int32
 	*/
 	PageSize *int32
-	/*Public
-	  The project is public or private.
 
+	/* Public.
+
+	   The project is public or private.
+
+	   Format: int32
 	*/
 	Public *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get projects params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectsParams) WithDefaults() *GetProjectsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get projects params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get projects params
@@ -192,80 +216,85 @@ func (o *GetProjectsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 
 		// query param name
 		var qrName string
+
 		if o.Name != nil {
 			qrName = *o.Name
 		}
 		qName := qrName
 		if qName != "" {
+
 			if err := r.SetQueryParam("name", qName); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Owner != nil {
 
 		// query param owner
 		var qrOwner string
+
 		if o.Owner != nil {
 			qrOwner = *o.Owner
 		}
 		qOwner := qrOwner
 		if qOwner != "" {
+
 			if err := r.SetQueryParam("owner", qOwner); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Page != nil {
 
 		// query param page
 		var qrPage int32
+
 		if o.Page != nil {
 			qrPage = *o.Page
 		}
 		qPage := swag.FormatInt32(qrPage)
 		if qPage != "" {
+
 			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.PageSize != nil {
 
 		// query param page_size
 		var qrPageSize int32
+
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt32(qrPageSize)
 		if qPageSize != "" {
+
 			if err := r.SetQueryParam("page_size", qPageSize); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Public != nil {
 
 		// query param public
 		var qrPublic bool
+
 		if o.Public != nil {
 			qrPublic = *o.Public
 		}
 		qPublic := swag.FormatBool(qrPublic)
 		if qPublic != "" {
+
 			if err := r.SetQueryParam("public", qPublic); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

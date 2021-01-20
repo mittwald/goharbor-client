@@ -19,64 +19,79 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPutQuotasIDParams creates a new PutQuotasIDParams object
-// with the default values initialized.
+// NewPutQuotasIDParams creates a new PutQuotasIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPutQuotasIDParams() *PutQuotasIDParams {
-	var ()
 	return &PutQuotasIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutQuotasIDParamsWithTimeout creates a new PutQuotasIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPutQuotasIDParamsWithTimeout(timeout time.Duration) *PutQuotasIDParams {
-	var ()
 	return &PutQuotasIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPutQuotasIDParamsWithContext creates a new PutQuotasIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPutQuotasIDParamsWithContext(ctx context.Context) *PutQuotasIDParams {
-	var ()
 	return &PutQuotasIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPutQuotasIDParamsWithHTTPClient creates a new PutQuotasIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPutQuotasIDParamsWithHTTPClient(client *http.Client) *PutQuotasIDParams {
-	var ()
 	return &PutQuotasIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*PutQuotasIDParams contains all the parameters to send to the API endpoint
-for the put quotas ID operation typically these are written to a http.Request
+/* PutQuotasIDParams contains all the parameters to send to the API endpoint
+   for the put quotas ID operation.
+
+   Typically these are written to a http.Request.
 */
 type PutQuotasIDParams struct {
 
-	/*Hard
-	  The new hard limits for the quota
+	/* Hard.
 
+	   The new hard limits for the quota
 	*/
 	Hard *legacy.QuotaUpdateReq
-	/*ID
-	  Quota ID
 
+	/* ID.
+
+	   Quota ID
 	*/
 	ID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the put quotas ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutQuotasIDParams) WithDefaults() *PutQuotasIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the put quotas ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutQuotasIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put quotas ID params
@@ -141,7 +156,6 @@ func (o *PutQuotasIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 		return err
 	}
 	var res []error
-
 	if o.Hard != nil {
 		if err := r.SetBodyParam(o.Hard); err != nil {
 			return err

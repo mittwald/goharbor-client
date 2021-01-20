@@ -59,7 +59,6 @@ func (o *GetUsersUserIDReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -70,7 +69,7 @@ func NewGetUsersUserIDOK() *GetUsersUserIDOK {
 	return &GetUsersUserIDOK{}
 }
 
-/*GetUsersUserIDOK handles this case with default header values.
+/* GetUsersUserIDOK describes a response with status code 200, with default header values.
 
 Get user's profile successfully.
 */
@@ -81,7 +80,6 @@ type GetUsersUserIDOK struct {
 func (o *GetUsersUserIDOK) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}][%d] getUsersUserIdOK  %+v", 200, o.Payload)
 }
-
 func (o *GetUsersUserIDOK) GetPayload() *legacy.User {
 	return o.Payload
 }
@@ -103,7 +101,7 @@ func NewGetUsersUserIDBadRequest() *GetUsersUserIDBadRequest {
 	return &GetUsersUserIDBadRequest{}
 }
 
-/*GetUsersUserIDBadRequest handles this case with default header values.
+/* GetUsersUserIDBadRequest describes a response with status code 400, with default header values.
 
 Invalid user ID.
 */
@@ -124,7 +122,7 @@ func NewGetUsersUserIDUnauthorized() *GetUsersUserIDUnauthorized {
 	return &GetUsersUserIDUnauthorized{}
 }
 
-/*GetUsersUserIDUnauthorized handles this case with default header values.
+/* GetUsersUserIDUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -145,7 +143,7 @@ func NewGetUsersUserIDForbidden() *GetUsersUserIDForbidden {
 	return &GetUsersUserIDForbidden{}
 }
 
-/*GetUsersUserIDForbidden handles this case with default header values.
+/* GetUsersUserIDForbidden describes a response with status code 403, with default header values.
 
 User does not have permission of admin role.
 */
@@ -166,7 +164,7 @@ func NewGetUsersUserIDNotFound() *GetUsersUserIDNotFound {
 	return &GetUsersUserIDNotFound{}
 }
 
-/*GetUsersUserIDNotFound handles this case with default header values.
+/* GetUsersUserIDNotFound describes a response with status code 404, with default header values.
 
 User ID does not exist.
 */
@@ -187,7 +185,7 @@ func NewGetUsersUserIDInternalServerError() *GetUsersUserIDInternalServerError {
 	return &GetUsersUserIDInternalServerError{}
 }
 
-/*GetUsersUserIDInternalServerError handles this case with default header values.
+/* GetUsersUserIDInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

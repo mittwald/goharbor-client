@@ -17,64 +17,79 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetRegistriesIDNamespaceParams creates a new GetRegistriesIDNamespaceParams object
-// with the default values initialized.
+// NewGetRegistriesIDNamespaceParams creates a new GetRegistriesIDNamespaceParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetRegistriesIDNamespaceParams() *GetRegistriesIDNamespaceParams {
-	var ()
 	return &GetRegistriesIDNamespaceParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetRegistriesIDNamespaceParamsWithTimeout creates a new GetRegistriesIDNamespaceParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetRegistriesIDNamespaceParamsWithTimeout(timeout time.Duration) *GetRegistriesIDNamespaceParams {
-	var ()
 	return &GetRegistriesIDNamespaceParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetRegistriesIDNamespaceParamsWithContext creates a new GetRegistriesIDNamespaceParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetRegistriesIDNamespaceParamsWithContext(ctx context.Context) *GetRegistriesIDNamespaceParams {
-	var ()
 	return &GetRegistriesIDNamespaceParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetRegistriesIDNamespaceParamsWithHTTPClient creates a new GetRegistriesIDNamespaceParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetRegistriesIDNamespaceParamsWithHTTPClient(client *http.Client) *GetRegistriesIDNamespaceParams {
-	var ()
 	return &GetRegistriesIDNamespaceParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetRegistriesIDNamespaceParams contains all the parameters to send to the API endpoint
-for the get registries ID namespace operation typically these are written to a http.Request
+/* GetRegistriesIDNamespaceParams contains all the parameters to send to the API endpoint
+   for the get registries ID namespace operation.
+
+   Typically these are written to a http.Request.
 */
 type GetRegistriesIDNamespaceParams struct {
 
-	/*ID
-	  The registry ID.
+	/* ID.
 
+	   The registry ID.
 	*/
 	ID int64
-	/*Name
-	  The name of namespace.
 
+	/* Name.
+
+	   The name of namespace.
 	*/
 	Name *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get registries ID namespace params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetRegistriesIDNamespaceParams) WithDefaults() *GetRegistriesIDNamespaceParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get registries ID namespace params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetRegistriesIDNamespaceParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get registries ID namespace params
@@ -149,16 +164,17 @@ func (o *GetRegistriesIDNamespaceParams) WriteToRequest(r runtime.ClientRequest,
 
 		// query param name
 		var qrName string
+
 		if o.Name != nil {
 			qrName = *o.Name
 		}
 		qName := qrName
 		if qName != "" {
+
 			if err := r.SetQueryParam("name", qName); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

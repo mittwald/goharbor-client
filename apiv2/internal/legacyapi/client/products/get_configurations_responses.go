@@ -47,7 +47,6 @@ func (o *GetConfigurationsReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -58,7 +57,7 @@ func NewGetConfigurationsOK() *GetConfigurationsOK {
 	return &GetConfigurationsOK{}
 }
 
-/*GetConfigurationsOK handles this case with default header values.
+/* GetConfigurationsOK describes a response with status code 200, with default header values.
 
 Get system configurations successfully. The response body is a map.
 */
@@ -69,7 +68,6 @@ type GetConfigurationsOK struct {
 func (o *GetConfigurationsOK) Error() string {
 	return fmt.Sprintf("[GET /configurations][%d] getConfigurationsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetConfigurationsOK) GetPayload() *legacy.ConfigurationsResponse {
 	return o.Payload
 }
@@ -91,7 +89,7 @@ func NewGetConfigurationsUnauthorized() *GetConfigurationsUnauthorized {
 	return &GetConfigurationsUnauthorized{}
 }
 
-/*GetConfigurationsUnauthorized handles this case with default header values.
+/* GetConfigurationsUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.ß
 */
@@ -112,7 +110,7 @@ func NewGetConfigurationsForbidden() *GetConfigurationsForbidden {
 	return &GetConfigurationsForbidden{}
 }
 
-/*GetConfigurationsForbidden handles this case with default header values.
+/* GetConfigurationsForbidden describes a response with status code 403, with default header values.
 
 User does not have permission of admin role.
 */
@@ -133,7 +131,7 @@ func NewGetConfigurationsInternalServerError() *GetConfigurationsInternalServerE
 	return &GetConfigurationsInternalServerError{}
 }
 
-/*GetConfigurationsInternalServerError handles this case with default header values.
+/* GetConfigurationsInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

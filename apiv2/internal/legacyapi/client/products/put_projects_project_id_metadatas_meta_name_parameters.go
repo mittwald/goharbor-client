@@ -17,64 +17,81 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewPutProjectsProjectIDMetadatasMetaNameParams creates a new PutProjectsProjectIDMetadatasMetaNameParams object
-// with the default values initialized.
+// NewPutProjectsProjectIDMetadatasMetaNameParams creates a new PutProjectsProjectIDMetadatasMetaNameParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPutProjectsProjectIDMetadatasMetaNameParams() *PutProjectsProjectIDMetadatasMetaNameParams {
-	var ()
 	return &PutProjectsProjectIDMetadatasMetaNameParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutProjectsProjectIDMetadatasMetaNameParamsWithTimeout creates a new PutProjectsProjectIDMetadatasMetaNameParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPutProjectsProjectIDMetadatasMetaNameParamsWithTimeout(timeout time.Duration) *PutProjectsProjectIDMetadatasMetaNameParams {
-	var ()
 	return &PutProjectsProjectIDMetadatasMetaNameParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPutProjectsProjectIDMetadatasMetaNameParamsWithContext creates a new PutProjectsProjectIDMetadatasMetaNameParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPutProjectsProjectIDMetadatasMetaNameParamsWithContext(ctx context.Context) *PutProjectsProjectIDMetadatasMetaNameParams {
-	var ()
 	return &PutProjectsProjectIDMetadatasMetaNameParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPutProjectsProjectIDMetadatasMetaNameParamsWithHTTPClient creates a new PutProjectsProjectIDMetadatasMetaNameParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPutProjectsProjectIDMetadatasMetaNameParamsWithHTTPClient(client *http.Client) *PutProjectsProjectIDMetadatasMetaNameParams {
-	var ()
 	return &PutProjectsProjectIDMetadatasMetaNameParams{
 		HTTPClient: client,
 	}
 }
 
-/*PutProjectsProjectIDMetadatasMetaNameParams contains all the parameters to send to the API endpoint
-for the put projects project ID metadatas meta name operation typically these are written to a http.Request
+/* PutProjectsProjectIDMetadatasMetaNameParams contains all the parameters to send to the API endpoint
+   for the put projects project ID metadatas meta name operation.
+
+   Typically these are written to a http.Request.
 */
 type PutProjectsProjectIDMetadatasMetaNameParams struct {
 
-	/*MetaName
-	  The name of metadat.
+	/* MetaName.
 
+	   The name of metadat.
 	*/
 	MetaName string
-	/*ProjectID
-	  The ID of project.
 
+	/* ProjectID.
+
+	   The ID of project.
+
+	   Format: int64
 	*/
 	ProjectID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the put projects project ID metadatas meta name params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutProjectsProjectIDMetadatasMetaNameParams) WithDefaults() *PutProjectsProjectIDMetadatasMetaNameParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the put projects project ID metadatas meta name params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutProjectsProjectIDMetadatasMetaNameParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put projects project ID metadatas meta name params

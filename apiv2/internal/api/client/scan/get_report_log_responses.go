@@ -53,7 +53,6 @@ func (o *GetReportLogReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -64,7 +63,7 @@ func NewGetReportLogOK() *GetReportLogOK {
 	return &GetReportLogOK{}
 }
 
-/*GetReportLogOK handles this case with default header values.
+/* GetReportLogOK describes a response with status code 200, with default header values.
 
 Successfully get scan log file
 */
@@ -75,7 +74,6 @@ type GetReportLogOK struct {
 func (o *GetReportLogOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/scan/{report_id}/log][%d] getReportLogOK  %+v", 200, o.Payload)
 }
-
 func (o *GetReportLogOK) GetPayload() string {
 	return o.Payload
 }
@@ -95,12 +93,13 @@ func NewGetReportLogUnauthorized() *GetReportLogUnauthorized {
 	return &GetReportLogUnauthorized{}
 }
 
-/*GetReportLogUnauthorized handles this case with default header values.
+/* GetReportLogUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
 type GetReportLogUnauthorized struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -110,15 +109,18 @@ type GetReportLogUnauthorized struct {
 func (o *GetReportLogUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/scan/{report_id}/log][%d] getReportLogUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetReportLogUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetReportLogUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -135,12 +137,13 @@ func NewGetReportLogForbidden() *GetReportLogForbidden {
 	return &GetReportLogForbidden{}
 }
 
-/*GetReportLogForbidden handles this case with default header values.
+/* GetReportLogForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
 type GetReportLogForbidden struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -150,15 +153,18 @@ type GetReportLogForbidden struct {
 func (o *GetReportLogForbidden) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/scan/{report_id}/log][%d] getReportLogForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetReportLogForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetReportLogForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -175,12 +181,13 @@ func NewGetReportLogNotFound() *GetReportLogNotFound {
 	return &GetReportLogNotFound{}
 }
 
-/*GetReportLogNotFound handles this case with default header values.
+/* GetReportLogNotFound describes a response with status code 404, with default header values.
 
 Not found
 */
 type GetReportLogNotFound struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -190,15 +197,18 @@ type GetReportLogNotFound struct {
 func (o *GetReportLogNotFound) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/scan/{report_id}/log][%d] getReportLogNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetReportLogNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetReportLogNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -215,12 +225,13 @@ func NewGetReportLogInternalServerError() *GetReportLogInternalServerError {
 	return &GetReportLogInternalServerError{}
 }
 
-/*GetReportLogInternalServerError handles this case with default header values.
+/* GetReportLogInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error
 */
 type GetReportLogInternalServerError struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -230,15 +241,18 @@ type GetReportLogInternalServerError struct {
 func (o *GetReportLogInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/scan/{report_id}/log][%d] getReportLogInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetReportLogInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetReportLogInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 

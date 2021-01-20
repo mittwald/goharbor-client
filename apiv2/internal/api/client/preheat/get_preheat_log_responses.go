@@ -59,7 +59,6 @@ func (o *GetPreheatLogReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -70,12 +69,13 @@ func NewGetPreheatLogOK() *GetPreheatLogOK {
 	return &GetPreheatLogOK{}
 }
 
-/*GetPreheatLogOK handles this case with default header values.
+/* GetPreheatLogOK describes a response with status code 200, with default header values.
 
 Get log success
 */
 type GetPreheatLogOK struct {
-	/*Content type of response
+
+	/* Content type of response
 	 */
 	ContentType string
 
@@ -85,15 +85,18 @@ type GetPreheatLogOK struct {
 func (o *GetPreheatLogOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}/tasks/{task_id}/logs][%d] getPreheatLogOK  %+v", 200, o.Payload)
 }
-
 func (o *GetPreheatLogOK) GetPayload() string {
 	return o.Payload
 }
 
 func (o *GetPreheatLogOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header Content-Type
-	o.ContentType = response.GetHeader("Content-Type")
+	// hydrates response header Content-Type
+	hdrContentType := response.GetHeader("Content-Type")
+
+	if hdrContentType != "" {
+		o.ContentType = hdrContentType
+	}
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -108,12 +111,13 @@ func NewGetPreheatLogBadRequest() *GetPreheatLogBadRequest {
 	return &GetPreheatLogBadRequest{}
 }
 
-/*GetPreheatLogBadRequest handles this case with default header values.
+/* GetPreheatLogBadRequest describes a response with status code 400, with default header values.
 
 Bad request
 */
 type GetPreheatLogBadRequest struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -123,15 +127,18 @@ type GetPreheatLogBadRequest struct {
 func (o *GetPreheatLogBadRequest) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}/tasks/{task_id}/logs][%d] getPreheatLogBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetPreheatLogBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetPreheatLogBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -148,12 +155,13 @@ func NewGetPreheatLogUnauthorized() *GetPreheatLogUnauthorized {
 	return &GetPreheatLogUnauthorized{}
 }
 
-/*GetPreheatLogUnauthorized handles this case with default header values.
+/* GetPreheatLogUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
 type GetPreheatLogUnauthorized struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -163,15 +171,18 @@ type GetPreheatLogUnauthorized struct {
 func (o *GetPreheatLogUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}/tasks/{task_id}/logs][%d] getPreheatLogUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetPreheatLogUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetPreheatLogUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -188,12 +199,13 @@ func NewGetPreheatLogForbidden() *GetPreheatLogForbidden {
 	return &GetPreheatLogForbidden{}
 }
 
-/*GetPreheatLogForbidden handles this case with default header values.
+/* GetPreheatLogForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
 type GetPreheatLogForbidden struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -203,15 +215,18 @@ type GetPreheatLogForbidden struct {
 func (o *GetPreheatLogForbidden) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}/tasks/{task_id}/logs][%d] getPreheatLogForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetPreheatLogForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetPreheatLogForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -228,12 +243,13 @@ func NewGetPreheatLogNotFound() *GetPreheatLogNotFound {
 	return &GetPreheatLogNotFound{}
 }
 
-/*GetPreheatLogNotFound handles this case with default header values.
+/* GetPreheatLogNotFound describes a response with status code 404, with default header values.
 
 Not found
 */
 type GetPreheatLogNotFound struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,15 +259,18 @@ type GetPreheatLogNotFound struct {
 func (o *GetPreheatLogNotFound) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}/tasks/{task_id}/logs][%d] getPreheatLogNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetPreheatLogNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetPreheatLogNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -268,12 +287,13 @@ func NewGetPreheatLogInternalServerError() *GetPreheatLogInternalServerError {
 	return &GetPreheatLogInternalServerError{}
 }
 
-/*GetPreheatLogInternalServerError handles this case with default header values.
+/* GetPreheatLogInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error
 */
 type GetPreheatLogInternalServerError struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -283,15 +303,18 @@ type GetPreheatLogInternalServerError struct {
 func (o *GetPreheatLogInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}/tasks/{task_id}/logs][%d] getPreheatLogInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetPreheatLogInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetPreheatLogInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 

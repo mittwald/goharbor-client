@@ -62,7 +62,6 @@ func (o *PutReplicationPoliciesIDReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -73,7 +72,7 @@ func NewPutReplicationPoliciesIDOK() *PutReplicationPoliciesIDOK {
 	return &PutReplicationPoliciesIDOK{}
 }
 
-/*PutReplicationPoliciesIDOK handles this case with default header values.
+/* PutReplicationPoliciesIDOK describes a response with status code 200, with default header values.
 
 Success
 */
@@ -94,7 +93,7 @@ func NewPutReplicationPoliciesIDBadRequest() *PutReplicationPoliciesIDBadRequest
 	return &PutReplicationPoliciesIDBadRequest{}
 }
 
-/*PutReplicationPoliciesIDBadRequest handles this case with default header values.
+/* PutReplicationPoliciesIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -115,7 +114,7 @@ func NewPutReplicationPoliciesIDUnauthorized() *PutReplicationPoliciesIDUnauthor
 	return &PutReplicationPoliciesIDUnauthorized{}
 }
 
-/*PutReplicationPoliciesIDUnauthorized handles this case with default header values.
+/* PutReplicationPoliciesIDUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
@@ -136,7 +135,7 @@ func NewPutReplicationPoliciesIDForbidden() *PutReplicationPoliciesIDForbidden {
 	return &PutReplicationPoliciesIDForbidden{}
 }
 
-/*PutReplicationPoliciesIDForbidden handles this case with default header values.
+/* PutReplicationPoliciesIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -157,7 +156,7 @@ func NewPutReplicationPoliciesIDNotFound() *PutReplicationPoliciesIDNotFound {
 	return &PutReplicationPoliciesIDNotFound{}
 }
 
-/*PutReplicationPoliciesIDNotFound handles this case with default header values.
+/* PutReplicationPoliciesIDNotFound describes a response with status code 404, with default header values.
 
 Not Found
 */
@@ -178,7 +177,7 @@ func NewPutReplicationPoliciesIDConflict() *PutReplicationPoliciesIDConflict {
 	return &PutReplicationPoliciesIDConflict{}
 }
 
-/*PutReplicationPoliciesIDConflict handles this case with default header values.
+/* PutReplicationPoliciesIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -199,7 +198,7 @@ func NewPutReplicationPoliciesIDInternalServerError() *PutReplicationPoliciesIDI
 	return &PutReplicationPoliciesIDInternalServerError{}
 }
 
-/*PutReplicationPoliciesIDInternalServerError handles this case with default header values.
+/* PutReplicationPoliciesIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */

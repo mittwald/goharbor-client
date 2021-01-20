@@ -62,7 +62,6 @@ func (o *DeleteReplicationPoliciesIDReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -73,7 +72,7 @@ func NewDeleteReplicationPoliciesIDOK() *DeleteReplicationPoliciesIDOK {
 	return &DeleteReplicationPoliciesIDOK{}
 }
 
-/*DeleteReplicationPoliciesIDOK handles this case with default header values.
+/* DeleteReplicationPoliciesIDOK describes a response with status code 200, with default header values.
 
 Success
 */
@@ -94,7 +93,7 @@ func NewDeleteReplicationPoliciesIDBadRequest() *DeleteReplicationPoliciesIDBadR
 	return &DeleteReplicationPoliciesIDBadRequest{}
 }
 
-/*DeleteReplicationPoliciesIDBadRequest handles this case with default header values.
+/* DeleteReplicationPoliciesIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -115,7 +114,7 @@ func NewDeleteReplicationPoliciesIDUnauthorized() *DeleteReplicationPoliciesIDUn
 	return &DeleteReplicationPoliciesIDUnauthorized{}
 }
 
-/*DeleteReplicationPoliciesIDUnauthorized handles this case with default header values.
+/* DeleteReplicationPoliciesIDUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
@@ -136,7 +135,7 @@ func NewDeleteReplicationPoliciesIDForbidden() *DeleteReplicationPoliciesIDForbi
 	return &DeleteReplicationPoliciesIDForbidden{}
 }
 
-/*DeleteReplicationPoliciesIDForbidden handles this case with default header values.
+/* DeleteReplicationPoliciesIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -157,7 +156,7 @@ func NewDeleteReplicationPoliciesIDNotFound() *DeleteReplicationPoliciesIDNotFou
 	return &DeleteReplicationPoliciesIDNotFound{}
 }
 
-/*DeleteReplicationPoliciesIDNotFound handles this case with default header values.
+/* DeleteReplicationPoliciesIDNotFound describes a response with status code 404, with default header values.
 
 Not Found
 */
@@ -178,7 +177,7 @@ func NewDeleteReplicationPoliciesIDPreconditionFailed() *DeleteReplicationPolici
 	return &DeleteReplicationPoliciesIDPreconditionFailed{}
 }
 
-/*DeleteReplicationPoliciesIDPreconditionFailed handles this case with default header values.
+/* DeleteReplicationPoliciesIDPreconditionFailed describes a response with status code 412, with default header values.
 
 Precondition Failed
 */
@@ -199,7 +198,7 @@ func NewDeleteReplicationPoliciesIDInternalServerError() *DeleteReplicationPolic
 	return &DeleteReplicationPoliciesIDInternalServerError{}
 }
 
-/*DeleteReplicationPoliciesIDInternalServerError handles this case with default header values.
+/* DeleteReplicationPoliciesIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */

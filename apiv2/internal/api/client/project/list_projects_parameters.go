@@ -17,104 +17,125 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewListProjectsParams creates a new ListProjectsParams object
-// with the default values initialized.
+// NewListProjectsParams creates a new ListProjectsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewListProjectsParams() *ListProjectsParams {
-	var (
-		pageDefault     = int64(1)
-		pageSizeDefault = int64(10)
-	)
 	return &ListProjectsParams{
-		Page:     &pageDefault,
-		PageSize: &pageSizeDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewListProjectsParamsWithTimeout creates a new ListProjectsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewListProjectsParamsWithTimeout(timeout time.Duration) *ListProjectsParams {
-	var (
-		pageDefault     = int64(1)
-		pageSizeDefault = int64(10)
-	)
 	return &ListProjectsParams{
-		Page:     &pageDefault,
-		PageSize: &pageSizeDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewListProjectsParamsWithContext creates a new ListProjectsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewListProjectsParamsWithContext(ctx context.Context) *ListProjectsParams {
-	var (
-		pageDefault     = int64(1)
-		pageSizeDefault = int64(10)
-	)
 	return &ListProjectsParams{
-		Page:     &pageDefault,
-		PageSize: &pageSizeDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewListProjectsParamsWithHTTPClient creates a new ListProjectsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewListProjectsParamsWithHTTPClient(client *http.Client) *ListProjectsParams {
-	var (
-		pageDefault     = int64(1)
-		pageSizeDefault = int64(10)
-	)
 	return &ListProjectsParams{
-		Page:       &pageDefault,
-		PageSize:   &pageSizeDefault,
 		HTTPClient: client,
 	}
 }
 
-/*ListProjectsParams contains all the parameters to send to the API endpoint
-for the list projects operation typically these are written to a http.Request
+/* ListProjectsParams contains all the parameters to send to the API endpoint
+   for the list projects operation.
+
+   Typically these are written to a http.Request.
 */
 type ListProjectsParams struct {
 
-	/*XRequestID
-	  An unique ID for the request
+	/* XRequestID.
 
+	   An unique ID for the request
 	*/
 	XRequestID *string
-	/*Name
-	  The name of project.
 
+	/* Name.
+
+	   The name of project.
 	*/
 	Name *string
-	/*Owner
-	  The name of project owner.
 
+	/* Owner.
+
+	   The name of project owner.
 	*/
 	Owner *string
-	/*Page
-	  The page number
 
+	/* Page.
+
+	   The page number
+
+	   Format: int64
+	   Default: 1
 	*/
 	Page *int64
-	/*PageSize
-	  The size of per page
 
+	/* PageSize.
+
+	   The size of per page
+
+	   Format: int64
+	   Default: 10
 	*/
 	PageSize *int64
-	/*Public
-	  The project is public or private.
 
+	/* Public.
+
+	   The project is public or private.
+
+	   Format: int32
 	*/
 	Public *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the list projects params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ListProjectsParams) WithDefaults() *ListProjectsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the list projects params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ListProjectsParams) SetDefaults() {
+	var (
+		pageDefault = int64(1)
+
+		pageSizeDefault = int64(10)
+	)
+
+	val := ListProjectsParams{
+		Page:     &pageDefault,
+		PageSize: &pageSizeDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the list projects params
@@ -230,87 +251,91 @@ func (o *ListProjectsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
-
 	}
 
 	if o.Name != nil {
 
 		// query param name
 		var qrName string
+
 		if o.Name != nil {
 			qrName = *o.Name
 		}
 		qName := qrName
 		if qName != "" {
+
 			if err := r.SetQueryParam("name", qName); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Owner != nil {
 
 		// query param owner
 		var qrOwner string
+
 		if o.Owner != nil {
 			qrOwner = *o.Owner
 		}
 		qOwner := qrOwner
 		if qOwner != "" {
+
 			if err := r.SetQueryParam("owner", qOwner); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Page != nil {
 
 		// query param page
 		var qrPage int64
+
 		if o.Page != nil {
 			qrPage = *o.Page
 		}
 		qPage := swag.FormatInt64(qrPage)
 		if qPage != "" {
+
 			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.PageSize != nil {
 
 		// query param page_size
 		var qrPageSize int64
+
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt64(qrPageSize)
 		if qPageSize != "" {
+
 			if err := r.SetQueryParam("page_size", qPageSize); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Public != nil {
 
 		// query param public
 		var qrPublic bool
+
 		if o.Public != nil {
 			qrPublic = *o.Public
 		}
 		qPublic := swag.FormatBool(qrPublic)
 		if qPublic != "" {
+
 			if err := r.SetQueryParam("public", qPublic); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

@@ -41,7 +41,6 @@ func (o *GetSystemCVEAllowlistReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -52,7 +51,7 @@ func NewGetSystemCVEAllowlistOK() *GetSystemCVEAllowlistOK {
 	return &GetSystemCVEAllowlistOK{}
 }
 
-/*GetSystemCVEAllowlistOK handles this case with default header values.
+/* GetSystemCVEAllowlistOK describes a response with status code 200, with default header values.
 
 Successfully retrieved the CVE allowlist.
 */
@@ -63,7 +62,6 @@ type GetSystemCVEAllowlistOK struct {
 func (o *GetSystemCVEAllowlistOK) Error() string {
 	return fmt.Sprintf("[GET /system/CVEAllowlist][%d] getSystemCVEAllowlistOK  %+v", 200, o.Payload)
 }
-
 func (o *GetSystemCVEAllowlistOK) GetPayload() *legacy.CVEAllowlist {
 	return o.Payload
 }
@@ -85,7 +83,7 @@ func NewGetSystemCVEAllowlistUnauthorized() *GetSystemCVEAllowlistUnauthorized {
 	return &GetSystemCVEAllowlistUnauthorized{}
 }
 
-/*GetSystemCVEAllowlistUnauthorized handles this case with default header values.
+/* GetSystemCVEAllowlistUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated.
 */
@@ -106,7 +104,7 @@ func NewGetSystemCVEAllowlistInternalServerError() *GetSystemCVEAllowlistInterna
 	return &GetSystemCVEAllowlistInternalServerError{}
 }
 
-/*GetSystemCVEAllowlistInternalServerError handles this case with default header values.
+/* GetSystemCVEAllowlistInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

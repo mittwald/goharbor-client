@@ -19,61 +19,78 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPutRetentionsIDParams creates a new PutRetentionsIDParams object
-// with the default values initialized.
+// NewPutRetentionsIDParams creates a new PutRetentionsIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPutRetentionsIDParams() *PutRetentionsIDParams {
-	var ()
 	return &PutRetentionsIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutRetentionsIDParamsWithTimeout creates a new PutRetentionsIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPutRetentionsIDParamsWithTimeout(timeout time.Duration) *PutRetentionsIDParams {
-	var ()
 	return &PutRetentionsIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPutRetentionsIDParamsWithContext creates a new PutRetentionsIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPutRetentionsIDParamsWithContext(ctx context.Context) *PutRetentionsIDParams {
-	var ()
 	return &PutRetentionsIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPutRetentionsIDParamsWithHTTPClient creates a new PutRetentionsIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPutRetentionsIDParamsWithHTTPClient(client *http.Client) *PutRetentionsIDParams {
-	var ()
 	return &PutRetentionsIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*PutRetentionsIDParams contains all the parameters to send to the API endpoint
-for the put retentions ID operation typically these are written to a http.Request
+/* PutRetentionsIDParams contains all the parameters to send to the API endpoint
+   for the put retentions ID operation.
+
+   Typically these are written to a http.Request.
 */
 type PutRetentionsIDParams struct {
 
-	/*ID
-	  Retention ID.
+	/* ID.
 
+	   Retention ID.
+
+	   Format: int64
 	*/
 	ID int64
-	/*Policy*/
+
+	// Policy.
 	Policy *legacy.RetentionPolicy
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the put retentions ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutRetentionsIDParams) WithDefaults() *PutRetentionsIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the put retentions ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutRetentionsIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put retentions ID params
@@ -143,7 +160,6 @@ func (o *PutRetentionsIDParams) WriteToRequest(r runtime.ClientRequest, reg strf
 	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
 		return err
 	}
-
 	if o.Policy != nil {
 		if err := r.SetBodyParam(o.Policy); err != nil {
 			return err

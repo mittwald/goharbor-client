@@ -6,6 +6,7 @@ package products
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/go-openapi/runtime"
@@ -45,7 +46,6 @@ func (o *PostRetentionsIDExecutionsReader) ReadResponse(response runtime.ClientR
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -56,7 +56,7 @@ func NewPostRetentionsIDExecutionsOK() *PostRetentionsIDExecutionsOK {
 	return &PostRetentionsIDExecutionsOK{}
 }
 
-/*PostRetentionsIDExecutionsOK handles this case with default header values.
+/* PostRetentionsIDExecutionsOK describes a response with status code 200, with default header values.
 
 Trigger a Retention job successfully.
 */
@@ -77,7 +77,7 @@ func NewPostRetentionsIDExecutionsUnauthorized() *PostRetentionsIDExecutionsUnau
 	return &PostRetentionsIDExecutionsUnauthorized{}
 }
 
-/*PostRetentionsIDExecutionsUnauthorized handles this case with default header values.
+/* PostRetentionsIDExecutionsUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -98,7 +98,7 @@ func NewPostRetentionsIDExecutionsForbidden() *PostRetentionsIDExecutionsForbidd
 	return &PostRetentionsIDExecutionsForbidden{}
 }
 
-/*PostRetentionsIDExecutionsForbidden handles this case with default header values.
+/* PostRetentionsIDExecutionsForbidden describes a response with status code 403, with default header values.
 
 User have no permission.
 */
@@ -119,7 +119,7 @@ func NewPostRetentionsIDExecutionsInternalServerError() *PostRetentionsIDExecuti
 	return &PostRetentionsIDExecutionsInternalServerError{}
 }
 
-/*PostRetentionsIDExecutionsInternalServerError handles this case with default header values.
+/* PostRetentionsIDExecutionsInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */
@@ -146,6 +146,11 @@ type PostRetentionsIDExecutionsBody struct {
 
 // Validate validates this post retentions ID executions body
 func (o *PostRetentionsIDExecutionsBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this post retentions ID executions body based on context it is used
+func (o *PostRetentionsIDExecutionsBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

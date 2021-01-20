@@ -50,7 +50,6 @@ func (o *PutUsersUserIDPasswordReader) ReadResponse(response runtime.ClientRespo
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -61,7 +60,7 @@ func NewPutUsersUserIDPasswordOK() *PutUsersUserIDPasswordOK {
 	return &PutUsersUserIDPasswordOK{}
 }
 
-/*PutUsersUserIDPasswordOK handles this case with default header values.
+/* PutUsersUserIDPasswordOK describes a response with status code 200, with default header values.
 
 Updated password successfully.
 */
@@ -82,7 +81,7 @@ func NewPutUsersUserIDPasswordBadRequest() *PutUsersUserIDPasswordBadRequest {
 	return &PutUsersUserIDPasswordBadRequest{}
 }
 
-/*PutUsersUserIDPasswordBadRequest handles this case with default header values.
+/* PutUsersUserIDPasswordBadRequest describes a response with status code 400, with default header values.
 
 Invalid user ID; Old password is blank; New password is blank.
 */
@@ -103,7 +102,7 @@ func NewPutUsersUserIDPasswordUnauthorized() *PutUsersUserIDPasswordUnauthorized
 	return &PutUsersUserIDPasswordUnauthorized{}
 }
 
-/*PutUsersUserIDPasswordUnauthorized handles this case with default header values.
+/* PutUsersUserIDPasswordUnauthorized describes a response with status code 401, with default header values.
 
 Don't have authority to change password. Please check login status.
 */
@@ -124,7 +123,7 @@ func NewPutUsersUserIDPasswordForbidden() *PutUsersUserIDPasswordForbidden {
 	return &PutUsersUserIDPasswordForbidden{}
 }
 
-/*PutUsersUserIDPasswordForbidden handles this case with default header values.
+/* PutUsersUserIDPasswordForbidden describes a response with status code 403, with default header values.
 
 The caller does not have permission to update the password of the user with given ID, or the old password in request body is not correct.
 */
@@ -145,7 +144,7 @@ func NewPutUsersUserIDPasswordInternalServerError() *PutUsersUserIDPasswordInter
 	return &PutUsersUserIDPasswordInternalServerError{}
 }
 
-/*PutUsersUserIDPasswordInternalServerError handles this case with default header values.
+/* PutUsersUserIDPasswordInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

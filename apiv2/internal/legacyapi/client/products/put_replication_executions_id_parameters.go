@@ -17,59 +17,75 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewPutReplicationExecutionsIDParams creates a new PutReplicationExecutionsIDParams object
-// with the default values initialized.
+// NewPutReplicationExecutionsIDParams creates a new PutReplicationExecutionsIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPutReplicationExecutionsIDParams() *PutReplicationExecutionsIDParams {
-	var ()
 	return &PutReplicationExecutionsIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutReplicationExecutionsIDParamsWithTimeout creates a new PutReplicationExecutionsIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPutReplicationExecutionsIDParamsWithTimeout(timeout time.Duration) *PutReplicationExecutionsIDParams {
-	var ()
 	return &PutReplicationExecutionsIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPutReplicationExecutionsIDParamsWithContext creates a new PutReplicationExecutionsIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPutReplicationExecutionsIDParamsWithContext(ctx context.Context) *PutReplicationExecutionsIDParams {
-	var ()
 	return &PutReplicationExecutionsIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPutReplicationExecutionsIDParamsWithHTTPClient creates a new PutReplicationExecutionsIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPutReplicationExecutionsIDParamsWithHTTPClient(client *http.Client) *PutReplicationExecutionsIDParams {
-	var ()
 	return &PutReplicationExecutionsIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*PutReplicationExecutionsIDParams contains all the parameters to send to the API endpoint
-for the put replication executions ID operation typically these are written to a http.Request
+/* PutReplicationExecutionsIDParams contains all the parameters to send to the API endpoint
+   for the put replication executions ID operation.
+
+   Typically these are written to a http.Request.
 */
 type PutReplicationExecutionsIDParams struct {
 
-	/*ID
-	  The execution ID.
+	/* ID.
 
+	   The execution ID.
+
+	   Format: int64
 	*/
 	ID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the put replication executions ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutReplicationExecutionsIDParams) WithDefaults() *PutReplicationExecutionsIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the put replication executions ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutReplicationExecutionsIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put replication executions ID params

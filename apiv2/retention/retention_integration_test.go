@@ -4,9 +4,10 @@ package retention
 
 import (
 	"context"
-	model "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 	"net/url"
 	"testing"
+
+	model "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
@@ -43,7 +44,8 @@ func newTestRetention(projectID int64) model.RetentionPolicy {
 					Kind:       SelectorTypeDefault,
 					Pattern:    "**",
 					Extras:     "", // The "Extras" field is unused for scope selectors.
-				}}},
+				}},
+			},
 			TagSelectors: []*model.RetentionSelector{{
 				Decoration: TagSelectorMatches.String(),
 				Extras:     ToTagSelectorExtras(true),
@@ -140,27 +142,29 @@ func TestAPIRetentionUpdate(t *testing.T) {
 
 	changed := rp
 
-	changed.Rules = []*model.RetentionRule{{
-		Action:   "retain",
-		Disabled: true,
-		Params: map[string]interface{}{
-			PolicyTemplateDaysSinceLastPull.String(): 2,
-		},
-		ScopeSelectors: map[string][]model.RetentionSelector{
-			"repository": {{
-				Decoration: ScopeSelectorRepoExcludes.String(),
+	changed.Rules = []*model.RetentionRule{
+		{
+			Action:   "retain",
+			Disabled: true,
+			Params: map[string]interface{}{
+				PolicyTemplateDaysSinceLastPull.String(): 2,
+			},
+			ScopeSelectors: map[string][]model.RetentionSelector{
+				"repository": {{
+					Decoration: ScopeSelectorRepoExcludes.String(),
+					Kind:       SelectorTypeDefault,
+					Pattern:    "**",
+					Extras:     "", // The "Extras" field is unused for scope selectors.
+				}},
+			},
+			TagSelectors: []*model.RetentionSelector{{
+				Decoration: TagSelectorExcludes.String(),
+				Extras:     ToTagSelectorExtras(false),
 				Kind:       SelectorTypeDefault,
 				Pattern:    "**",
-				Extras:     "", // The "Extras" field is unused for scope selectors.
-			}}},
-		TagSelectors: []*model.RetentionSelector{{
-			Decoration: TagSelectorExcludes.String(),
-			Extras:     ToTagSelectorExtras(false),
-			Kind:       SelectorTypeDefault,
-			Pattern:    "**",
-		}},
-		Template: PolicyTemplateDaysSinceLastPull.String(),
-	},
+			}},
+			Template: PolicyTemplateDaysSinceLastPull.String(),
+		},
 	}
 
 	err = c.UpdateRetentionPolicy(ctx, changed)

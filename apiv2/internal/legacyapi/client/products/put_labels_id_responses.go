@@ -56,7 +56,6 @@ func (o *PutLabelsIDReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -67,7 +66,7 @@ func NewPutLabelsIDOK() *PutLabelsIDOK {
 	return &PutLabelsIDOK{}
 }
 
-/*PutLabelsIDOK handles this case with default header values.
+/* PutLabelsIDOK describes a response with status code 200, with default header values.
 
 Update successfully.
 */
@@ -88,7 +87,7 @@ func NewPutLabelsIDBadRequest() *PutLabelsIDBadRequest {
 	return &PutLabelsIDBadRequest{}
 }
 
-/*PutLabelsIDBadRequest handles this case with default header values.
+/* PutLabelsIDBadRequest describes a response with status code 400, with default header values.
 
 Invalid parameters.
 */
@@ -109,7 +108,7 @@ func NewPutLabelsIDUnauthorized() *PutLabelsIDUnauthorized {
 	return &PutLabelsIDUnauthorized{}
 }
 
-/*PutLabelsIDUnauthorized handles this case with default header values.
+/* PutLabelsIDUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -130,7 +129,7 @@ func NewPutLabelsIDNotFound() *PutLabelsIDNotFound {
 	return &PutLabelsIDNotFound{}
 }
 
-/*PutLabelsIDNotFound handles this case with default header values.
+/* PutLabelsIDNotFound describes a response with status code 404, with default header values.
 
 The resource does not exist.
 */
@@ -151,7 +150,7 @@ func NewPutLabelsIDConflict() *PutLabelsIDConflict {
 	return &PutLabelsIDConflict{}
 }
 
-/*PutLabelsIDConflict handles this case with default header values.
+/* PutLabelsIDConflict describes a response with status code 409, with default header values.
 
 The label with the same name already exists.
 */
@@ -172,7 +171,7 @@ func NewPutLabelsIDInternalServerError() *PutLabelsIDInternalServerError {
 	return &PutLabelsIDInternalServerError{}
 }
 
-/*PutLabelsIDInternalServerError handles this case with default header values.
+/* PutLabelsIDInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

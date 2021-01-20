@@ -56,7 +56,6 @@ func (o *PostEmailPingReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -67,7 +66,7 @@ func NewPostEmailPingOK() *PostEmailPingOK {
 	return &PostEmailPingOK{}
 }
 
-/*PostEmailPingOK handles this case with default header values.
+/* PostEmailPingOK describes a response with status code 200, with default header values.
 
 Ping email server successfully.
 */
@@ -88,7 +87,7 @@ func NewPostEmailPingBadRequest() *PostEmailPingBadRequest {
 	return &PostEmailPingBadRequest{}
 }
 
-/*PostEmailPingBadRequest handles this case with default header values.
+/* PostEmailPingBadRequest describes a response with status code 400, with default header values.
 
 Inviald email server settings.
 */
@@ -109,7 +108,7 @@ func NewPostEmailPingUnauthorized() *PostEmailPingUnauthorized {
 	return &PostEmailPingUnauthorized{}
 }
 
-/*PostEmailPingUnauthorized handles this case with default header values.
+/* PostEmailPingUnauthorized describes a response with status code 401, with default header values.
 
 User need to login first.
 */
@@ -130,7 +129,7 @@ func NewPostEmailPingForbidden() *PostEmailPingForbidden {
 	return &PostEmailPingForbidden{}
 }
 
-/*PostEmailPingForbidden handles this case with default header values.
+/* PostEmailPingForbidden describes a response with status code 403, with default header values.
 
 Only admin has this authority.
 */
@@ -151,7 +150,7 @@ func NewPostEmailPingUnsupportedMediaType() *PostEmailPingUnsupportedMediaType {
 	return &PostEmailPingUnsupportedMediaType{}
 }
 
-/*PostEmailPingUnsupportedMediaType handles this case with default header values.
+/* PostEmailPingUnsupportedMediaType describes a response with status code 415, with default header values.
 
 The Media Type of the request is not supported, it has to be "application/json"
 */
@@ -172,7 +171,7 @@ func NewPostEmailPingInternalServerError() *PostEmailPingInternalServerError {
 	return &PostEmailPingInternalServerError{}
 }
 
-/*PostEmailPingInternalServerError handles this case with default header values.
+/* PostEmailPingInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

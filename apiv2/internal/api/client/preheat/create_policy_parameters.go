@@ -18,69 +18,85 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model"
 )
 
-// NewCreatePolicyParams creates a new CreatePolicyParams object
-// with the default values initialized.
+// NewCreatePolicyParams creates a new CreatePolicyParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreatePolicyParams() *CreatePolicyParams {
-	var ()
 	return &CreatePolicyParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreatePolicyParamsWithTimeout creates a new CreatePolicyParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreatePolicyParamsWithTimeout(timeout time.Duration) *CreatePolicyParams {
-	var ()
 	return &CreatePolicyParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewCreatePolicyParamsWithContext creates a new CreatePolicyParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreatePolicyParamsWithContext(ctx context.Context) *CreatePolicyParams {
-	var ()
 	return &CreatePolicyParams{
-
 		Context: ctx,
 	}
 }
 
 // NewCreatePolicyParamsWithHTTPClient creates a new CreatePolicyParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreatePolicyParamsWithHTTPClient(client *http.Client) *CreatePolicyParams {
-	var ()
 	return &CreatePolicyParams{
 		HTTPClient: client,
 	}
 }
 
-/*CreatePolicyParams contains all the parameters to send to the API endpoint
-for the create policy operation typically these are written to a http.Request
+/* CreatePolicyParams contains all the parameters to send to the API endpoint
+   for the create policy operation.
+
+   Typically these are written to a http.Request.
 */
 type CreatePolicyParams struct {
 
-	/*XRequestID
-	  An unique ID for the request
+	/* XRequestID.
 
+	   An unique ID for the request
 	*/
 	XRequestID *string
-	/*Policy
-	  The policy schema info
 
+	/* Policy.
+
+	   The policy schema info
 	*/
 	Policy *model.PreheatPolicy
-	/*ProjectName
-	  The name of the project
 
+	/* ProjectName.
+
+	   The name of the project
 	*/
 	ProjectName string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create policy params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreatePolicyParams) WithDefaults() *CreatePolicyParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create policy params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreatePolicyParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create policy params
@@ -163,9 +179,7 @@ func (o *CreatePolicyParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
-
 	}
-
 	if o.Policy != nil {
 		if err := r.SetBodyParam(o.Policy); err != nil {
 			return err

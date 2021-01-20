@@ -53,7 +53,6 @@ func (o *GetUsersReader) ReadResponse(response runtime.ClientResponse, consumer 
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -64,7 +63,7 @@ func NewGetUsersOK() *GetUsersOK {
 	return &GetUsersOK{}
 }
 
-/*GetUsersOK handles this case with default header values.
+/* GetUsersOK describes a response with status code 200, with default header values.
 
 Searched for users of Harbor successfully.
 */
@@ -75,7 +74,6 @@ type GetUsersOK struct {
 func (o *GetUsersOK) Error() string {
 	return fmt.Sprintf("[GET /users][%d] getUsersOK  %+v", 200, o.Payload)
 }
-
 func (o *GetUsersOK) GetPayload() []*legacy.User {
 	return o.Payload
 }
@@ -95,7 +93,7 @@ func NewGetUsersBadRequest() *GetUsersBadRequest {
 	return &GetUsersBadRequest{}
 }
 
-/*GetUsersBadRequest handles this case with default header values.
+/* GetUsersBadRequest describes a response with status code 400, with default header values.
 
 Invalid user ID.
 */
@@ -116,7 +114,7 @@ func NewGetUsersUnauthorized() *GetUsersUnauthorized {
 	return &GetUsersUnauthorized{}
 }
 
-/*GetUsersUnauthorized handles this case with default header values.
+/* GetUsersUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -137,7 +135,7 @@ func NewGetUsersForbidden() *GetUsersForbidden {
 	return &GetUsersForbidden{}
 }
 
-/*GetUsersForbidden handles this case with default header values.
+/* GetUsersForbidden describes a response with status code 403, with default header values.
 
 User does not have permission of admin role.
 */
@@ -158,7 +156,7 @@ func NewGetUsersInternalServerError() *GetUsersInternalServerError {
 	return &GetUsersInternalServerError{}
 }
 
-/*GetUsersInternalServerError handles this case with default header values.
+/* GetUsersInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

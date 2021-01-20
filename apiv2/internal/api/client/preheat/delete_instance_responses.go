@@ -53,7 +53,6 @@ func (o *DeleteInstanceReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -64,12 +63,13 @@ func NewDeleteInstanceOK() *DeleteInstanceOK {
 	return &DeleteInstanceOK{}
 }
 
-/*DeleteInstanceOK handles this case with default header values.
+/* DeleteInstanceOK describes a response with status code 200, with default header values.
 
 Success
 */
 type DeleteInstanceOK struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -80,8 +80,12 @@ func (o *DeleteInstanceOK) Error() string {
 
 func (o *DeleteInstanceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	return nil
 }
@@ -91,12 +95,13 @@ func NewDeleteInstanceUnauthorized() *DeleteInstanceUnauthorized {
 	return &DeleteInstanceUnauthorized{}
 }
 
-/*DeleteInstanceUnauthorized handles this case with default header values.
+/* DeleteInstanceUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
 type DeleteInstanceUnauthorized struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -106,15 +111,18 @@ type DeleteInstanceUnauthorized struct {
 func (o *DeleteInstanceUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /p2p/preheat/instances/{preheat_instance_name}][%d] deleteInstanceUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeleteInstanceUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteInstanceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -131,12 +139,13 @@ func NewDeleteInstanceForbidden() *DeleteInstanceForbidden {
 	return &DeleteInstanceForbidden{}
 }
 
-/*DeleteInstanceForbidden handles this case with default header values.
+/* DeleteInstanceForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
 type DeleteInstanceForbidden struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -146,15 +155,18 @@ type DeleteInstanceForbidden struct {
 func (o *DeleteInstanceForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /p2p/preheat/instances/{preheat_instance_name}][%d] deleteInstanceForbidden  %+v", 403, o.Payload)
 }
-
 func (o *DeleteInstanceForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteInstanceForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -171,12 +183,13 @@ func NewDeleteInstanceNotFound() *DeleteInstanceNotFound {
 	return &DeleteInstanceNotFound{}
 }
 
-/*DeleteInstanceNotFound handles this case with default header values.
+/* DeleteInstanceNotFound describes a response with status code 404, with default header values.
 
 Not found
 */
 type DeleteInstanceNotFound struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -186,15 +199,18 @@ type DeleteInstanceNotFound struct {
 func (o *DeleteInstanceNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /p2p/preheat/instances/{preheat_instance_name}][%d] deleteInstanceNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteInstanceNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteInstanceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -211,12 +227,13 @@ func NewDeleteInstanceInternalServerError() *DeleteInstanceInternalServerError {
 	return &DeleteInstanceInternalServerError{}
 }
 
-/*DeleteInstanceInternalServerError handles this case with default header values.
+/* DeleteInstanceInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error
 */
 type DeleteInstanceInternalServerError struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -226,15 +243,18 @@ type DeleteInstanceInternalServerError struct {
 func (o *DeleteInstanceInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /p2p/preheat/instances/{preheat_instance_name}][%d] deleteInstanceInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteInstanceInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteInstanceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 

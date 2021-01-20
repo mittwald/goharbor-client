@@ -59,7 +59,6 @@ func (o *GetReplicationPoliciesIDReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -70,7 +69,7 @@ func NewGetReplicationPoliciesIDOK() *GetReplicationPoliciesIDOK {
 	return &GetReplicationPoliciesIDOK{}
 }
 
-/*GetReplicationPoliciesIDOK handles this case with default header values.
+/* GetReplicationPoliciesIDOK describes a response with status code 200, with default header values.
 
 Get the replication policy successfully.
 */
@@ -81,7 +80,6 @@ type GetReplicationPoliciesIDOK struct {
 func (o *GetReplicationPoliciesIDOK) Error() string {
 	return fmt.Sprintf("[GET /replication/policies/{id}][%d] getReplicationPoliciesIdOK  %+v", 200, o.Payload)
 }
-
 func (o *GetReplicationPoliciesIDOK) GetPayload() *legacy.ReplicationPolicy {
 	return o.Payload
 }
@@ -103,7 +101,7 @@ func NewGetReplicationPoliciesIDBadRequest() *GetReplicationPoliciesIDBadRequest
 	return &GetReplicationPoliciesIDBadRequest{}
 }
 
-/*GetReplicationPoliciesIDBadRequest handles this case with default header values.
+/* GetReplicationPoliciesIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -124,7 +122,7 @@ func NewGetReplicationPoliciesIDUnauthorized() *GetReplicationPoliciesIDUnauthor
 	return &GetReplicationPoliciesIDUnauthorized{}
 }
 
-/*GetReplicationPoliciesIDUnauthorized handles this case with default header values.
+/* GetReplicationPoliciesIDUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
@@ -145,7 +143,7 @@ func NewGetReplicationPoliciesIDForbidden() *GetReplicationPoliciesIDForbidden {
 	return &GetReplicationPoliciesIDForbidden{}
 }
 
-/*GetReplicationPoliciesIDForbidden handles this case with default header values.
+/* GetReplicationPoliciesIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -166,7 +164,7 @@ func NewGetReplicationPoliciesIDNotFound() *GetReplicationPoliciesIDNotFound {
 	return &GetReplicationPoliciesIDNotFound{}
 }
 
-/*GetReplicationPoliciesIDNotFound handles this case with default header values.
+/* GetReplicationPoliciesIDNotFound describes a response with status code 404, with default header values.
 
 Not Found
 */
@@ -187,7 +185,7 @@ func NewGetReplicationPoliciesIDInternalServerError() *GetReplicationPoliciesIDI
 	return &GetReplicationPoliciesIDInternalServerError{}
 }
 
-/*GetReplicationPoliciesIDInternalServerError handles this case with default header values.
+/* GetReplicationPoliciesIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */

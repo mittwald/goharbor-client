@@ -17,64 +17,81 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetProjectsProjectIDMembersParams creates a new GetProjectsProjectIDMembersParams object
-// with the default values initialized.
+// NewGetProjectsProjectIDMembersParams creates a new GetProjectsProjectIDMembersParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetProjectsProjectIDMembersParams() *GetProjectsProjectIDMembersParams {
-	var ()
 	return &GetProjectsProjectIDMembersParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetProjectsProjectIDMembersParamsWithTimeout creates a new GetProjectsProjectIDMembersParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetProjectsProjectIDMembersParamsWithTimeout(timeout time.Duration) *GetProjectsProjectIDMembersParams {
-	var ()
 	return &GetProjectsProjectIDMembersParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetProjectsProjectIDMembersParamsWithContext creates a new GetProjectsProjectIDMembersParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetProjectsProjectIDMembersParamsWithContext(ctx context.Context) *GetProjectsProjectIDMembersParams {
-	var ()
 	return &GetProjectsProjectIDMembersParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetProjectsProjectIDMembersParamsWithHTTPClient creates a new GetProjectsProjectIDMembersParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetProjectsProjectIDMembersParamsWithHTTPClient(client *http.Client) *GetProjectsProjectIDMembersParams {
-	var ()
 	return &GetProjectsProjectIDMembersParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetProjectsProjectIDMembersParams contains all the parameters to send to the API endpoint
-for the get projects project ID members operation typically these are written to a http.Request
+/* GetProjectsProjectIDMembersParams contains all the parameters to send to the API endpoint
+   for the get projects project ID members operation.
+
+   Typically these are written to a http.Request.
 */
 type GetProjectsProjectIDMembersParams struct {
 
-	/*Entityname
-	  The entity name to search.
+	/* Entityname.
 
+	   The entity name to search.
 	*/
 	Entityname *string
-	/*ProjectID
-	  Relevant project ID.
 
+	/* ProjectID.
+
+	   Relevant project ID.
+
+	   Format: int64
 	*/
 	ProjectID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get projects project ID members params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectsProjectIDMembersParams) WithDefaults() *GetProjectsProjectIDMembersParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get projects project ID members params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectsProjectIDMembersParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get projects project ID members params
@@ -144,16 +161,17 @@ func (o *GetProjectsProjectIDMembersParams) WriteToRequest(r runtime.ClientReque
 
 		// query param entityname
 		var qrEntityname string
+
 		if o.Entityname != nil {
 			qrEntityname = *o.Entityname
 		}
 		qEntityname := qrEntityname
 		if qEntityname != "" {
+
 			if err := r.SetQueryParam("entityname", qEntityname); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param project_id
