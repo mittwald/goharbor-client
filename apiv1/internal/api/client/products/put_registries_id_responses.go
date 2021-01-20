@@ -56,7 +56,6 @@ func (o *PutRegistriesIDReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -67,7 +66,7 @@ func NewPutRegistriesIDOK() *PutRegistriesIDOK {
 	return &PutRegistriesIDOK{}
 }
 
-/*PutRegistriesIDOK handles this case with default header values.
+/* PutRegistriesIDOK describes a response with status code 200, with default header values.
 
 Updated registry successfully.
 */
@@ -88,7 +87,7 @@ func NewPutRegistriesIDBadRequest() *PutRegistriesIDBadRequest {
 	return &PutRegistriesIDBadRequest{}
 }
 
-/*PutRegistriesIDBadRequest handles this case with default header values.
+/* PutRegistriesIDBadRequest describes a response with status code 400, with default header values.
 
 The registry is associated with policy which is enabled.
 */
@@ -109,7 +108,7 @@ func NewPutRegistriesIDUnauthorized() *PutRegistriesIDUnauthorized {
 	return &PutRegistriesIDUnauthorized{}
 }
 
-/*PutRegistriesIDUnauthorized handles this case with default header values.
+/* PutRegistriesIDUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -130,7 +129,7 @@ func NewPutRegistriesIDNotFound() *PutRegistriesIDNotFound {
 	return &PutRegistriesIDNotFound{}
 }
 
-/*PutRegistriesIDNotFound handles this case with default header values.
+/* PutRegistriesIDNotFound describes a response with status code 404, with default header values.
 
 Registry does not exist.
 */
@@ -151,7 +150,7 @@ func NewPutRegistriesIDConflict() *PutRegistriesIDConflict {
 	return &PutRegistriesIDConflict{}
 }
 
-/*PutRegistriesIDConflict handles this case with default header values.
+/* PutRegistriesIDConflict describes a response with status code 409, with default header values.
 
 Registry name is already used.
 */
@@ -172,7 +171,7 @@ func NewPutRegistriesIDInternalServerError() *PutRegistriesIDInternalServerError
 	return &PutRegistriesIDInternalServerError{}
 }
 
-/*PutRegistriesIDInternalServerError handles this case with default header values.
+/* PutRegistriesIDInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

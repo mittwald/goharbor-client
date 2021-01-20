@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -30,6 +32,11 @@ type WebhookLastTrigger struct {
 
 // Validate validates this webhook last trigger
 func (m *WebhookLastTrigger) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this webhook last trigger based on context it is used
+func (m *WebhookLastTrigger) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

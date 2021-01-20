@@ -50,7 +50,6 @@ func (o *DeleteProjectsProjectIDImmutabletagrulesIDReader) ReadResponse(response
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -61,7 +60,7 @@ func NewDeleteProjectsProjectIDImmutabletagrulesIDOK() *DeleteProjectsProjectIDI
 	return &DeleteProjectsProjectIDImmutabletagrulesIDOK{}
 }
 
-/*DeleteProjectsProjectIDImmutabletagrulesIDOK handles this case with default header values.
+/* DeleteProjectsProjectIDImmutabletagrulesIDOK describes a response with status code 200, with default header values.
 
 Delete the immutable tag rule successfully.
 */
@@ -82,7 +81,7 @@ func NewDeleteProjectsProjectIDImmutabletagrulesIDBadRequest() *DeleteProjectsPr
 	return &DeleteProjectsProjectIDImmutabletagrulesIDBadRequest{}
 }
 
-/*DeleteProjectsProjectIDImmutabletagrulesIDBadRequest handles this case with default header values.
+/* DeleteProjectsProjectIDImmutabletagrulesIDBadRequest describes a response with status code 400, with default header values.
 
 Illegal format of provided ID value.
 */
@@ -103,7 +102,7 @@ func NewDeleteProjectsProjectIDImmutabletagrulesIDUnauthorized() *DeleteProjects
 	return &DeleteProjectsProjectIDImmutabletagrulesIDUnauthorized{}
 }
 
-/*DeleteProjectsProjectIDImmutabletagrulesIDUnauthorized handles this case with default header values.
+/* DeleteProjectsProjectIDImmutabletagrulesIDUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -124,7 +123,7 @@ func NewDeleteProjectsProjectIDImmutabletagrulesIDForbidden() *DeleteProjectsPro
 	return &DeleteProjectsProjectIDImmutabletagrulesIDForbidden{}
 }
 
-/*DeleteProjectsProjectIDImmutabletagrulesIDForbidden handles this case with default header values.
+/* DeleteProjectsProjectIDImmutabletagrulesIDForbidden describes a response with status code 403, with default header values.
 
 User have no permission to delete immutable tags of the project.
 */
@@ -145,7 +144,7 @@ func NewDeleteProjectsProjectIDImmutabletagrulesIDInternalServerError() *DeleteP
 	return &DeleteProjectsProjectIDImmutabletagrulesIDInternalServerError{}
 }
 
-/*DeleteProjectsProjectIDImmutabletagrulesIDInternalServerError handles this case with default header values.
+/* DeleteProjectsProjectIDImmutabletagrulesIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal server errors.
 */

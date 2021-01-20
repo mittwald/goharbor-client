@@ -18,74 +18,91 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model"
 )
 
-// NewManualPreheatParams creates a new ManualPreheatParams object
-// with the default values initialized.
+// NewManualPreheatParams creates a new ManualPreheatParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewManualPreheatParams() *ManualPreheatParams {
-	var ()
 	return &ManualPreheatParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewManualPreheatParamsWithTimeout creates a new ManualPreheatParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewManualPreheatParamsWithTimeout(timeout time.Duration) *ManualPreheatParams {
-	var ()
 	return &ManualPreheatParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewManualPreheatParamsWithContext creates a new ManualPreheatParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewManualPreheatParamsWithContext(ctx context.Context) *ManualPreheatParams {
-	var ()
 	return &ManualPreheatParams{
-
 		Context: ctx,
 	}
 }
 
 // NewManualPreheatParamsWithHTTPClient creates a new ManualPreheatParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewManualPreheatParamsWithHTTPClient(client *http.Client) *ManualPreheatParams {
-	var ()
 	return &ManualPreheatParams{
 		HTTPClient: client,
 	}
 }
 
-/*ManualPreheatParams contains all the parameters to send to the API endpoint
-for the manual preheat operation typically these are written to a http.Request
+/* ManualPreheatParams contains all the parameters to send to the API endpoint
+   for the manual preheat operation.
+
+   Typically these are written to a http.Request.
 */
 type ManualPreheatParams struct {
 
-	/*XRequestID
-	  An unique ID for the request
+	/* XRequestID.
 
+	   An unique ID for the request
 	*/
 	XRequestID *string
-	/*Policy
-	  The policy schema info
 
+	/* Policy.
+
+	   The policy schema info
 	*/
 	Policy *model.PreheatPolicy
-	/*PreheatPolicyName
-	  Preheat Policy Name
 
+	/* PreheatPolicyName.
+
+	   Preheat Policy Name
 	*/
 	PreheatPolicyName string
-	/*ProjectName
-	  The name of the project
 
+	/* ProjectName.
+
+	   The name of the project
 	*/
 	ProjectName string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the manual preheat params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ManualPreheatParams) WithDefaults() *ManualPreheatParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the manual preheat params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ManualPreheatParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the manual preheat params
@@ -179,9 +196,7 @@ func (o *ManualPreheatParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
-
 	}
-
 	if o.Policy != nil {
 		if err := r.SetBodyParam(o.Policy); err != nil {
 			return err

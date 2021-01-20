@@ -17,59 +17,75 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteLabelsIDParams creates a new DeleteLabelsIDParams object
-// with the default values initialized.
+// NewDeleteLabelsIDParams creates a new DeleteLabelsIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteLabelsIDParams() *DeleteLabelsIDParams {
-	var ()
 	return &DeleteLabelsIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteLabelsIDParamsWithTimeout creates a new DeleteLabelsIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteLabelsIDParamsWithTimeout(timeout time.Duration) *DeleteLabelsIDParams {
-	var ()
 	return &DeleteLabelsIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteLabelsIDParamsWithContext creates a new DeleteLabelsIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteLabelsIDParamsWithContext(ctx context.Context) *DeleteLabelsIDParams {
-	var ()
 	return &DeleteLabelsIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteLabelsIDParamsWithHTTPClient creates a new DeleteLabelsIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteLabelsIDParamsWithHTTPClient(client *http.Client) *DeleteLabelsIDParams {
-	var ()
 	return &DeleteLabelsIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteLabelsIDParams contains all the parameters to send to the API endpoint
-for the delete labels ID operation typically these are written to a http.Request
+/* DeleteLabelsIDParams contains all the parameters to send to the API endpoint
+   for the delete labels ID operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteLabelsIDParams struct {
 
-	/*ID
-	  Label ID
+	/* ID.
 
+	   Label ID
+
+	   Format: int64
 	*/
 	ID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete labels ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteLabelsIDParams) WithDefaults() *DeleteLabelsIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete labels ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteLabelsIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete labels ID params

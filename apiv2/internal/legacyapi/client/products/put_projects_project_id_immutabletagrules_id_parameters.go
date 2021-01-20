@@ -19,66 +19,86 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPutProjectsProjectIDImmutabletagrulesIDParams creates a new PutProjectsProjectIDImmutabletagrulesIDParams object
-// with the default values initialized.
+// NewPutProjectsProjectIDImmutabletagrulesIDParams creates a new PutProjectsProjectIDImmutabletagrulesIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPutProjectsProjectIDImmutabletagrulesIDParams() *PutProjectsProjectIDImmutabletagrulesIDParams {
-	var ()
 	return &PutProjectsProjectIDImmutabletagrulesIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutProjectsProjectIDImmutabletagrulesIDParamsWithTimeout creates a new PutProjectsProjectIDImmutabletagrulesIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPutProjectsProjectIDImmutabletagrulesIDParamsWithTimeout(timeout time.Duration) *PutProjectsProjectIDImmutabletagrulesIDParams {
-	var ()
 	return &PutProjectsProjectIDImmutabletagrulesIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPutProjectsProjectIDImmutabletagrulesIDParamsWithContext creates a new PutProjectsProjectIDImmutabletagrulesIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPutProjectsProjectIDImmutabletagrulesIDParamsWithContext(ctx context.Context) *PutProjectsProjectIDImmutabletagrulesIDParams {
-	var ()
 	return &PutProjectsProjectIDImmutabletagrulesIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPutProjectsProjectIDImmutabletagrulesIDParamsWithHTTPClient creates a new PutProjectsProjectIDImmutabletagrulesIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPutProjectsProjectIDImmutabletagrulesIDParamsWithHTTPClient(client *http.Client) *PutProjectsProjectIDImmutabletagrulesIDParams {
-	var ()
 	return &PutProjectsProjectIDImmutabletagrulesIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*PutProjectsProjectIDImmutabletagrulesIDParams contains all the parameters to send to the API endpoint
-for the put projects project ID immutabletagrules ID operation typically these are written to a http.Request
+/* PutProjectsProjectIDImmutabletagrulesIDParams contains all the parameters to send to the API endpoint
+   for the put projects project ID immutabletagrules ID operation.
+
+   Typically these are written to a http.Request.
 */
 type PutProjectsProjectIDImmutabletagrulesIDParams struct {
 
-	/*RetentionRule*/
+	// RetentionRule.
 	RetentionRule *legacy.RetentionRule
-	/*ID
-	  Immutable tag rule ID.
 
+	/* ID.
+
+	   Immutable tag rule ID.
+
+	   Format: int64
 	*/
 	ID int64
-	/*ProjectID
-	  Relevant project ID.
 
+	/* ProjectID.
+
+	   Relevant project ID.
+
+	   Format: int64
 	*/
 	ProjectID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the put projects project ID immutabletagrules ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutProjectsProjectIDImmutabletagrulesIDParams) WithDefaults() *PutProjectsProjectIDImmutabletagrulesIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the put projects project ID immutabletagrules ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutProjectsProjectIDImmutabletagrulesIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put projects project ID immutabletagrules ID params
@@ -154,7 +174,6 @@ func (o *PutProjectsProjectIDImmutabletagrulesIDParams) WriteToRequest(r runtime
 		return err
 	}
 	var res []error
-
 	if o.RetentionRule != nil {
 		if err := r.SetBodyParam(o.RetentionRule); err != nil {
 			return err

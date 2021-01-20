@@ -17,59 +17,75 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetProjectsProjectIDParams creates a new GetProjectsProjectIDParams object
-// with the default values initialized.
+// NewGetProjectsProjectIDParams creates a new GetProjectsProjectIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetProjectsProjectIDParams() *GetProjectsProjectIDParams {
-	var ()
 	return &GetProjectsProjectIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetProjectsProjectIDParamsWithTimeout creates a new GetProjectsProjectIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetProjectsProjectIDParamsWithTimeout(timeout time.Duration) *GetProjectsProjectIDParams {
-	var ()
 	return &GetProjectsProjectIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetProjectsProjectIDParamsWithContext creates a new GetProjectsProjectIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetProjectsProjectIDParamsWithContext(ctx context.Context) *GetProjectsProjectIDParams {
-	var ()
 	return &GetProjectsProjectIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetProjectsProjectIDParamsWithHTTPClient creates a new GetProjectsProjectIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetProjectsProjectIDParamsWithHTTPClient(client *http.Client) *GetProjectsProjectIDParams {
-	var ()
 	return &GetProjectsProjectIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetProjectsProjectIDParams contains all the parameters to send to the API endpoint
-for the get projects project ID operation typically these are written to a http.Request
+/* GetProjectsProjectIDParams contains all the parameters to send to the API endpoint
+   for the get projects project ID operation.
+
+   Typically these are written to a http.Request.
 */
 type GetProjectsProjectIDParams struct {
 
-	/*ProjectID
-	  Project ID for filtering results.
+	/* ProjectID.
 
+	   Project ID for filtering results.
+
+	   Format: int64
 	*/
 	ProjectID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get projects project ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectsProjectIDParams) WithDefaults() *GetProjectsProjectIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get projects project ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectsProjectIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get projects project ID params

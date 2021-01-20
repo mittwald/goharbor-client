@@ -6,6 +6,7 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -63,7 +64,6 @@ func (m *RetentionRule) Validate(formats strfmt.Registry) error {
 }
 
 func (m *RetentionRule) validateScopeSelectors(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ScopeSelectors) { // not required
 		return nil
 	}
@@ -91,7 +91,6 @@ func (m *RetentionRule) validateScopeSelectors(formats strfmt.Registry) error {
 }
 
 func (m *RetentionRule) validateTagSelectors(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.TagSelectors) { // not required
 		return nil
 	}
@@ -103,6 +102,62 @@ func (m *RetentionRule) validateTagSelectors(formats strfmt.Registry) error {
 
 		if m.TagSelectors[i] != nil {
 			if err := m.TagSelectors[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("tag_selectors" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this retention rule based on the context it is used
+func (m *RetentionRule) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateScopeSelectors(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTagSelectors(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RetentionRule) contextValidateScopeSelectors(ctx context.Context, formats strfmt.Registry) error {
+
+	for k := range m.ScopeSelectors {
+
+		for i := 0; i < len(m.ScopeSelectors[k]); i++ {
+
+			if err := m.ScopeSelectors[k][i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("scope_selectors" + "." + k + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+
+		}
+
+	}
+
+	return nil
+}
+
+func (m *RetentionRule) contextValidateTagSelectors(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.TagSelectors); i++ {
+
+		if m.TagSelectors[i] != nil {
+			if err := m.TagSelectors[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("tag_selectors" + "." + strconv.Itoa(i))
 				}

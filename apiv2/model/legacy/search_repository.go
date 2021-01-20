@@ -6,6 +6,8 @@ package legacy
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -36,6 +38,11 @@ type SearchRepository struct {
 
 // Validate validates this search repository
 func (m *SearchRepository) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this search repository based on context it is used
+func (m *SearchRepository) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

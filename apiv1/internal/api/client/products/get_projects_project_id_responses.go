@@ -41,7 +41,6 @@ func (o *GetProjectsProjectIDReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -52,7 +51,7 @@ func NewGetProjectsProjectIDOK() *GetProjectsProjectIDOK {
 	return &GetProjectsProjectIDOK{}
 }
 
-/*GetProjectsProjectIDOK handles this case with default header values.
+/* GetProjectsProjectIDOK describes a response with status code 200, with default header values.
 
 Return matched project information.
 */
@@ -63,7 +62,6 @@ type GetProjectsProjectIDOK struct {
 func (o *GetProjectsProjectIDOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}][%d] getProjectsProjectIdOK  %+v", 200, o.Payload)
 }
-
 func (o *GetProjectsProjectIDOK) GetPayload() *model.Project {
 	return o.Payload
 }
@@ -85,7 +83,7 @@ func NewGetProjectsProjectIDUnauthorized() *GetProjectsProjectIDUnauthorized {
 	return &GetProjectsProjectIDUnauthorized{}
 }
 
-/*GetProjectsProjectIDUnauthorized handles this case with default header values.
+/* GetProjectsProjectIDUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -106,7 +104,7 @@ func NewGetProjectsProjectIDInternalServerError() *GetProjectsProjectIDInternalS
 	return &GetProjectsProjectIDInternalServerError{}
 }
 
-/*GetProjectsProjectIDInternalServerError handles this case with default header values.
+/* GetProjectsProjectIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal errors.
 */

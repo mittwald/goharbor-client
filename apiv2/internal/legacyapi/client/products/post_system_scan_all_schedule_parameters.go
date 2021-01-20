@@ -18,59 +18,73 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPostSystemScanAllScheduleParams creates a new PostSystemScanAllScheduleParams object
-// with the default values initialized.
+// NewPostSystemScanAllScheduleParams creates a new PostSystemScanAllScheduleParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostSystemScanAllScheduleParams() *PostSystemScanAllScheduleParams {
-	var ()
 	return &PostSystemScanAllScheduleParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostSystemScanAllScheduleParamsWithTimeout creates a new PostSystemScanAllScheduleParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostSystemScanAllScheduleParamsWithTimeout(timeout time.Duration) *PostSystemScanAllScheduleParams {
-	var ()
 	return &PostSystemScanAllScheduleParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostSystemScanAllScheduleParamsWithContext creates a new PostSystemScanAllScheduleParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostSystemScanAllScheduleParamsWithContext(ctx context.Context) *PostSystemScanAllScheduleParams {
-	var ()
 	return &PostSystemScanAllScheduleParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostSystemScanAllScheduleParamsWithHTTPClient creates a new PostSystemScanAllScheduleParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostSystemScanAllScheduleParamsWithHTTPClient(client *http.Client) *PostSystemScanAllScheduleParams {
-	var ()
 	return &PostSystemScanAllScheduleParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostSystemScanAllScheduleParams contains all the parameters to send to the API endpoint
-for the post system scan all schedule operation typically these are written to a http.Request
+/* PostSystemScanAllScheduleParams contains all the parameters to send to the API endpoint
+   for the post system scan all schedule operation.
+
+   Typically these are written to a http.Request.
 */
 type PostSystemScanAllScheduleParams struct {
 
-	/*Schedule
-	  Create a schedule or a manual trigger for the scan all job.
+	/* Schedule.
 
+	   Create a schedule or a manual trigger for the scan all job.
 	*/
 	Schedule *legacy.AdminJobSchedule
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post system scan all schedule params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostSystemScanAllScheduleParams) WithDefaults() *PostSystemScanAllScheduleParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post system scan all schedule params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostSystemScanAllScheduleParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post system scan all schedule params
@@ -124,7 +138,6 @@ func (o *PostSystemScanAllScheduleParams) WriteToRequest(r runtime.ClientRequest
 		return err
 	}
 	var res []error
-
 	if o.Schedule != nil {
 		if err := r.SetBodyParam(o.Schedule); err != nil {
 			return err

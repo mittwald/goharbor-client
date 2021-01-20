@@ -16,59 +16,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetScannersRegistrationIDParams creates a new GetScannersRegistrationIDParams object
-// with the default values initialized.
+// NewGetScannersRegistrationIDParams creates a new GetScannersRegistrationIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetScannersRegistrationIDParams() *GetScannersRegistrationIDParams {
-	var ()
 	return &GetScannersRegistrationIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetScannersRegistrationIDParamsWithTimeout creates a new GetScannersRegistrationIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetScannersRegistrationIDParamsWithTimeout(timeout time.Duration) *GetScannersRegistrationIDParams {
-	var ()
 	return &GetScannersRegistrationIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetScannersRegistrationIDParamsWithContext creates a new GetScannersRegistrationIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetScannersRegistrationIDParamsWithContext(ctx context.Context) *GetScannersRegistrationIDParams {
-	var ()
 	return &GetScannersRegistrationIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetScannersRegistrationIDParamsWithHTTPClient creates a new GetScannersRegistrationIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetScannersRegistrationIDParamsWithHTTPClient(client *http.Client) *GetScannersRegistrationIDParams {
-	var ()
 	return &GetScannersRegistrationIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetScannersRegistrationIDParams contains all the parameters to send to the API endpoint
-for the get scanners registration ID operation typically these are written to a http.Request
+/* GetScannersRegistrationIDParams contains all the parameters to send to the API endpoint
+   for the get scanners registration ID operation.
+
+   Typically these are written to a http.Request.
 */
 type GetScannersRegistrationIDParams struct {
 
-	/*RegistrationID
-	  The scanner registration identifer.
+	/* RegistrationID.
 
+	   The scanner registration identifer.
 	*/
 	RegistrationID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get scanners registration ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetScannersRegistrationIDParams) WithDefaults() *GetScannersRegistrationIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get scanners registration ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetScannersRegistrationIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get scanners registration ID params

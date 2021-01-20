@@ -18,59 +18,73 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPostRegistriesPingParams creates a new PostRegistriesPingParams object
-// with the default values initialized.
+// NewPostRegistriesPingParams creates a new PostRegistriesPingParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostRegistriesPingParams() *PostRegistriesPingParams {
-	var ()
 	return &PostRegistriesPingParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostRegistriesPingParamsWithTimeout creates a new PostRegistriesPingParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostRegistriesPingParamsWithTimeout(timeout time.Duration) *PostRegistriesPingParams {
-	var ()
 	return &PostRegistriesPingParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostRegistriesPingParamsWithContext creates a new PostRegistriesPingParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostRegistriesPingParamsWithContext(ctx context.Context) *PostRegistriesPingParams {
-	var ()
 	return &PostRegistriesPingParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostRegistriesPingParamsWithHTTPClient creates a new PostRegistriesPingParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostRegistriesPingParamsWithHTTPClient(client *http.Client) *PostRegistriesPingParams {
-	var ()
 	return &PostRegistriesPingParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostRegistriesPingParams contains all the parameters to send to the API endpoint
-for the post registries ping operation typically these are written to a http.Request
+/* PostRegistriesPingParams contains all the parameters to send to the API endpoint
+   for the post registries ping operation.
+
+   Typically these are written to a http.Request.
 */
 type PostRegistriesPingParams struct {
 
-	/*Registry
-	  Registry to ping.
+	/* Registry.
 
+	   Registry to ping.
 	*/
 	Registry *legacy.Registry
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post registries ping params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostRegistriesPingParams) WithDefaults() *PostRegistriesPingParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post registries ping params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostRegistriesPingParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post registries ping params
@@ -124,7 +138,6 @@ func (o *PostRegistriesPingParams) WriteToRequest(r runtime.ClientRequest, reg s
 		return err
 	}
 	var res []error
-
 	if o.Registry != nil {
 		if err := r.SetBodyParam(o.Registry); err != nil {
 			return err

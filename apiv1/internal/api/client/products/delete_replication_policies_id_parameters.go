@@ -17,59 +17,75 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteReplicationPoliciesIDParams creates a new DeleteReplicationPoliciesIDParams object
-// with the default values initialized.
+// NewDeleteReplicationPoliciesIDParams creates a new DeleteReplicationPoliciesIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteReplicationPoliciesIDParams() *DeleteReplicationPoliciesIDParams {
-	var ()
 	return &DeleteReplicationPoliciesIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteReplicationPoliciesIDParamsWithTimeout creates a new DeleteReplicationPoliciesIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteReplicationPoliciesIDParamsWithTimeout(timeout time.Duration) *DeleteReplicationPoliciesIDParams {
-	var ()
 	return &DeleteReplicationPoliciesIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteReplicationPoliciesIDParamsWithContext creates a new DeleteReplicationPoliciesIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteReplicationPoliciesIDParamsWithContext(ctx context.Context) *DeleteReplicationPoliciesIDParams {
-	var ()
 	return &DeleteReplicationPoliciesIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteReplicationPoliciesIDParamsWithHTTPClient creates a new DeleteReplicationPoliciesIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteReplicationPoliciesIDParamsWithHTTPClient(client *http.Client) *DeleteReplicationPoliciesIDParams {
-	var ()
 	return &DeleteReplicationPoliciesIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteReplicationPoliciesIDParams contains all the parameters to send to the API endpoint
-for the delete replication policies ID operation typically these are written to a http.Request
+/* DeleteReplicationPoliciesIDParams contains all the parameters to send to the API endpoint
+   for the delete replication policies ID operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteReplicationPoliciesIDParams struct {
 
-	/*ID
-	  Replication policy ID
+	/* ID.
 
+	   Replication policy ID
+
+	   Format: int64
 	*/
 	ID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete replication policies ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteReplicationPoliciesIDParams) WithDefaults() *DeleteReplicationPoliciesIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete replication policies ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteReplicationPoliciesIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete replication policies ID params

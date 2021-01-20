@@ -16,59 +16,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteScannersRegistrationIDParams creates a new DeleteScannersRegistrationIDParams object
-// with the default values initialized.
+// NewDeleteScannersRegistrationIDParams creates a new DeleteScannersRegistrationIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteScannersRegistrationIDParams() *DeleteScannersRegistrationIDParams {
-	var ()
 	return &DeleteScannersRegistrationIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteScannersRegistrationIDParamsWithTimeout creates a new DeleteScannersRegistrationIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteScannersRegistrationIDParamsWithTimeout(timeout time.Duration) *DeleteScannersRegistrationIDParams {
-	var ()
 	return &DeleteScannersRegistrationIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteScannersRegistrationIDParamsWithContext creates a new DeleteScannersRegistrationIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteScannersRegistrationIDParamsWithContext(ctx context.Context) *DeleteScannersRegistrationIDParams {
-	var ()
 	return &DeleteScannersRegistrationIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteScannersRegistrationIDParamsWithHTTPClient creates a new DeleteScannersRegistrationIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteScannersRegistrationIDParamsWithHTTPClient(client *http.Client) *DeleteScannersRegistrationIDParams {
-	var ()
 	return &DeleteScannersRegistrationIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteScannersRegistrationIDParams contains all the parameters to send to the API endpoint
-for the delete scanners registration ID operation typically these are written to a http.Request
+/* DeleteScannersRegistrationIDParams contains all the parameters to send to the API endpoint
+   for the delete scanners registration ID operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteScannersRegistrationIDParams struct {
 
-	/*RegistrationID
-	  The scanner registration identifier.
+	/* RegistrationID.
 
+	   The scanner registration identifier.
 	*/
 	RegistrationID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete scanners registration ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteScannersRegistrationIDParams) WithDefaults() *DeleteScannersRegistrationIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete scanners registration ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteScannersRegistrationIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete scanners registration ID params

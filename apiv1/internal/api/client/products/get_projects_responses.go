@@ -43,7 +43,6 @@ func (o *GetProjectsReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -54,15 +53,17 @@ func NewGetProjectsOK() *GetProjectsOK {
 	return &GetProjectsOK{}
 }
 
-/*GetProjectsOK handles this case with default header values.
+/* GetProjectsOK describes a response with status code 200, with default header values.
 
 Return all matched projects.
 */
 type GetProjectsOK struct {
-	/*Link refers to the previous page and next page
+
+	/* Link refers to the previous page and next page
 	 */
 	Link string
-	/*The total count of projects
+
+	/* The total count of projects
 	 */
 	XTotalCount int64
 
@@ -72,22 +73,29 @@ type GetProjectsOK struct {
 func (o *GetProjectsOK) Error() string {
 	return fmt.Sprintf("[GET /projects][%d] getProjectsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetProjectsOK) GetPayload() []*model.Project {
 	return o.Payload
 }
 
 func (o *GetProjectsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header Link
-	o.Link = response.GetHeader("Link")
+	// hydrates response header Link
+	hdrLink := response.GetHeader("Link")
 
-	// response header X-Total-Count
-	xTotalCount, err := swag.ConvertInt64(response.GetHeader("X-Total-Count"))
-	if err != nil {
-		return errors.InvalidType("X-Total-Count", "header", "int64", response.GetHeader("X-Total-Count"))
+	if hdrLink != "" {
+		o.Link = hdrLink
 	}
-	o.XTotalCount = xTotalCount
+
+	// hydrates response header X-Total-Count
+	hdrXTotalCount := response.GetHeader("X-Total-Count")
+
+	if hdrXTotalCount != "" {
+		valxTotalCount, err := swag.ConvertInt64(hdrXTotalCount)
+		if err != nil {
+			return errors.InvalidType("X-Total-Count", "header", "int64", hdrXTotalCount)
+		}
+		o.XTotalCount = valxTotalCount
+	}
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -102,7 +110,7 @@ func NewGetProjectsUnauthorized() *GetProjectsUnauthorized {
 	return &GetProjectsUnauthorized{}
 }
 
-/*GetProjectsUnauthorized handles this case with default header values.
+/* GetProjectsUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -123,7 +131,7 @@ func NewGetProjectsInternalServerError() *GetProjectsInternalServerError {
 	return &GetProjectsInternalServerError{}
 }
 
-/*GetProjectsInternalServerError handles this case with default header values.
+/* GetProjectsInternalServerError describes a response with status code 500, with default header values.
 
 Internal errors.
 */

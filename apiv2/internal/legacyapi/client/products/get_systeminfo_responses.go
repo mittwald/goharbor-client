@@ -35,7 +35,6 @@ func (o *GetSysteminfoReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -46,7 +45,7 @@ func NewGetSysteminfoOK() *GetSysteminfoOK {
 	return &GetSysteminfoOK{}
 }
 
-/*GetSysteminfoOK handles this case with default header values.
+/* GetSysteminfoOK describes a response with status code 200, with default header values.
 
 Get general info successfully.
 */
@@ -57,7 +56,6 @@ type GetSysteminfoOK struct {
 func (o *GetSysteminfoOK) Error() string {
 	return fmt.Sprintf("[GET /systeminfo][%d] getSysteminfoOK  %+v", 200, o.Payload)
 }
-
 func (o *GetSysteminfoOK) GetPayload() *legacy.GeneralInfo {
 	return o.Payload
 }
@@ -79,7 +77,7 @@ func NewGetSysteminfoInternalServerError() *GetSysteminfoInternalServerError {
 	return &GetSysteminfoInternalServerError{}
 }
 
-/*GetSysteminfoInternalServerError handles this case with default header values.
+/* GetSysteminfoInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal error.
 */

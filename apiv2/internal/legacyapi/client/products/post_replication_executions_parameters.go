@@ -18,59 +18,73 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPostReplicationExecutionsParams creates a new PostReplicationExecutionsParams object
-// with the default values initialized.
+// NewPostReplicationExecutionsParams creates a new PostReplicationExecutionsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostReplicationExecutionsParams() *PostReplicationExecutionsParams {
-	var ()
 	return &PostReplicationExecutionsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostReplicationExecutionsParamsWithTimeout creates a new PostReplicationExecutionsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostReplicationExecutionsParamsWithTimeout(timeout time.Duration) *PostReplicationExecutionsParams {
-	var ()
 	return &PostReplicationExecutionsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostReplicationExecutionsParamsWithContext creates a new PostReplicationExecutionsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostReplicationExecutionsParamsWithContext(ctx context.Context) *PostReplicationExecutionsParams {
-	var ()
 	return &PostReplicationExecutionsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostReplicationExecutionsParamsWithHTTPClient creates a new PostReplicationExecutionsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostReplicationExecutionsParamsWithHTTPClient(client *http.Client) *PostReplicationExecutionsParams {
-	var ()
 	return &PostReplicationExecutionsParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostReplicationExecutionsParams contains all the parameters to send to the API endpoint
-for the post replication executions operation typically these are written to a http.Request
+/* PostReplicationExecutionsParams contains all the parameters to send to the API endpoint
+   for the post replication executions operation.
+
+   Typically these are written to a http.Request.
 */
 type PostReplicationExecutionsParams struct {
 
-	/*Execution
-	  The execution that needs to be started, only the property "policy_id" is needed.
+	/* Execution.
 
+	   The execution that needs to be started, only the property "policy_id" is needed.
 	*/
 	Execution *legacy.ReplicationExecution
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post replication executions params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostReplicationExecutionsParams) WithDefaults() *PostReplicationExecutionsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post replication executions params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostReplicationExecutionsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post replication executions params
@@ -124,7 +138,6 @@ func (o *PostReplicationExecutionsParams) WriteToRequest(r runtime.ClientRequest
 		return err
 	}
 	var res []error
-
 	if o.Execution != nil {
 		if err := r.SetBodyParam(o.Execution); err != nil {
 			return err

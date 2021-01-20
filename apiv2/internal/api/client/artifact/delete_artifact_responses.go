@@ -53,7 +53,6 @@ func (o *DeleteArtifactReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -64,12 +63,13 @@ func NewDeleteArtifactOK() *DeleteArtifactOK {
 	return &DeleteArtifactOK{}
 }
 
-/*DeleteArtifactOK handles this case with default header values.
+/* DeleteArtifactOK describes a response with status code 200, with default header values.
 
 Success
 */
 type DeleteArtifactOK struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -80,8 +80,12 @@ func (o *DeleteArtifactOK) Error() string {
 
 func (o *DeleteArtifactOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	return nil
 }
@@ -91,12 +95,13 @@ func NewDeleteArtifactUnauthorized() *DeleteArtifactUnauthorized {
 	return &DeleteArtifactUnauthorized{}
 }
 
-/*DeleteArtifactUnauthorized handles this case with default header values.
+/* DeleteArtifactUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
 type DeleteArtifactUnauthorized struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -106,15 +111,18 @@ type DeleteArtifactUnauthorized struct {
 func (o *DeleteArtifactUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}][%d] deleteArtifactUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeleteArtifactUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteArtifactUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -131,12 +139,13 @@ func NewDeleteArtifactForbidden() *DeleteArtifactForbidden {
 	return &DeleteArtifactForbidden{}
 }
 
-/*DeleteArtifactForbidden handles this case with default header values.
+/* DeleteArtifactForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
 type DeleteArtifactForbidden struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -146,15 +155,18 @@ type DeleteArtifactForbidden struct {
 func (o *DeleteArtifactForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}][%d] deleteArtifactForbidden  %+v", 403, o.Payload)
 }
-
 func (o *DeleteArtifactForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteArtifactForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -171,12 +183,13 @@ func NewDeleteArtifactNotFound() *DeleteArtifactNotFound {
 	return &DeleteArtifactNotFound{}
 }
 
-/*DeleteArtifactNotFound handles this case with default header values.
+/* DeleteArtifactNotFound describes a response with status code 404, with default header values.
 
 Not found
 */
 type DeleteArtifactNotFound struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -186,15 +199,18 @@ type DeleteArtifactNotFound struct {
 func (o *DeleteArtifactNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}][%d] deleteArtifactNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteArtifactNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteArtifactNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -211,12 +227,13 @@ func NewDeleteArtifactInternalServerError() *DeleteArtifactInternalServerError {
 	return &DeleteArtifactInternalServerError{}
 }
 
-/*DeleteArtifactInternalServerError handles this case with default header values.
+/* DeleteArtifactInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error
 */
 type DeleteArtifactInternalServerError struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -226,15 +243,18 @@ type DeleteArtifactInternalServerError struct {
 func (o *DeleteArtifactInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}][%d] deleteArtifactInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteArtifactInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteArtifactInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 

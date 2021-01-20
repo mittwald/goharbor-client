@@ -17,61 +17,78 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewPostRetentionsIDExecutionsParams creates a new PostRetentionsIDExecutionsParams object
-// with the default values initialized.
+// NewPostRetentionsIDExecutionsParams creates a new PostRetentionsIDExecutionsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostRetentionsIDExecutionsParams() *PostRetentionsIDExecutionsParams {
-	var ()
 	return &PostRetentionsIDExecutionsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostRetentionsIDExecutionsParamsWithTimeout creates a new PostRetentionsIDExecutionsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostRetentionsIDExecutionsParamsWithTimeout(timeout time.Duration) *PostRetentionsIDExecutionsParams {
-	var ()
 	return &PostRetentionsIDExecutionsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostRetentionsIDExecutionsParamsWithContext creates a new PostRetentionsIDExecutionsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostRetentionsIDExecutionsParamsWithContext(ctx context.Context) *PostRetentionsIDExecutionsParams {
-	var ()
 	return &PostRetentionsIDExecutionsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostRetentionsIDExecutionsParamsWithHTTPClient creates a new PostRetentionsIDExecutionsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostRetentionsIDExecutionsParamsWithHTTPClient(client *http.Client) *PostRetentionsIDExecutionsParams {
-	var ()
 	return &PostRetentionsIDExecutionsParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostRetentionsIDExecutionsParams contains all the parameters to send to the API endpoint
-for the post retentions ID executions operation typically these are written to a http.Request
+/* PostRetentionsIDExecutionsParams contains all the parameters to send to the API endpoint
+   for the post retentions ID executions operation.
+
+   Typically these are written to a http.Request.
 */
 type PostRetentionsIDExecutionsParams struct {
 
-	/*Action*/
+	// Action.
 	Action PostRetentionsIDExecutionsBody
-	/*ID
-	  Retention ID.
 
+	/* ID.
+
+	   Retention ID.
+
+	   Format: int64
 	*/
 	ID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post retentions ID executions params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostRetentionsIDExecutionsParams) WithDefaults() *PostRetentionsIDExecutionsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post retentions ID executions params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostRetentionsIDExecutionsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post retentions ID executions params
@@ -136,7 +153,6 @@ func (o *PostRetentionsIDExecutionsParams) WriteToRequest(r runtime.ClientReques
 		return err
 	}
 	var res []error
-
 	if err := r.SetBodyParam(o.Action); err != nil {
 		return err
 	}

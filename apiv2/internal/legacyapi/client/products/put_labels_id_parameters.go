@@ -19,64 +19,81 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPutLabelsIDParams creates a new PutLabelsIDParams object
-// with the default values initialized.
+// NewPutLabelsIDParams creates a new PutLabelsIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPutLabelsIDParams() *PutLabelsIDParams {
-	var ()
 	return &PutLabelsIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutLabelsIDParamsWithTimeout creates a new PutLabelsIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPutLabelsIDParamsWithTimeout(timeout time.Duration) *PutLabelsIDParams {
-	var ()
 	return &PutLabelsIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPutLabelsIDParamsWithContext creates a new PutLabelsIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPutLabelsIDParamsWithContext(ctx context.Context) *PutLabelsIDParams {
-	var ()
 	return &PutLabelsIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPutLabelsIDParamsWithHTTPClient creates a new PutLabelsIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPutLabelsIDParamsWithHTTPClient(client *http.Client) *PutLabelsIDParams {
-	var ()
 	return &PutLabelsIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*PutLabelsIDParams contains all the parameters to send to the API endpoint
-for the put labels ID operation typically these are written to a http.Request
+/* PutLabelsIDParams contains all the parameters to send to the API endpoint
+   for the put labels ID operation.
+
+   Typically these are written to a http.Request.
 */
 type PutLabelsIDParams struct {
 
-	/*ID
-	  Label ID
+	/* ID.
 
+	   Label ID
+
+	   Format: int64
 	*/
 	ID int64
-	/*Label
-	  The updated label json object.
 
+	/* Label.
+
+	   The updated label json object.
 	*/
 	Label *legacy.Label
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the put labels ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutLabelsIDParams) WithDefaults() *PutLabelsIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the put labels ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutLabelsIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put labels ID params
@@ -146,7 +163,6 @@ func (o *PutLabelsIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
 		return err
 	}
-
 	if o.Label != nil {
 		if err := r.SetBodyParam(o.Label); err != nil {
 			return err

@@ -56,7 +56,6 @@ func (o *PutUsersUserIDSysadminReader) ReadResponse(response runtime.ClientRespo
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -67,7 +66,7 @@ func NewPutUsersUserIDSysadminOK() *PutUsersUserIDSysadminOK {
 	return &PutUsersUserIDSysadminOK{}
 }
 
-/*PutUsersUserIDSysadminOK handles this case with default header values.
+/* PutUsersUserIDSysadminOK describes a response with status code 200, with default header values.
 
 Updated user's admin role successfully.
 */
@@ -88,7 +87,7 @@ func NewPutUsersUserIDSysadminBadRequest() *PutUsersUserIDSysadminBadRequest {
 	return &PutUsersUserIDSysadminBadRequest{}
 }
 
-/*PutUsersUserIDSysadminBadRequest handles this case with default header values.
+/* PutUsersUserIDSysadminBadRequest describes a response with status code 400, with default header values.
 
 Invalid user ID.
 */
@@ -109,7 +108,7 @@ func NewPutUsersUserIDSysadminUnauthorized() *PutUsersUserIDSysadminUnauthorized
 	return &PutUsersUserIDSysadminUnauthorized{}
 }
 
-/*PutUsersUserIDSysadminUnauthorized handles this case with default header values.
+/* PutUsersUserIDSysadminUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -130,7 +129,7 @@ func NewPutUsersUserIDSysadminForbidden() *PutUsersUserIDSysadminForbidden {
 	return &PutUsersUserIDSysadminForbidden{}
 }
 
-/*PutUsersUserIDSysadminForbidden handles this case with default header values.
+/* PutUsersUserIDSysadminForbidden describes a response with status code 403, with default header values.
 
 User does not have permission of admin role.
 */
@@ -151,7 +150,7 @@ func NewPutUsersUserIDSysadminNotFound() *PutUsersUserIDSysadminNotFound {
 	return &PutUsersUserIDSysadminNotFound{}
 }
 
-/*PutUsersUserIDSysadminNotFound handles this case with default header values.
+/* PutUsersUserIDSysadminNotFound describes a response with status code 404, with default header values.
 
 User ID does not exist.
 */
@@ -172,7 +171,7 @@ func NewPutUsersUserIDSysadminInternalServerError() *PutUsersUserIDSysadminInter
 	return &PutUsersUserIDSysadminInternalServerError{}
 }
 
-/*PutUsersUserIDSysadminInternalServerError handles this case with default header values.
+/* PutUsersUserIDSysadminInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

@@ -44,7 +44,6 @@ func (o *PutSystemCVEAllowlistReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -55,7 +54,7 @@ func NewPutSystemCVEAllowlistOK() *PutSystemCVEAllowlistOK {
 	return &PutSystemCVEAllowlistOK{}
 }
 
-/*PutSystemCVEAllowlistOK handles this case with default header values.
+/* PutSystemCVEAllowlistOK describes a response with status code 200, with default header values.
 
 Successfully updated the CVE allowlist.
 */
@@ -76,7 +75,7 @@ func NewPutSystemCVEAllowlistUnauthorized() *PutSystemCVEAllowlistUnauthorized {
 	return &PutSystemCVEAllowlistUnauthorized{}
 }
 
-/*PutSystemCVEAllowlistUnauthorized handles this case with default header values.
+/* PutSystemCVEAllowlistUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated.
 */
@@ -97,7 +96,7 @@ func NewPutSystemCVEAllowlistForbidden() *PutSystemCVEAllowlistForbidden {
 	return &PutSystemCVEAllowlistForbidden{}
 }
 
-/*PutSystemCVEAllowlistForbidden handles this case with default header values.
+/* PutSystemCVEAllowlistForbidden describes a response with status code 403, with default header values.
 
 User does not have permission to call this API.
 */
@@ -118,7 +117,7 @@ func NewPutSystemCVEAllowlistInternalServerError() *PutSystemCVEAllowlistInterna
 	return &PutSystemCVEAllowlistInternalServerError{}
 }
 
-/*PutSystemCVEAllowlistInternalServerError handles this case with default header values.
+/* PutSystemCVEAllowlistInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

@@ -19,61 +19,78 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPutUsergroupsGroupIDParams creates a new PutUsergroupsGroupIDParams object
-// with the default values initialized.
+// NewPutUsergroupsGroupIDParams creates a new PutUsergroupsGroupIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPutUsergroupsGroupIDParams() *PutUsergroupsGroupIDParams {
-	var ()
 	return &PutUsergroupsGroupIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutUsergroupsGroupIDParamsWithTimeout creates a new PutUsergroupsGroupIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPutUsergroupsGroupIDParamsWithTimeout(timeout time.Duration) *PutUsergroupsGroupIDParams {
-	var ()
 	return &PutUsergroupsGroupIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPutUsergroupsGroupIDParamsWithContext creates a new PutUsergroupsGroupIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPutUsergroupsGroupIDParamsWithContext(ctx context.Context) *PutUsergroupsGroupIDParams {
-	var ()
 	return &PutUsergroupsGroupIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPutUsergroupsGroupIDParamsWithHTTPClient creates a new PutUsergroupsGroupIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPutUsergroupsGroupIDParamsWithHTTPClient(client *http.Client) *PutUsergroupsGroupIDParams {
-	var ()
 	return &PutUsergroupsGroupIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*PutUsergroupsGroupIDParams contains all the parameters to send to the API endpoint
-for the put usergroups group ID operation typically these are written to a http.Request
+/* PutUsergroupsGroupIDParams contains all the parameters to send to the API endpoint
+   for the put usergroups group ID operation.
+
+   Typically these are written to a http.Request.
 */
 type PutUsergroupsGroupIDParams struct {
 
-	/*GroupID
-	  Group ID
+	/* GroupID.
 
+	   Group ID
+
+	   Format: int64
 	*/
 	GroupID int64
-	/*Usergroup*/
+
+	// Usergroup.
 	Usergroup *legacy.UserGroup
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the put usergroups group ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutUsergroupsGroupIDParams) WithDefaults() *PutUsergroupsGroupIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the put usergroups group ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutUsergroupsGroupIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put usergroups group ID params
@@ -143,7 +160,6 @@ func (o *PutUsergroupsGroupIDParams) WriteToRequest(r runtime.ClientRequest, reg
 	if err := r.SetPathParam("group_id", swag.FormatInt64(o.GroupID)); err != nil {
 		return err
 	}
-
 	if o.Usergroup != nil {
 		if err := r.SetBodyParam(o.Usergroup); err != nil {
 			return err

@@ -17,69 +17,89 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetUsersSearchParams creates a new GetUsersSearchParams object
-// with the default values initialized.
+// NewGetUsersSearchParams creates a new GetUsersSearchParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetUsersSearchParams() *GetUsersSearchParams {
-	var ()
 	return &GetUsersSearchParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetUsersSearchParamsWithTimeout creates a new GetUsersSearchParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetUsersSearchParamsWithTimeout(timeout time.Duration) *GetUsersSearchParams {
-	var ()
 	return &GetUsersSearchParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetUsersSearchParamsWithContext creates a new GetUsersSearchParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetUsersSearchParamsWithContext(ctx context.Context) *GetUsersSearchParams {
-	var ()
 	return &GetUsersSearchParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetUsersSearchParamsWithHTTPClient creates a new GetUsersSearchParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetUsersSearchParamsWithHTTPClient(client *http.Client) *GetUsersSearchParams {
-	var ()
 	return &GetUsersSearchParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetUsersSearchParams contains all the parameters to send to the API endpoint
-for the get users search operation typically these are written to a http.Request
+/* GetUsersSearchParams contains all the parameters to send to the API endpoint
+   for the get users search operation.
+
+   Typically these are written to a http.Request.
 */
 type GetUsersSearchParams struct {
 
-	/*Page
-	  The page number, default is 1.
+	/* Page.
 
+	   The page number, default is 1.
+
+	   Format: int32
 	*/
 	Page *int32
-	/*PageSize
-	  The size of per page.
 
+	/* PageSize.
+
+	   The size of per page.
+
+	   Format: int32
 	*/
 	PageSize *int32
-	/*Username
-	  Username for filtering results.
 
+	/* Username.
+
+	   Username for filtering results.
 	*/
 	Username string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get users search params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetUsersSearchParams) WithDefaults() *GetUsersSearchParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get users search params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetUsersSearchParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get users search params
@@ -160,38 +180,41 @@ func (o *GetUsersSearchParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 
 		// query param page
 		var qrPage int32
+
 		if o.Page != nil {
 			qrPage = *o.Page
 		}
 		qPage := swag.FormatInt32(qrPage)
 		if qPage != "" {
+
 			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.PageSize != nil {
 
 		// query param page_size
 		var qrPageSize int32
+
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt32(qrPageSize)
 		if qPageSize != "" {
+
 			if err := r.SetQueryParam("page_size", qPageSize); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// query param username
 	qrUsername := o.Username
 	qUsername := qrUsername
 	if qUsername != "" {
+
 		if err := r.SetQueryParam("username", qUsername); err != nil {
 			return err
 		}

@@ -18,69 +18,85 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model"
 )
 
-// NewUpdateInstanceParams creates a new UpdateInstanceParams object
-// with the default values initialized.
+// NewUpdateInstanceParams creates a new UpdateInstanceParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateInstanceParams() *UpdateInstanceParams {
-	var ()
 	return &UpdateInstanceParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateInstanceParamsWithTimeout creates a new UpdateInstanceParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateInstanceParamsWithTimeout(timeout time.Duration) *UpdateInstanceParams {
-	var ()
 	return &UpdateInstanceParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateInstanceParamsWithContext creates a new UpdateInstanceParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateInstanceParamsWithContext(ctx context.Context) *UpdateInstanceParams {
-	var ()
 	return &UpdateInstanceParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateInstanceParamsWithHTTPClient creates a new UpdateInstanceParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateInstanceParamsWithHTTPClient(client *http.Client) *UpdateInstanceParams {
-	var ()
 	return &UpdateInstanceParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateInstanceParams contains all the parameters to send to the API endpoint
-for the update instance operation typically these are written to a http.Request
+/* UpdateInstanceParams contains all the parameters to send to the API endpoint
+   for the update instance operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateInstanceParams struct {
 
-	/*XRequestID
-	  An unique ID for the request
+	/* XRequestID.
 
+	   An unique ID for the request
 	*/
 	XRequestID *string
-	/*Instance
-	  The instance to update
 
+	/* Instance.
+
+	   The instance to update
 	*/
 	Instance *model.Instance
-	/*PreheatInstanceName
-	  Instance Name
 
+	/* PreheatInstanceName.
+
+	   Instance Name
 	*/
 	PreheatInstanceName string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update instance params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateInstanceParams) WithDefaults() *UpdateInstanceParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update instance params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateInstanceParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update instance params
@@ -163,9 +179,7 @@ func (o *UpdateInstanceParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
-
 	}
-
 	if o.Instance != nil {
 		if err := r.SetBodyParam(o.Instance); err != nil {
 			return err

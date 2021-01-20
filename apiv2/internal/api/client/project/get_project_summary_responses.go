@@ -59,7 +59,6 @@ func (o *GetProjectSummaryReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -70,7 +69,7 @@ func NewGetProjectSummaryOK() *GetProjectSummaryOK {
 	return &GetProjectSummaryOK{}
 }
 
-/*GetProjectSummaryOK handles this case with default header values.
+/* GetProjectSummaryOK describes a response with status code 200, with default header values.
 
 Get summary of the project successfully.
 */
@@ -81,7 +80,6 @@ type GetProjectSummaryOK struct {
 func (o *GetProjectSummaryOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}/summary][%d] getProjectSummaryOK  %+v", 200, o.Payload)
 }
-
 func (o *GetProjectSummaryOK) GetPayload() *model.ProjectSummary {
 	return o.Payload
 }
@@ -103,12 +101,13 @@ func NewGetProjectSummaryBadRequest() *GetProjectSummaryBadRequest {
 	return &GetProjectSummaryBadRequest{}
 }
 
-/*GetProjectSummaryBadRequest handles this case with default header values.
+/* GetProjectSummaryBadRequest describes a response with status code 400, with default header values.
 
 Bad request
 */
 type GetProjectSummaryBadRequest struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -118,15 +117,18 @@ type GetProjectSummaryBadRequest struct {
 func (o *GetProjectSummaryBadRequest) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}/summary][%d] getProjectSummaryBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetProjectSummaryBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetProjectSummaryBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -143,12 +145,13 @@ func NewGetProjectSummaryUnauthorized() *GetProjectSummaryUnauthorized {
 	return &GetProjectSummaryUnauthorized{}
 }
 
-/*GetProjectSummaryUnauthorized handles this case with default header values.
+/* GetProjectSummaryUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
 type GetProjectSummaryUnauthorized struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -158,15 +161,18 @@ type GetProjectSummaryUnauthorized struct {
 func (o *GetProjectSummaryUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}/summary][%d] getProjectSummaryUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetProjectSummaryUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetProjectSummaryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -183,12 +189,13 @@ func NewGetProjectSummaryForbidden() *GetProjectSummaryForbidden {
 	return &GetProjectSummaryForbidden{}
 }
 
-/*GetProjectSummaryForbidden handles this case with default header values.
+/* GetProjectSummaryForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
 type GetProjectSummaryForbidden struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -198,15 +205,18 @@ type GetProjectSummaryForbidden struct {
 func (o *GetProjectSummaryForbidden) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}/summary][%d] getProjectSummaryForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetProjectSummaryForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetProjectSummaryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -223,12 +233,13 @@ func NewGetProjectSummaryNotFound() *GetProjectSummaryNotFound {
 	return &GetProjectSummaryNotFound{}
 }
 
-/*GetProjectSummaryNotFound handles this case with default header values.
+/* GetProjectSummaryNotFound describes a response with status code 404, with default header values.
 
 Not found
 */
 type GetProjectSummaryNotFound struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -238,15 +249,18 @@ type GetProjectSummaryNotFound struct {
 func (o *GetProjectSummaryNotFound) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}/summary][%d] getProjectSummaryNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetProjectSummaryNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetProjectSummaryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -263,12 +277,13 @@ func NewGetProjectSummaryInternalServerError() *GetProjectSummaryInternalServerE
 	return &GetProjectSummaryInternalServerError{}
 }
 
-/*GetProjectSummaryInternalServerError handles this case with default header values.
+/* GetProjectSummaryInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error
 */
 type GetProjectSummaryInternalServerError struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -278,15 +293,18 @@ type GetProjectSummaryInternalServerError struct {
 func (o *GetProjectSummaryInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}/summary][%d] getProjectSummaryInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetProjectSummaryInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetProjectSummaryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 

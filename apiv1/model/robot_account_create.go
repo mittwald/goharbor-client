@@ -6,6 +6,7 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -43,7 +44,6 @@ func (m *RobotAccountCreate) Validate(formats strfmt.Registry) error {
 }
 
 func (m *RobotAccountCreate) validateAccess(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Access) { // not required
 		return nil
 	}
@@ -55,6 +55,38 @@ func (m *RobotAccountCreate) validateAccess(formats strfmt.Registry) error {
 
 		if m.Access[i] != nil {
 			if err := m.Access[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("access" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this robot account create based on the context it is used
+func (m *RobotAccountCreate) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAccess(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RobotAccountCreate) contextValidateAccess(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Access); i++ {
+
+		if m.Access[i] != nil {
+			if err := m.Access[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("access" + "." + strconv.Itoa(i))
 				}

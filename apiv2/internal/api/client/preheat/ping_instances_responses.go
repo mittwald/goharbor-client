@@ -53,7 +53,6 @@ func (o *PingInstancesReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -64,12 +63,13 @@ func NewPingInstancesOK() *PingInstancesOK {
 	return &PingInstancesOK{}
 }
 
-/*PingInstancesOK handles this case with default header values.
+/* PingInstancesOK describes a response with status code 200, with default header values.
 
 Success
 */
 type PingInstancesOK struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -80,8 +80,12 @@ func (o *PingInstancesOK) Error() string {
 
 func (o *PingInstancesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	return nil
 }
@@ -91,12 +95,13 @@ func NewPingInstancesBadRequest() *PingInstancesBadRequest {
 	return &PingInstancesBadRequest{}
 }
 
-/*PingInstancesBadRequest handles this case with default header values.
+/* PingInstancesBadRequest describes a response with status code 400, with default header values.
 
 Bad request
 */
 type PingInstancesBadRequest struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -106,15 +111,18 @@ type PingInstancesBadRequest struct {
 func (o *PingInstancesBadRequest) Error() string {
 	return fmt.Sprintf("[POST /p2p/preheat/instances/ping][%d] pingInstancesBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PingInstancesBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *PingInstancesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -131,12 +139,13 @@ func NewPingInstancesUnauthorized() *PingInstancesUnauthorized {
 	return &PingInstancesUnauthorized{}
 }
 
-/*PingInstancesUnauthorized handles this case with default header values.
+/* PingInstancesUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
 type PingInstancesUnauthorized struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -146,15 +155,18 @@ type PingInstancesUnauthorized struct {
 func (o *PingInstancesUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /p2p/preheat/instances/ping][%d] pingInstancesUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PingInstancesUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *PingInstancesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -171,7 +183,7 @@ func NewPingInstancesNotFound() *PingInstancesNotFound {
 	return &PingInstancesNotFound{}
 }
 
-/*PingInstancesNotFound handles this case with default header values.
+/* PingInstancesNotFound describes a response with status code 404, with default header values.
 
 Instance not found (when instance is provided by ID).
 */
@@ -192,12 +204,13 @@ func NewPingInstancesInternalServerError() *PingInstancesInternalServerError {
 	return &PingInstancesInternalServerError{}
 }
 
-/*PingInstancesInternalServerError handles this case with default header values.
+/* PingInstancesInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error
 */
 type PingInstancesInternalServerError struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -207,15 +220,18 @@ type PingInstancesInternalServerError struct {
 func (o *PingInstancesInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /p2p/preheat/instances/ping][%d] pingInstancesInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PingInstancesInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *PingInstancesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 

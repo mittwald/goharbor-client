@@ -17,79 +17,97 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetReplicationExecutionsParams creates a new GetReplicationExecutionsParams object
-// with the default values initialized.
+// NewGetReplicationExecutionsParams creates a new GetReplicationExecutionsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetReplicationExecutionsParams() *GetReplicationExecutionsParams {
-	var ()
 	return &GetReplicationExecutionsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetReplicationExecutionsParamsWithTimeout creates a new GetReplicationExecutionsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetReplicationExecutionsParamsWithTimeout(timeout time.Duration) *GetReplicationExecutionsParams {
-	var ()
 	return &GetReplicationExecutionsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetReplicationExecutionsParamsWithContext creates a new GetReplicationExecutionsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetReplicationExecutionsParamsWithContext(ctx context.Context) *GetReplicationExecutionsParams {
-	var ()
 	return &GetReplicationExecutionsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetReplicationExecutionsParamsWithHTTPClient creates a new GetReplicationExecutionsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetReplicationExecutionsParamsWithHTTPClient(client *http.Client) *GetReplicationExecutionsParams {
-	var ()
 	return &GetReplicationExecutionsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetReplicationExecutionsParams contains all the parameters to send to the API endpoint
-for the get replication executions operation typically these are written to a http.Request
+/* GetReplicationExecutionsParams contains all the parameters to send to the API endpoint
+   for the get replication executions operation.
+
+   Typically these are written to a http.Request.
 */
 type GetReplicationExecutionsParams struct {
 
-	/*Page
-	  The page.
+	/* Page.
 
+	   The page.
 	*/
 	Page *int64
-	/*PageSize
-	  The page size.
 
+	/* PageSize.
+
+	   The page size.
 	*/
 	PageSize *int64
-	/*PolicyID
-	  The policy ID.
 
+	/* PolicyID.
+
+	   The policy ID.
 	*/
 	PolicyID *int64
-	/*Status
-	  The execution status.
 
+	/* Status.
+
+	   The execution status.
 	*/
 	Status *string
-	/*Trigger
-	  The trigger mode.
 
+	/* Trigger.
+
+	   The trigger mode.
 	*/
 	Trigger *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get replication executions params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetReplicationExecutionsParams) WithDefaults() *GetReplicationExecutionsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get replication executions params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetReplicationExecutionsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get replication executions params
@@ -192,80 +210,85 @@ func (o *GetReplicationExecutionsParams) WriteToRequest(r runtime.ClientRequest,
 
 		// query param page
 		var qrPage int64
+
 		if o.Page != nil {
 			qrPage = *o.Page
 		}
 		qPage := swag.FormatInt64(qrPage)
 		if qPage != "" {
+
 			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.PageSize != nil {
 
 		// query param page_size
 		var qrPageSize int64
+
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt64(qrPageSize)
 		if qPageSize != "" {
+
 			if err := r.SetQueryParam("page_size", qPageSize); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.PolicyID != nil {
 
 		// query param policy_id
 		var qrPolicyID int64
+
 		if o.PolicyID != nil {
 			qrPolicyID = *o.PolicyID
 		}
 		qPolicyID := swag.FormatInt64(qrPolicyID)
 		if qPolicyID != "" {
+
 			if err := r.SetQueryParam("policy_id", qPolicyID); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Status != nil {
 
 		// query param status
 		var qrStatus string
+
 		if o.Status != nil {
 			qrStatus = *o.Status
 		}
 		qStatus := qrStatus
 		if qStatus != "" {
+
 			if err := r.SetQueryParam("status", qStatus); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Trigger != nil {
 
 		// query param trigger
 		var qrTrigger string
+
 		if o.Trigger != nil {
 			qrTrigger = *o.Trigger
 		}
 		qTrigger := qrTrigger
 		if qTrigger != "" {
+
 			if err := r.SetQueryParam("trigger", qTrigger); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

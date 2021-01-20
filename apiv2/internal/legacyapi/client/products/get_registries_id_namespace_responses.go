@@ -53,7 +53,6 @@ func (o *GetRegistriesIDNamespaceReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -64,7 +63,7 @@ func NewGetRegistriesIDNamespaceOK() *GetRegistriesIDNamespaceOK {
 	return &GetRegistriesIDNamespaceOK{}
 }
 
-/*GetRegistriesIDNamespaceOK handles this case with default header values.
+/* GetRegistriesIDNamespaceOK describes a response with status code 200, with default header values.
 
 Success
 */
@@ -75,7 +74,6 @@ type GetRegistriesIDNamespaceOK struct {
 func (o *GetRegistriesIDNamespaceOK) Error() string {
 	return fmt.Sprintf("[GET /registries/{id}/namespace][%d] getRegistriesIdNamespaceOK  %+v", 200, o.Payload)
 }
-
 func (o *GetRegistriesIDNamespaceOK) GetPayload() []*legacy.Namespace {
 	return o.Payload
 }
@@ -95,7 +93,7 @@ func NewGetRegistriesIDNamespaceUnauthorized() *GetRegistriesIDNamespaceUnauthor
 	return &GetRegistriesIDNamespaceUnauthorized{}
 }
 
-/*GetRegistriesIDNamespaceUnauthorized handles this case with default header values.
+/* GetRegistriesIDNamespaceUnauthorized describes a response with status code 401, with default header values.
 
 User need to login first.
 */
@@ -116,7 +114,7 @@ func NewGetRegistriesIDNamespaceForbidden() *GetRegistriesIDNamespaceForbidden {
 	return &GetRegistriesIDNamespaceForbidden{}
 }
 
-/*GetRegistriesIDNamespaceForbidden handles this case with default header values.
+/* GetRegistriesIDNamespaceForbidden describes a response with status code 403, with default header values.
 
 User has no privilege for the operation.
 */
@@ -137,7 +135,7 @@ func NewGetRegistriesIDNamespaceNotFound() *GetRegistriesIDNamespaceNotFound {
 	return &GetRegistriesIDNamespaceNotFound{}
 }
 
-/*GetRegistriesIDNamespaceNotFound handles this case with default header values.
+/* GetRegistriesIDNamespaceNotFound describes a response with status code 404, with default header values.
 
 No registry found.
 */
@@ -158,7 +156,7 @@ func NewGetRegistriesIDNamespaceInternalServerError() *GetRegistriesIDNamespaceI
 	return &GetRegistriesIDNamespaceInternalServerError{}
 }
 
-/*GetRegistriesIDNamespaceInternalServerError handles this case with default header values.
+/* GetRegistriesIDNamespaceInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

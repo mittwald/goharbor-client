@@ -47,7 +47,6 @@ func (o *GetSysteminfoVolumesReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -58,7 +57,7 @@ func NewGetSysteminfoVolumesOK() *GetSysteminfoVolumesOK {
 	return &GetSysteminfoVolumesOK{}
 }
 
-/*GetSysteminfoVolumesOK handles this case with default header values.
+/* GetSysteminfoVolumesOK describes a response with status code 200, with default header values.
 
 Get system volumes successfully.
 */
@@ -69,7 +68,6 @@ type GetSysteminfoVolumesOK struct {
 func (o *GetSysteminfoVolumesOK) Error() string {
 	return fmt.Sprintf("[GET /systeminfo/volumes][%d] getSysteminfoVolumesOK  %+v", 200, o.Payload)
 }
-
 func (o *GetSysteminfoVolumesOK) GetPayload() *legacy.SystemInfo {
 	return o.Payload
 }
@@ -91,7 +89,7 @@ func NewGetSysteminfoVolumesUnauthorized() *GetSysteminfoVolumesUnauthorized {
 	return &GetSysteminfoVolumesUnauthorized{}
 }
 
-/*GetSysteminfoVolumesUnauthorized handles this case with default header values.
+/* GetSysteminfoVolumesUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -112,7 +110,7 @@ func NewGetSysteminfoVolumesForbidden() *GetSysteminfoVolumesForbidden {
 	return &GetSysteminfoVolumesForbidden{}
 }
 
-/*GetSysteminfoVolumesForbidden handles this case with default header values.
+/* GetSysteminfoVolumesForbidden describes a response with status code 403, with default header values.
 
 User does not have permission of admin role.
 */
@@ -133,7 +131,7 @@ func NewGetSysteminfoVolumesInternalServerError() *GetSysteminfoVolumesInternalS
 	return &GetSysteminfoVolumesInternalServerError{}
 }
 
-/*GetSysteminfoVolumesInternalServerError handles this case with default header values.
+/* GetSysteminfoVolumesInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

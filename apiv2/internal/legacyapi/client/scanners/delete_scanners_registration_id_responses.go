@@ -53,7 +53,6 @@ func (o *DeleteScannersRegistrationIDReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -64,7 +63,7 @@ func NewDeleteScannersRegistrationIDOK() *DeleteScannersRegistrationIDOK {
 	return &DeleteScannersRegistrationIDOK{}
 }
 
-/*DeleteScannersRegistrationIDOK handles this case with default header values.
+/* DeleteScannersRegistrationIDOK describes a response with status code 200, with default header values.
 
 Deleted successfully and return the deleted registration
 */
@@ -75,7 +74,6 @@ type DeleteScannersRegistrationIDOK struct {
 func (o *DeleteScannersRegistrationIDOK) Error() string {
 	return fmt.Sprintf("[DELETE /scanners/{registration_id}][%d] deleteScannersRegistrationIdOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteScannersRegistrationIDOK) GetPayload() *legacy.ScannerRegistration {
 	return o.Payload
 }
@@ -97,7 +95,7 @@ func NewDeleteScannersRegistrationIDUnauthorized() *DeleteScannersRegistrationID
 	return &DeleteScannersRegistrationIDUnauthorized{}
 }
 
-/*DeleteScannersRegistrationIDUnauthorized handles this case with default header values.
+/* DeleteScannersRegistrationIDUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized request
 */
@@ -118,7 +116,7 @@ func NewDeleteScannersRegistrationIDForbidden() *DeleteScannersRegistrationIDFor
 	return &DeleteScannersRegistrationIDForbidden{}
 }
 
-/*DeleteScannersRegistrationIDForbidden handles this case with default header values.
+/* DeleteScannersRegistrationIDForbidden describes a response with status code 403, with default header values.
 
 Request is not allowed, system role required or registration is immutable
 */
@@ -139,7 +137,7 @@ func NewDeleteScannersRegistrationIDNotFound() *DeleteScannersRegistrationIDNotF
 	return &DeleteScannersRegistrationIDNotFound{}
 }
 
-/*DeleteScannersRegistrationIDNotFound handles this case with default header values.
+/* DeleteScannersRegistrationIDNotFound describes a response with status code 404, with default header values.
 
 The requested object is not found
 */
@@ -160,7 +158,7 @@ func NewDeleteScannersRegistrationIDInternalServerError() *DeleteScannersRegistr
 	return &DeleteScannersRegistrationIDInternalServerError{}
 }
 
-/*DeleteScannersRegistrationIDInternalServerError handles this case with default header values.
+/* DeleteScannersRegistrationIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error happened
 */

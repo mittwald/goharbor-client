@@ -17,59 +17,75 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetProjectsProjectIDScannerCandidatesParams creates a new GetProjectsProjectIDScannerCandidatesParams object
-// with the default values initialized.
+// NewGetProjectsProjectIDScannerCandidatesParams creates a new GetProjectsProjectIDScannerCandidatesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetProjectsProjectIDScannerCandidatesParams() *GetProjectsProjectIDScannerCandidatesParams {
-	var ()
 	return &GetProjectsProjectIDScannerCandidatesParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetProjectsProjectIDScannerCandidatesParamsWithTimeout creates a new GetProjectsProjectIDScannerCandidatesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetProjectsProjectIDScannerCandidatesParamsWithTimeout(timeout time.Duration) *GetProjectsProjectIDScannerCandidatesParams {
-	var ()
 	return &GetProjectsProjectIDScannerCandidatesParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetProjectsProjectIDScannerCandidatesParamsWithContext creates a new GetProjectsProjectIDScannerCandidatesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetProjectsProjectIDScannerCandidatesParamsWithContext(ctx context.Context) *GetProjectsProjectIDScannerCandidatesParams {
-	var ()
 	return &GetProjectsProjectIDScannerCandidatesParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetProjectsProjectIDScannerCandidatesParamsWithHTTPClient creates a new GetProjectsProjectIDScannerCandidatesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetProjectsProjectIDScannerCandidatesParamsWithHTTPClient(client *http.Client) *GetProjectsProjectIDScannerCandidatesParams {
-	var ()
 	return &GetProjectsProjectIDScannerCandidatesParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetProjectsProjectIDScannerCandidatesParams contains all the parameters to send to the API endpoint
-for the get projects project ID scanner candidates operation typically these are written to a http.Request
+/* GetProjectsProjectIDScannerCandidatesParams contains all the parameters to send to the API endpoint
+   for the get projects project ID scanner candidates operation.
+
+   Typically these are written to a http.Request.
 */
 type GetProjectsProjectIDScannerCandidatesParams struct {
 
-	/*ProjectID
-	  The project identifier.
+	/* ProjectID.
 
+	   The project identifier.
+
+	   Format: int64
 	*/
 	ProjectID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get projects project ID scanner candidates params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectsProjectIDScannerCandidatesParams) WithDefaults() *GetProjectsProjectIDScannerCandidatesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get projects project ID scanner candidates params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectsProjectIDScannerCandidatesParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get projects project ID scanner candidates params

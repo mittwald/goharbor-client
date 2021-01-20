@@ -47,7 +47,6 @@ func (o *GetReplicationExecutionsReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -58,7 +57,7 @@ func NewGetReplicationExecutionsOK() *GetReplicationExecutionsOK {
 	return &GetReplicationExecutionsOK{}
 }
 
-/*GetReplicationExecutionsOK handles this case with default header values.
+/* GetReplicationExecutionsOK describes a response with status code 200, with default header values.
 
 Success
 */
@@ -69,7 +68,6 @@ type GetReplicationExecutionsOK struct {
 func (o *GetReplicationExecutionsOK) Error() string {
 	return fmt.Sprintf("[GET /replication/executions][%d] getReplicationExecutionsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetReplicationExecutionsOK) GetPayload() []*legacy.ReplicationExecution {
 	return o.Payload
 }
@@ -89,7 +87,7 @@ func NewGetReplicationExecutionsUnauthorized() *GetReplicationExecutionsUnauthor
 	return &GetReplicationExecutionsUnauthorized{}
 }
 
-/*GetReplicationExecutionsUnauthorized handles this case with default header values.
+/* GetReplicationExecutionsUnauthorized describes a response with status code 401, with default header values.
 
 User need to login first.
 */
@@ -110,7 +108,7 @@ func NewGetReplicationExecutionsForbidden() *GetReplicationExecutionsForbidden {
 	return &GetReplicationExecutionsForbidden{}
 }
 
-/*GetReplicationExecutionsForbidden handles this case with default header values.
+/* GetReplicationExecutionsForbidden describes a response with status code 403, with default header values.
 
 User has no privilege for the operation.
 */
@@ -131,7 +129,7 @@ func NewGetReplicationExecutionsInternalServerError() *GetReplicationExecutionsI
 	return &GetReplicationExecutionsInternalServerError{}
 }
 
-/*GetReplicationExecutionsInternalServerError handles this case with default header values.
+/* GetReplicationExecutionsInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

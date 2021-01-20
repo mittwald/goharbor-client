@@ -17,59 +17,75 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetProjectsProjectIDMetadatasParams creates a new GetProjectsProjectIDMetadatasParams object
-// with the default values initialized.
+// NewGetProjectsProjectIDMetadatasParams creates a new GetProjectsProjectIDMetadatasParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetProjectsProjectIDMetadatasParams() *GetProjectsProjectIDMetadatasParams {
-	var ()
 	return &GetProjectsProjectIDMetadatasParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetProjectsProjectIDMetadatasParamsWithTimeout creates a new GetProjectsProjectIDMetadatasParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetProjectsProjectIDMetadatasParamsWithTimeout(timeout time.Duration) *GetProjectsProjectIDMetadatasParams {
-	var ()
 	return &GetProjectsProjectIDMetadatasParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetProjectsProjectIDMetadatasParamsWithContext creates a new GetProjectsProjectIDMetadatasParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetProjectsProjectIDMetadatasParamsWithContext(ctx context.Context) *GetProjectsProjectIDMetadatasParams {
-	var ()
 	return &GetProjectsProjectIDMetadatasParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetProjectsProjectIDMetadatasParamsWithHTTPClient creates a new GetProjectsProjectIDMetadatasParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetProjectsProjectIDMetadatasParamsWithHTTPClient(client *http.Client) *GetProjectsProjectIDMetadatasParams {
-	var ()
 	return &GetProjectsProjectIDMetadatasParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetProjectsProjectIDMetadatasParams contains all the parameters to send to the API endpoint
-for the get projects project ID metadatas operation typically these are written to a http.Request
+/* GetProjectsProjectIDMetadatasParams contains all the parameters to send to the API endpoint
+   for the get projects project ID metadatas operation.
+
+   Typically these are written to a http.Request.
 */
 type GetProjectsProjectIDMetadatasParams struct {
 
-	/*ProjectID
-	  The ID of project.
+	/* ProjectID.
 
+	   The ID of project.
+
+	   Format: int64
 	*/
 	ProjectID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get projects project ID metadatas params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectsProjectIDMetadatasParams) WithDefaults() *GetProjectsProjectIDMetadatasParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get projects project ID metadatas params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectsProjectIDMetadatasParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get projects project ID metadatas params

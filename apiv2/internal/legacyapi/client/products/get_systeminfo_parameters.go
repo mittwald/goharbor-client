@@ -16,52 +16,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetSysteminfoParams creates a new GetSysteminfoParams object
-// with the default values initialized.
+// NewGetSysteminfoParams creates a new GetSysteminfoParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetSysteminfoParams() *GetSysteminfoParams {
-
 	return &GetSysteminfoParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetSysteminfoParamsWithTimeout creates a new GetSysteminfoParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetSysteminfoParamsWithTimeout(timeout time.Duration) *GetSysteminfoParams {
-
 	return &GetSysteminfoParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetSysteminfoParamsWithContext creates a new GetSysteminfoParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetSysteminfoParamsWithContext(ctx context.Context) *GetSysteminfoParams {
-
 	return &GetSysteminfoParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetSysteminfoParamsWithHTTPClient creates a new GetSysteminfoParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetSysteminfoParamsWithHTTPClient(client *http.Client) *GetSysteminfoParams {
-
 	return &GetSysteminfoParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetSysteminfoParams contains all the parameters to send to the API endpoint
-for the get systeminfo operation typically these are written to a http.Request
+/* GetSysteminfoParams contains all the parameters to send to the API endpoint
+   for the get systeminfo operation.
+
+   Typically these are written to a http.Request.
 */
 type GetSysteminfoParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get systeminfo params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSysteminfoParams) WithDefaults() *GetSysteminfoParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get systeminfo params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSysteminfoParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get systeminfo params

@@ -17,59 +17,75 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetProjectsProjectIDWebhookLasttriggerParams creates a new GetProjectsProjectIDWebhookLasttriggerParams object
-// with the default values initialized.
+// NewGetProjectsProjectIDWebhookLasttriggerParams creates a new GetProjectsProjectIDWebhookLasttriggerParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetProjectsProjectIDWebhookLasttriggerParams() *GetProjectsProjectIDWebhookLasttriggerParams {
-	var ()
 	return &GetProjectsProjectIDWebhookLasttriggerParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetProjectsProjectIDWebhookLasttriggerParamsWithTimeout creates a new GetProjectsProjectIDWebhookLasttriggerParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetProjectsProjectIDWebhookLasttriggerParamsWithTimeout(timeout time.Duration) *GetProjectsProjectIDWebhookLasttriggerParams {
-	var ()
 	return &GetProjectsProjectIDWebhookLasttriggerParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetProjectsProjectIDWebhookLasttriggerParamsWithContext creates a new GetProjectsProjectIDWebhookLasttriggerParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetProjectsProjectIDWebhookLasttriggerParamsWithContext(ctx context.Context) *GetProjectsProjectIDWebhookLasttriggerParams {
-	var ()
 	return &GetProjectsProjectIDWebhookLasttriggerParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetProjectsProjectIDWebhookLasttriggerParamsWithHTTPClient creates a new GetProjectsProjectIDWebhookLasttriggerParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetProjectsProjectIDWebhookLasttriggerParamsWithHTTPClient(client *http.Client) *GetProjectsProjectIDWebhookLasttriggerParams {
-	var ()
 	return &GetProjectsProjectIDWebhookLasttriggerParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetProjectsProjectIDWebhookLasttriggerParams contains all the parameters to send to the API endpoint
-for the get projects project ID webhook lasttrigger operation typically these are written to a http.Request
+/* GetProjectsProjectIDWebhookLasttriggerParams contains all the parameters to send to the API endpoint
+   for the get projects project ID webhook lasttrigger operation.
+
+   Typically these are written to a http.Request.
 */
 type GetProjectsProjectIDWebhookLasttriggerParams struct {
 
-	/*ProjectID
-	  Relevant project ID.
+	/* ProjectID.
 
+	   Relevant project ID.
+
+	   Format: int64
 	*/
 	ProjectID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get projects project ID webhook lasttrigger params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectsProjectIDWebhookLasttriggerParams) WithDefaults() *GetProjectsProjectIDWebhookLasttriggerParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get projects project ID webhook lasttrigger params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectsProjectIDWebhookLasttriggerParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get projects project ID webhook lasttrigger params

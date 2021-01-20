@@ -53,7 +53,6 @@ func (o *GetProjectsProjectIDWebhookPoliciesReader) ReadResponse(response runtim
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -64,7 +63,7 @@ func NewGetProjectsProjectIDWebhookPoliciesOK() *GetProjectsProjectIDWebhookPoli
 	return &GetProjectsProjectIDWebhookPoliciesOK{}
 }
 
-/*GetProjectsProjectIDWebhookPoliciesOK handles this case with default header values.
+/* GetProjectsProjectIDWebhookPoliciesOK describes a response with status code 200, with default header values.
 
 List project webhook policies successfully.
 */
@@ -75,7 +74,6 @@ type GetProjectsProjectIDWebhookPoliciesOK struct {
 func (o *GetProjectsProjectIDWebhookPoliciesOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}/webhook/policies][%d] getProjectsProjectIdWebhookPoliciesOK  %+v", 200, o.Payload)
 }
-
 func (o *GetProjectsProjectIDWebhookPoliciesOK) GetPayload() []*legacy.WebhookPolicy {
 	return o.Payload
 }
@@ -95,7 +93,7 @@ func NewGetProjectsProjectIDWebhookPoliciesBadRequest() *GetProjectsProjectIDWeb
 	return &GetProjectsProjectIDWebhookPoliciesBadRequest{}
 }
 
-/*GetProjectsProjectIDWebhookPoliciesBadRequest handles this case with default header values.
+/* GetProjectsProjectIDWebhookPoliciesBadRequest describes a response with status code 400, with default header values.
 
 Illegal format of provided ID value.
 */
@@ -116,7 +114,7 @@ func NewGetProjectsProjectIDWebhookPoliciesUnauthorized() *GetProjectsProjectIDW
 	return &GetProjectsProjectIDWebhookPoliciesUnauthorized{}
 }
 
-/*GetProjectsProjectIDWebhookPoliciesUnauthorized handles this case with default header values.
+/* GetProjectsProjectIDWebhookPoliciesUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -137,7 +135,7 @@ func NewGetProjectsProjectIDWebhookPoliciesForbidden() *GetProjectsProjectIDWebh
 	return &GetProjectsProjectIDWebhookPoliciesForbidden{}
 }
 
-/*GetProjectsProjectIDWebhookPoliciesForbidden handles this case with default header values.
+/* GetProjectsProjectIDWebhookPoliciesForbidden describes a response with status code 403, with default header values.
 
 User have no permission to list webhook policies of the project.
 */
@@ -158,7 +156,7 @@ func NewGetProjectsProjectIDWebhookPoliciesInternalServerError() *GetProjectsPro
 	return &GetProjectsProjectIDWebhookPoliciesInternalServerError{}
 }
 
-/*GetProjectsProjectIDWebhookPoliciesInternalServerError handles this case with default header values.
+/* GetProjectsProjectIDWebhookPoliciesInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

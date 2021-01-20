@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -45,7 +47,6 @@ func (m *ProjectMember) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ProjectMember) validateMemberGroup(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.MemberGroup) { // not required
 		return nil
 	}
@@ -63,13 +64,58 @@ func (m *ProjectMember) validateMemberGroup(formats strfmt.Registry) error {
 }
 
 func (m *ProjectMember) validateMemberUser(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.MemberUser) { // not required
 		return nil
 	}
 
 	if m.MemberUser != nil {
 		if err := m.MemberUser.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("member_user")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this project member based on the context it is used
+func (m *ProjectMember) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateMemberGroup(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMemberUser(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ProjectMember) contextValidateMemberGroup(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.MemberGroup != nil {
+		if err := m.MemberGroup.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("member_group")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ProjectMember) contextValidateMemberUser(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.MemberUser != nil {
+		if err := m.MemberUser.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("member_user")
 			}

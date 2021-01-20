@@ -17,64 +17,83 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetProjectsProjectIDMembersMidParams creates a new GetProjectsProjectIDMembersMidParams object
-// with the default values initialized.
+// NewGetProjectsProjectIDMembersMidParams creates a new GetProjectsProjectIDMembersMidParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetProjectsProjectIDMembersMidParams() *GetProjectsProjectIDMembersMidParams {
-	var ()
 	return &GetProjectsProjectIDMembersMidParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetProjectsProjectIDMembersMidParamsWithTimeout creates a new GetProjectsProjectIDMembersMidParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetProjectsProjectIDMembersMidParamsWithTimeout(timeout time.Duration) *GetProjectsProjectIDMembersMidParams {
-	var ()
 	return &GetProjectsProjectIDMembersMidParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetProjectsProjectIDMembersMidParamsWithContext creates a new GetProjectsProjectIDMembersMidParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetProjectsProjectIDMembersMidParamsWithContext(ctx context.Context) *GetProjectsProjectIDMembersMidParams {
-	var ()
 	return &GetProjectsProjectIDMembersMidParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetProjectsProjectIDMembersMidParamsWithHTTPClient creates a new GetProjectsProjectIDMembersMidParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetProjectsProjectIDMembersMidParamsWithHTTPClient(client *http.Client) *GetProjectsProjectIDMembersMidParams {
-	var ()
 	return &GetProjectsProjectIDMembersMidParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetProjectsProjectIDMembersMidParams contains all the parameters to send to the API endpoint
-for the get projects project ID members mid operation typically these are written to a http.Request
+/* GetProjectsProjectIDMembersMidParams contains all the parameters to send to the API endpoint
+   for the get projects project ID members mid operation.
+
+   Typically these are written to a http.Request.
 */
 type GetProjectsProjectIDMembersMidParams struct {
 
-	/*Mid
-	  The member ID
+	/* Mid.
 
+	   The member ID
+
+	   Format: int64
 	*/
 	Mid int64
-	/*ProjectID
-	  Relevant project ID.
 
+	/* ProjectID.
+
+	   Relevant project ID.
+
+	   Format: int64
 	*/
 	ProjectID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get projects project ID members mid params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectsProjectIDMembersMidParams) WithDefaults() *GetProjectsProjectIDMembersMidParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get projects project ID members mid params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectsProjectIDMembersMidParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get projects project ID members mid params

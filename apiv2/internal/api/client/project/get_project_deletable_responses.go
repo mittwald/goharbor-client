@@ -53,7 +53,6 @@ func (o *GetProjectDeletableReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -64,7 +63,7 @@ func NewGetProjectDeletableOK() *GetProjectDeletableOK {
 	return &GetProjectDeletableOK{}
 }
 
-/*GetProjectDeletableOK handles this case with default header values.
+/* GetProjectDeletableOK describes a response with status code 200, with default header values.
 
 Return deletable status of the project.
 */
@@ -75,7 +74,6 @@ type GetProjectDeletableOK struct {
 func (o *GetProjectDeletableOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}/_deletable][%d] getProjectDeletableOK  %+v", 200, o.Payload)
 }
-
 func (o *GetProjectDeletableOK) GetPayload() *model.ProjectDeletable {
 	return o.Payload
 }
@@ -97,12 +95,13 @@ func NewGetProjectDeletableUnauthorized() *GetProjectDeletableUnauthorized {
 	return &GetProjectDeletableUnauthorized{}
 }
 
-/*GetProjectDeletableUnauthorized handles this case with default header values.
+/* GetProjectDeletableUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
 type GetProjectDeletableUnauthorized struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -112,15 +111,18 @@ type GetProjectDeletableUnauthorized struct {
 func (o *GetProjectDeletableUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}/_deletable][%d] getProjectDeletableUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetProjectDeletableUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetProjectDeletableUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -137,12 +139,13 @@ func NewGetProjectDeletableForbidden() *GetProjectDeletableForbidden {
 	return &GetProjectDeletableForbidden{}
 }
 
-/*GetProjectDeletableForbidden handles this case with default header values.
+/* GetProjectDeletableForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
 type GetProjectDeletableForbidden struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -152,15 +155,18 @@ type GetProjectDeletableForbidden struct {
 func (o *GetProjectDeletableForbidden) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}/_deletable][%d] getProjectDeletableForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetProjectDeletableForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetProjectDeletableForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -177,12 +183,13 @@ func NewGetProjectDeletableNotFound() *GetProjectDeletableNotFound {
 	return &GetProjectDeletableNotFound{}
 }
 
-/*GetProjectDeletableNotFound handles this case with default header values.
+/* GetProjectDeletableNotFound describes a response with status code 404, with default header values.
 
 Not found
 */
 type GetProjectDeletableNotFound struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -192,15 +199,18 @@ type GetProjectDeletableNotFound struct {
 func (o *GetProjectDeletableNotFound) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}/_deletable][%d] getProjectDeletableNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetProjectDeletableNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetProjectDeletableNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -217,12 +227,13 @@ func NewGetProjectDeletableInternalServerError() *GetProjectDeletableInternalSer
 	return &GetProjectDeletableInternalServerError{}
 }
 
-/*GetProjectDeletableInternalServerError handles this case with default header values.
+/* GetProjectDeletableInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error
 */
 type GetProjectDeletableInternalServerError struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -232,15 +243,18 @@ type GetProjectDeletableInternalServerError struct {
 func (o *GetProjectDeletableInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}/_deletable][%d] getProjectDeletableInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetProjectDeletableInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetProjectDeletableInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 

@@ -56,7 +56,6 @@ func (o *PutProjectsProjectIDMetadatasMetaNameReader) ReadResponse(response runt
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -67,7 +66,7 @@ func NewPutProjectsProjectIDMetadatasMetaNameOK() *PutProjectsProjectIDMetadatas
 	return &PutProjectsProjectIDMetadatasMetaNameOK{}
 }
 
-/*PutProjectsProjectIDMetadatasMetaNameOK handles this case with default header values.
+/* PutProjectsProjectIDMetadatasMetaNameOK describes a response with status code 200, with default header values.
 
 Updated metadata successfully.
 */
@@ -88,7 +87,7 @@ func NewPutProjectsProjectIDMetadatasMetaNameBadRequest() *PutProjectsProjectIDM
 	return &PutProjectsProjectIDMetadatasMetaNameBadRequest{}
 }
 
-/*PutProjectsProjectIDMetadatasMetaNameBadRequest handles this case with default header values.
+/* PutProjectsProjectIDMetadatasMetaNameBadRequest describes a response with status code 400, with default header values.
 
 Invalid request.
 */
@@ -109,7 +108,7 @@ func NewPutProjectsProjectIDMetadatasMetaNameUnauthorized() *PutProjectsProjectI
 	return &PutProjectsProjectIDMetadatasMetaNameUnauthorized{}
 }
 
-/*PutProjectsProjectIDMetadatasMetaNameUnauthorized handles this case with default header values.
+/* PutProjectsProjectIDMetadatasMetaNameUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -130,7 +129,7 @@ func NewPutProjectsProjectIDMetadatasMetaNameForbidden() *PutProjectsProjectIDMe
 	return &PutProjectsProjectIDMetadatasMetaNameForbidden{}
 }
 
-/*PutProjectsProjectIDMetadatasMetaNameForbidden handles this case with default header values.
+/* PutProjectsProjectIDMetadatasMetaNameForbidden describes a response with status code 403, with default header values.
 
 User does not have permission to the project.
 */
@@ -151,7 +150,7 @@ func NewPutProjectsProjectIDMetadatasMetaNameNotFound() *PutProjectsProjectIDMet
 	return &PutProjectsProjectIDMetadatasMetaNameNotFound{}
 }
 
-/*PutProjectsProjectIDMetadatasMetaNameNotFound handles this case with default header values.
+/* PutProjectsProjectIDMetadatasMetaNameNotFound describes a response with status code 404, with default header values.
 
 Project or metadata does not exist.
 */
@@ -172,7 +171,7 @@ func NewPutProjectsProjectIDMetadatasMetaNameInternalServerError() *PutProjectsP
 	return &PutProjectsProjectIDMetadatasMetaNameInternalServerError{}
 }
 
-/*PutProjectsProjectIDMetadatasMetaNameInternalServerError handles this case with default header values.
+/* PutProjectsProjectIDMetadatasMetaNameInternalServerError describes a response with status code 500, with default header values.
 
 Internal server errors.
 */

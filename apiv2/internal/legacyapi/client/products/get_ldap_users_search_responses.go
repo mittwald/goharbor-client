@@ -47,7 +47,6 @@ func (o *GetLdapUsersSearchReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -58,7 +57,7 @@ func NewGetLdapUsersSearchOK() *GetLdapUsersSearchOK {
 	return &GetLdapUsersSearchOK{}
 }
 
-/*GetLdapUsersSearchOK handles this case with default header values.
+/* GetLdapUsersSearchOK describes a response with status code 200, with default header values.
 
 Search ldap users successfully.
 */
@@ -69,7 +68,6 @@ type GetLdapUsersSearchOK struct {
 func (o *GetLdapUsersSearchOK) Error() string {
 	return fmt.Sprintf("[GET /ldap/users/search][%d] getLdapUsersSearchOK  %+v", 200, o.Payload)
 }
-
 func (o *GetLdapUsersSearchOK) GetPayload() []*legacy.LdapUsers {
 	return o.Payload
 }
@@ -89,7 +87,7 @@ func NewGetLdapUsersSearchUnauthorized() *GetLdapUsersSearchUnauthorized {
 	return &GetLdapUsersSearchUnauthorized{}
 }
 
-/*GetLdapUsersSearchUnauthorized handles this case with default header values.
+/* GetLdapUsersSearchUnauthorized describes a response with status code 401, with default header values.
 
 User need to login first.
 */
@@ -110,7 +108,7 @@ func NewGetLdapUsersSearchForbidden() *GetLdapUsersSearchForbidden {
 	return &GetLdapUsersSearchForbidden{}
 }
 
-/*GetLdapUsersSearchForbidden handles this case with default header values.
+/* GetLdapUsersSearchForbidden describes a response with status code 403, with default header values.
 
 Only admin has this authority.
 */
@@ -131,7 +129,7 @@ func NewGetLdapUsersSearchInternalServerError() *GetLdapUsersSearchInternalServe
 	return &GetLdapUsersSearchInternalServerError{}
 }
 
-/*GetLdapUsersSearchInternalServerError handles this case with default header values.
+/* GetLdapUsersSearchInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

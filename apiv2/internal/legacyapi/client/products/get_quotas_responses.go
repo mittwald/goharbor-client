@@ -49,7 +49,6 @@ func (o *GetQuotasReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -60,15 +59,17 @@ func NewGetQuotasOK() *GetQuotasOK {
 	return &GetQuotasOK{}
 }
 
-/*GetQuotasOK handles this case with default header values.
+/* GetQuotasOK describes a response with status code 200, with default header values.
 
 Successfully retrieved the quotas.
 */
 type GetQuotasOK struct {
-	/*Link refers to the previous page and next page
+
+	/* Link refers to the previous page and next page
 	 */
 	Link string
-	/*The total count of access logs
+
+	/* The total count of access logs
 	 */
 	XTotalCount int64
 
@@ -78,22 +79,29 @@ type GetQuotasOK struct {
 func (o *GetQuotasOK) Error() string {
 	return fmt.Sprintf("[GET /quotas][%d] getQuotasOK  %+v", 200, o.Payload)
 }
-
 func (o *GetQuotasOK) GetPayload() []*legacy.Quota {
 	return o.Payload
 }
 
 func (o *GetQuotasOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header Link
-	o.Link = response.GetHeader("Link")
+	// hydrates response header Link
+	hdrLink := response.GetHeader("Link")
 
-	// response header X-Total-Count
-	xTotalCount, err := swag.ConvertInt64(response.GetHeader("X-Total-Count"))
-	if err != nil {
-		return errors.InvalidType("X-Total-Count", "header", "int64", response.GetHeader("X-Total-Count"))
+	if hdrLink != "" {
+		o.Link = hdrLink
 	}
-	o.XTotalCount = xTotalCount
+
+	// hydrates response header X-Total-Count
+	hdrXTotalCount := response.GetHeader("X-Total-Count")
+
+	if hdrXTotalCount != "" {
+		valxTotalCount, err := swag.ConvertInt64(hdrXTotalCount)
+		if err != nil {
+			return errors.InvalidType("X-Total-Count", "header", "int64", hdrXTotalCount)
+		}
+		o.XTotalCount = valxTotalCount
+	}
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -108,7 +116,7 @@ func NewGetQuotasUnauthorized() *GetQuotasUnauthorized {
 	return &GetQuotasUnauthorized{}
 }
 
-/*GetQuotasUnauthorized handles this case with default header values.
+/* GetQuotasUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated.
 */
@@ -129,7 +137,7 @@ func NewGetQuotasForbidden() *GetQuotasForbidden {
 	return &GetQuotasForbidden{}
 }
 
-/*GetQuotasForbidden handles this case with default header values.
+/* GetQuotasForbidden describes a response with status code 403, with default header values.
 
 User does not have permission to call this API.
 */
@@ -150,7 +158,7 @@ func NewGetQuotasInternalServerError() *GetQuotasInternalServerError {
 	return &GetQuotasInternalServerError{}
 }
 
-/*GetQuotasInternalServerError handles this case with default header values.
+/* GetQuotasInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

@@ -41,7 +41,6 @@ func (o *GetRegistriesReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -52,7 +51,7 @@ func NewGetRegistriesOK() *GetRegistriesOK {
 	return &GetRegistriesOK{}
 }
 
-/*GetRegistriesOK handles this case with default header values.
+/* GetRegistriesOK describes a response with status code 200, with default header values.
 
 List registries successfully.
 */
@@ -63,7 +62,6 @@ type GetRegistriesOK struct {
 func (o *GetRegistriesOK) Error() string {
 	return fmt.Sprintf("[GET /registries][%d] getRegistriesOK  %+v", 200, o.Payload)
 }
-
 func (o *GetRegistriesOK) GetPayload() []*legacy.Registry {
 	return o.Payload
 }
@@ -83,7 +81,7 @@ func NewGetRegistriesUnauthorized() *GetRegistriesUnauthorized {
 	return &GetRegistriesUnauthorized{}
 }
 
-/*GetRegistriesUnauthorized handles this case with default header values.
+/* GetRegistriesUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -104,7 +102,7 @@ func NewGetRegistriesInternalServerError() *GetRegistriesInternalServerError {
 	return &GetRegistriesInternalServerError{}
 }
 
-/*GetRegistriesInternalServerError handles this case with default header values.
+/* GetRegistriesInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

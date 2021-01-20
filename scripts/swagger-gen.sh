@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-SWAGGER_IMAGE="quay.io/goswagger/swagger"
+GOSWAGGER_IMAGE="quay.io/goswagger/swagger:${2}"
 # go-swaggers documentation on swagger operations at the moment is really sparse,
 # so here is a bit of explanation from code observations.
 # go-swagger accepts operation names from command line "--operation" flag, to filter which operations to generate.
@@ -70,7 +70,7 @@ done
 if [[ "${1}" = *"v1"* ]]; then
   SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${1}/api/harbor/swagger.yaml"
   echo "generating client API using the v1 swagger file (${1})"
-  docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
+  docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" "${GOSWAGGER_IMAGE}" \
   generate client \
   -q \
   --skip-validation \
@@ -86,7 +86,7 @@ if [[ "${1}" = *"v2"* ]]; then
   SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${1}/api/v2.0/swagger.yaml"
   echo "generating client API using the v2 swagger files (${1})"
   # Generate client using the Harbor v2 legacy API
-  docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
+  docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" "${GOSWAGGER_IMAGE}" \
   generate client \
   -q \
   --skip-validation \
@@ -95,7 +95,7 @@ if [[ "${1}" = *"v2"* ]]; then
   --client-package="apiv2/internal/legacyapi/client" \
   --spec="${LEGACY_SWAGGER_FILE}"
   # Generate client using the new / changed Harbor v2 API
-  docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" ${SWAGGER_IMAGE} \
+  docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" "${GOSWAGGER_IMAGE}" \
   generate client \
   -q \
   --skip-validation \

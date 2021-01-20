@@ -16,52 +16,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetUsersCurrentParams creates a new GetUsersCurrentParams object
-// with the default values initialized.
+// NewGetUsersCurrentParams creates a new GetUsersCurrentParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetUsersCurrentParams() *GetUsersCurrentParams {
-
 	return &GetUsersCurrentParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetUsersCurrentParamsWithTimeout creates a new GetUsersCurrentParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetUsersCurrentParamsWithTimeout(timeout time.Duration) *GetUsersCurrentParams {
-
 	return &GetUsersCurrentParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetUsersCurrentParamsWithContext creates a new GetUsersCurrentParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetUsersCurrentParamsWithContext(ctx context.Context) *GetUsersCurrentParams {
-
 	return &GetUsersCurrentParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetUsersCurrentParamsWithHTTPClient creates a new GetUsersCurrentParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetUsersCurrentParamsWithHTTPClient(client *http.Client) *GetUsersCurrentParams {
-
 	return &GetUsersCurrentParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetUsersCurrentParams contains all the parameters to send to the API endpoint
-for the get users current operation typically these are written to a http.Request
+/* GetUsersCurrentParams contains all the parameters to send to the API endpoint
+   for the get users current operation.
+
+   Typically these are written to a http.Request.
 */
 type GetUsersCurrentParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get users current params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetUsersCurrentParams) WithDefaults() *GetUsersCurrentParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get users current params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetUsersCurrentParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get users current params

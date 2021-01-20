@@ -6,6 +6,7 @@ package products
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/go-openapi/runtime"
@@ -63,7 +64,6 @@ func (o *PutUsersUserIDCliSecretReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -74,7 +74,7 @@ func NewPutUsersUserIDCliSecretOK() *PutUsersUserIDCliSecretOK {
 	return &PutUsersUserIDCliSecretOK{}
 }
 
-/*PutUsersUserIDCliSecretOK handles this case with default header values.
+/* PutUsersUserIDCliSecretOK describes a response with status code 200, with default header values.
 
 The secret is successfully updated
 */
@@ -95,7 +95,7 @@ func NewPutUsersUserIDCliSecretBadRequest() *PutUsersUserIDCliSecretBadRequest {
 	return &PutUsersUserIDCliSecretBadRequest{}
 }
 
-/*PutUsersUserIDCliSecretBadRequest handles this case with default header values.
+/* PutUsersUserIDCliSecretBadRequest describes a response with status code 400, with default header values.
 
 Invalid user ID.  Or user is not onboarded via OIDC authentication. Or the secret does not meet the standard.
 */
@@ -116,7 +116,7 @@ func NewPutUsersUserIDCliSecretUnauthorized() *PutUsersUserIDCliSecretUnauthoriz
 	return &PutUsersUserIDCliSecretUnauthorized{}
 }
 
-/*PutUsersUserIDCliSecretUnauthorized handles this case with default header values.
+/* PutUsersUserIDCliSecretUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -137,7 +137,7 @@ func NewPutUsersUserIDCliSecretForbidden() *PutUsersUserIDCliSecretForbidden {
 	return &PutUsersUserIDCliSecretForbidden{}
 }
 
-/*PutUsersUserIDCliSecretForbidden handles this case with default header values.
+/* PutUsersUserIDCliSecretForbidden describes a response with status code 403, with default header values.
 
 Non-admin user can only generate the cli secret of himself.
 */
@@ -158,7 +158,7 @@ func NewPutUsersUserIDCliSecretNotFound() *PutUsersUserIDCliSecretNotFound {
 	return &PutUsersUserIDCliSecretNotFound{}
 }
 
-/*PutUsersUserIDCliSecretNotFound handles this case with default header values.
+/* PutUsersUserIDCliSecretNotFound describes a response with status code 404, with default header values.
 
 User ID does not exist.
 */
@@ -179,7 +179,7 @@ func NewPutUsersUserIDCliSecretPreconditionFailed() *PutUsersUserIDCliSecretPrec
 	return &PutUsersUserIDCliSecretPreconditionFailed{}
 }
 
-/*PutUsersUserIDCliSecretPreconditionFailed handles this case with default header values.
+/* PutUsersUserIDCliSecretPreconditionFailed describes a response with status code 412, with default header values.
 
 The auth mode of the system is not "oidc_auth", or the user is not onboarded via OIDC AuthN.
 */
@@ -200,7 +200,7 @@ func NewPutUsersUserIDCliSecretInternalServerError() *PutUsersUserIDCliSecretInt
 	return &PutUsersUserIDCliSecretInternalServerError{}
 }
 
-/*PutUsersUserIDCliSecretInternalServerError handles this case with default header values.
+/* PutUsersUserIDCliSecretInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */
@@ -227,6 +227,11 @@ type PutUsersUserIDCliSecretBody struct {
 
 // Validate validates this put users user ID cli secret body
 func (o *PutUsersUserIDCliSecretBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this put users user ID cli secret body based on context it is used
+func (o *PutUsersUserIDCliSecretBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

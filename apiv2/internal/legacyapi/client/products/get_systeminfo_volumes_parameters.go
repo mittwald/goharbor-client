@@ -16,52 +16,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetSysteminfoVolumesParams creates a new GetSysteminfoVolumesParams object
-// with the default values initialized.
+// NewGetSysteminfoVolumesParams creates a new GetSysteminfoVolumesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetSysteminfoVolumesParams() *GetSysteminfoVolumesParams {
-
 	return &GetSysteminfoVolumesParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetSysteminfoVolumesParamsWithTimeout creates a new GetSysteminfoVolumesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetSysteminfoVolumesParamsWithTimeout(timeout time.Duration) *GetSysteminfoVolumesParams {
-
 	return &GetSysteminfoVolumesParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetSysteminfoVolumesParamsWithContext creates a new GetSysteminfoVolumesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetSysteminfoVolumesParamsWithContext(ctx context.Context) *GetSysteminfoVolumesParams {
-
 	return &GetSysteminfoVolumesParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetSysteminfoVolumesParamsWithHTTPClient creates a new GetSysteminfoVolumesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetSysteminfoVolumesParamsWithHTTPClient(client *http.Client) *GetSysteminfoVolumesParams {
-
 	return &GetSysteminfoVolumesParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetSysteminfoVolumesParams contains all the parameters to send to the API endpoint
-for the get systeminfo volumes operation typically these are written to a http.Request
+/* GetSysteminfoVolumesParams contains all the parameters to send to the API endpoint
+   for the get systeminfo volumes operation.
+
+   Typically these are written to a http.Request.
 */
 type GetSysteminfoVolumesParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get systeminfo volumes params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSysteminfoVolumesParams) WithDefaults() *GetSysteminfoVolumesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get systeminfo volumes params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSysteminfoVolumesParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get systeminfo volumes params

@@ -50,7 +50,6 @@ func (o *DeleteUsergroupsGroupIDReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -61,7 +60,7 @@ func NewDeleteUsergroupsGroupIDOK() *DeleteUsergroupsGroupIDOK {
 	return &DeleteUsergroupsGroupIDOK{}
 }
 
-/*DeleteUsergroupsGroupIDOK handles this case with default header values.
+/* DeleteUsergroupsGroupIDOK describes a response with status code 200, with default header values.
 
 User group deleted successfully.
 */
@@ -82,7 +81,7 @@ func NewDeleteUsergroupsGroupIDBadRequest() *DeleteUsergroupsGroupIDBadRequest {
 	return &DeleteUsergroupsGroupIDBadRequest{}
 }
 
-/*DeleteUsergroupsGroupIDBadRequest handles this case with default header values.
+/* DeleteUsergroupsGroupIDBadRequest describes a response with status code 400, with default header values.
 
 The user group id is invalid.
 */
@@ -103,7 +102,7 @@ func NewDeleteUsergroupsGroupIDUnauthorized() *DeleteUsergroupsGroupIDUnauthoriz
 	return &DeleteUsergroupsGroupIDUnauthorized{}
 }
 
-/*DeleteUsergroupsGroupIDUnauthorized handles this case with default header values.
+/* DeleteUsergroupsGroupIDUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -124,7 +123,7 @@ func NewDeleteUsergroupsGroupIDForbidden() *DeleteUsergroupsGroupIDForbidden {
 	return &DeleteUsergroupsGroupIDForbidden{}
 }
 
-/*DeleteUsergroupsGroupIDForbidden handles this case with default header values.
+/* DeleteUsergroupsGroupIDForbidden describes a response with status code 403, with default header values.
 
 Only admin has this authority.
 */
@@ -145,7 +144,7 @@ func NewDeleteUsergroupsGroupIDInternalServerError() *DeleteUsergroupsGroupIDInt
 	return &DeleteUsergroupsGroupIDInternalServerError{}
 }
 
-/*DeleteUsergroupsGroupIDInternalServerError handles this case with default header values.
+/* DeleteUsergroupsGroupIDInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

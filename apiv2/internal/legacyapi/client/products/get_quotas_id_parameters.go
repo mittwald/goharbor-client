@@ -17,59 +17,73 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetQuotasIDParams creates a new GetQuotasIDParams object
-// with the default values initialized.
+// NewGetQuotasIDParams creates a new GetQuotasIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetQuotasIDParams() *GetQuotasIDParams {
-	var ()
 	return &GetQuotasIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetQuotasIDParamsWithTimeout creates a new GetQuotasIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetQuotasIDParamsWithTimeout(timeout time.Duration) *GetQuotasIDParams {
-	var ()
 	return &GetQuotasIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetQuotasIDParamsWithContext creates a new GetQuotasIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetQuotasIDParamsWithContext(ctx context.Context) *GetQuotasIDParams {
-	var ()
 	return &GetQuotasIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetQuotasIDParamsWithHTTPClient creates a new GetQuotasIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetQuotasIDParamsWithHTTPClient(client *http.Client) *GetQuotasIDParams {
-	var ()
 	return &GetQuotasIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetQuotasIDParams contains all the parameters to send to the API endpoint
-for the get quotas ID operation typically these are written to a http.Request
+/* GetQuotasIDParams contains all the parameters to send to the API endpoint
+   for the get quotas ID operation.
+
+   Typically these are written to a http.Request.
 */
 type GetQuotasIDParams struct {
 
-	/*ID
-	  Quota ID
+	/* ID.
 
+	   Quota ID
 	*/
 	ID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get quotas ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetQuotasIDParams) WithDefaults() *GetQuotasIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get quotas ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetQuotasIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get quotas ID params

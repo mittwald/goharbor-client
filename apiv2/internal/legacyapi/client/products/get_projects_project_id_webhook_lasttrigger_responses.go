@@ -53,7 +53,6 @@ func (o *GetProjectsProjectIDWebhookLasttriggerReader) ReadResponse(response run
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -64,7 +63,7 @@ func NewGetProjectsProjectIDWebhookLasttriggerOK() *GetProjectsProjectIDWebhookL
 	return &GetProjectsProjectIDWebhookLasttriggerOK{}
 }
 
-/*GetProjectsProjectIDWebhookLasttriggerOK handles this case with default header values.
+/* GetProjectsProjectIDWebhookLasttriggerOK describes a response with status code 200, with default header values.
 
 Test webhook connection successfully.
 */
@@ -75,7 +74,6 @@ type GetProjectsProjectIDWebhookLasttriggerOK struct {
 func (o *GetProjectsProjectIDWebhookLasttriggerOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}/webhook/lasttrigger][%d] getProjectsProjectIdWebhookLasttriggerOK  %+v", 200, o.Payload)
 }
-
 func (o *GetProjectsProjectIDWebhookLasttriggerOK) GetPayload() []*legacy.WebhookLastTrigger {
 	return o.Payload
 }
@@ -95,7 +93,7 @@ func NewGetProjectsProjectIDWebhookLasttriggerBadRequest() *GetProjectsProjectID
 	return &GetProjectsProjectIDWebhookLasttriggerBadRequest{}
 }
 
-/*GetProjectsProjectIDWebhookLasttriggerBadRequest handles this case with default header values.
+/* GetProjectsProjectIDWebhookLasttriggerBadRequest describes a response with status code 400, with default header values.
 
 Illegal format of provided ID value.
 */
@@ -116,7 +114,7 @@ func NewGetProjectsProjectIDWebhookLasttriggerUnauthorized() *GetProjectsProject
 	return &GetProjectsProjectIDWebhookLasttriggerUnauthorized{}
 }
 
-/*GetProjectsProjectIDWebhookLasttriggerUnauthorized handles this case with default header values.
+/* GetProjectsProjectIDWebhookLasttriggerUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -137,7 +135,7 @@ func NewGetProjectsProjectIDWebhookLasttriggerForbidden() *GetProjectsProjectIDW
 	return &GetProjectsProjectIDWebhookLasttriggerForbidden{}
 }
 
-/*GetProjectsProjectIDWebhookLasttriggerForbidden handles this case with default header values.
+/* GetProjectsProjectIDWebhookLasttriggerForbidden describes a response with status code 403, with default header values.
 
 User have no permission to get webhook policy of the project.
 */
@@ -158,7 +156,7 @@ func NewGetProjectsProjectIDWebhookLasttriggerInternalServerError() *GetProjects
 	return &GetProjectsProjectIDWebhookLasttriggerInternalServerError{}
 }
 
-/*GetProjectsProjectIDWebhookLasttriggerInternalServerError handles this case with default header values.
+/* GetProjectsProjectIDWebhookLasttriggerInternalServerError describes a response with status code 500, with default header values.
 
 Internal server errors.
 */

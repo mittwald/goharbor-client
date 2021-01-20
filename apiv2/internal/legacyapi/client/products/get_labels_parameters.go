@@ -17,79 +17,103 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetLabelsParams creates a new GetLabelsParams object
-// with the default values initialized.
+// NewGetLabelsParams creates a new GetLabelsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetLabelsParams() *GetLabelsParams {
-	var ()
 	return &GetLabelsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetLabelsParamsWithTimeout creates a new GetLabelsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetLabelsParamsWithTimeout(timeout time.Duration) *GetLabelsParams {
-	var ()
 	return &GetLabelsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetLabelsParamsWithContext creates a new GetLabelsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetLabelsParamsWithContext(ctx context.Context) *GetLabelsParams {
-	var ()
 	return &GetLabelsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetLabelsParamsWithHTTPClient creates a new GetLabelsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetLabelsParamsWithHTTPClient(client *http.Client) *GetLabelsParams {
-	var ()
 	return &GetLabelsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetLabelsParams contains all the parameters to send to the API endpoint
-for the get labels operation typically these are written to a http.Request
+/* GetLabelsParams contains all the parameters to send to the API endpoint
+   for the get labels operation.
+
+   Typically these are written to a http.Request.
 */
 type GetLabelsParams struct {
 
-	/*Name
-	  The label name.
+	/* Name.
 
+	   The label name.
 	*/
 	Name *string
-	/*Page
-	  The page nubmer.
 
+	/* Page.
+
+	   The page nubmer.
+
+	   Format: int32
 	*/
 	Page *int32
-	/*PageSize
-	  The size of per page.
 
+	/* PageSize.
+
+	   The size of per page.
+
+	   Format: int32
 	*/
 	PageSize *int32
-	/*ProjectID
-	  Relevant project ID, required when scope is p.
 
+	/* ProjectID.
+
+	   Relevant project ID, required when scope is p.
+
+	   Format: int64
 	*/
 	ProjectID *int64
-	/*Scope
-	  The label scope. Valid values are g and p. g for global labels and p for project labels.
 
+	/* Scope.
+
+	   The label scope. Valid values are g and p. g for global labels and p for project labels.
 	*/
 	Scope string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get labels params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetLabelsParams) WithDefaults() *GetLabelsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get labels params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetLabelsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get labels params
@@ -192,70 +216,75 @@ func (o *GetLabelsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 
 		// query param name
 		var qrName string
+
 		if o.Name != nil {
 			qrName = *o.Name
 		}
 		qName := qrName
 		if qName != "" {
+
 			if err := r.SetQueryParam("name", qName); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Page != nil {
 
 		// query param page
 		var qrPage int32
+
 		if o.Page != nil {
 			qrPage = *o.Page
 		}
 		qPage := swag.FormatInt32(qrPage)
 		if qPage != "" {
+
 			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.PageSize != nil {
 
 		// query param page_size
 		var qrPageSize int32
+
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt32(qrPageSize)
 		if qPageSize != "" {
+
 			if err := r.SetQueryParam("page_size", qPageSize); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ProjectID != nil {
 
 		// query param project_id
 		var qrProjectID int64
+
 		if o.ProjectID != nil {
 			qrProjectID = *o.ProjectID
 		}
 		qProjectID := swag.FormatInt64(qrProjectID)
 		if qProjectID != "" {
+
 			if err := r.SetQueryParam("project_id", qProjectID); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// query param scope
 	qrScope := o.Scope
 	qScope := qrScope
 	if qScope != "" {
+
 		if err := r.SetQueryParam("scope", qScope); err != nil {
 			return err
 		}

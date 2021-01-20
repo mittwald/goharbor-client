@@ -45,7 +45,6 @@ func (o *GetRetentionsIDExecutionsEidTasksTidReader) ReadResponse(response runti
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -56,7 +55,7 @@ func NewGetRetentionsIDExecutionsEidTasksTidOK() *GetRetentionsIDExecutionsEidTa
 	return &GetRetentionsIDExecutionsEidTasksTidOK{}
 }
 
-/*GetRetentionsIDExecutionsEidTasksTidOK handles this case with default header values.
+/* GetRetentionsIDExecutionsEidTasksTidOK describes a response with status code 200, with default header values.
 
 Get Retention job task log successfully.
 */
@@ -67,7 +66,6 @@ type GetRetentionsIDExecutionsEidTasksTidOK struct {
 func (o *GetRetentionsIDExecutionsEidTasksTidOK) Error() string {
 	return fmt.Sprintf("[GET /retentions/{id}/executions/{eid}/tasks/{tid}][%d] getRetentionsIdExecutionsEidTasksTidOK  %+v", 200, o.Payload)
 }
-
 func (o *GetRetentionsIDExecutionsEidTasksTidOK) GetPayload() string {
 	return o.Payload
 }
@@ -87,7 +85,7 @@ func NewGetRetentionsIDExecutionsEidTasksTidUnauthorized() *GetRetentionsIDExecu
 	return &GetRetentionsIDExecutionsEidTasksTidUnauthorized{}
 }
 
-/*GetRetentionsIDExecutionsEidTasksTidUnauthorized handles this case with default header values.
+/* GetRetentionsIDExecutionsEidTasksTidUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -108,7 +106,7 @@ func NewGetRetentionsIDExecutionsEidTasksTidForbidden() *GetRetentionsIDExecutio
 	return &GetRetentionsIDExecutionsEidTasksTidForbidden{}
 }
 
-/*GetRetentionsIDExecutionsEidTasksTidForbidden handles this case with default header values.
+/* GetRetentionsIDExecutionsEidTasksTidForbidden describes a response with status code 403, with default header values.
 
 User have no permission.
 */
@@ -129,7 +127,7 @@ func NewGetRetentionsIDExecutionsEidTasksTidInternalServerError() *GetRetentions
 	return &GetRetentionsIDExecutionsEidTasksTidInternalServerError{}
 }
 
-/*GetRetentionsIDExecutionsEidTasksTidInternalServerError handles this case with default header values.
+/* GetRetentionsIDExecutionsEidTasksTidInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */
