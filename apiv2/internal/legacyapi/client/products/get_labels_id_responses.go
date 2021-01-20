@@ -47,7 +47,6 @@ func (o *GetLabelsIDReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -58,7 +57,7 @@ func NewGetLabelsIDOK() *GetLabelsIDOK {
 	return &GetLabelsIDOK{}
 }
 
-/*GetLabelsIDOK handles this case with default header values.
+/* GetLabelsIDOK describes a response with status code 200, with default header values.
 
 Get successfully.
 */
@@ -69,7 +68,6 @@ type GetLabelsIDOK struct {
 func (o *GetLabelsIDOK) Error() string {
 	return fmt.Sprintf("[GET /labels/{id}][%d] getLabelsIdOK  %+v", 200, o.Payload)
 }
-
 func (o *GetLabelsIDOK) GetPayload() *legacy.Label {
 	return o.Payload
 }
@@ -91,7 +89,7 @@ func NewGetLabelsIDUnauthorized() *GetLabelsIDUnauthorized {
 	return &GetLabelsIDUnauthorized{}
 }
 
-/*GetLabelsIDUnauthorized handles this case with default header values.
+/* GetLabelsIDUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -112,7 +110,7 @@ func NewGetLabelsIDNotFound() *GetLabelsIDNotFound {
 	return &GetLabelsIDNotFound{}
 }
 
-/*GetLabelsIDNotFound handles this case with default header values.
+/* GetLabelsIDNotFound describes a response with status code 404, with default header values.
 
 The resource does not exist.
 */
@@ -133,7 +131,7 @@ func NewGetLabelsIDInternalServerError() *GetLabelsIDInternalServerError {
 	return &GetLabelsIDInternalServerError{}
 }
 
-/*GetLabelsIDInternalServerError handles this case with default header values.
+/* GetLabelsIDInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

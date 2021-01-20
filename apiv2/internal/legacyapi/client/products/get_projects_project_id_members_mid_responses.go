@@ -59,7 +59,6 @@ func (o *GetProjectsProjectIDMembersMidReader) ReadResponse(response runtime.Cli
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -70,7 +69,7 @@ func NewGetProjectsProjectIDMembersMidOK() *GetProjectsProjectIDMembersMidOK {
 	return &GetProjectsProjectIDMembersMidOK{}
 }
 
-/*GetProjectsProjectIDMembersMidOK handles this case with default header values.
+/* GetProjectsProjectIDMembersMidOK describes a response with status code 200, with default header values.
 
 Project member retrieved successfully.
 */
@@ -81,7 +80,6 @@ type GetProjectsProjectIDMembersMidOK struct {
 func (o *GetProjectsProjectIDMembersMidOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}/members/{mid}][%d] getProjectsProjectIdMembersMidOK  %+v", 200, o.Payload)
 }
-
 func (o *GetProjectsProjectIDMembersMidOK) GetPayload() *legacy.ProjectMemberEntity {
 	return o.Payload
 }
@@ -103,7 +101,7 @@ func NewGetProjectsProjectIDMembersMidBadRequest() *GetProjectsProjectIDMembersM
 	return &GetProjectsProjectIDMembersMidBadRequest{}
 }
 
-/*GetProjectsProjectIDMembersMidBadRequest handles this case with default header values.
+/* GetProjectsProjectIDMembersMidBadRequest describes a response with status code 400, with default header values.
 
 Illegal format of project member or invalid project id, member id.
 */
@@ -124,7 +122,7 @@ func NewGetProjectsProjectIDMembersMidUnauthorized() *GetProjectsProjectIDMember
 	return &GetProjectsProjectIDMembersMidUnauthorized{}
 }
 
-/*GetProjectsProjectIDMembersMidUnauthorized handles this case with default header values.
+/* GetProjectsProjectIDMembersMidUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -145,7 +143,7 @@ func NewGetProjectsProjectIDMembersMidForbidden() *GetProjectsProjectIDMembersMi
 	return &GetProjectsProjectIDMembersMidForbidden{}
 }
 
-/*GetProjectsProjectIDMembersMidForbidden handles this case with default header values.
+/* GetProjectsProjectIDMembersMidForbidden describes a response with status code 403, with default header values.
 
 User in session does not have permission to the project.
 */
@@ -166,7 +164,7 @@ func NewGetProjectsProjectIDMembersMidNotFound() *GetProjectsProjectIDMembersMid
 	return &GetProjectsProjectIDMembersMidNotFound{}
 }
 
-/*GetProjectsProjectIDMembersMidNotFound handles this case with default header values.
+/* GetProjectsProjectIDMembersMidNotFound describes a response with status code 404, with default header values.
 
 Project or projet member does not exist.
 */
@@ -187,7 +185,7 @@ func NewGetProjectsProjectIDMembersMidInternalServerError() *GetProjectsProjectI
 	return &GetProjectsProjectIDMembersMidInternalServerError{}
 }
 
-/*GetProjectsProjectIDMembersMidInternalServerError handles this case with default header values.
+/* GetProjectsProjectIDMembersMidInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

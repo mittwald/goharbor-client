@@ -6,6 +6,7 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -37,7 +38,6 @@ func (m *SystemInfo) Validate(formats strfmt.Registry) error {
 }
 
 func (m *SystemInfo) validateStorage(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Storage) { // not required
 		return nil
 	}
@@ -49,6 +49,38 @@ func (m *SystemInfo) validateStorage(formats strfmt.Registry) error {
 
 		if m.Storage[i] != nil {
 			if err := m.Storage[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("storage" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this system info based on the context it is used
+func (m *SystemInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateStorage(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *SystemInfo) contextValidateStorage(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Storage); i++ {
+
+		if m.Storage[i] != nil {
+			if err := m.Storage[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("storage" + "." + strconv.Itoa(i))
 				}

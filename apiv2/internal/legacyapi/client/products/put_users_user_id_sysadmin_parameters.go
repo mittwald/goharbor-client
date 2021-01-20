@@ -19,64 +19,81 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPutUsersUserIDSysadminParams creates a new PutUsersUserIDSysadminParams object
-// with the default values initialized.
+// NewPutUsersUserIDSysadminParams creates a new PutUsersUserIDSysadminParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPutUsersUserIDSysadminParams() *PutUsersUserIDSysadminParams {
-	var ()
 	return &PutUsersUserIDSysadminParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutUsersUserIDSysadminParamsWithTimeout creates a new PutUsersUserIDSysadminParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPutUsersUserIDSysadminParamsWithTimeout(timeout time.Duration) *PutUsersUserIDSysadminParams {
-	var ()
 	return &PutUsersUserIDSysadminParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPutUsersUserIDSysadminParamsWithContext creates a new PutUsersUserIDSysadminParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPutUsersUserIDSysadminParamsWithContext(ctx context.Context) *PutUsersUserIDSysadminParams {
-	var ()
 	return &PutUsersUserIDSysadminParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPutUsersUserIDSysadminParamsWithHTTPClient creates a new PutUsersUserIDSysadminParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPutUsersUserIDSysadminParamsWithHTTPClient(client *http.Client) *PutUsersUserIDSysadminParams {
-	var ()
 	return &PutUsersUserIDSysadminParams{
 		HTTPClient: client,
 	}
 }
 
-/*PutUsersUserIDSysadminParams contains all the parameters to send to the API endpoint
-for the put users user ID sysadmin operation typically these are written to a http.Request
+/* PutUsersUserIDSysadminParams contains all the parameters to send to the API endpoint
+   for the put users user ID sysadmin operation.
+
+   Typically these are written to a http.Request.
 */
 type PutUsersUserIDSysadminParams struct {
 
-	/*SysadminFlag
-	  Toggle a user to admin or not.
+	/* SysadminFlag.
 
+	   Toggle a user to admin or not.
 	*/
 	SysadminFlag *legacy.SysAdminFlag
-	/*UserID
-	  Registered user ID
 
+	/* UserID.
+
+	   Registered user ID
+
+	   Format: int
 	*/
 	UserID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the put users user ID sysadmin params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutUsersUserIDSysadminParams) WithDefaults() *PutUsersUserIDSysadminParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the put users user ID sysadmin params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutUsersUserIDSysadminParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put users user ID sysadmin params
@@ -141,7 +158,6 @@ func (o *PutUsersUserIDSysadminParams) WriteToRequest(r runtime.ClientRequest, r
 		return err
 	}
 	var res []error
-
 	if o.SysadminFlag != nil {
 		if err := r.SetBodyParam(o.SysadminFlag); err != nil {
 			return err

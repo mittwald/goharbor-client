@@ -18,59 +18,73 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPutSystemCVEAllowlistParams creates a new PutSystemCVEAllowlistParams object
-// with the default values initialized.
+// NewPutSystemCVEAllowlistParams creates a new PutSystemCVEAllowlistParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPutSystemCVEAllowlistParams() *PutSystemCVEAllowlistParams {
-	var ()
 	return &PutSystemCVEAllowlistParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutSystemCVEAllowlistParamsWithTimeout creates a new PutSystemCVEAllowlistParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPutSystemCVEAllowlistParamsWithTimeout(timeout time.Duration) *PutSystemCVEAllowlistParams {
-	var ()
 	return &PutSystemCVEAllowlistParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPutSystemCVEAllowlistParamsWithContext creates a new PutSystemCVEAllowlistParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPutSystemCVEAllowlistParamsWithContext(ctx context.Context) *PutSystemCVEAllowlistParams {
-	var ()
 	return &PutSystemCVEAllowlistParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPutSystemCVEAllowlistParamsWithHTTPClient creates a new PutSystemCVEAllowlistParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPutSystemCVEAllowlistParamsWithHTTPClient(client *http.Client) *PutSystemCVEAllowlistParams {
-	var ()
 	return &PutSystemCVEAllowlistParams{
 		HTTPClient: client,
 	}
 }
 
-/*PutSystemCVEAllowlistParams contains all the parameters to send to the API endpoint
-for the put system c v e allowlist operation typically these are written to a http.Request
+/* PutSystemCVEAllowlistParams contains all the parameters to send to the API endpoint
+   for the put system c v e allowlist operation.
+
+   Typically these are written to a http.Request.
 */
 type PutSystemCVEAllowlistParams struct {
 
-	/*Allowlist
-	  The allowlist with new content
+	/* Allowlist.
 
+	   The allowlist with new content
 	*/
 	Allowlist *legacy.CVEAllowlist
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the put system c v e allowlist params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutSystemCVEAllowlistParams) WithDefaults() *PutSystemCVEAllowlistParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the put system c v e allowlist params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutSystemCVEAllowlistParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put system c v e allowlist params
@@ -124,7 +138,6 @@ func (o *PutSystemCVEAllowlistParams) WriteToRequest(r runtime.ClientRequest, re
 		return err
 	}
 	var res []error
-
 	if o.Allowlist != nil {
 		if err := r.SetBodyParam(o.Allowlist); err != nil {
 			return err

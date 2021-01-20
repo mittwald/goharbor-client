@@ -59,7 +59,6 @@ func (o *StopExecutionReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -70,12 +69,13 @@ func NewStopExecutionOK() *StopExecutionOK {
 	return &StopExecutionOK{}
 }
 
-/*StopExecutionOK handles this case with default header values.
+/* StopExecutionOK describes a response with status code 200, with default header values.
 
 Success
 */
 type StopExecutionOK struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -86,8 +86,12 @@ func (o *StopExecutionOK) Error() string {
 
 func (o *StopExecutionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	return nil
 }
@@ -97,12 +101,13 @@ func NewStopExecutionBadRequest() *StopExecutionBadRequest {
 	return &StopExecutionBadRequest{}
 }
 
-/*StopExecutionBadRequest handles this case with default header values.
+/* StopExecutionBadRequest describes a response with status code 400, with default header values.
 
 Bad request
 */
 type StopExecutionBadRequest struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -112,15 +117,18 @@ type StopExecutionBadRequest struct {
 func (o *StopExecutionBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}][%d] stopExecutionBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *StopExecutionBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *StopExecutionBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -137,12 +145,13 @@ func NewStopExecutionUnauthorized() *StopExecutionUnauthorized {
 	return &StopExecutionUnauthorized{}
 }
 
-/*StopExecutionUnauthorized handles this case with default header values.
+/* StopExecutionUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
 type StopExecutionUnauthorized struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -152,15 +161,18 @@ type StopExecutionUnauthorized struct {
 func (o *StopExecutionUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}][%d] stopExecutionUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *StopExecutionUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *StopExecutionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -177,12 +189,13 @@ func NewStopExecutionForbidden() *StopExecutionForbidden {
 	return &StopExecutionForbidden{}
 }
 
-/*StopExecutionForbidden handles this case with default header values.
+/* StopExecutionForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
 type StopExecutionForbidden struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -192,15 +205,18 @@ type StopExecutionForbidden struct {
 func (o *StopExecutionForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}][%d] stopExecutionForbidden  %+v", 403, o.Payload)
 }
-
 func (o *StopExecutionForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *StopExecutionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -217,12 +233,13 @@ func NewStopExecutionNotFound() *StopExecutionNotFound {
 	return &StopExecutionNotFound{}
 }
 
-/*StopExecutionNotFound handles this case with default header values.
+/* StopExecutionNotFound describes a response with status code 404, with default header values.
 
 Not found
 */
 type StopExecutionNotFound struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -232,15 +249,18 @@ type StopExecutionNotFound struct {
 func (o *StopExecutionNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}][%d] stopExecutionNotFound  %+v", 404, o.Payload)
 }
-
 func (o *StopExecutionNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *StopExecutionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -257,12 +277,13 @@ func NewStopExecutionInternalServerError() *StopExecutionInternalServerError {
 	return &StopExecutionInternalServerError{}
 }
 
-/*StopExecutionInternalServerError handles this case with default header values.
+/* StopExecutionInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error
 */
 type StopExecutionInternalServerError struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -272,15 +293,18 @@ type StopExecutionInternalServerError struct {
 func (o *StopExecutionInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}][%d] stopExecutionInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *StopExecutionInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *StopExecutionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 

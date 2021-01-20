@@ -17,64 +17,83 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetProjectsProjectIDRobotsRobotIDParams creates a new GetProjectsProjectIDRobotsRobotIDParams object
-// with the default values initialized.
+// NewGetProjectsProjectIDRobotsRobotIDParams creates a new GetProjectsProjectIDRobotsRobotIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetProjectsProjectIDRobotsRobotIDParams() *GetProjectsProjectIDRobotsRobotIDParams {
-	var ()
 	return &GetProjectsProjectIDRobotsRobotIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetProjectsProjectIDRobotsRobotIDParamsWithTimeout creates a new GetProjectsProjectIDRobotsRobotIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetProjectsProjectIDRobotsRobotIDParamsWithTimeout(timeout time.Duration) *GetProjectsProjectIDRobotsRobotIDParams {
-	var ()
 	return &GetProjectsProjectIDRobotsRobotIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetProjectsProjectIDRobotsRobotIDParamsWithContext creates a new GetProjectsProjectIDRobotsRobotIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetProjectsProjectIDRobotsRobotIDParamsWithContext(ctx context.Context) *GetProjectsProjectIDRobotsRobotIDParams {
-	var ()
 	return &GetProjectsProjectIDRobotsRobotIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetProjectsProjectIDRobotsRobotIDParamsWithHTTPClient creates a new GetProjectsProjectIDRobotsRobotIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetProjectsProjectIDRobotsRobotIDParamsWithHTTPClient(client *http.Client) *GetProjectsProjectIDRobotsRobotIDParams {
-	var ()
 	return &GetProjectsProjectIDRobotsRobotIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetProjectsProjectIDRobotsRobotIDParams contains all the parameters to send to the API endpoint
-for the get projects project ID robots robot ID operation typically these are written to a http.Request
+/* GetProjectsProjectIDRobotsRobotIDParams contains all the parameters to send to the API endpoint
+   for the get projects project ID robots robot ID operation.
+
+   Typically these are written to a http.Request.
 */
 type GetProjectsProjectIDRobotsRobotIDParams struct {
 
-	/*ProjectID
-	  Relevant project ID.
+	/* ProjectID.
 
+	   Relevant project ID.
+
+	   Format: int64
 	*/
 	ProjectID int64
-	/*RobotID
-	  The ID of robot account.
 
+	/* RobotID.
+
+	   The ID of robot account.
+
+	   Format: int64
 	*/
 	RobotID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get projects project ID robots robot ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectsProjectIDRobotsRobotIDParams) WithDefaults() *GetProjectsProjectIDRobotsRobotIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get projects project ID robots robot ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectsProjectIDRobotsRobotIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get projects project ID robots robot ID params

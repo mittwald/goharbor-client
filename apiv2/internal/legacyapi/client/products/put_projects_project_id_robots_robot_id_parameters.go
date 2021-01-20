@@ -19,69 +19,89 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPutProjectsProjectIDRobotsRobotIDParams creates a new PutProjectsProjectIDRobotsRobotIDParams object
-// with the default values initialized.
+// NewPutProjectsProjectIDRobotsRobotIDParams creates a new PutProjectsProjectIDRobotsRobotIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPutProjectsProjectIDRobotsRobotIDParams() *PutProjectsProjectIDRobotsRobotIDParams {
-	var ()
 	return &PutProjectsProjectIDRobotsRobotIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutProjectsProjectIDRobotsRobotIDParamsWithTimeout creates a new PutProjectsProjectIDRobotsRobotIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPutProjectsProjectIDRobotsRobotIDParamsWithTimeout(timeout time.Duration) *PutProjectsProjectIDRobotsRobotIDParams {
-	var ()
 	return &PutProjectsProjectIDRobotsRobotIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPutProjectsProjectIDRobotsRobotIDParamsWithContext creates a new PutProjectsProjectIDRobotsRobotIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPutProjectsProjectIDRobotsRobotIDParamsWithContext(ctx context.Context) *PutProjectsProjectIDRobotsRobotIDParams {
-	var ()
 	return &PutProjectsProjectIDRobotsRobotIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPutProjectsProjectIDRobotsRobotIDParamsWithHTTPClient creates a new PutProjectsProjectIDRobotsRobotIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPutProjectsProjectIDRobotsRobotIDParamsWithHTTPClient(client *http.Client) *PutProjectsProjectIDRobotsRobotIDParams {
-	var ()
 	return &PutProjectsProjectIDRobotsRobotIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*PutProjectsProjectIDRobotsRobotIDParams contains all the parameters to send to the API endpoint
-for the put projects project ID robots robot ID operation typically these are written to a http.Request
+/* PutProjectsProjectIDRobotsRobotIDParams contains all the parameters to send to the API endpoint
+   for the put projects project ID robots robot ID operation.
+
+   Typically these are written to a http.Request.
 */
 type PutProjectsProjectIDRobotsRobotIDParams struct {
 
-	/*ProjectID
-	  Relevant project ID.
+	/* ProjectID.
 
+	   Relevant project ID.
+
+	   Format: int64
 	*/
 	ProjectID int64
-	/*Robot
-	  Request body of enable/disable a robot account.
 
+	/* Robot.
+
+	   Request body of enable/disable a robot account.
 	*/
 	Robot *legacy.RobotAccountUpdate
-	/*RobotID
-	  The ID of robot account.
 
+	/* RobotID.
+
+	   The ID of robot account.
+
+	   Format: int64
 	*/
 	RobotID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the put projects project ID robots robot ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutProjectsProjectIDRobotsRobotIDParams) WithDefaults() *PutProjectsProjectIDRobotsRobotIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the put projects project ID robots robot ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutProjectsProjectIDRobotsRobotIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put projects project ID robots robot ID params
@@ -162,7 +182,6 @@ func (o *PutProjectsProjectIDRobotsRobotIDParams) WriteToRequest(r runtime.Clien
 	if err := r.SetPathParam("project_id", swag.FormatInt64(o.ProjectID)); err != nil {
 		return err
 	}
-
 	if o.Robot != nil {
 		if err := r.SetBodyParam(o.Robot); err != nil {
 			return err

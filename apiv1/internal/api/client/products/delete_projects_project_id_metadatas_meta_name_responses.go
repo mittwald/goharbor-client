@@ -50,7 +50,6 @@ func (o *DeleteProjectsProjectIDMetadatasMetaNameReader) ReadResponse(response r
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -61,7 +60,7 @@ func NewDeleteProjectsProjectIDMetadatasMetaNameOK() *DeleteProjectsProjectIDMet
 	return &DeleteProjectsProjectIDMetadatasMetaNameOK{}
 }
 
-/*DeleteProjectsProjectIDMetadatasMetaNameOK handles this case with default header values.
+/* DeleteProjectsProjectIDMetadatasMetaNameOK describes a response with status code 200, with default header values.
 
 Metadata is deleted successfully.
 */
@@ -82,7 +81,7 @@ func NewDeleteProjectsProjectIDMetadatasMetaNameBadRequest() *DeleteProjectsProj
 	return &DeleteProjectsProjectIDMetadatasMetaNameBadRequest{}
 }
 
-/*DeleteProjectsProjectIDMetadatasMetaNameBadRequest handles this case with default header values.
+/* DeleteProjectsProjectIDMetadatasMetaNameBadRequest describes a response with status code 400, with default header values.
 
 Invalid requst.
 */
@@ -103,7 +102,7 @@ func NewDeleteProjectsProjectIDMetadatasMetaNameForbidden() *DeleteProjectsProje
 	return &DeleteProjectsProjectIDMetadatasMetaNameForbidden{}
 }
 
-/*DeleteProjectsProjectIDMetadatasMetaNameForbidden handles this case with default header values.
+/* DeleteProjectsProjectIDMetadatasMetaNameForbidden describes a response with status code 403, with default header values.
 
 User need to log in first.
 */
@@ -124,7 +123,7 @@ func NewDeleteProjectsProjectIDMetadatasMetaNameNotFound() *DeleteProjectsProjec
 	return &DeleteProjectsProjectIDMetadatasMetaNameNotFound{}
 }
 
-/*DeleteProjectsProjectIDMetadatasMetaNameNotFound handles this case with default header values.
+/* DeleteProjectsProjectIDMetadatasMetaNameNotFound describes a response with status code 404, with default header values.
 
 Project or metadata does not exist.
 */
@@ -145,7 +144,7 @@ func NewDeleteProjectsProjectIDMetadatasMetaNameInternalServerError() *DeletePro
 	return &DeleteProjectsProjectIDMetadatasMetaNameInternalServerError{}
 }
 
-/*DeleteProjectsProjectIDMetadatasMetaNameInternalServerError handles this case with default header values.
+/* DeleteProjectsProjectIDMetadatasMetaNameInternalServerError describes a response with status code 500, with default header values.
 
 Internal server errors.
 */

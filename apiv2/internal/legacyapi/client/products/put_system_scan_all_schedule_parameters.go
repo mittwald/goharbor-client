@@ -18,59 +18,73 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPutSystemScanAllScheduleParams creates a new PutSystemScanAllScheduleParams object
-// with the default values initialized.
+// NewPutSystemScanAllScheduleParams creates a new PutSystemScanAllScheduleParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPutSystemScanAllScheduleParams() *PutSystemScanAllScheduleParams {
-	var ()
 	return &PutSystemScanAllScheduleParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutSystemScanAllScheduleParamsWithTimeout creates a new PutSystemScanAllScheduleParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPutSystemScanAllScheduleParamsWithTimeout(timeout time.Duration) *PutSystemScanAllScheduleParams {
-	var ()
 	return &PutSystemScanAllScheduleParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPutSystemScanAllScheduleParamsWithContext creates a new PutSystemScanAllScheduleParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPutSystemScanAllScheduleParamsWithContext(ctx context.Context) *PutSystemScanAllScheduleParams {
-	var ()
 	return &PutSystemScanAllScheduleParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPutSystemScanAllScheduleParamsWithHTTPClient creates a new PutSystemScanAllScheduleParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPutSystemScanAllScheduleParamsWithHTTPClient(client *http.Client) *PutSystemScanAllScheduleParams {
-	var ()
 	return &PutSystemScanAllScheduleParams{
 		HTTPClient: client,
 	}
 }
 
-/*PutSystemScanAllScheduleParams contains all the parameters to send to the API endpoint
-for the put system scan all schedule operation typically these are written to a http.Request
+/* PutSystemScanAllScheduleParams contains all the parameters to send to the API endpoint
+   for the put system scan all schedule operation.
+
+   Typically these are written to a http.Request.
 */
 type PutSystemScanAllScheduleParams struct {
 
-	/*Schedule
-	  Updates the schedule of scan all job, which scans all of images in Harbor.
+	/* Schedule.
 
+	   Updates the schedule of scan all job, which scans all of images in Harbor.
 	*/
 	Schedule *legacy.AdminJobSchedule
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the put system scan all schedule params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutSystemScanAllScheduleParams) WithDefaults() *PutSystemScanAllScheduleParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the put system scan all schedule params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutSystemScanAllScheduleParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put system scan all schedule params
@@ -124,7 +138,6 @@ func (o *PutSystemScanAllScheduleParams) WriteToRequest(r runtime.ClientRequest,
 		return err
 	}
 	var res []error
-
 	if o.Schedule != nil {
 		if err := r.SetBodyParam(o.Schedule); err != nil {
 			return err

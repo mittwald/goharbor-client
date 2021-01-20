@@ -17,64 +17,81 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteProjectParams creates a new DeleteProjectParams object
-// with the default values initialized.
+// NewDeleteProjectParams creates a new DeleteProjectParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteProjectParams() *DeleteProjectParams {
-	var ()
 	return &DeleteProjectParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteProjectParamsWithTimeout creates a new DeleteProjectParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteProjectParamsWithTimeout(timeout time.Duration) *DeleteProjectParams {
-	var ()
 	return &DeleteProjectParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteProjectParamsWithContext creates a new DeleteProjectParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteProjectParamsWithContext(ctx context.Context) *DeleteProjectParams {
-	var ()
 	return &DeleteProjectParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteProjectParamsWithHTTPClient creates a new DeleteProjectParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteProjectParamsWithHTTPClient(client *http.Client) *DeleteProjectParams {
-	var ()
 	return &DeleteProjectParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteProjectParams contains all the parameters to send to the API endpoint
-for the delete project operation typically these are written to a http.Request
+/* DeleteProjectParams contains all the parameters to send to the API endpoint
+   for the delete project operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteProjectParams struct {
 
-	/*XRequestID
-	  An unique ID for the request
+	/* XRequestID.
 
+	   An unique ID for the request
 	*/
 	XRequestID *string
-	/*ProjectID
-	  The ID of the project
 
+	/* ProjectID.
+
+	   The ID of the project
+
+	   Format: int64
 	*/
 	ProjectID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete project params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteProjectParams) WithDefaults() *DeleteProjectParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete project params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteProjectParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete project params
@@ -146,7 +163,6 @@ func (o *DeleteProjectParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
-
 	}
 
 	// path param project_id

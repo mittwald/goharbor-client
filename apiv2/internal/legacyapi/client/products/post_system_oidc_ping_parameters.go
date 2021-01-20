@@ -16,59 +16,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewPostSystemOidcPingParams creates a new PostSystemOidcPingParams object
-// with the default values initialized.
+// NewPostSystemOidcPingParams creates a new PostSystemOidcPingParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostSystemOidcPingParams() *PostSystemOidcPingParams {
-	var ()
 	return &PostSystemOidcPingParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostSystemOidcPingParamsWithTimeout creates a new PostSystemOidcPingParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostSystemOidcPingParamsWithTimeout(timeout time.Duration) *PostSystemOidcPingParams {
-	var ()
 	return &PostSystemOidcPingParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostSystemOidcPingParamsWithContext creates a new PostSystemOidcPingParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostSystemOidcPingParamsWithContext(ctx context.Context) *PostSystemOidcPingParams {
-	var ()
 	return &PostSystemOidcPingParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostSystemOidcPingParamsWithHTTPClient creates a new PostSystemOidcPingParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostSystemOidcPingParamsWithHTTPClient(client *http.Client) *PostSystemOidcPingParams {
-	var ()
 	return &PostSystemOidcPingParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostSystemOidcPingParams contains all the parameters to send to the API endpoint
-for the post system oidc ping operation typically these are written to a http.Request
+/* PostSystemOidcPingParams contains all the parameters to send to the API endpoint
+   for the post system oidc ping operation.
+
+   Typically these are written to a http.Request.
 */
 type PostSystemOidcPingParams struct {
 
-	/*Endpoint
-	  Request body for OIDC endpoint to be tested.
+	/* Endpoint.
 
+	   Request body for OIDC endpoint to be tested.
 	*/
 	Endpoint PostSystemOidcPingBody
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post system oidc ping params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostSystemOidcPingParams) WithDefaults() *PostSystemOidcPingParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post system oidc ping params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostSystemOidcPingParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post system oidc ping params
@@ -122,7 +136,6 @@ func (o *PostSystemOidcPingParams) WriteToRequest(r runtime.ClientRequest, reg s
 		return err
 	}
 	var res []error
-
 	if err := r.SetBodyParam(o.Endpoint); err != nil {
 		return err
 	}

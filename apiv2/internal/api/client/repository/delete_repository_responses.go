@@ -59,7 +59,6 @@ func (o *DeleteRepositoryReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -70,12 +69,13 @@ func NewDeleteRepositoryOK() *DeleteRepositoryOK {
 	return &DeleteRepositoryOK{}
 }
 
-/*DeleteRepositoryOK handles this case with default header values.
+/* DeleteRepositoryOK describes a response with status code 200, with default header values.
 
 Success
 */
 type DeleteRepositoryOK struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -86,8 +86,12 @@ func (o *DeleteRepositoryOK) Error() string {
 
 func (o *DeleteRepositoryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	return nil
 }
@@ -97,12 +101,13 @@ func NewDeleteRepositoryBadRequest() *DeleteRepositoryBadRequest {
 	return &DeleteRepositoryBadRequest{}
 }
 
-/*DeleteRepositoryBadRequest handles this case with default header values.
+/* DeleteRepositoryBadRequest describes a response with status code 400, with default header values.
 
 Bad request
 */
 type DeleteRepositoryBadRequest struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -112,15 +117,18 @@ type DeleteRepositoryBadRequest struct {
 func (o *DeleteRepositoryBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}][%d] deleteRepositoryBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteRepositoryBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteRepositoryBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -137,12 +145,13 @@ func NewDeleteRepositoryUnauthorized() *DeleteRepositoryUnauthorized {
 	return &DeleteRepositoryUnauthorized{}
 }
 
-/*DeleteRepositoryUnauthorized handles this case with default header values.
+/* DeleteRepositoryUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
 type DeleteRepositoryUnauthorized struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -152,15 +161,18 @@ type DeleteRepositoryUnauthorized struct {
 func (o *DeleteRepositoryUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}][%d] deleteRepositoryUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeleteRepositoryUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteRepositoryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -177,12 +189,13 @@ func NewDeleteRepositoryForbidden() *DeleteRepositoryForbidden {
 	return &DeleteRepositoryForbidden{}
 }
 
-/*DeleteRepositoryForbidden handles this case with default header values.
+/* DeleteRepositoryForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
 type DeleteRepositoryForbidden struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -192,15 +205,18 @@ type DeleteRepositoryForbidden struct {
 func (o *DeleteRepositoryForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}][%d] deleteRepositoryForbidden  %+v", 403, o.Payload)
 }
-
 func (o *DeleteRepositoryForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteRepositoryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -217,12 +233,13 @@ func NewDeleteRepositoryNotFound() *DeleteRepositoryNotFound {
 	return &DeleteRepositoryNotFound{}
 }
 
-/*DeleteRepositoryNotFound handles this case with default header values.
+/* DeleteRepositoryNotFound describes a response with status code 404, with default header values.
 
 Not found
 */
 type DeleteRepositoryNotFound struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -232,15 +249,18 @@ type DeleteRepositoryNotFound struct {
 func (o *DeleteRepositoryNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}][%d] deleteRepositoryNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteRepositoryNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteRepositoryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -257,12 +277,13 @@ func NewDeleteRepositoryInternalServerError() *DeleteRepositoryInternalServerErr
 	return &DeleteRepositoryInternalServerError{}
 }
 
-/*DeleteRepositoryInternalServerError handles this case with default header values.
+/* DeleteRepositoryInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error
 */
 type DeleteRepositoryInternalServerError struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -272,15 +293,18 @@ type DeleteRepositoryInternalServerError struct {
 func (o *DeleteRepositoryInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}][%d] deleteRepositoryInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteRepositoryInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteRepositoryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 

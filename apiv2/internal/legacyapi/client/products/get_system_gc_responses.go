@@ -47,7 +47,6 @@ func (o *GetSystemGcReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -58,7 +57,7 @@ func NewGetSystemGcOK() *GetSystemGcOK {
 	return &GetSystemGcOK{}
 }
 
-/*GetSystemGcOK handles this case with default header values.
+/* GetSystemGcOK describes a response with status code 200, with default header values.
 
 Get gc results successfully.
 */
@@ -69,7 +68,6 @@ type GetSystemGcOK struct {
 func (o *GetSystemGcOK) Error() string {
 	return fmt.Sprintf("[GET /system/gc][%d] getSystemGcOK  %+v", 200, o.Payload)
 }
-
 func (o *GetSystemGcOK) GetPayload() []*legacy.GCResult {
 	return o.Payload
 }
@@ -89,7 +87,7 @@ func NewGetSystemGcUnauthorized() *GetSystemGcUnauthorized {
 	return &GetSystemGcUnauthorized{}
 }
 
-/*GetSystemGcUnauthorized handles this case with default header values.
+/* GetSystemGcUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -110,7 +108,7 @@ func NewGetSystemGcForbidden() *GetSystemGcForbidden {
 	return &GetSystemGcForbidden{}
 }
 
-/*GetSystemGcForbidden handles this case with default header values.
+/* GetSystemGcForbidden describes a response with status code 403, with default header values.
 
 User does not have permission of admin role.
 */
@@ -131,7 +129,7 @@ func NewGetSystemGcInternalServerError() *GetSystemGcInternalServerError {
 	return &GetSystemGcInternalServerError{}
 }
 
-/*GetSystemGcInternalServerError handles this case with default header values.
+/* GetSystemGcInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

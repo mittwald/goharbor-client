@@ -17,75 +17,82 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetQuotasParams creates a new GetQuotasParams object
-// with the default values initialized.
+// NewGetQuotasParams creates a new GetQuotasParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetQuotasParams() *GetQuotasParams {
-	var ()
 	return &GetQuotasParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetQuotasParamsWithTimeout creates a new GetQuotasParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetQuotasParamsWithTimeout(timeout time.Duration) *GetQuotasParams {
-	var ()
 	return &GetQuotasParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetQuotasParamsWithContext creates a new GetQuotasParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetQuotasParamsWithContext(ctx context.Context) *GetQuotasParams {
-	var ()
 	return &GetQuotasParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetQuotasParamsWithHTTPClient creates a new GetQuotasParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetQuotasParamsWithHTTPClient(client *http.Client) *GetQuotasParams {
-	var ()
 	return &GetQuotasParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetQuotasParams contains all the parameters to send to the API endpoint
-for the get quotas operation typically these are written to a http.Request
+/* GetQuotasParams contains all the parameters to send to the API endpoint
+   for the get quotas operation.
+
+   Typically these are written to a http.Request.
 */
 type GetQuotasParams struct {
 
-	/*Page
-	  The page number, default is 1.
+	/* Page.
 
+	   The page number, default is 1.
+
+	   Format: int32
 	*/
 	Page *int32
-	/*PageSize
-	  The size of per page, default is 10, maximum is 100.
 
+	/* PageSize.
+
+	   The size of per page, default is 10, maximum is 100.
+
+	   Format: int32
 	*/
 	PageSize *int32
-	/*Reference
-	  The reference type of quota.
 
+	/* Reference.
+
+	   The reference type of quota.
 	*/
 	Reference *string
-	/*ReferenceID
-	  The reference id of quota.
 
+	/* ReferenceID.
+
+	   The reference id of quota.
 	*/
 	ReferenceID *string
-	/*Sort
-	  Sort method, valid values include:
+
+	/* Sort.
+
+	     Sort method, valid values include:
 	'hard.resource_name', '-hard.resource_name', 'used.resource_name', '-used.resource_name'.
 	Here '-' stands for descending order, resource_name should be the real resource name of the quota.
-
 
 	*/
 	Sort *string
@@ -93,6 +100,21 @@ type GetQuotasParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get quotas params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetQuotasParams) WithDefaults() *GetQuotasParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get quotas params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetQuotasParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get quotas params
@@ -195,80 +217,85 @@ func (o *GetQuotasParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 
 		// query param page
 		var qrPage int32
+
 		if o.Page != nil {
 			qrPage = *o.Page
 		}
 		qPage := swag.FormatInt32(qrPage)
 		if qPage != "" {
+
 			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.PageSize != nil {
 
 		// query param page_size
 		var qrPageSize int32
+
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt32(qrPageSize)
 		if qPageSize != "" {
+
 			if err := r.SetQueryParam("page_size", qPageSize); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Reference != nil {
 
 		// query param reference
 		var qrReference string
+
 		if o.Reference != nil {
 			qrReference = *o.Reference
 		}
 		qReference := qrReference
 		if qReference != "" {
+
 			if err := r.SetQueryParam("reference", qReference); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ReferenceID != nil {
 
 		// query param reference_id
 		var qrReferenceID string
+
 		if o.ReferenceID != nil {
 			qrReferenceID = *o.ReferenceID
 		}
 		qReferenceID := qrReferenceID
 		if qReferenceID != "" {
+
 			if err := r.SetQueryParam("reference_id", qReferenceID); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Sort != nil {
 
 		// query param sort
 		var qrSort string
+
 		if o.Sort != nil {
 			qrSort = *o.Sort
 		}
 		qSort := qrSort
 		if qSort != "" {
+
 			if err := r.SetQueryParam("sort", qSort); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

@@ -50,7 +50,6 @@ func (o *DeleteLabelsIDReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -61,7 +60,7 @@ func NewDeleteLabelsIDOK() *DeleteLabelsIDOK {
 	return &DeleteLabelsIDOK{}
 }
 
-/*DeleteLabelsIDOK handles this case with default header values.
+/* DeleteLabelsIDOK describes a response with status code 200, with default header values.
 
 Delete successfully.
 */
@@ -82,7 +81,7 @@ func NewDeleteLabelsIDBadRequest() *DeleteLabelsIDBadRequest {
 	return &DeleteLabelsIDBadRequest{}
 }
 
-/*DeleteLabelsIDBadRequest handles this case with default header values.
+/* DeleteLabelsIDBadRequest describes a response with status code 400, with default header values.
 
 Invalid parameters.
 */
@@ -103,7 +102,7 @@ func NewDeleteLabelsIDUnauthorized() *DeleteLabelsIDUnauthorized {
 	return &DeleteLabelsIDUnauthorized{}
 }
 
-/*DeleteLabelsIDUnauthorized handles this case with default header values.
+/* DeleteLabelsIDUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -124,7 +123,7 @@ func NewDeleteLabelsIDNotFound() *DeleteLabelsIDNotFound {
 	return &DeleteLabelsIDNotFound{}
 }
 
-/*DeleteLabelsIDNotFound handles this case with default header values.
+/* DeleteLabelsIDNotFound describes a response with status code 404, with default header values.
 
 The resource does not exist.
 */
@@ -145,7 +144,7 @@ func NewDeleteLabelsIDInternalServerError() *DeleteLabelsIDInternalServerError {
 	return &DeleteLabelsIDInternalServerError{}
 }
 
-/*DeleteLabelsIDInternalServerError handles this case with default header values.
+/* DeleteLabelsIDInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

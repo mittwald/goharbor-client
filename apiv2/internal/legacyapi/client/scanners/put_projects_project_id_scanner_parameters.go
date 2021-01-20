@@ -19,61 +19,78 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPutProjectsProjectIDScannerParams creates a new PutProjectsProjectIDScannerParams object
-// with the default values initialized.
+// NewPutProjectsProjectIDScannerParams creates a new PutProjectsProjectIDScannerParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPutProjectsProjectIDScannerParams() *PutProjectsProjectIDScannerParams {
-	var ()
 	return &PutProjectsProjectIDScannerParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutProjectsProjectIDScannerParamsWithTimeout creates a new PutProjectsProjectIDScannerParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPutProjectsProjectIDScannerParamsWithTimeout(timeout time.Duration) *PutProjectsProjectIDScannerParams {
-	var ()
 	return &PutProjectsProjectIDScannerParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPutProjectsProjectIDScannerParamsWithContext creates a new PutProjectsProjectIDScannerParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPutProjectsProjectIDScannerParamsWithContext(ctx context.Context) *PutProjectsProjectIDScannerParams {
-	var ()
 	return &PutProjectsProjectIDScannerParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPutProjectsProjectIDScannerParamsWithHTTPClient creates a new PutProjectsProjectIDScannerParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPutProjectsProjectIDScannerParamsWithHTTPClient(client *http.Client) *PutProjectsProjectIDScannerParams {
-	var ()
 	return &PutProjectsProjectIDScannerParams{
 		HTTPClient: client,
 	}
 }
 
-/*PutProjectsProjectIDScannerParams contains all the parameters to send to the API endpoint
-for the put projects project ID scanner operation typically these are written to a http.Request
+/* PutProjectsProjectIDScannerParams contains all the parameters to send to the API endpoint
+   for the put projects project ID scanner operation.
+
+   Typically these are written to a http.Request.
 */
 type PutProjectsProjectIDScannerParams struct {
 
-	/*Payload*/
+	// Payload.
 	Payload *legacy.ProjectScanner
-	/*ProjectID
-	  The project identifier.
 
+	/* ProjectID.
+
+	   The project identifier.
+
+	   Format: int64
 	*/
 	ProjectID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the put projects project ID scanner params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutProjectsProjectIDScannerParams) WithDefaults() *PutProjectsProjectIDScannerParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the put projects project ID scanner params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutProjectsProjectIDScannerParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put projects project ID scanner params
@@ -138,7 +155,6 @@ func (o *PutProjectsProjectIDScannerParams) WriteToRequest(r runtime.ClientReque
 		return err
 	}
 	var res []error
-
 	if o.Payload != nil {
 		if err := r.SetBodyParam(o.Payload); err != nil {
 			return err

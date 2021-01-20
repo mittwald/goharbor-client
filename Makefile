@@ -4,14 +4,15 @@ mock-cleanup integration-test-v1 integration-test-v2
 V1_VERSION = v1.10.6
 V2_VERSION = v2.1.3
 MOCKERY_VERSION = v2.5.1
+GOSWAGGER_VERSION = v0.26.0
 
 # Run all code generation targets
 generate: swagger-generate mock-generate
 
 # Run go-swagger code generation
 swagger-generate: swagger-cleanup
-	scripts/swagger-gen.sh $(V1_VERSION)
-	scripts/swagger-gen.sh $(V2_VERSION)
+	scripts/swagger-gen.sh $(V1_VERSION) $(GOSWAGGER_VERSION)
+	scripts/swagger-gen.sh $(V2_VERSION) $(GOSWAGGER_VERSION)
 
 # Run mockery
 mock-generate: mock-cleanup

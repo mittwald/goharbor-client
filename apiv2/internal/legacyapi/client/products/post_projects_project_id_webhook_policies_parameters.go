@@ -19,64 +19,81 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPostProjectsProjectIDWebhookPoliciesParams creates a new PostProjectsProjectIDWebhookPoliciesParams object
-// with the default values initialized.
+// NewPostProjectsProjectIDWebhookPoliciesParams creates a new PostProjectsProjectIDWebhookPoliciesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostProjectsProjectIDWebhookPoliciesParams() *PostProjectsProjectIDWebhookPoliciesParams {
-	var ()
 	return &PostProjectsProjectIDWebhookPoliciesParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostProjectsProjectIDWebhookPoliciesParamsWithTimeout creates a new PostProjectsProjectIDWebhookPoliciesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostProjectsProjectIDWebhookPoliciesParamsWithTimeout(timeout time.Duration) *PostProjectsProjectIDWebhookPoliciesParams {
-	var ()
 	return &PostProjectsProjectIDWebhookPoliciesParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostProjectsProjectIDWebhookPoliciesParamsWithContext creates a new PostProjectsProjectIDWebhookPoliciesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostProjectsProjectIDWebhookPoliciesParamsWithContext(ctx context.Context) *PostProjectsProjectIDWebhookPoliciesParams {
-	var ()
 	return &PostProjectsProjectIDWebhookPoliciesParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostProjectsProjectIDWebhookPoliciesParamsWithHTTPClient creates a new PostProjectsProjectIDWebhookPoliciesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostProjectsProjectIDWebhookPoliciesParamsWithHTTPClient(client *http.Client) *PostProjectsProjectIDWebhookPoliciesParams {
-	var ()
 	return &PostProjectsProjectIDWebhookPoliciesParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostProjectsProjectIDWebhookPoliciesParams contains all the parameters to send to the API endpoint
-for the post projects project ID webhook policies operation typically these are written to a http.Request
+/* PostProjectsProjectIDWebhookPoliciesParams contains all the parameters to send to the API endpoint
+   for the post projects project ID webhook policies operation.
+
+   Typically these are written to a http.Request.
 */
 type PostProjectsProjectIDWebhookPoliciesParams struct {
 
-	/*Policy
-	  Properties "targets" and "event_types" needed.
+	/* Policy.
 
+	   Properties "targets" and "event_types" needed.
 	*/
 	Policy *legacy.WebhookPolicy
-	/*ProjectID
-	  Relevant project ID
 
+	/* ProjectID.
+
+	   Relevant project ID
+
+	   Format: int64
 	*/
 	ProjectID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post projects project ID webhook policies params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostProjectsProjectIDWebhookPoliciesParams) WithDefaults() *PostProjectsProjectIDWebhookPoliciesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post projects project ID webhook policies params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostProjectsProjectIDWebhookPoliciesParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post projects project ID webhook policies params
@@ -141,7 +158,6 @@ func (o *PostProjectsProjectIDWebhookPoliciesParams) WriteToRequest(r runtime.Cl
 		return err
 	}
 	var res []error
-
 	if o.Policy != nil {
 		if err := r.SetBodyParam(o.Policy); err != nil {
 			return err

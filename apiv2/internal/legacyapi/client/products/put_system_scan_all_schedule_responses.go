@@ -50,7 +50,6 @@ func (o *PutSystemScanAllScheduleReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -61,7 +60,7 @@ func NewPutSystemScanAllScheduleOK() *PutSystemScanAllScheduleOK {
 	return &PutSystemScanAllScheduleOK{}
 }
 
-/*PutSystemScanAllScheduleOK handles this case with default header values.
+/* PutSystemScanAllScheduleOK describes a response with status code 200, with default header values.
 
 Updated scan_all's schedule successfully.
 */
@@ -82,7 +81,7 @@ func NewPutSystemScanAllScheduleBadRequest() *PutSystemScanAllScheduleBadRequest
 	return &PutSystemScanAllScheduleBadRequest{}
 }
 
-/*PutSystemScanAllScheduleBadRequest handles this case with default header values.
+/* PutSystemScanAllScheduleBadRequest describes a response with status code 400, with default header values.
 
 Invalid schedule type.
 */
@@ -103,7 +102,7 @@ func NewPutSystemScanAllScheduleUnauthorized() *PutSystemScanAllScheduleUnauthor
 	return &PutSystemScanAllScheduleUnauthorized{}
 }
 
-/*PutSystemScanAllScheduleUnauthorized handles this case with default header values.
+/* PutSystemScanAllScheduleUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -124,7 +123,7 @@ func NewPutSystemScanAllScheduleForbidden() *PutSystemScanAllScheduleForbidden {
 	return &PutSystemScanAllScheduleForbidden{}
 }
 
-/*PutSystemScanAllScheduleForbidden handles this case with default header values.
+/* PutSystemScanAllScheduleForbidden describes a response with status code 403, with default header values.
 
 User does not have permission of admin role.
 */
@@ -145,7 +144,7 @@ func NewPutSystemScanAllScheduleInternalServerError() *PutSystemScanAllScheduleI
 	return &PutSystemScanAllScheduleInternalServerError{}
 }
 
-/*PutSystemScanAllScheduleInternalServerError handles this case with default header values.
+/* PutSystemScanAllScheduleInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

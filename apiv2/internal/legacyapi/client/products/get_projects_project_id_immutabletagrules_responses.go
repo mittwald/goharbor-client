@@ -53,7 +53,6 @@ func (o *GetProjectsProjectIDImmutabletagrulesReader) ReadResponse(response runt
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -64,7 +63,7 @@ func NewGetProjectsProjectIDImmutabletagrulesOK() *GetProjectsProjectIDImmutable
 	return &GetProjectsProjectIDImmutabletagrulesOK{}
 }
 
-/*GetProjectsProjectIDImmutabletagrulesOK handles this case with default header values.
+/* GetProjectsProjectIDImmutabletagrulesOK describes a response with status code 200, with default header values.
 
 List project immutable tag rules successfully.
 */
@@ -75,7 +74,6 @@ type GetProjectsProjectIDImmutabletagrulesOK struct {
 func (o *GetProjectsProjectIDImmutabletagrulesOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}/immutabletagrules][%d] getProjectsProjectIdImmutabletagrulesOK  %+v", 200, o.Payload)
 }
-
 func (o *GetProjectsProjectIDImmutabletagrulesOK) GetPayload() []*legacy.RetentionRule {
 	return o.Payload
 }
@@ -95,7 +93,7 @@ func NewGetProjectsProjectIDImmutabletagrulesBadRequest() *GetProjectsProjectIDI
 	return &GetProjectsProjectIDImmutabletagrulesBadRequest{}
 }
 
-/*GetProjectsProjectIDImmutabletagrulesBadRequest handles this case with default header values.
+/* GetProjectsProjectIDImmutabletagrulesBadRequest describes a response with status code 400, with default header values.
 
 Illegal format of provided ID value.
 */
@@ -116,7 +114,7 @@ func NewGetProjectsProjectIDImmutabletagrulesUnauthorized() *GetProjectsProjectI
 	return &GetProjectsProjectIDImmutabletagrulesUnauthorized{}
 }
 
-/*GetProjectsProjectIDImmutabletagrulesUnauthorized handles this case with default header values.
+/* GetProjectsProjectIDImmutabletagrulesUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -137,7 +135,7 @@ func NewGetProjectsProjectIDImmutabletagrulesForbidden() *GetProjectsProjectIDIm
 	return &GetProjectsProjectIDImmutabletagrulesForbidden{}
 }
 
-/*GetProjectsProjectIDImmutabletagrulesForbidden handles this case with default header values.
+/* GetProjectsProjectIDImmutabletagrulesForbidden describes a response with status code 403, with default header values.
 
 User have no permission to list immutable tag rules of the project.
 */
@@ -158,7 +156,7 @@ func NewGetProjectsProjectIDImmutabletagrulesInternalServerError() *GetProjectsP
 	return &GetProjectsProjectIDImmutabletagrulesInternalServerError{}
 }
 
-/*GetProjectsProjectIDImmutabletagrulesInternalServerError handles this case with default header values.
+/* GetProjectsProjectIDImmutabletagrulesInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

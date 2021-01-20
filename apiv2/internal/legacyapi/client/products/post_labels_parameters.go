@@ -18,59 +18,73 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPostLabelsParams creates a new PostLabelsParams object
-// with the default values initialized.
+// NewPostLabelsParams creates a new PostLabelsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostLabelsParams() *PostLabelsParams {
-	var ()
 	return &PostLabelsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostLabelsParamsWithTimeout creates a new PostLabelsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostLabelsParamsWithTimeout(timeout time.Duration) *PostLabelsParams {
-	var ()
 	return &PostLabelsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostLabelsParamsWithContext creates a new PostLabelsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostLabelsParamsWithContext(ctx context.Context) *PostLabelsParams {
-	var ()
 	return &PostLabelsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostLabelsParamsWithHTTPClient creates a new PostLabelsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostLabelsParamsWithHTTPClient(client *http.Client) *PostLabelsParams {
-	var ()
 	return &PostLabelsParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostLabelsParams contains all the parameters to send to the API endpoint
-for the post labels operation typically these are written to a http.Request
+/* PostLabelsParams contains all the parameters to send to the API endpoint
+   for the post labels operation.
+
+   Typically these are written to a http.Request.
 */
 type PostLabelsParams struct {
 
-	/*Label
-	  The json object of label.
+	/* Label.
 
+	   The json object of label.
 	*/
 	Label *legacy.Label
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post labels params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostLabelsParams) WithDefaults() *PostLabelsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post labels params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostLabelsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post labels params
@@ -124,7 +138,6 @@ func (o *PostLabelsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		return err
 	}
 	var res []error
-
 	if o.Label != nil {
 		if err := r.SetBodyParam(o.Label); err != nil {
 			return err

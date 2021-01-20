@@ -35,7 +35,6 @@ func (o *GetUsersSearchReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -46,7 +45,7 @@ func NewGetUsersSearchOK() *GetUsersSearchOK {
 	return &GetUsersSearchOK{}
 }
 
-/*GetUsersSearchOK handles this case with default header values.
+/* GetUsersSearchOK describes a response with status code 200, with default header values.
 
 Search users by username, email successfully.
 */
@@ -57,7 +56,6 @@ type GetUsersSearchOK struct {
 func (o *GetUsersSearchOK) Error() string {
 	return fmt.Sprintf("[GET /users/search][%d] getUsersSearchOK  %+v", 200, o.Payload)
 }
-
 func (o *GetUsersSearchOK) GetPayload() []*legacy.UserSearch {
 	return o.Payload
 }
@@ -77,7 +75,7 @@ func NewGetUsersSearchInternalServerError() *GetUsersSearchInternalServerError {
 	return &GetUsersSearchInternalServerError{}
 }
 
-/*GetUsersSearchInternalServerError handles this case with default header values.
+/* GetUsersSearchInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

@@ -50,7 +50,6 @@ func (o *DeleteProjectsProjectIDRobotsRobotIDReader) ReadResponse(response runti
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -61,7 +60,7 @@ func NewDeleteProjectsProjectIDRobotsRobotIDOK() *DeleteProjectsProjectIDRobotsR
 	return &DeleteProjectsProjectIDRobotsRobotIDOK{}
 }
 
-/*DeleteProjectsProjectIDRobotsRobotIDOK handles this case with default header values.
+/* DeleteProjectsProjectIDRobotsRobotIDOK describes a response with status code 200, with default header values.
 
 The specified robot account is successfully deleted.
 */
@@ -82,7 +81,7 @@ func NewDeleteProjectsProjectIDRobotsRobotIDUnauthorized() *DeleteProjectsProjec
 	return &DeleteProjectsProjectIDRobotsRobotIDUnauthorized{}
 }
 
-/*DeleteProjectsProjectIDRobotsRobotIDUnauthorized handles this case with default header values.
+/* DeleteProjectsProjectIDRobotsRobotIDUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -103,7 +102,7 @@ func NewDeleteProjectsProjectIDRobotsRobotIDForbidden() *DeleteProjectsProjectID
 	return &DeleteProjectsProjectIDRobotsRobotIDForbidden{}
 }
 
-/*DeleteProjectsProjectIDRobotsRobotIDForbidden handles this case with default header values.
+/* DeleteProjectsProjectIDRobotsRobotIDForbidden describes a response with status code 403, with default header values.
 
 User in session does not have permission to the project.
 */
@@ -124,7 +123,7 @@ func NewDeleteProjectsProjectIDRobotsRobotIDNotFound() *DeleteProjectsProjectIDR
 	return &DeleteProjectsProjectIDRobotsRobotIDNotFound{}
 }
 
-/*DeleteProjectsProjectIDRobotsRobotIDNotFound handles this case with default header values.
+/* DeleteProjectsProjectIDRobotsRobotIDNotFound describes a response with status code 404, with default header values.
 
 The robot account is not found.
 */
@@ -145,7 +144,7 @@ func NewDeleteProjectsProjectIDRobotsRobotIDInternalServerError() *DeleteProject
 	return &DeleteProjectsProjectIDRobotsRobotIDInternalServerError{}
 }
 
-/*DeleteProjectsProjectIDRobotsRobotIDInternalServerError handles this case with default header values.
+/* DeleteProjectsProjectIDRobotsRobotIDInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

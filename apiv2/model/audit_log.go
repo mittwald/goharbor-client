@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -21,6 +23,7 @@ type AuditLog struct {
 	ID int64 `json:"id,omitempty"`
 
 	// The time when this operation is triggered.
+	// Example: 2006-01-02T15:04:05
 	// Format: date-time
 	OpTime strfmt.DateTime `json:"op_time,omitempty"`
 
@@ -52,7 +55,6 @@ func (m *AuditLog) Validate(formats strfmt.Registry) error {
 }
 
 func (m *AuditLog) validateOpTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.OpTime) { // not required
 		return nil
 	}
@@ -61,6 +63,11 @@ func (m *AuditLog) validateOpTime(formats strfmt.Registry) error {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this audit log based on context it is used
+func (m *AuditLog) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

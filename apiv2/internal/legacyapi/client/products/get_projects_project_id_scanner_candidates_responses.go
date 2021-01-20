@@ -53,7 +53,6 @@ func (o *GetProjectsProjectIDScannerCandidatesReader) ReadResponse(response runt
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -64,7 +63,7 @@ func NewGetProjectsProjectIDScannerCandidatesOK() *GetProjectsProjectIDScannerCa
 	return &GetProjectsProjectIDScannerCandidatesOK{}
 }
 
-/*GetProjectsProjectIDScannerCandidatesOK handles this case with default header values.
+/* GetProjectsProjectIDScannerCandidatesOK describes a response with status code 200, with default header values.
 
 A list of scanner registrations.
 */
@@ -75,7 +74,6 @@ type GetProjectsProjectIDScannerCandidatesOK struct {
 func (o *GetProjectsProjectIDScannerCandidatesOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}/scanner/candidates][%d] getProjectsProjectIdScannerCandidatesOK  %+v", 200, o.Payload)
 }
-
 func (o *GetProjectsProjectIDScannerCandidatesOK) GetPayload() []*legacy.ScannerRegistration {
 	return o.Payload
 }
@@ -95,7 +93,7 @@ func NewGetProjectsProjectIDScannerCandidatesBadRequest() *GetProjectsProjectIDS
 	return &GetProjectsProjectIDScannerCandidatesBadRequest{}
 }
 
-/*GetProjectsProjectIDScannerCandidatesBadRequest handles this case with default header values.
+/* GetProjectsProjectIDScannerCandidatesBadRequest describes a response with status code 400, with default header values.
 
 Bad project ID or query parameters
 */
@@ -116,7 +114,7 @@ func NewGetProjectsProjectIDScannerCandidatesUnauthorized() *GetProjectsProjectI
 	return &GetProjectsProjectIDScannerCandidatesUnauthorized{}
 }
 
-/*GetProjectsProjectIDScannerCandidatesUnauthorized handles this case with default header values.
+/* GetProjectsProjectIDScannerCandidatesUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized request
 */
@@ -137,7 +135,7 @@ func NewGetProjectsProjectIDScannerCandidatesForbidden() *GetProjectsProjectIDSc
 	return &GetProjectsProjectIDScannerCandidatesForbidden{}
 }
 
-/*GetProjectsProjectIDScannerCandidatesForbidden handles this case with default header values.
+/* GetProjectsProjectIDScannerCandidatesForbidden describes a response with status code 403, with default header values.
 
 Request is not allowed
 */
@@ -158,7 +156,7 @@ func NewGetProjectsProjectIDScannerCandidatesInternalServerError() *GetProjectsP
 	return &GetProjectsProjectIDScannerCandidatesInternalServerError{}
 }
 
-/*GetProjectsProjectIDScannerCandidatesInternalServerError handles this case with default header values.
+/* GetProjectsProjectIDScannerCandidatesInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error happened
 */

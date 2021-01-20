@@ -17,109 +17,129 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewListTasksParams creates a new ListTasksParams object
-// with the default values initialized.
+// NewListTasksParams creates a new ListTasksParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewListTasksParams() *ListTasksParams {
-	var (
-		pageDefault     = int64(1)
-		pageSizeDefault = int64(10)
-	)
 	return &ListTasksParams{
-		Page:     &pageDefault,
-		PageSize: &pageSizeDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewListTasksParamsWithTimeout creates a new ListTasksParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewListTasksParamsWithTimeout(timeout time.Duration) *ListTasksParams {
-	var (
-		pageDefault     = int64(1)
-		pageSizeDefault = int64(10)
-	)
 	return &ListTasksParams{
-		Page:     &pageDefault,
-		PageSize: &pageSizeDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewListTasksParamsWithContext creates a new ListTasksParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewListTasksParamsWithContext(ctx context.Context) *ListTasksParams {
-	var (
-		pageDefault     = int64(1)
-		pageSizeDefault = int64(10)
-	)
 	return &ListTasksParams{
-		Page:     &pageDefault,
-		PageSize: &pageSizeDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewListTasksParamsWithHTTPClient creates a new ListTasksParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewListTasksParamsWithHTTPClient(client *http.Client) *ListTasksParams {
-	var (
-		pageDefault     = int64(1)
-		pageSizeDefault = int64(10)
-	)
 	return &ListTasksParams{
-		Page:       &pageDefault,
-		PageSize:   &pageSizeDefault,
 		HTTPClient: client,
 	}
 }
 
-/*ListTasksParams contains all the parameters to send to the API endpoint
-for the list tasks operation typically these are written to a http.Request
+/* ListTasksParams contains all the parameters to send to the API endpoint
+   for the list tasks operation.
+
+   Typically these are written to a http.Request.
 */
 type ListTasksParams struct {
 
-	/*XRequestID
-	  An unique ID for the request
+	/* XRequestID.
 
+	   An unique ID for the request
 	*/
 	XRequestID *string
-	/*ExecutionID
-	  Execution ID
 
+	/* ExecutionID.
+
+	   Execution ID
 	*/
 	ExecutionID int64
-	/*Page
-	  The page number
 
+	/* Page.
+
+	   The page number
+
+	   Format: int64
+	   Default: 1
 	*/
 	Page *int64
-	/*PageSize
-	  The size of per page
 
+	/* PageSize.
+
+	   The size of per page
+
+	   Format: int64
+	   Default: 10
 	*/
 	PageSize *int64
-	/*PreheatPolicyName
-	  Preheat Policy Name
 
+	/* PreheatPolicyName.
+
+	   Preheat Policy Name
 	*/
 	PreheatPolicyName string
-	/*ProjectName
-	  The name of the project
 
+	/* ProjectName.
+
+	   The name of the project
 	*/
 	ProjectName string
-	/*Q
-	  Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
 
+	/* Q.
+
+	   Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
 	*/
 	Q *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the list tasks params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ListTasksParams) WithDefaults() *ListTasksParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the list tasks params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ListTasksParams) SetDefaults() {
+	var (
+		pageDefault = int64(1)
+
+		pageSizeDefault = int64(10)
+	)
+
+	val := ListTasksParams{
+		Page:     &pageDefault,
+		PageSize: &pageSizeDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the list tasks params
@@ -246,7 +266,6 @@ func (o *ListTasksParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
-
 	}
 
 	// path param execution_id
@@ -258,32 +277,34 @@ func (o *ListTasksParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 
 		// query param page
 		var qrPage int64
+
 		if o.Page != nil {
 			qrPage = *o.Page
 		}
 		qPage := swag.FormatInt64(qrPage)
 		if qPage != "" {
+
 			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.PageSize != nil {
 
 		// query param page_size
 		var qrPageSize int64
+
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt64(qrPageSize)
 		if qPageSize != "" {
+
 			if err := r.SetQueryParam("page_size", qPageSize); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param preheat_policy_name
@@ -300,16 +321,17 @@ func (o *ListTasksParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 
 		// query param q
 		var qrQ string
+
 		if o.Q != nil {
 			qrQ = *o.Q
 		}
 		qQ := qrQ
 		if qQ != "" {
+
 			if err := r.SetQueryParam("q", qQ); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

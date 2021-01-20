@@ -55,7 +55,6 @@ func (o *ListPoliciesReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -66,15 +65,17 @@ func NewListPoliciesOK() *ListPoliciesOK {
 	return &ListPoliciesOK{}
 }
 
-/*ListPoliciesOK handles this case with default header values.
+/* ListPoliciesOK describes a response with status code 200, with default header values.
 
 List preheat policies success
 */
 type ListPoliciesOK struct {
-	/*Link refers to the previous page and next page
+
+	/* Link refers to the previous page and next page
 	 */
 	Link string
-	/*The total count of policies
+
+	/* The total count of policies
 	 */
 	XTotalCount int64
 
@@ -84,22 +85,29 @@ type ListPoliciesOK struct {
 func (o *ListPoliciesOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/preheat/policies][%d] listPoliciesOK  %+v", 200, o.Payload)
 }
-
 func (o *ListPoliciesOK) GetPayload() []*model.PreheatPolicy {
 	return o.Payload
 }
 
 func (o *ListPoliciesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header Link
-	o.Link = response.GetHeader("Link")
+	// hydrates response header Link
+	hdrLink := response.GetHeader("Link")
 
-	// response header X-Total-Count
-	xTotalCount, err := swag.ConvertInt64(response.GetHeader("X-Total-Count"))
-	if err != nil {
-		return errors.InvalidType("X-Total-Count", "header", "int64", response.GetHeader("X-Total-Count"))
+	if hdrLink != "" {
+		o.Link = hdrLink
 	}
-	o.XTotalCount = xTotalCount
+
+	// hydrates response header X-Total-Count
+	hdrXTotalCount := response.GetHeader("X-Total-Count")
+
+	if hdrXTotalCount != "" {
+		valxTotalCount, err := swag.ConvertInt64(hdrXTotalCount)
+		if err != nil {
+			return errors.InvalidType("X-Total-Count", "header", "int64", hdrXTotalCount)
+		}
+		o.XTotalCount = valxTotalCount
+	}
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -114,12 +122,13 @@ func NewListPoliciesBadRequest() *ListPoliciesBadRequest {
 	return &ListPoliciesBadRequest{}
 }
 
-/*ListPoliciesBadRequest handles this case with default header values.
+/* ListPoliciesBadRequest describes a response with status code 400, with default header values.
 
 Bad request
 */
 type ListPoliciesBadRequest struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -129,15 +138,18 @@ type ListPoliciesBadRequest struct {
 func (o *ListPoliciesBadRequest) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/preheat/policies][%d] listPoliciesBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *ListPoliciesBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListPoliciesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -154,12 +166,13 @@ func NewListPoliciesUnauthorized() *ListPoliciesUnauthorized {
 	return &ListPoliciesUnauthorized{}
 }
 
-/*ListPoliciesUnauthorized handles this case with default header values.
+/* ListPoliciesUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
 type ListPoliciesUnauthorized struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -169,15 +182,18 @@ type ListPoliciesUnauthorized struct {
 func (o *ListPoliciesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/preheat/policies][%d] listPoliciesUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *ListPoliciesUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListPoliciesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -194,12 +210,13 @@ func NewListPoliciesForbidden() *ListPoliciesForbidden {
 	return &ListPoliciesForbidden{}
 }
 
-/*ListPoliciesForbidden handles this case with default header values.
+/* ListPoliciesForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
 type ListPoliciesForbidden struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -209,15 +226,18 @@ type ListPoliciesForbidden struct {
 func (o *ListPoliciesForbidden) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/preheat/policies][%d] listPoliciesForbidden  %+v", 403, o.Payload)
 }
-
 func (o *ListPoliciesForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListPoliciesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -234,12 +254,13 @@ func NewListPoliciesInternalServerError() *ListPoliciesInternalServerError {
 	return &ListPoliciesInternalServerError{}
 }
 
-/*ListPoliciesInternalServerError handles this case with default header values.
+/* ListPoliciesInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error
 */
 type ListPoliciesInternalServerError struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,15 +270,18 @@ type ListPoliciesInternalServerError struct {
 func (o *ListPoliciesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/preheat/policies][%d] listPoliciesInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *ListPoliciesInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListPoliciesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 

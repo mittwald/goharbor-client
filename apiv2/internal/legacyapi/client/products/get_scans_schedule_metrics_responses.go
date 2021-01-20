@@ -47,7 +47,6 @@ func (o *GetScansScheduleMetricsReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -58,7 +57,7 @@ func NewGetScansScheduleMetricsOK() *GetScansScheduleMetricsOK {
 	return &GetScansScheduleMetricsOK{}
 }
 
-/*GetScansScheduleMetricsOK handles this case with default header values.
+/* GetScansScheduleMetricsOK describes a response with status code 200, with default header values.
 
 OK
 */
@@ -69,7 +68,6 @@ type GetScansScheduleMetricsOK struct {
 func (o *GetScansScheduleMetricsOK) Error() string {
 	return fmt.Sprintf("[GET /scans/schedule/metrics][%d] getScansScheduleMetricsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetScansScheduleMetricsOK) GetPayload() *legacy.Stats {
 	return o.Payload
 }
@@ -91,7 +89,7 @@ func NewGetScansScheduleMetricsUnauthorized() *GetScansScheduleMetricsUnauthoriz
 	return &GetScansScheduleMetricsUnauthorized{}
 }
 
-/*GetScansScheduleMetricsUnauthorized handles this case with default header values.
+/* GetScansScheduleMetricsUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized request
 */
@@ -112,7 +110,7 @@ func NewGetScansScheduleMetricsForbidden() *GetScansScheduleMetricsForbidden {
 	return &GetScansScheduleMetricsForbidden{}
 }
 
-/*GetScansScheduleMetricsForbidden handles this case with default header values.
+/* GetScansScheduleMetricsForbidden describes a response with status code 403, with default header values.
 
 Request is not allowed
 */
@@ -133,7 +131,7 @@ func NewGetScansScheduleMetricsInternalServerError() *GetScansScheduleMetricsInt
 	return &GetScansScheduleMetricsInternalServerError{}
 }
 
-/*GetScansScheduleMetricsInternalServerError handles this case with default header values.
+/* GetScansScheduleMetricsInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error happened
 */

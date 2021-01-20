@@ -61,7 +61,6 @@ func (o *ListRepositoriesReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -72,15 +71,17 @@ func NewListRepositoriesOK() *ListRepositoriesOK {
 	return &ListRepositoriesOK{}
 }
 
-/*ListRepositoriesOK handles this case with default header values.
+/* ListRepositoriesOK describes a response with status code 200, with default header values.
 
 Success
 */
 type ListRepositoriesOK struct {
-	/*Link refers to the previous page and next page
+
+	/* Link refers to the previous page and next page
 	 */
 	Link string
-	/*The total count of repositories
+
+	/* The total count of repositories
 	 */
 	XTotalCount int64
 
@@ -90,22 +91,29 @@ type ListRepositoriesOK struct {
 func (o *ListRepositoriesOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories][%d] listRepositoriesOK  %+v", 200, o.Payload)
 }
-
 func (o *ListRepositoriesOK) GetPayload() []*model.Repository {
 	return o.Payload
 }
 
 func (o *ListRepositoriesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header Link
-	o.Link = response.GetHeader("Link")
+	// hydrates response header Link
+	hdrLink := response.GetHeader("Link")
 
-	// response header X-Total-Count
-	xTotalCount, err := swag.ConvertInt64(response.GetHeader("X-Total-Count"))
-	if err != nil {
-		return errors.InvalidType("X-Total-Count", "header", "int64", response.GetHeader("X-Total-Count"))
+	if hdrLink != "" {
+		o.Link = hdrLink
 	}
-	o.XTotalCount = xTotalCount
+
+	// hydrates response header X-Total-Count
+	hdrXTotalCount := response.GetHeader("X-Total-Count")
+
+	if hdrXTotalCount != "" {
+		valxTotalCount, err := swag.ConvertInt64(hdrXTotalCount)
+		if err != nil {
+			return errors.InvalidType("X-Total-Count", "header", "int64", hdrXTotalCount)
+		}
+		o.XTotalCount = valxTotalCount
+	}
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -120,12 +128,13 @@ func NewListRepositoriesBadRequest() *ListRepositoriesBadRequest {
 	return &ListRepositoriesBadRequest{}
 }
 
-/*ListRepositoriesBadRequest handles this case with default header values.
+/* ListRepositoriesBadRequest describes a response with status code 400, with default header values.
 
 Bad request
 */
 type ListRepositoriesBadRequest struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -135,15 +144,18 @@ type ListRepositoriesBadRequest struct {
 func (o *ListRepositoriesBadRequest) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories][%d] listRepositoriesBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *ListRepositoriesBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListRepositoriesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -160,12 +172,13 @@ func NewListRepositoriesUnauthorized() *ListRepositoriesUnauthorized {
 	return &ListRepositoriesUnauthorized{}
 }
 
-/*ListRepositoriesUnauthorized handles this case with default header values.
+/* ListRepositoriesUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
 type ListRepositoriesUnauthorized struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -175,15 +188,18 @@ type ListRepositoriesUnauthorized struct {
 func (o *ListRepositoriesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories][%d] listRepositoriesUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *ListRepositoriesUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListRepositoriesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -200,12 +216,13 @@ func NewListRepositoriesForbidden() *ListRepositoriesForbidden {
 	return &ListRepositoriesForbidden{}
 }
 
-/*ListRepositoriesForbidden handles this case with default header values.
+/* ListRepositoriesForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
 type ListRepositoriesForbidden struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -215,15 +232,18 @@ type ListRepositoriesForbidden struct {
 func (o *ListRepositoriesForbidden) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories][%d] listRepositoriesForbidden  %+v", 403, o.Payload)
 }
-
 func (o *ListRepositoriesForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListRepositoriesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -240,12 +260,13 @@ func NewListRepositoriesNotFound() *ListRepositoriesNotFound {
 	return &ListRepositoriesNotFound{}
 }
 
-/*ListRepositoriesNotFound handles this case with default header values.
+/* ListRepositoriesNotFound describes a response with status code 404, with default header values.
 
 Not found
 */
 type ListRepositoriesNotFound struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -255,15 +276,18 @@ type ListRepositoriesNotFound struct {
 func (o *ListRepositoriesNotFound) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories][%d] listRepositoriesNotFound  %+v", 404, o.Payload)
 }
-
 func (o *ListRepositoriesNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListRepositoriesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 
@@ -280,12 +304,13 @@ func NewListRepositoriesInternalServerError() *ListRepositoriesInternalServerErr
 	return &ListRepositoriesInternalServerError{}
 }
 
-/*ListRepositoriesInternalServerError handles this case with default header values.
+/* ListRepositoriesInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error
 */
 type ListRepositoriesInternalServerError struct {
-	/*The ID of the corresponding request for the response
+
+	/* The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -295,15 +320,18 @@ type ListRepositoriesInternalServerError struct {
 func (o *ListRepositoriesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories][%d] listRepositoriesInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *ListRepositoriesInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListRepositoriesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header X-Request-Id
-	o.XRequestID = response.GetHeader("X-Request-Id")
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
 
 	o.Payload = new(model.Errors)
 

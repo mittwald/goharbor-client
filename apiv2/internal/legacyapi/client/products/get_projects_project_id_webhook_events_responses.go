@@ -47,7 +47,6 @@ func (o *GetProjectsProjectIDWebhookEventsReader) ReadResponse(response runtime.
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -58,7 +57,7 @@ func NewGetProjectsProjectIDWebhookEventsOK() *GetProjectsProjectIDWebhookEvents
 	return &GetProjectsProjectIDWebhookEventsOK{}
 }
 
-/*GetProjectsProjectIDWebhookEventsOK handles this case with default header values.
+/* GetProjectsProjectIDWebhookEventsOK describes a response with status code 200, with default header values.
 
 Success
 */
@@ -69,7 +68,6 @@ type GetProjectsProjectIDWebhookEventsOK struct {
 func (o *GetProjectsProjectIDWebhookEventsOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}/webhook/events][%d] getProjectsProjectIdWebhookEventsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetProjectsProjectIDWebhookEventsOK) GetPayload() *legacy.SupportedWebhookEventTypes {
 	return o.Payload
 }
@@ -91,7 +89,7 @@ func NewGetProjectsProjectIDWebhookEventsUnauthorized() *GetProjectsProjectIDWeb
 	return &GetProjectsProjectIDWebhookEventsUnauthorized{}
 }
 
-/*GetProjectsProjectIDWebhookEventsUnauthorized handles this case with default header values.
+/* GetProjectsProjectIDWebhookEventsUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -112,7 +110,7 @@ func NewGetProjectsProjectIDWebhookEventsForbidden() *GetProjectsProjectIDWebhoo
 	return &GetProjectsProjectIDWebhookEventsForbidden{}
 }
 
-/*GetProjectsProjectIDWebhookEventsForbidden handles this case with default header values.
+/* GetProjectsProjectIDWebhookEventsForbidden describes a response with status code 403, with default header values.
 
 User have no permission to list webhook jobs of the project.
 */
@@ -133,7 +131,7 @@ func NewGetProjectsProjectIDWebhookEventsInternalServerError() *GetProjectsProje
 	return &GetProjectsProjectIDWebhookEventsInternalServerError{}
 }
 
-/*GetProjectsProjectIDWebhookEventsInternalServerError handles this case with default header values.
+/* GetProjectsProjectIDWebhookEventsInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

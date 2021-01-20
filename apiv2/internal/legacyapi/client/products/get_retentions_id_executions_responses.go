@@ -47,7 +47,6 @@ func (o *GetRetentionsIDExecutionsReader) ReadResponse(response runtime.ClientRe
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -58,7 +57,7 @@ func NewGetRetentionsIDExecutionsOK() *GetRetentionsIDExecutionsOK {
 	return &GetRetentionsIDExecutionsOK{}
 }
 
-/*GetRetentionsIDExecutionsOK handles this case with default header values.
+/* GetRetentionsIDExecutionsOK describes a response with status code 200, with default header values.
 
 Get a Retention job successfully.
 */
@@ -69,7 +68,6 @@ type GetRetentionsIDExecutionsOK struct {
 func (o *GetRetentionsIDExecutionsOK) Error() string {
 	return fmt.Sprintf("[GET /retentions/{id}/executions][%d] getRetentionsIdExecutionsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetRetentionsIDExecutionsOK) GetPayload() []*legacy.RetentionExecution {
 	return o.Payload
 }
@@ -89,7 +87,7 @@ func NewGetRetentionsIDExecutionsUnauthorized() *GetRetentionsIDExecutionsUnauth
 	return &GetRetentionsIDExecutionsUnauthorized{}
 }
 
-/*GetRetentionsIDExecutionsUnauthorized handles this case with default header values.
+/* GetRetentionsIDExecutionsUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -110,7 +108,7 @@ func NewGetRetentionsIDExecutionsForbidden() *GetRetentionsIDExecutionsForbidden
 	return &GetRetentionsIDExecutionsForbidden{}
 }
 
-/*GetRetentionsIDExecutionsForbidden handles this case with default header values.
+/* GetRetentionsIDExecutionsForbidden describes a response with status code 403, with default header values.
 
 User have no permission.
 */
@@ -131,7 +129,7 @@ func NewGetRetentionsIDExecutionsInternalServerError() *GetRetentionsIDExecution
 	return &GetRetentionsIDExecutionsInternalServerError{}
 }
 
-/*GetRetentionsIDExecutionsInternalServerError handles this case with default header values.
+/* GetRetentionsIDExecutionsInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

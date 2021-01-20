@@ -16,52 +16,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetReplicationAdaptersParams creates a new GetReplicationAdaptersParams object
-// with the default values initialized.
+// NewGetReplicationAdaptersParams creates a new GetReplicationAdaptersParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetReplicationAdaptersParams() *GetReplicationAdaptersParams {
-
 	return &GetReplicationAdaptersParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetReplicationAdaptersParamsWithTimeout creates a new GetReplicationAdaptersParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetReplicationAdaptersParamsWithTimeout(timeout time.Duration) *GetReplicationAdaptersParams {
-
 	return &GetReplicationAdaptersParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetReplicationAdaptersParamsWithContext creates a new GetReplicationAdaptersParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetReplicationAdaptersParamsWithContext(ctx context.Context) *GetReplicationAdaptersParams {
-
 	return &GetReplicationAdaptersParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetReplicationAdaptersParamsWithHTTPClient creates a new GetReplicationAdaptersParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetReplicationAdaptersParamsWithHTTPClient(client *http.Client) *GetReplicationAdaptersParams {
-
 	return &GetReplicationAdaptersParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetReplicationAdaptersParams contains all the parameters to send to the API endpoint
-for the get replication adapters operation typically these are written to a http.Request
+/* GetReplicationAdaptersParams contains all the parameters to send to the API endpoint
+   for the get replication adapters operation.
+
+   Typically these are written to a http.Request.
 */
 type GetReplicationAdaptersParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get replication adapters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetReplicationAdaptersParams) WithDefaults() *GetReplicationAdaptersParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get replication adapters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetReplicationAdaptersParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get replication adapters params

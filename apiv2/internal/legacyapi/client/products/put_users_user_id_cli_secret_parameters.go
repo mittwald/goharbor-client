@@ -17,64 +17,81 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewPutUsersUserIDCliSecretParams creates a new PutUsersUserIDCliSecretParams object
-// with the default values initialized.
+// NewPutUsersUserIDCliSecretParams creates a new PutUsersUserIDCliSecretParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPutUsersUserIDCliSecretParams() *PutUsersUserIDCliSecretParams {
-	var ()
 	return &PutUsersUserIDCliSecretParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutUsersUserIDCliSecretParamsWithTimeout creates a new PutUsersUserIDCliSecretParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPutUsersUserIDCliSecretParamsWithTimeout(timeout time.Duration) *PutUsersUserIDCliSecretParams {
-	var ()
 	return &PutUsersUserIDCliSecretParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPutUsersUserIDCliSecretParamsWithContext creates a new PutUsersUserIDCliSecretParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPutUsersUserIDCliSecretParamsWithContext(ctx context.Context) *PutUsersUserIDCliSecretParams {
-	var ()
 	return &PutUsersUserIDCliSecretParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPutUsersUserIDCliSecretParamsWithHTTPClient creates a new PutUsersUserIDCliSecretParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPutUsersUserIDCliSecretParamsWithHTTPClient(client *http.Client) *PutUsersUserIDCliSecretParams {
-	var ()
 	return &PutUsersUserIDCliSecretParams{
 		HTTPClient: client,
 	}
 }
 
-/*PutUsersUserIDCliSecretParams contains all the parameters to send to the API endpoint
-for the put users user ID cli secret operation typically these are written to a http.Request
+/* PutUsersUserIDCliSecretParams contains all the parameters to send to the API endpoint
+   for the put users user ID cli secret operation.
+
+   Typically these are written to a http.Request.
 */
 type PutUsersUserIDCliSecretParams struct {
 
-	/*InputSecret
-	  JSON object that includes the new secret
+	/* InputSecret.
 
+	   JSON object that includes the new secret
 	*/
 	InputSecret PutUsersUserIDCliSecretBody
-	/*UserID
-	  User ID
 
+	/* UserID.
+
+	   User ID
+
+	   Format: int
 	*/
 	UserID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the put users user ID cli secret params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutUsersUserIDCliSecretParams) WithDefaults() *PutUsersUserIDCliSecretParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the put users user ID cli secret params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutUsersUserIDCliSecretParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put users user ID cli secret params
@@ -139,7 +156,6 @@ func (o *PutUsersUserIDCliSecretParams) WriteToRequest(r runtime.ClientRequest, 
 		return err
 	}
 	var res []error
-
 	if err := r.SetBodyParam(o.InputSecret); err != nil {
 		return err
 	}

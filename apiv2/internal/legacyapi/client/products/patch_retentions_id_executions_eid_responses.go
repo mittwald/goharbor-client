@@ -6,6 +6,7 @@ package products
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/go-openapi/runtime"
@@ -45,7 +46,6 @@ func (o *PatchRetentionsIDExecutionsEidReader) ReadResponse(response runtime.Cli
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -56,7 +56,7 @@ func NewPatchRetentionsIDExecutionsEidOK() *PatchRetentionsIDExecutionsEidOK {
 	return &PatchRetentionsIDExecutionsEidOK{}
 }
 
-/*PatchRetentionsIDExecutionsEidOK handles this case with default header values.
+/* PatchRetentionsIDExecutionsEidOK describes a response with status code 200, with default header values.
 
 Stop a Retention job successfully.
 */
@@ -77,7 +77,7 @@ func NewPatchRetentionsIDExecutionsEidUnauthorized() *PatchRetentionsIDExecution
 	return &PatchRetentionsIDExecutionsEidUnauthorized{}
 }
 
-/*PatchRetentionsIDExecutionsEidUnauthorized handles this case with default header values.
+/* PatchRetentionsIDExecutionsEidUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -98,7 +98,7 @@ func NewPatchRetentionsIDExecutionsEidForbidden() *PatchRetentionsIDExecutionsEi
 	return &PatchRetentionsIDExecutionsEidForbidden{}
 }
 
-/*PatchRetentionsIDExecutionsEidForbidden handles this case with default header values.
+/* PatchRetentionsIDExecutionsEidForbidden describes a response with status code 403, with default header values.
 
 User have no permission.
 */
@@ -119,7 +119,7 @@ func NewPatchRetentionsIDExecutionsEidInternalServerError() *PatchRetentionsIDEx
 	return &PatchRetentionsIDExecutionsEidInternalServerError{}
 }
 
-/*PatchRetentionsIDExecutionsEidInternalServerError handles this case with default header values.
+/* PatchRetentionsIDExecutionsEidInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */
@@ -146,6 +146,11 @@ type PatchRetentionsIDExecutionsEidBody struct {
 
 // Validate validates this patch retentions ID executions eid body
 func (o *PatchRetentionsIDExecutionsEidBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this patch retentions ID executions eid body based on context it is used
+func (o *PatchRetentionsIDExecutionsEidBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

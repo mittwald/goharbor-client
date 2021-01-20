@@ -47,7 +47,6 @@ func (o *GetLdapGroupsSearchReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -58,7 +57,7 @@ func NewGetLdapGroupsSearchOK() *GetLdapGroupsSearchOK {
 	return &GetLdapGroupsSearchOK{}
 }
 
-/*GetLdapGroupsSearchOK handles this case with default header values.
+/* GetLdapGroupsSearchOK describes a response with status code 200, with default header values.
 
 Search ldap group successfully.
 */
@@ -69,7 +68,6 @@ type GetLdapGroupsSearchOK struct {
 func (o *GetLdapGroupsSearchOK) Error() string {
 	return fmt.Sprintf("[GET /ldap/groups/search][%d] getLdapGroupsSearchOK  %+v", 200, o.Payload)
 }
-
 func (o *GetLdapGroupsSearchOK) GetPayload() []*legacy.UserGroup {
 	return o.Payload
 }
@@ -89,7 +87,7 @@ func NewGetLdapGroupsSearchBadRequest() *GetLdapGroupsSearchBadRequest {
 	return &GetLdapGroupsSearchBadRequest{}
 }
 
-/*GetLdapGroupsSearchBadRequest handles this case with default header values.
+/* GetLdapGroupsSearchBadRequest describes a response with status code 400, with default header values.
 
 The Ldap group DN is invalid.
 */
@@ -110,7 +108,7 @@ func NewGetLdapGroupsSearchNotFound() *GetLdapGroupsSearchNotFound {
 	return &GetLdapGroupsSearchNotFound{}
 }
 
-/*GetLdapGroupsSearchNotFound handles this case with default header values.
+/* GetLdapGroupsSearchNotFound describes a response with status code 404, with default header values.
 
 No ldap group found.
 */
@@ -131,7 +129,7 @@ func NewGetLdapGroupsSearchInternalServerError() *GetLdapGroupsSearchInternalSer
 	return &GetLdapGroupsSearchInternalServerError{}
 }
 
-/*GetLdapGroupsSearchInternalServerError handles this case with default header values.
+/* GetLdapGroupsSearchInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

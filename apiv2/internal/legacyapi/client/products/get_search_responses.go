@@ -35,7 +35,6 @@ func (o *GetSearchReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -46,7 +45,7 @@ func NewGetSearchOK() *GetSearchOK {
 	return &GetSearchOK{}
 }
 
-/*GetSearchOK handles this case with default header values.
+/* GetSearchOK describes a response with status code 200, with default header values.
 
 An array of search results
 */
@@ -57,7 +56,6 @@ type GetSearchOK struct {
 func (o *GetSearchOK) Error() string {
 	return fmt.Sprintf("[GET /search][%d] getSearchOK  %+v", 200, o.Payload)
 }
-
 func (o *GetSearchOK) GetPayload() []*legacy.Search {
 	return o.Payload
 }
@@ -77,7 +75,7 @@ func NewGetSearchInternalServerError() *GetSearchInternalServerError {
 	return &GetSearchInternalServerError{}
 }
 
-/*GetSearchInternalServerError handles this case with default header values.
+/* GetSearchInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

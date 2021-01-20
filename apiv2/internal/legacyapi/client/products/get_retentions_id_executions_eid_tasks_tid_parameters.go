@@ -17,69 +17,91 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetRetentionsIDExecutionsEidTasksTidParams creates a new GetRetentionsIDExecutionsEidTasksTidParams object
-// with the default values initialized.
+// NewGetRetentionsIDExecutionsEidTasksTidParams creates a new GetRetentionsIDExecutionsEidTasksTidParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetRetentionsIDExecutionsEidTasksTidParams() *GetRetentionsIDExecutionsEidTasksTidParams {
-	var ()
 	return &GetRetentionsIDExecutionsEidTasksTidParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetRetentionsIDExecutionsEidTasksTidParamsWithTimeout creates a new GetRetentionsIDExecutionsEidTasksTidParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetRetentionsIDExecutionsEidTasksTidParamsWithTimeout(timeout time.Duration) *GetRetentionsIDExecutionsEidTasksTidParams {
-	var ()
 	return &GetRetentionsIDExecutionsEidTasksTidParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetRetentionsIDExecutionsEidTasksTidParamsWithContext creates a new GetRetentionsIDExecutionsEidTasksTidParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetRetentionsIDExecutionsEidTasksTidParamsWithContext(ctx context.Context) *GetRetentionsIDExecutionsEidTasksTidParams {
-	var ()
 	return &GetRetentionsIDExecutionsEidTasksTidParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetRetentionsIDExecutionsEidTasksTidParamsWithHTTPClient creates a new GetRetentionsIDExecutionsEidTasksTidParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetRetentionsIDExecutionsEidTasksTidParamsWithHTTPClient(client *http.Client) *GetRetentionsIDExecutionsEidTasksTidParams {
-	var ()
 	return &GetRetentionsIDExecutionsEidTasksTidParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetRetentionsIDExecutionsEidTasksTidParams contains all the parameters to send to the API endpoint
-for the get retentions ID executions eid tasks tid operation typically these are written to a http.Request
+/* GetRetentionsIDExecutionsEidTasksTidParams contains all the parameters to send to the API endpoint
+   for the get retentions ID executions eid tasks tid operation.
+
+   Typically these are written to a http.Request.
 */
 type GetRetentionsIDExecutionsEidTasksTidParams struct {
 
-	/*Eid
-	  Retention execution ID.
+	/* Eid.
 
+	   Retention execution ID.
+
+	   Format: int64
 	*/
 	Eid int64
-	/*ID
-	  Retention ID.
 
+	/* ID.
+
+	   Retention ID.
+
+	   Format: int64
 	*/
 	ID int64
-	/*Tid
-	  Retention execution ID.
 
+	/* Tid.
+
+	   Retention execution ID.
+
+	   Format: int64
 	*/
 	Tid int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get retentions ID executions eid tasks tid params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetRetentionsIDExecutionsEidTasksTidParams) WithDefaults() *GetRetentionsIDExecutionsEidTasksTidParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get retentions ID executions eid tasks tid params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetRetentionsIDExecutionsEidTasksTidParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get retentions ID executions eid tasks tid params

@@ -17,64 +17,81 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetProjectDeletableParams creates a new GetProjectDeletableParams object
-// with the default values initialized.
+// NewGetProjectDeletableParams creates a new GetProjectDeletableParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetProjectDeletableParams() *GetProjectDeletableParams {
-	var ()
 	return &GetProjectDeletableParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetProjectDeletableParamsWithTimeout creates a new GetProjectDeletableParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetProjectDeletableParamsWithTimeout(timeout time.Duration) *GetProjectDeletableParams {
-	var ()
 	return &GetProjectDeletableParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetProjectDeletableParamsWithContext creates a new GetProjectDeletableParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetProjectDeletableParamsWithContext(ctx context.Context) *GetProjectDeletableParams {
-	var ()
 	return &GetProjectDeletableParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetProjectDeletableParamsWithHTTPClient creates a new GetProjectDeletableParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetProjectDeletableParamsWithHTTPClient(client *http.Client) *GetProjectDeletableParams {
-	var ()
 	return &GetProjectDeletableParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetProjectDeletableParams contains all the parameters to send to the API endpoint
-for the get project deletable operation typically these are written to a http.Request
+/* GetProjectDeletableParams contains all the parameters to send to the API endpoint
+   for the get project deletable operation.
+
+   Typically these are written to a http.Request.
 */
 type GetProjectDeletableParams struct {
 
-	/*XRequestID
-	  An unique ID for the request
+	/* XRequestID.
 
+	   An unique ID for the request
 	*/
 	XRequestID *string
-	/*ProjectID
-	  The ID of the project
 
+	/* ProjectID.
+
+	   The ID of the project
+
+	   Format: int64
 	*/
 	ProjectID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get project deletable params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectDeletableParams) WithDefaults() *GetProjectDeletableParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get project deletable params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectDeletableParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get project deletable params
@@ -146,7 +163,6 @@ func (o *GetProjectDeletableParams) WriteToRequest(r runtime.ClientRequest, reg 
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
-
 	}
 
 	// path param project_id

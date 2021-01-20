@@ -59,7 +59,6 @@ func (o *PostProjectsProjectIDRobotsReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -70,7 +69,7 @@ func NewPostProjectsProjectIDRobotsCreated() *PostProjectsProjectIDRobotsCreated
 	return &PostProjectsProjectIDRobotsCreated{}
 }
 
-/*PostProjectsProjectIDRobotsCreated handles this case with default header values.
+/* PostProjectsProjectIDRobotsCreated describes a response with status code 201, with default header values.
 
 Project member created successfully.
 */
@@ -81,7 +80,6 @@ type PostProjectsProjectIDRobotsCreated struct {
 func (o *PostProjectsProjectIDRobotsCreated) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_id}/robots][%d] postProjectsProjectIdRobotsCreated  %+v", 201, o.Payload)
 }
-
 func (o *PostProjectsProjectIDRobotsCreated) GetPayload() *legacy.RobotAccountPostRep {
 	return o.Payload
 }
@@ -103,7 +101,7 @@ func NewPostProjectsProjectIDRobotsBadRequest() *PostProjectsProjectIDRobotsBadR
 	return &PostProjectsProjectIDRobotsBadRequest{}
 }
 
-/*PostProjectsProjectIDRobotsBadRequest handles this case with default header values.
+/* PostProjectsProjectIDRobotsBadRequest describes a response with status code 400, with default header values.
 
 Project id is not valid.
 */
@@ -124,7 +122,7 @@ func NewPostProjectsProjectIDRobotsUnauthorized() *PostProjectsProjectIDRobotsUn
 	return &PostProjectsProjectIDRobotsUnauthorized{}
 }
 
-/*PostProjectsProjectIDRobotsUnauthorized handles this case with default header values.
+/* PostProjectsProjectIDRobotsUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -145,7 +143,7 @@ func NewPostProjectsProjectIDRobotsForbidden() *PostProjectsProjectIDRobotsForbi
 	return &PostProjectsProjectIDRobotsForbidden{}
 }
 
-/*PostProjectsProjectIDRobotsForbidden handles this case with default header values.
+/* PostProjectsProjectIDRobotsForbidden describes a response with status code 403, with default header values.
 
 User in session does not have permission to the project.
 */
@@ -166,7 +164,7 @@ func NewPostProjectsProjectIDRobotsConflict() *PostProjectsProjectIDRobotsConfli
 	return &PostProjectsProjectIDRobotsConflict{}
 }
 
-/*PostProjectsProjectIDRobotsConflict handles this case with default header values.
+/* PostProjectsProjectIDRobotsConflict describes a response with status code 409, with default header values.
 
 An robot account with same name already exist in the project.
 */
@@ -187,7 +185,7 @@ func NewPostProjectsProjectIDRobotsInternalServerError() *PostProjectsProjectIDR
 	return &PostProjectsProjectIDRobotsInternalServerError{}
 }
 
-/*PostProjectsProjectIDRobotsInternalServerError handles this case with default header values.
+/* PostProjectsProjectIDRobotsInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

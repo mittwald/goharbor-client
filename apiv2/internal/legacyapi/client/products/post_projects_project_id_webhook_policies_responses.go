@@ -50,7 +50,6 @@ func (o *PostProjectsProjectIDWebhookPoliciesReader) ReadResponse(response runti
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -61,7 +60,7 @@ func NewPostProjectsProjectIDWebhookPoliciesCreated() *PostProjectsProjectIDWebh
 	return &PostProjectsProjectIDWebhookPoliciesCreated{}
 }
 
-/*PostProjectsProjectIDWebhookPoliciesCreated handles this case with default header values.
+/* PostProjectsProjectIDWebhookPoliciesCreated describes a response with status code 201, with default header values.
 
 Project webhook policy create successfully.
 */
@@ -82,7 +81,7 @@ func NewPostProjectsProjectIDWebhookPoliciesBadRequest() *PostProjectsProjectIDW
 	return &PostProjectsProjectIDWebhookPoliciesBadRequest{}
 }
 
-/*PostProjectsProjectIDWebhookPoliciesBadRequest handles this case with default header values.
+/* PostProjectsProjectIDWebhookPoliciesBadRequest describes a response with status code 400, with default header values.
 
 Illegal format of provided ID value.
 */
@@ -103,7 +102,7 @@ func NewPostProjectsProjectIDWebhookPoliciesUnauthorized() *PostProjectsProjectI
 	return &PostProjectsProjectIDWebhookPoliciesUnauthorized{}
 }
 
-/*PostProjectsProjectIDWebhookPoliciesUnauthorized handles this case with default header values.
+/* PostProjectsProjectIDWebhookPoliciesUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -124,7 +123,7 @@ func NewPostProjectsProjectIDWebhookPoliciesForbidden() *PostProjectsProjectIDWe
 	return &PostProjectsProjectIDWebhookPoliciesForbidden{}
 }
 
-/*PostProjectsProjectIDWebhookPoliciesForbidden handles this case with default header values.
+/* PostProjectsProjectIDWebhookPoliciesForbidden describes a response with status code 403, with default header values.
 
 User have no permission to create webhook policy of the project.
 */
@@ -145,7 +144,7 @@ func NewPostProjectsProjectIDWebhookPoliciesInternalServerError() *PostProjectsP
 	return &PostProjectsProjectIDWebhookPoliciesInternalServerError{}
 }
 
-/*PostProjectsProjectIDWebhookPoliciesInternalServerError handles this case with default header values.
+/* PostProjectsProjectIDWebhookPoliciesInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

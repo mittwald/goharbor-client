@@ -50,7 +50,6 @@ func (o *GetChartrepoRepoChartsNameVersionLabelsReader) ReadResponse(response ru
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -61,7 +60,7 @@ func NewGetChartrepoRepoChartsNameVersionLabelsOK() *GetChartrepoRepoChartsNameV
 	return &GetChartrepoRepoChartsNameVersionLabelsOK{}
 }
 
-/*GetChartrepoRepoChartsNameVersionLabelsOK handles this case with default header values.
+/* GetChartrepoRepoChartsNameVersionLabelsOK describes a response with status code 200, with default header values.
 
 A list of label
 */
@@ -82,7 +81,7 @@ func NewGetChartrepoRepoChartsNameVersionLabelsUnauthorized() *GetChartrepoRepoC
 	return &GetChartrepoRepoChartsNameVersionLabelsUnauthorized{}
 }
 
-/*GetChartrepoRepoChartsNameVersionLabelsUnauthorized handles this case with default header values.
+/* GetChartrepoRepoChartsNameVersionLabelsUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
@@ -103,7 +102,7 @@ func NewGetChartrepoRepoChartsNameVersionLabelsForbidden() *GetChartrepoRepoChar
 	return &GetChartrepoRepoChartsNameVersionLabelsForbidden{}
 }
 
-/*GetChartrepoRepoChartsNameVersionLabelsForbidden handles this case with default header values.
+/* GetChartrepoRepoChartsNameVersionLabelsForbidden describes a response with status code 403, with default header values.
 
 Operation is forbidden or quota exceeded
 */
@@ -124,7 +123,7 @@ func NewGetChartrepoRepoChartsNameVersionLabelsNotFound() *GetChartrepoRepoChart
 	return &GetChartrepoRepoChartsNameVersionLabelsNotFound{}
 }
 
-/*GetChartrepoRepoChartsNameVersionLabelsNotFound handles this case with default header values.
+/* GetChartrepoRepoChartsNameVersionLabelsNotFound describes a response with status code 404, with default header values.
 
 Not found
 */
@@ -145,7 +144,7 @@ func NewGetChartrepoRepoChartsNameVersionLabelsInternalServerError() *GetChartre
 	return &GetChartrepoRepoChartsNameVersionLabelsInternalServerError{}
 }
 
-/*GetChartrepoRepoChartsNameVersionLabelsInternalServerError handles this case with default header values.
+/* GetChartrepoRepoChartsNameVersionLabelsInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error occurred
 */

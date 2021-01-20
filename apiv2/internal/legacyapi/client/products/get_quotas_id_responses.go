@@ -53,7 +53,6 @@ func (o *GetQuotasIDReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -64,7 +63,7 @@ func NewGetQuotasIDOK() *GetQuotasIDOK {
 	return &GetQuotasIDOK{}
 }
 
-/*GetQuotasIDOK handles this case with default header values.
+/* GetQuotasIDOK describes a response with status code 200, with default header values.
 
 Successfully retrieved the quota.
 */
@@ -75,7 +74,6 @@ type GetQuotasIDOK struct {
 func (o *GetQuotasIDOK) Error() string {
 	return fmt.Sprintf("[GET /quotas/{id}][%d] getQuotasIdOK  %+v", 200, o.Payload)
 }
-
 func (o *GetQuotasIDOK) GetPayload() *legacy.Quota {
 	return o.Payload
 }
@@ -97,7 +95,7 @@ func NewGetQuotasIDUnauthorized() *GetQuotasIDUnauthorized {
 	return &GetQuotasIDUnauthorized{}
 }
 
-/*GetQuotasIDUnauthorized handles this case with default header values.
+/* GetQuotasIDUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -118,7 +116,7 @@ func NewGetQuotasIDForbidden() *GetQuotasIDForbidden {
 	return &GetQuotasIDForbidden{}
 }
 
-/*GetQuotasIDForbidden handles this case with default header values.
+/* GetQuotasIDForbidden describes a response with status code 403, with default header values.
 
 User does not have permission to call this API
 */
@@ -139,7 +137,7 @@ func NewGetQuotasIDNotFound() *GetQuotasIDNotFound {
 	return &GetQuotasIDNotFound{}
 }
 
-/*GetQuotasIDNotFound handles this case with default header values.
+/* GetQuotasIDNotFound describes a response with status code 404, with default header values.
 
 Quota does not exist.
 */
@@ -160,7 +158,7 @@ func NewGetQuotasIDInternalServerError() *GetQuotasIDInternalServerError {
 	return &GetQuotasIDInternalServerError{}
 }
 
-/*GetQuotasIDInternalServerError handles this case with default header values.
+/* GetQuotasIDInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

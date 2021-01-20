@@ -56,7 +56,6 @@ func (o *PutUsergroupsGroupIDReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -67,7 +66,7 @@ func NewPutUsergroupsGroupIDOK() *PutUsergroupsGroupIDOK {
 	return &PutUsergroupsGroupIDOK{}
 }
 
-/*PutUsergroupsGroupIDOK handles this case with default header values.
+/* PutUsergroupsGroupIDOK describes a response with status code 200, with default header values.
 
 User group updated successfully.
 */
@@ -88,7 +87,7 @@ func NewPutUsergroupsGroupIDBadRequest() *PutUsergroupsGroupIDBadRequest {
 	return &PutUsergroupsGroupIDBadRequest{}
 }
 
-/*PutUsergroupsGroupIDBadRequest handles this case with default header values.
+/* PutUsergroupsGroupIDBadRequest describes a response with status code 400, with default header values.
 
 The user group id is invalid.
 */
@@ -109,7 +108,7 @@ func NewPutUsergroupsGroupIDUnauthorized() *PutUsergroupsGroupIDUnauthorized {
 	return &PutUsergroupsGroupIDUnauthorized{}
 }
 
-/*PutUsergroupsGroupIDUnauthorized handles this case with default header values.
+/* PutUsergroupsGroupIDUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -130,7 +129,7 @@ func NewPutUsergroupsGroupIDForbidden() *PutUsergroupsGroupIDForbidden {
 	return &PutUsergroupsGroupIDForbidden{}
 }
 
-/*PutUsergroupsGroupIDForbidden handles this case with default header values.
+/* PutUsergroupsGroupIDForbidden describes a response with status code 403, with default header values.
 
 Only admin has this authority.
 */
@@ -151,7 +150,7 @@ func NewPutUsergroupsGroupIDNotFound() *PutUsergroupsGroupIDNotFound {
 	return &PutUsergroupsGroupIDNotFound{}
 }
 
-/*PutUsergroupsGroupIDNotFound handles this case with default header values.
+/* PutUsergroupsGroupIDNotFound describes a response with status code 404, with default header values.
 
 User group does not exist.
 */
@@ -172,7 +171,7 @@ func NewPutUsergroupsGroupIDInternalServerError() *PutUsergroupsGroupIDInternalS
 	return &PutUsergroupsGroupIDInternalServerError{}
 }
 
-/*PutUsergroupsGroupIDInternalServerError handles this case with default header values.
+/* PutUsergroupsGroupIDInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

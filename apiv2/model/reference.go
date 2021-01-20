@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -54,12 +56,60 @@ func (m *Reference) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Reference) validateAnnotations(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Annotations) { // not required
 		return nil
 	}
 
-	if err := m.Annotations.Validate(formats); err != nil {
+	if m.Annotations != nil {
+		if err := m.Annotations.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("annotations")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Reference) validatePlatform(formats strfmt.Registry) error {
+	if swag.IsZero(m.Platform) { // not required
+		return nil
+	}
+
+	if m.Platform != nil {
+		if err := m.Platform.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("platform")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this reference based on the context it is used
+func (m *Reference) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAnnotations(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePlatform(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Reference) contextValidateAnnotations(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Annotations.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("annotations")
 		}
@@ -69,14 +119,10 @@ func (m *Reference) validateAnnotations(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Reference) validatePlatform(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Platform) { // not required
-		return nil
-	}
+func (m *Reference) contextValidatePlatform(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Platform != nil {
-		if err := m.Platform.Validate(formats); err != nil {
+		if err := m.Platform.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("platform")
 			}

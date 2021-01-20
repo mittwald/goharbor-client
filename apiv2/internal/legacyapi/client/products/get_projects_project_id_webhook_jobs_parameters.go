@@ -17,64 +17,83 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetProjectsProjectIDWebhookJobsParams creates a new GetProjectsProjectIDWebhookJobsParams object
-// with the default values initialized.
+// NewGetProjectsProjectIDWebhookJobsParams creates a new GetProjectsProjectIDWebhookJobsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetProjectsProjectIDWebhookJobsParams() *GetProjectsProjectIDWebhookJobsParams {
-	var ()
 	return &GetProjectsProjectIDWebhookJobsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetProjectsProjectIDWebhookJobsParamsWithTimeout creates a new GetProjectsProjectIDWebhookJobsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetProjectsProjectIDWebhookJobsParamsWithTimeout(timeout time.Duration) *GetProjectsProjectIDWebhookJobsParams {
-	var ()
 	return &GetProjectsProjectIDWebhookJobsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetProjectsProjectIDWebhookJobsParamsWithContext creates a new GetProjectsProjectIDWebhookJobsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetProjectsProjectIDWebhookJobsParamsWithContext(ctx context.Context) *GetProjectsProjectIDWebhookJobsParams {
-	var ()
 	return &GetProjectsProjectIDWebhookJobsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetProjectsProjectIDWebhookJobsParamsWithHTTPClient creates a new GetProjectsProjectIDWebhookJobsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetProjectsProjectIDWebhookJobsParamsWithHTTPClient(client *http.Client) *GetProjectsProjectIDWebhookJobsParams {
-	var ()
 	return &GetProjectsProjectIDWebhookJobsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetProjectsProjectIDWebhookJobsParams contains all the parameters to send to the API endpoint
-for the get projects project ID webhook jobs operation typically these are written to a http.Request
+/* GetProjectsProjectIDWebhookJobsParams contains all the parameters to send to the API endpoint
+   for the get projects project ID webhook jobs operation.
+
+   Typically these are written to a http.Request.
 */
 type GetProjectsProjectIDWebhookJobsParams struct {
 
-	/*PolicyID
-	  The policy ID.
+	/* PolicyID.
 
+	   The policy ID.
+
+	   Format: int64
 	*/
 	PolicyID int64
-	/*ProjectID
-	  Relevant project ID.
 
+	/* ProjectID.
+
+	   Relevant project ID.
+
+	   Format: int64
 	*/
 	ProjectID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get projects project ID webhook jobs params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectsProjectIDWebhookJobsParams) WithDefaults() *GetProjectsProjectIDWebhookJobsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get projects project ID webhook jobs params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProjectsProjectIDWebhookJobsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get projects project ID webhook jobs params
@@ -144,6 +163,7 @@ func (o *GetProjectsProjectIDWebhookJobsParams) WriteToRequest(r runtime.ClientR
 	qrPolicyID := o.PolicyID
 	qPolicyID := swag.FormatInt64(qrPolicyID)
 	if qPolicyID != "" {
+
 		if err := r.SetQueryParam("policy_id", qPolicyID); err != nil {
 			return err
 		}

@@ -41,7 +41,6 @@ func (o *GetStatisticsReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -52,7 +51,7 @@ func NewGetStatisticsOK() *GetStatisticsOK {
 	return &GetStatisticsOK{}
 }
 
-/*GetStatisticsOK handles this case with default header values.
+/* GetStatisticsOK describes a response with status code 200, with default header values.
 
 Get the projects number and repositories number relevant to the user successfully.
 */
@@ -63,7 +62,6 @@ type GetStatisticsOK struct {
 func (o *GetStatisticsOK) Error() string {
 	return fmt.Sprintf("[GET /statistics][%d] getStatisticsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetStatisticsOK) GetPayload() *legacy.StatisticMap {
 	return o.Payload
 }
@@ -85,7 +83,7 @@ func NewGetStatisticsUnauthorized() *GetStatisticsUnauthorized {
 	return &GetStatisticsUnauthorized{}
 }
 
-/*GetStatisticsUnauthorized handles this case with default header values.
+/* GetStatisticsUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -106,7 +104,7 @@ func NewGetStatisticsInternalServerError() *GetStatisticsInternalServerError {
 	return &GetStatisticsInternalServerError{}
 }
 
-/*GetStatisticsInternalServerError handles this case with default header values.
+/* GetStatisticsInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

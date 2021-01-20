@@ -35,7 +35,6 @@ func (o *GetUsersCurrentReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -46,7 +45,7 @@ func NewGetUsersCurrentOK() *GetUsersCurrentOK {
 	return &GetUsersCurrentOK{}
 }
 
-/*GetUsersCurrentOK handles this case with default header values.
+/* GetUsersCurrentOK describes a response with status code 200, with default header values.
 
 Get current user information successfully.
 */
@@ -57,7 +56,6 @@ type GetUsersCurrentOK struct {
 func (o *GetUsersCurrentOK) Error() string {
 	return fmt.Sprintf("[GET /users/current][%d] getUsersCurrentOK  %+v", 200, o.Payload)
 }
-
 func (o *GetUsersCurrentOK) GetPayload() *legacy.User {
 	return o.Payload
 }
@@ -79,7 +77,7 @@ func NewGetUsersCurrentUnauthorized() *GetUsersCurrentUnauthorized {
 	return &GetUsersCurrentUnauthorized{}
 }
 
-/*GetUsersCurrentUnauthorized handles this case with default header values.
+/* GetUsersCurrentUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */

@@ -18,59 +18,73 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPostUsersParams creates a new PostUsersParams object
-// with the default values initialized.
+// NewPostUsersParams creates a new PostUsersParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostUsersParams() *PostUsersParams {
-	var ()
 	return &PostUsersParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostUsersParamsWithTimeout creates a new PostUsersParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostUsersParamsWithTimeout(timeout time.Duration) *PostUsersParams {
-	var ()
 	return &PostUsersParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostUsersParamsWithContext creates a new PostUsersParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostUsersParamsWithContext(ctx context.Context) *PostUsersParams {
-	var ()
 	return &PostUsersParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostUsersParamsWithHTTPClient creates a new PostUsersParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostUsersParamsWithHTTPClient(client *http.Client) *PostUsersParams {
-	var ()
 	return &PostUsersParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostUsersParams contains all the parameters to send to the API endpoint
-for the post users operation typically these are written to a http.Request
+/* PostUsersParams contains all the parameters to send to the API endpoint
+   for the post users operation.
+
+   Typically these are written to a http.Request.
 */
 type PostUsersParams struct {
 
-	/*User
-	  New created user.
+	/* User.
 
+	   New created user.
 	*/
 	User *legacy.User
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post users params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostUsersParams) WithDefaults() *PostUsersParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post users params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostUsersParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post users params
@@ -124,7 +138,6 @@ func (o *PostUsersParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 		return err
 	}
 	var res []error
-
 	if o.User != nil {
 		if err := r.SetBodyParam(o.User); err != nil {
 			return err

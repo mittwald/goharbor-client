@@ -50,7 +50,6 @@ func (o *PostScannersReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -61,7 +60,7 @@ func NewPostScannersCreated() *PostScannersCreated {
 	return &PostScannersCreated{}
 }
 
-/*PostScannersCreated handles this case with default header values.
+/* PostScannersCreated describes a response with status code 201, with default header values.
 
 Created successfully
 */
@@ -82,7 +81,7 @@ func NewPostScannersBadRequest() *PostScannersBadRequest {
 	return &PostScannersBadRequest{}
 }
 
-/*PostScannersBadRequest handles this case with default header values.
+/* PostScannersBadRequest describes a response with status code 400, with default header values.
 
 Bad registration request
 */
@@ -103,7 +102,7 @@ func NewPostScannersUnauthorized() *PostScannersUnauthorized {
 	return &PostScannersUnauthorized{}
 }
 
-/*PostScannersUnauthorized handles this case with default header values.
+/* PostScannersUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized request
 */
@@ -124,7 +123,7 @@ func NewPostScannersForbidden() *PostScannersForbidden {
 	return &PostScannersForbidden{}
 }
 
-/*PostScannersForbidden handles this case with default header values.
+/* PostScannersForbidden describes a response with status code 403, with default header values.
 
 Request is not allowed, system role required
 */
@@ -145,7 +144,7 @@ func NewPostScannersInternalServerError() *PostScannersInternalServerError {
 	return &PostScannersInternalServerError{}
 }
 
-/*PostScannersInternalServerError handles this case with default header values.
+/* PostScannersInternalServerError describes a response with status code 500, with default header values.
 
 Internal server error happened
 */

@@ -57,7 +57,6 @@ func (o *GetSystemGcIDLogReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -68,7 +67,7 @@ func NewGetSystemGcIDLogOK() *GetSystemGcIDLogOK {
 	return &GetSystemGcIDLogOK{}
 }
 
-/*GetSystemGcIDLogOK handles this case with default header values.
+/* GetSystemGcIDLogOK describes a response with status code 200, with default header values.
 
 Get successfully.
 */
@@ -79,7 +78,6 @@ type GetSystemGcIDLogOK struct {
 func (o *GetSystemGcIDLogOK) Error() string {
 	return fmt.Sprintf("[GET /system/gc/{id}/log][%d] getSystemGcIdLogOK  %+v", 200, o.Payload)
 }
-
 func (o *GetSystemGcIDLogOK) GetPayload() string {
 	return o.Payload
 }
@@ -99,7 +97,7 @@ func NewGetSystemGcIDLogBadRequest() *GetSystemGcIDLogBadRequest {
 	return &GetSystemGcIDLogBadRequest{}
 }
 
-/*GetSystemGcIDLogBadRequest handles this case with default header values.
+/* GetSystemGcIDLogBadRequest describes a response with status code 400, with default header values.
 
 Illegal format of provided ID value.
 */
@@ -120,7 +118,7 @@ func NewGetSystemGcIDLogUnauthorized() *GetSystemGcIDLogUnauthorized {
 	return &GetSystemGcIDLogUnauthorized{}
 }
 
-/*GetSystemGcIDLogUnauthorized handles this case with default header values.
+/* GetSystemGcIDLogUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -141,7 +139,7 @@ func NewGetSystemGcIDLogForbidden() *GetSystemGcIDLogForbidden {
 	return &GetSystemGcIDLogForbidden{}
 }
 
-/*GetSystemGcIDLogForbidden handles this case with default header values.
+/* GetSystemGcIDLogForbidden describes a response with status code 403, with default header values.
 
 User does not have permission of admin role.
 */
@@ -162,7 +160,7 @@ func NewGetSystemGcIDLogNotFound() *GetSystemGcIDLogNotFound {
 	return &GetSystemGcIDLogNotFound{}
 }
 
-/*GetSystemGcIDLogNotFound handles this case with default header values.
+/* GetSystemGcIDLogNotFound describes a response with status code 404, with default header values.
 
 The specific gc ID's log does not exist.
 */
@@ -183,7 +181,7 @@ func NewGetSystemGcIDLogInternalServerError() *GetSystemGcIDLogInternalServerErr
 	return &GetSystemGcIDLogInternalServerError{}
 }
 
-/*GetSystemGcIDLogInternalServerError handles this case with default header values.
+/* GetSystemGcIDLogInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

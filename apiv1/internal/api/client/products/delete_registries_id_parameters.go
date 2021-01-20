@@ -17,59 +17,75 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteRegistriesIDParams creates a new DeleteRegistriesIDParams object
-// with the default values initialized.
+// NewDeleteRegistriesIDParams creates a new DeleteRegistriesIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteRegistriesIDParams() *DeleteRegistriesIDParams {
-	var ()
 	return &DeleteRegistriesIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteRegistriesIDParamsWithTimeout creates a new DeleteRegistriesIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteRegistriesIDParamsWithTimeout(timeout time.Duration) *DeleteRegistriesIDParams {
-	var ()
 	return &DeleteRegistriesIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteRegistriesIDParamsWithContext creates a new DeleteRegistriesIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteRegistriesIDParamsWithContext(ctx context.Context) *DeleteRegistriesIDParams {
-	var ()
 	return &DeleteRegistriesIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteRegistriesIDParamsWithHTTPClient creates a new DeleteRegistriesIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteRegistriesIDParamsWithHTTPClient(client *http.Client) *DeleteRegistriesIDParams {
-	var ()
 	return &DeleteRegistriesIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteRegistriesIDParams contains all the parameters to send to the API endpoint
-for the delete registries ID operation typically these are written to a http.Request
+/* DeleteRegistriesIDParams contains all the parameters to send to the API endpoint
+   for the delete registries ID operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteRegistriesIDParams struct {
 
-	/*ID
-	  The registry's ID.
+	/* ID.
 
+	   The registry's ID.
+
+	   Format: int64
 	*/
 	ID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete registries ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteRegistriesIDParams) WithDefaults() *DeleteRegistriesIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete registries ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteRegistriesIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete registries ID params

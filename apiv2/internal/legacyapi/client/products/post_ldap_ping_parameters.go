@@ -18,59 +18,73 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPostLdapPingParams creates a new PostLdapPingParams object
-// with the default values initialized.
+// NewPostLdapPingParams creates a new PostLdapPingParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostLdapPingParams() *PostLdapPingParams {
-	var ()
 	return &PostLdapPingParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostLdapPingParamsWithTimeout creates a new PostLdapPingParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostLdapPingParamsWithTimeout(timeout time.Duration) *PostLdapPingParams {
-	var ()
 	return &PostLdapPingParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostLdapPingParamsWithContext creates a new PostLdapPingParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostLdapPingParamsWithContext(ctx context.Context) *PostLdapPingParams {
-	var ()
 	return &PostLdapPingParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostLdapPingParamsWithHTTPClient creates a new PostLdapPingParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostLdapPingParamsWithHTTPClient(client *http.Client) *PostLdapPingParams {
-	var ()
 	return &PostLdapPingParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostLdapPingParams contains all the parameters to send to the API endpoint
-for the post ldap ping operation typically these are written to a http.Request
+/* PostLdapPingParams contains all the parameters to send to the API endpoint
+   for the post ldap ping operation.
+
+   Typically these are written to a http.Request.
 */
 type PostLdapPingParams struct {
 
-	/*Ldapconf
-	  ldap configuration. support input ldap service configuration. If it's a empty request, will load current configuration from the system.
+	/* Ldapconf.
 
+	   ldap configuration. support input ldap service configuration. If it's a empty request, will load current configuration from the system.
 	*/
 	Ldapconf *legacy.LdapConf
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post ldap ping params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostLdapPingParams) WithDefaults() *PostLdapPingParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post ldap ping params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostLdapPingParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post ldap ping params
@@ -124,7 +138,6 @@ func (o *PostLdapPingParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		return err
 	}
 	var res []error
-
 	if o.Ldapconf != nil {
 		if err := r.SetBodyParam(o.Ldapconf); err != nil {
 			return err

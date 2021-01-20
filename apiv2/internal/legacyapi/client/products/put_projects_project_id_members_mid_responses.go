@@ -56,7 +56,6 @@ func (o *PutProjectsProjectIDMembersMidReader) ReadResponse(response runtime.Cli
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -67,7 +66,7 @@ func NewPutProjectsProjectIDMembersMidOK() *PutProjectsProjectIDMembersMidOK {
 	return &PutProjectsProjectIDMembersMidOK{}
 }
 
-/*PutProjectsProjectIDMembersMidOK handles this case with default header values.
+/* PutProjectsProjectIDMembersMidOK describes a response with status code 200, with default header values.
 
 Project member updated successfully.
 */
@@ -88,7 +87,7 @@ func NewPutProjectsProjectIDMembersMidBadRequest() *PutProjectsProjectIDMembersM
 	return &PutProjectsProjectIDMembersMidBadRequest{}
 }
 
-/*PutProjectsProjectIDMembersMidBadRequest handles this case with default header values.
+/* PutProjectsProjectIDMembersMidBadRequest describes a response with status code 400, with default header values.
 
 Invalid role id, it should be 1,2 or 3, or invalid project id, or invalid member id.
 */
@@ -109,7 +108,7 @@ func NewPutProjectsProjectIDMembersMidUnauthorized() *PutProjectsProjectIDMember
 	return &PutProjectsProjectIDMembersMidUnauthorized{}
 }
 
-/*PutProjectsProjectIDMembersMidUnauthorized handles this case with default header values.
+/* PutProjectsProjectIDMembersMidUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -130,7 +129,7 @@ func NewPutProjectsProjectIDMembersMidForbidden() *PutProjectsProjectIDMembersMi
 	return &PutProjectsProjectIDMembersMidForbidden{}
 }
 
-/*PutProjectsProjectIDMembersMidForbidden handles this case with default header values.
+/* PutProjectsProjectIDMembersMidForbidden describes a response with status code 403, with default header values.
 
 User in session does not have permission to the project.
 */
@@ -151,7 +150,7 @@ func NewPutProjectsProjectIDMembersMidNotFound() *PutProjectsProjectIDMembersMid
 	return &PutProjectsProjectIDMembersMidNotFound{}
 }
 
-/*PutProjectsProjectIDMembersMidNotFound handles this case with default header values.
+/* PutProjectsProjectIDMembersMidNotFound describes a response with status code 404, with default header values.
 
 project or project member does not exist.
 */
@@ -172,7 +171,7 @@ func NewPutProjectsProjectIDMembersMidInternalServerError() *PutProjectsProjectI
 	return &PutProjectsProjectIDMembersMidInternalServerError{}
 }
 
-/*PutProjectsProjectIDMembersMidInternalServerError handles this case with default header values.
+/* PutProjectsProjectIDMembersMidInternalServerError describes a response with status code 500, with default header values.
 
 Unexpected internal errors.
 */

@@ -6,6 +6,8 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -26,6 +28,11 @@ type AdminJobScheduleObj struct {
 
 // Validate validates this admin job schedule obj
 func (m *AdminJobScheduleObj) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this admin job schedule obj based on context it is used
+func (m *AdminJobScheduleObj) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

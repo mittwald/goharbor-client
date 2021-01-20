@@ -16,52 +16,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetSystemGcScheduleParams creates a new GetSystemGcScheduleParams object
-// with the default values initialized.
+// NewGetSystemGcScheduleParams creates a new GetSystemGcScheduleParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetSystemGcScheduleParams() *GetSystemGcScheduleParams {
-
 	return &GetSystemGcScheduleParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetSystemGcScheduleParamsWithTimeout creates a new GetSystemGcScheduleParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetSystemGcScheduleParamsWithTimeout(timeout time.Duration) *GetSystemGcScheduleParams {
-
 	return &GetSystemGcScheduleParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetSystemGcScheduleParamsWithContext creates a new GetSystemGcScheduleParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetSystemGcScheduleParamsWithContext(ctx context.Context) *GetSystemGcScheduleParams {
-
 	return &GetSystemGcScheduleParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetSystemGcScheduleParamsWithHTTPClient creates a new GetSystemGcScheduleParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetSystemGcScheduleParamsWithHTTPClient(client *http.Client) *GetSystemGcScheduleParams {
-
 	return &GetSystemGcScheduleParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetSystemGcScheduleParams contains all the parameters to send to the API endpoint
-for the get system gc schedule operation typically these are written to a http.Request
+/* GetSystemGcScheduleParams contains all the parameters to send to the API endpoint
+   for the get system gc schedule operation.
+
+   Typically these are written to a http.Request.
 */
 type GetSystemGcScheduleParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get system gc schedule params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSystemGcScheduleParams) WithDefaults() *GetSystemGcScheduleParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get system gc schedule params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSystemGcScheduleParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get system gc schedule params

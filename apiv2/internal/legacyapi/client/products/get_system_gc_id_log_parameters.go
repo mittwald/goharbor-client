@@ -17,59 +17,75 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetSystemGcIDLogParams creates a new GetSystemGcIDLogParams object
-// with the default values initialized.
+// NewGetSystemGcIDLogParams creates a new GetSystemGcIDLogParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetSystemGcIDLogParams() *GetSystemGcIDLogParams {
-	var ()
 	return &GetSystemGcIDLogParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetSystemGcIDLogParamsWithTimeout creates a new GetSystemGcIDLogParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetSystemGcIDLogParamsWithTimeout(timeout time.Duration) *GetSystemGcIDLogParams {
-	var ()
 	return &GetSystemGcIDLogParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetSystemGcIDLogParamsWithContext creates a new GetSystemGcIDLogParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetSystemGcIDLogParamsWithContext(ctx context.Context) *GetSystemGcIDLogParams {
-	var ()
 	return &GetSystemGcIDLogParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetSystemGcIDLogParamsWithHTTPClient creates a new GetSystemGcIDLogParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetSystemGcIDLogParamsWithHTTPClient(client *http.Client) *GetSystemGcIDLogParams {
-	var ()
 	return &GetSystemGcIDLogParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetSystemGcIDLogParams contains all the parameters to send to the API endpoint
-for the get system gc ID log operation typically these are written to a http.Request
+/* GetSystemGcIDLogParams contains all the parameters to send to the API endpoint
+   for the get system gc ID log operation.
+
+   Typically these are written to a http.Request.
 */
 type GetSystemGcIDLogParams struct {
 
-	/*ID
-	  Relevant job ID
+	/* ID.
 
+	   Relevant job ID
+
+	   Format: int64
 	*/
 	ID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get system gc ID log params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSystemGcIDLogParams) WithDefaults() *GetSystemGcIDLogParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get system gc ID log params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSystemGcIDLogParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get system gc ID log params

@@ -17,64 +17,83 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteProjectsProjectIDRobotsRobotIDParams creates a new DeleteProjectsProjectIDRobotsRobotIDParams object
-// with the default values initialized.
+// NewDeleteProjectsProjectIDRobotsRobotIDParams creates a new DeleteProjectsProjectIDRobotsRobotIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteProjectsProjectIDRobotsRobotIDParams() *DeleteProjectsProjectIDRobotsRobotIDParams {
-	var ()
 	return &DeleteProjectsProjectIDRobotsRobotIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteProjectsProjectIDRobotsRobotIDParamsWithTimeout creates a new DeleteProjectsProjectIDRobotsRobotIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteProjectsProjectIDRobotsRobotIDParamsWithTimeout(timeout time.Duration) *DeleteProjectsProjectIDRobotsRobotIDParams {
-	var ()
 	return &DeleteProjectsProjectIDRobotsRobotIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteProjectsProjectIDRobotsRobotIDParamsWithContext creates a new DeleteProjectsProjectIDRobotsRobotIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteProjectsProjectIDRobotsRobotIDParamsWithContext(ctx context.Context) *DeleteProjectsProjectIDRobotsRobotIDParams {
-	var ()
 	return &DeleteProjectsProjectIDRobotsRobotIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteProjectsProjectIDRobotsRobotIDParamsWithHTTPClient creates a new DeleteProjectsProjectIDRobotsRobotIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteProjectsProjectIDRobotsRobotIDParamsWithHTTPClient(client *http.Client) *DeleteProjectsProjectIDRobotsRobotIDParams {
-	var ()
 	return &DeleteProjectsProjectIDRobotsRobotIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteProjectsProjectIDRobotsRobotIDParams contains all the parameters to send to the API endpoint
-for the delete projects project ID robots robot ID operation typically these are written to a http.Request
+/* DeleteProjectsProjectIDRobotsRobotIDParams contains all the parameters to send to the API endpoint
+   for the delete projects project ID robots robot ID operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteProjectsProjectIDRobotsRobotIDParams struct {
 
-	/*ProjectID
-	  Relevant project ID.
+	/* ProjectID.
 
+	   Relevant project ID.
+
+	   Format: int64
 	*/
 	ProjectID int64
-	/*RobotID
-	  The ID of robot account.
 
+	/* RobotID.
+
+	   The ID of robot account.
+
+	   Format: int64
 	*/
 	RobotID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete projects project ID robots robot ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteProjectsProjectIDRobotsRobotIDParams) WithDefaults() *DeleteProjectsProjectIDRobotsRobotIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete projects project ID robots robot ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteProjectsProjectIDRobotsRobotIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete projects project ID robots robot ID params

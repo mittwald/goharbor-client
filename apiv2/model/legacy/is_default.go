@@ -6,6 +6,8 @@ package legacy
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -21,6 +23,11 @@ type IsDefault struct {
 
 // Validate validates this is default
 func (m *IsDefault) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this is default based on context it is used
+func (m *IsDefault) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

@@ -16,52 +16,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetSysteminfoGetcertParams creates a new GetSysteminfoGetcertParams object
-// with the default values initialized.
+// NewGetSysteminfoGetcertParams creates a new GetSysteminfoGetcertParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetSysteminfoGetcertParams() *GetSysteminfoGetcertParams {
-
 	return &GetSysteminfoGetcertParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetSysteminfoGetcertParamsWithTimeout creates a new GetSysteminfoGetcertParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetSysteminfoGetcertParamsWithTimeout(timeout time.Duration) *GetSysteminfoGetcertParams {
-
 	return &GetSysteminfoGetcertParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetSysteminfoGetcertParamsWithContext creates a new GetSysteminfoGetcertParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetSysteminfoGetcertParamsWithContext(ctx context.Context) *GetSysteminfoGetcertParams {
-
 	return &GetSysteminfoGetcertParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetSysteminfoGetcertParamsWithHTTPClient creates a new GetSysteminfoGetcertParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetSysteminfoGetcertParamsWithHTTPClient(client *http.Client) *GetSysteminfoGetcertParams {
-
 	return &GetSysteminfoGetcertParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetSysteminfoGetcertParams contains all the parameters to send to the API endpoint
-for the get systeminfo getcert operation typically these are written to a http.Request
+/* GetSysteminfoGetcertParams contains all the parameters to send to the API endpoint
+   for the get systeminfo getcert operation.
+
+   Typically these are written to a http.Request.
 */
 type GetSysteminfoGetcertParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get systeminfo getcert params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSysteminfoGetcertParams) WithDefaults() *GetSysteminfoGetcertParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get systeminfo getcert params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSysteminfoGetcertParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get systeminfo getcert params

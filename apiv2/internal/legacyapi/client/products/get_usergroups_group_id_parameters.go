@@ -17,59 +17,75 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetUsergroupsGroupIDParams creates a new GetUsergroupsGroupIDParams object
-// with the default values initialized.
+// NewGetUsergroupsGroupIDParams creates a new GetUsergroupsGroupIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetUsergroupsGroupIDParams() *GetUsergroupsGroupIDParams {
-	var ()
 	return &GetUsergroupsGroupIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetUsergroupsGroupIDParamsWithTimeout creates a new GetUsergroupsGroupIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetUsergroupsGroupIDParamsWithTimeout(timeout time.Duration) *GetUsergroupsGroupIDParams {
-	var ()
 	return &GetUsergroupsGroupIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetUsergroupsGroupIDParamsWithContext creates a new GetUsergroupsGroupIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetUsergroupsGroupIDParamsWithContext(ctx context.Context) *GetUsergroupsGroupIDParams {
-	var ()
 	return &GetUsergroupsGroupIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetUsergroupsGroupIDParamsWithHTTPClient creates a new GetUsergroupsGroupIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetUsergroupsGroupIDParamsWithHTTPClient(client *http.Client) *GetUsergroupsGroupIDParams {
-	var ()
 	return &GetUsergroupsGroupIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetUsergroupsGroupIDParams contains all the parameters to send to the API endpoint
-for the get usergroups group ID operation typically these are written to a http.Request
+/* GetUsergroupsGroupIDParams contains all the parameters to send to the API endpoint
+   for the get usergroups group ID operation.
+
+   Typically these are written to a http.Request.
 */
 type GetUsergroupsGroupIDParams struct {
 
-	/*GroupID
-	  Group ID
+	/* GroupID.
 
+	   Group ID
+
+	   Format: int64
 	*/
 	GroupID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get usergroups group ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetUsergroupsGroupIDParams) WithDefaults() *GetUsergroupsGroupIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get usergroups group ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetUsergroupsGroupIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get usergroups group ID params

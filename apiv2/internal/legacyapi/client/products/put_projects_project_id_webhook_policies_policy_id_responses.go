@@ -56,7 +56,6 @@ func (o *PutProjectsProjectIDWebhookPoliciesPolicyIDReader) ReadResponse(respons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -67,7 +66,7 @@ func NewPutProjectsProjectIDWebhookPoliciesPolicyIDOK() *PutProjectsProjectIDWeb
 	return &PutProjectsProjectIDWebhookPoliciesPolicyIDOK{}
 }
 
-/*PutProjectsProjectIDWebhookPoliciesPolicyIDOK handles this case with default header values.
+/* PutProjectsProjectIDWebhookPoliciesPolicyIDOK describes a response with status code 200, with default header values.
 
 Update webhook policy successfully.
 */
@@ -88,7 +87,7 @@ func NewPutProjectsProjectIDWebhookPoliciesPolicyIDBadRequest() *PutProjectsProj
 	return &PutProjectsProjectIDWebhookPoliciesPolicyIDBadRequest{}
 }
 
-/*PutProjectsProjectIDWebhookPoliciesPolicyIDBadRequest handles this case with default header values.
+/* PutProjectsProjectIDWebhookPoliciesPolicyIDBadRequest describes a response with status code 400, with default header values.
 
 Illegal format of provided ID value.
 */
@@ -109,7 +108,7 @@ func NewPutProjectsProjectIDWebhookPoliciesPolicyIDUnauthorized() *PutProjectsPr
 	return &PutProjectsProjectIDWebhookPoliciesPolicyIDUnauthorized{}
 }
 
-/*PutProjectsProjectIDWebhookPoliciesPolicyIDUnauthorized handles this case with default header values.
+/* PutProjectsProjectIDWebhookPoliciesPolicyIDUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -130,7 +129,7 @@ func NewPutProjectsProjectIDWebhookPoliciesPolicyIDForbidden() *PutProjectsProje
 	return &PutProjectsProjectIDWebhookPoliciesPolicyIDForbidden{}
 }
 
-/*PutProjectsProjectIDWebhookPoliciesPolicyIDForbidden handles this case with default header values.
+/* PutProjectsProjectIDWebhookPoliciesPolicyIDForbidden describes a response with status code 403, with default header values.
 
 User have no permission to update webhook policy of the project.
 */
@@ -151,7 +150,7 @@ func NewPutProjectsProjectIDWebhookPoliciesPolicyIDNotFound() *PutProjectsProjec
 	return &PutProjectsProjectIDWebhookPoliciesPolicyIDNotFound{}
 }
 
-/*PutProjectsProjectIDWebhookPoliciesPolicyIDNotFound handles this case with default header values.
+/* PutProjectsProjectIDWebhookPoliciesPolicyIDNotFound describes a response with status code 404, with default header values.
 
 Webhook policy ID does not exist.
 */
@@ -172,7 +171,7 @@ func NewPutProjectsProjectIDWebhookPoliciesPolicyIDInternalServerError() *PutPro
 	return &PutProjectsProjectIDWebhookPoliciesPolicyIDInternalServerError{}
 }
 
-/*PutProjectsProjectIDWebhookPoliciesPolicyIDInternalServerError handles this case with default header values.
+/* PutProjectsProjectIDWebhookPoliciesPolicyIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal server errors.
 */

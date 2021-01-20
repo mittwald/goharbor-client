@@ -50,7 +50,6 @@ func (o *PutProjectsProjectIDImmutabletagrulesIDReader) ReadResponse(response ru
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -61,7 +60,7 @@ func NewPutProjectsProjectIDImmutabletagrulesIDOK() *PutProjectsProjectIDImmutab
 	return &PutProjectsProjectIDImmutabletagrulesIDOK{}
 }
 
-/*PutProjectsProjectIDImmutabletagrulesIDOK handles this case with default header values.
+/* PutProjectsProjectIDImmutabletagrulesIDOK describes a response with status code 200, with default header values.
 
 Update the immutable tag rule successfully.
 */
@@ -82,7 +81,7 @@ func NewPutProjectsProjectIDImmutabletagrulesIDBadRequest() *PutProjectsProjectI
 	return &PutProjectsProjectIDImmutabletagrulesIDBadRequest{}
 }
 
-/*PutProjectsProjectIDImmutabletagrulesIDBadRequest handles this case with default header values.
+/* PutProjectsProjectIDImmutabletagrulesIDBadRequest describes a response with status code 400, with default header values.
 
 Illegal format of provided ID value.
 */
@@ -103,7 +102,7 @@ func NewPutProjectsProjectIDImmutabletagrulesIDUnauthorized() *PutProjectsProjec
 	return &PutProjectsProjectIDImmutabletagrulesIDUnauthorized{}
 }
 
-/*PutProjectsProjectIDImmutabletagrulesIDUnauthorized handles this case with default header values.
+/* PutProjectsProjectIDImmutabletagrulesIDUnauthorized describes a response with status code 401, with default header values.
 
 User need to log in first.
 */
@@ -124,7 +123,7 @@ func NewPutProjectsProjectIDImmutabletagrulesIDForbidden() *PutProjectsProjectID
 	return &PutProjectsProjectIDImmutabletagrulesIDForbidden{}
 }
 
-/*PutProjectsProjectIDImmutabletagrulesIDForbidden handles this case with default header values.
+/* PutProjectsProjectIDImmutabletagrulesIDForbidden describes a response with status code 403, with default header values.
 
 User have no permission to update the immutable tag rule of the project.
 */
@@ -145,7 +144,7 @@ func NewPutProjectsProjectIDImmutabletagrulesIDInternalServerError() *PutProject
 	return &PutProjectsProjectIDImmutabletagrulesIDInternalServerError{}
 }
 
-/*PutProjectsProjectIDImmutabletagrulesIDInternalServerError handles this case with default header values.
+/* PutProjectsProjectIDImmutabletagrulesIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal server errors.
 */

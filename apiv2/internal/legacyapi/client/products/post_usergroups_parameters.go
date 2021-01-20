@@ -18,56 +18,70 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
-// NewPostUsergroupsParams creates a new PostUsergroupsParams object
-// with the default values initialized.
+// NewPostUsergroupsParams creates a new PostUsergroupsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostUsergroupsParams() *PostUsergroupsParams {
-	var ()
 	return &PostUsergroupsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostUsergroupsParamsWithTimeout creates a new PostUsergroupsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostUsergroupsParamsWithTimeout(timeout time.Duration) *PostUsergroupsParams {
-	var ()
 	return &PostUsergroupsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostUsergroupsParamsWithContext creates a new PostUsergroupsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostUsergroupsParamsWithContext(ctx context.Context) *PostUsergroupsParams {
-	var ()
 	return &PostUsergroupsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostUsergroupsParamsWithHTTPClient creates a new PostUsergroupsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostUsergroupsParamsWithHTTPClient(client *http.Client) *PostUsergroupsParams {
-	var ()
 	return &PostUsergroupsParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostUsergroupsParams contains all the parameters to send to the API endpoint
-for the post usergroups operation typically these are written to a http.Request
+/* PostUsergroupsParams contains all the parameters to send to the API endpoint
+   for the post usergroups operation.
+
+   Typically these are written to a http.Request.
 */
 type PostUsergroupsParams struct {
 
-	/*Usergroup*/
+	// Usergroup.
 	Usergroup *legacy.UserGroup
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post usergroups params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostUsergroupsParams) WithDefaults() *PostUsergroupsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post usergroups params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostUsergroupsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post usergroups params
@@ -121,7 +135,6 @@ func (o *PostUsergroupsParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		return err
 	}
 	var res []error
-
 	if o.Usergroup != nil {
 		if err := r.SetBodyParam(o.Usergroup); err != nil {
 			return err
