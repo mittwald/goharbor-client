@@ -2,6 +2,8 @@ package project
 
 import (
 	projectapi "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/project"
+	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
+
 	"net/http"
 
 	"github.com/go-openapi/runtime"
@@ -62,6 +64,9 @@ const (
 
 	// ErrProjectMetadataUndefinedMsg is the error message for ErrProjectMetadataUndefined error.
 	ErrProjectMetadataUndefinedMsg = "project metadata undefined"
+
+	// ErrProjectMetadataValueUndefinedMsg is the error message used for MetadataKey's being undefined or nil.
+	ErrProjectMetadataValueUndefinedMsg = "project metadata value is nil: "
 )
 
 // ErrProjectNameNotProvided describes a missing project name.
@@ -199,6 +204,62 @@ func (e *ErrProjectMetadataUndefined) Error() string {
 	return ErrProjectMetadataUndefinedMsg
 }
 
+// ProjectMetadataValueEnableContentTrustUndefined describes an error regarding a metadata value being undefined or nil.
+type ErrProjectMetadataValueEnableContentTrustUndefined struct{}
+
+// Error returns the error message.
+func (e *ErrProjectMetadataValueEnableContentTrustUndefined) Error() string {
+	return string(ErrProjectMetadataValueUndefinedMsg + ProjectMetadataKeyEnableContentTrust)
+}
+
+// ProjectMetadataValueEnableContentTrustUndefined describes an error regarding a metadata value being undefined or nil.
+type ErrProjectMetadataValueAutoScanUndefined struct{}
+
+// Error returns the error message.
+func (e *ErrProjectMetadataValueAutoScanUndefined) Error() string {
+	return string(ErrProjectMetadataValueUndefinedMsg + ProjectMetadataKeyAutoScan)
+}
+
+// ProjectMetadataValueEnableContentTrustUndefined describes an error regarding a metadata value being undefined or nil.
+type ErrProjectMetadataValueSeverityUndefined struct{}
+
+// Error returns the error message.
+func (e *ErrProjectMetadataValueSeverityUndefined) Error() string {
+	return string(ErrProjectMetadataValueUndefinedMsg + ProjectMetadataKeySeverity)
+}
+
+// ProjectMetadataValueEnableContentTrustUndefined describes an error regarding a metadata value being undefined or nil.
+type ErrProjectMetadataValueReuseSysCveAllowlistUndefined struct{}
+
+// Error returns the error message.
+func (e *ErrProjectMetadataValueReuseSysCveAllowlistUndefined) Error() string {
+	return string(ErrProjectMetadataValueUndefinedMsg + ProjectMetadataKeyReuseSysCveAllowlist)
+}
+
+// ProjectMetadataValueEnableContentTrustUndefined describes an error regarding a metadata value being undefined or nil.
+type ErrProjectMetadataValuePublicUndefined struct{}
+
+// Error returns the error message.
+func (e *ErrProjectMetadataValuePublicUndefined) Error() string {
+	return string(ErrProjectMetadataValueUndefinedMsg + ProjectMetadataKeyPublic)
+}
+
+// ProjectMetadataValueEnableContentTrustUndefined describes an error regarding a metadata value being undefined or nil.
+type ErrProjectMetadataValuePreventVulUndefined struct{}
+
+// Error returns the error message.
+func (e *ErrProjectMetadataValuePreventVulUndefined) Error() string {
+	return string(ErrProjectMetadataValueUndefinedMsg + ProjectMetadataKeyPreventVul)
+}
+
+// ProjectMetadataValueEnableContentTrustUndefined describes an error regarding a metadata value being undefined or nil.
+type ErrProjectMetadataValueRetentionIDUndefined struct{}
+
+// Error returns the error message.
+func (e *ErrProjectMetadataValueRetentionIDUndefined) Error() string {
+	return string(ErrProjectMetadataValueUndefinedMsg + ProjectMetadataKeyRetentionID)
+}
+
 // ErrProjectMetadataAlreadyExists describes an error, which happens
 // when a metadata key of a project is tried to be created a second time.
 type ErrProjectMetadataAlreadyExists struct{}
@@ -215,6 +276,54 @@ type ErrProjectUnknownResource struct{}
 // Error returns the error message.
 func (e *ErrProjectUnknownResource) Error() string {
 	return ErrProjectUnknownResourceMsg
+}
+
+// retrieveMetadataValue returns the value of the metadata k that is contained in the project metadata m.
+// Returns an empty string plus an error when encountering a nil pointer, or if the requested key k is invalid.
+func retrieveMetadataValue(k MetadataKey, m *modelv2.ProjectMetadata) (string, error) {
+	var r string
+
+	switch k {
+	case ProjectMetadataKeyEnableContentTrust:
+		if m.EnableContentTrust == nil {
+			return "", &ErrProjectMetadataValueEnableContentTrustUndefined{}
+		}
+		r = *m.EnableContentTrust
+	case ProjectMetadataKeyAutoScan:
+		if m.AutoScan == nil {
+			return "", &ErrProjectMetadataValueAutoScanUndefined{}
+		}
+		r = *m.AutoScan
+	case ProjectMetadataKeySeverity:
+		if m.Severity == nil {
+			return "", &ErrProjectMetadataValueSeverityUndefined{}
+		}
+		r = *m.Severity
+	case ProjectMetadataKeyReuseSysCveAllowlist:
+		if m.ReuseSysCveAllowlist == nil {
+			return "", &ErrProjectMetadataValueReuseSysCveAllowlistUndefined{}
+		}
+		r = *m.ReuseSysCveAllowlist
+	case ProjectMetadataKeyPublic:
+		if m.Public == "" {
+			return "", &ErrProjectMetadataValuePublicUndefined{}
+		}
+		r = m.Public
+	case ProjectMetadataKeyPreventVul:
+		if m.PreventVul == nil {
+			return "", &ErrProjectMetadataValuePreventVulUndefined{}
+		}
+		r = *m.PreventVul
+	case ProjectMetadataKeyRetentionID:
+		if m.RetentionID == nil {
+			return "", &ErrProjectMetadataValueRetentionIDUndefined{}
+		}
+		r = *m.RetentionID
+	default:
+		return "", &ErrProjectInvalidRequest{}
+	}
+
+	return r, nil
 }
 
 // handleProjectErrors takes a swagger generated error as input,
