@@ -282,26 +282,25 @@ func (e *ErrProjectUnknownResource) Error() string {
 // Returns an empty string plus an error when encountering a nil pointer, or if the requested key k is invalid.
 func retrieveMetadataValue(k MetadataKey, m *modelv2.ProjectMetadata) (string, error) {
 	var r string
-	var sPtr *string
 
 	switch k {
 	case ProjectMetadataKeyEnableContentTrust:
-		if m.EnableContentTrust == sPtr {
+		if m.EnableContentTrust == nil {
 			return "", &ErrProjectMetadataValueEnableContentTrustUndefined{}
 		}
 		r = *m.EnableContentTrust
 	case ProjectMetadataKeyAutoScan:
-		if m.AutoScan == sPtr {
+		if m.AutoScan == nil {
 			return "", &ErrProjectMetadataValueAutoScanUndefined{}
 		}
 		r = *m.AutoScan
 	case ProjectMetadataKeySeverity:
-		if m.Severity == sPtr {
+		if m.Severity == nil {
 			return "", &ErrProjectMetadataValueSeverityUndefined{}
 		}
 		r = *m.Severity
 	case ProjectMetadataKeyReuseSysCveAllowlist:
-		if m.ReuseSysCveAllowlist == sPtr {
+		if m.ReuseSysCveAllowlist == nil {
 			return "", &ErrProjectMetadataValueReuseSysCveAllowlistUndefined{}
 		}
 		r = *m.ReuseSysCveAllowlist
@@ -311,12 +310,12 @@ func retrieveMetadataValue(k MetadataKey, m *modelv2.ProjectMetadata) (string, e
 		}
 		r = m.Public
 	case ProjectMetadataKeyPreventVul:
-		if m.PreventVul == sPtr {
+		if m.PreventVul == nil {
 			return "", &ErrProjectMetadataValuePreventVulUndefined{}
 		}
 		r = *m.PreventVul
 	case ProjectMetadataKeyRetentionID:
-		if m.RetentionID == sPtr {
+		if m.RetentionID == nil {
 			return "", &ErrProjectMetadataValueRetentionIDUndefined{}
 		}
 		r = *m.RetentionID
