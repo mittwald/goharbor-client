@@ -53,6 +53,7 @@ const (
 type Client interface {
 	NewRetentionPolicy(ctx context.Context, ret *model.RetentionPolicy) error
 	GetRetentionPolicyByProject(ctx context.Context, project *modelv2.Project) (*model.RetentionPolicy, error)
+	GetRetentionPolicyByID(ctx context.Context, id int64) (*model.RetentionPolicy, error)
 	DisableRetentionPolicy(ctx context.Context, ret *model.RetentionPolicy) error
 	UpdateRetentionPolicy(ctx context.Context, ret *model.RetentionPolicy) error
 }
@@ -116,8 +117,7 @@ func (c *RESTClient) NewRetentionPolicy(ctx context.Context, ret *model.Retentio
 	return nil
 }
 
-// GetRetentionPolicyByProject returns a retention policy identified by the corresponding project resource.
-// The retention ID is stored in a project's metadata.
+// GetRetentionPolicyByProject returns a retention policy that is fetched by the metadata value contained in a project's metadata.
 func (c *RESTClient) GetRetentionPolicyByProject(ctx context.Context, project *modelv2.Project) (*model.RetentionPolicy, error) {
 	pc := projectapi.NewClient(c.LegacyClient, c.V2Client, c.AuthInfo)
 
@@ -126,13 +126,18 @@ func (c *RESTClient) GetRetentionPolicyByProject(ctx context.Context, project *m
 		return nil, err
 	}
 
-	id, err := strconv.Atoi(val)
+	id, err := strconv.ParseInt(val, 10, 64)
 	if err != nil {
-		return nil, fmt.Errorf("could not convert retention id %q to int, project: %d", val, project.ProjectID)
+		return nil, fmt.Errorf("could not convert retention id %q to int64, project: %d", val, project.ProjectID)
 	}
 
+	return c.GetRetentionPolicyByID(ctx, id)
+}
+
+// GetRetentionPolicyByID returns a retention policy identified by it's id.
+func (c *RESTClient) GetRetentionPolicyByID(ctx context.Context, id int64) (*model.RetentionPolicy, error) {
 	resp, err := c.LegacyClient.Products.GetRetentionsID(&products.GetRetentionsIDParams{
-		ID:      int64(id),
+		ID:      id,
 		Context: ctx,
 	}, c.AuthInfo)
 	if err != nil {
