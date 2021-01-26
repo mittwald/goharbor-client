@@ -303,6 +303,11 @@ func (c *RESTClient) GetRetentionPolicyByProject(ctx context.Context, project *m
 	return c.retention.GetRetentionPolicyByProject(ctx, project)
 }
 
+// GetRetentionPolicyByID wraps the GetRetentionPolicyByID method of the retention sub-package.
+func (c *RESTClient) GetRetentionPolicyByID(ctx context.Context, id int64) (*model.RetentionPolicy, error) {
+	return c.retention.GetRetentionPolicyByID(ctx, id)
+}
+
 // UpdateRetentionPolicy wraps the UpdateRetentionPolicy method of the retention sub-package.
 func (c *RESTClient) UpdateRetentionPolicy(ctx context.Context, ret *model.RetentionPolicy) error {
 	return c.retention.UpdateRetentionPolicy(ctx, ret)
