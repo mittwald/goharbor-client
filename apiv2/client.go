@@ -103,7 +103,7 @@ func (c *RESTClient) UpdateUserPassword(ctx context.Context, id int64, password 
 // Project Client
 
 // NewProject wraps the NewProject method of the project sub-package.
-func (c *RESTClient) NewProject(ctx context.Context, name string, storageLimit int) (*modelv2.Project, error) {
+func (c *RESTClient) NewProject(ctx context.Context, name string, storageLimit *int64) (*modelv2.Project, error) {
 	return c.project.NewProject(ctx, name, storageLimit)
 }
 
