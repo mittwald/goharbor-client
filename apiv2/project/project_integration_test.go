@@ -129,7 +129,7 @@ func TestAPIProjectUpdate(t *testing.T) {
 
 	mPtr := "true"
 	p.Metadata.AutoScan = &mPtr
-	err = c.UpdateProject(ctx, p, 2)
+	err = c.UpdateProject(ctx, p, &storageLimitPositive)
 	require.NoError(t, err)
 	p2, err := c.GetProjectByName(ctx, name)
 	require.NoError(t, err)

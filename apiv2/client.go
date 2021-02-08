@@ -128,7 +128,7 @@ func (c *RESTClient) ListProjects(ctx context.Context, nameFilter string) ([]*mo
 }
 
 // UpdateProject wraps the UpdateProject method of the registry sub-package.
-func (c *RESTClient) UpdateProject(ctx context.Context, p *modelv2.Project, storageLimit int) error {
+func (c *RESTClient) UpdateProject(ctx context.Context, p *modelv2.Project, storageLimit *int64) error {
 	return c.project.UpdateProject(ctx, p, storageLimit)
 }
 

@@ -53,7 +53,7 @@ type Client interface {
 	GetProjectByName(ctx context.Context, name string) (*modelv2.Project, error)
 	GetProjectByID(ctx context.Context, projectID int64) (*modelv2.Project, error)
 	ListProjects(ctx context.Context, nameFilter string) ([]*modelv2.Project, error)
-	UpdateProject(ctx context.Context, p *modelv2.Project, storageLimit int) error
+	UpdateProject(ctx context.Context, p *modelv2.Project, storageLimit *int64) error
 
 	AddProjectMember(ctx context.Context, p *modelv2.Project, u *model.User, roleID int) error
 	ListProjectMembers(ctx context.Context, p *modelv2.Project) ([]*model.ProjectMemberEntity, error)
@@ -201,7 +201,7 @@ func (c *RESTClient) ListProjects(ctx context.Context, nameFilter string) ([]*mo
 
 // UpdateProject updates a project with the specified data.
 // Returns an error if name/ID pair of p does not match a stored project.
-func (c *RESTClient) UpdateProject(ctx context.Context, p *modelv2.Project, storageLimit int) error {
+func (c *RESTClient) UpdateProject(ctx context.Context, p *modelv2.Project, storageLimit *int64) error {
 	project, err := c.GetProjectByName(ctx, p.Name)
 	if err != nil {
 		return err
@@ -211,13 +211,11 @@ func (c *RESTClient) UpdateProject(ctx context.Context, p *modelv2.Project, stor
 		return &ErrProjectMismatch{}
 	}
 
-	var sPtr = int64(storageLimit) * 1024 * 1024
-
 	pReq := &modelv2.ProjectReq{
 		CveAllowlist: p.CveAllowlist,
 		Metadata:     p.Metadata,
 		ProjectName:  p.Name,
-		StorageLimit: &sPtr,
+		StorageLimit: storageLimit,
 	}
 
 	_, err = c.V2Client.Project.UpdateProject(&projectapi.UpdateProjectParams{

@@ -24,22 +24,28 @@ import (
 )
 
 var (
-	authInfo            = runtimeclient.BasicAuth("foo", "bar")
-	exampleStorageLimit = int64(1)
-	exampleProjectID    = int64(0)
-	exampleUser         = "example-user"
-	exampleUserRoleID   = int64(1)
-	exampleProject      = &modelv2.Project{Name: "example-project", ProjectID: int32(exampleProjectID)}
-	exampleProject2     = &modelv2.Project{Name: "example-project-2", ProjectID: int32(exampleProjectID + 1)}
-	usr                 = &model.User{Username: exampleUser}
-	sPtr                = exampleStorageLimit * 1024 * 1024
-	pReq                = &modelv2.ProjectReq{
+	authInfo                    = runtimeclient.BasicAuth("foo", "bar")
+	exampleStorageLimitPositive = int64(1)
+	exampleStorageLimitNegative = int64(-1)
+	exampleProjectID            = int64(0)
+	exampleUser                 = "example-user"
+	exampleUserRoleID           = int64(1)
+	exampleProject              = &modelv2.Project{Name: "example-project", ProjectID: int32(exampleProjectID)}
+	exampleProject2             = &modelv2.Project{Name: "example-project-2", ProjectID: int32(exampleProjectID + 1)}
+	exampleProject3             = &modelv2.Project{Name: "example-project-3", ProjectID: int32(exampleProjectID)}
+	usr                         = &model.User{Username: exampleUser}
+	sPtr                        = exampleStorageLimitPositive * 1024 * 1024
+	pReq                        = &modelv2.ProjectReq{
 		ProjectName:  "example-project",
-		StorageLimit: &sPtr,
+		StorageLimit: &exampleStorageLimitPositive,
 	}
 	pReq2 = &modelv2.ProjectReq{
 		ProjectName: "example-project-2",
 		Metadata:    &modelv2.ProjectMetadata{},
+	}
+	pReq3 = &modelv2.ProjectReq{
+		ProjectName:  "example-project-3",
+		StorageLimit: &exampleStorageLimitNegative,
 	}
 	exampleMetadataKey   = ProjectMetadataKeyEnableContentTrust
 	exampleMetadataValue = "true"
@@ -91,7 +97,48 @@ func TestRESTClient_NewProject(t *testing.T) {
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{Payload: exampleProject}, nil)
 
-	_, err := cl.NewProject(ctx, exampleProject.Name, int(exampleStorageLimit))
+	_, err := cl.NewProject(ctx, exampleProject.Name, &exampleStorageLimitPositive)
+
+	assert.NoError(t, err)
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_NewProject_UnlimitedStorage(t *testing.T) {
+	p := &mocks.MockProjectClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(nil)
+	v2Client := BuildProjectClientWithMocks(p)
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	postProjectParams := &projectapi.CreateProjectParams{
+		Project: pReq3,
+		Context: ctx,
+	}
+
+	listProjectParams := &projectapi.ListProjectsParams{
+		Name:    &pReq3.ProjectName,
+		Context: ctx,
+	}
+
+	getProjectParams := &projectapi.GetProjectParams{
+		ProjectID: exampleProjectID,
+		Context:   ctx,
+	}
+
+	p.On("CreateProject", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&projectapi.CreateProjectCreated{}, nil)
+
+	p.On("ListProjects", listProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject3}}, nil)
+
+	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&projectapi.GetProjectOK{Payload: exampleProject3}, nil)
+
+	_, err := cl.NewProject(ctx, exampleProject3.Name, &exampleStorageLimitNegative)
 
 	assert.NoError(t, err)
 
@@ -132,7 +179,7 @@ func TestRESTClient_NewProject_ErrProjectNotFound(t *testing.T) {
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{Payload: nil}, nil)
 
-	_, err := cl.NewProject(ctx, exampleProject.Name, int(exampleStorageLimit))
+	_, err := cl.NewProject(ctx, exampleProject.Name, &exampleStorageLimitPositive)
 
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrProjectNotFound{}, err)
@@ -175,7 +222,7 @@ func TestRESTClient_NewProject_ErrProjectIllegalIDFormat(t *testing.T) {
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{Payload: nil}, &ErrProjectIllegalIDFormat{})
 
-	_, err := cl.NewProject(ctx, exampleProject.Name, int(exampleStorageLimit))
+	_, err := cl.NewProject(ctx, exampleProject.Name, &exampleStorageLimitPositive)
 
 	if assert.Error(t, err) {
 		assert.Equal(t, &ErrProjectIllegalIDFormat{}, err)
@@ -202,7 +249,7 @@ func TestRESTClient_NewProject_ErrProjectUnauthorized(t *testing.T) {
 	p.On("CreateProject", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.CreateProjectCreated{}, &runtime.APIError{Code: http.StatusUnauthorized})
 
-	_, err := cl.NewProject(ctx, exampleProject.Name, int(exampleStorageLimit))
+	_, err := cl.NewProject(ctx, exampleProject.Name, &exampleStorageLimitPositive)
 
 	if assert.Error(t, err) {
 		assert.Equal(t, &ErrProjectUnauthorized{}, err)
@@ -245,7 +292,7 @@ func TestRESTClient_NewProject_ErrProjectNoPermission(t *testing.T) {
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{Payload: nil}, &runtime.APIError{Code: http.StatusForbidden})
 
-	_, err := cl.NewProject(ctx, exampleProject.Name, int(exampleStorageLimit))
+	_, err := cl.NewProject(ctx, exampleProject.Name, &exampleStorageLimitPositive)
 
 	if assert.Error(t, err) {
 		assert.Equal(t, &ErrProjectNoPermission{}, err)
@@ -272,7 +319,7 @@ func TestRESTClient_NewProject_ErrProjectUnknownResource(t *testing.T) {
 	p.On("CreateProject", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(nil, &ErrProjectUnknownResource{})
 
-	_, err := cl.NewProject(ctx, exampleProject.Name, int(exampleStorageLimit))
+	_, err := cl.NewProject(ctx, exampleProject.Name, &exampleStorageLimitPositive)
 
 	if assert.Error(t, err) {
 		assert.Equal(t, &ErrProjectUnknownResource{}, err)
@@ -299,7 +346,7 @@ func TestRESTClient_NewProject_ErrProjectInternalErrors(t *testing.T) {
 	p.On("CreateProject", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.CreateProjectCreated{}, &runtime.APIError{Code: http.StatusInternalServerError})
 
-	_, err := cl.NewProject(ctx, exampleProject.Name, int(exampleStorageLimit))
+	_, err := cl.NewProject(ctx, exampleProject.Name, &exampleStorageLimitPositive)
 
 	if assert.Error(t, err) {
 		assert.Equal(t, &ErrProjectInternalErrors{}, err)
@@ -326,7 +373,7 @@ func TestRESTClient_NewProject_ErrProjectIDNotExists(t *testing.T) {
 	p.On("CreateProject", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.CreateProjectCreated{}, &runtime.APIError{Code: http.StatusNotFound})
 
-	_, err := cl.NewProject(ctx, exampleProject.Name, int(exampleStorageLimit))
+	_, err := cl.NewProject(ctx, exampleProject.Name, &exampleStorageLimitPositive)
 
 	if assert.Error(t, err) {
 		assert.Equal(t, &ErrProjectUnknownResource{}, err)
@@ -353,7 +400,7 @@ func TestRESTClient_NewProject_ErrProjectNameAlreadyExists(t *testing.T) {
 	p.On("CreateProject", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.CreateProjectCreated{}, &projectapi.CreateProjectConflict{})
 
-	_, err := cl.NewProject(ctx, exampleProject.Name, int(exampleStorageLimit))
+	_, err := cl.NewProject(ctx, exampleProject.Name, &exampleStorageLimitPositive)
 
 	if assert.Error(t, err) {
 		assert.Equal(t, &ErrProjectNameAlreadyExists{}, err)
@@ -380,7 +427,7 @@ func TestRESTClient_NewProject_ErrProjectInvalidRequest(t *testing.T) {
 	p.On("CreateProject", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.CreateProjectCreated{}, &products.PostProjectsProjectIDMembersBadRequest{})
 
-	_, err := cl.NewProject(ctx, exampleProject.Name, int(exampleStorageLimit))
+	_, err := cl.NewProject(ctx, exampleProject.Name, &exampleStorageLimitPositive)
 
 	if assert.Error(t, err) {
 		assert.Equal(t, &ErrProjectInvalidRequest{}, err)
@@ -407,7 +454,7 @@ func TestRESTClient_NewProject_ErrProjectInvalidRequest_2(t *testing.T) {
 	p.On("CreateProject", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.CreateProjectCreated{}, &products.PostProjectsProjectIDMembersBadRequest{})
 
-	_, err := cl.NewProject(ctx, exampleProject.Name, int(exampleStorageLimit))
+	_, err := cl.NewProject(ctx, exampleProject.Name, &exampleStorageLimitPositive)
 
 	if assert.Error(t, err) {
 		assert.Equal(t, &ErrProjectInvalidRequest{}, err)
@@ -802,7 +849,7 @@ func TestRESTClient_UpdateProject(t *testing.T) {
 
 	assert.NoError(t, err)
 
-	err = cl.UpdateProject(ctx, project, int(exampleStorageLimit))
+	err = cl.UpdateProject(ctx, project, &exampleStorageLimitPositive)
 
 	assert.NoError(t, err)
 
@@ -839,7 +886,7 @@ func TestRESTClient_UpdateProject_ErrProjectInternalErrors(t *testing.T) {
 			Code:          500,
 		})
 
-	err := cl.UpdateProject(ctx, exampleProject, int(exampleStorageLimit))
+	err := cl.UpdateProject(ctx, exampleProject, &exampleStorageLimitPositive)
 
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrProjectInternalErrors{}, err)
@@ -877,7 +924,7 @@ func TestRESTClient_UpdateProject_ErrProjectMismatch(t *testing.T) {
 		Return(&projectapi.GetProjectOK{Payload: exampleProject}, nil)
 
 	project2.ProjectID = 100
-	err := cl.UpdateProject(ctx, &project2, int(exampleStorageLimit))
+	err := cl.UpdateProject(ctx, &project2, &exampleStorageLimitPositive)
 
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrProjectMismatch{}, err)
