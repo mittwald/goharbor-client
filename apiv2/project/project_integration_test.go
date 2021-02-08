@@ -21,10 +21,12 @@ import (
 )
 
 var (
-	u, _                = url.Parse(integrationtest.Host)
-	legacySwaggerClient = client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
-	v2SwaggerClient     = v2client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
-	authInfo            = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
+	u, _                       = url.Parse(integrationtest.Host)
+	legacySwaggerClient        = client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
+	v2SwaggerClient            = v2client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
+	authInfo                   = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
+	storageLimitPositive int64 = 1
+	storageLimitNegative int64 = -1
 )
 
 func TestAPIProjectNew(t *testing.T) {
@@ -33,7 +35,21 @@ func TestAPIProjectNew(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
-	p, err := c.NewProject(ctx, name, 3)
+	p, err := c.NewProject(ctx, name, &storageLimitPositive)
+	defer c.DeleteProject(ctx, p)
+
+	require.NoError(t, err)
+	assert.Equal(t, name, p.Name)
+	assert.False(t, p.Deleted)
+}
+
+func TestAPIProjectNew_UnlimitedStorage(t *testing.T) {
+	name := "test-project"
+
+	ctx := context.Background()
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
+
+	p, err := c.NewProject(ctx, name, &storageLimitNegative)
 	defer c.DeleteProject(ctx, p)
 
 	require.NoError(t, err)
@@ -47,7 +63,7 @@ func TestAPIProjectGet(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
-	p, err := c.NewProject(ctx, name, 3)
+	p, err := c.NewProject(ctx, name, &storageLimitPositive)
 	require.NoError(t, err)
 	defer c.DeleteProject(ctx, p)
 
@@ -61,7 +77,7 @@ func TestAPIProjectDelete(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
-	p, err := c.NewProject(ctx, name, 3)
+	p, err := c.NewProject(ctx, name, &storageLimitPositive)
 	require.NoError(t, err)
 
 	err = c.DeleteProject(ctx, p)
@@ -80,7 +96,7 @@ func TestAPIProjectList(t *testing.T) {
 
 	for i := 0; i < 10; i++ {
 		name := fmt.Sprintf("%s-%d", namePrefix, i)
-		p, err := c.NewProject(ctx, name, 3)
+		p, err := c.NewProject(ctx, name, &storageLimitPositive)
 		require.NoError(t, err)
 		defer func() {
 			err := c.DeleteProject(ctx, p)
@@ -103,7 +119,7 @@ func TestAPIProjectUpdate(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
-	p, err := c.NewProject(ctx, name, 3)
+	p, err := c.NewProject(ctx, name, &storageLimitPositive)
 	require.NoError(t, err)
 	defer c.DeleteProject(ctx, p)
 
@@ -113,7 +129,7 @@ func TestAPIProjectUpdate(t *testing.T) {
 
 	mPtr := "true"
 	p.Metadata.AutoScan = &mPtr
-	err = c.UpdateProject(ctx, p, 2)
+	err = c.UpdateProject(ctx, p, &storageLimitPositive)
 	require.NoError(t, err)
 	p2, err := c.GetProjectByName(ctx, name)
 	require.NoError(t, err)
@@ -132,7 +148,7 @@ func TestAPIProjectUserMemberAdd(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
-	p, err := c.NewProject(ctx, projectName, 3)
+	p, err := c.NewProject(ctx, projectName, &storageLimitPositive)
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
@@ -158,7 +174,7 @@ func TestAPIProjectMemberList(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
-	p, err := c.NewProject(ctx, projectName, 3)
+	p, err := c.NewProject(ctx, projectName, &storageLimitPositive)
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
@@ -193,7 +209,7 @@ func TestAPIProjectUserMemberUpdate(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
-	p, err := c.NewProject(ctx, projectName, 3)
+	p, err := c.NewProject(ctx, projectName, &storageLimitPositive)
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
@@ -236,7 +252,7 @@ func TestAPIProjectUserMemberDelete(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
-	p, err := c.NewProject(ctx, projectName, 3)
+	p, err := c.NewProject(ctx, projectName, &storageLimitPositive)
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
@@ -272,7 +288,7 @@ func TestAPIProjectMetadataAdd(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
-	p, err := c.NewProject(ctx, projectName, 3)
+	p, err := c.NewProject(ctx, projectName, &storageLimitPositive)
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
@@ -295,7 +311,7 @@ func TestAPIProjectMetadataGet(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
-	p, err := c.NewProject(ctx, projectName, 3)
+	p, err := c.NewProject(ctx, projectName, &storageLimitPositive)
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
@@ -311,7 +327,7 @@ func TestAPIProjectMetadataGetInvalidKey(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
-	p, err := c.NewProject(ctx, projectName, 3)
+	p, err := c.NewProject(ctx, projectName, &storageLimitPositive)
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
@@ -331,7 +347,7 @@ func TestAPIProjectMetadataList(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
-	p, err := c.NewProject(ctx, projectName, 3)
+	p, err := c.NewProject(ctx, projectName, &storageLimitPositive)
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 

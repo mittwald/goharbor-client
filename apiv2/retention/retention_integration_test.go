@@ -18,10 +18,11 @@ import (
 )
 
 var (
-	u, _                = url.Parse(integrationtest.Host)
-	legacySwaggerClient = client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
-	v2SwaggerClient     = v2client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
-	authInfo            = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
+	u, _                      = url.Parse(integrationtest.Host)
+	legacySwaggerClient       = client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
+	v2SwaggerClient           = v2client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
+	authInfo                  = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
+	storageLimit        int64 = 1
 )
 
 const (
@@ -70,7 +71,7 @@ func TestAPIRetentionNew(t *testing.T) {
 
 	pc := pc.NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
-	p, err := pc.NewProject(ctx, projectName, 1)
+	p, err := pc.NewProject(ctx, projectName, &storageLimit)
 	require.NoError(t, err)
 
 	defer pc.DeleteProject(ctx, p)
@@ -93,7 +94,7 @@ func TestAPIRetentionGet(t *testing.T) {
 
 	pc := pc.NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
-	p, err := pc.NewProject(ctx, projectName, 1)
+	p, err := pc.NewProject(ctx, projectName, &storageLimit)
 	require.NoError(t, err)
 
 	defer pc.DeleteProject(ctx, p)
@@ -119,7 +120,7 @@ func TestAPIRetentionUpdate(t *testing.T) {
 
 	pc := pc.NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
-	p, err := pc.NewProject(ctx, projectName, 1)
+	p, err := pc.NewProject(ctx, projectName, &storageLimit)
 	require.NoError(t, err)
 
 	defer pc.DeleteProject(ctx, p)
@@ -174,7 +175,7 @@ func TestAPIRetentionDelete(t *testing.T) {
 
 	pc := pc.NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
-	p, err := pc.NewProject(ctx, projectName, 1)
+	p, err := pc.NewProject(ctx, projectName, &storageLimit)
 	require.NoError(t, err)
 
 	defer pc.DeleteProject(ctx, p)

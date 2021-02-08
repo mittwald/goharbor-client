@@ -103,7 +103,7 @@ func (c *RESTClient) UpdateUserPassword(ctx context.Context, id int64, password 
 // Project Client
 
 // NewProject wraps the NewProject method of the project sub-package.
-func (c *RESTClient) NewProject(ctx context.Context, name string, storageLimit int) (*modelv2.Project, error) {
+func (c *RESTClient) NewProject(ctx context.Context, name string, storageLimit *int64) (*modelv2.Project, error) {
 	return c.project.NewProject(ctx, name, storageLimit)
 }
 
@@ -128,7 +128,7 @@ func (c *RESTClient) ListProjects(ctx context.Context, nameFilter string) ([]*mo
 }
 
 // UpdateProject wraps the UpdateProject method of the registry sub-package.
-func (c *RESTClient) UpdateProject(ctx context.Context, p *modelv2.Project, storageLimit int) error {
+func (c *RESTClient) UpdateProject(ctx context.Context, p *modelv2.Project, storageLimit *int64) error {
 	return c.project.UpdateProject(ctx, p, storageLimit)
 }
 
