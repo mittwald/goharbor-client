@@ -31,20 +31,20 @@ var (
 	exampleUser                 = "example-user"
 	exampleUserRoleID           = int64(1)
 	exampleProject              = &modelv2.Project{Name: "example-project", ProjectID: int32(exampleProjectID)}
-	exampleProject2             = &modelv2.Project{Name: "example-project-2", ProjectID: int32(exampleProjectID + 1)}
-	exampleProject3             = &modelv2.Project{Name: "example-project-3", ProjectID: int32(exampleProjectID)}
+	exampleProject2             = &modelv2.Project{Name: "example-project", ProjectID: int32(exampleProjectID + 1)}
+	exampleProject3             = &modelv2.Project{Name: "example-project", ProjectID: int32(exampleProjectID)}
 	usr                         = &model.User{Username: exampleUser}
-	sPtr                        = exampleStorageLimitPositive * 1024 * 1024
+	sPtr                        = exampleStorageLimitPositive
 	pReq                        = &modelv2.ProjectReq{
 		ProjectName:  "example-project",
 		StorageLimit: &exampleStorageLimitPositive,
 	}
 	pReq2 = &modelv2.ProjectReq{
-		ProjectName: "example-project-2",
+		ProjectName: "example-project",
 		Metadata:    &modelv2.ProjectMetadata{},
 	}
 	pReq3 = &modelv2.ProjectReq{
-		ProjectName:  "example-project-3",
+		ProjectName:  "example-project",
 		StorageLimit: &exampleStorageLimitNegative,
 	}
 	exampleMetadataKey   = ProjectMetadataKeyEnableContentTrust
@@ -828,7 +828,7 @@ func TestRESTClient_UpdateProject(t *testing.T) {
 	}
 
 	updateProjectParams := &projectapi.UpdateProjectParams{
-		Project:   pReq,
+		Project:   pReq3,
 		ProjectID: exampleProjectID,
 		Context:   ctx,
 	}
@@ -849,7 +849,7 @@ func TestRESTClient_UpdateProject(t *testing.T) {
 
 	assert.NoError(t, err)
 
-	err = cl.UpdateProject(ctx, project, &exampleStorageLimitPositive)
+	err = cl.UpdateProject(ctx, project, &exampleStorageLimitNegative)
 
 	assert.NoError(t, err)
 
