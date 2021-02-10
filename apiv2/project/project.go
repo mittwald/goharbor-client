@@ -200,7 +200,9 @@ func (c *RESTClient) ListProjects(ctx context.Context, nameFilter string) ([]*mo
 
 // UpdateProject updates a project with the specified data.
 // Returns an error if name/ID pair of p does not match a stored project.
-// Note: Only positive values of
+// Note: Only positive values of storageLimit are supported through this method.
+// If you want to set an infinite storageLimit (-1),
+// please refer to the quota client's 'UpdateStorageQuotaByProjectID' method.
 func (c *RESTClient) UpdateProject(ctx context.Context, p *modelv2.Project, storageLimit *int64) error {
 	project, err := c.GetProjectByName(ctx, p.Name)
 	if err != nil {

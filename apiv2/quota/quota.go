@@ -42,7 +42,7 @@ func (c *RESTClient) GetQuotaByProjectID(ctx context.Context, projectID int64) (
 		Context: ctx,
 	}, c.AuthInfo)
 	if err != nil {
-		return nil, err
+		return nil, handleSwaggerQuotaErrors(err)
 	}
 
 	return quota.Payload, nil
@@ -62,7 +62,7 @@ func (c *RESTClient) UpdateStorageQuotaByProjectID(ctx context.Context, projectI
 
 	_, err := c.LegacyClient.Products.PutQuotasID(params, c.AuthInfo)
 	if err != nil {
-		return err
+		return handleSwaggerQuotaErrors(err)
 	}
 
 	return nil
