@@ -21,6 +21,7 @@ var (
 	testProjectID            int64 = 1
 	testStorageLimitPositive int64 = 1
 	testStorageLimitNegative int64 = -1
+	testStorageLimitNull     int64 = 0
 )
 
 func BuildLegacyClientWithMock(service *mocks.MockProductsClientService) *client.Harbor {
@@ -102,6 +103,26 @@ func TestRESTClient_UpdateStorageQuotaByProjectID(t *testing.T) {
 			Return(&products.PutQuotasIDOK{}, nil)
 
 		err := cl.UpdateStorageQuotaByProjectID(ctx, testProjectID, testStorageLimitNegative)
+		assert.NoError(t, err)
+
+		p.AssertExpectations(t)
+	})
+
+	t.Run("NullLimit", func(t *testing.T) {
+		putQuotasIDParams := &products.PutQuotasIDParams{
+			ID: testProjectID,
+			Hard: &legacymodel.QuotaUpdateReq{
+				Hard: map[string]int64{
+					"storage": testStorageLimitNegative,
+				},
+			},
+			Context: ctx,
+		}
+
+		p.On("PutQuotasID", putQuotasIDParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+			Return(&products.PutQuotasIDOK{}, nil)
+
+		err := cl.UpdateStorageQuotaByProjectID(ctx, testProjectID, testStorageLimitNull)
 		assert.NoError(t, err)
 
 		p.AssertExpectations(t)
