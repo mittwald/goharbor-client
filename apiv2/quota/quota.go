@@ -49,7 +49,12 @@ func (c *RESTClient) GetQuotaByProjectID(ctx context.Context, projectID int64) (
 }
 
 // UpdateStorageQuotaByProjectID updates the storageLimit quota of a project.
+// A storageLimit value smaller than '0' will implicitly be set to '-1', equalling the 'unlimited' setting.
 func (c *RESTClient) UpdateStorageQuotaByProjectID(ctx context.Context, projectID int64, storageLimit int64) error {
+	if storageLimit <= 0 {
+		storageLimit = -1
+	}
+
 	params := &products.PutQuotasIDParams{
 		Hard: &legacymodel.QuotaUpdateReq{
 			Hard: map[string]int64{
@@ -61,6 +66,7 @@ func (c *RESTClient) UpdateStorageQuotaByProjectID(ctx context.Context, projectI
 	}
 
 	_, err := c.LegacyClient.Products.PutQuotasID(params, c.AuthInfo)
+
 	if err != nil {
 		return handleSwaggerQuotaErrors(err)
 	}
