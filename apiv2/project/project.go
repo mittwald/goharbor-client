@@ -75,7 +75,6 @@ type MetadataKey string
 // CountLimit limits the number of repositories for this project.
 // StorageLimit limits the allocatable space for this project.
 func (c *RESTClient) NewProject(ctx context.Context, name string, storageLimit *int64) (*modelv2.Project, error) {
-
 	pReq := &modelv2.ProjectReq{
 		ProjectName:  name,
 		StorageLimit: storageLimit,
@@ -201,6 +200,7 @@ func (c *RESTClient) ListProjects(ctx context.Context, nameFilter string) ([]*mo
 
 // UpdateProject updates a project with the specified data.
 // Returns an error if name/ID pair of p does not match a stored project.
+// Note: Only positive values of
 func (c *RESTClient) UpdateProject(ctx context.Context, p *modelv2.Project, storageLimit *int64) error {
 	project, err := c.GetProjectByName(ctx, p.Name)
 	if err != nil {

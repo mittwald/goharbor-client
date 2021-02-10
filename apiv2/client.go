@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
+	"github.com/mittwald/goharbor-client/v3/apiv2/quota"
 	"github.com/mittwald/goharbor-client/v3/apiv2/retention"
 
 	"github.com/go-openapi/runtime"
@@ -30,6 +31,7 @@ type Client interface {
 	replication.Client
 	system.Client
 	retention.Client
+	quota.Client
 }
 
 // RESTClient implements the Client interface as a REST client
@@ -40,6 +42,7 @@ type RESTClient struct {
 	replication *replication.RESTClient
 	system      *system.RESTClient
 	retention   *retention.RESTClient
+	quota       *quota.RESTClient
 }
 
 // NewRESTClient constructs a new REST client containing each sub client.
@@ -51,6 +54,7 @@ func NewRESTClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authI
 		replication: replication.NewClient(legacyClient, v2Client, authInfo),
 		system:      system.NewClient(legacyClient, v2Client, authInfo),
 		retention:   retention.NewClient(legacyClient, v2Client, authInfo),
+		quota:       quota.NewClient(legacyClient, v2Client, authInfo),
 	}
 }
 
@@ -316,4 +320,14 @@ func (c *RESTClient) UpdateRetentionPolicy(ctx context.Context, ret *model.Reten
 // DisableRetentionPolicy wraps the DisableRetentionPolicy method of the retention sub-package.
 func (c *RESTClient) DisableRetentionPolicy(ctx context.Context, ret *model.RetentionPolicy) error {
 	return c.retention.DisableRetentionPolicy(ctx, ret)
+}
+
+// GetQuotaByProjectID wraps the GetQuotaByProjectID method of the retention sub-package.
+func (c *RESTClient) GetQuotaByProjectID(ctx context.Context, projectID int64) (*model.Quota, error) {
+	return c.quota.GetQuotaByProjectID(ctx, projectID)
+}
+
+// UpdateStorageQuotaByProjectID wraps the UpdateStorageQuotaByProjectID method of the retention sub-package.
+func (c *RESTClient) UpdateStorageQuotaByProjectID(ctx context.Context, projectID int64, storageLimit int64) error {
+	return c.quota.UpdateStorageQuotaByProjectID(ctx, projectID, storageLimit)
 }
