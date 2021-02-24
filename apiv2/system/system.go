@@ -36,6 +36,7 @@ type Client interface {
 	UpdateSystemGarbageCollection(ctx context.Context, newGcSchedule *model.AdminJobScheduleObj) error
 	GetSystemGarbageCollection(ctx context.Context) (*model.AdminJobSchedule, error)
 	ResetSystemGarbageCollection(ctx context.Context) error
+	Health(ctx context.Context) (*model.OverallHealthStatus, error)
 }
 
 // NewSystemGarbageCollection creates a new garbage collection schedule.

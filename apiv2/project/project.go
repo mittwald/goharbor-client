@@ -61,10 +61,15 @@ type Client interface {
 	DeleteProjectMember(ctx context.Context, p *modelv2.Project, u *model.User) error
 
 	AddProjectMetadata(ctx context.Context, p *modelv2.Project, key MetadataKey, value string) error
-	ListProjectMetadata(ctx context.Context, p *modelv2.Project) (*model.ProjectMetadata, error)
 	GetProjectMetadataValue(ctx context.Context, projectID int64, key MetadataKey) (string, error)
+	ListProjectMetadata(ctx context.Context, p *modelv2.Project) (*modelv2.ProjectMetadata, error)
 	UpdateProjectMetadata(ctx context.Context, p *modelv2.Project, key MetadataKey, value string) error
 	DeleteProjectMetadataValue(ctx context.Context, p *modelv2.Project, key MetadataKey) error
+
+	ListProjectRobots(ctx context.Context, p *modelv2.Project) ([]*model.RobotAccount, error)
+	AddProjectRobot(ctx context.Context, p *modelv2.Project, robot *model.RobotAccountCreate) (string, error)
+	UpdateProjectRobot(ctx context.Context, p *modelv2.Project, robotID int, robot *model.RobotAccountUpdate) error
+	DeleteProjectRobot(ctx context.Context, p *modelv2.Project, robotID int) error
 }
 
 type MetadataKey string
