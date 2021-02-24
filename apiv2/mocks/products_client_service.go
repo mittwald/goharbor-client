@@ -13,13 +13,20 @@ type MockProductsClientService struct {
 	mock.Mock
 }
 
-// DeleteChartrepoRepoChartsNameVersionLabelsID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) DeleteChartrepoRepoChartsNameVersionLabelsID(params *products.DeleteChartrepoRepoChartsNameVersionLabelsIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.DeleteChartrepoRepoChartsNameVersionLabelsIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// DeleteChartrepoRepoChartsNameVersionLabelsID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) DeleteChartrepoRepoChartsNameVersionLabelsID(params *products.DeleteChartrepoRepoChartsNameVersionLabelsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.DeleteChartrepoRepoChartsNameVersionLabelsIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.DeleteChartrepoRepoChartsNameVersionLabelsIDOK
-	if rf, ok := ret.Get(0).(func(*products.DeleteChartrepoRepoChartsNameVersionLabelsIDParams, runtime.ClientAuthInfoWriter) *products.DeleteChartrepoRepoChartsNameVersionLabelsIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.DeleteChartrepoRepoChartsNameVersionLabelsIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.DeleteChartrepoRepoChartsNameVersionLabelsIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.DeleteChartrepoRepoChartsNameVersionLabelsIDOK)
@@ -27,8 +34,8 @@ func (_m *MockProductsClientService) DeleteChartrepoRepoChartsNameVersionLabelsI
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.DeleteChartrepoRepoChartsNameVersionLabelsIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.DeleteChartrepoRepoChartsNameVersionLabelsIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -36,13 +43,20 @@ func (_m *MockProductsClientService) DeleteChartrepoRepoChartsNameVersionLabelsI
 	return r0, r1
 }
 
-// DeleteLabelsID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) DeleteLabelsID(params *products.DeleteLabelsIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.DeleteLabelsIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// DeleteLabelsID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) DeleteLabelsID(params *products.DeleteLabelsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.DeleteLabelsIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.DeleteLabelsIDOK
-	if rf, ok := ret.Get(0).(func(*products.DeleteLabelsIDParams, runtime.ClientAuthInfoWriter) *products.DeleteLabelsIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.DeleteLabelsIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.DeleteLabelsIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.DeleteLabelsIDOK)
@@ -50,8 +64,8 @@ func (_m *MockProductsClientService) DeleteLabelsID(params *products.DeleteLabel
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.DeleteLabelsIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.DeleteLabelsIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -59,13 +73,20 @@ func (_m *MockProductsClientService) DeleteLabelsID(params *products.DeleteLabel
 	return r0, r1
 }
 
-// DeleteProjectsProjectIDImmutabletagrulesID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) DeleteProjectsProjectIDImmutabletagrulesID(params *products.DeleteProjectsProjectIDImmutabletagrulesIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.DeleteProjectsProjectIDImmutabletagrulesIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// DeleteProjectsProjectIDImmutabletagrulesID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) DeleteProjectsProjectIDImmutabletagrulesID(params *products.DeleteProjectsProjectIDImmutabletagrulesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.DeleteProjectsProjectIDImmutabletagrulesIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.DeleteProjectsProjectIDImmutabletagrulesIDOK
-	if rf, ok := ret.Get(0).(func(*products.DeleteProjectsProjectIDImmutabletagrulesIDParams, runtime.ClientAuthInfoWriter) *products.DeleteProjectsProjectIDImmutabletagrulesIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.DeleteProjectsProjectIDImmutabletagrulesIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.DeleteProjectsProjectIDImmutabletagrulesIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.DeleteProjectsProjectIDImmutabletagrulesIDOK)
@@ -73,8 +94,8 @@ func (_m *MockProductsClientService) DeleteProjectsProjectIDImmutabletagrulesID(
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.DeleteProjectsProjectIDImmutabletagrulesIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.DeleteProjectsProjectIDImmutabletagrulesIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -82,13 +103,20 @@ func (_m *MockProductsClientService) DeleteProjectsProjectIDImmutabletagrulesID(
 	return r0, r1
 }
 
-// DeleteProjectsProjectIDMembersMid provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) DeleteProjectsProjectIDMembersMid(params *products.DeleteProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter) (*products.DeleteProjectsProjectIDMembersMidOK, error) {
-	ret := _m.Called(params, authInfo)
+// DeleteProjectsProjectIDMembersMid provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) DeleteProjectsProjectIDMembersMid(params *products.DeleteProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.DeleteProjectsProjectIDMembersMidOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.DeleteProjectsProjectIDMembersMidOK
-	if rf, ok := ret.Get(0).(func(*products.DeleteProjectsProjectIDMembersMidParams, runtime.ClientAuthInfoWriter) *products.DeleteProjectsProjectIDMembersMidOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.DeleteProjectsProjectIDMembersMidParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.DeleteProjectsProjectIDMembersMidOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.DeleteProjectsProjectIDMembersMidOK)
@@ -96,8 +124,8 @@ func (_m *MockProductsClientService) DeleteProjectsProjectIDMembersMid(params *p
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.DeleteProjectsProjectIDMembersMidParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.DeleteProjectsProjectIDMembersMidParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -105,13 +133,20 @@ func (_m *MockProductsClientService) DeleteProjectsProjectIDMembersMid(params *p
 	return r0, r1
 }
 
-// DeleteProjectsProjectIDMetadatasMetaName provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) DeleteProjectsProjectIDMetadatasMetaName(params *products.DeleteProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter) (*products.DeleteProjectsProjectIDMetadatasMetaNameOK, error) {
-	ret := _m.Called(params, authInfo)
+// DeleteProjectsProjectIDMetadatasMetaName provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) DeleteProjectsProjectIDMetadatasMetaName(params *products.DeleteProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.DeleteProjectsProjectIDMetadatasMetaNameOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.DeleteProjectsProjectIDMetadatasMetaNameOK
-	if rf, ok := ret.Get(0).(func(*products.DeleteProjectsProjectIDMetadatasMetaNameParams, runtime.ClientAuthInfoWriter) *products.DeleteProjectsProjectIDMetadatasMetaNameOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.DeleteProjectsProjectIDMetadatasMetaNameParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.DeleteProjectsProjectIDMetadatasMetaNameOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.DeleteProjectsProjectIDMetadatasMetaNameOK)
@@ -119,8 +154,8 @@ func (_m *MockProductsClientService) DeleteProjectsProjectIDMetadatasMetaName(pa
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.DeleteProjectsProjectIDMetadatasMetaNameParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.DeleteProjectsProjectIDMetadatasMetaNameParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -128,13 +163,20 @@ func (_m *MockProductsClientService) DeleteProjectsProjectIDMetadatasMetaName(pa
 	return r0, r1
 }
 
-// DeleteProjectsProjectIDRobotsRobotID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) DeleteProjectsProjectIDRobotsRobotID(params *products.DeleteProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.DeleteProjectsProjectIDRobotsRobotIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// DeleteProjectsProjectIDRobotsRobotID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) DeleteProjectsProjectIDRobotsRobotID(params *products.DeleteProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.DeleteProjectsProjectIDRobotsRobotIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.DeleteProjectsProjectIDRobotsRobotIDOK
-	if rf, ok := ret.Get(0).(func(*products.DeleteProjectsProjectIDRobotsRobotIDParams, runtime.ClientAuthInfoWriter) *products.DeleteProjectsProjectIDRobotsRobotIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.DeleteProjectsProjectIDRobotsRobotIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.DeleteProjectsProjectIDRobotsRobotIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.DeleteProjectsProjectIDRobotsRobotIDOK)
@@ -142,8 +184,8 @@ func (_m *MockProductsClientService) DeleteProjectsProjectIDRobotsRobotID(params
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.DeleteProjectsProjectIDRobotsRobotIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.DeleteProjectsProjectIDRobotsRobotIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -151,13 +193,20 @@ func (_m *MockProductsClientService) DeleteProjectsProjectIDRobotsRobotID(params
 	return r0, r1
 }
 
-// DeleteProjectsProjectIDWebhookPoliciesPolicyID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) DeleteProjectsProjectIDWebhookPoliciesPolicyID(params *products.DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.DeleteProjectsProjectIDWebhookPoliciesPolicyIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// DeleteProjectsProjectIDWebhookPoliciesPolicyID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) DeleteProjectsProjectIDWebhookPoliciesPolicyID(params *products.DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.DeleteProjectsProjectIDWebhookPoliciesPolicyIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.DeleteProjectsProjectIDWebhookPoliciesPolicyIDOK
-	if rf, ok := ret.Get(0).(func(*products.DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams, runtime.ClientAuthInfoWriter) *products.DeleteProjectsProjectIDWebhookPoliciesPolicyIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.DeleteProjectsProjectIDWebhookPoliciesPolicyIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.DeleteProjectsProjectIDWebhookPoliciesPolicyIDOK)
@@ -165,8 +214,8 @@ func (_m *MockProductsClientService) DeleteProjectsProjectIDWebhookPoliciesPolic
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -174,13 +223,20 @@ func (_m *MockProductsClientService) DeleteProjectsProjectIDWebhookPoliciesPolic
 	return r0, r1
 }
 
-// DeleteRegistriesID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) DeleteRegistriesID(params *products.DeleteRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.DeleteRegistriesIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// DeleteRegistriesID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) DeleteRegistriesID(params *products.DeleteRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.DeleteRegistriesIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.DeleteRegistriesIDOK
-	if rf, ok := ret.Get(0).(func(*products.DeleteRegistriesIDParams, runtime.ClientAuthInfoWriter) *products.DeleteRegistriesIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.DeleteRegistriesIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.DeleteRegistriesIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.DeleteRegistriesIDOK)
@@ -188,8 +244,8 @@ func (_m *MockProductsClientService) DeleteRegistriesID(params *products.DeleteR
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.DeleteRegistriesIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.DeleteRegistriesIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -197,13 +253,20 @@ func (_m *MockProductsClientService) DeleteRegistriesID(params *products.DeleteR
 	return r0, r1
 }
 
-// DeleteReplicationPoliciesID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) DeleteReplicationPoliciesID(params *products.DeleteReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.DeleteReplicationPoliciesIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// DeleteReplicationPoliciesID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) DeleteReplicationPoliciesID(params *products.DeleteReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.DeleteReplicationPoliciesIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.DeleteReplicationPoliciesIDOK
-	if rf, ok := ret.Get(0).(func(*products.DeleteReplicationPoliciesIDParams, runtime.ClientAuthInfoWriter) *products.DeleteReplicationPoliciesIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.DeleteReplicationPoliciesIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.DeleteReplicationPoliciesIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.DeleteReplicationPoliciesIDOK)
@@ -211,8 +274,8 @@ func (_m *MockProductsClientService) DeleteReplicationPoliciesID(params *product
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.DeleteReplicationPoliciesIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.DeleteReplicationPoliciesIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -220,13 +283,20 @@ func (_m *MockProductsClientService) DeleteReplicationPoliciesID(params *product
 	return r0, r1
 }
 
-// DeleteUsergroupsGroupID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) DeleteUsergroupsGroupID(params *products.DeleteUsergroupsGroupIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.DeleteUsergroupsGroupIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// DeleteUsergroupsGroupID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) DeleteUsergroupsGroupID(params *products.DeleteUsergroupsGroupIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.DeleteUsergroupsGroupIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.DeleteUsergroupsGroupIDOK
-	if rf, ok := ret.Get(0).(func(*products.DeleteUsergroupsGroupIDParams, runtime.ClientAuthInfoWriter) *products.DeleteUsergroupsGroupIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.DeleteUsergroupsGroupIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.DeleteUsergroupsGroupIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.DeleteUsergroupsGroupIDOK)
@@ -234,8 +304,8 @@ func (_m *MockProductsClientService) DeleteUsergroupsGroupID(params *products.De
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.DeleteUsergroupsGroupIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.DeleteUsergroupsGroupIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -243,13 +313,20 @@ func (_m *MockProductsClientService) DeleteUsergroupsGroupID(params *products.De
 	return r0, r1
 }
 
-// DeleteUsersUserID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) DeleteUsersUserID(params *products.DeleteUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.DeleteUsersUserIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// DeleteUsersUserID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) DeleteUsersUserID(params *products.DeleteUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.DeleteUsersUserIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.DeleteUsersUserIDOK
-	if rf, ok := ret.Get(0).(func(*products.DeleteUsersUserIDParams, runtime.ClientAuthInfoWriter) *products.DeleteUsersUserIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.DeleteUsersUserIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.DeleteUsersUserIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.DeleteUsersUserIDOK)
@@ -257,8 +334,8 @@ func (_m *MockProductsClientService) DeleteUsersUserID(params *products.DeleteUs
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.DeleteUsersUserIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.DeleteUsersUserIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -266,13 +343,20 @@ func (_m *MockProductsClientService) DeleteUsersUserID(params *products.DeleteUs
 	return r0, r1
 }
 
-// GetChartrepoRepoChartsNameVersionLabels provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetChartrepoRepoChartsNameVersionLabels(params *products.GetChartrepoRepoChartsNameVersionLabelsParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetChartrepoRepoChartsNameVersionLabelsOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetChartrepoRepoChartsNameVersionLabels provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetChartrepoRepoChartsNameVersionLabels(params *products.GetChartrepoRepoChartsNameVersionLabelsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetChartrepoRepoChartsNameVersionLabelsOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetChartrepoRepoChartsNameVersionLabelsOK
-	if rf, ok := ret.Get(0).(func(*products.GetChartrepoRepoChartsNameVersionLabelsParams, runtime.ClientAuthInfoWriter) *products.GetChartrepoRepoChartsNameVersionLabelsOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetChartrepoRepoChartsNameVersionLabelsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetChartrepoRepoChartsNameVersionLabelsOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetChartrepoRepoChartsNameVersionLabelsOK)
@@ -280,8 +364,8 @@ func (_m *MockProductsClientService) GetChartrepoRepoChartsNameVersionLabels(par
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetChartrepoRepoChartsNameVersionLabelsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetChartrepoRepoChartsNameVersionLabelsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -289,13 +373,20 @@ func (_m *MockProductsClientService) GetChartrepoRepoChartsNameVersionLabels(par
 	return r0, r1
 }
 
-// GetConfigurations provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetConfigurations(params *products.GetConfigurationsParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetConfigurationsOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetConfigurations provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetConfigurations(params *products.GetConfigurationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetConfigurationsOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetConfigurationsOK
-	if rf, ok := ret.Get(0).(func(*products.GetConfigurationsParams, runtime.ClientAuthInfoWriter) *products.GetConfigurationsOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetConfigurationsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetConfigurationsOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetConfigurationsOK)
@@ -303,8 +394,8 @@ func (_m *MockProductsClientService) GetConfigurations(params *products.GetConfi
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetConfigurationsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetConfigurationsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -312,13 +403,20 @@ func (_m *MockProductsClientService) GetConfigurations(params *products.GetConfi
 	return r0, r1
 }
 
-// GetHealth provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetHealth(params *products.GetHealthParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetHealthOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetHealth provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetHealth(params *products.GetHealthParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetHealthOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetHealthOK
-	if rf, ok := ret.Get(0).(func(*products.GetHealthParams, runtime.ClientAuthInfoWriter) *products.GetHealthOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetHealthParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetHealthOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetHealthOK)
@@ -326,8 +424,8 @@ func (_m *MockProductsClientService) GetHealth(params *products.GetHealthParams,
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetHealthParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetHealthParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -335,13 +433,20 @@ func (_m *MockProductsClientService) GetHealth(params *products.GetHealthParams,
 	return r0, r1
 }
 
-// GetLabels provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetLabels(params *products.GetLabelsParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetLabelsOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetLabels provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetLabels(params *products.GetLabelsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetLabelsOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetLabelsOK
-	if rf, ok := ret.Get(0).(func(*products.GetLabelsParams, runtime.ClientAuthInfoWriter) *products.GetLabelsOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetLabelsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetLabelsOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetLabelsOK)
@@ -349,8 +454,8 @@ func (_m *MockProductsClientService) GetLabels(params *products.GetLabelsParams,
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetLabelsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetLabelsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -358,13 +463,20 @@ func (_m *MockProductsClientService) GetLabels(params *products.GetLabelsParams,
 	return r0, r1
 }
 
-// GetLabelsID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetLabelsID(params *products.GetLabelsIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetLabelsIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetLabelsID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetLabelsID(params *products.GetLabelsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetLabelsIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetLabelsIDOK
-	if rf, ok := ret.Get(0).(func(*products.GetLabelsIDParams, runtime.ClientAuthInfoWriter) *products.GetLabelsIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetLabelsIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetLabelsIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetLabelsIDOK)
@@ -372,8 +484,8 @@ func (_m *MockProductsClientService) GetLabelsID(params *products.GetLabelsIDPar
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetLabelsIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetLabelsIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -381,13 +493,20 @@ func (_m *MockProductsClientService) GetLabelsID(params *products.GetLabelsIDPar
 	return r0, r1
 }
 
-// GetLdapGroupsSearch provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetLdapGroupsSearch(params *products.GetLdapGroupsSearchParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetLdapGroupsSearchOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetLdapGroupsSearch provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetLdapGroupsSearch(params *products.GetLdapGroupsSearchParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetLdapGroupsSearchOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetLdapGroupsSearchOK
-	if rf, ok := ret.Get(0).(func(*products.GetLdapGroupsSearchParams, runtime.ClientAuthInfoWriter) *products.GetLdapGroupsSearchOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetLdapGroupsSearchParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetLdapGroupsSearchOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetLdapGroupsSearchOK)
@@ -395,8 +514,8 @@ func (_m *MockProductsClientService) GetLdapGroupsSearch(params *products.GetLda
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetLdapGroupsSearchParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetLdapGroupsSearchParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -404,13 +523,20 @@ func (_m *MockProductsClientService) GetLdapGroupsSearch(params *products.GetLda
 	return r0, r1
 }
 
-// GetLdapUsersSearch provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetLdapUsersSearch(params *products.GetLdapUsersSearchParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetLdapUsersSearchOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetLdapUsersSearch provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetLdapUsersSearch(params *products.GetLdapUsersSearchParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetLdapUsersSearchOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetLdapUsersSearchOK
-	if rf, ok := ret.Get(0).(func(*products.GetLdapUsersSearchParams, runtime.ClientAuthInfoWriter) *products.GetLdapUsersSearchOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetLdapUsersSearchParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetLdapUsersSearchOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetLdapUsersSearchOK)
@@ -418,8 +544,8 @@ func (_m *MockProductsClientService) GetLdapUsersSearch(params *products.GetLdap
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetLdapUsersSearchParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetLdapUsersSearchParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -427,13 +553,20 @@ func (_m *MockProductsClientService) GetLdapUsersSearch(params *products.GetLdap
 	return r0, r1
 }
 
-// GetProjectsProjectIDImmutabletagrules provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetProjectsProjectIDImmutabletagrules(params *products.GetProjectsProjectIDImmutabletagrulesParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetProjectsProjectIDImmutabletagrulesOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetProjectsProjectIDImmutabletagrules provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetProjectsProjectIDImmutabletagrules(params *products.GetProjectsProjectIDImmutabletagrulesParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetProjectsProjectIDImmutabletagrulesOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetProjectsProjectIDImmutabletagrulesOK
-	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDImmutabletagrulesParams, runtime.ClientAuthInfoWriter) *products.GetProjectsProjectIDImmutabletagrulesOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDImmutabletagrulesParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetProjectsProjectIDImmutabletagrulesOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetProjectsProjectIDImmutabletagrulesOK)
@@ -441,8 +574,8 @@ func (_m *MockProductsClientService) GetProjectsProjectIDImmutabletagrules(param
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDImmutabletagrulesParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDImmutabletagrulesParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -450,13 +583,20 @@ func (_m *MockProductsClientService) GetProjectsProjectIDImmutabletagrules(param
 	return r0, r1
 }
 
-// GetProjectsProjectIDMembers provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetProjectsProjectIDMembers(params *products.GetProjectsProjectIDMembersParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetProjectsProjectIDMembersOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetProjectsProjectIDMembers provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetProjectsProjectIDMembers(params *products.GetProjectsProjectIDMembersParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetProjectsProjectIDMembersOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetProjectsProjectIDMembersOK
-	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDMembersParams, runtime.ClientAuthInfoWriter) *products.GetProjectsProjectIDMembersOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDMembersParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetProjectsProjectIDMembersOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetProjectsProjectIDMembersOK)
@@ -464,8 +604,8 @@ func (_m *MockProductsClientService) GetProjectsProjectIDMembers(params *product
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDMembersParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDMembersParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -473,13 +613,20 @@ func (_m *MockProductsClientService) GetProjectsProjectIDMembers(params *product
 	return r0, r1
 }
 
-// GetProjectsProjectIDMembersMid provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetProjectsProjectIDMembersMid(params *products.GetProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetProjectsProjectIDMembersMidOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetProjectsProjectIDMembersMid provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetProjectsProjectIDMembersMid(params *products.GetProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetProjectsProjectIDMembersMidOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetProjectsProjectIDMembersMidOK
-	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDMembersMidParams, runtime.ClientAuthInfoWriter) *products.GetProjectsProjectIDMembersMidOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDMembersMidParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetProjectsProjectIDMembersMidOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetProjectsProjectIDMembersMidOK)
@@ -487,8 +634,8 @@ func (_m *MockProductsClientService) GetProjectsProjectIDMembersMid(params *prod
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDMembersMidParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDMembersMidParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -496,13 +643,20 @@ func (_m *MockProductsClientService) GetProjectsProjectIDMembersMid(params *prod
 	return r0, r1
 }
 
-// GetProjectsProjectIDMetadatas provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetProjectsProjectIDMetadatas(params *products.GetProjectsProjectIDMetadatasParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetProjectsProjectIDMetadatasOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetProjectsProjectIDMetadatas provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetProjectsProjectIDMetadatas(params *products.GetProjectsProjectIDMetadatasParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetProjectsProjectIDMetadatasOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetProjectsProjectIDMetadatasOK
-	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDMetadatasParams, runtime.ClientAuthInfoWriter) *products.GetProjectsProjectIDMetadatasOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDMetadatasParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetProjectsProjectIDMetadatasOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetProjectsProjectIDMetadatasOK)
@@ -510,8 +664,8 @@ func (_m *MockProductsClientService) GetProjectsProjectIDMetadatas(params *produ
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDMetadatasParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDMetadatasParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -519,13 +673,20 @@ func (_m *MockProductsClientService) GetProjectsProjectIDMetadatas(params *produ
 	return r0, r1
 }
 
-// GetProjectsProjectIDMetadatasMetaName provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetProjectsProjectIDMetadatasMetaName(params *products.GetProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetProjectsProjectIDMetadatasMetaNameOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetProjectsProjectIDMetadatasMetaName provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetProjectsProjectIDMetadatasMetaName(params *products.GetProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetProjectsProjectIDMetadatasMetaNameOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetProjectsProjectIDMetadatasMetaNameOK
-	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDMetadatasMetaNameParams, runtime.ClientAuthInfoWriter) *products.GetProjectsProjectIDMetadatasMetaNameOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDMetadatasMetaNameParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetProjectsProjectIDMetadatasMetaNameOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetProjectsProjectIDMetadatasMetaNameOK)
@@ -533,8 +694,8 @@ func (_m *MockProductsClientService) GetProjectsProjectIDMetadatasMetaName(param
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDMetadatasMetaNameParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDMetadatasMetaNameParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -542,13 +703,20 @@ func (_m *MockProductsClientService) GetProjectsProjectIDMetadatasMetaName(param
 	return r0, r1
 }
 
-// GetProjectsProjectIDRobots provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetProjectsProjectIDRobots(params *products.GetProjectsProjectIDRobotsParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetProjectsProjectIDRobotsOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetProjectsProjectIDRobots provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetProjectsProjectIDRobots(params *products.GetProjectsProjectIDRobotsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetProjectsProjectIDRobotsOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetProjectsProjectIDRobotsOK
-	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDRobotsParams, runtime.ClientAuthInfoWriter) *products.GetProjectsProjectIDRobotsOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDRobotsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetProjectsProjectIDRobotsOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetProjectsProjectIDRobotsOK)
@@ -556,8 +724,8 @@ func (_m *MockProductsClientService) GetProjectsProjectIDRobots(params *products
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDRobotsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDRobotsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -565,13 +733,20 @@ func (_m *MockProductsClientService) GetProjectsProjectIDRobots(params *products
 	return r0, r1
 }
 
-// GetProjectsProjectIDRobotsRobotID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetProjectsProjectIDRobotsRobotID(params *products.GetProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetProjectsProjectIDRobotsRobotIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetProjectsProjectIDRobotsRobotID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetProjectsProjectIDRobotsRobotID(params *products.GetProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetProjectsProjectIDRobotsRobotIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetProjectsProjectIDRobotsRobotIDOK
-	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDRobotsRobotIDParams, runtime.ClientAuthInfoWriter) *products.GetProjectsProjectIDRobotsRobotIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDRobotsRobotIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetProjectsProjectIDRobotsRobotIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetProjectsProjectIDRobotsRobotIDOK)
@@ -579,8 +754,8 @@ func (_m *MockProductsClientService) GetProjectsProjectIDRobotsRobotID(params *p
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDRobotsRobotIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDRobotsRobotIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -588,13 +763,20 @@ func (_m *MockProductsClientService) GetProjectsProjectIDRobotsRobotID(params *p
 	return r0, r1
 }
 
-// GetProjectsProjectIDScanner provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetProjectsProjectIDScanner(params *products.GetProjectsProjectIDScannerParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetProjectsProjectIDScannerOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetProjectsProjectIDScanner provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetProjectsProjectIDScanner(params *products.GetProjectsProjectIDScannerParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetProjectsProjectIDScannerOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetProjectsProjectIDScannerOK
-	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDScannerParams, runtime.ClientAuthInfoWriter) *products.GetProjectsProjectIDScannerOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDScannerParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetProjectsProjectIDScannerOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetProjectsProjectIDScannerOK)
@@ -602,8 +784,8 @@ func (_m *MockProductsClientService) GetProjectsProjectIDScanner(params *product
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDScannerParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDScannerParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -611,13 +793,20 @@ func (_m *MockProductsClientService) GetProjectsProjectIDScanner(params *product
 	return r0, r1
 }
 
-// GetProjectsProjectIDScannerCandidates provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetProjectsProjectIDScannerCandidates(params *products.GetProjectsProjectIDScannerCandidatesParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetProjectsProjectIDScannerCandidatesOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetProjectsProjectIDScannerCandidates provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetProjectsProjectIDScannerCandidates(params *products.GetProjectsProjectIDScannerCandidatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetProjectsProjectIDScannerCandidatesOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetProjectsProjectIDScannerCandidatesOK
-	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDScannerCandidatesParams, runtime.ClientAuthInfoWriter) *products.GetProjectsProjectIDScannerCandidatesOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDScannerCandidatesParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetProjectsProjectIDScannerCandidatesOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetProjectsProjectIDScannerCandidatesOK)
@@ -625,8 +814,8 @@ func (_m *MockProductsClientService) GetProjectsProjectIDScannerCandidates(param
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDScannerCandidatesParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDScannerCandidatesParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -634,13 +823,20 @@ func (_m *MockProductsClientService) GetProjectsProjectIDScannerCandidates(param
 	return r0, r1
 }
 
-// GetProjectsProjectIDWebhookEvents provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetProjectsProjectIDWebhookEvents(params *products.GetProjectsProjectIDWebhookEventsParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetProjectsProjectIDWebhookEventsOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetProjectsProjectIDWebhookEvents provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetProjectsProjectIDWebhookEvents(params *products.GetProjectsProjectIDWebhookEventsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetProjectsProjectIDWebhookEventsOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetProjectsProjectIDWebhookEventsOK
-	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDWebhookEventsParams, runtime.ClientAuthInfoWriter) *products.GetProjectsProjectIDWebhookEventsOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDWebhookEventsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetProjectsProjectIDWebhookEventsOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetProjectsProjectIDWebhookEventsOK)
@@ -648,8 +844,8 @@ func (_m *MockProductsClientService) GetProjectsProjectIDWebhookEvents(params *p
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDWebhookEventsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDWebhookEventsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -657,13 +853,20 @@ func (_m *MockProductsClientService) GetProjectsProjectIDWebhookEvents(params *p
 	return r0, r1
 }
 
-// GetProjectsProjectIDWebhookJobs provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetProjectsProjectIDWebhookJobs(params *products.GetProjectsProjectIDWebhookJobsParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetProjectsProjectIDWebhookJobsOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetProjectsProjectIDWebhookJobs provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetProjectsProjectIDWebhookJobs(params *products.GetProjectsProjectIDWebhookJobsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetProjectsProjectIDWebhookJobsOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetProjectsProjectIDWebhookJobsOK
-	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDWebhookJobsParams, runtime.ClientAuthInfoWriter) *products.GetProjectsProjectIDWebhookJobsOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDWebhookJobsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetProjectsProjectIDWebhookJobsOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetProjectsProjectIDWebhookJobsOK)
@@ -671,8 +874,8 @@ func (_m *MockProductsClientService) GetProjectsProjectIDWebhookJobs(params *pro
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDWebhookJobsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDWebhookJobsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -680,13 +883,20 @@ func (_m *MockProductsClientService) GetProjectsProjectIDWebhookJobs(params *pro
 	return r0, r1
 }
 
-// GetProjectsProjectIDWebhookLasttrigger provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetProjectsProjectIDWebhookLasttrigger(params *products.GetProjectsProjectIDWebhookLasttriggerParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetProjectsProjectIDWebhookLasttriggerOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetProjectsProjectIDWebhookLasttrigger provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetProjectsProjectIDWebhookLasttrigger(params *products.GetProjectsProjectIDWebhookLasttriggerParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetProjectsProjectIDWebhookLasttriggerOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetProjectsProjectIDWebhookLasttriggerOK
-	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDWebhookLasttriggerParams, runtime.ClientAuthInfoWriter) *products.GetProjectsProjectIDWebhookLasttriggerOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDWebhookLasttriggerParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetProjectsProjectIDWebhookLasttriggerOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetProjectsProjectIDWebhookLasttriggerOK)
@@ -694,8 +904,8 @@ func (_m *MockProductsClientService) GetProjectsProjectIDWebhookLasttrigger(para
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDWebhookLasttriggerParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDWebhookLasttriggerParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -703,13 +913,20 @@ func (_m *MockProductsClientService) GetProjectsProjectIDWebhookLasttrigger(para
 	return r0, r1
 }
 
-// GetProjectsProjectIDWebhookPolicies provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetProjectsProjectIDWebhookPolicies(params *products.GetProjectsProjectIDWebhookPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetProjectsProjectIDWebhookPoliciesOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetProjectsProjectIDWebhookPolicies provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetProjectsProjectIDWebhookPolicies(params *products.GetProjectsProjectIDWebhookPoliciesParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetProjectsProjectIDWebhookPoliciesOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetProjectsProjectIDWebhookPoliciesOK
-	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDWebhookPoliciesParams, runtime.ClientAuthInfoWriter) *products.GetProjectsProjectIDWebhookPoliciesOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDWebhookPoliciesParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetProjectsProjectIDWebhookPoliciesOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetProjectsProjectIDWebhookPoliciesOK)
@@ -717,8 +934,8 @@ func (_m *MockProductsClientService) GetProjectsProjectIDWebhookPolicies(params 
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDWebhookPoliciesParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDWebhookPoliciesParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -726,13 +943,20 @@ func (_m *MockProductsClientService) GetProjectsProjectIDWebhookPolicies(params 
 	return r0, r1
 }
 
-// GetProjectsProjectIDWebhookPoliciesPolicyID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetProjectsProjectIDWebhookPoliciesPolicyID(params *products.GetProjectsProjectIDWebhookPoliciesPolicyIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetProjectsProjectIDWebhookPoliciesPolicyIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetProjectsProjectIDWebhookPoliciesPolicyID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetProjectsProjectIDWebhookPoliciesPolicyID(params *products.GetProjectsProjectIDWebhookPoliciesPolicyIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetProjectsProjectIDWebhookPoliciesPolicyIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetProjectsProjectIDWebhookPoliciesPolicyIDOK
-	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDWebhookPoliciesPolicyIDParams, runtime.ClientAuthInfoWriter) *products.GetProjectsProjectIDWebhookPoliciesPolicyIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetProjectsProjectIDWebhookPoliciesPolicyIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetProjectsProjectIDWebhookPoliciesPolicyIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetProjectsProjectIDWebhookPoliciesPolicyIDOK)
@@ -740,8 +964,8 @@ func (_m *MockProductsClientService) GetProjectsProjectIDWebhookPoliciesPolicyID
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDWebhookPoliciesPolicyIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetProjectsProjectIDWebhookPoliciesPolicyIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -749,13 +973,20 @@ func (_m *MockProductsClientService) GetProjectsProjectIDWebhookPoliciesPolicyID
 	return r0, r1
 }
 
-// GetQuotas provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetQuotas(params *products.GetQuotasParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetQuotasOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetQuotas provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetQuotas(params *products.GetQuotasParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetQuotasOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetQuotasOK
-	if rf, ok := ret.Get(0).(func(*products.GetQuotasParams, runtime.ClientAuthInfoWriter) *products.GetQuotasOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetQuotasParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetQuotasOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetQuotasOK)
@@ -763,8 +994,8 @@ func (_m *MockProductsClientService) GetQuotas(params *products.GetQuotasParams,
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetQuotasParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetQuotasParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -772,13 +1003,20 @@ func (_m *MockProductsClientService) GetQuotas(params *products.GetQuotasParams,
 	return r0, r1
 }
 
-// GetQuotasID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetQuotasID(params *products.GetQuotasIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetQuotasIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetQuotasID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetQuotasID(params *products.GetQuotasIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetQuotasIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetQuotasIDOK
-	if rf, ok := ret.Get(0).(func(*products.GetQuotasIDParams, runtime.ClientAuthInfoWriter) *products.GetQuotasIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetQuotasIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetQuotasIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetQuotasIDOK)
@@ -786,8 +1024,8 @@ func (_m *MockProductsClientService) GetQuotasID(params *products.GetQuotasIDPar
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetQuotasIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetQuotasIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -795,13 +1033,20 @@ func (_m *MockProductsClientService) GetQuotasID(params *products.GetQuotasIDPar
 	return r0, r1
 }
 
-// GetRegistries provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetRegistries(params *products.GetRegistriesParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetRegistriesOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetRegistries provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetRegistries(params *products.GetRegistriesParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetRegistriesOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetRegistriesOK
-	if rf, ok := ret.Get(0).(func(*products.GetRegistriesParams, runtime.ClientAuthInfoWriter) *products.GetRegistriesOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetRegistriesParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetRegistriesOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetRegistriesOK)
@@ -809,8 +1054,8 @@ func (_m *MockProductsClientService) GetRegistries(params *products.GetRegistrie
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetRegistriesParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetRegistriesParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -818,13 +1063,20 @@ func (_m *MockProductsClientService) GetRegistries(params *products.GetRegistrie
 	return r0, r1
 }
 
-// GetRegistriesID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetRegistriesID(params *products.GetRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetRegistriesIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetRegistriesID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetRegistriesID(params *products.GetRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetRegistriesIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetRegistriesIDOK
-	if rf, ok := ret.Get(0).(func(*products.GetRegistriesIDParams, runtime.ClientAuthInfoWriter) *products.GetRegistriesIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetRegistriesIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetRegistriesIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetRegistriesIDOK)
@@ -832,8 +1084,8 @@ func (_m *MockProductsClientService) GetRegistriesID(params *products.GetRegistr
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetRegistriesIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetRegistriesIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -841,13 +1093,20 @@ func (_m *MockProductsClientService) GetRegistriesID(params *products.GetRegistr
 	return r0, r1
 }
 
-// GetRegistriesIDInfo provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetRegistriesIDInfo(params *products.GetRegistriesIDInfoParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetRegistriesIDInfoOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetRegistriesIDInfo provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetRegistriesIDInfo(params *products.GetRegistriesIDInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetRegistriesIDInfoOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetRegistriesIDInfoOK
-	if rf, ok := ret.Get(0).(func(*products.GetRegistriesIDInfoParams, runtime.ClientAuthInfoWriter) *products.GetRegistriesIDInfoOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetRegistriesIDInfoParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetRegistriesIDInfoOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetRegistriesIDInfoOK)
@@ -855,8 +1114,8 @@ func (_m *MockProductsClientService) GetRegistriesIDInfo(params *products.GetReg
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetRegistriesIDInfoParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetRegistriesIDInfoParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -864,13 +1123,20 @@ func (_m *MockProductsClientService) GetRegistriesIDInfo(params *products.GetReg
 	return r0, r1
 }
 
-// GetRegistriesIDNamespace provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetRegistriesIDNamespace(params *products.GetRegistriesIDNamespaceParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetRegistriesIDNamespaceOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetRegistriesIDNamespace provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetRegistriesIDNamespace(params *products.GetRegistriesIDNamespaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetRegistriesIDNamespaceOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetRegistriesIDNamespaceOK
-	if rf, ok := ret.Get(0).(func(*products.GetRegistriesIDNamespaceParams, runtime.ClientAuthInfoWriter) *products.GetRegistriesIDNamespaceOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetRegistriesIDNamespaceParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetRegistriesIDNamespaceOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetRegistriesIDNamespaceOK)
@@ -878,8 +1144,8 @@ func (_m *MockProductsClientService) GetRegistriesIDNamespace(params *products.G
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetRegistriesIDNamespaceParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetRegistriesIDNamespaceParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -887,13 +1153,20 @@ func (_m *MockProductsClientService) GetRegistriesIDNamespace(params *products.G
 	return r0, r1
 }
 
-// GetReplicationAdapters provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetReplicationAdapters(params *products.GetReplicationAdaptersParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetReplicationAdaptersOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetReplicationAdapters provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetReplicationAdapters(params *products.GetReplicationAdaptersParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetReplicationAdaptersOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetReplicationAdaptersOK
-	if rf, ok := ret.Get(0).(func(*products.GetReplicationAdaptersParams, runtime.ClientAuthInfoWriter) *products.GetReplicationAdaptersOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetReplicationAdaptersParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetReplicationAdaptersOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetReplicationAdaptersOK)
@@ -901,8 +1174,8 @@ func (_m *MockProductsClientService) GetReplicationAdapters(params *products.Get
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetReplicationAdaptersParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetReplicationAdaptersParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -910,13 +1183,20 @@ func (_m *MockProductsClientService) GetReplicationAdapters(params *products.Get
 	return r0, r1
 }
 
-// GetReplicationExecutions provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetReplicationExecutions(params *products.GetReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetReplicationExecutionsOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetReplicationExecutions provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetReplicationExecutions(params *products.GetReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetReplicationExecutionsOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetReplicationExecutionsOK
-	if rf, ok := ret.Get(0).(func(*products.GetReplicationExecutionsParams, runtime.ClientAuthInfoWriter) *products.GetReplicationExecutionsOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetReplicationExecutionsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetReplicationExecutionsOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetReplicationExecutionsOK)
@@ -924,8 +1204,8 @@ func (_m *MockProductsClientService) GetReplicationExecutions(params *products.G
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetReplicationExecutionsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetReplicationExecutionsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -933,13 +1213,20 @@ func (_m *MockProductsClientService) GetReplicationExecutions(params *products.G
 	return r0, r1
 }
 
-// GetReplicationExecutionsID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetReplicationExecutionsID(params *products.GetReplicationExecutionsIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetReplicationExecutionsIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetReplicationExecutionsID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetReplicationExecutionsID(params *products.GetReplicationExecutionsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetReplicationExecutionsIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetReplicationExecutionsIDOK
-	if rf, ok := ret.Get(0).(func(*products.GetReplicationExecutionsIDParams, runtime.ClientAuthInfoWriter) *products.GetReplicationExecutionsIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetReplicationExecutionsIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetReplicationExecutionsIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetReplicationExecutionsIDOK)
@@ -947,8 +1234,8 @@ func (_m *MockProductsClientService) GetReplicationExecutionsID(params *products
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetReplicationExecutionsIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetReplicationExecutionsIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -956,13 +1243,20 @@ func (_m *MockProductsClientService) GetReplicationExecutionsID(params *products
 	return r0, r1
 }
 
-// GetReplicationExecutionsIDTasks provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetReplicationExecutionsIDTasks(params *products.GetReplicationExecutionsIDTasksParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetReplicationExecutionsIDTasksOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetReplicationExecutionsIDTasks provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetReplicationExecutionsIDTasks(params *products.GetReplicationExecutionsIDTasksParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetReplicationExecutionsIDTasksOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetReplicationExecutionsIDTasksOK
-	if rf, ok := ret.Get(0).(func(*products.GetReplicationExecutionsIDTasksParams, runtime.ClientAuthInfoWriter) *products.GetReplicationExecutionsIDTasksOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetReplicationExecutionsIDTasksParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetReplicationExecutionsIDTasksOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetReplicationExecutionsIDTasksOK)
@@ -970,8 +1264,8 @@ func (_m *MockProductsClientService) GetReplicationExecutionsIDTasks(params *pro
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetReplicationExecutionsIDTasksParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetReplicationExecutionsIDTasksParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -979,13 +1273,20 @@ func (_m *MockProductsClientService) GetReplicationExecutionsIDTasks(params *pro
 	return r0, r1
 }
 
-// GetReplicationExecutionsIDTasksTaskIDLog provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetReplicationExecutionsIDTasksTaskIDLog(params *products.GetReplicationExecutionsIDTasksTaskIDLogParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetReplicationExecutionsIDTasksTaskIDLogOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetReplicationExecutionsIDTasksTaskIDLog provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetReplicationExecutionsIDTasksTaskIDLog(params *products.GetReplicationExecutionsIDTasksTaskIDLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetReplicationExecutionsIDTasksTaskIDLogOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetReplicationExecutionsIDTasksTaskIDLogOK
-	if rf, ok := ret.Get(0).(func(*products.GetReplicationExecutionsIDTasksTaskIDLogParams, runtime.ClientAuthInfoWriter) *products.GetReplicationExecutionsIDTasksTaskIDLogOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetReplicationExecutionsIDTasksTaskIDLogParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetReplicationExecutionsIDTasksTaskIDLogOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetReplicationExecutionsIDTasksTaskIDLogOK)
@@ -993,8 +1294,8 @@ func (_m *MockProductsClientService) GetReplicationExecutionsIDTasksTaskIDLog(pa
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetReplicationExecutionsIDTasksTaskIDLogParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetReplicationExecutionsIDTasksTaskIDLogParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1002,13 +1303,20 @@ func (_m *MockProductsClientService) GetReplicationExecutionsIDTasksTaskIDLog(pa
 	return r0, r1
 }
 
-// GetReplicationPolicies provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetReplicationPolicies(params *products.GetReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetReplicationPoliciesOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetReplicationPolicies provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetReplicationPolicies(params *products.GetReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetReplicationPoliciesOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetReplicationPoliciesOK
-	if rf, ok := ret.Get(0).(func(*products.GetReplicationPoliciesParams, runtime.ClientAuthInfoWriter) *products.GetReplicationPoliciesOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetReplicationPoliciesParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetReplicationPoliciesOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetReplicationPoliciesOK)
@@ -1016,8 +1324,8 @@ func (_m *MockProductsClientService) GetReplicationPolicies(params *products.Get
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetReplicationPoliciesParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetReplicationPoliciesParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1025,13 +1333,20 @@ func (_m *MockProductsClientService) GetReplicationPolicies(params *products.Get
 	return r0, r1
 }
 
-// GetReplicationPoliciesID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetReplicationPoliciesID(params *products.GetReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetReplicationPoliciesIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetReplicationPoliciesID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetReplicationPoliciesID(params *products.GetReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetReplicationPoliciesIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetReplicationPoliciesIDOK
-	if rf, ok := ret.Get(0).(func(*products.GetReplicationPoliciesIDParams, runtime.ClientAuthInfoWriter) *products.GetReplicationPoliciesIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetReplicationPoliciesIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetReplicationPoliciesIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetReplicationPoliciesIDOK)
@@ -1039,8 +1354,8 @@ func (_m *MockProductsClientService) GetReplicationPoliciesID(params *products.G
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetReplicationPoliciesIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetReplicationPoliciesIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1048,13 +1363,20 @@ func (_m *MockProductsClientService) GetReplicationPoliciesID(params *products.G
 	return r0, r1
 }
 
-// GetRetentionsID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetRetentionsID(params *products.GetRetentionsIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetRetentionsIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetRetentionsID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetRetentionsID(params *products.GetRetentionsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetRetentionsIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetRetentionsIDOK
-	if rf, ok := ret.Get(0).(func(*products.GetRetentionsIDParams, runtime.ClientAuthInfoWriter) *products.GetRetentionsIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetRetentionsIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetRetentionsIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetRetentionsIDOK)
@@ -1062,8 +1384,8 @@ func (_m *MockProductsClientService) GetRetentionsID(params *products.GetRetenti
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetRetentionsIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetRetentionsIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1071,13 +1393,20 @@ func (_m *MockProductsClientService) GetRetentionsID(params *products.GetRetenti
 	return r0, r1
 }
 
-// GetRetentionsIDExecutions provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetRetentionsIDExecutions(params *products.GetRetentionsIDExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetRetentionsIDExecutionsOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetRetentionsIDExecutions provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetRetentionsIDExecutions(params *products.GetRetentionsIDExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetRetentionsIDExecutionsOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetRetentionsIDExecutionsOK
-	if rf, ok := ret.Get(0).(func(*products.GetRetentionsIDExecutionsParams, runtime.ClientAuthInfoWriter) *products.GetRetentionsIDExecutionsOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetRetentionsIDExecutionsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetRetentionsIDExecutionsOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetRetentionsIDExecutionsOK)
@@ -1085,8 +1414,8 @@ func (_m *MockProductsClientService) GetRetentionsIDExecutions(params *products.
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetRetentionsIDExecutionsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetRetentionsIDExecutionsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1094,13 +1423,20 @@ func (_m *MockProductsClientService) GetRetentionsIDExecutions(params *products.
 	return r0, r1
 }
 
-// GetRetentionsIDExecutionsEidTasks provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetRetentionsIDExecutionsEidTasks(params *products.GetRetentionsIDExecutionsEidTasksParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetRetentionsIDExecutionsEidTasksOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetRetentionsIDExecutionsEidTasks provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetRetentionsIDExecutionsEidTasks(params *products.GetRetentionsIDExecutionsEidTasksParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetRetentionsIDExecutionsEidTasksOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetRetentionsIDExecutionsEidTasksOK
-	if rf, ok := ret.Get(0).(func(*products.GetRetentionsIDExecutionsEidTasksParams, runtime.ClientAuthInfoWriter) *products.GetRetentionsIDExecutionsEidTasksOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetRetentionsIDExecutionsEidTasksParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetRetentionsIDExecutionsEidTasksOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetRetentionsIDExecutionsEidTasksOK)
@@ -1108,8 +1444,8 @@ func (_m *MockProductsClientService) GetRetentionsIDExecutionsEidTasks(params *p
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetRetentionsIDExecutionsEidTasksParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetRetentionsIDExecutionsEidTasksParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1117,13 +1453,20 @@ func (_m *MockProductsClientService) GetRetentionsIDExecutionsEidTasks(params *p
 	return r0, r1
 }
 
-// GetRetentionsIDExecutionsEidTasksTid provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetRetentionsIDExecutionsEidTasksTid(params *products.GetRetentionsIDExecutionsEidTasksTidParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetRetentionsIDExecutionsEidTasksTidOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetRetentionsIDExecutionsEidTasksTid provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetRetentionsIDExecutionsEidTasksTid(params *products.GetRetentionsIDExecutionsEidTasksTidParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetRetentionsIDExecutionsEidTasksTidOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetRetentionsIDExecutionsEidTasksTidOK
-	if rf, ok := ret.Get(0).(func(*products.GetRetentionsIDExecutionsEidTasksTidParams, runtime.ClientAuthInfoWriter) *products.GetRetentionsIDExecutionsEidTasksTidOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetRetentionsIDExecutionsEidTasksTidParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetRetentionsIDExecutionsEidTasksTidOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetRetentionsIDExecutionsEidTasksTidOK)
@@ -1131,8 +1474,8 @@ func (_m *MockProductsClientService) GetRetentionsIDExecutionsEidTasksTid(params
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetRetentionsIDExecutionsEidTasksTidParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetRetentionsIDExecutionsEidTasksTidParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1140,13 +1483,20 @@ func (_m *MockProductsClientService) GetRetentionsIDExecutionsEidTasksTid(params
 	return r0, r1
 }
 
-// GetRetentionsMetadatas provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetRetentionsMetadatas(params *products.GetRetentionsMetadatasParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetRetentionsMetadatasOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetRetentionsMetadatas provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetRetentionsMetadatas(params *products.GetRetentionsMetadatasParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetRetentionsMetadatasOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetRetentionsMetadatasOK
-	if rf, ok := ret.Get(0).(func(*products.GetRetentionsMetadatasParams, runtime.ClientAuthInfoWriter) *products.GetRetentionsMetadatasOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetRetentionsMetadatasParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetRetentionsMetadatasOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetRetentionsMetadatasOK)
@@ -1154,8 +1504,8 @@ func (_m *MockProductsClientService) GetRetentionsMetadatas(params *products.Get
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetRetentionsMetadatasParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetRetentionsMetadatasParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1163,13 +1513,20 @@ func (_m *MockProductsClientService) GetRetentionsMetadatas(params *products.Get
 	return r0, r1
 }
 
-// GetScanners provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetScanners(params *products.GetScannersParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetScannersOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetScanners provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetScanners(params *products.GetScannersParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetScannersOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetScannersOK
-	if rf, ok := ret.Get(0).(func(*products.GetScannersParams, runtime.ClientAuthInfoWriter) *products.GetScannersOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetScannersParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetScannersOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetScannersOK)
@@ -1177,8 +1534,8 @@ func (_m *MockProductsClientService) GetScanners(params *products.GetScannersPar
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetScannersParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetScannersParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1186,13 +1543,20 @@ func (_m *MockProductsClientService) GetScanners(params *products.GetScannersPar
 	return r0, r1
 }
 
-// GetScannersRegistrationID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetScannersRegistrationID(params *products.GetScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetScannersRegistrationIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetScannersRegistrationID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetScannersRegistrationID(params *products.GetScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetScannersRegistrationIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetScannersRegistrationIDOK
-	if rf, ok := ret.Get(0).(func(*products.GetScannersRegistrationIDParams, runtime.ClientAuthInfoWriter) *products.GetScannersRegistrationIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetScannersRegistrationIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetScannersRegistrationIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetScannersRegistrationIDOK)
@@ -1200,8 +1564,8 @@ func (_m *MockProductsClientService) GetScannersRegistrationID(params *products.
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetScannersRegistrationIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetScannersRegistrationIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1209,13 +1573,20 @@ func (_m *MockProductsClientService) GetScannersRegistrationID(params *products.
 	return r0, r1
 }
 
-// GetScannersRegistrationIDMetadata provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetScannersRegistrationIDMetadata(params *products.GetScannersRegistrationIDMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetScannersRegistrationIDMetadataOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetScannersRegistrationIDMetadata provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetScannersRegistrationIDMetadata(params *products.GetScannersRegistrationIDMetadataParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetScannersRegistrationIDMetadataOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetScannersRegistrationIDMetadataOK
-	if rf, ok := ret.Get(0).(func(*products.GetScannersRegistrationIDMetadataParams, runtime.ClientAuthInfoWriter) *products.GetScannersRegistrationIDMetadataOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetScannersRegistrationIDMetadataParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetScannersRegistrationIDMetadataOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetScannersRegistrationIDMetadataOK)
@@ -1223,8 +1594,8 @@ func (_m *MockProductsClientService) GetScannersRegistrationIDMetadata(params *p
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetScannersRegistrationIDMetadataParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetScannersRegistrationIDMetadataParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1232,13 +1603,20 @@ func (_m *MockProductsClientService) GetScannersRegistrationIDMetadata(params *p
 	return r0, r1
 }
 
-// GetScansAllMetrics provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetScansAllMetrics(params *products.GetScansAllMetricsParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetScansAllMetricsOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetScansAllMetrics provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetScansAllMetrics(params *products.GetScansAllMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetScansAllMetricsOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetScansAllMetricsOK
-	if rf, ok := ret.Get(0).(func(*products.GetScansAllMetricsParams, runtime.ClientAuthInfoWriter) *products.GetScansAllMetricsOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetScansAllMetricsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetScansAllMetricsOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetScansAllMetricsOK)
@@ -1246,8 +1624,8 @@ func (_m *MockProductsClientService) GetScansAllMetrics(params *products.GetScan
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetScansAllMetricsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetScansAllMetricsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1255,13 +1633,20 @@ func (_m *MockProductsClientService) GetScansAllMetrics(params *products.GetScan
 	return r0, r1
 }
 
-// GetScansScheduleMetrics provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetScansScheduleMetrics(params *products.GetScansScheduleMetricsParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetScansScheduleMetricsOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetScansScheduleMetrics provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetScansScheduleMetrics(params *products.GetScansScheduleMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetScansScheduleMetricsOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetScansScheduleMetricsOK
-	if rf, ok := ret.Get(0).(func(*products.GetScansScheduleMetricsParams, runtime.ClientAuthInfoWriter) *products.GetScansScheduleMetricsOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetScansScheduleMetricsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetScansScheduleMetricsOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetScansScheduleMetricsOK)
@@ -1269,8 +1654,8 @@ func (_m *MockProductsClientService) GetScansScheduleMetrics(params *products.Ge
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetScansScheduleMetricsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetScansScheduleMetricsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1278,13 +1663,20 @@ func (_m *MockProductsClientService) GetScansScheduleMetrics(params *products.Ge
 	return r0, r1
 }
 
-// GetSearch provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetSearch(params *products.GetSearchParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetSearchOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetSearch provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetSearch(params *products.GetSearchParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetSearchOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetSearchOK
-	if rf, ok := ret.Get(0).(func(*products.GetSearchParams, runtime.ClientAuthInfoWriter) *products.GetSearchOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetSearchParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetSearchOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetSearchOK)
@@ -1292,8 +1684,8 @@ func (_m *MockProductsClientService) GetSearch(params *products.GetSearchParams,
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetSearchParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetSearchParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1301,13 +1693,20 @@ func (_m *MockProductsClientService) GetSearch(params *products.GetSearchParams,
 	return r0, r1
 }
 
-// GetStatistics provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetStatistics(params *products.GetStatisticsParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetStatisticsOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetStatistics provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetStatistics(params *products.GetStatisticsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetStatisticsOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetStatisticsOK
-	if rf, ok := ret.Get(0).(func(*products.GetStatisticsParams, runtime.ClientAuthInfoWriter) *products.GetStatisticsOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetStatisticsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetStatisticsOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetStatisticsOK)
@@ -1315,8 +1714,8 @@ func (_m *MockProductsClientService) GetStatistics(params *products.GetStatistic
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetStatisticsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetStatisticsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1324,13 +1723,20 @@ func (_m *MockProductsClientService) GetStatistics(params *products.GetStatistic
 	return r0, r1
 }
 
-// GetSystemCVEAllowlist provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetSystemCVEAllowlist(params *products.GetSystemCVEAllowlistParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetSystemCVEAllowlistOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetSystemCVEAllowlist provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetSystemCVEAllowlist(params *products.GetSystemCVEAllowlistParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetSystemCVEAllowlistOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetSystemCVEAllowlistOK
-	if rf, ok := ret.Get(0).(func(*products.GetSystemCVEAllowlistParams, runtime.ClientAuthInfoWriter) *products.GetSystemCVEAllowlistOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetSystemCVEAllowlistParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetSystemCVEAllowlistOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetSystemCVEAllowlistOK)
@@ -1338,8 +1744,8 @@ func (_m *MockProductsClientService) GetSystemCVEAllowlist(params *products.GetS
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetSystemCVEAllowlistParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetSystemCVEAllowlistParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1347,13 +1753,20 @@ func (_m *MockProductsClientService) GetSystemCVEAllowlist(params *products.GetS
 	return r0, r1
 }
 
-// GetSystemGc provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetSystemGc(params *products.GetSystemGcParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetSystemGcOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetSystemGc provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetSystemGc(params *products.GetSystemGcParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetSystemGcOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetSystemGcOK
-	if rf, ok := ret.Get(0).(func(*products.GetSystemGcParams, runtime.ClientAuthInfoWriter) *products.GetSystemGcOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetSystemGcParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetSystemGcOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetSystemGcOK)
@@ -1361,8 +1774,8 @@ func (_m *MockProductsClientService) GetSystemGc(params *products.GetSystemGcPar
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetSystemGcParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetSystemGcParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1370,13 +1783,20 @@ func (_m *MockProductsClientService) GetSystemGc(params *products.GetSystemGcPar
 	return r0, r1
 }
 
-// GetSystemGcID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetSystemGcID(params *products.GetSystemGcIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetSystemGcIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetSystemGcID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetSystemGcID(params *products.GetSystemGcIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetSystemGcIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetSystemGcIDOK
-	if rf, ok := ret.Get(0).(func(*products.GetSystemGcIDParams, runtime.ClientAuthInfoWriter) *products.GetSystemGcIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetSystemGcIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetSystemGcIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetSystemGcIDOK)
@@ -1384,8 +1804,8 @@ func (_m *MockProductsClientService) GetSystemGcID(params *products.GetSystemGcI
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetSystemGcIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetSystemGcIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1393,13 +1813,20 @@ func (_m *MockProductsClientService) GetSystemGcID(params *products.GetSystemGcI
 	return r0, r1
 }
 
-// GetSystemGcIDLog provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetSystemGcIDLog(params *products.GetSystemGcIDLogParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetSystemGcIDLogOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetSystemGcIDLog provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetSystemGcIDLog(params *products.GetSystemGcIDLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetSystemGcIDLogOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetSystemGcIDLogOK
-	if rf, ok := ret.Get(0).(func(*products.GetSystemGcIDLogParams, runtime.ClientAuthInfoWriter) *products.GetSystemGcIDLogOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetSystemGcIDLogParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetSystemGcIDLogOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetSystemGcIDLogOK)
@@ -1407,8 +1834,8 @@ func (_m *MockProductsClientService) GetSystemGcIDLog(params *products.GetSystem
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetSystemGcIDLogParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetSystemGcIDLogParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1416,13 +1843,20 @@ func (_m *MockProductsClientService) GetSystemGcIDLog(params *products.GetSystem
 	return r0, r1
 }
 
-// GetSystemGcSchedule provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetSystemGcSchedule(params *products.GetSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetSystemGcScheduleOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetSystemGcSchedule provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetSystemGcSchedule(params *products.GetSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetSystemGcScheduleOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetSystemGcScheduleOK
-	if rf, ok := ret.Get(0).(func(*products.GetSystemGcScheduleParams, runtime.ClientAuthInfoWriter) *products.GetSystemGcScheduleOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetSystemGcScheduleParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetSystemGcScheduleOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetSystemGcScheduleOK)
@@ -1430,8 +1864,8 @@ func (_m *MockProductsClientService) GetSystemGcSchedule(params *products.GetSys
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetSystemGcScheduleParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetSystemGcScheduleParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1439,13 +1873,20 @@ func (_m *MockProductsClientService) GetSystemGcSchedule(params *products.GetSys
 	return r0, r1
 }
 
-// GetSystemScanAllSchedule provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetSystemScanAllSchedule(params *products.GetSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetSystemScanAllScheduleOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetSystemScanAllSchedule provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetSystemScanAllSchedule(params *products.GetSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetSystemScanAllScheduleOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetSystemScanAllScheduleOK
-	if rf, ok := ret.Get(0).(func(*products.GetSystemScanAllScheduleParams, runtime.ClientAuthInfoWriter) *products.GetSystemScanAllScheduleOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetSystemScanAllScheduleParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetSystemScanAllScheduleOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetSystemScanAllScheduleOK)
@@ -1453,8 +1894,8 @@ func (_m *MockProductsClientService) GetSystemScanAllSchedule(params *products.G
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetSystemScanAllScheduleParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetSystemScanAllScheduleParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1462,13 +1903,20 @@ func (_m *MockProductsClientService) GetSystemScanAllSchedule(params *products.G
 	return r0, r1
 }
 
-// GetSysteminfo provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetSysteminfo(params *products.GetSysteminfoParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetSysteminfoOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetSysteminfo provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetSysteminfo(params *products.GetSysteminfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetSysteminfoOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetSysteminfoOK
-	if rf, ok := ret.Get(0).(func(*products.GetSysteminfoParams, runtime.ClientAuthInfoWriter) *products.GetSysteminfoOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetSysteminfoParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetSysteminfoOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetSysteminfoOK)
@@ -1476,8 +1924,8 @@ func (_m *MockProductsClientService) GetSysteminfo(params *products.GetSysteminf
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetSysteminfoParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetSysteminfoParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1485,13 +1933,20 @@ func (_m *MockProductsClientService) GetSysteminfo(params *products.GetSysteminf
 	return r0, r1
 }
 
-// GetSysteminfoGetcert provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetSysteminfoGetcert(params *products.GetSysteminfoGetcertParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetSysteminfoGetcertOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetSysteminfoGetcert provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetSysteminfoGetcert(params *products.GetSysteminfoGetcertParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetSysteminfoGetcertOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetSysteminfoGetcertOK
-	if rf, ok := ret.Get(0).(func(*products.GetSysteminfoGetcertParams, runtime.ClientAuthInfoWriter) *products.GetSysteminfoGetcertOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetSysteminfoGetcertParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetSysteminfoGetcertOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetSysteminfoGetcertOK)
@@ -1499,8 +1954,8 @@ func (_m *MockProductsClientService) GetSysteminfoGetcert(params *products.GetSy
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetSysteminfoGetcertParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetSysteminfoGetcertParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1508,13 +1963,20 @@ func (_m *MockProductsClientService) GetSysteminfoGetcert(params *products.GetSy
 	return r0, r1
 }
 
-// GetSysteminfoVolumes provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetSysteminfoVolumes(params *products.GetSysteminfoVolumesParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetSysteminfoVolumesOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetSysteminfoVolumes provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetSysteminfoVolumes(params *products.GetSysteminfoVolumesParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetSysteminfoVolumesOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetSysteminfoVolumesOK
-	if rf, ok := ret.Get(0).(func(*products.GetSysteminfoVolumesParams, runtime.ClientAuthInfoWriter) *products.GetSysteminfoVolumesOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetSysteminfoVolumesParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetSysteminfoVolumesOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetSysteminfoVolumesOK)
@@ -1522,8 +1984,8 @@ func (_m *MockProductsClientService) GetSysteminfoVolumes(params *products.GetSy
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetSysteminfoVolumesParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetSysteminfoVolumesParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1531,13 +1993,20 @@ func (_m *MockProductsClientService) GetSysteminfoVolumes(params *products.GetSy
 	return r0, r1
 }
 
-// GetUsergroups provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetUsergroups(params *products.GetUsergroupsParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetUsergroupsOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetUsergroups provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetUsergroups(params *products.GetUsergroupsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetUsergroupsOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetUsergroupsOK
-	if rf, ok := ret.Get(0).(func(*products.GetUsergroupsParams, runtime.ClientAuthInfoWriter) *products.GetUsergroupsOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetUsergroupsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetUsergroupsOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetUsergroupsOK)
@@ -1545,8 +2014,8 @@ func (_m *MockProductsClientService) GetUsergroups(params *products.GetUsergroup
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetUsergroupsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetUsergroupsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1554,13 +2023,20 @@ func (_m *MockProductsClientService) GetUsergroups(params *products.GetUsergroup
 	return r0, r1
 }
 
-// GetUsergroupsGroupID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetUsergroupsGroupID(params *products.GetUsergroupsGroupIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetUsergroupsGroupIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetUsergroupsGroupID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetUsergroupsGroupID(params *products.GetUsergroupsGroupIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetUsergroupsGroupIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetUsergroupsGroupIDOK
-	if rf, ok := ret.Get(0).(func(*products.GetUsergroupsGroupIDParams, runtime.ClientAuthInfoWriter) *products.GetUsergroupsGroupIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetUsergroupsGroupIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetUsergroupsGroupIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetUsergroupsGroupIDOK)
@@ -1568,8 +2044,8 @@ func (_m *MockProductsClientService) GetUsergroupsGroupID(params *products.GetUs
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetUsergroupsGroupIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetUsergroupsGroupIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1577,13 +2053,20 @@ func (_m *MockProductsClientService) GetUsergroupsGroupID(params *products.GetUs
 	return r0, r1
 }
 
-// GetUsers provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetUsers(params *products.GetUsersParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetUsersOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetUsers provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetUsers(params *products.GetUsersParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetUsersOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetUsersOK
-	if rf, ok := ret.Get(0).(func(*products.GetUsersParams, runtime.ClientAuthInfoWriter) *products.GetUsersOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetUsersParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetUsersOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetUsersOK)
@@ -1591,8 +2074,8 @@ func (_m *MockProductsClientService) GetUsers(params *products.GetUsersParams, a
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetUsersParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetUsersParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1600,13 +2083,20 @@ func (_m *MockProductsClientService) GetUsers(params *products.GetUsersParams, a
 	return r0, r1
 }
 
-// GetUsersCurrent provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetUsersCurrent(params *products.GetUsersCurrentParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetUsersCurrentOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetUsersCurrent provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetUsersCurrent(params *products.GetUsersCurrentParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetUsersCurrentOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetUsersCurrentOK
-	if rf, ok := ret.Get(0).(func(*products.GetUsersCurrentParams, runtime.ClientAuthInfoWriter) *products.GetUsersCurrentOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetUsersCurrentParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetUsersCurrentOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetUsersCurrentOK)
@@ -1614,8 +2104,8 @@ func (_m *MockProductsClientService) GetUsersCurrent(params *products.GetUsersCu
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetUsersCurrentParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetUsersCurrentParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1623,13 +2113,20 @@ func (_m *MockProductsClientService) GetUsersCurrent(params *products.GetUsersCu
 	return r0, r1
 }
 
-// GetUsersCurrentPermissions provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetUsersCurrentPermissions(params *products.GetUsersCurrentPermissionsParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetUsersCurrentPermissionsOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetUsersCurrentPermissions provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetUsersCurrentPermissions(params *products.GetUsersCurrentPermissionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetUsersCurrentPermissionsOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetUsersCurrentPermissionsOK
-	if rf, ok := ret.Get(0).(func(*products.GetUsersCurrentPermissionsParams, runtime.ClientAuthInfoWriter) *products.GetUsersCurrentPermissionsOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetUsersCurrentPermissionsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetUsersCurrentPermissionsOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetUsersCurrentPermissionsOK)
@@ -1637,8 +2134,8 @@ func (_m *MockProductsClientService) GetUsersCurrentPermissions(params *products
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetUsersCurrentPermissionsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetUsersCurrentPermissionsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1646,13 +2143,20 @@ func (_m *MockProductsClientService) GetUsersCurrentPermissions(params *products
 	return r0, r1
 }
 
-// GetUsersSearch provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetUsersSearch(params *products.GetUsersSearchParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetUsersSearchOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetUsersSearch provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetUsersSearch(params *products.GetUsersSearchParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetUsersSearchOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetUsersSearchOK
-	if rf, ok := ret.Get(0).(func(*products.GetUsersSearchParams, runtime.ClientAuthInfoWriter) *products.GetUsersSearchOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetUsersSearchParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetUsersSearchOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetUsersSearchOK)
@@ -1660,8 +2164,8 @@ func (_m *MockProductsClientService) GetUsersSearch(params *products.GetUsersSea
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetUsersSearchParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetUsersSearchParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1669,13 +2173,20 @@ func (_m *MockProductsClientService) GetUsersSearch(params *products.GetUsersSea
 	return r0, r1
 }
 
-// GetUsersUserID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) GetUsersUserID(params *products.GetUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.GetUsersUserIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetUsersUserID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) GetUsersUserID(params *products.GetUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.GetUsersUserIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.GetUsersUserIDOK
-	if rf, ok := ret.Get(0).(func(*products.GetUsersUserIDParams, runtime.ClientAuthInfoWriter) *products.GetUsersUserIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.GetUsersUserIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.GetUsersUserIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.GetUsersUserIDOK)
@@ -1683,8 +2194,8 @@ func (_m *MockProductsClientService) GetUsersUserID(params *products.GetUsersUse
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.GetUsersUserIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.GetUsersUserIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1692,13 +2203,20 @@ func (_m *MockProductsClientService) GetUsersUserID(params *products.GetUsersUse
 	return r0, r1
 }
 
-// PatchRetentionsIDExecutionsEid provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PatchRetentionsIDExecutionsEid(params *products.PatchRetentionsIDExecutionsEidParams, authInfo runtime.ClientAuthInfoWriter) (*products.PatchRetentionsIDExecutionsEidOK, error) {
-	ret := _m.Called(params, authInfo)
+// PatchRetentionsIDExecutionsEid provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PatchRetentionsIDExecutionsEid(params *products.PatchRetentionsIDExecutionsEidParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PatchRetentionsIDExecutionsEidOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PatchRetentionsIDExecutionsEidOK
-	if rf, ok := ret.Get(0).(func(*products.PatchRetentionsIDExecutionsEidParams, runtime.ClientAuthInfoWriter) *products.PatchRetentionsIDExecutionsEidOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PatchRetentionsIDExecutionsEidParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PatchRetentionsIDExecutionsEidOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PatchRetentionsIDExecutionsEidOK)
@@ -1706,8 +2224,8 @@ func (_m *MockProductsClientService) PatchRetentionsIDExecutionsEid(params *prod
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PatchRetentionsIDExecutionsEidParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PatchRetentionsIDExecutionsEidParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1715,13 +2233,20 @@ func (_m *MockProductsClientService) PatchRetentionsIDExecutionsEid(params *prod
 	return r0, r1
 }
 
-// PostChartrepoRepoChartsNameVersionLabels provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostChartrepoRepoChartsNameVersionLabels(params *products.PostChartrepoRepoChartsNameVersionLabelsParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostChartrepoRepoChartsNameVersionLabelsOK, error) {
-	ret := _m.Called(params, authInfo)
+// PostChartrepoRepoChartsNameVersionLabels provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostChartrepoRepoChartsNameVersionLabels(params *products.PostChartrepoRepoChartsNameVersionLabelsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostChartrepoRepoChartsNameVersionLabelsOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostChartrepoRepoChartsNameVersionLabelsOK
-	if rf, ok := ret.Get(0).(func(*products.PostChartrepoRepoChartsNameVersionLabelsParams, runtime.ClientAuthInfoWriter) *products.PostChartrepoRepoChartsNameVersionLabelsOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostChartrepoRepoChartsNameVersionLabelsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostChartrepoRepoChartsNameVersionLabelsOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostChartrepoRepoChartsNameVersionLabelsOK)
@@ -1729,8 +2254,8 @@ func (_m *MockProductsClientService) PostChartrepoRepoChartsNameVersionLabels(pa
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostChartrepoRepoChartsNameVersionLabelsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostChartrepoRepoChartsNameVersionLabelsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1738,13 +2263,20 @@ func (_m *MockProductsClientService) PostChartrepoRepoChartsNameVersionLabels(pa
 	return r0, r1
 }
 
-// PostEmailPing provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostEmailPing(params *products.PostEmailPingParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostEmailPingOK, error) {
-	ret := _m.Called(params, authInfo)
+// PostEmailPing provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostEmailPing(params *products.PostEmailPingParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostEmailPingOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostEmailPingOK
-	if rf, ok := ret.Get(0).(func(*products.PostEmailPingParams, runtime.ClientAuthInfoWriter) *products.PostEmailPingOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostEmailPingParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostEmailPingOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostEmailPingOK)
@@ -1752,8 +2284,8 @@ func (_m *MockProductsClientService) PostEmailPing(params *products.PostEmailPin
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostEmailPingParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostEmailPingParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1761,13 +2293,20 @@ func (_m *MockProductsClientService) PostEmailPing(params *products.PostEmailPin
 	return r0, r1
 }
 
-// PostLabels provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostLabels(params *products.PostLabelsParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostLabelsCreated, error) {
-	ret := _m.Called(params, authInfo)
+// PostLabels provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostLabels(params *products.PostLabelsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostLabelsCreated, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostLabelsCreated
-	if rf, ok := ret.Get(0).(func(*products.PostLabelsParams, runtime.ClientAuthInfoWriter) *products.PostLabelsCreated); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostLabelsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostLabelsCreated); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostLabelsCreated)
@@ -1775,8 +2314,8 @@ func (_m *MockProductsClientService) PostLabels(params *products.PostLabelsParam
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostLabelsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostLabelsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1784,13 +2323,20 @@ func (_m *MockProductsClientService) PostLabels(params *products.PostLabelsParam
 	return r0, r1
 }
 
-// PostLdapPing provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostLdapPing(params *products.PostLdapPingParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostLdapPingOK, error) {
-	ret := _m.Called(params, authInfo)
+// PostLdapPing provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostLdapPing(params *products.PostLdapPingParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostLdapPingOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostLdapPingOK
-	if rf, ok := ret.Get(0).(func(*products.PostLdapPingParams, runtime.ClientAuthInfoWriter) *products.PostLdapPingOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostLdapPingParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostLdapPingOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostLdapPingOK)
@@ -1798,8 +2344,8 @@ func (_m *MockProductsClientService) PostLdapPing(params *products.PostLdapPingP
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostLdapPingParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostLdapPingParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1807,13 +2353,20 @@ func (_m *MockProductsClientService) PostLdapPing(params *products.PostLdapPingP
 	return r0, r1
 }
 
-// PostLdapUsersImport provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostLdapUsersImport(params *products.PostLdapUsersImportParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostLdapUsersImportOK, error) {
-	ret := _m.Called(params, authInfo)
+// PostLdapUsersImport provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostLdapUsersImport(params *products.PostLdapUsersImportParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostLdapUsersImportOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostLdapUsersImportOK
-	if rf, ok := ret.Get(0).(func(*products.PostLdapUsersImportParams, runtime.ClientAuthInfoWriter) *products.PostLdapUsersImportOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostLdapUsersImportParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostLdapUsersImportOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostLdapUsersImportOK)
@@ -1821,8 +2374,8 @@ func (_m *MockProductsClientService) PostLdapUsersImport(params *products.PostLd
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostLdapUsersImportParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostLdapUsersImportParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1830,13 +2383,20 @@ func (_m *MockProductsClientService) PostLdapUsersImport(params *products.PostLd
 	return r0, r1
 }
 
-// PostProjectsProjectIDImmutabletagrules provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostProjectsProjectIDImmutabletagrules(params *products.PostProjectsProjectIDImmutabletagrulesParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostProjectsProjectIDImmutabletagrulesOK, error) {
-	ret := _m.Called(params, authInfo)
+// PostProjectsProjectIDImmutabletagrules provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostProjectsProjectIDImmutabletagrules(params *products.PostProjectsProjectIDImmutabletagrulesParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostProjectsProjectIDImmutabletagrulesOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostProjectsProjectIDImmutabletagrulesOK
-	if rf, ok := ret.Get(0).(func(*products.PostProjectsProjectIDImmutabletagrulesParams, runtime.ClientAuthInfoWriter) *products.PostProjectsProjectIDImmutabletagrulesOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostProjectsProjectIDImmutabletagrulesParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostProjectsProjectIDImmutabletagrulesOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostProjectsProjectIDImmutabletagrulesOK)
@@ -1844,8 +2404,8 @@ func (_m *MockProductsClientService) PostProjectsProjectIDImmutabletagrules(para
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostProjectsProjectIDImmutabletagrulesParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostProjectsProjectIDImmutabletagrulesParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1853,13 +2413,20 @@ func (_m *MockProductsClientService) PostProjectsProjectIDImmutabletagrules(para
 	return r0, r1
 }
 
-// PostProjectsProjectIDMembers provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostProjectsProjectIDMembers(params *products.PostProjectsProjectIDMembersParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostProjectsProjectIDMembersCreated, error) {
-	ret := _m.Called(params, authInfo)
+// PostProjectsProjectIDMembers provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostProjectsProjectIDMembers(params *products.PostProjectsProjectIDMembersParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostProjectsProjectIDMembersCreated, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostProjectsProjectIDMembersCreated
-	if rf, ok := ret.Get(0).(func(*products.PostProjectsProjectIDMembersParams, runtime.ClientAuthInfoWriter) *products.PostProjectsProjectIDMembersCreated); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostProjectsProjectIDMembersParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostProjectsProjectIDMembersCreated); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostProjectsProjectIDMembersCreated)
@@ -1867,8 +2434,8 @@ func (_m *MockProductsClientService) PostProjectsProjectIDMembers(params *produc
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostProjectsProjectIDMembersParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostProjectsProjectIDMembersParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1876,13 +2443,20 @@ func (_m *MockProductsClientService) PostProjectsProjectIDMembers(params *produc
 	return r0, r1
 }
 
-// PostProjectsProjectIDMetadatas provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostProjectsProjectIDMetadatas(params *products.PostProjectsProjectIDMetadatasParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostProjectsProjectIDMetadatasOK, error) {
-	ret := _m.Called(params, authInfo)
+// PostProjectsProjectIDMetadatas provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostProjectsProjectIDMetadatas(params *products.PostProjectsProjectIDMetadatasParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostProjectsProjectIDMetadatasOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostProjectsProjectIDMetadatasOK
-	if rf, ok := ret.Get(0).(func(*products.PostProjectsProjectIDMetadatasParams, runtime.ClientAuthInfoWriter) *products.PostProjectsProjectIDMetadatasOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostProjectsProjectIDMetadatasParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostProjectsProjectIDMetadatasOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostProjectsProjectIDMetadatasOK)
@@ -1890,8 +2464,8 @@ func (_m *MockProductsClientService) PostProjectsProjectIDMetadatas(params *prod
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostProjectsProjectIDMetadatasParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostProjectsProjectIDMetadatasParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1899,13 +2473,20 @@ func (_m *MockProductsClientService) PostProjectsProjectIDMetadatas(params *prod
 	return r0, r1
 }
 
-// PostProjectsProjectIDRobots provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostProjectsProjectIDRobots(params *products.PostProjectsProjectIDRobotsParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostProjectsProjectIDRobotsCreated, error) {
-	ret := _m.Called(params, authInfo)
+// PostProjectsProjectIDRobots provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostProjectsProjectIDRobots(params *products.PostProjectsProjectIDRobotsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostProjectsProjectIDRobotsCreated, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostProjectsProjectIDRobotsCreated
-	if rf, ok := ret.Get(0).(func(*products.PostProjectsProjectIDRobotsParams, runtime.ClientAuthInfoWriter) *products.PostProjectsProjectIDRobotsCreated); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostProjectsProjectIDRobotsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostProjectsProjectIDRobotsCreated); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostProjectsProjectIDRobotsCreated)
@@ -1913,8 +2494,8 @@ func (_m *MockProductsClientService) PostProjectsProjectIDRobots(params *product
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostProjectsProjectIDRobotsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostProjectsProjectIDRobotsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1922,13 +2503,20 @@ func (_m *MockProductsClientService) PostProjectsProjectIDRobots(params *product
 	return r0, r1
 }
 
-// PostProjectsProjectIDWebhookPolicies provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostProjectsProjectIDWebhookPolicies(params *products.PostProjectsProjectIDWebhookPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostProjectsProjectIDWebhookPoliciesCreated, error) {
-	ret := _m.Called(params, authInfo)
+// PostProjectsProjectIDWebhookPolicies provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostProjectsProjectIDWebhookPolicies(params *products.PostProjectsProjectIDWebhookPoliciesParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostProjectsProjectIDWebhookPoliciesCreated, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostProjectsProjectIDWebhookPoliciesCreated
-	if rf, ok := ret.Get(0).(func(*products.PostProjectsProjectIDWebhookPoliciesParams, runtime.ClientAuthInfoWriter) *products.PostProjectsProjectIDWebhookPoliciesCreated); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostProjectsProjectIDWebhookPoliciesParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostProjectsProjectIDWebhookPoliciesCreated); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostProjectsProjectIDWebhookPoliciesCreated)
@@ -1936,8 +2524,8 @@ func (_m *MockProductsClientService) PostProjectsProjectIDWebhookPolicies(params
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostProjectsProjectIDWebhookPoliciesParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostProjectsProjectIDWebhookPoliciesParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1945,13 +2533,20 @@ func (_m *MockProductsClientService) PostProjectsProjectIDWebhookPolicies(params
 	return r0, r1
 }
 
-// PostProjectsProjectIDWebhookPoliciesTest provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostProjectsProjectIDWebhookPoliciesTest(params *products.PostProjectsProjectIDWebhookPoliciesTestParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostProjectsProjectIDWebhookPoliciesTestOK, error) {
-	ret := _m.Called(params, authInfo)
+// PostProjectsProjectIDWebhookPoliciesTest provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostProjectsProjectIDWebhookPoliciesTest(params *products.PostProjectsProjectIDWebhookPoliciesTestParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostProjectsProjectIDWebhookPoliciesTestOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostProjectsProjectIDWebhookPoliciesTestOK
-	if rf, ok := ret.Get(0).(func(*products.PostProjectsProjectIDWebhookPoliciesTestParams, runtime.ClientAuthInfoWriter) *products.PostProjectsProjectIDWebhookPoliciesTestOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostProjectsProjectIDWebhookPoliciesTestParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostProjectsProjectIDWebhookPoliciesTestOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostProjectsProjectIDWebhookPoliciesTestOK)
@@ -1959,8 +2554,8 @@ func (_m *MockProductsClientService) PostProjectsProjectIDWebhookPoliciesTest(pa
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostProjectsProjectIDWebhookPoliciesTestParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostProjectsProjectIDWebhookPoliciesTestParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1968,13 +2563,20 @@ func (_m *MockProductsClientService) PostProjectsProjectIDWebhookPoliciesTest(pa
 	return r0, r1
 }
 
-// PostRegistries provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostRegistries(params *products.PostRegistriesParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostRegistriesCreated, error) {
-	ret := _m.Called(params, authInfo)
+// PostRegistries provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostRegistries(params *products.PostRegistriesParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostRegistriesCreated, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostRegistriesCreated
-	if rf, ok := ret.Get(0).(func(*products.PostRegistriesParams, runtime.ClientAuthInfoWriter) *products.PostRegistriesCreated); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostRegistriesParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostRegistriesCreated); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostRegistriesCreated)
@@ -1982,8 +2584,8 @@ func (_m *MockProductsClientService) PostRegistries(params *products.PostRegistr
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostRegistriesParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostRegistriesParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -1991,13 +2593,20 @@ func (_m *MockProductsClientService) PostRegistries(params *products.PostRegistr
 	return r0, r1
 }
 
-// PostRegistriesPing provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostRegistriesPing(params *products.PostRegistriesPingParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostRegistriesPingOK, error) {
-	ret := _m.Called(params, authInfo)
+// PostRegistriesPing provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostRegistriesPing(params *products.PostRegistriesPingParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostRegistriesPingOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostRegistriesPingOK
-	if rf, ok := ret.Get(0).(func(*products.PostRegistriesPingParams, runtime.ClientAuthInfoWriter) *products.PostRegistriesPingOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostRegistriesPingParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostRegistriesPingOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostRegistriesPingOK)
@@ -2005,8 +2614,8 @@ func (_m *MockProductsClientService) PostRegistriesPing(params *products.PostReg
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostRegistriesPingParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostRegistriesPingParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2014,13 +2623,20 @@ func (_m *MockProductsClientService) PostRegistriesPing(params *products.PostReg
 	return r0, r1
 }
 
-// PostReplicationExecutions provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostReplicationExecutions(params *products.PostReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostReplicationExecutionsCreated, error) {
-	ret := _m.Called(params, authInfo)
+// PostReplicationExecutions provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostReplicationExecutions(params *products.PostReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostReplicationExecutionsCreated, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostReplicationExecutionsCreated
-	if rf, ok := ret.Get(0).(func(*products.PostReplicationExecutionsParams, runtime.ClientAuthInfoWriter) *products.PostReplicationExecutionsCreated); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostReplicationExecutionsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostReplicationExecutionsCreated); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostReplicationExecutionsCreated)
@@ -2028,8 +2644,8 @@ func (_m *MockProductsClientService) PostReplicationExecutions(params *products.
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostReplicationExecutionsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostReplicationExecutionsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2037,13 +2653,20 @@ func (_m *MockProductsClientService) PostReplicationExecutions(params *products.
 	return r0, r1
 }
 
-// PostReplicationPolicies provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostReplicationPolicies(params *products.PostReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostReplicationPoliciesCreated, error) {
-	ret := _m.Called(params, authInfo)
+// PostReplicationPolicies provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostReplicationPolicies(params *products.PostReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostReplicationPoliciesCreated, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostReplicationPoliciesCreated
-	if rf, ok := ret.Get(0).(func(*products.PostReplicationPoliciesParams, runtime.ClientAuthInfoWriter) *products.PostReplicationPoliciesCreated); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostReplicationPoliciesParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostReplicationPoliciesCreated); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostReplicationPoliciesCreated)
@@ -2051,8 +2674,8 @@ func (_m *MockProductsClientService) PostReplicationPolicies(params *products.Po
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostReplicationPoliciesParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostReplicationPoliciesParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2060,13 +2683,20 @@ func (_m *MockProductsClientService) PostReplicationPolicies(params *products.Po
 	return r0, r1
 }
 
-// PostRetentions provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostRetentions(params *products.PostRetentionsParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostRetentionsCreated, error) {
-	ret := _m.Called(params, authInfo)
+// PostRetentions provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostRetentions(params *products.PostRetentionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostRetentionsCreated, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostRetentionsCreated
-	if rf, ok := ret.Get(0).(func(*products.PostRetentionsParams, runtime.ClientAuthInfoWriter) *products.PostRetentionsCreated); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostRetentionsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostRetentionsCreated); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostRetentionsCreated)
@@ -2074,8 +2704,8 @@ func (_m *MockProductsClientService) PostRetentions(params *products.PostRetenti
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostRetentionsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostRetentionsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2083,13 +2713,20 @@ func (_m *MockProductsClientService) PostRetentions(params *products.PostRetenti
 	return r0, r1
 }
 
-// PostRetentionsIDExecutions provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostRetentionsIDExecutions(params *products.PostRetentionsIDExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostRetentionsIDExecutionsOK, error) {
-	ret := _m.Called(params, authInfo)
+// PostRetentionsIDExecutions provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostRetentionsIDExecutions(params *products.PostRetentionsIDExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostRetentionsIDExecutionsOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostRetentionsIDExecutionsOK
-	if rf, ok := ret.Get(0).(func(*products.PostRetentionsIDExecutionsParams, runtime.ClientAuthInfoWriter) *products.PostRetentionsIDExecutionsOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostRetentionsIDExecutionsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostRetentionsIDExecutionsOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostRetentionsIDExecutionsOK)
@@ -2097,8 +2734,8 @@ func (_m *MockProductsClientService) PostRetentionsIDExecutions(params *products
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostRetentionsIDExecutionsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostRetentionsIDExecutionsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2106,13 +2743,20 @@ func (_m *MockProductsClientService) PostRetentionsIDExecutions(params *products
 	return r0, r1
 }
 
-// PostScannersPing provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostScannersPing(params *products.PostScannersPingParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostScannersPingOK, error) {
-	ret := _m.Called(params, authInfo)
+// PostScannersPing provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostScannersPing(params *products.PostScannersPingParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostScannersPingOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostScannersPingOK
-	if rf, ok := ret.Get(0).(func(*products.PostScannersPingParams, runtime.ClientAuthInfoWriter) *products.PostScannersPingOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostScannersPingParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostScannersPingOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostScannersPingOK)
@@ -2120,8 +2764,8 @@ func (_m *MockProductsClientService) PostScannersPing(params *products.PostScann
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostScannersPingParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostScannersPingParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2129,13 +2773,20 @@ func (_m *MockProductsClientService) PostScannersPing(params *products.PostScann
 	return r0, r1
 }
 
-// PostSystemGcSchedule provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostSystemGcSchedule(params *products.PostSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostSystemGcScheduleOK, error) {
-	ret := _m.Called(params, authInfo)
+// PostSystemGcSchedule provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostSystemGcSchedule(params *products.PostSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostSystemGcScheduleOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostSystemGcScheduleOK
-	if rf, ok := ret.Get(0).(func(*products.PostSystemGcScheduleParams, runtime.ClientAuthInfoWriter) *products.PostSystemGcScheduleOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostSystemGcScheduleParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostSystemGcScheduleOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostSystemGcScheduleOK)
@@ -2143,8 +2794,8 @@ func (_m *MockProductsClientService) PostSystemGcSchedule(params *products.PostS
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostSystemGcScheduleParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostSystemGcScheduleParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2152,13 +2803,20 @@ func (_m *MockProductsClientService) PostSystemGcSchedule(params *products.PostS
 	return r0, r1
 }
 
-// PostSystemOidcPing provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostSystemOidcPing(params *products.PostSystemOidcPingParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostSystemOidcPingOK, error) {
-	ret := _m.Called(params, authInfo)
+// PostSystemOidcPing provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostSystemOidcPing(params *products.PostSystemOidcPingParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostSystemOidcPingOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostSystemOidcPingOK
-	if rf, ok := ret.Get(0).(func(*products.PostSystemOidcPingParams, runtime.ClientAuthInfoWriter) *products.PostSystemOidcPingOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostSystemOidcPingParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostSystemOidcPingOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostSystemOidcPingOK)
@@ -2166,8 +2824,8 @@ func (_m *MockProductsClientService) PostSystemOidcPing(params *products.PostSys
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostSystemOidcPingParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostSystemOidcPingParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2175,13 +2833,20 @@ func (_m *MockProductsClientService) PostSystemOidcPing(params *products.PostSys
 	return r0, r1
 }
 
-// PostSystemScanAllSchedule provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostSystemScanAllSchedule(params *products.PostSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostSystemScanAllScheduleOK, error) {
-	ret := _m.Called(params, authInfo)
+// PostSystemScanAllSchedule provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostSystemScanAllSchedule(params *products.PostSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostSystemScanAllScheduleOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostSystemScanAllScheduleOK
-	if rf, ok := ret.Get(0).(func(*products.PostSystemScanAllScheduleParams, runtime.ClientAuthInfoWriter) *products.PostSystemScanAllScheduleOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostSystemScanAllScheduleParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostSystemScanAllScheduleOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostSystemScanAllScheduleOK)
@@ -2189,8 +2854,8 @@ func (_m *MockProductsClientService) PostSystemScanAllSchedule(params *products.
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostSystemScanAllScheduleParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostSystemScanAllScheduleParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2198,13 +2863,20 @@ func (_m *MockProductsClientService) PostSystemScanAllSchedule(params *products.
 	return r0, r1
 }
 
-// PostUsergroups provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostUsergroups(params *products.PostUsergroupsParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostUsergroupsCreated, error) {
-	ret := _m.Called(params, authInfo)
+// PostUsergroups provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostUsergroups(params *products.PostUsergroupsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostUsergroupsCreated, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostUsergroupsCreated
-	if rf, ok := ret.Get(0).(func(*products.PostUsergroupsParams, runtime.ClientAuthInfoWriter) *products.PostUsergroupsCreated); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostUsergroupsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostUsergroupsCreated); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostUsergroupsCreated)
@@ -2212,8 +2884,8 @@ func (_m *MockProductsClientService) PostUsergroups(params *products.PostUsergro
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostUsergroupsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostUsergroupsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2221,13 +2893,20 @@ func (_m *MockProductsClientService) PostUsergroups(params *products.PostUsergro
 	return r0, r1
 }
 
-// PostUsers provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PostUsers(params *products.PostUsersParams, authInfo runtime.ClientAuthInfoWriter) (*products.PostUsersCreated, error) {
-	ret := _m.Called(params, authInfo)
+// PostUsers provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PostUsers(params *products.PostUsersParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PostUsersCreated, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PostUsersCreated
-	if rf, ok := ret.Get(0).(func(*products.PostUsersParams, runtime.ClientAuthInfoWriter) *products.PostUsersCreated); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PostUsersParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PostUsersCreated); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PostUsersCreated)
@@ -2235,8 +2914,8 @@ func (_m *MockProductsClientService) PostUsers(params *products.PostUsersParams,
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PostUsersParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PostUsersParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2244,13 +2923,20 @@ func (_m *MockProductsClientService) PostUsers(params *products.PostUsersParams,
 	return r0, r1
 }
 
-// PutConfigurations provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutConfigurations(params *products.PutConfigurationsParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutConfigurationsOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutConfigurations provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PutConfigurations(params *products.PutConfigurationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PutConfigurationsOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PutConfigurationsOK
-	if rf, ok := ret.Get(0).(func(*products.PutConfigurationsParams, runtime.ClientAuthInfoWriter) *products.PutConfigurationsOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PutConfigurationsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PutConfigurationsOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PutConfigurationsOK)
@@ -2258,8 +2944,8 @@ func (_m *MockProductsClientService) PutConfigurations(params *products.PutConfi
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutConfigurationsParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PutConfigurationsParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2267,13 +2953,20 @@ func (_m *MockProductsClientService) PutConfigurations(params *products.PutConfi
 	return r0, r1
 }
 
-// PutLabelsID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutLabelsID(params *products.PutLabelsIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutLabelsIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutLabelsID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PutLabelsID(params *products.PutLabelsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PutLabelsIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PutLabelsIDOK
-	if rf, ok := ret.Get(0).(func(*products.PutLabelsIDParams, runtime.ClientAuthInfoWriter) *products.PutLabelsIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PutLabelsIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PutLabelsIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PutLabelsIDOK)
@@ -2281,8 +2974,8 @@ func (_m *MockProductsClientService) PutLabelsID(params *products.PutLabelsIDPar
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutLabelsIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PutLabelsIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2290,13 +2983,20 @@ func (_m *MockProductsClientService) PutLabelsID(params *products.PutLabelsIDPar
 	return r0, r1
 }
 
-// PutProjectsProjectIDImmutabletagrulesID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutProjectsProjectIDImmutabletagrulesID(params *products.PutProjectsProjectIDImmutabletagrulesIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutProjectsProjectIDImmutabletagrulesIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutProjectsProjectIDImmutabletagrulesID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PutProjectsProjectIDImmutabletagrulesID(params *products.PutProjectsProjectIDImmutabletagrulesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PutProjectsProjectIDImmutabletagrulesIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PutProjectsProjectIDImmutabletagrulesIDOK
-	if rf, ok := ret.Get(0).(func(*products.PutProjectsProjectIDImmutabletagrulesIDParams, runtime.ClientAuthInfoWriter) *products.PutProjectsProjectIDImmutabletagrulesIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PutProjectsProjectIDImmutabletagrulesIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PutProjectsProjectIDImmutabletagrulesIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PutProjectsProjectIDImmutabletagrulesIDOK)
@@ -2304,8 +3004,8 @@ func (_m *MockProductsClientService) PutProjectsProjectIDImmutabletagrulesID(par
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutProjectsProjectIDImmutabletagrulesIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PutProjectsProjectIDImmutabletagrulesIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2313,13 +3013,20 @@ func (_m *MockProductsClientService) PutProjectsProjectIDImmutabletagrulesID(par
 	return r0, r1
 }
 
-// PutProjectsProjectIDMembersMid provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutProjectsProjectIDMembersMid(params *products.PutProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutProjectsProjectIDMembersMidOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutProjectsProjectIDMembersMid provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PutProjectsProjectIDMembersMid(params *products.PutProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PutProjectsProjectIDMembersMidOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PutProjectsProjectIDMembersMidOK
-	if rf, ok := ret.Get(0).(func(*products.PutProjectsProjectIDMembersMidParams, runtime.ClientAuthInfoWriter) *products.PutProjectsProjectIDMembersMidOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PutProjectsProjectIDMembersMidParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PutProjectsProjectIDMembersMidOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PutProjectsProjectIDMembersMidOK)
@@ -2327,8 +3034,8 @@ func (_m *MockProductsClientService) PutProjectsProjectIDMembersMid(params *prod
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutProjectsProjectIDMembersMidParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PutProjectsProjectIDMembersMidParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2336,13 +3043,20 @@ func (_m *MockProductsClientService) PutProjectsProjectIDMembersMid(params *prod
 	return r0, r1
 }
 
-// PutProjectsProjectIDMetadatasMetaName provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutProjectsProjectIDMetadatasMetaName(params *products.PutProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutProjectsProjectIDMetadatasMetaNameOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutProjectsProjectIDMetadatasMetaName provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PutProjectsProjectIDMetadatasMetaName(params *products.PutProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PutProjectsProjectIDMetadatasMetaNameOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PutProjectsProjectIDMetadatasMetaNameOK
-	if rf, ok := ret.Get(0).(func(*products.PutProjectsProjectIDMetadatasMetaNameParams, runtime.ClientAuthInfoWriter) *products.PutProjectsProjectIDMetadatasMetaNameOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PutProjectsProjectIDMetadatasMetaNameParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PutProjectsProjectIDMetadatasMetaNameOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PutProjectsProjectIDMetadatasMetaNameOK)
@@ -2350,8 +3064,8 @@ func (_m *MockProductsClientService) PutProjectsProjectIDMetadatasMetaName(param
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutProjectsProjectIDMetadatasMetaNameParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PutProjectsProjectIDMetadatasMetaNameParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2359,13 +3073,20 @@ func (_m *MockProductsClientService) PutProjectsProjectIDMetadatasMetaName(param
 	return r0, r1
 }
 
-// PutProjectsProjectIDRobotsRobotID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutProjectsProjectIDRobotsRobotID(params *products.PutProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutProjectsProjectIDRobotsRobotIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutProjectsProjectIDRobotsRobotID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PutProjectsProjectIDRobotsRobotID(params *products.PutProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PutProjectsProjectIDRobotsRobotIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PutProjectsProjectIDRobotsRobotIDOK
-	if rf, ok := ret.Get(0).(func(*products.PutProjectsProjectIDRobotsRobotIDParams, runtime.ClientAuthInfoWriter) *products.PutProjectsProjectIDRobotsRobotIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PutProjectsProjectIDRobotsRobotIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PutProjectsProjectIDRobotsRobotIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PutProjectsProjectIDRobotsRobotIDOK)
@@ -2373,8 +3094,8 @@ func (_m *MockProductsClientService) PutProjectsProjectIDRobotsRobotID(params *p
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutProjectsProjectIDRobotsRobotIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PutProjectsProjectIDRobotsRobotIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2382,13 +3103,20 @@ func (_m *MockProductsClientService) PutProjectsProjectIDRobotsRobotID(params *p
 	return r0, r1
 }
 
-// PutProjectsProjectIDWebhookPoliciesPolicyID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutProjectsProjectIDWebhookPoliciesPolicyID(params *products.PutProjectsProjectIDWebhookPoliciesPolicyIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutProjectsProjectIDWebhookPoliciesPolicyIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutProjectsProjectIDWebhookPoliciesPolicyID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PutProjectsProjectIDWebhookPoliciesPolicyID(params *products.PutProjectsProjectIDWebhookPoliciesPolicyIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PutProjectsProjectIDWebhookPoliciesPolicyIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PutProjectsProjectIDWebhookPoliciesPolicyIDOK
-	if rf, ok := ret.Get(0).(func(*products.PutProjectsProjectIDWebhookPoliciesPolicyIDParams, runtime.ClientAuthInfoWriter) *products.PutProjectsProjectIDWebhookPoliciesPolicyIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PutProjectsProjectIDWebhookPoliciesPolicyIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PutProjectsProjectIDWebhookPoliciesPolicyIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PutProjectsProjectIDWebhookPoliciesPolicyIDOK)
@@ -2396,8 +3124,8 @@ func (_m *MockProductsClientService) PutProjectsProjectIDWebhookPoliciesPolicyID
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutProjectsProjectIDWebhookPoliciesPolicyIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PutProjectsProjectIDWebhookPoliciesPolicyIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2405,13 +3133,20 @@ func (_m *MockProductsClientService) PutProjectsProjectIDWebhookPoliciesPolicyID
 	return r0, r1
 }
 
-// PutQuotasID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutQuotasID(params *products.PutQuotasIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutQuotasIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutQuotasID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PutQuotasID(params *products.PutQuotasIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PutQuotasIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PutQuotasIDOK
-	if rf, ok := ret.Get(0).(func(*products.PutQuotasIDParams, runtime.ClientAuthInfoWriter) *products.PutQuotasIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PutQuotasIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PutQuotasIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PutQuotasIDOK)
@@ -2419,8 +3154,8 @@ func (_m *MockProductsClientService) PutQuotasID(params *products.PutQuotasIDPar
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutQuotasIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PutQuotasIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2428,13 +3163,20 @@ func (_m *MockProductsClientService) PutQuotasID(params *products.PutQuotasIDPar
 	return r0, r1
 }
 
-// PutRegistriesID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutRegistriesID(params *products.PutRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutRegistriesIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutRegistriesID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PutRegistriesID(params *products.PutRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PutRegistriesIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PutRegistriesIDOK
-	if rf, ok := ret.Get(0).(func(*products.PutRegistriesIDParams, runtime.ClientAuthInfoWriter) *products.PutRegistriesIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PutRegistriesIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PutRegistriesIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PutRegistriesIDOK)
@@ -2442,8 +3184,8 @@ func (_m *MockProductsClientService) PutRegistriesID(params *products.PutRegistr
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutRegistriesIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PutRegistriesIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2451,13 +3193,20 @@ func (_m *MockProductsClientService) PutRegistriesID(params *products.PutRegistr
 	return r0, r1
 }
 
-// PutReplicationExecutionsID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutReplicationExecutionsID(params *products.PutReplicationExecutionsIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutReplicationExecutionsIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutReplicationExecutionsID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PutReplicationExecutionsID(params *products.PutReplicationExecutionsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PutReplicationExecutionsIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PutReplicationExecutionsIDOK
-	if rf, ok := ret.Get(0).(func(*products.PutReplicationExecutionsIDParams, runtime.ClientAuthInfoWriter) *products.PutReplicationExecutionsIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PutReplicationExecutionsIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PutReplicationExecutionsIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PutReplicationExecutionsIDOK)
@@ -2465,8 +3214,8 @@ func (_m *MockProductsClientService) PutReplicationExecutionsID(params *products
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutReplicationExecutionsIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PutReplicationExecutionsIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2474,13 +3223,20 @@ func (_m *MockProductsClientService) PutReplicationExecutionsID(params *products
 	return r0, r1
 }
 
-// PutReplicationPoliciesID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutReplicationPoliciesID(params *products.PutReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutReplicationPoliciesIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutReplicationPoliciesID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PutReplicationPoliciesID(params *products.PutReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PutReplicationPoliciesIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PutReplicationPoliciesIDOK
-	if rf, ok := ret.Get(0).(func(*products.PutReplicationPoliciesIDParams, runtime.ClientAuthInfoWriter) *products.PutReplicationPoliciesIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PutReplicationPoliciesIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PutReplicationPoliciesIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PutReplicationPoliciesIDOK)
@@ -2488,8 +3244,8 @@ func (_m *MockProductsClientService) PutReplicationPoliciesID(params *products.P
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutReplicationPoliciesIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PutReplicationPoliciesIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2497,13 +3253,20 @@ func (_m *MockProductsClientService) PutReplicationPoliciesID(params *products.P
 	return r0, r1
 }
 
-// PutRetentionsID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutRetentionsID(params *products.PutRetentionsIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutRetentionsIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutRetentionsID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PutRetentionsID(params *products.PutRetentionsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PutRetentionsIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PutRetentionsIDOK
-	if rf, ok := ret.Get(0).(func(*products.PutRetentionsIDParams, runtime.ClientAuthInfoWriter) *products.PutRetentionsIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PutRetentionsIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PutRetentionsIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PutRetentionsIDOK)
@@ -2511,8 +3274,8 @@ func (_m *MockProductsClientService) PutRetentionsID(params *products.PutRetenti
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutRetentionsIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PutRetentionsIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2520,13 +3283,20 @@ func (_m *MockProductsClientService) PutRetentionsID(params *products.PutRetenti
 	return r0, r1
 }
 
-// PutSystemCVEAllowlist provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutSystemCVEAllowlist(params *products.PutSystemCVEAllowlistParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutSystemCVEAllowlistOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutSystemCVEAllowlist provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PutSystemCVEAllowlist(params *products.PutSystemCVEAllowlistParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PutSystemCVEAllowlistOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PutSystemCVEAllowlistOK
-	if rf, ok := ret.Get(0).(func(*products.PutSystemCVEAllowlistParams, runtime.ClientAuthInfoWriter) *products.PutSystemCVEAllowlistOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PutSystemCVEAllowlistParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PutSystemCVEAllowlistOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PutSystemCVEAllowlistOK)
@@ -2534,8 +3304,8 @@ func (_m *MockProductsClientService) PutSystemCVEAllowlist(params *products.PutS
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutSystemCVEAllowlistParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PutSystemCVEAllowlistParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2543,13 +3313,20 @@ func (_m *MockProductsClientService) PutSystemCVEAllowlist(params *products.PutS
 	return r0, r1
 }
 
-// PutSystemGcSchedule provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutSystemGcSchedule(params *products.PutSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutSystemGcScheduleOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutSystemGcSchedule provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PutSystemGcSchedule(params *products.PutSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PutSystemGcScheduleOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PutSystemGcScheduleOK
-	if rf, ok := ret.Get(0).(func(*products.PutSystemGcScheduleParams, runtime.ClientAuthInfoWriter) *products.PutSystemGcScheduleOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PutSystemGcScheduleParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PutSystemGcScheduleOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PutSystemGcScheduleOK)
@@ -2557,8 +3334,8 @@ func (_m *MockProductsClientService) PutSystemGcSchedule(params *products.PutSys
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutSystemGcScheduleParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PutSystemGcScheduleParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2566,13 +3343,20 @@ func (_m *MockProductsClientService) PutSystemGcSchedule(params *products.PutSys
 	return r0, r1
 }
 
-// PutSystemScanAllSchedule provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutSystemScanAllSchedule(params *products.PutSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutSystemScanAllScheduleOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutSystemScanAllSchedule provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PutSystemScanAllSchedule(params *products.PutSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PutSystemScanAllScheduleOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PutSystemScanAllScheduleOK
-	if rf, ok := ret.Get(0).(func(*products.PutSystemScanAllScheduleParams, runtime.ClientAuthInfoWriter) *products.PutSystemScanAllScheduleOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PutSystemScanAllScheduleParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PutSystemScanAllScheduleOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PutSystemScanAllScheduleOK)
@@ -2580,8 +3364,8 @@ func (_m *MockProductsClientService) PutSystemScanAllSchedule(params *products.P
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutSystemScanAllScheduleParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PutSystemScanAllScheduleParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2589,13 +3373,20 @@ func (_m *MockProductsClientService) PutSystemScanAllSchedule(params *products.P
 	return r0, r1
 }
 
-// PutUsergroupsGroupID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutUsergroupsGroupID(params *products.PutUsergroupsGroupIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutUsergroupsGroupIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutUsergroupsGroupID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PutUsergroupsGroupID(params *products.PutUsergroupsGroupIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PutUsergroupsGroupIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PutUsergroupsGroupIDOK
-	if rf, ok := ret.Get(0).(func(*products.PutUsergroupsGroupIDParams, runtime.ClientAuthInfoWriter) *products.PutUsergroupsGroupIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PutUsergroupsGroupIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PutUsergroupsGroupIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PutUsergroupsGroupIDOK)
@@ -2603,8 +3394,8 @@ func (_m *MockProductsClientService) PutUsergroupsGroupID(params *products.PutUs
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutUsergroupsGroupIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PutUsergroupsGroupIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2612,13 +3403,20 @@ func (_m *MockProductsClientService) PutUsergroupsGroupID(params *products.PutUs
 	return r0, r1
 }
 
-// PutUsersUserID provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutUsersUserID(params *products.PutUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutUsersUserIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutUsersUserID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PutUsersUserID(params *products.PutUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PutUsersUserIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PutUsersUserIDOK
-	if rf, ok := ret.Get(0).(func(*products.PutUsersUserIDParams, runtime.ClientAuthInfoWriter) *products.PutUsersUserIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PutUsersUserIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PutUsersUserIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PutUsersUserIDOK)
@@ -2626,8 +3424,8 @@ func (_m *MockProductsClientService) PutUsersUserID(params *products.PutUsersUse
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutUsersUserIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PutUsersUserIDParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2635,13 +3433,20 @@ func (_m *MockProductsClientService) PutUsersUserID(params *products.PutUsersUse
 	return r0, r1
 }
 
-// PutUsersUserIDCliSecret provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutUsersUserIDCliSecret(params *products.PutUsersUserIDCliSecretParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutUsersUserIDCliSecretOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutUsersUserIDCliSecret provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PutUsersUserIDCliSecret(params *products.PutUsersUserIDCliSecretParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PutUsersUserIDCliSecretOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PutUsersUserIDCliSecretOK
-	if rf, ok := ret.Get(0).(func(*products.PutUsersUserIDCliSecretParams, runtime.ClientAuthInfoWriter) *products.PutUsersUserIDCliSecretOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PutUsersUserIDCliSecretParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PutUsersUserIDCliSecretOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PutUsersUserIDCliSecretOK)
@@ -2649,8 +3454,8 @@ func (_m *MockProductsClientService) PutUsersUserIDCliSecret(params *products.Pu
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutUsersUserIDCliSecretParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PutUsersUserIDCliSecretParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2658,13 +3463,20 @@ func (_m *MockProductsClientService) PutUsersUserIDCliSecret(params *products.Pu
 	return r0, r1
 }
 
-// PutUsersUserIDPassword provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutUsersUserIDPassword(params *products.PutUsersUserIDPasswordParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutUsersUserIDPasswordOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutUsersUserIDPassword provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PutUsersUserIDPassword(params *products.PutUsersUserIDPasswordParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PutUsersUserIDPasswordOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PutUsersUserIDPasswordOK
-	if rf, ok := ret.Get(0).(func(*products.PutUsersUserIDPasswordParams, runtime.ClientAuthInfoWriter) *products.PutUsersUserIDPasswordOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PutUsersUserIDPasswordParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PutUsersUserIDPasswordOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PutUsersUserIDPasswordOK)
@@ -2672,8 +3484,8 @@ func (_m *MockProductsClientService) PutUsersUserIDPassword(params *products.Put
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutUsersUserIDPasswordParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PutUsersUserIDPasswordParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -2681,13 +3493,20 @@ func (_m *MockProductsClientService) PutUsersUserIDPassword(params *products.Put
 	return r0, r1
 }
 
-// PutUsersUserIDSysadmin provides a mock function with given fields: params, authInfo
-func (_m *MockProductsClientService) PutUsersUserIDSysadmin(params *products.PutUsersUserIDSysadminParams, authInfo runtime.ClientAuthInfoWriter) (*products.PutUsersUserIDSysadminOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutUsersUserIDSysadmin provides a mock function with given fields: params, authInfo, opts
+func (_m *MockProductsClientService) PutUsersUserIDSysadmin(params *products.PutUsersUserIDSysadminParams, authInfo runtime.ClientAuthInfoWriter, opts ...products.ClientOption) (*products.PutUsersUserIDSysadminOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *products.PutUsersUserIDSysadminOK
-	if rf, ok := ret.Get(0).(func(*products.PutUsersUserIDSysadminParams, runtime.ClientAuthInfoWriter) *products.PutUsersUserIDSysadminOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*products.PutUsersUserIDSysadminParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) *products.PutUsersUserIDSysadminOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*products.PutUsersUserIDSysadminOK)
@@ -2695,8 +3514,8 @@ func (_m *MockProductsClientService) PutUsersUserIDSysadmin(params *products.Put
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*products.PutUsersUserIDSysadminParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*products.PutUsersUserIDSysadminParams, runtime.ClientAuthInfoWriter, ...products.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}

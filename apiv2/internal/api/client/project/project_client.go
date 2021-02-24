@@ -25,25 +25,28 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateProject(params *CreateProjectParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProjectCreated, error)
+	CreateProject(params *CreateProjectParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateProjectCreated, error)
 
-	DeleteProject(params *DeleteProjectParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProjectOK, error)
+	DeleteProject(params *DeleteProjectParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProjectOK, error)
 
-	GetLogs(params *GetLogsParams, authInfo runtime.ClientAuthInfoWriter) (*GetLogsOK, error)
+	GetLogs(params *GetLogsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLogsOK, error)
 
-	GetProject(params *GetProjectParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectOK, error)
+	GetProject(params *GetProjectParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectOK, error)
 
-	GetProjectDeletable(params *GetProjectDeletableParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectDeletableOK, error)
+	GetProjectDeletable(params *GetProjectDeletableParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectDeletableOK, error)
 
-	GetProjectSummary(params *GetProjectSummaryParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectSummaryOK, error)
+	GetProjectSummary(params *GetProjectSummaryParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectSummaryOK, error)
 
-	HeadProject(params *HeadProjectParams, authInfo runtime.ClientAuthInfoWriter) (*HeadProjectOK, error)
+	HeadProject(params *HeadProjectParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*HeadProjectOK, error)
 
-	ListProjects(params *ListProjectsParams, authInfo runtime.ClientAuthInfoWriter) (*ListProjectsOK, error)
+	ListProjects(params *ListProjectsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListProjectsOK, error)
 
-	UpdateProject(params *UpdateProjectParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateProjectOK, error)
+	UpdateProject(params *UpdateProjectParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateProjectOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -53,13 +56,12 @@ type ClientService interface {
 
   This endpoint is for user to create a new project.
 */
-func (a *Client) CreateProject(params *CreateProjectParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProjectCreated, error) {
+func (a *Client) CreateProject(params *CreateProjectParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateProjectCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateProjectParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "createProject",
 		Method:             "POST",
 		PathPattern:        "/projects",
@@ -71,7 +73,12 @@ func (a *Client) CreateProject(params *CreateProjectParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -90,13 +97,12 @@ func (a *Client) CreateProject(params *CreateProjectParams, authInfo runtime.Cli
 
   This endpoint is aimed to delete project by project ID.
 */
-func (a *Client) DeleteProject(params *DeleteProjectParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProjectOK, error) {
+func (a *Client) DeleteProject(params *DeleteProjectParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProjectOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteProjectParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "deleteProject",
 		Method:             "DELETE",
 		PathPattern:        "/projects/{project_id}",
@@ -108,7 +114,12 @@ func (a *Client) DeleteProject(params *DeleteProjectParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -127,13 +138,12 @@ func (a *Client) DeleteProject(params *DeleteProjectParams, authInfo runtime.Cli
 
   Get recent logs of the projects
 */
-func (a *Client) GetLogs(params *GetLogsParams, authInfo runtime.ClientAuthInfoWriter) (*GetLogsOK, error) {
+func (a *Client) GetLogs(params *GetLogsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLogsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetLogsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "getLogs",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_name}/logs",
@@ -145,7 +155,12 @@ func (a *Client) GetLogs(params *GetLogsParams, authInfo runtime.ClientAuthInfoW
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -164,13 +179,12 @@ func (a *Client) GetLogs(params *GetLogsParams, authInfo runtime.ClientAuthInfoW
 
   This endpoint returns specific project information by project ID.
 */
-func (a *Client) GetProject(params *GetProjectParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectOK, error) {
+func (a *Client) GetProject(params *GetProjectParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProjectParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "getProject",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_id}",
@@ -182,7 +196,12 @@ func (a *Client) GetProject(params *GetProjectParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -201,13 +220,12 @@ func (a *Client) GetProject(params *GetProjectParams, authInfo runtime.ClientAut
 
   Get the deletable status of the project
 */
-func (a *Client) GetProjectDeletable(params *GetProjectDeletableParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectDeletableOK, error) {
+func (a *Client) GetProjectDeletable(params *GetProjectDeletableParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectDeletableOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProjectDeletableParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "getProjectDeletable",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_id}/_deletable",
@@ -219,7 +237,12 @@ func (a *Client) GetProjectDeletable(params *GetProjectDeletableParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -238,13 +261,12 @@ func (a *Client) GetProjectDeletable(params *GetProjectDeletableParams, authInfo
 
   Get summary of the project.
 */
-func (a *Client) GetProjectSummary(params *GetProjectSummaryParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectSummaryOK, error) {
+func (a *Client) GetProjectSummary(params *GetProjectSummaryParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectSummaryOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProjectSummaryParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "getProjectSummary",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_id}/summary",
@@ -256,7 +278,12 @@ func (a *Client) GetProjectSummary(params *GetProjectSummaryParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -275,13 +302,12 @@ func (a *Client) GetProjectSummary(params *GetProjectSummaryParams, authInfo run
 
   This endpoint is used to check if the project name provided already exist.
 */
-func (a *Client) HeadProject(params *HeadProjectParams, authInfo runtime.ClientAuthInfoWriter) (*HeadProjectOK, error) {
+func (a *Client) HeadProject(params *HeadProjectParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*HeadProjectOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewHeadProjectParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "headProject",
 		Method:             "HEAD",
 		PathPattern:        "/projects",
@@ -293,7 +319,12 @@ func (a *Client) HeadProject(params *HeadProjectParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -312,13 +343,12 @@ func (a *Client) HeadProject(params *HeadProjectParams, authInfo runtime.ClientA
 
   This endpoint returns projects created by Harbor.
 */
-func (a *Client) ListProjects(params *ListProjectsParams, authInfo runtime.ClientAuthInfoWriter) (*ListProjectsOK, error) {
+func (a *Client) ListProjects(params *ListProjectsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListProjectsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListProjectsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "listProjects",
 		Method:             "GET",
 		PathPattern:        "/projects",
@@ -330,7 +360,12 @@ func (a *Client) ListProjects(params *ListProjectsParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -349,13 +384,12 @@ func (a *Client) ListProjects(params *ListProjectsParams, authInfo runtime.Clien
 
   This endpoint is aimed to update the properties of a project.
 */
-func (a *Client) UpdateProject(params *UpdateProjectParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateProjectOK, error) {
+func (a *Client) UpdateProject(params *UpdateProjectParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateProjectOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateProjectParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "updateProject",
 		Method:             "PUT",
 		PathPattern:        "/projects/{project_id}",
@@ -367,7 +401,12 @@ func (a *Client) UpdateProject(params *UpdateProjectParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

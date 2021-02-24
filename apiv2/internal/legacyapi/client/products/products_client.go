@@ -25,241 +25,244 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteChartrepoRepoChartsNameVersionLabelsID(params *DeleteChartrepoRepoChartsNameVersionLabelsIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteChartrepoRepoChartsNameVersionLabelsIDOK, error)
+	DeleteChartrepoRepoChartsNameVersionLabelsID(params *DeleteChartrepoRepoChartsNameVersionLabelsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteChartrepoRepoChartsNameVersionLabelsIDOK, error)
 
-	DeleteLabelsID(params *DeleteLabelsIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteLabelsIDOK, error)
+	DeleteLabelsID(params *DeleteLabelsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteLabelsIDOK, error)
 
-	DeleteProjectsProjectIDImmutabletagrulesID(params *DeleteProjectsProjectIDImmutabletagrulesIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProjectsProjectIDImmutabletagrulesIDOK, error)
+	DeleteProjectsProjectIDImmutabletagrulesID(params *DeleteProjectsProjectIDImmutabletagrulesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProjectsProjectIDImmutabletagrulesIDOK, error)
 
-	DeleteProjectsProjectIDMembersMid(params *DeleteProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProjectsProjectIDMembersMidOK, error)
+	DeleteProjectsProjectIDMembersMid(params *DeleteProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProjectsProjectIDMembersMidOK, error)
 
-	DeleteProjectsProjectIDMetadatasMetaName(params *DeleteProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProjectsProjectIDMetadatasMetaNameOK, error)
+	DeleteProjectsProjectIDMetadatasMetaName(params *DeleteProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProjectsProjectIDMetadatasMetaNameOK, error)
 
-	DeleteProjectsProjectIDRobotsRobotID(params *DeleteProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProjectsProjectIDRobotsRobotIDOK, error)
+	DeleteProjectsProjectIDRobotsRobotID(params *DeleteProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProjectsProjectIDRobotsRobotIDOK, error)
 
-	DeleteProjectsProjectIDWebhookPoliciesPolicyID(params *DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProjectsProjectIDWebhookPoliciesPolicyIDOK, error)
+	DeleteProjectsProjectIDWebhookPoliciesPolicyID(params *DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProjectsProjectIDWebhookPoliciesPolicyIDOK, error)
 
-	DeleteRegistriesID(params *DeleteRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRegistriesIDOK, error)
+	DeleteRegistriesID(params *DeleteRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteRegistriesIDOK, error)
 
-	DeleteReplicationPoliciesID(params *DeleteReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteReplicationPoliciesIDOK, error)
+	DeleteReplicationPoliciesID(params *DeleteReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteReplicationPoliciesIDOK, error)
 
-	DeleteUsergroupsGroupID(params *DeleteUsergroupsGroupIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUsergroupsGroupIDOK, error)
+	DeleteUsergroupsGroupID(params *DeleteUsergroupsGroupIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteUsergroupsGroupIDOK, error)
 
-	DeleteUsersUserID(params *DeleteUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUsersUserIDOK, error)
+	DeleteUsersUserID(params *DeleteUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteUsersUserIDOK, error)
 
-	GetChartrepoRepoChartsNameVersionLabels(params *GetChartrepoRepoChartsNameVersionLabelsParams, authInfo runtime.ClientAuthInfoWriter) (*GetChartrepoRepoChartsNameVersionLabelsOK, error)
+	GetChartrepoRepoChartsNameVersionLabels(params *GetChartrepoRepoChartsNameVersionLabelsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetChartrepoRepoChartsNameVersionLabelsOK, error)
 
-	GetConfigurations(params *GetConfigurationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetConfigurationsOK, error)
+	GetConfigurations(params *GetConfigurationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetConfigurationsOK, error)
 
-	GetHealth(params *GetHealthParams, authInfo runtime.ClientAuthInfoWriter) (*GetHealthOK, error)
+	GetHealth(params *GetHealthParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetHealthOK, error)
 
-	GetLabels(params *GetLabelsParams, authInfo runtime.ClientAuthInfoWriter) (*GetLabelsOK, error)
+	GetLabels(params *GetLabelsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLabelsOK, error)
 
-	GetLabelsID(params *GetLabelsIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetLabelsIDOK, error)
+	GetLabelsID(params *GetLabelsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLabelsIDOK, error)
 
-	GetLdapGroupsSearch(params *GetLdapGroupsSearchParams, authInfo runtime.ClientAuthInfoWriter) (*GetLdapGroupsSearchOK, error)
+	GetLdapGroupsSearch(params *GetLdapGroupsSearchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLdapGroupsSearchOK, error)
 
-	GetLdapUsersSearch(params *GetLdapUsersSearchParams, authInfo runtime.ClientAuthInfoWriter) (*GetLdapUsersSearchOK, error)
+	GetLdapUsersSearch(params *GetLdapUsersSearchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLdapUsersSearchOK, error)
 
-	GetProjectsProjectIDImmutabletagrules(params *GetProjectsProjectIDImmutabletagrulesParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDImmutabletagrulesOK, error)
+	GetProjectsProjectIDImmutabletagrules(params *GetProjectsProjectIDImmutabletagrulesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDImmutabletagrulesOK, error)
 
-	GetProjectsProjectIDMembers(params *GetProjectsProjectIDMembersParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDMembersOK, error)
+	GetProjectsProjectIDMembers(params *GetProjectsProjectIDMembersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDMembersOK, error)
 
-	GetProjectsProjectIDMembersMid(params *GetProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDMembersMidOK, error)
+	GetProjectsProjectIDMembersMid(params *GetProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDMembersMidOK, error)
 
-	GetProjectsProjectIDMetadatas(params *GetProjectsProjectIDMetadatasParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDMetadatasOK, error)
+	GetProjectsProjectIDMetadatas(params *GetProjectsProjectIDMetadatasParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDMetadatasOK, error)
 
-	GetProjectsProjectIDMetadatasMetaName(params *GetProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDMetadatasMetaNameOK, error)
+	GetProjectsProjectIDMetadatasMetaName(params *GetProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDMetadatasMetaNameOK, error)
 
-	GetProjectsProjectIDRobots(params *GetProjectsProjectIDRobotsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDRobotsOK, error)
+	GetProjectsProjectIDRobots(params *GetProjectsProjectIDRobotsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDRobotsOK, error)
 
-	GetProjectsProjectIDRobotsRobotID(params *GetProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDRobotsRobotIDOK, error)
+	GetProjectsProjectIDRobotsRobotID(params *GetProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDRobotsRobotIDOK, error)
 
-	GetProjectsProjectIDScanner(params *GetProjectsProjectIDScannerParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDScannerOK, error)
+	GetProjectsProjectIDScanner(params *GetProjectsProjectIDScannerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDScannerOK, error)
 
-	GetProjectsProjectIDScannerCandidates(params *GetProjectsProjectIDScannerCandidatesParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDScannerCandidatesOK, error)
+	GetProjectsProjectIDScannerCandidates(params *GetProjectsProjectIDScannerCandidatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDScannerCandidatesOK, error)
 
-	GetProjectsProjectIDWebhookEvents(params *GetProjectsProjectIDWebhookEventsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDWebhookEventsOK, error)
+	GetProjectsProjectIDWebhookEvents(params *GetProjectsProjectIDWebhookEventsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDWebhookEventsOK, error)
 
-	GetProjectsProjectIDWebhookJobs(params *GetProjectsProjectIDWebhookJobsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDWebhookJobsOK, error)
+	GetProjectsProjectIDWebhookJobs(params *GetProjectsProjectIDWebhookJobsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDWebhookJobsOK, error)
 
-	GetProjectsProjectIDWebhookLasttrigger(params *GetProjectsProjectIDWebhookLasttriggerParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDWebhookLasttriggerOK, error)
+	GetProjectsProjectIDWebhookLasttrigger(params *GetProjectsProjectIDWebhookLasttriggerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDWebhookLasttriggerOK, error)
 
-	GetProjectsProjectIDWebhookPolicies(params *GetProjectsProjectIDWebhookPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDWebhookPoliciesOK, error)
+	GetProjectsProjectIDWebhookPolicies(params *GetProjectsProjectIDWebhookPoliciesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDWebhookPoliciesOK, error)
 
-	GetProjectsProjectIDWebhookPoliciesPolicyID(params *GetProjectsProjectIDWebhookPoliciesPolicyIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDWebhookPoliciesPolicyIDOK, error)
+	GetProjectsProjectIDWebhookPoliciesPolicyID(params *GetProjectsProjectIDWebhookPoliciesPolicyIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDWebhookPoliciesPolicyIDOK, error)
 
-	GetQuotas(params *GetQuotasParams, authInfo runtime.ClientAuthInfoWriter) (*GetQuotasOK, error)
+	GetQuotas(params *GetQuotasParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetQuotasOK, error)
 
-	GetQuotasID(params *GetQuotasIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetQuotasIDOK, error)
+	GetQuotasID(params *GetQuotasIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetQuotasIDOK, error)
 
-	GetRegistries(params *GetRegistriesParams, authInfo runtime.ClientAuthInfoWriter) (*GetRegistriesOK, error)
+	GetRegistries(params *GetRegistriesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRegistriesOK, error)
 
-	GetRegistriesID(params *GetRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetRegistriesIDOK, error)
+	GetRegistriesID(params *GetRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRegistriesIDOK, error)
 
-	GetRegistriesIDInfo(params *GetRegistriesIDInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetRegistriesIDInfoOK, error)
+	GetRegistriesIDInfo(params *GetRegistriesIDInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRegistriesIDInfoOK, error)
 
-	GetRegistriesIDNamespace(params *GetRegistriesIDNamespaceParams, authInfo runtime.ClientAuthInfoWriter) (*GetRegistriesIDNamespaceOK, error)
+	GetRegistriesIDNamespace(params *GetRegistriesIDNamespaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRegistriesIDNamespaceOK, error)
 
-	GetReplicationAdapters(params *GetReplicationAdaptersParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationAdaptersOK, error)
+	GetReplicationAdapters(params *GetReplicationAdaptersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationAdaptersOK, error)
 
-	GetReplicationExecutions(params *GetReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationExecutionsOK, error)
+	GetReplicationExecutions(params *GetReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationExecutionsOK, error)
 
-	GetReplicationExecutionsID(params *GetReplicationExecutionsIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationExecutionsIDOK, error)
+	GetReplicationExecutionsID(params *GetReplicationExecutionsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationExecutionsIDOK, error)
 
-	GetReplicationExecutionsIDTasks(params *GetReplicationExecutionsIDTasksParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationExecutionsIDTasksOK, error)
+	GetReplicationExecutionsIDTasks(params *GetReplicationExecutionsIDTasksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationExecutionsIDTasksOK, error)
 
-	GetReplicationExecutionsIDTasksTaskIDLog(params *GetReplicationExecutionsIDTasksTaskIDLogParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationExecutionsIDTasksTaskIDLogOK, error)
+	GetReplicationExecutionsIDTasksTaskIDLog(params *GetReplicationExecutionsIDTasksTaskIDLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationExecutionsIDTasksTaskIDLogOK, error)
 
-	GetReplicationPolicies(params *GetReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationPoliciesOK, error)
+	GetReplicationPolicies(params *GetReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationPoliciesOK, error)
 
-	GetReplicationPoliciesID(params *GetReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationPoliciesIDOK, error)
+	GetReplicationPoliciesID(params *GetReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationPoliciesIDOK, error)
 
-	GetRetentionsID(params *GetRetentionsIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetRetentionsIDOK, error)
+	GetRetentionsID(params *GetRetentionsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionsIDOK, error)
 
-	GetRetentionsIDExecutions(params *GetRetentionsIDExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*GetRetentionsIDExecutionsOK, error)
+	GetRetentionsIDExecutions(params *GetRetentionsIDExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionsIDExecutionsOK, error)
 
-	GetRetentionsIDExecutionsEidTasks(params *GetRetentionsIDExecutionsEidTasksParams, authInfo runtime.ClientAuthInfoWriter) (*GetRetentionsIDExecutionsEidTasksOK, error)
+	GetRetentionsIDExecutionsEidTasks(params *GetRetentionsIDExecutionsEidTasksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionsIDExecutionsEidTasksOK, error)
 
-	GetRetentionsIDExecutionsEidTasksTid(params *GetRetentionsIDExecutionsEidTasksTidParams, authInfo runtime.ClientAuthInfoWriter) (*GetRetentionsIDExecutionsEidTasksTidOK, error)
+	GetRetentionsIDExecutionsEidTasksTid(params *GetRetentionsIDExecutionsEidTasksTidParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionsIDExecutionsEidTasksTidOK, error)
 
-	GetRetentionsMetadatas(params *GetRetentionsMetadatasParams, authInfo runtime.ClientAuthInfoWriter) (*GetRetentionsMetadatasOK, error)
+	GetRetentionsMetadatas(params *GetRetentionsMetadatasParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionsMetadatasOK, error)
 
-	GetScanners(params *GetScannersParams, authInfo runtime.ClientAuthInfoWriter) (*GetScannersOK, error)
+	GetScanners(params *GetScannersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetScannersOK, error)
 
-	GetScannersRegistrationID(params *GetScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetScannersRegistrationIDOK, error)
+	GetScannersRegistrationID(params *GetScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetScannersRegistrationIDOK, error)
 
-	GetScannersRegistrationIDMetadata(params *GetScannersRegistrationIDMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*GetScannersRegistrationIDMetadataOK, error)
+	GetScannersRegistrationIDMetadata(params *GetScannersRegistrationIDMetadataParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetScannersRegistrationIDMetadataOK, error)
 
-	GetScansAllMetrics(params *GetScansAllMetricsParams, authInfo runtime.ClientAuthInfoWriter) (*GetScansAllMetricsOK, error)
+	GetScansAllMetrics(params *GetScansAllMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetScansAllMetricsOK, error)
 
-	GetScansScheduleMetrics(params *GetScansScheduleMetricsParams, authInfo runtime.ClientAuthInfoWriter) (*GetScansScheduleMetricsOK, error)
+	GetScansScheduleMetrics(params *GetScansScheduleMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetScansScheduleMetricsOK, error)
 
-	GetSearch(params *GetSearchParams, authInfo runtime.ClientAuthInfoWriter) (*GetSearchOK, error)
+	GetSearch(params *GetSearchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSearchOK, error)
 
-	GetStatistics(params *GetStatisticsParams, authInfo runtime.ClientAuthInfoWriter) (*GetStatisticsOK, error)
+	GetStatistics(params *GetStatisticsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetStatisticsOK, error)
 
-	GetSystemCVEAllowlist(params *GetSystemCVEAllowlistParams, authInfo runtime.ClientAuthInfoWriter) (*GetSystemCVEAllowlistOK, error)
+	GetSystemCVEAllowlist(params *GetSystemCVEAllowlistParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemCVEAllowlistOK, error)
 
-	GetSystemGc(params *GetSystemGcParams, authInfo runtime.ClientAuthInfoWriter) (*GetSystemGcOK, error)
+	GetSystemGc(params *GetSystemGcParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemGcOK, error)
 
-	GetSystemGcID(params *GetSystemGcIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetSystemGcIDOK, error)
+	GetSystemGcID(params *GetSystemGcIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemGcIDOK, error)
 
-	GetSystemGcIDLog(params *GetSystemGcIDLogParams, authInfo runtime.ClientAuthInfoWriter) (*GetSystemGcIDLogOK, error)
+	GetSystemGcIDLog(params *GetSystemGcIDLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemGcIDLogOK, error)
 
-	GetSystemGcSchedule(params *GetSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*GetSystemGcScheduleOK, error)
+	GetSystemGcSchedule(params *GetSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemGcScheduleOK, error)
 
-	GetSystemScanAllSchedule(params *GetSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*GetSystemScanAllScheduleOK, error)
+	GetSystemScanAllSchedule(params *GetSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemScanAllScheduleOK, error)
 
-	GetSysteminfo(params *GetSysteminfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetSysteminfoOK, error)
+	GetSysteminfo(params *GetSysteminfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSysteminfoOK, error)
 
-	GetSysteminfoGetcert(params *GetSysteminfoGetcertParams, authInfo runtime.ClientAuthInfoWriter) (*GetSysteminfoGetcertOK, error)
+	GetSysteminfoGetcert(params *GetSysteminfoGetcertParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSysteminfoGetcertOK, error)
 
-	GetSysteminfoVolumes(params *GetSysteminfoVolumesParams, authInfo runtime.ClientAuthInfoWriter) (*GetSysteminfoVolumesOK, error)
+	GetSysteminfoVolumes(params *GetSysteminfoVolumesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSysteminfoVolumesOK, error)
 
-	GetUsergroups(params *GetUsergroupsParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsergroupsOK, error)
+	GetUsergroups(params *GetUsergroupsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsergroupsOK, error)
 
-	GetUsergroupsGroupID(params *GetUsergroupsGroupIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsergroupsGroupIDOK, error)
+	GetUsergroupsGroupID(params *GetUsergroupsGroupIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsergroupsGroupIDOK, error)
 
-	GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersOK, error)
+	GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsersOK, error)
 
-	GetUsersCurrent(params *GetUsersCurrentParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersCurrentOK, error)
+	GetUsersCurrent(params *GetUsersCurrentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsersCurrentOK, error)
 
-	GetUsersCurrentPermissions(params *GetUsersCurrentPermissionsParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersCurrentPermissionsOK, error)
+	GetUsersCurrentPermissions(params *GetUsersCurrentPermissionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsersCurrentPermissionsOK, error)
 
-	GetUsersSearch(params *GetUsersSearchParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersSearchOK, error)
+	GetUsersSearch(params *GetUsersSearchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsersSearchOK, error)
 
-	GetUsersUserID(params *GetUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersUserIDOK, error)
+	GetUsersUserID(params *GetUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsersUserIDOK, error)
 
-	PatchRetentionsIDExecutionsEid(params *PatchRetentionsIDExecutionsEidParams, authInfo runtime.ClientAuthInfoWriter) (*PatchRetentionsIDExecutionsEidOK, error)
+	PatchRetentionsIDExecutionsEid(params *PatchRetentionsIDExecutionsEidParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PatchRetentionsIDExecutionsEidOK, error)
 
-	PostChartrepoRepoChartsNameVersionLabels(params *PostChartrepoRepoChartsNameVersionLabelsParams, authInfo runtime.ClientAuthInfoWriter) (*PostChartrepoRepoChartsNameVersionLabelsOK, error)
+	PostChartrepoRepoChartsNameVersionLabels(params *PostChartrepoRepoChartsNameVersionLabelsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostChartrepoRepoChartsNameVersionLabelsOK, error)
 
-	PostEmailPing(params *PostEmailPingParams, authInfo runtime.ClientAuthInfoWriter) (*PostEmailPingOK, error)
+	PostEmailPing(params *PostEmailPingParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostEmailPingOK, error)
 
-	PostLabels(params *PostLabelsParams, authInfo runtime.ClientAuthInfoWriter) (*PostLabelsCreated, error)
+	PostLabels(params *PostLabelsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostLabelsCreated, error)
 
-	PostLdapPing(params *PostLdapPingParams, authInfo runtime.ClientAuthInfoWriter) (*PostLdapPingOK, error)
+	PostLdapPing(params *PostLdapPingParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostLdapPingOK, error)
 
-	PostLdapUsersImport(params *PostLdapUsersImportParams, authInfo runtime.ClientAuthInfoWriter) (*PostLdapUsersImportOK, error)
+	PostLdapUsersImport(params *PostLdapUsersImportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostLdapUsersImportOK, error)
 
-	PostProjectsProjectIDImmutabletagrules(params *PostProjectsProjectIDImmutabletagrulesParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsProjectIDImmutabletagrulesOK, error)
+	PostProjectsProjectIDImmutabletagrules(params *PostProjectsProjectIDImmutabletagrulesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostProjectsProjectIDImmutabletagrulesOK, error)
 
-	PostProjectsProjectIDMembers(params *PostProjectsProjectIDMembersParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsProjectIDMembersCreated, error)
+	PostProjectsProjectIDMembers(params *PostProjectsProjectIDMembersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostProjectsProjectIDMembersCreated, error)
 
-	PostProjectsProjectIDMetadatas(params *PostProjectsProjectIDMetadatasParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsProjectIDMetadatasOK, error)
+	PostProjectsProjectIDMetadatas(params *PostProjectsProjectIDMetadatasParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostProjectsProjectIDMetadatasOK, error)
 
-	PostProjectsProjectIDRobots(params *PostProjectsProjectIDRobotsParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsProjectIDRobotsCreated, error)
+	PostProjectsProjectIDRobots(params *PostProjectsProjectIDRobotsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostProjectsProjectIDRobotsCreated, error)
 
-	PostProjectsProjectIDWebhookPolicies(params *PostProjectsProjectIDWebhookPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsProjectIDWebhookPoliciesCreated, error)
+	PostProjectsProjectIDWebhookPolicies(params *PostProjectsProjectIDWebhookPoliciesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostProjectsProjectIDWebhookPoliciesCreated, error)
 
-	PostProjectsProjectIDWebhookPoliciesTest(params *PostProjectsProjectIDWebhookPoliciesTestParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsProjectIDWebhookPoliciesTestOK, error)
+	PostProjectsProjectIDWebhookPoliciesTest(params *PostProjectsProjectIDWebhookPoliciesTestParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostProjectsProjectIDWebhookPoliciesTestOK, error)
 
-	PostRegistries(params *PostRegistriesParams, authInfo runtime.ClientAuthInfoWriter) (*PostRegistriesCreated, error)
+	PostRegistries(params *PostRegistriesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostRegistriesCreated, error)
 
-	PostRegistriesPing(params *PostRegistriesPingParams, authInfo runtime.ClientAuthInfoWriter) (*PostRegistriesPingOK, error)
+	PostRegistriesPing(params *PostRegistriesPingParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostRegistriesPingOK, error)
 
-	PostReplicationExecutions(params *PostReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*PostReplicationExecutionsCreated, error)
+	PostReplicationExecutions(params *PostReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostReplicationExecutionsCreated, error)
 
-	PostReplicationPolicies(params *PostReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*PostReplicationPoliciesCreated, error)
+	PostReplicationPolicies(params *PostReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostReplicationPoliciesCreated, error)
 
-	PostRetentions(params *PostRetentionsParams, authInfo runtime.ClientAuthInfoWriter) (*PostRetentionsCreated, error)
+	PostRetentions(params *PostRetentionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostRetentionsCreated, error)
 
-	PostRetentionsIDExecutions(params *PostRetentionsIDExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*PostRetentionsIDExecutionsOK, error)
+	PostRetentionsIDExecutions(params *PostRetentionsIDExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostRetentionsIDExecutionsOK, error)
 
-	PostScannersPing(params *PostScannersPingParams, authInfo runtime.ClientAuthInfoWriter) (*PostScannersPingOK, error)
+	PostScannersPing(params *PostScannersPingParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostScannersPingOK, error)
 
-	PostSystemGcSchedule(params *PostSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*PostSystemGcScheduleOK, error)
+	PostSystemGcSchedule(params *PostSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostSystemGcScheduleOK, error)
 
-	PostSystemOidcPing(params *PostSystemOidcPingParams, authInfo runtime.ClientAuthInfoWriter) (*PostSystemOidcPingOK, error)
+	PostSystemOidcPing(params *PostSystemOidcPingParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostSystemOidcPingOK, error)
 
-	PostSystemScanAllSchedule(params *PostSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*PostSystemScanAllScheduleOK, error)
+	PostSystemScanAllSchedule(params *PostSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostSystemScanAllScheduleOK, error)
 
-	PostUsergroups(params *PostUsergroupsParams, authInfo runtime.ClientAuthInfoWriter) (*PostUsergroupsCreated, error)
+	PostUsergroups(params *PostUsergroupsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostUsergroupsCreated, error)
 
-	PostUsers(params *PostUsersParams, authInfo runtime.ClientAuthInfoWriter) (*PostUsersCreated, error)
+	PostUsers(params *PostUsersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostUsersCreated, error)
 
-	PutConfigurations(params *PutConfigurationsParams, authInfo runtime.ClientAuthInfoWriter) (*PutConfigurationsOK, error)
+	PutConfigurations(params *PutConfigurationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutConfigurationsOK, error)
 
-	PutLabelsID(params *PutLabelsIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutLabelsIDOK, error)
+	PutLabelsID(params *PutLabelsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutLabelsIDOK, error)
 
-	PutProjectsProjectIDImmutabletagrulesID(params *PutProjectsProjectIDImmutabletagrulesIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDImmutabletagrulesIDOK, error)
+	PutProjectsProjectIDImmutabletagrulesID(params *PutProjectsProjectIDImmutabletagrulesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutProjectsProjectIDImmutabletagrulesIDOK, error)
 
-	PutProjectsProjectIDMembersMid(params *PutProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDMembersMidOK, error)
+	PutProjectsProjectIDMembersMid(params *PutProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutProjectsProjectIDMembersMidOK, error)
 
-	PutProjectsProjectIDMetadatasMetaName(params *PutProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDMetadatasMetaNameOK, error)
+	PutProjectsProjectIDMetadatasMetaName(params *PutProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutProjectsProjectIDMetadatasMetaNameOK, error)
 
-	PutProjectsProjectIDRobotsRobotID(params *PutProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDRobotsRobotIDOK, error)
+	PutProjectsProjectIDRobotsRobotID(params *PutProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutProjectsProjectIDRobotsRobotIDOK, error)
 
-	PutProjectsProjectIDWebhookPoliciesPolicyID(params *PutProjectsProjectIDWebhookPoliciesPolicyIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDWebhookPoliciesPolicyIDOK, error)
+	PutProjectsProjectIDWebhookPoliciesPolicyID(params *PutProjectsProjectIDWebhookPoliciesPolicyIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutProjectsProjectIDWebhookPoliciesPolicyIDOK, error)
 
-	PutQuotasID(params *PutQuotasIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutQuotasIDOK, error)
+	PutQuotasID(params *PutQuotasIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutQuotasIDOK, error)
 
-	PutRegistriesID(params *PutRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutRegistriesIDOK, error)
+	PutRegistriesID(params *PutRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutRegistriesIDOK, error)
 
-	PutReplicationExecutionsID(params *PutReplicationExecutionsIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutReplicationExecutionsIDOK, error)
+	PutReplicationExecutionsID(params *PutReplicationExecutionsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutReplicationExecutionsIDOK, error)
 
-	PutReplicationPoliciesID(params *PutReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutReplicationPoliciesIDOK, error)
+	PutReplicationPoliciesID(params *PutReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutReplicationPoliciesIDOK, error)
 
-	PutRetentionsID(params *PutRetentionsIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutRetentionsIDOK, error)
+	PutRetentionsID(params *PutRetentionsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutRetentionsIDOK, error)
 
-	PutSystemCVEAllowlist(params *PutSystemCVEAllowlistParams, authInfo runtime.ClientAuthInfoWriter) (*PutSystemCVEAllowlistOK, error)
+	PutSystemCVEAllowlist(params *PutSystemCVEAllowlistParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutSystemCVEAllowlistOK, error)
 
-	PutSystemGcSchedule(params *PutSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*PutSystemGcScheduleOK, error)
+	PutSystemGcSchedule(params *PutSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutSystemGcScheduleOK, error)
 
-	PutSystemScanAllSchedule(params *PutSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*PutSystemScanAllScheduleOK, error)
+	PutSystemScanAllSchedule(params *PutSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutSystemScanAllScheduleOK, error)
 
-	PutUsergroupsGroupID(params *PutUsergroupsGroupIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutUsergroupsGroupIDOK, error)
+	PutUsergroupsGroupID(params *PutUsergroupsGroupIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutUsergroupsGroupIDOK, error)
 
-	PutUsersUserID(params *PutUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutUsersUserIDOK, error)
+	PutUsersUserID(params *PutUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutUsersUserIDOK, error)
 
-	PutUsersUserIDCliSecret(params *PutUsersUserIDCliSecretParams, authInfo runtime.ClientAuthInfoWriter) (*PutUsersUserIDCliSecretOK, error)
+	PutUsersUserIDCliSecret(params *PutUsersUserIDCliSecretParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutUsersUserIDCliSecretOK, error)
 
-	PutUsersUserIDPassword(params *PutUsersUserIDPasswordParams, authInfo runtime.ClientAuthInfoWriter) (*PutUsersUserIDPasswordOK, error)
+	PutUsersUserIDPassword(params *PutUsersUserIDPasswordParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutUsersUserIDPasswordOK, error)
 
-	PutUsersUserIDSysadmin(params *PutUsersUserIDSysadminParams, authInfo runtime.ClientAuthInfoWriter) (*PutUsersUserIDSysadminOK, error)
+	PutUsersUserIDSysadmin(params *PutUsersUserIDSysadminParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutUsersUserIDSysadminOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -269,13 +272,12 @@ type ClientService interface {
 
   Remove label from the specified chart version.
 */
-func (a *Client) DeleteChartrepoRepoChartsNameVersionLabelsID(params *DeleteChartrepoRepoChartsNameVersionLabelsIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteChartrepoRepoChartsNameVersionLabelsIDOK, error) {
+func (a *Client) DeleteChartrepoRepoChartsNameVersionLabelsID(params *DeleteChartrepoRepoChartsNameVersionLabelsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteChartrepoRepoChartsNameVersionLabelsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteChartrepoRepoChartsNameVersionLabelsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteChartrepoRepoChartsNameVersionLabelsID",
 		Method:             "DELETE",
 		PathPattern:        "/chartrepo/{repo}/charts/{name}/{version}/labels/{id}",
@@ -287,7 +289,12 @@ func (a *Client) DeleteChartrepoRepoChartsNameVersionLabelsID(params *DeleteChar
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -307,13 +314,12 @@ func (a *Client) DeleteChartrepoRepoChartsNameVersionLabelsID(params *DeleteChar
   Delete the label specified by ID.
 
 */
-func (a *Client) DeleteLabelsID(params *DeleteLabelsIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteLabelsIDOK, error) {
+func (a *Client) DeleteLabelsID(params *DeleteLabelsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteLabelsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteLabelsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteLabelsID",
 		Method:             "DELETE",
 		PathPattern:        "/labels/{id}",
@@ -325,7 +331,12 @@ func (a *Client) DeleteLabelsID(params *DeleteLabelsIDParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -342,13 +353,12 @@ func (a *Client) DeleteLabelsID(params *DeleteLabelsIDParams, authInfo runtime.C
 /*
   DeleteProjectsProjectIDImmutabletagrulesID deletes the immutable tag rule
 */
-func (a *Client) DeleteProjectsProjectIDImmutabletagrulesID(params *DeleteProjectsProjectIDImmutabletagrulesIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProjectsProjectIDImmutabletagrulesIDOK, error) {
+func (a *Client) DeleteProjectsProjectIDImmutabletagrulesID(params *DeleteProjectsProjectIDImmutabletagrulesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProjectsProjectIDImmutabletagrulesIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteProjectsProjectIDImmutabletagrulesIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteProjectsProjectIDImmutabletagrulesID",
 		Method:             "DELETE",
 		PathPattern:        "/projects/{project_id}/immutabletagrules/{id}",
@@ -360,7 +370,12 @@ func (a *Client) DeleteProjectsProjectIDImmutabletagrulesID(params *DeleteProjec
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -377,13 +392,12 @@ func (a *Client) DeleteProjectsProjectIDImmutabletagrulesID(params *DeleteProjec
 /*
   DeleteProjectsProjectIDMembersMid deletes project member
 */
-func (a *Client) DeleteProjectsProjectIDMembersMid(params *DeleteProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProjectsProjectIDMembersMidOK, error) {
+func (a *Client) DeleteProjectsProjectIDMembersMid(params *DeleteProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProjectsProjectIDMembersMidOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteProjectsProjectIDMembersMidParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteProjectsProjectIDMembersMid",
 		Method:             "DELETE",
 		PathPattern:        "/projects/{project_id}/members/{mid}",
@@ -395,7 +409,12 @@ func (a *Client) DeleteProjectsProjectIDMembersMid(params *DeleteProjectsProject
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -415,13 +434,12 @@ func (a *Client) DeleteProjectsProjectIDMembersMid(params *DeleteProjectsProject
   This endpoint is aimed to delete metadata of a project.
 
 */
-func (a *Client) DeleteProjectsProjectIDMetadatasMetaName(params *DeleteProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProjectsProjectIDMetadatasMetaNameOK, error) {
+func (a *Client) DeleteProjectsProjectIDMetadatasMetaName(params *DeleteProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProjectsProjectIDMetadatasMetaNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteProjectsProjectIDMetadatasMetaNameParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteProjectsProjectIDMetadatasMetaName",
 		Method:             "DELETE",
 		PathPattern:        "/projects/{project_id}/metadatas/{meta_name}",
@@ -433,7 +451,12 @@ func (a *Client) DeleteProjectsProjectIDMetadatasMetaName(params *DeleteProjects
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -452,13 +475,12 @@ func (a *Client) DeleteProjectsProjectIDMetadatasMetaName(params *DeleteProjects
 
   Delete the specified robot account
 */
-func (a *Client) DeleteProjectsProjectIDRobotsRobotID(params *DeleteProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProjectsProjectIDRobotsRobotIDOK, error) {
+func (a *Client) DeleteProjectsProjectIDRobotsRobotID(params *DeleteProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProjectsProjectIDRobotsRobotIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteProjectsProjectIDRobotsRobotIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteProjectsProjectIDRobotsRobotID",
 		Method:             "DELETE",
 		PathPattern:        "/projects/{project_id}/robots/{robot_id}",
@@ -470,7 +492,12 @@ func (a *Client) DeleteProjectsProjectIDRobotsRobotID(params *DeleteProjectsProj
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -490,13 +517,12 @@ func (a *Client) DeleteProjectsProjectIDRobotsRobotID(params *DeleteProjectsProj
   This endpoint is aimed to delete webhookpolicy of a project.
 
 */
-func (a *Client) DeleteProjectsProjectIDWebhookPoliciesPolicyID(params *DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProjectsProjectIDWebhookPoliciesPolicyIDOK, error) {
+func (a *Client) DeleteProjectsProjectIDWebhookPoliciesPolicyID(params *DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProjectsProjectIDWebhookPoliciesPolicyIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteProjectsProjectIDWebhookPoliciesPolicyIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteProjectsProjectIDWebhookPoliciesPolicyID",
 		Method:             "DELETE",
 		PathPattern:        "/projects/{project_id}/webhook/policies/{policy_id}",
@@ -508,7 +534,12 @@ func (a *Client) DeleteProjectsProjectIDWebhookPoliciesPolicyID(params *DeletePr
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -528,13 +559,12 @@ func (a *Client) DeleteProjectsProjectIDWebhookPoliciesPolicyID(params *DeletePr
   This endpoint is for to delete specific registry.
 
 */
-func (a *Client) DeleteRegistriesID(params *DeleteRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRegistriesIDOK, error) {
+func (a *Client) DeleteRegistriesID(params *DeleteRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteRegistriesIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteRegistriesIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteRegistriesID",
 		Method:             "DELETE",
 		PathPattern:        "/registries/{id}",
@@ -546,7 +576,12 @@ func (a *Client) DeleteRegistriesID(params *DeleteRegistriesIDParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -566,13 +601,12 @@ func (a *Client) DeleteRegistriesID(params *DeleteRegistriesIDParams, authInfo r
   Delete the replication policy specified by ID.
 
 */
-func (a *Client) DeleteReplicationPoliciesID(params *DeleteReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteReplicationPoliciesIDOK, error) {
+func (a *Client) DeleteReplicationPoliciesID(params *DeleteReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteReplicationPoliciesIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteReplicationPoliciesIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteReplicationPoliciesID",
 		Method:             "DELETE",
 		PathPattern:        "/replication/policies/{id}",
@@ -584,7 +618,12 @@ func (a *Client) DeleteReplicationPoliciesID(params *DeleteReplicationPoliciesID
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -603,13 +642,12 @@ func (a *Client) DeleteReplicationPoliciesID(params *DeleteReplicationPoliciesID
 
   Delete user group
 */
-func (a *Client) DeleteUsergroupsGroupID(params *DeleteUsergroupsGroupIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUsergroupsGroupIDOK, error) {
+func (a *Client) DeleteUsergroupsGroupID(params *DeleteUsergroupsGroupIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteUsergroupsGroupIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteUsergroupsGroupIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteUsergroupsGroupID",
 		Method:             "DELETE",
 		PathPattern:        "/usergroups/{group_id}",
@@ -621,7 +659,12 @@ func (a *Client) DeleteUsergroupsGroupID(params *DeleteUsergroupsGroupIDParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -642,13 +685,12 @@ func (a *Client) DeleteUsergroupsGroupID(params *DeleteUsergroupsGroupIDParams, 
 be removed.It actually won't be deleted from DB.
 
 */
-func (a *Client) DeleteUsersUserID(params *DeleteUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUsersUserIDOK, error) {
+func (a *Client) DeleteUsersUserID(params *DeleteUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteUsersUserIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteUsersUserIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteUsersUserID",
 		Method:             "DELETE",
 		PathPattern:        "/users/{user_id}",
@@ -660,7 +702,12 @@ func (a *Client) DeleteUsersUserID(params *DeleteUsersUserIDParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -679,13 +726,12 @@ func (a *Client) DeleteUsersUserID(params *DeleteUsersUserIDParams, authInfo run
 
   Return the attahced labels of the specified chart version.
 */
-func (a *Client) GetChartrepoRepoChartsNameVersionLabels(params *GetChartrepoRepoChartsNameVersionLabelsParams, authInfo runtime.ClientAuthInfoWriter) (*GetChartrepoRepoChartsNameVersionLabelsOK, error) {
+func (a *Client) GetChartrepoRepoChartsNameVersionLabels(params *GetChartrepoRepoChartsNameVersionLabelsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetChartrepoRepoChartsNameVersionLabelsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetChartrepoRepoChartsNameVersionLabelsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetChartrepoRepoChartsNameVersionLabels",
 		Method:             "GET",
 		PathPattern:        "/chartrepo/{repo}/charts/{name}/{version}/labels",
@@ -697,7 +743,12 @@ func (a *Client) GetChartrepoRepoChartsNameVersionLabels(params *GetChartrepoRep
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -717,13 +768,12 @@ func (a *Client) GetChartrepoRepoChartsNameVersionLabels(params *GetChartrepoRep
   This endpoint is for retrieving system configurations that only provides for admin user.
 
 */
-func (a *Client) GetConfigurations(params *GetConfigurationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetConfigurationsOK, error) {
+func (a *Client) GetConfigurations(params *GetConfigurationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetConfigurationsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetConfigurationsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetConfigurations",
 		Method:             "GET",
 		PathPattern:        "/configurations",
@@ -735,7 +785,12 @@ func (a *Client) GetConfigurations(params *GetConfigurationsParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -755,13 +810,12 @@ func (a *Client) GetConfigurations(params *GetConfigurationsParams, authInfo run
   The endpoint returns the health stauts of the system.
 
 */
-func (a *Client) GetHealth(params *GetHealthParams, authInfo runtime.ClientAuthInfoWriter) (*GetHealthOK, error) {
+func (a *Client) GetHealth(params *GetHealthParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetHealthOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetHealthParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetHealth",
 		Method:             "GET",
 		PathPattern:        "/health",
@@ -773,7 +827,12 @@ func (a *Client) GetHealth(params *GetHealthParams, authInfo runtime.ClientAuthI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -793,13 +852,12 @@ func (a *Client) GetHealth(params *GetHealthParams, authInfo runtime.ClientAuthI
   This endpoint let user list labels by name, scope and project_id
 
 */
-func (a *Client) GetLabels(params *GetLabelsParams, authInfo runtime.ClientAuthInfoWriter) (*GetLabelsOK, error) {
+func (a *Client) GetLabels(params *GetLabelsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLabelsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetLabelsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetLabels",
 		Method:             "GET",
 		PathPattern:        "/labels",
@@ -811,7 +869,12 @@ func (a *Client) GetLabels(params *GetLabelsParams, authInfo runtime.ClientAuthI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -831,13 +894,12 @@ func (a *Client) GetLabels(params *GetLabelsParams, authInfo runtime.ClientAuthI
   This endpoint let user get the label by specific ID.
 
 */
-func (a *Client) GetLabelsID(params *GetLabelsIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetLabelsIDOK, error) {
+func (a *Client) GetLabelsID(params *GetLabelsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLabelsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetLabelsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetLabelsID",
 		Method:             "GET",
 		PathPattern:        "/labels/{id}",
@@ -849,7 +911,12 @@ func (a *Client) GetLabelsID(params *GetLabelsIDParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -869,13 +936,12 @@ func (a *Client) GetLabelsID(params *GetLabelsIDParams, authInfo runtime.ClientA
   This endpoint searches the available ldap groups based on related configuration parameters. support to search by groupname or groupdn.
 
 */
-func (a *Client) GetLdapGroupsSearch(params *GetLdapGroupsSearchParams, authInfo runtime.ClientAuthInfoWriter) (*GetLdapGroupsSearchOK, error) {
+func (a *Client) GetLdapGroupsSearch(params *GetLdapGroupsSearchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLdapGroupsSearchOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetLdapGroupsSearchParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetLdapGroupsSearch",
 		Method:             "GET",
 		PathPattern:        "/ldap/groups/search",
@@ -887,7 +953,12 @@ func (a *Client) GetLdapGroupsSearch(params *GetLdapGroupsSearchParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -907,13 +978,12 @@ func (a *Client) GetLdapGroupsSearch(params *GetLdapGroupsSearchParams, authInfo
   This endpoint searches the available ldap users based on related configuration parameters. Support searched by input ladp configuration, load configuration from the system and specific filter.
 
 */
-func (a *Client) GetLdapUsersSearch(params *GetLdapUsersSearchParams, authInfo runtime.ClientAuthInfoWriter) (*GetLdapUsersSearchOK, error) {
+func (a *Client) GetLdapUsersSearch(params *GetLdapUsersSearchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLdapUsersSearchOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetLdapUsersSearchParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetLdapUsersSearch",
 		Method:             "GET",
 		PathPattern:        "/ldap/users/search",
@@ -925,7 +995,12 @@ func (a *Client) GetLdapUsersSearch(params *GetLdapUsersSearchParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -945,13 +1020,12 @@ func (a *Client) GetLdapUsersSearch(params *GetLdapUsersSearchParams, authInfo r
   This endpoint returns the immutable tag rules of a project
 
 */
-func (a *Client) GetProjectsProjectIDImmutabletagrules(params *GetProjectsProjectIDImmutabletagrulesParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDImmutabletagrulesOK, error) {
+func (a *Client) GetProjectsProjectIDImmutabletagrules(params *GetProjectsProjectIDImmutabletagrulesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDImmutabletagrulesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProjectsProjectIDImmutabletagrulesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetProjectsProjectIDImmutabletagrules",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_id}/immutabletagrules",
@@ -963,7 +1037,12 @@ func (a *Client) GetProjectsProjectIDImmutabletagrules(params *GetProjectsProjec
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -982,13 +1061,12 @@ func (a *Client) GetProjectsProjectIDImmutabletagrules(params *GetProjectsProjec
 
   Get all project member information
 */
-func (a *Client) GetProjectsProjectIDMembers(params *GetProjectsProjectIDMembersParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDMembersOK, error) {
+func (a *Client) GetProjectsProjectIDMembers(params *GetProjectsProjectIDMembersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDMembersOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProjectsProjectIDMembersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetProjectsProjectIDMembers",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_id}/members",
@@ -1000,7 +1078,12 @@ func (a *Client) GetProjectsProjectIDMembers(params *GetProjectsProjectIDMembers
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1019,13 +1102,12 @@ func (a *Client) GetProjectsProjectIDMembers(params *GetProjectsProjectIDMembers
 
   Get the project member information
 */
-func (a *Client) GetProjectsProjectIDMembersMid(params *GetProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDMembersMidOK, error) {
+func (a *Client) GetProjectsProjectIDMembersMid(params *GetProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDMembersMidOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProjectsProjectIDMembersMidParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetProjectsProjectIDMembersMid",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_id}/members/{mid}",
@@ -1037,7 +1119,12 @@ func (a *Client) GetProjectsProjectIDMembersMid(params *GetProjectsProjectIDMemb
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1057,13 +1144,12 @@ func (a *Client) GetProjectsProjectIDMembersMid(params *GetProjectsProjectIDMemb
   This endpoint returns metadata of the project specified by project ID.
 
 */
-func (a *Client) GetProjectsProjectIDMetadatas(params *GetProjectsProjectIDMetadatasParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDMetadatasOK, error) {
+func (a *Client) GetProjectsProjectIDMetadatas(params *GetProjectsProjectIDMetadatasParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDMetadatasOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProjectsProjectIDMetadatasParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetProjectsProjectIDMetadatas",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_id}/metadatas",
@@ -1075,7 +1161,12 @@ func (a *Client) GetProjectsProjectIDMetadatas(params *GetProjectsProjectIDMetad
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1095,13 +1186,12 @@ func (a *Client) GetProjectsProjectIDMetadatas(params *GetProjectsProjectIDMetad
   This endpoint returns specified metadata of a project.
 
 */
-func (a *Client) GetProjectsProjectIDMetadatasMetaName(params *GetProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDMetadatasMetaNameOK, error) {
+func (a *Client) GetProjectsProjectIDMetadatasMetaName(params *GetProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDMetadatasMetaNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProjectsProjectIDMetadatasMetaNameParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetProjectsProjectIDMetadatasMetaName",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_id}/metadatas/{meta_name}",
@@ -1113,7 +1203,12 @@ func (a *Client) GetProjectsProjectIDMetadatasMetaName(params *GetProjectsProjec
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1132,13 +1227,12 @@ func (a *Client) GetProjectsProjectIDMetadatasMetaName(params *GetProjectsProjec
 
   Get all robot accounts of specified project
 */
-func (a *Client) GetProjectsProjectIDRobots(params *GetProjectsProjectIDRobotsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDRobotsOK, error) {
+func (a *Client) GetProjectsProjectIDRobots(params *GetProjectsProjectIDRobotsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDRobotsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProjectsProjectIDRobotsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetProjectsProjectIDRobots",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_id}/robots",
@@ -1150,7 +1244,12 @@ func (a *Client) GetProjectsProjectIDRobots(params *GetProjectsProjectIDRobotsPa
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1169,13 +1268,12 @@ func (a *Client) GetProjectsProjectIDRobots(params *GetProjectsProjectIDRobotsPa
 
   Return the infor of the specified robot account.
 */
-func (a *Client) GetProjectsProjectIDRobotsRobotID(params *GetProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDRobotsRobotIDOK, error) {
+func (a *Client) GetProjectsProjectIDRobotsRobotID(params *GetProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDRobotsRobotIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProjectsProjectIDRobotsRobotIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetProjectsProjectIDRobotsRobotID",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_id}/robots/{robot_id}",
@@ -1187,7 +1285,12 @@ func (a *Client) GetProjectsProjectIDRobotsRobotID(params *GetProjectsProjectIDR
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1206,13 +1309,12 @@ func (a *Client) GetProjectsProjectIDRobotsRobotID(params *GetProjectsProjectIDR
 
   Get the scanner registration of the specified project. If no scanner registration is configured for the specified project, the system default scanner registration will be returned.
 */
-func (a *Client) GetProjectsProjectIDScanner(params *GetProjectsProjectIDScannerParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDScannerOK, error) {
+func (a *Client) GetProjectsProjectIDScanner(params *GetProjectsProjectIDScannerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDScannerOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProjectsProjectIDScannerParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetProjectsProjectIDScanner",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_id}/scanner",
@@ -1224,7 +1326,12 @@ func (a *Client) GetProjectsProjectIDScanner(params *GetProjectsProjectIDScanner
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1244,13 +1351,12 @@ func (a *Client) GetProjectsProjectIDScanner(params *GetProjectsProjectIDScanner
   Retrieve the system configured scanner registrations as candidates of setting project level scanner.
 
 */
-func (a *Client) GetProjectsProjectIDScannerCandidates(params *GetProjectsProjectIDScannerCandidatesParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDScannerCandidatesOK, error) {
+func (a *Client) GetProjectsProjectIDScannerCandidates(params *GetProjectsProjectIDScannerCandidatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDScannerCandidatesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProjectsProjectIDScannerCandidatesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetProjectsProjectIDScannerCandidates",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_id}/scanner/candidates",
@@ -1262,7 +1368,12 @@ func (a *Client) GetProjectsProjectIDScannerCandidates(params *GetProjectsProjec
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1281,13 +1392,12 @@ func (a *Client) GetProjectsProjectIDScannerCandidates(params *GetProjectsProjec
 
   Get supportted event types and notify types.
 */
-func (a *Client) GetProjectsProjectIDWebhookEvents(params *GetProjectsProjectIDWebhookEventsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDWebhookEventsOK, error) {
+func (a *Client) GetProjectsProjectIDWebhookEvents(params *GetProjectsProjectIDWebhookEventsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDWebhookEventsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProjectsProjectIDWebhookEventsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetProjectsProjectIDWebhookEvents",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_id}/webhook/events",
@@ -1299,7 +1409,12 @@ func (a *Client) GetProjectsProjectIDWebhookEvents(params *GetProjectsProjectIDW
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1319,13 +1434,12 @@ func (a *Client) GetProjectsProjectIDWebhookEvents(params *GetProjectsProjectIDW
   This endpoint returns webhook jobs of a project.
 
 */
-func (a *Client) GetProjectsProjectIDWebhookJobs(params *GetProjectsProjectIDWebhookJobsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDWebhookJobsOK, error) {
+func (a *Client) GetProjectsProjectIDWebhookJobs(params *GetProjectsProjectIDWebhookJobsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDWebhookJobsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProjectsProjectIDWebhookJobsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetProjectsProjectIDWebhookJobs",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_id}/webhook/jobs",
@@ -1337,7 +1451,12 @@ func (a *Client) GetProjectsProjectIDWebhookJobs(params *GetProjectsProjectIDWeb
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1357,13 +1476,12 @@ func (a *Client) GetProjectsProjectIDWebhookJobs(params *GetProjectsProjectIDWeb
   This endpoint returns last trigger information of project webhook policy.
 
 */
-func (a *Client) GetProjectsProjectIDWebhookLasttrigger(params *GetProjectsProjectIDWebhookLasttriggerParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDWebhookLasttriggerOK, error) {
+func (a *Client) GetProjectsProjectIDWebhookLasttrigger(params *GetProjectsProjectIDWebhookLasttriggerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDWebhookLasttriggerOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProjectsProjectIDWebhookLasttriggerParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetProjectsProjectIDWebhookLasttrigger",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_id}/webhook/lasttrigger",
@@ -1375,7 +1493,12 @@ func (a *Client) GetProjectsProjectIDWebhookLasttrigger(params *GetProjectsProje
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1395,13 +1518,12 @@ func (a *Client) GetProjectsProjectIDWebhookLasttrigger(params *GetProjectsProje
   This endpoint returns webhook policies of a project.
 
 */
-func (a *Client) GetProjectsProjectIDWebhookPolicies(params *GetProjectsProjectIDWebhookPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDWebhookPoliciesOK, error) {
+func (a *Client) GetProjectsProjectIDWebhookPolicies(params *GetProjectsProjectIDWebhookPoliciesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDWebhookPoliciesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProjectsProjectIDWebhookPoliciesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetProjectsProjectIDWebhookPolicies",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_id}/webhook/policies",
@@ -1413,7 +1535,12 @@ func (a *Client) GetProjectsProjectIDWebhookPolicies(params *GetProjectsProjectI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1433,13 +1560,12 @@ func (a *Client) GetProjectsProjectIDWebhookPolicies(params *GetProjectsProjectI
   This endpoint returns specified webhook policy of a project.
 
 */
-func (a *Client) GetProjectsProjectIDWebhookPoliciesPolicyID(params *GetProjectsProjectIDWebhookPoliciesPolicyIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectsProjectIDWebhookPoliciesPolicyIDOK, error) {
+func (a *Client) GetProjectsProjectIDWebhookPoliciesPolicyID(params *GetProjectsProjectIDWebhookPoliciesPolicyIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDWebhookPoliciesPolicyIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProjectsProjectIDWebhookPoliciesPolicyIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetProjectsProjectIDWebhookPoliciesPolicyID",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_id}/webhook/policies/{policy_id}",
@@ -1451,7 +1577,12 @@ func (a *Client) GetProjectsProjectIDWebhookPoliciesPolicyID(params *GetProjects
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1470,13 +1601,12 @@ func (a *Client) GetProjectsProjectIDWebhookPoliciesPolicyID(params *GetProjects
 
   List quotas
 */
-func (a *Client) GetQuotas(params *GetQuotasParams, authInfo runtime.ClientAuthInfoWriter) (*GetQuotasOK, error) {
+func (a *Client) GetQuotas(params *GetQuotasParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetQuotasOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetQuotasParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetQuotas",
 		Method:             "GET",
 		PathPattern:        "/quotas",
@@ -1488,7 +1618,12 @@ func (a *Client) GetQuotas(params *GetQuotasParams, authInfo runtime.ClientAuthI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1507,13 +1642,12 @@ func (a *Client) GetQuotas(params *GetQuotasParams, authInfo runtime.ClientAuthI
 
   Get the specified quota
 */
-func (a *Client) GetQuotasID(params *GetQuotasIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetQuotasIDOK, error) {
+func (a *Client) GetQuotasID(params *GetQuotasIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetQuotasIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetQuotasIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetQuotasID",
 		Method:             "GET",
 		PathPattern:        "/quotas/{id}",
@@ -1525,7 +1659,12 @@ func (a *Client) GetQuotasID(params *GetQuotasIDParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1545,13 +1684,12 @@ func (a *Client) GetQuotasID(params *GetQuotasIDParams, authInfo runtime.ClientA
   List registries according to the query.
 
 */
-func (a *Client) GetRegistries(params *GetRegistriesParams, authInfo runtime.ClientAuthInfoWriter) (*GetRegistriesOK, error) {
+func (a *Client) GetRegistries(params *GetRegistriesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRegistriesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRegistriesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetRegistries",
 		Method:             "GET",
 		PathPattern:        "/registries",
@@ -1563,7 +1701,12 @@ func (a *Client) GetRegistries(params *GetRegistriesParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1582,13 +1725,12 @@ func (a *Client) GetRegistries(params *GetRegistriesParams, authInfo runtime.Cli
 
   This endpoint is for get specific registry.
 */
-func (a *Client) GetRegistriesID(params *GetRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetRegistriesIDOK, error) {
+func (a *Client) GetRegistriesID(params *GetRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRegistriesIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRegistriesIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetRegistriesID",
 		Method:             "GET",
 		PathPattern:        "/registries/{id}",
@@ -1600,7 +1742,12 @@ func (a *Client) GetRegistriesID(params *GetRegistriesIDParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1619,13 +1766,12 @@ func (a *Client) GetRegistriesID(params *GetRegistriesIDParams, authInfo runtime
 
   Get the info of one specific registry.
 */
-func (a *Client) GetRegistriesIDInfo(params *GetRegistriesIDInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetRegistriesIDInfoOK, error) {
+func (a *Client) GetRegistriesIDInfo(params *GetRegistriesIDInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRegistriesIDInfoOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRegistriesIDInfoParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetRegistriesIDInfo",
 		Method:             "GET",
 		PathPattern:        "/registries/{id}/info",
@@ -1637,7 +1783,12 @@ func (a *Client) GetRegistriesIDInfo(params *GetRegistriesIDInfoParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1657,13 +1808,12 @@ func (a *Client) GetRegistriesIDInfo(params *GetRegistriesIDInfoParams, authInfo
   This endpoint let user list namespaces of registry according to query.
 
 */
-func (a *Client) GetRegistriesIDNamespace(params *GetRegistriesIDNamespaceParams, authInfo runtime.ClientAuthInfoWriter) (*GetRegistriesIDNamespaceOK, error) {
+func (a *Client) GetRegistriesIDNamespace(params *GetRegistriesIDNamespaceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRegistriesIDNamespaceOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRegistriesIDNamespaceParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetRegistriesIDNamespace",
 		Method:             "GET",
 		PathPattern:        "/registries/{id}/namespace",
@@ -1675,7 +1825,12 @@ func (a *Client) GetRegistriesIDNamespace(params *GetRegistriesIDNamespaceParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1695,13 +1850,12 @@ func (a *Client) GetRegistriesIDNamespace(params *GetRegistriesIDNamespaceParams
   This endpoint let user list supported adapters.
 
 */
-func (a *Client) GetReplicationAdapters(params *GetReplicationAdaptersParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationAdaptersOK, error) {
+func (a *Client) GetReplicationAdapters(params *GetReplicationAdaptersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationAdaptersOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetReplicationAdaptersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetReplicationAdapters",
 		Method:             "GET",
 		PathPattern:        "/replication/adapters",
@@ -1713,7 +1867,12 @@ func (a *Client) GetReplicationAdapters(params *GetReplicationAdaptersParams, au
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1733,13 +1892,12 @@ func (a *Client) GetReplicationAdapters(params *GetReplicationAdaptersParams, au
   This endpoint let user list replication executions.
 
 */
-func (a *Client) GetReplicationExecutions(params *GetReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationExecutionsOK, error) {
+func (a *Client) GetReplicationExecutions(params *GetReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationExecutionsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetReplicationExecutionsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetReplicationExecutions",
 		Method:             "GET",
 		PathPattern:        "/replication/executions",
@@ -1751,7 +1909,12 @@ func (a *Client) GetReplicationExecutions(params *GetReplicationExecutionsParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1771,13 +1934,12 @@ func (a *Client) GetReplicationExecutions(params *GetReplicationExecutionsParams
   This endpoint is for user to get one execution of the replication.
 
 */
-func (a *Client) GetReplicationExecutionsID(params *GetReplicationExecutionsIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationExecutionsIDOK, error) {
+func (a *Client) GetReplicationExecutionsID(params *GetReplicationExecutionsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationExecutionsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetReplicationExecutionsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetReplicationExecutionsID",
 		Method:             "GET",
 		PathPattern:        "/replication/executions/{id}",
@@ -1789,7 +1951,12 @@ func (a *Client) GetReplicationExecutionsID(params *GetReplicationExecutionsIDPa
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1809,13 +1976,12 @@ func (a *Client) GetReplicationExecutionsID(params *GetReplicationExecutionsIDPa
   This endpoint is for user to get the task list of one execution.
 
 */
-func (a *Client) GetReplicationExecutionsIDTasks(params *GetReplicationExecutionsIDTasksParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationExecutionsIDTasksOK, error) {
+func (a *Client) GetReplicationExecutionsIDTasks(params *GetReplicationExecutionsIDTasksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationExecutionsIDTasksOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetReplicationExecutionsIDTasksParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetReplicationExecutionsIDTasks",
 		Method:             "GET",
 		PathPattern:        "/replication/executions/{id}/tasks",
@@ -1827,7 +1993,12 @@ func (a *Client) GetReplicationExecutionsIDTasks(params *GetReplicationExecution
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1847,13 +2018,12 @@ func (a *Client) GetReplicationExecutionsIDTasks(params *GetReplicationExecution
   This endpoint is for user to get the log of one task.
 
 */
-func (a *Client) GetReplicationExecutionsIDTasksTaskIDLog(params *GetReplicationExecutionsIDTasksTaskIDLogParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationExecutionsIDTasksTaskIDLogOK, error) {
+func (a *Client) GetReplicationExecutionsIDTasksTaskIDLog(params *GetReplicationExecutionsIDTasksTaskIDLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationExecutionsIDTasksTaskIDLogOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetReplicationExecutionsIDTasksTaskIDLogParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetReplicationExecutionsIDTasksTaskIDLog",
 		Method:             "GET",
 		PathPattern:        "/replication/executions/{id}/tasks/{task_id}/log",
@@ -1865,7 +2035,12 @@ func (a *Client) GetReplicationExecutionsIDTasksTaskIDLog(params *GetReplication
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1885,13 +2060,12 @@ func (a *Client) GetReplicationExecutionsIDTasksTaskIDLog(params *GetReplication
   This endpoint let user list replication policies
 
 */
-func (a *Client) GetReplicationPolicies(params *GetReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationPoliciesOK, error) {
+func (a *Client) GetReplicationPolicies(params *GetReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationPoliciesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetReplicationPoliciesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetReplicationPolicies",
 		Method:             "GET",
 		PathPattern:        "/replication/policies",
@@ -1903,7 +2077,12 @@ func (a *Client) GetReplicationPolicies(params *GetReplicationPoliciesParams, au
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1923,13 +2102,12 @@ func (a *Client) GetReplicationPolicies(params *GetReplicationPoliciesParams, au
   This endpoint let user get replication policy by specific ID.
 
 */
-func (a *Client) GetReplicationPoliciesID(params *GetReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationPoliciesIDOK, error) {
+func (a *Client) GetReplicationPoliciesID(params *GetReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationPoliciesIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetReplicationPoliciesIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetReplicationPoliciesID",
 		Method:             "GET",
 		PathPattern:        "/replication/policies/{id}",
@@ -1941,7 +2119,12 @@ func (a *Client) GetReplicationPoliciesID(params *GetReplicationPoliciesIDParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1960,13 +2143,12 @@ func (a *Client) GetReplicationPoliciesID(params *GetReplicationPoliciesIDParams
 
   Get Retention Policy.
 */
-func (a *Client) GetRetentionsID(params *GetRetentionsIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetRetentionsIDOK, error) {
+func (a *Client) GetRetentionsID(params *GetRetentionsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRetentionsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetRetentionsID",
 		Method:             "GET",
 		PathPattern:        "/retentions/{id}",
@@ -1978,7 +2160,12 @@ func (a *Client) GetRetentionsID(params *GetRetentionsIDParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1997,13 +2184,12 @@ func (a *Client) GetRetentionsID(params *GetRetentionsIDParams, authInfo runtime
 
   Get a Retention job, job status may be delayed before job service schedule it up.
 */
-func (a *Client) GetRetentionsIDExecutions(params *GetRetentionsIDExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*GetRetentionsIDExecutionsOK, error) {
+func (a *Client) GetRetentionsIDExecutions(params *GetRetentionsIDExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionsIDExecutionsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRetentionsIDExecutionsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetRetentionsIDExecutions",
 		Method:             "GET",
 		PathPattern:        "/retentions/{id}/executions",
@@ -2015,7 +2201,12 @@ func (a *Client) GetRetentionsIDExecutions(params *GetRetentionsIDExecutionsPara
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2034,13 +2225,12 @@ func (a *Client) GetRetentionsIDExecutions(params *GetRetentionsIDExecutionsPara
 
   Get Retention job tasks, each repository as a task.
 */
-func (a *Client) GetRetentionsIDExecutionsEidTasks(params *GetRetentionsIDExecutionsEidTasksParams, authInfo runtime.ClientAuthInfoWriter) (*GetRetentionsIDExecutionsEidTasksOK, error) {
+func (a *Client) GetRetentionsIDExecutionsEidTasks(params *GetRetentionsIDExecutionsEidTasksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionsIDExecutionsEidTasksOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRetentionsIDExecutionsEidTasksParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetRetentionsIDExecutionsEidTasks",
 		Method:             "GET",
 		PathPattern:        "/retentions/{id}/executions/{eid}/tasks",
@@ -2052,7 +2242,12 @@ func (a *Client) GetRetentionsIDExecutionsEidTasks(params *GetRetentionsIDExecut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2071,13 +2266,12 @@ func (a *Client) GetRetentionsIDExecutionsEidTasks(params *GetRetentionsIDExecut
 
   Get Retention job task log, tags ratain or deletion detail will be shown in a table.
 */
-func (a *Client) GetRetentionsIDExecutionsEidTasksTid(params *GetRetentionsIDExecutionsEidTasksTidParams, authInfo runtime.ClientAuthInfoWriter) (*GetRetentionsIDExecutionsEidTasksTidOK, error) {
+func (a *Client) GetRetentionsIDExecutionsEidTasksTid(params *GetRetentionsIDExecutionsEidTasksTidParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionsIDExecutionsEidTasksTidOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRetentionsIDExecutionsEidTasksTidParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetRetentionsIDExecutionsEidTasksTid",
 		Method:             "GET",
 		PathPattern:        "/retentions/{id}/executions/{eid}/tasks/{tid}",
@@ -2089,7 +2283,12 @@ func (a *Client) GetRetentionsIDExecutionsEidTasksTid(params *GetRetentionsIDExe
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2108,13 +2307,12 @@ func (a *Client) GetRetentionsIDExecutionsEidTasksTid(params *GetRetentionsIDExe
 
   Get Retention Metadatas.
 */
-func (a *Client) GetRetentionsMetadatas(params *GetRetentionsMetadatasParams, authInfo runtime.ClientAuthInfoWriter) (*GetRetentionsMetadatasOK, error) {
+func (a *Client) GetRetentionsMetadatas(params *GetRetentionsMetadatasParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionsMetadatasOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRetentionsMetadatasParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetRetentionsMetadatas",
 		Method:             "GET",
 		PathPattern:        "/retentions/metadatas",
@@ -2126,7 +2324,12 @@ func (a *Client) GetRetentionsMetadatas(params *GetRetentionsMetadatasParams, au
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2146,13 +2349,12 @@ func (a *Client) GetRetentionsMetadatas(params *GetRetentionsMetadatasParams, au
   Returns a list of currently configured scanner registrations.
 
 */
-func (a *Client) GetScanners(params *GetScannersParams, authInfo runtime.ClientAuthInfoWriter) (*GetScannersOK, error) {
+func (a *Client) GetScanners(params *GetScannersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetScannersOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetScannersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetScanners",
 		Method:             "GET",
 		PathPattern:        "/scanners",
@@ -2164,7 +2366,12 @@ func (a *Client) GetScanners(params *GetScannersParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2184,13 +2391,12 @@ func (a *Client) GetScanners(params *GetScannersParams, authInfo runtime.ClientA
   Retruns the details of the specified scanner registration.
 
 */
-func (a *Client) GetScannersRegistrationID(params *GetScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetScannersRegistrationIDOK, error) {
+func (a *Client) GetScannersRegistrationID(params *GetScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetScannersRegistrationIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetScannersRegistrationIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetScannersRegistrationID",
 		Method:             "GET",
 		PathPattern:        "/scanners/{registration_id}",
@@ -2202,7 +2408,12 @@ func (a *Client) GetScannersRegistrationID(params *GetScannersRegistrationIDPara
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2222,13 +2433,12 @@ func (a *Client) GetScannersRegistrationID(params *GetScannersRegistrationIDPara
   Get the metadata of the specified scanner registration, including the capabilities and customzied properties.
 
 */
-func (a *Client) GetScannersRegistrationIDMetadata(params *GetScannersRegistrationIDMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*GetScannersRegistrationIDMetadataOK, error) {
+func (a *Client) GetScannersRegistrationIDMetadata(params *GetScannersRegistrationIDMetadataParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetScannersRegistrationIDMetadataOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetScannersRegistrationIDMetadataParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetScannersRegistrationIDMetadata",
 		Method:             "GET",
 		PathPattern:        "/scanners/{registration_id}/metadata",
@@ -2240,7 +2450,12 @@ func (a *Client) GetScannersRegistrationIDMetadata(params *GetScannersRegistrati
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2259,13 +2474,12 @@ func (a *Client) GetScannersRegistrationIDMetadata(params *GetScannersRegistrati
 
   Get the metrics of the latest scan all process
 */
-func (a *Client) GetScansAllMetrics(params *GetScansAllMetricsParams, authInfo runtime.ClientAuthInfoWriter) (*GetScansAllMetricsOK, error) {
+func (a *Client) GetScansAllMetrics(params *GetScansAllMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetScansAllMetricsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetScansAllMetricsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetScansAllMetrics",
 		Method:             "GET",
 		PathPattern:        "/scans/all/metrics",
@@ -2277,7 +2491,12 @@ func (a *Client) GetScansAllMetrics(params *GetScansAllMetricsParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2296,13 +2515,12 @@ func (a *Client) GetScansAllMetrics(params *GetScansAllMetricsParams, authInfo r
 
   Get the metrics of the latest scheduled scan all process
 */
-func (a *Client) GetScansScheduleMetrics(params *GetScansScheduleMetricsParams, authInfo runtime.ClientAuthInfoWriter) (*GetScansScheduleMetricsOK, error) {
+func (a *Client) GetScansScheduleMetrics(params *GetScansScheduleMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetScansScheduleMetricsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetScansScheduleMetricsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetScansScheduleMetrics",
 		Method:             "GET",
 		PathPattern:        "/scans/schedule/metrics",
@@ -2314,7 +2532,12 @@ func (a *Client) GetScansScheduleMetrics(params *GetScansScheduleMetricsParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2334,13 +2557,12 @@ func (a *Client) GetScansScheduleMetrics(params *GetScansScheduleMetricsParams, 
   The Search endpoint returns information about the projects ,repositories  and helm charts offered at public status or related to the current logged in user. The response includes the project, repository list and charts in a proper display order.
 
 */
-func (a *Client) GetSearch(params *GetSearchParams, authInfo runtime.ClientAuthInfoWriter) (*GetSearchOK, error) {
+func (a *Client) GetSearch(params *GetSearchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSearchOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSearchParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetSearch",
 		Method:             "GET",
 		PathPattern:        "/search",
@@ -2352,7 +2574,12 @@ func (a *Client) GetSearch(params *GetSearchParams, authInfo runtime.ClientAuthI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2372,13 +2599,12 @@ func (a *Client) GetSearch(params *GetSearchParams, authInfo runtime.ClientAuthI
   This endpoint is aimed to statistic all of the projects number and repositories number relevant to the logined user, also the public projects number and repositories number. If the user is admin, he can also get total projects number and total repositories number.
 
 */
-func (a *Client) GetStatistics(params *GetStatisticsParams, authInfo runtime.ClientAuthInfoWriter) (*GetStatisticsOK, error) {
+func (a *Client) GetStatistics(params *GetStatisticsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetStatisticsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetStatisticsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetStatistics",
 		Method:             "GET",
 		PathPattern:        "/statistics",
@@ -2390,7 +2616,12 @@ func (a *Client) GetStatistics(params *GetStatisticsParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2409,13 +2640,12 @@ func (a *Client) GetStatistics(params *GetStatisticsParams, authInfo runtime.Cli
 
   Get the system level allowlist of CVE.  This API can be called by all authenticated users.
 */
-func (a *Client) GetSystemCVEAllowlist(params *GetSystemCVEAllowlistParams, authInfo runtime.ClientAuthInfoWriter) (*GetSystemCVEAllowlistOK, error) {
+func (a *Client) GetSystemCVEAllowlist(params *GetSystemCVEAllowlistParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemCVEAllowlistOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSystemCVEAllowlistParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetSystemCVEAllowlist",
 		Method:             "GET",
 		PathPattern:        "/system/CVEAllowlist",
@@ -2427,7 +2657,12 @@ func (a *Client) GetSystemCVEAllowlist(params *GetSystemCVEAllowlistParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2446,13 +2681,12 @@ func (a *Client) GetSystemCVEAllowlist(params *GetSystemCVEAllowlistParams, auth
 
   This endpoint let user get latest ten gc results.
 */
-func (a *Client) GetSystemGc(params *GetSystemGcParams, authInfo runtime.ClientAuthInfoWriter) (*GetSystemGcOK, error) {
+func (a *Client) GetSystemGc(params *GetSystemGcParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemGcOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSystemGcParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetSystemGc",
 		Method:             "GET",
 		PathPattern:        "/system/gc",
@@ -2464,7 +2698,12 @@ func (a *Client) GetSystemGc(params *GetSystemGcParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2483,13 +2722,12 @@ func (a *Client) GetSystemGc(params *GetSystemGcParams, authInfo runtime.ClientA
 
   This endpoint let user get gc status filtered by specific ID.
 */
-func (a *Client) GetSystemGcID(params *GetSystemGcIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetSystemGcIDOK, error) {
+func (a *Client) GetSystemGcID(params *GetSystemGcIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemGcIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSystemGcIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetSystemGcID",
 		Method:             "GET",
 		PathPattern:        "/system/gc/{id}",
@@ -2501,7 +2739,12 @@ func (a *Client) GetSystemGcID(params *GetSystemGcIDParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2520,13 +2763,12 @@ func (a *Client) GetSystemGcID(params *GetSystemGcIDParams, authInfo runtime.Cli
 
   This endpoint let user get gc job logs filtered by specific ID.
 */
-func (a *Client) GetSystemGcIDLog(params *GetSystemGcIDLogParams, authInfo runtime.ClientAuthInfoWriter) (*GetSystemGcIDLogOK, error) {
+func (a *Client) GetSystemGcIDLog(params *GetSystemGcIDLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemGcIDLogOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSystemGcIDLogParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetSystemGcIDLog",
 		Method:             "GET",
 		PathPattern:        "/system/gc/{id}/log",
@@ -2538,7 +2780,12 @@ func (a *Client) GetSystemGcIDLog(params *GetSystemGcIDLogParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2557,13 +2804,12 @@ func (a *Client) GetSystemGcIDLog(params *GetSystemGcIDLogParams, authInfo runti
 
   This endpoint is for get schedule of gc job.
 */
-func (a *Client) GetSystemGcSchedule(params *GetSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*GetSystemGcScheduleOK, error) {
+func (a *Client) GetSystemGcSchedule(params *GetSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemGcScheduleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSystemGcScheduleParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetSystemGcSchedule",
 		Method:             "GET",
 		PathPattern:        "/system/gc/schedule",
@@ -2575,7 +2821,12 @@ func (a *Client) GetSystemGcSchedule(params *GetSystemGcScheduleParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2594,13 +2845,12 @@ func (a *Client) GetSystemGcSchedule(params *GetSystemGcScheduleParams, authInfo
 
   This endpoint is for getting a schedule for the scan all job, which scans all of images in Harbor.
 */
-func (a *Client) GetSystemScanAllSchedule(params *GetSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*GetSystemScanAllScheduleOK, error) {
+func (a *Client) GetSystemScanAllSchedule(params *GetSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemScanAllScheduleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSystemScanAllScheduleParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetSystemScanAllSchedule",
 		Method:             "GET",
 		PathPattern:        "/system/scanAll/schedule",
@@ -2612,7 +2862,12 @@ func (a *Client) GetSystemScanAllSchedule(params *GetSystemScanAllScheduleParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2632,13 +2887,12 @@ func (a *Client) GetSystemScanAllSchedule(params *GetSystemScanAllScheduleParams
   This API is for retrieving general system info, this can be called by anonymous request.
 
 */
-func (a *Client) GetSysteminfo(params *GetSysteminfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetSysteminfoOK, error) {
+func (a *Client) GetSysteminfo(params *GetSysteminfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSysteminfoOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSysteminfoParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetSysteminfo",
 		Method:             "GET",
 		PathPattern:        "/systeminfo",
@@ -2650,7 +2904,12 @@ func (a *Client) GetSysteminfo(params *GetSysteminfoParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2670,13 +2929,12 @@ func (a *Client) GetSysteminfo(params *GetSysteminfoParams, authInfo runtime.Cli
   This endpoint is for downloading a default root certificate.
 
 */
-func (a *Client) GetSysteminfoGetcert(params *GetSysteminfoGetcertParams, authInfo runtime.ClientAuthInfoWriter) (*GetSysteminfoGetcertOK, error) {
+func (a *Client) GetSysteminfoGetcert(params *GetSysteminfoGetcertParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSysteminfoGetcertOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSysteminfoGetcertParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetSysteminfoGetcert",
 		Method:             "GET",
 		PathPattern:        "/systeminfo/getcert",
@@ -2688,7 +2946,12 @@ func (a *Client) GetSysteminfoGetcert(params *GetSysteminfoGetcertParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2708,13 +2971,12 @@ func (a *Client) GetSysteminfoGetcert(params *GetSysteminfoGetcertParams, authIn
   This endpoint is for retrieving system volume info that only provides for admin user.
 
 */
-func (a *Client) GetSysteminfoVolumes(params *GetSysteminfoVolumesParams, authInfo runtime.ClientAuthInfoWriter) (*GetSysteminfoVolumesOK, error) {
+func (a *Client) GetSysteminfoVolumes(params *GetSysteminfoVolumesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSysteminfoVolumesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSysteminfoVolumesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetSysteminfoVolumes",
 		Method:             "GET",
 		PathPattern:        "/systeminfo/volumes",
@@ -2726,7 +2988,12 @@ func (a *Client) GetSysteminfoVolumes(params *GetSysteminfoVolumesParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2745,13 +3012,12 @@ func (a *Client) GetSysteminfoVolumes(params *GetSysteminfoVolumesParams, authIn
 
   Get all user groups information
 */
-func (a *Client) GetUsergroups(params *GetUsergroupsParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsergroupsOK, error) {
+func (a *Client) GetUsergroups(params *GetUsergroupsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsergroupsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUsergroupsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetUsergroups",
 		Method:             "GET",
 		PathPattern:        "/usergroups",
@@ -2763,7 +3029,12 @@ func (a *Client) GetUsergroups(params *GetUsergroupsParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2782,13 +3053,12 @@ func (a *Client) GetUsergroups(params *GetUsergroupsParams, authInfo runtime.Cli
 
   Get user group information
 */
-func (a *Client) GetUsergroupsGroupID(params *GetUsergroupsGroupIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsergroupsGroupIDOK, error) {
+func (a *Client) GetUsergroupsGroupID(params *GetUsergroupsGroupIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsergroupsGroupIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUsergroupsGroupIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetUsergroupsGroupID",
 		Method:             "GET",
 		PathPattern:        "/usergroups/{group_id}",
@@ -2800,7 +3070,12 @@ func (a *Client) GetUsergroupsGroupID(params *GetUsergroupsGroupIDParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2820,13 +3095,12 @@ func (a *Client) GetUsergroupsGroupID(params *GetUsergroupsGroupIDParams, authIn
   This endpoint is for user to search registered users, support for filtering results with username.Notice, by now this operation is only for administrator.
 
 */
-func (a *Client) GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersOK, error) {
+func (a *Client) GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsersOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUsersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetUsers",
 		Method:             "GET",
 		PathPattern:        "/users",
@@ -2838,7 +3112,12 @@ func (a *Client) GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInf
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2858,13 +3137,12 @@ func (a *Client) GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInf
   This endpoint is to get the current user information.
 
 */
-func (a *Client) GetUsersCurrent(params *GetUsersCurrentParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersCurrentOK, error) {
+func (a *Client) GetUsersCurrent(params *GetUsersCurrentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsersCurrentOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUsersCurrentParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetUsersCurrent",
 		Method:             "GET",
 		PathPattern:        "/users/current",
@@ -2876,7 +3154,12 @@ func (a *Client) GetUsersCurrent(params *GetUsersCurrentParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2896,13 +3179,12 @@ func (a *Client) GetUsersCurrent(params *GetUsersCurrentParams, authInfo runtime
   This endpoint is to get the current user permissions.
 
 */
-func (a *Client) GetUsersCurrentPermissions(params *GetUsersCurrentPermissionsParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersCurrentPermissionsOK, error) {
+func (a *Client) GetUsersCurrentPermissions(params *GetUsersCurrentPermissionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsersCurrentPermissionsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUsersCurrentPermissionsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetUsersCurrentPermissions",
 		Method:             "GET",
 		PathPattern:        "/users/current/permissions",
@@ -2914,7 +3196,12 @@ func (a *Client) GetUsersCurrentPermissions(params *GetUsersCurrentPermissionsPa
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2934,13 +3221,12 @@ func (a *Client) GetUsersCurrentPermissions(params *GetUsersCurrentPermissionsPa
   This endpoint is to search the users by username.
 
 */
-func (a *Client) GetUsersSearch(params *GetUsersSearchParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersSearchOK, error) {
+func (a *Client) GetUsersSearch(params *GetUsersSearchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsersSearchOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUsersSearchParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetUsersSearch",
 		Method:             "GET",
 		PathPattern:        "/users/search",
@@ -2952,7 +3238,12 @@ func (a *Client) GetUsersSearch(params *GetUsersSearchParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2972,13 +3263,12 @@ func (a *Client) GetUsersSearch(params *GetUsersSearchParams, authInfo runtime.C
   Get user's profile with user id.
 
 */
-func (a *Client) GetUsersUserID(params *GetUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersUserIDOK, error) {
+func (a *Client) GetUsersUserID(params *GetUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsersUserIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUsersUserIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetUsersUserID",
 		Method:             "GET",
 		PathPattern:        "/users/{user_id}",
@@ -2990,7 +3280,12 @@ func (a *Client) GetUsersUserID(params *GetUsersUserIDParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3009,13 +3304,12 @@ func (a *Client) GetUsersUserID(params *GetUsersUserIDParams, authInfo runtime.C
 
   Stop a Retention job, only support "stop" action now.
 */
-func (a *Client) PatchRetentionsIDExecutionsEid(params *PatchRetentionsIDExecutionsEidParams, authInfo runtime.ClientAuthInfoWriter) (*PatchRetentionsIDExecutionsEidOK, error) {
+func (a *Client) PatchRetentionsIDExecutionsEid(params *PatchRetentionsIDExecutionsEidParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PatchRetentionsIDExecutionsEidOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchRetentionsIDExecutionsEidParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PatchRetentionsIDExecutionsEid",
 		Method:             "PATCH",
 		PathPattern:        "/retentions/{id}/executions/{eid}",
@@ -3027,7 +3321,12 @@ func (a *Client) PatchRetentionsIDExecutionsEid(params *PatchRetentionsIDExecuti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3046,13 +3345,12 @@ func (a *Client) PatchRetentionsIDExecutionsEid(params *PatchRetentionsIDExecuti
 
   Mark label to the specified chart version.
 */
-func (a *Client) PostChartrepoRepoChartsNameVersionLabels(params *PostChartrepoRepoChartsNameVersionLabelsParams, authInfo runtime.ClientAuthInfoWriter) (*PostChartrepoRepoChartsNameVersionLabelsOK, error) {
+func (a *Client) PostChartrepoRepoChartsNameVersionLabels(params *PostChartrepoRepoChartsNameVersionLabelsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostChartrepoRepoChartsNameVersionLabelsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostChartrepoRepoChartsNameVersionLabelsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostChartrepoRepoChartsNameVersionLabels",
 		Method:             "POST",
 		PathPattern:        "/chartrepo/{repo}/charts/{name}/{version}/labels",
@@ -3064,7 +3362,12 @@ func (a *Client) PostChartrepoRepoChartsNameVersionLabels(params *PostChartrepoR
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3084,13 +3387,12 @@ func (a *Client) PostChartrepoRepoChartsNameVersionLabels(params *PostChartrepoR
   Test connection and authentication with email server.
 
 */
-func (a *Client) PostEmailPing(params *PostEmailPingParams, authInfo runtime.ClientAuthInfoWriter) (*PostEmailPingOK, error) {
+func (a *Client) PostEmailPing(params *PostEmailPingParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostEmailPingOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostEmailPingParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostEmailPing",
 		Method:             "POST",
 		PathPattern:        "/email/ping",
@@ -3102,7 +3404,12 @@ func (a *Client) PostEmailPing(params *PostEmailPingParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3122,13 +3429,12 @@ func (a *Client) PostEmailPing(params *PostEmailPingParams, authInfo runtime.Cli
   This endpoint let user creates a label.
 
 */
-func (a *Client) PostLabels(params *PostLabelsParams, authInfo runtime.ClientAuthInfoWriter) (*PostLabelsCreated, error) {
+func (a *Client) PostLabels(params *PostLabelsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostLabelsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostLabelsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostLabels",
 		Method:             "POST",
 		PathPattern:        "/labels",
@@ -3140,7 +3446,12 @@ func (a *Client) PostLabels(params *PostLabelsParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3160,13 +3471,12 @@ func (a *Client) PostLabels(params *PostLabelsParams, authInfo runtime.ClientAut
   This endpoint ping the available ldap service for test related configuration parameters.
 
 */
-func (a *Client) PostLdapPing(params *PostLdapPingParams, authInfo runtime.ClientAuthInfoWriter) (*PostLdapPingOK, error) {
+func (a *Client) PostLdapPing(params *PostLdapPingParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostLdapPingOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostLdapPingParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostLdapPing",
 		Method:             "POST",
 		PathPattern:        "/ldap/ping",
@@ -3178,7 +3488,12 @@ func (a *Client) PostLdapPing(params *PostLdapPingParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3199,13 +3514,12 @@ func (a *Client) PostLdapPing(params *PostLdapPingParams, authInfo runtime.Clien
 If have errors when import user, will return the list of importing failed uid and the failed reason.
 
 */
-func (a *Client) PostLdapUsersImport(params *PostLdapUsersImportParams, authInfo runtime.ClientAuthInfoWriter) (*PostLdapUsersImportOK, error) {
+func (a *Client) PostLdapUsersImport(params *PostLdapUsersImportParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostLdapUsersImportOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostLdapUsersImportParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostLdapUsersImport",
 		Method:             "POST",
 		PathPattern:        "/ldap/users/import",
@@ -3217,7 +3531,12 @@ func (a *Client) PostLdapUsersImport(params *PostLdapUsersImportParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3237,13 +3556,12 @@ func (a *Client) PostLdapUsersImport(params *PostLdapUsersImportParams, authInfo
   This endpoint add an immutable tag rule to the project
 
 */
-func (a *Client) PostProjectsProjectIDImmutabletagrules(params *PostProjectsProjectIDImmutabletagrulesParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsProjectIDImmutabletagrulesOK, error) {
+func (a *Client) PostProjectsProjectIDImmutabletagrules(params *PostProjectsProjectIDImmutabletagrulesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostProjectsProjectIDImmutabletagrulesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostProjectsProjectIDImmutabletagrulesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostProjectsProjectIDImmutabletagrules",
 		Method:             "POST",
 		PathPattern:        "/projects/{project_id}/immutabletagrules",
@@ -3255,7 +3573,12 @@ func (a *Client) PostProjectsProjectIDImmutabletagrules(params *PostProjectsProj
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3274,13 +3597,12 @@ func (a *Client) PostProjectsProjectIDImmutabletagrules(params *PostProjectsProj
 
   Create project member relationship, the member can be one of the user_member and group_member,  The user_member need to specify user_id or username. If the user already exist in harbor DB, specify the user_id,  If does not exist in harbor DB, it will SearchAndOnBoard the user. The group_member need to specify id or ldap_group_dn. If the group already exist in harbor DB. specify the user group's id,  If does not exist, it will SearchAndOnBoard the group.
 */
-func (a *Client) PostProjectsProjectIDMembers(params *PostProjectsProjectIDMembersParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsProjectIDMembersCreated, error) {
+func (a *Client) PostProjectsProjectIDMembers(params *PostProjectsProjectIDMembersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostProjectsProjectIDMembersCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostProjectsProjectIDMembersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostProjectsProjectIDMembers",
 		Method:             "POST",
 		PathPattern:        "/projects/{project_id}/members",
@@ -3292,7 +3614,12 @@ func (a *Client) PostProjectsProjectIDMembers(params *PostProjectsProjectIDMembe
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3312,13 +3639,12 @@ func (a *Client) PostProjectsProjectIDMembers(params *PostProjectsProjectIDMembe
   This endpoint is aimed to add metadata of a project.
 
 */
-func (a *Client) PostProjectsProjectIDMetadatas(params *PostProjectsProjectIDMetadatasParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsProjectIDMetadatasOK, error) {
+func (a *Client) PostProjectsProjectIDMetadatas(params *PostProjectsProjectIDMetadatasParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostProjectsProjectIDMetadatasOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostProjectsProjectIDMetadatasParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostProjectsProjectIDMetadatas",
 		Method:             "POST",
 		PathPattern:        "/projects/{project_id}/metadatas",
@@ -3330,7 +3656,12 @@ func (a *Client) PostProjectsProjectIDMetadatas(params *PostProjectsProjectIDMet
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3349,13 +3680,12 @@ func (a *Client) PostProjectsProjectIDMetadatas(params *PostProjectsProjectIDMet
 
   Create a robot account for project
 */
-func (a *Client) PostProjectsProjectIDRobots(params *PostProjectsProjectIDRobotsParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsProjectIDRobotsCreated, error) {
+func (a *Client) PostProjectsProjectIDRobots(params *PostProjectsProjectIDRobotsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostProjectsProjectIDRobotsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostProjectsProjectIDRobotsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostProjectsProjectIDRobots",
 		Method:             "POST",
 		PathPattern:        "/projects/{project_id}/robots",
@@ -3367,7 +3697,12 @@ func (a *Client) PostProjectsProjectIDRobots(params *PostProjectsProjectIDRobots
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3387,13 +3722,12 @@ func (a *Client) PostProjectsProjectIDRobots(params *PostProjectsProjectIDRobots
   This endpoint create a webhook policy if the project does not have one.
 
 */
-func (a *Client) PostProjectsProjectIDWebhookPolicies(params *PostProjectsProjectIDWebhookPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsProjectIDWebhookPoliciesCreated, error) {
+func (a *Client) PostProjectsProjectIDWebhookPolicies(params *PostProjectsProjectIDWebhookPoliciesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostProjectsProjectIDWebhookPoliciesCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostProjectsProjectIDWebhookPoliciesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostProjectsProjectIDWebhookPolicies",
 		Method:             "POST",
 		PathPattern:        "/projects/{project_id}/webhook/policies",
@@ -3405,7 +3739,12 @@ func (a *Client) PostProjectsProjectIDWebhookPolicies(params *PostProjectsProjec
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3425,13 +3764,12 @@ func (a *Client) PostProjectsProjectIDWebhookPolicies(params *PostProjectsProjec
   This endpoint tests webhook connection of a project.
 
 */
-func (a *Client) PostProjectsProjectIDWebhookPoliciesTest(params *PostProjectsProjectIDWebhookPoliciesTestParams, authInfo runtime.ClientAuthInfoWriter) (*PostProjectsProjectIDWebhookPoliciesTestOK, error) {
+func (a *Client) PostProjectsProjectIDWebhookPoliciesTest(params *PostProjectsProjectIDWebhookPoliciesTestParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostProjectsProjectIDWebhookPoliciesTestOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostProjectsProjectIDWebhookPoliciesTestParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostProjectsProjectIDWebhookPoliciesTest",
 		Method:             "POST",
 		PathPattern:        "/projects/{project_id}/webhook/policies/test",
@@ -3443,7 +3781,12 @@ func (a *Client) PostProjectsProjectIDWebhookPoliciesTest(params *PostProjectsPr
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3463,13 +3806,12 @@ func (a *Client) PostProjectsProjectIDWebhookPoliciesTest(params *PostProjectsPr
   This endpoint is for user to create a new registry.
 
 */
-func (a *Client) PostRegistries(params *PostRegistriesParams, authInfo runtime.ClientAuthInfoWriter) (*PostRegistriesCreated, error) {
+func (a *Client) PostRegistries(params *PostRegistriesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostRegistriesCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostRegistriesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostRegistries",
 		Method:             "POST",
 		PathPattern:        "/registries",
@@ -3481,7 +3823,12 @@ func (a *Client) PostRegistries(params *PostRegistriesParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3501,13 +3848,12 @@ func (a *Client) PostRegistries(params *PostRegistriesParams, authInfo runtime.C
   This endpoint checks status of a registry, the registry can be given by ID or URL (together with credential)
 
 */
-func (a *Client) PostRegistriesPing(params *PostRegistriesPingParams, authInfo runtime.ClientAuthInfoWriter) (*PostRegistriesPingOK, error) {
+func (a *Client) PostRegistriesPing(params *PostRegistriesPingParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostRegistriesPingOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostRegistriesPingParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostRegistriesPing",
 		Method:             "POST",
 		PathPattern:        "/registries/ping",
@@ -3519,7 +3865,12 @@ func (a *Client) PostRegistriesPing(params *PostRegistriesPingParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3539,13 +3890,12 @@ func (a *Client) PostRegistriesPing(params *PostRegistriesPingParams, authInfo r
   This endpoint is for user to start one execution of the replication.
 
 */
-func (a *Client) PostReplicationExecutions(params *PostReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*PostReplicationExecutionsCreated, error) {
+func (a *Client) PostReplicationExecutions(params *PostReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostReplicationExecutionsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostReplicationExecutionsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostReplicationExecutions",
 		Method:             "POST",
 		PathPattern:        "/replication/executions",
@@ -3557,7 +3907,12 @@ func (a *Client) PostReplicationExecutions(params *PostReplicationExecutionsPara
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3577,13 +3932,12 @@ func (a *Client) PostReplicationExecutions(params *PostReplicationExecutionsPara
   This endpoint let user create a replication policy
 
 */
-func (a *Client) PostReplicationPolicies(params *PostReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*PostReplicationPoliciesCreated, error) {
+func (a *Client) PostReplicationPolicies(params *PostReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostReplicationPoliciesCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostReplicationPoliciesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostReplicationPolicies",
 		Method:             "POST",
 		PathPattern:        "/replication/policies",
@@ -3595,7 +3949,12 @@ func (a *Client) PostReplicationPolicies(params *PostReplicationPoliciesParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3617,13 +3976,12 @@ You can check project metadatas to find whether a retention policy is already bi
 This method should only be called when no retention policy binded to project yet.
 
 */
-func (a *Client) PostRetentions(params *PostRetentionsParams, authInfo runtime.ClientAuthInfoWriter) (*PostRetentionsCreated, error) {
+func (a *Client) PostRetentions(params *PostRetentionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostRetentionsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostRetentionsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostRetentions",
 		Method:             "POST",
 		PathPattern:        "/retentions",
@@ -3635,7 +3993,12 @@ func (a *Client) PostRetentions(params *PostRetentionsParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3654,13 +4017,12 @@ func (a *Client) PostRetentions(params *PostRetentionsParams, authInfo runtime.C
 
   Trigger a Retention job, if dry_run is True, nothing would be deleted actually.
 */
-func (a *Client) PostRetentionsIDExecutions(params *PostRetentionsIDExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*PostRetentionsIDExecutionsOK, error) {
+func (a *Client) PostRetentionsIDExecutions(params *PostRetentionsIDExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostRetentionsIDExecutionsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostRetentionsIDExecutionsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostRetentionsIDExecutions",
 		Method:             "POST",
 		PathPattern:        "/retentions/{id}/executions",
@@ -3672,7 +4034,12 @@ func (a *Client) PostRetentionsIDExecutions(params *PostRetentionsIDExecutionsPa
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3692,13 +4059,12 @@ func (a *Client) PostRetentionsIDExecutions(params *PostRetentionsIDExecutionsPa
   Pings scanner adapter to test endpoint URL and authorization settings.
 
 */
-func (a *Client) PostScannersPing(params *PostScannersPingParams, authInfo runtime.ClientAuthInfoWriter) (*PostScannersPingOK, error) {
+func (a *Client) PostScannersPing(params *PostScannersPingParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostScannersPingOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostScannersPingParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostScannersPing",
 		Method:             "POST",
 		PathPattern:        "/scanners/ping",
@@ -3710,7 +4076,12 @@ func (a *Client) PostScannersPing(params *PostScannersPingParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3730,13 +4101,12 @@ func (a *Client) PostScannersPing(params *PostScannersPingParams, authInfo runti
   This endpoint is for update gc schedule.
 
 */
-func (a *Client) PostSystemGcSchedule(params *PostSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*PostSystemGcScheduleOK, error) {
+func (a *Client) PostSystemGcSchedule(params *PostSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostSystemGcScheduleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostSystemGcScheduleParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostSystemGcSchedule",
 		Method:             "POST",
 		PathPattern:        "/system/gc/schedule",
@@ -3748,7 +4118,12 @@ func (a *Client) PostSystemGcSchedule(params *PostSystemGcScheduleParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3767,13 +4142,12 @@ func (a *Client) PostSystemGcSchedule(params *PostSystemGcScheduleParams, authIn
 
   Test the OIDC endpoint, the setting of the endpoint is provided in the request.  This API can only be called by system admin.
 */
-func (a *Client) PostSystemOidcPing(params *PostSystemOidcPingParams, authInfo runtime.ClientAuthInfoWriter) (*PostSystemOidcPingOK, error) {
+func (a *Client) PostSystemOidcPing(params *PostSystemOidcPingParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostSystemOidcPingOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostSystemOidcPingParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostSystemOidcPing",
 		Method:             "POST",
 		PathPattern:        "/system/oidc/ping",
@@ -3785,7 +4159,12 @@ func (a *Client) PostSystemOidcPing(params *PostSystemOidcPingParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3805,13 +4184,12 @@ func (a *Client) PostSystemOidcPing(params *PostSystemOidcPingParams, authInfo r
   This endpoint is for creating a schedule or a manual trigger for the scan all job, which scans all of images in Harbor.
 
 */
-func (a *Client) PostSystemScanAllSchedule(params *PostSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*PostSystemScanAllScheduleOK, error) {
+func (a *Client) PostSystemScanAllSchedule(params *PostSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostSystemScanAllScheduleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostSystemScanAllScheduleParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostSystemScanAllSchedule",
 		Method:             "POST",
 		PathPattern:        "/system/scanAll/schedule",
@@ -3823,7 +4201,12 @@ func (a *Client) PostSystemScanAllSchedule(params *PostSystemScanAllSchedulePara
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3842,13 +4225,12 @@ func (a *Client) PostSystemScanAllSchedule(params *PostSystemScanAllSchedulePara
 
   Create user group information
 */
-func (a *Client) PostUsergroups(params *PostUsergroupsParams, authInfo runtime.ClientAuthInfoWriter) (*PostUsergroupsCreated, error) {
+func (a *Client) PostUsergroups(params *PostUsergroupsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostUsergroupsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostUsergroupsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostUsergroups",
 		Method:             "POST",
 		PathPattern:        "/usergroups",
@@ -3860,7 +4242,12 @@ func (a *Client) PostUsergroups(params *PostUsergroupsParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3880,13 +4267,12 @@ func (a *Client) PostUsergroups(params *PostUsergroupsParams, authInfo runtime.C
   This endpoint is to create a user if the user does not already exist.
 
 */
-func (a *Client) PostUsers(params *PostUsersParams, authInfo runtime.ClientAuthInfoWriter) (*PostUsersCreated, error) {
+func (a *Client) PostUsers(params *PostUsersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostUsersCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostUsersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostUsers",
 		Method:             "POST",
 		PathPattern:        "/users",
@@ -3898,7 +4284,12 @@ func (a *Client) PostUsers(params *PostUsersParams, authInfo runtime.ClientAuthI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3918,13 +4309,12 @@ func (a *Client) PostUsers(params *PostUsersParams, authInfo runtime.ClientAuthI
   This endpoint is for modifying system configurations that only provides for admin user.
 
 */
-func (a *Client) PutConfigurations(params *PutConfigurationsParams, authInfo runtime.ClientAuthInfoWriter) (*PutConfigurationsOK, error) {
+func (a *Client) PutConfigurations(params *PutConfigurationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutConfigurationsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutConfigurationsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutConfigurations",
 		Method:             "PUT",
 		PathPattern:        "/configurations",
@@ -3936,7 +4326,12 @@ func (a *Client) PutConfigurations(params *PutConfigurationsParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3956,13 +4351,12 @@ func (a *Client) PutConfigurations(params *PutConfigurationsParams, authInfo run
   This endpoint let user update label properties.
 
 */
-func (a *Client) PutLabelsID(params *PutLabelsIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutLabelsIDOK, error) {
+func (a *Client) PutLabelsID(params *PutLabelsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutLabelsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutLabelsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutLabelsID",
 		Method:             "PUT",
 		PathPattern:        "/labels/{id}",
@@ -3974,7 +4368,12 @@ func (a *Client) PutLabelsID(params *PutLabelsIDParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -3991,13 +4390,12 @@ func (a *Client) PutLabelsID(params *PutLabelsIDParams, authInfo runtime.ClientA
 /*
   PutProjectsProjectIDImmutabletagrulesID updates the immutable tag rule or enable or disable the rule
 */
-func (a *Client) PutProjectsProjectIDImmutabletagrulesID(params *PutProjectsProjectIDImmutabletagrulesIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDImmutabletagrulesIDOK, error) {
+func (a *Client) PutProjectsProjectIDImmutabletagrulesID(params *PutProjectsProjectIDImmutabletagrulesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutProjectsProjectIDImmutabletagrulesIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutProjectsProjectIDImmutabletagrulesIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutProjectsProjectIDImmutabletagrulesID",
 		Method:             "PUT",
 		PathPattern:        "/projects/{project_id}/immutabletagrules/{id}",
@@ -4009,7 +4407,12 @@ func (a *Client) PutProjectsProjectIDImmutabletagrulesID(params *PutProjectsProj
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -4028,13 +4431,12 @@ func (a *Client) PutProjectsProjectIDImmutabletagrulesID(params *PutProjectsProj
 
   Update project member relationship
 */
-func (a *Client) PutProjectsProjectIDMembersMid(params *PutProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDMembersMidOK, error) {
+func (a *Client) PutProjectsProjectIDMembersMid(params *PutProjectsProjectIDMembersMidParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutProjectsProjectIDMembersMidOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutProjectsProjectIDMembersMidParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutProjectsProjectIDMembersMid",
 		Method:             "PUT",
 		PathPattern:        "/projects/{project_id}/members/{mid}",
@@ -4046,7 +4448,12 @@ func (a *Client) PutProjectsProjectIDMembersMid(params *PutProjectsProjectIDMemb
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -4066,13 +4473,12 @@ func (a *Client) PutProjectsProjectIDMembersMid(params *PutProjectsProjectIDMemb
   This endpoint is aimed to update the metadata of a project.
 
 */
-func (a *Client) PutProjectsProjectIDMetadatasMetaName(params *PutProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDMetadatasMetaNameOK, error) {
+func (a *Client) PutProjectsProjectIDMetadatasMetaName(params *PutProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutProjectsProjectIDMetadatasMetaNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutProjectsProjectIDMetadatasMetaNameParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutProjectsProjectIDMetadatasMetaName",
 		Method:             "PUT",
 		PathPattern:        "/projects/{project_id}/metadatas/{meta_name}",
@@ -4084,7 +4490,12 @@ func (a *Client) PutProjectsProjectIDMetadatasMetaName(params *PutProjectsProjec
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -4103,13 +4514,12 @@ func (a *Client) PutProjectsProjectIDMetadatasMetaName(params *PutProjectsProjec
 
   Used to disable/enable a specified robot account.
 */
-func (a *Client) PutProjectsProjectIDRobotsRobotID(params *PutProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDRobotsRobotIDOK, error) {
+func (a *Client) PutProjectsProjectIDRobotsRobotID(params *PutProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutProjectsProjectIDRobotsRobotIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutProjectsProjectIDRobotsRobotIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutProjectsProjectIDRobotsRobotID",
 		Method:             "PUT",
 		PathPattern:        "/projects/{project_id}/robots/{robot_id}",
@@ -4121,7 +4531,12 @@ func (a *Client) PutProjectsProjectIDRobotsRobotID(params *PutProjectsProjectIDR
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -4141,13 +4556,12 @@ func (a *Client) PutProjectsProjectIDRobotsRobotID(params *PutProjectsProjectIDR
   This endpoint is aimed to update the webhook policy of a project.
 
 */
-func (a *Client) PutProjectsProjectIDWebhookPoliciesPolicyID(params *PutProjectsProjectIDWebhookPoliciesPolicyIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDWebhookPoliciesPolicyIDOK, error) {
+func (a *Client) PutProjectsProjectIDWebhookPoliciesPolicyID(params *PutProjectsProjectIDWebhookPoliciesPolicyIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutProjectsProjectIDWebhookPoliciesPolicyIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutProjectsProjectIDWebhookPoliciesPolicyIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutProjectsProjectIDWebhookPoliciesPolicyID",
 		Method:             "PUT",
 		PathPattern:        "/projects/{project_id}/webhook/policies/{policy_id}",
@@ -4159,7 +4573,12 @@ func (a *Client) PutProjectsProjectIDWebhookPoliciesPolicyID(params *PutProjects
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -4178,13 +4597,12 @@ func (a *Client) PutProjectsProjectIDWebhookPoliciesPolicyID(params *PutProjects
 
   Update hard limits of the specified quota
 */
-func (a *Client) PutQuotasID(params *PutQuotasIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutQuotasIDOK, error) {
+func (a *Client) PutQuotasID(params *PutQuotasIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutQuotasIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutQuotasIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutQuotasID",
 		Method:             "PUT",
 		PathPattern:        "/quotas/{id}",
@@ -4196,7 +4614,12 @@ func (a *Client) PutQuotasID(params *PutQuotasIDParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -4216,13 +4639,12 @@ func (a *Client) PutQuotasID(params *PutQuotasIDParams, authInfo runtime.ClientA
   This endpoint is for update a given registry.
 
 */
-func (a *Client) PutRegistriesID(params *PutRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutRegistriesIDOK, error) {
+func (a *Client) PutRegistriesID(params *PutRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutRegistriesIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutRegistriesIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutRegistriesID",
 		Method:             "PUT",
 		PathPattern:        "/registries/{id}",
@@ -4234,7 +4656,12 @@ func (a *Client) PutRegistriesID(params *PutRegistriesIDParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -4254,13 +4681,12 @@ func (a *Client) PutRegistriesID(params *PutRegistriesIDParams, authInfo runtime
   This endpoint is for user to stop one execution of the replication.
 
 */
-func (a *Client) PutReplicationExecutionsID(params *PutReplicationExecutionsIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutReplicationExecutionsIDOK, error) {
+func (a *Client) PutReplicationExecutionsID(params *PutReplicationExecutionsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutReplicationExecutionsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutReplicationExecutionsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutReplicationExecutionsID",
 		Method:             "PUT",
 		PathPattern:        "/replication/executions/{id}",
@@ -4272,7 +4698,12 @@ func (a *Client) PutReplicationExecutionsID(params *PutReplicationExecutionsIDPa
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -4292,13 +4723,12 @@ func (a *Client) PutReplicationExecutionsID(params *PutReplicationExecutionsIDPa
   This endpoint let user update policy.
 
 */
-func (a *Client) PutReplicationPoliciesID(params *PutReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutReplicationPoliciesIDOK, error) {
+func (a *Client) PutReplicationPoliciesID(params *PutReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutReplicationPoliciesIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutReplicationPoliciesIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutReplicationPoliciesID",
 		Method:             "PUT",
 		PathPattern:        "/replication/policies/{id}",
@@ -4310,7 +4740,12 @@ func (a *Client) PutReplicationPoliciesID(params *PutReplicationPoliciesIDParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -4332,13 +4767,12 @@ You can check project metadatas to find whether a retention policy is already bi
 This method should only be called when retention policy has already binded to project.
 
 */
-func (a *Client) PutRetentionsID(params *PutRetentionsIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutRetentionsIDOK, error) {
+func (a *Client) PutRetentionsID(params *PutRetentionsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutRetentionsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutRetentionsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutRetentionsID",
 		Method:             "PUT",
 		PathPattern:        "/retentions/{id}",
@@ -4350,7 +4784,12 @@ func (a *Client) PutRetentionsID(params *PutRetentionsIDParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -4369,13 +4808,12 @@ func (a *Client) PutRetentionsID(params *PutRetentionsIDParams, authInfo runtime
 
   This API overwrites the system level allowlist of CVE with the list in request body.  Only system Admin has permission to call this API.
 */
-func (a *Client) PutSystemCVEAllowlist(params *PutSystemCVEAllowlistParams, authInfo runtime.ClientAuthInfoWriter) (*PutSystemCVEAllowlistOK, error) {
+func (a *Client) PutSystemCVEAllowlist(params *PutSystemCVEAllowlistParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutSystemCVEAllowlistOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutSystemCVEAllowlistParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutSystemCVEAllowlist",
 		Method:             "PUT",
 		PathPattern:        "/system/CVEAllowlist",
@@ -4387,7 +4825,12 @@ func (a *Client) PutSystemCVEAllowlist(params *PutSystemCVEAllowlistParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -4407,13 +4850,12 @@ func (a *Client) PutSystemCVEAllowlist(params *PutSystemCVEAllowlistParams, auth
   This endpoint is for update gc schedule.
 
 */
-func (a *Client) PutSystemGcSchedule(params *PutSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*PutSystemGcScheduleOK, error) {
+func (a *Client) PutSystemGcSchedule(params *PutSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutSystemGcScheduleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutSystemGcScheduleParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutSystemGcSchedule",
 		Method:             "PUT",
 		PathPattern:        "/system/gc/schedule",
@@ -4425,7 +4867,12 @@ func (a *Client) PutSystemGcSchedule(params *PutSystemGcScheduleParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -4445,13 +4892,12 @@ func (a *Client) PutSystemGcSchedule(params *PutSystemGcScheduleParams, authInfo
   This endpoint is for updating the schedule of scan all job, which scans all of images in Harbor.
 
 */
-func (a *Client) PutSystemScanAllSchedule(params *PutSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*PutSystemScanAllScheduleOK, error) {
+func (a *Client) PutSystemScanAllSchedule(params *PutSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutSystemScanAllScheduleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutSystemScanAllScheduleParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutSystemScanAllSchedule",
 		Method:             "PUT",
 		PathPattern:        "/system/scanAll/schedule",
@@ -4463,7 +4909,12 @@ func (a *Client) PutSystemScanAllSchedule(params *PutSystemScanAllScheduleParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -4482,13 +4933,12 @@ func (a *Client) PutSystemScanAllSchedule(params *PutSystemScanAllScheduleParams
 
   Update user group information
 */
-func (a *Client) PutUsergroupsGroupID(params *PutUsergroupsGroupIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutUsergroupsGroupIDOK, error) {
+func (a *Client) PutUsergroupsGroupID(params *PutUsergroupsGroupIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutUsergroupsGroupIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutUsergroupsGroupIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutUsergroupsGroupID",
 		Method:             "PUT",
 		PathPattern:        "/usergroups/{group_id}",
@@ -4500,7 +4950,12 @@ func (a *Client) PutUsergroupsGroupID(params *PutUsergroupsGroupIDParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -4520,13 +4975,12 @@ func (a *Client) PutUsergroupsGroupID(params *PutUsergroupsGroupIDParams, authIn
   This endpoint let a registered user change his profile.
 
 */
-func (a *Client) PutUsersUserID(params *PutUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutUsersUserIDOK, error) {
+func (a *Client) PutUsersUserID(params *PutUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutUsersUserIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutUsersUserIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutUsersUserID",
 		Method:             "PUT",
 		PathPattern:        "/users/{user_id}",
@@ -4538,7 +4992,12 @@ func (a *Client) PutUsersUserID(params *PutUsersUserIDParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -4560,13 +5019,12 @@ Once this API returns with successful status, the old secret will be invalid, as
 for a user.
 
 */
-func (a *Client) PutUsersUserIDCliSecret(params *PutUsersUserIDCliSecretParams, authInfo runtime.ClientAuthInfoWriter) (*PutUsersUserIDCliSecretOK, error) {
+func (a *Client) PutUsersUserIDCliSecret(params *PutUsersUserIDCliSecretParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutUsersUserIDCliSecretOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutUsersUserIDCliSecretParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutUsersUserIDCliSecret",
 		Method:             "PUT",
 		PathPattern:        "/users/{user_id}/cli_secret",
@@ -4578,7 +5036,12 @@ func (a *Client) PutUsersUserIDCliSecret(params *PutUsersUserIDCliSecretParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -4598,13 +5061,12 @@ func (a *Client) PutUsersUserIDCliSecret(params *PutUsersUserIDCliSecretParams, 
   This endpoint is for user to update password. Users with the admin role can change any user's password. Guest users can change only their own password.
 
 */
-func (a *Client) PutUsersUserIDPassword(params *PutUsersUserIDPasswordParams, authInfo runtime.ClientAuthInfoWriter) (*PutUsersUserIDPasswordOK, error) {
+func (a *Client) PutUsersUserIDPassword(params *PutUsersUserIDPasswordParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutUsersUserIDPasswordOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutUsersUserIDPasswordParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutUsersUserIDPassword",
 		Method:             "PUT",
 		PathPattern:        "/users/{user_id}/password",
@@ -4616,7 +5078,12 @@ func (a *Client) PutUsersUserIDPassword(params *PutUsersUserIDPasswordParams, au
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -4637,13 +5104,12 @@ func (a *Client) PutUsersUserIDPassword(params *PutUsersUserIDPasswordParams, au
 of Harbor.
 
 */
-func (a *Client) PutUsersUserIDSysadmin(params *PutUsersUserIDSysadminParams, authInfo runtime.ClientAuthInfoWriter) (*PutUsersUserIDSysadminOK, error) {
+func (a *Client) PutUsersUserIDSysadmin(params *PutUsersUserIDSysadminParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutUsersUserIDSysadminOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutUsersUserIDSysadminParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutUsersUserIDSysadmin",
 		Method:             "PUT",
 		PathPattern:        "/users/{user_id}/sysadmin",
@@ -4655,7 +5121,12 @@ func (a *Client) PutUsersUserIDSysadmin(params *PutUsersUserIDSysadminParams, au
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

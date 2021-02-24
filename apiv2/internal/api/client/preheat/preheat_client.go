@@ -25,45 +25,48 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateInstance(params *CreateInstanceParams, authInfo runtime.ClientAuthInfoWriter) (*CreateInstanceCreated, error)
+	CreateInstance(params *CreateInstanceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateInstanceCreated, error)
 
-	CreatePolicy(params *CreatePolicyParams, authInfo runtime.ClientAuthInfoWriter) (*CreatePolicyCreated, error)
+	CreatePolicy(params *CreatePolicyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreatePolicyCreated, error)
 
-	DeleteInstance(params *DeleteInstanceParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteInstanceOK, error)
+	DeleteInstance(params *DeleteInstanceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteInstanceOK, error)
 
-	DeletePolicy(params *DeletePolicyParams, authInfo runtime.ClientAuthInfoWriter) (*DeletePolicyOK, error)
+	DeletePolicy(params *DeletePolicyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeletePolicyOK, error)
 
-	GetExecution(params *GetExecutionParams, authInfo runtime.ClientAuthInfoWriter) (*GetExecutionOK, error)
+	GetExecution(params *GetExecutionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetExecutionOK, error)
 
-	GetInstance(params *GetInstanceParams, authInfo runtime.ClientAuthInfoWriter) (*GetInstanceOK, error)
+	GetInstance(params *GetInstanceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetInstanceOK, error)
 
-	GetPolicy(params *GetPolicyParams, authInfo runtime.ClientAuthInfoWriter) (*GetPolicyOK, error)
+	GetPolicy(params *GetPolicyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetPolicyOK, error)
 
-	GetPreheatLog(params *GetPreheatLogParams, authInfo runtime.ClientAuthInfoWriter) (*GetPreheatLogOK, error)
+	GetPreheatLog(params *GetPreheatLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetPreheatLogOK, error)
 
-	ListExecutions(params *ListExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*ListExecutionsOK, error)
+	ListExecutions(params *ListExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListExecutionsOK, error)
 
-	ListInstances(params *ListInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*ListInstancesOK, error)
+	ListInstances(params *ListInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListInstancesOK, error)
 
-	ListPolicies(params *ListPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*ListPoliciesOK, error)
+	ListPolicies(params *ListPoliciesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListPoliciesOK, error)
 
-	ListProviders(params *ListProvidersParams, authInfo runtime.ClientAuthInfoWriter) (*ListProvidersOK, error)
+	ListProviders(params *ListProvidersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListProvidersOK, error)
 
-	ListProvidersUnderProject(params *ListProvidersUnderProjectParams, authInfo runtime.ClientAuthInfoWriter) (*ListProvidersUnderProjectOK, error)
+	ListProvidersUnderProject(params *ListProvidersUnderProjectParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListProvidersUnderProjectOK, error)
 
-	ListTasks(params *ListTasksParams, authInfo runtime.ClientAuthInfoWriter) (*ListTasksOK, error)
+	ListTasks(params *ListTasksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListTasksOK, error)
 
-	ManualPreheat(params *ManualPreheatParams, authInfo runtime.ClientAuthInfoWriter) (*ManualPreheatCreated, error)
+	ManualPreheat(params *ManualPreheatParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ManualPreheatCreated, error)
 
-	PingInstances(params *PingInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*PingInstancesOK, error)
+	PingInstances(params *PingInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PingInstancesOK, error)
 
-	StopExecution(params *StopExecutionParams, authInfo runtime.ClientAuthInfoWriter) (*StopExecutionOK, error)
+	StopExecution(params *StopExecutionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopExecutionOK, error)
 
-	UpdateInstance(params *UpdateInstanceParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateInstanceOK, error)
+	UpdateInstance(params *UpdateInstanceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateInstanceOK, error)
 
-	UpdatePolicy(params *UpdatePolicyParams, authInfo runtime.ClientAuthInfoWriter) (*UpdatePolicyOK, error)
+	UpdatePolicy(params *UpdatePolicyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdatePolicyOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -73,13 +76,12 @@ type ClientService interface {
 
   Create p2p provider instances
 */
-func (a *Client) CreateInstance(params *CreateInstanceParams, authInfo runtime.ClientAuthInfoWriter) (*CreateInstanceCreated, error) {
+func (a *Client) CreateInstance(params *CreateInstanceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateInstanceCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateInstanceParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "CreateInstance",
 		Method:             "POST",
 		PathPattern:        "/p2p/preheat/instances",
@@ -91,7 +93,12 @@ func (a *Client) CreateInstance(params *CreateInstanceParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -110,13 +117,12 @@ func (a *Client) CreateInstance(params *CreateInstanceParams, authInfo runtime.C
 
   Create a preheat policy under a project
 */
-func (a *Client) CreatePolicy(params *CreatePolicyParams, authInfo runtime.ClientAuthInfoWriter) (*CreatePolicyCreated, error) {
+func (a *Client) CreatePolicy(params *CreatePolicyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreatePolicyCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreatePolicyParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "CreatePolicy",
 		Method:             "POST",
 		PathPattern:        "/projects/{project_name}/preheat/policies",
@@ -128,7 +134,12 @@ func (a *Client) CreatePolicy(params *CreatePolicyParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -147,13 +158,12 @@ func (a *Client) CreatePolicy(params *CreatePolicyParams, authInfo runtime.Clien
 
   Delete the specified P2P provider instance
 */
-func (a *Client) DeleteInstance(params *DeleteInstanceParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteInstanceOK, error) {
+func (a *Client) DeleteInstance(params *DeleteInstanceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteInstanceOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteInstanceParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteInstance",
 		Method:             "DELETE",
 		PathPattern:        "/p2p/preheat/instances/{preheat_instance_name}",
@@ -165,7 +175,12 @@ func (a *Client) DeleteInstance(params *DeleteInstanceParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -184,13 +199,12 @@ func (a *Client) DeleteInstance(params *DeleteInstanceParams, authInfo runtime.C
 
   Delete a preheat policy
 */
-func (a *Client) DeletePolicy(params *DeletePolicyParams, authInfo runtime.ClientAuthInfoWriter) (*DeletePolicyOK, error) {
+func (a *Client) DeletePolicy(params *DeletePolicyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeletePolicyOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeletePolicyParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeletePolicy",
 		Method:             "DELETE",
 		PathPattern:        "/projects/{project_name}/preheat/policies/{preheat_policy_name}",
@@ -202,7 +216,12 @@ func (a *Client) DeletePolicy(params *DeletePolicyParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -221,13 +240,12 @@ func (a *Client) DeletePolicy(params *DeletePolicyParams, authInfo runtime.Clien
 
   Get a execution detail by id
 */
-func (a *Client) GetExecution(params *GetExecutionParams, authInfo runtime.ClientAuthInfoWriter) (*GetExecutionOK, error) {
+func (a *Client) GetExecution(params *GetExecutionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetExecutionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetExecutionParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetExecution",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}",
@@ -239,7 +257,12 @@ func (a *Client) GetExecution(params *GetExecutionParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -258,13 +281,12 @@ func (a *Client) GetExecution(params *GetExecutionParams, authInfo runtime.Clien
 
   Get a P2P provider instance
 */
-func (a *Client) GetInstance(params *GetInstanceParams, authInfo runtime.ClientAuthInfoWriter) (*GetInstanceOK, error) {
+func (a *Client) GetInstance(params *GetInstanceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetInstanceOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetInstanceParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetInstance",
 		Method:             "GET",
 		PathPattern:        "/p2p/preheat/instances/{preheat_instance_name}",
@@ -276,7 +298,12 @@ func (a *Client) GetInstance(params *GetInstanceParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -295,13 +322,12 @@ func (a *Client) GetInstance(params *GetInstanceParams, authInfo runtime.ClientA
 
   Get a preheat policy
 */
-func (a *Client) GetPolicy(params *GetPolicyParams, authInfo runtime.ClientAuthInfoWriter) (*GetPolicyOK, error) {
+func (a *Client) GetPolicy(params *GetPolicyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetPolicyOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPolicyParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetPolicy",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_name}/preheat/policies/{preheat_policy_name}",
@@ -313,7 +339,12 @@ func (a *Client) GetPolicy(params *GetPolicyParams, authInfo runtime.ClientAuthI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -332,13 +363,12 @@ func (a *Client) GetPolicy(params *GetPolicyParams, authInfo runtime.ClientAuthI
 
   Get the log text stream of the specified task for the given execution
 */
-func (a *Client) GetPreheatLog(params *GetPreheatLogParams, authInfo runtime.ClientAuthInfoWriter) (*GetPreheatLogOK, error) {
+func (a *Client) GetPreheatLog(params *GetPreheatLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetPreheatLogOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPreheatLogParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetPreheatLog",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}/tasks/{task_id}/logs",
@@ -350,7 +380,12 @@ func (a *Client) GetPreheatLog(params *GetPreheatLogParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -369,13 +404,12 @@ func (a *Client) GetPreheatLog(params *GetPreheatLogParams, authInfo runtime.Cli
 
   List executions for the given policy
 */
-func (a *Client) ListExecutions(params *ListExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*ListExecutionsOK, error) {
+func (a *Client) ListExecutions(params *ListExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListExecutionsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListExecutionsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "ListExecutions",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_name}/preheat/policies/{preheat_policy_name}/executions",
@@ -387,7 +421,12 @@ func (a *Client) ListExecutions(params *ListExecutionsParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -406,13 +445,12 @@ func (a *Client) ListExecutions(params *ListExecutionsParams, authInfo runtime.C
 
   List P2P provider instances
 */
-func (a *Client) ListInstances(params *ListInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*ListInstancesOK, error) {
+func (a *Client) ListInstances(params *ListInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListInstancesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListInstancesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "ListInstances",
 		Method:             "GET",
 		PathPattern:        "/p2p/preheat/instances",
@@ -424,7 +462,12 @@ func (a *Client) ListInstances(params *ListInstancesParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -443,13 +486,12 @@ func (a *Client) ListInstances(params *ListInstancesParams, authInfo runtime.Cli
 
   List preheat policies
 */
-func (a *Client) ListPolicies(params *ListPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*ListPoliciesOK, error) {
+func (a *Client) ListPolicies(params *ListPoliciesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListPoliciesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListPoliciesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "ListPolicies",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_name}/preheat/policies",
@@ -461,7 +503,12 @@ func (a *Client) ListPolicies(params *ListPoliciesParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -480,13 +527,12 @@ func (a *Client) ListPolicies(params *ListPoliciesParams, authInfo runtime.Clien
 
   List P2P providers
 */
-func (a *Client) ListProviders(params *ListProvidersParams, authInfo runtime.ClientAuthInfoWriter) (*ListProvidersOK, error) {
+func (a *Client) ListProviders(params *ListProvidersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListProvidersOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListProvidersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "ListProviders",
 		Method:             "GET",
 		PathPattern:        "/p2p/preheat/providers",
@@ -498,7 +544,12 @@ func (a *Client) ListProviders(params *ListProvidersParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -517,13 +568,12 @@ func (a *Client) ListProviders(params *ListProvidersParams, authInfo runtime.Cli
 
   Get all providers at project level
 */
-func (a *Client) ListProvidersUnderProject(params *ListProvidersUnderProjectParams, authInfo runtime.ClientAuthInfoWriter) (*ListProvidersUnderProjectOK, error) {
+func (a *Client) ListProvidersUnderProject(params *ListProvidersUnderProjectParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListProvidersUnderProjectOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListProvidersUnderProjectParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "ListProvidersUnderProject",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_name}/preheat/providers",
@@ -535,7 +585,12 @@ func (a *Client) ListProvidersUnderProject(params *ListProvidersUnderProjectPara
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -554,13 +609,12 @@ func (a *Client) ListProvidersUnderProject(params *ListProvidersUnderProjectPara
 
   List all the related tasks for the given execution
 */
-func (a *Client) ListTasks(params *ListTasksParams, authInfo runtime.ClientAuthInfoWriter) (*ListTasksOK, error) {
+func (a *Client) ListTasks(params *ListTasksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListTasksOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListTasksParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "ListTasks",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}/tasks",
@@ -572,7 +626,12 @@ func (a *Client) ListTasks(params *ListTasksParams, authInfo runtime.ClientAuthI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -591,13 +650,12 @@ func (a *Client) ListTasks(params *ListTasksParams, authInfo runtime.ClientAuthI
 
   Manual preheat
 */
-func (a *Client) ManualPreheat(params *ManualPreheatParams, authInfo runtime.ClientAuthInfoWriter) (*ManualPreheatCreated, error) {
+func (a *Client) ManualPreheat(params *ManualPreheatParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ManualPreheatCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewManualPreheatParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "ManualPreheat",
 		Method:             "POST",
 		PathPattern:        "/projects/{project_name}/preheat/policies/{preheat_policy_name}",
@@ -609,7 +667,12 @@ func (a *Client) ManualPreheat(params *ManualPreheatParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -629,13 +692,12 @@ func (a *Client) ManualPreheat(params *ManualPreheatParams, authInfo runtime.Cli
   This endpoint checks status of a instance, the instance can be given by ID or Endpoint URL (together with credential)
 
 */
-func (a *Client) PingInstances(params *PingInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*PingInstancesOK, error) {
+func (a *Client) PingInstances(params *PingInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PingInstancesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPingInstancesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PingInstances",
 		Method:             "POST",
 		PathPattern:        "/p2p/preheat/instances/ping",
@@ -647,7 +709,12 @@ func (a *Client) PingInstances(params *PingInstancesParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -666,13 +733,12 @@ func (a *Client) PingInstances(params *PingInstancesParams, authInfo runtime.Cli
 
   Stop a execution
 */
-func (a *Client) StopExecution(params *StopExecutionParams, authInfo runtime.ClientAuthInfoWriter) (*StopExecutionOK, error) {
+func (a *Client) StopExecution(params *StopExecutionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopExecutionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopExecutionParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "StopExecution",
 		Method:             "PATCH",
 		PathPattern:        "/projects/{project_name}/preheat/policies/{preheat_policy_name}/executions/{execution_id}",
@@ -684,7 +750,12 @@ func (a *Client) StopExecution(params *StopExecutionParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -703,13 +774,12 @@ func (a *Client) StopExecution(params *StopExecutionParams, authInfo runtime.Cli
 
   Update the specified P2P provider instance
 */
-func (a *Client) UpdateInstance(params *UpdateInstanceParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateInstanceOK, error) {
+func (a *Client) UpdateInstance(params *UpdateInstanceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateInstanceOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateInstanceParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "UpdateInstance",
 		Method:             "PUT",
 		PathPattern:        "/p2p/preheat/instances/{preheat_instance_name}",
@@ -721,7 +791,12 @@ func (a *Client) UpdateInstance(params *UpdateInstanceParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -740,13 +815,12 @@ func (a *Client) UpdateInstance(params *UpdateInstanceParams, authInfo runtime.C
 
   Update preheat policy
 */
-func (a *Client) UpdatePolicy(params *UpdatePolicyParams, authInfo runtime.ClientAuthInfoWriter) (*UpdatePolicyOK, error) {
+func (a *Client) UpdatePolicy(params *UpdatePolicyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdatePolicyOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdatePolicyParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "UpdatePolicy",
 		Method:             "PUT",
 		PathPattern:        "/projects/{project_name}/preheat/policies/{preheat_policy_name}",
@@ -758,7 +832,12 @@ func (a *Client) UpdatePolicy(params *UpdatePolicyParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

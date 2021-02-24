@@ -14,13 +14,20 @@ type MockIconClientService struct {
 	mock.Mock
 }
 
-// GetIcon provides a mock function with given fields: params, authInfo
-func (_m *MockIconClientService) GetIcon(params *icon.GetIconParams, authInfo runtime.ClientAuthInfoWriter) (*icon.GetIconOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetIcon provides a mock function with given fields: params, authInfo, opts
+func (_m *MockIconClientService) GetIcon(params *icon.GetIconParams, authInfo runtime.ClientAuthInfoWriter, opts ...icon.ClientOption) (*icon.GetIconOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *icon.GetIconOK
-	if rf, ok := ret.Get(0).(func(*icon.GetIconParams, runtime.ClientAuthInfoWriter) *icon.GetIconOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*icon.GetIconParams, runtime.ClientAuthInfoWriter, ...icon.ClientOption) *icon.GetIconOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*icon.GetIconOK)
@@ -28,8 +35,8 @@ func (_m *MockIconClientService) GetIcon(params *icon.GetIconParams, authInfo ru
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*icon.GetIconParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*icon.GetIconParams, runtime.ClientAuthInfoWriter, ...icon.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}

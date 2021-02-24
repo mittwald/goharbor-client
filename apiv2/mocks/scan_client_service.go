@@ -14,13 +14,20 @@ type MockScanClientService struct {
 	mock.Mock
 }
 
-// GetReportLog provides a mock function with given fields: params, authInfo
-func (_m *MockScanClientService) GetReportLog(params *scan.GetReportLogParams, authInfo runtime.ClientAuthInfoWriter) (*scan.GetReportLogOK, error) {
-	ret := _m.Called(params, authInfo)
+// GetReportLog provides a mock function with given fields: params, authInfo, opts
+func (_m *MockScanClientService) GetReportLog(params *scan.GetReportLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...scan.ClientOption) (*scan.GetReportLogOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *scan.GetReportLogOK
-	if rf, ok := ret.Get(0).(func(*scan.GetReportLogParams, runtime.ClientAuthInfoWriter) *scan.GetReportLogOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*scan.GetReportLogParams, runtime.ClientAuthInfoWriter, ...scan.ClientOption) *scan.GetReportLogOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*scan.GetReportLogOK)
@@ -28,8 +35,8 @@ func (_m *MockScanClientService) GetReportLog(params *scan.GetReportLogParams, a
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*scan.GetReportLogParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*scan.GetReportLogParams, runtime.ClientAuthInfoWriter, ...scan.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -37,13 +44,20 @@ func (_m *MockScanClientService) GetReportLog(params *scan.GetReportLogParams, a
 	return r0, r1
 }
 
-// ScanArtifact provides a mock function with given fields: params, authInfo
-func (_m *MockScanClientService) ScanArtifact(params *scan.ScanArtifactParams, authInfo runtime.ClientAuthInfoWriter) (*scan.ScanArtifactAccepted, error) {
-	ret := _m.Called(params, authInfo)
+// ScanArtifact provides a mock function with given fields: params, authInfo, opts
+func (_m *MockScanClientService) ScanArtifact(params *scan.ScanArtifactParams, authInfo runtime.ClientAuthInfoWriter, opts ...scan.ClientOption) (*scan.ScanArtifactAccepted, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *scan.ScanArtifactAccepted
-	if rf, ok := ret.Get(0).(func(*scan.ScanArtifactParams, runtime.ClientAuthInfoWriter) *scan.ScanArtifactAccepted); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*scan.ScanArtifactParams, runtime.ClientAuthInfoWriter, ...scan.ClientOption) *scan.ScanArtifactAccepted); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*scan.ScanArtifactAccepted)
@@ -51,8 +65,8 @@ func (_m *MockScanClientService) ScanArtifact(params *scan.ScanArtifactParams, a
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*scan.ScanArtifactParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*scan.ScanArtifactParams, runtime.ClientAuthInfoWriter, ...scan.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}

@@ -25,9 +25,12 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	ListAuditLogs(params *ListAuditLogsParams, authInfo runtime.ClientAuthInfoWriter) (*ListAuditLogsOK, error)
+	ListAuditLogs(params *ListAuditLogsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListAuditLogsOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -38,13 +41,12 @@ type ClientService interface {
   This endpoint let user see the recent operation logs of the projects which he is member of
 
 */
-func (a *Client) ListAuditLogs(params *ListAuditLogsParams, authInfo runtime.ClientAuthInfoWriter) (*ListAuditLogsOK, error) {
+func (a *Client) ListAuditLogs(params *ListAuditLogsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListAuditLogsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListAuditLogsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "listAuditLogs",
 		Method:             "GET",
 		PathPattern:        "/audit-logs",
@@ -56,7 +58,12 @@ func (a *Client) ListAuditLogs(params *ListAuditLogsParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
