@@ -156,7 +156,7 @@ V1_VERSION = v1.x.x
 V2_VERSION = v2.x.x
 ```
 
-> Note: versions have to match a valid `goharbor` release version, see: [harbor/releases](https://github.com/goharbor/harbor/releases)
+> Please note, that versions have to match a valid `goharbor` release version. For reference, see: [harbor/releases](https://github.com/goharbor/harbor/releases).
 
 When changing the above API versions, make sure to _always_ run code generation:
 
@@ -186,4 +186,4 @@ See also:
 - [go-swagger/go-swagger](https://github.com/go-swagger/go-swagger)
 - [vektra/mockery](https://github.com/vektra/mockery)
 - [swagger.io editor](https://editor.swagger.io) (useful for an interactive preview of swagger API's)
-- [stretchr/testify](https://github.com/stretchr/testify) 
+- [stretchr/testify](https://github.com/stretchr/testify)
