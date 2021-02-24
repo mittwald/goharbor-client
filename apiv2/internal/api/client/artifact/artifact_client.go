@@ -25,27 +25,30 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CopyArtifact(params *CopyArtifactParams, authInfo runtime.ClientAuthInfoWriter) (*CopyArtifactCreated, error)
+	CopyArtifact(params *CopyArtifactParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CopyArtifactCreated, error)
 
-	AddLabel(params *AddLabelParams, authInfo runtime.ClientAuthInfoWriter) (*AddLabelOK, error)
+	AddLabel(params *AddLabelParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddLabelOK, error)
 
-	CreateTag(params *CreateTagParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTagCreated, error)
+	CreateTag(params *CreateTagParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTagCreated, error)
 
-	DeleteArtifact(params *DeleteArtifactParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteArtifactOK, error)
+	DeleteArtifact(params *DeleteArtifactParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteArtifactOK, error)
 
-	DeleteTag(params *DeleteTagParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteTagOK, error)
+	DeleteTag(params *DeleteTagParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteTagOK, error)
 
-	GetAddition(params *GetAdditionParams, authInfo runtime.ClientAuthInfoWriter) (*GetAdditionOK, error)
+	GetAddition(params *GetAdditionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAdditionOK, error)
 
-	GetArtifact(params *GetArtifactParams, authInfo runtime.ClientAuthInfoWriter) (*GetArtifactOK, error)
+	GetArtifact(params *GetArtifactParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetArtifactOK, error)
 
-	ListArtifacts(params *ListArtifactsParams, authInfo runtime.ClientAuthInfoWriter) (*ListArtifactsOK, error)
+	ListArtifacts(params *ListArtifactsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListArtifactsOK, error)
 
-	ListTags(params *ListTagsParams, authInfo runtime.ClientAuthInfoWriter) (*ListTagsOK, error)
+	ListTags(params *ListTagsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListTagsOK, error)
 
-	RemoveLabel(params *RemoveLabelParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveLabelOK, error)
+	RemoveLabel(params *RemoveLabelParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RemoveLabelOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -55,13 +58,12 @@ type ClientService interface {
 
   Copy the artifact specified in the "from" parameter to the repository.
 */
-func (a *Client) CopyArtifact(params *CopyArtifactParams, authInfo runtime.ClientAuthInfoWriter) (*CopyArtifactCreated, error) {
+func (a *Client) CopyArtifact(params *CopyArtifactParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CopyArtifactCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCopyArtifactParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "CopyArtifact",
 		Method:             "POST",
 		PathPattern:        "/projects/{project_name}/repositories/{repository_name}/artifacts",
@@ -73,7 +75,12 @@ func (a *Client) CopyArtifact(params *CopyArtifactParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -92,13 +99,12 @@ func (a *Client) CopyArtifact(params *CopyArtifactParams, authInfo runtime.Clien
 
   Add label to the specified artiact.
 */
-func (a *Client) AddLabel(params *AddLabelParams, authInfo runtime.ClientAuthInfoWriter) (*AddLabelOK, error) {
+func (a *Client) AddLabel(params *AddLabelParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddLabelOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAddLabelParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "addLabel",
 		Method:             "POST",
 		PathPattern:        "/projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/labels",
@@ -110,7 +116,12 @@ func (a *Client) AddLabel(params *AddLabelParams, authInfo runtime.ClientAuthInf
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -129,13 +140,12 @@ func (a *Client) AddLabel(params *AddLabelParams, authInfo runtime.ClientAuthInf
 
   Create a tag for the specified artifact
 */
-func (a *Client) CreateTag(params *CreateTagParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTagCreated, error) {
+func (a *Client) CreateTag(params *CreateTagParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTagCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateTagParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "createTag",
 		Method:             "POST",
 		PathPattern:        "/projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags",
@@ -147,7 +157,12 @@ func (a *Client) CreateTag(params *CreateTagParams, authInfo runtime.ClientAuthI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -166,13 +181,12 @@ func (a *Client) CreateTag(params *CreateTagParams, authInfo runtime.ClientAuthI
 
   Delete the artifact specified by the reference under the project and repository. The reference can be digest or tag
 */
-func (a *Client) DeleteArtifact(params *DeleteArtifactParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteArtifactOK, error) {
+func (a *Client) DeleteArtifact(params *DeleteArtifactParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteArtifactOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteArtifactParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "deleteArtifact",
 		Method:             "DELETE",
 		PathPattern:        "/projects/{project_name}/repositories/{repository_name}/artifacts/{reference}",
@@ -184,7 +198,12 @@ func (a *Client) DeleteArtifact(params *DeleteArtifactParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -203,13 +222,12 @@ func (a *Client) DeleteArtifact(params *DeleteArtifactParams, authInfo runtime.C
 
   Delete the tag of the specified artifact
 */
-func (a *Client) DeleteTag(params *DeleteTagParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteTagOK, error) {
+func (a *Client) DeleteTag(params *DeleteTagParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteTagOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteTagParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "deleteTag",
 		Method:             "DELETE",
 		PathPattern:        "/projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags/{tag_name}",
@@ -221,7 +239,12 @@ func (a *Client) DeleteTag(params *DeleteTagParams, authInfo runtime.ClientAuthI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -240,13 +263,12 @@ func (a *Client) DeleteTag(params *DeleteTagParams, authInfo runtime.ClientAuthI
 
   Get the addition of the artifact specified by the reference under the project and repository.
 */
-func (a *Client) GetAddition(params *GetAdditionParams, authInfo runtime.ClientAuthInfoWriter) (*GetAdditionOK, error) {
+func (a *Client) GetAddition(params *GetAdditionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAdditionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAdditionParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "getAddition",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/additions/{addition}",
@@ -258,7 +280,12 @@ func (a *Client) GetAddition(params *GetAdditionParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -277,13 +304,12 @@ func (a *Client) GetAddition(params *GetAdditionParams, authInfo runtime.ClientA
 
   Get the artifact specified by the reference under the project and repository. The reference can be digest or tag.
 */
-func (a *Client) GetArtifact(params *GetArtifactParams, authInfo runtime.ClientAuthInfoWriter) (*GetArtifactOK, error) {
+func (a *Client) GetArtifact(params *GetArtifactParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetArtifactOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetArtifactParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "getArtifact",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_name}/repositories/{repository_name}/artifacts/{reference}",
@@ -295,7 +321,12 @@ func (a *Client) GetArtifact(params *GetArtifactParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -314,13 +345,12 @@ func (a *Client) GetArtifact(params *GetArtifactParams, authInfo runtime.ClientA
 
   List artifacts under the specific project and repository. Except the basic properties, the other supported queries in "q" includes "tags=*" to list only tagged artifacts, "tags=nil" to list only untagged artifacts, "tags=~v" to list artifacts whose tag fuzzy matches "v", "tags=v" to list artifact whose tag exactly matches "v", "labels=(id1, id2)" to list artifacts that both labels with id1 and id2 are added to
 */
-func (a *Client) ListArtifacts(params *ListArtifactsParams, authInfo runtime.ClientAuthInfoWriter) (*ListArtifactsOK, error) {
+func (a *Client) ListArtifacts(params *ListArtifactsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListArtifactsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListArtifactsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "listArtifacts",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_name}/repositories/{repository_name}/artifacts",
@@ -332,7 +362,12 @@ func (a *Client) ListArtifacts(params *ListArtifactsParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -351,13 +386,12 @@ func (a *Client) ListArtifacts(params *ListArtifactsParams, authInfo runtime.Cli
 
   List tags of the specific artifact
 */
-func (a *Client) ListTags(params *ListTagsParams, authInfo runtime.ClientAuthInfoWriter) (*ListTagsOK, error) {
+func (a *Client) ListTags(params *ListTagsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListTagsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListTagsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "listTags",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags",
@@ -369,7 +403,12 @@ func (a *Client) ListTags(params *ListTagsParams, authInfo runtime.ClientAuthInf
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -388,13 +427,12 @@ func (a *Client) ListTags(params *ListTagsParams, authInfo runtime.ClientAuthInf
 
   Remove the label from the specified artiact.
 */
-func (a *Client) RemoveLabel(params *RemoveLabelParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveLabelOK, error) {
+func (a *Client) RemoveLabel(params *RemoveLabelParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RemoveLabelOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRemoveLabelParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "removeLabel",
 		Method:             "DELETE",
 		PathPattern:        "/projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/labels/{label_id}",
@@ -406,7 +444,12 @@ func (a *Client) RemoveLabel(params *RemoveLabelParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

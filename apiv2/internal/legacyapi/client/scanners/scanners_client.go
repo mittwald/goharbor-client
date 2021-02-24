@@ -25,17 +25,20 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteScannersRegistrationID(params *DeleteScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteScannersRegistrationIDOK, error)
+	DeleteScannersRegistrationID(params *DeleteScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteScannersRegistrationIDOK, error)
 
-	PatchScannersRegistrationID(params *PatchScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter) (*PatchScannersRegistrationIDOK, error)
+	PatchScannersRegistrationID(params *PatchScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PatchScannersRegistrationIDOK, error)
 
-	PostScanners(params *PostScannersParams, authInfo runtime.ClientAuthInfoWriter) (*PostScannersCreated, error)
+	PostScanners(params *PostScannersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostScannersCreated, error)
 
-	PutProjectsProjectIDScanner(params *PutProjectsProjectIDScannerParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDScannerOK, error)
+	PutProjectsProjectIDScanner(params *PutProjectsProjectIDScannerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutProjectsProjectIDScannerOK, error)
 
-	PutScannersRegistrationID(params *PutScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutScannersRegistrationIDOK, error)
+	PutScannersRegistrationID(params *PutScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutScannersRegistrationIDOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -46,13 +49,12 @@ type ClientService interface {
   Deletes the specified scanner registration.
 
 */
-func (a *Client) DeleteScannersRegistrationID(params *DeleteScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteScannersRegistrationIDOK, error) {
+func (a *Client) DeleteScannersRegistrationID(params *DeleteScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteScannersRegistrationIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteScannersRegistrationIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteScannersRegistrationID",
 		Method:             "DELETE",
 		PathPattern:        "/scanners/{registration_id}",
@@ -64,7 +66,12 @@ func (a *Client) DeleteScannersRegistrationID(params *DeleteScannersRegistration
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -84,13 +91,12 @@ func (a *Client) DeleteScannersRegistrationID(params *DeleteScannersRegistration
   Set the specified scanner registration as the system default one.
 
 */
-func (a *Client) PatchScannersRegistrationID(params *PatchScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter) (*PatchScannersRegistrationIDOK, error) {
+func (a *Client) PatchScannersRegistrationID(params *PatchScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PatchScannersRegistrationIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchScannersRegistrationIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PatchScannersRegistrationID",
 		Method:             "PATCH",
 		PathPattern:        "/scanners/{registration_id}",
@@ -102,7 +108,12 @@ func (a *Client) PatchScannersRegistrationID(params *PatchScannersRegistrationID
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -122,13 +133,12 @@ func (a *Client) PatchScannersRegistrationID(params *PatchScannersRegistrationID
   Creats a new scanner registration with the given data.
 
 */
-func (a *Client) PostScanners(params *PostScannersParams, authInfo runtime.ClientAuthInfoWriter) (*PostScannersCreated, error) {
+func (a *Client) PostScanners(params *PostScannersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostScannersCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostScannersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostScanners",
 		Method:             "POST",
 		PathPattern:        "/scanners",
@@ -140,7 +150,12 @@ func (a *Client) PostScanners(params *PostScannersParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -159,13 +174,12 @@ func (a *Client) PostScanners(params *PostScannersParams, authInfo runtime.Clien
 
   Set one of the system configured scanner registration as the indepndent scanner of the specified project.
 */
-func (a *Client) PutProjectsProjectIDScanner(params *PutProjectsProjectIDScannerParams, authInfo runtime.ClientAuthInfoWriter) (*PutProjectsProjectIDScannerOK, error) {
+func (a *Client) PutProjectsProjectIDScanner(params *PutProjectsProjectIDScannerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutProjectsProjectIDScannerOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutProjectsProjectIDScannerParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutProjectsProjectIDScanner",
 		Method:             "PUT",
 		PathPattern:        "/projects/{project_id}/scanner",
@@ -177,7 +191,12 @@ func (a *Client) PutProjectsProjectIDScanner(params *PutProjectsProjectIDScanner
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -197,13 +216,12 @@ func (a *Client) PutProjectsProjectIDScanner(params *PutProjectsProjectIDScanner
   Updates the specified scanner registration.
 
 */
-func (a *Client) PutScannersRegistrationID(params *PutScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter) (*PutScannersRegistrationIDOK, error) {
+func (a *Client) PutScannersRegistrationID(params *PutScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutScannersRegistrationIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutScannersRegistrationIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PutScannersRegistrationID",
 		Method:             "PUT",
 		PathPattern:        "/scanners/{registration_id}",
@@ -215,7 +233,12 @@ func (a *Client) PutScannersRegistrationID(params *PutScannersRegistrationIDPara
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

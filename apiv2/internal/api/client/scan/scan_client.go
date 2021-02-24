@@ -25,11 +25,14 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	GetReportLog(params *GetReportLogParams, authInfo runtime.ClientAuthInfoWriter) (*GetReportLogOK, error)
+	GetReportLog(params *GetReportLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReportLogOK, error)
 
-	ScanArtifact(params *ScanArtifactParams, authInfo runtime.ClientAuthInfoWriter) (*ScanArtifactAccepted, error)
+	ScanArtifact(params *ScanArtifactParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ScanArtifactAccepted, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -39,13 +42,12 @@ type ClientService interface {
 
   Get the log of the scan report
 */
-func (a *Client) GetReportLog(params *GetReportLogParams, authInfo runtime.ClientAuthInfoWriter) (*GetReportLogOK, error) {
+func (a *Client) GetReportLog(params *GetReportLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReportLogOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetReportLogParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "getReportLog",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/scan/{report_id}/log",
@@ -57,7 +59,12 @@ func (a *Client) GetReportLog(params *GetReportLogParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -76,13 +83,12 @@ func (a *Client) GetReportLog(params *GetReportLogParams, authInfo runtime.Clien
 
   Scan the specified artifact
 */
-func (a *Client) ScanArtifact(params *ScanArtifactParams, authInfo runtime.ClientAuthInfoWriter) (*ScanArtifactAccepted, error) {
+func (a *Client) ScanArtifact(params *ScanArtifactParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ScanArtifactAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewScanArtifactParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "scanArtifact",
 		Method:             "POST",
 		PathPattern:        "/projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/scan",
@@ -94,7 +100,12 @@ func (a *Client) ScanArtifact(params *ScanArtifactParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

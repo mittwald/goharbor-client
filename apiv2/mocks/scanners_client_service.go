@@ -14,13 +14,20 @@ type MockScannersClientService struct {
 	mock.Mock
 }
 
-// DeleteScannersRegistrationID provides a mock function with given fields: params, authInfo
-func (_m *MockScannersClientService) DeleteScannersRegistrationID(params *scanners.DeleteScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter) (*scanners.DeleteScannersRegistrationIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// DeleteScannersRegistrationID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockScannersClientService) DeleteScannersRegistrationID(params *scanners.DeleteScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...scanners.ClientOption) (*scanners.DeleteScannersRegistrationIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *scanners.DeleteScannersRegistrationIDOK
-	if rf, ok := ret.Get(0).(func(*scanners.DeleteScannersRegistrationIDParams, runtime.ClientAuthInfoWriter) *scanners.DeleteScannersRegistrationIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*scanners.DeleteScannersRegistrationIDParams, runtime.ClientAuthInfoWriter, ...scanners.ClientOption) *scanners.DeleteScannersRegistrationIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*scanners.DeleteScannersRegistrationIDOK)
@@ -28,8 +35,8 @@ func (_m *MockScannersClientService) DeleteScannersRegistrationID(params *scanne
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*scanners.DeleteScannersRegistrationIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*scanners.DeleteScannersRegistrationIDParams, runtime.ClientAuthInfoWriter, ...scanners.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -37,13 +44,20 @@ func (_m *MockScannersClientService) DeleteScannersRegistrationID(params *scanne
 	return r0, r1
 }
 
-// PatchScannersRegistrationID provides a mock function with given fields: params, authInfo
-func (_m *MockScannersClientService) PatchScannersRegistrationID(params *scanners.PatchScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter) (*scanners.PatchScannersRegistrationIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// PatchScannersRegistrationID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockScannersClientService) PatchScannersRegistrationID(params *scanners.PatchScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...scanners.ClientOption) (*scanners.PatchScannersRegistrationIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *scanners.PatchScannersRegistrationIDOK
-	if rf, ok := ret.Get(0).(func(*scanners.PatchScannersRegistrationIDParams, runtime.ClientAuthInfoWriter) *scanners.PatchScannersRegistrationIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*scanners.PatchScannersRegistrationIDParams, runtime.ClientAuthInfoWriter, ...scanners.ClientOption) *scanners.PatchScannersRegistrationIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*scanners.PatchScannersRegistrationIDOK)
@@ -51,8 +65,8 @@ func (_m *MockScannersClientService) PatchScannersRegistrationID(params *scanner
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*scanners.PatchScannersRegistrationIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*scanners.PatchScannersRegistrationIDParams, runtime.ClientAuthInfoWriter, ...scanners.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -60,13 +74,20 @@ func (_m *MockScannersClientService) PatchScannersRegistrationID(params *scanner
 	return r0, r1
 }
 
-// PostScanners provides a mock function with given fields: params, authInfo
-func (_m *MockScannersClientService) PostScanners(params *scanners.PostScannersParams, authInfo runtime.ClientAuthInfoWriter) (*scanners.PostScannersCreated, error) {
-	ret := _m.Called(params, authInfo)
+// PostScanners provides a mock function with given fields: params, authInfo, opts
+func (_m *MockScannersClientService) PostScanners(params *scanners.PostScannersParams, authInfo runtime.ClientAuthInfoWriter, opts ...scanners.ClientOption) (*scanners.PostScannersCreated, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *scanners.PostScannersCreated
-	if rf, ok := ret.Get(0).(func(*scanners.PostScannersParams, runtime.ClientAuthInfoWriter) *scanners.PostScannersCreated); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*scanners.PostScannersParams, runtime.ClientAuthInfoWriter, ...scanners.ClientOption) *scanners.PostScannersCreated); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*scanners.PostScannersCreated)
@@ -74,8 +95,8 @@ func (_m *MockScannersClientService) PostScanners(params *scanners.PostScannersP
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*scanners.PostScannersParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*scanners.PostScannersParams, runtime.ClientAuthInfoWriter, ...scanners.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -83,13 +104,20 @@ func (_m *MockScannersClientService) PostScanners(params *scanners.PostScannersP
 	return r0, r1
 }
 
-// PutProjectsProjectIDScanner provides a mock function with given fields: params, authInfo
-func (_m *MockScannersClientService) PutProjectsProjectIDScanner(params *scanners.PutProjectsProjectIDScannerParams, authInfo runtime.ClientAuthInfoWriter) (*scanners.PutProjectsProjectIDScannerOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutProjectsProjectIDScanner provides a mock function with given fields: params, authInfo, opts
+func (_m *MockScannersClientService) PutProjectsProjectIDScanner(params *scanners.PutProjectsProjectIDScannerParams, authInfo runtime.ClientAuthInfoWriter, opts ...scanners.ClientOption) (*scanners.PutProjectsProjectIDScannerOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *scanners.PutProjectsProjectIDScannerOK
-	if rf, ok := ret.Get(0).(func(*scanners.PutProjectsProjectIDScannerParams, runtime.ClientAuthInfoWriter) *scanners.PutProjectsProjectIDScannerOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*scanners.PutProjectsProjectIDScannerParams, runtime.ClientAuthInfoWriter, ...scanners.ClientOption) *scanners.PutProjectsProjectIDScannerOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*scanners.PutProjectsProjectIDScannerOK)
@@ -97,8 +125,8 @@ func (_m *MockScannersClientService) PutProjectsProjectIDScanner(params *scanner
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*scanners.PutProjectsProjectIDScannerParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*scanners.PutProjectsProjectIDScannerParams, runtime.ClientAuthInfoWriter, ...scanners.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -106,13 +134,20 @@ func (_m *MockScannersClientService) PutProjectsProjectIDScanner(params *scanner
 	return r0, r1
 }
 
-// PutScannersRegistrationID provides a mock function with given fields: params, authInfo
-func (_m *MockScannersClientService) PutScannersRegistrationID(params *scanners.PutScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter) (*scanners.PutScannersRegistrationIDOK, error) {
-	ret := _m.Called(params, authInfo)
+// PutScannersRegistrationID provides a mock function with given fields: params, authInfo, opts
+func (_m *MockScannersClientService) PutScannersRegistrationID(params *scanners.PutScannersRegistrationIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...scanners.ClientOption) (*scanners.PutScannersRegistrationIDOK, error) {
+	_va := make([]interface{}, len(opts))
+	for _i := range opts {
+		_va[_i] = opts[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, params, authInfo)
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 *scanners.PutScannersRegistrationIDOK
-	if rf, ok := ret.Get(0).(func(*scanners.PutScannersRegistrationIDParams, runtime.ClientAuthInfoWriter) *scanners.PutScannersRegistrationIDOK); ok {
-		r0 = rf(params, authInfo)
+	if rf, ok := ret.Get(0).(func(*scanners.PutScannersRegistrationIDParams, runtime.ClientAuthInfoWriter, ...scanners.ClientOption) *scanners.PutScannersRegistrationIDOK); ok {
+		r0 = rf(params, authInfo, opts...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*scanners.PutScannersRegistrationIDOK)
@@ -120,8 +155,8 @@ func (_m *MockScannersClientService) PutScannersRegistrationID(params *scanners.
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*scanners.PutScannersRegistrationIDParams, runtime.ClientAuthInfoWriter) error); ok {
-		r1 = rf(params, authInfo)
+	if rf, ok := ret.Get(1).(func(*scanners.PutScannersRegistrationIDParams, runtime.ClientAuthInfoWriter, ...scanners.ClientOption) error); ok {
+		r1 = rf(params, authInfo, opts...)
 	} else {
 		r1 = ret.Error(1)
 	}
