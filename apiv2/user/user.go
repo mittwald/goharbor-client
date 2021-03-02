@@ -34,11 +34,13 @@ func NewClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authInfo 
 }
 
 type Client interface {
-	NewUser(ctx context.Context, username, email, realname, password, comments string)
+	NewUser(ctx context.Context, username, email, realname, password,
+		comments string) (*model.User, error)
 	GetUser(ctx context.Context, username string) (*model.User, error)
 	DeleteUser(ctx context.Context, u *model.User) error
 	UpdateUser(ctx context.Context, u *model.User) error
 	UpdateUserPassword(ctx context.Context, id int64, password *model.Password) error
+	UserExists(ctx context.Context, u *model.User) (bool, error)
 }
 
 // NewUser creates and returns a new user, or error in case of failure.
