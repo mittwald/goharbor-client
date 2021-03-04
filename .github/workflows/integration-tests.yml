@@ -4,6 +4,7 @@ on: pull_request
 
 env:
   GOPROXY: https://proxy.golang.org
+  YQ_VERSION: v4.6.0
 
 jobs:
   test-harbor:
@@ -27,5 +28,7 @@ jobs:
         run: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
       - name: Setup tools
         run: sudo apt-get update && sudo apt-get install -y jq make
+      - name: Setup yq
+        run: wget https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64.tar.gz -O - | tar xz && sudo mv yq_linux_amd64 /usr/bin/yq
       - name: Test
         run: make integration-test-${{ matrix.harbor }}

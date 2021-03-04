@@ -31,46 +31,24 @@ if [[ $? -ne "0" ]]; then
     exit 1
 fi
 
+yq --version &>/dev/null
+if [[ $? -ne "0" ]]; then
+    >&2 echo "yq not installed, aborting."
+    exit 1
+fi
+
 echo "Check needed program arguments..."
 if [[ -z "${HARBOR_VERSION}" ]]; then
     >&2 echo "Harbor version as first argument not provided, aborting."
     exit 1
 fi
 
-# Map Goharbor versions to their corresponding helmchart version
+# Map goharbor versions to their corresponding helm chart version
 while read CHART HARBOR; do
     if [[ "${HARBOR_VERSION#v}" == "${HARBOR}" ]]; then
         HARBOR_CHART_VERSION="${CHART}"
     fi
-done <<< "1.5.3 2.1.3
-1.5.2 2.1.2
-1.5.1 2.1.1
-1.5.0 2.1.0
-1.4.3 2.0.3
-1.4.2 2.0.2
-1.4.1 2.0.1
-1.4.0 2.0.0
-1.3.6 1.10.6
-1.3.5 1.10.5
-1.3.4 1.10.4
-1.3.2 1.10.3
-1.3.2 1.10.2
-1.3.1 1.10.1
-1.3.0 1.10.0
-1.2.4 1.9.4
-1.2.3 1.9.3
-1.2.2 1.9.2
-1.2.1 1.9.1
-1.2.0 1.9.0
-1.1.6 1.8.6
-1.1.5 1.8.5
-1.1.4 1.8.4
-1.1.3 1.8.3
-1.1.2 1.8.2
-1.1.1 1.8.1
-1.1.0 1.8.0
-1.0.1 1.7.5
-1.0.0 1.7.0"
+done <<< $(curl -s https://helm.goharbor.io/index.yaml | yq e '.entries.harbor[] | .version + " " + .appVersion' -)
 
 if [[ -z "${HARBOR_CHART_VERSION}" ]]; then
     >&2 echo "Unsupported Harbor version, aborting."
