@@ -33,7 +33,7 @@ go get github.com/mittwald/goharbor-client/v3/apiv2
 ## Contributing
 Before you make your changes, check to see if an [issue already exists](https://github.com/mittwald/goharbor-client/issues) for the change you want to make.
 
-When in doubt where to start when making changes to the client, please refer to the [Contributing guide](./CONTRIBUTING.md).
+When in doubt where to start when making changes to the client, please refer to the [Contribution guide](./CONTRIBUTING.md).
 
 ## Documentation
 For more specific documentation, please refer to the [godoc](https://pkg.go.dev/github.com/mittwald/goharbor-client/v3) of this library.

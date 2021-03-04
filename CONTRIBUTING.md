@@ -1,4 +1,4 @@
-# Contributing
+# Contribution guide
 
 ## Table of contents
 - [Implementing sub-clients](#implementing-sub-clients)
