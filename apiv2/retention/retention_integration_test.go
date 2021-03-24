@@ -4,9 +4,10 @@ package retention
 
 import (
 	"context"
-	model "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 	"net/url"
 	"testing"
+
+	model "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"

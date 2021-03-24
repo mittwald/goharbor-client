@@ -4,8 +4,9 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
 	"strconv"
+
+	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
 
 	"github.com/go-openapi/runtime"
 	v2client "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client"
