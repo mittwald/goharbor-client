@@ -66,7 +66,6 @@ func (c *RESTClient) UpdateStorageQuotaByProjectID(ctx context.Context, projectI
 	}
 
 	_, err := c.LegacyClient.Products.PutQuotasID(params, c.AuthInfo)
-
 	if err != nil {
 		return handleSwaggerQuotaErrors(err)
 	}

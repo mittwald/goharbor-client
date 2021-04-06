@@ -25,7 +25,7 @@ var (
 	exampleUser     = "example-user"
 	examplePassword = "password"
 	exampleEmail    = "test@example.com"
-	exampleUserID   = int64(0)
+	exampleUserID   = int64(1)
 )
 
 func BuildLegacyClientWithMock(service *mocks.MockProductsClientService) *client.Harbor {
@@ -237,6 +237,88 @@ func TestRESTClient_GetUser(t *testing.T) {
 	assert.NoError(t, err)
 
 	p.AssertExpectations(t)
+}
+
+func TestRESTClient_GetUserByID(t *testing.T) {
+	p := &mocks.MockProductsClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(p)
+	v2Client := BuildV2ClientWithMocks()
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	getUserIDParams := &products.GetUsersUserIDParams{
+		UserID:  exampleUserID,
+		Context: ctx,
+	}
+
+	p.On("GetUsersUserID", getUserIDParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetUsersUserIDOK{
+			Payload: &model.User{
+				UserID: exampleUserID,
+			},
+		}, nil)
+
+	_, err := cl.GetUserByID(ctx, exampleUserID)
+
+	assert.NoError(t, err)
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_GetUserByID_ID_Mismatch(t *testing.T) {
+	p := &mocks.MockProductsClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(p)
+	v2Client := BuildV2ClientWithMocks()
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	getUserIDParams := &products.GetUsersUserIDParams{
+		UserID:  exampleUserID,
+		Context: ctx,
+	}
+
+	t.Run("IDMismatch", func(t *testing.T) {
+		p.On("GetUsersUserID", getUserIDParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+			Return(&products.GetUsersUserIDOK{
+				Payload: &model.User{
+					UserID: 0,
+				},
+			}, nil)
+
+		_, err := cl.GetUserByID(ctx, exampleUserID)
+
+		if assert.Error(t, err) {
+			assert.IsType(t, &ErrUserMismatch{}, err)
+		}
+
+		p.AssertExpectations(t)
+	})
+
+	t.Run("InvalidID_Null", func(t *testing.T) {
+		_, err := cl.GetUserByID(ctx, 0)
+
+		if assert.Error(t, err) {
+			assert.IsType(t, &ErrUserInvalidID{}, err)
+		}
+
+		p.AssertExpectations(t)
+	})
+
+	t.Run("InvalidID_Negative", func(t *testing.T) {
+		_, err := cl.GetUserByID(ctx, -1)
+
+		if assert.Error(t, err) {
+			assert.IsType(t, &ErrUserInvalidID{}, err)
+		}
+
+		p.AssertExpectations(t)
+	})
 }
 
 func TestRESTClient_GetUser_EmptyUserName(t *testing.T) {
@@ -769,4 +851,10 @@ func TestErrUserPasswordInvalid_Error(t *testing.T) {
 	var e ErrUserPasswordInvalid
 
 	assert.Equal(t, ErrUserPasswordInvalidMsg, e.Error())
+}
+
+func TestErrUserIDNotExists_Error(t *testing.T) {
+	var e ErrUserIDNotExists
+
+	assert.Equal(t, ErrUserIDNotExistsMsg, e.Error())
 }

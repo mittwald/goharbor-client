@@ -48,6 +48,7 @@ func BuildProjectClientWithMocks(project *mocks.MockProjectClientService) *v2cli
 		Project: project,
 	}
 }
+
 func TestNewClient(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
@@ -163,7 +164,7 @@ func TestRESTClient_GetRetentionPolicy(t *testing.T) {
 
 	ctx := context.Background()
 
-	var retentionIDPtr = "1"
+	retentionIDPtr := "1"
 
 	project := &modelv2.Project{
 		Deleted: false,
@@ -205,7 +206,7 @@ func TestRESTClient_GetRetentionPolicy_ErrProjectNotFound(t *testing.T) {
 
 	ctx := context.Background()
 
-	var retentionIDPtr = "1"
+	retentionIDPtr := "1"
 
 	project := &modelv2.Project{
 		Deleted: false,
@@ -242,7 +243,7 @@ func TestRESTClient_GetRetentionPolicy_ErrRetentionUnauthorized(t *testing.T) {
 
 	ctx := context.Background()
 
-	var retentionIDPtr = "10"
+	retentionIDPtr := "10"
 
 	project := &modelv2.Project{
 		Deleted: false,
@@ -434,16 +435,19 @@ func TestErrRetentionNotProvided_Error(t *testing.T) {
 
 	assert.Equal(t, ErrRetentionNotProvidedMsg, e.Error())
 }
+
 func TestErrRetentionNoPermission_Error(t *testing.T) {
 	var e ErrRetentionNoPermission
 
 	assert.Equal(t, ErrRetentionNoPermissionMsg, e.Error())
 }
+
 func TestErrRetentionDoesNotExist_Error(t *testing.T) {
 	var e ErrRetentionDoesNotExist
 
 	assert.Equal(t, ErrRetentionDoesNotExistMsg, e.Error())
 }
+
 func TestErrRetentionInternalErrors_Error(t *testing.T) {
 	var e ErrRetentionInternalErrors
 

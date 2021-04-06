@@ -23,6 +23,9 @@ const (
 	// ErrUserInvalidIDMsg is the error message for ErrUserInvalidID error.
 	ErrUserInvalidIDMsg = "invalid user ID"
 
+	// ErrUserIDNotExistsMsg is the error message for ErrUserIDNotExists error.
+	ErrUserIDNotExistsMsg = "user id does not exist"
+
 	// ErrUserPasswordInvalid  is the error message for ErrUserPasswordInvalid error.
 	ErrUserPasswordInvalidMsg = "invalid user password"
 )
@@ -67,9 +70,18 @@ func (e *ErrUserInvalidID) Error() string {
 	return ErrUserInvalidIDMsg
 }
 
+// ErrUserIDNotExists describes an error indicating a non existing user id.
+type ErrUserIDNotExists struct{}
+
+// Error returns the error message.
+func (e *ErrUserIDNotExists) Error() string {
+	return ErrUserIDNotExistsMsg
+}
+
 // ErrUserPasswordInvalid describes an error indicating an invalid password
 type ErrUserPasswordInvalid struct{}
 
+// Error returns the error message.
 func (e *ErrUserPasswordInvalid) Error() string {
 	return ErrUserPasswordInvalidMsg
 }

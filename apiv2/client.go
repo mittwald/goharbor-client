@@ -89,6 +89,11 @@ func (c *RESTClient) GetUser(ctx context.Context, username string) (*legacymodel
 	return c.user.GetUser(ctx, username)
 }
 
+// GetUserByID wraps the GetUserByID method of the user sub-package.
+func (c *RESTClient) GetUserByID(ctx context.Context, id int64) (*legacymodel.User, error) {
+	return c.user.GetUserByID(ctx, id)
+}
+
 // DeleteUser wraps the DeleteUser method of the user sub-package.
 func (c *RESTClient) DeleteUser(ctx context.Context, u *legacymodel.User) error {
 	return c.user.DeleteUser(ctx, u)

@@ -92,6 +92,35 @@ func TestAPIUserGet(t *testing.T) {
 	assert.Equal(t, user, user2)
 }
 
+func TestAPIUserGet_2(t *testing.T) {
+	ctx := context.Background()
+	username := "foobar"
+	email := "foo@bar.com"
+	realname := "Foo Bar"
+	password := "1VerySeriousPassword"
+	comments := "Some comments"
+
+	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
+	user, err := c.NewUser(ctx, username, email, realname, password, comments)
+
+	require.NoError(t, err)
+	require.NotNil(t, user)
+
+	defer c.DeleteUser(ctx, user)
+
+	user2, err := c.GetUser(ctx, username)
+
+	require.NoError(t, err)
+	require.NotNil(t, user2)
+
+	user3, err := c.GetUserByID(ctx, user2.UserID)
+
+	require.NoError(t, err)
+	require.NotNil(t, user3)
+
+	assert.Equal(t, user, user3)
+}
+
 func TestAPIUserDelete(t *testing.T) {
 	ctx := context.Background()
 	username := "foobar"

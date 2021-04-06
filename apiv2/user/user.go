@@ -37,6 +37,7 @@ type Client interface {
 	NewUser(ctx context.Context, username, email, realname, password,
 		comments string) (*model.User, error)
 	GetUser(ctx context.Context, username string) (*model.User, error)
+	GetUserByID(ctx context.Context, id int64) (*model.User, error)
 	DeleteUser(ctx context.Context, u *model.User) error
 	UpdateUser(ctx context.Context, u *model.User) error
 	UpdateUserPassword(ctx context.Context, id int64, password *model.Password) error
@@ -96,6 +97,28 @@ func (c *RESTClient) GetUser(ctx context.Context, username string) (*model.User,
 	}
 
 	return nil, &ErrUserNotFound{}
+}
+
+// GetUserByID fetches a registered user by the provided user id.
+// Returns an error if no user could be found, or if the id is '0'.
+func (c *RESTClient) GetUserByID(ctx context.Context, id int64) (*model.User, error) {
+	if id <= 0 {
+		return nil, &ErrUserInvalidID{}
+	}
+
+	resp, err := c.LegacyClient.Products.GetUsersUserID(&products.GetUsersUserIDParams{
+		UserID:  id,
+		Context: ctx,
+	}, c.AuthInfo)
+	if err != nil {
+		return nil, handleSwaggerUserErrors(err)
+	}
+
+	if resp.Payload.UserID != id {
+		return nil, &ErrUserMismatch{}
+	}
+
+	return resp.Payload, nil
 }
 
 // DeleteUser deletes the specified user.
