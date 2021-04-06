@@ -102,7 +102,7 @@ func (c *RESTClient) GetUser(ctx context.Context, username string) (*model.User,
 // GetUserByID fetches a registered user by the provided user id.
 // Returns an error if no user could be found, or if the id is '0'.
 func (c *RESTClient) GetUserByID(ctx context.Context, id int64) (*model.User, error) {
-	if id == 0 {
+	if id <= 0 {
 		return nil, &ErrUserInvalidID{}
 	}
 

@@ -300,8 +300,18 @@ func TestRESTClient_GetUserByID_ID_Mismatch(t *testing.T) {
 		p.AssertExpectations(t)
 	})
 
-	t.Run("InvalidID", func(t *testing.T) {
+	t.Run("InvalidID_Null", func(t *testing.T) {
 		_, err := cl.GetUserByID(ctx, 0)
+
+		if assert.Error(t, err) {
+			assert.IsType(t, &ErrUserInvalidID{}, err)
+		}
+
+		p.AssertExpectations(t)
+	})
+
+	t.Run("InvalidID_Negative", func(t *testing.T) {
+		_, err := cl.GetUserByID(ctx, -1)
 
 		if assert.Error(t, err) {
 			assert.IsType(t, &ErrUserInvalidID{}, err)
