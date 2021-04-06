@@ -366,9 +366,9 @@ func TestAPIProjectMetadataList(t *testing.T) {
 	m, err := c.ListProjectMetadata(ctx, p)
 	require.NoError(t, err)
 
-	var sPtrTrue = "true"
-	var sPtrMedium = "medium"
-	var sPtrRID = "1"
+	sPtrTrue := "true"
+	sPtrMedium := "medium"
+	sPtrRID := "1"
 
 	assert.Equal(t, &sPtrTrue, m.AutoScan)
 	assert.Equal(t, &sPtrTrue, m.EnableContentTrust)

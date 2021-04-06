@@ -45,7 +45,8 @@ func newTestRetention(projectID int64) model.RetentionPolicy {
 					Kind:       SelectorTypeDefault,
 					Pattern:    "**",
 					Extras:     "", // The "Extras" field is unused for scope selectors.
-				}}},
+				}},
+			},
 			TagSelectors: []*model.RetentionSelector{{
 				Decoration: TagSelectorMatches.String(),
 				Extras:     ToTagSelectorExtras(true),
@@ -142,27 +143,29 @@ func TestAPIRetentionUpdate(t *testing.T) {
 
 	changed := rp
 
-	changed.Rules = []*model.RetentionRule{{
-		Action:   "retain",
-		Disabled: true,
-		Params: map[string]interface{}{
-			PolicyTemplateDaysSinceLastPull.String(): 2,
-		},
-		ScopeSelectors: map[string][]model.RetentionSelector{
-			"repository": {{
-				Decoration: ScopeSelectorRepoExcludes.String(),
+	changed.Rules = []*model.RetentionRule{
+		{
+			Action:   "retain",
+			Disabled: true,
+			Params: map[string]interface{}{
+				PolicyTemplateDaysSinceLastPull.String(): 2,
+			},
+			ScopeSelectors: map[string][]model.RetentionSelector{
+				"repository": {{
+					Decoration: ScopeSelectorRepoExcludes.String(),
+					Kind:       SelectorTypeDefault,
+					Pattern:    "**",
+					Extras:     "", // The "Extras" field is unused for scope selectors.
+				}},
+			},
+			TagSelectors: []*model.RetentionSelector{{
+				Decoration: TagSelectorExcludes.String(),
+				Extras:     ToTagSelectorExtras(false),
 				Kind:       SelectorTypeDefault,
 				Pattern:    "**",
-				Extras:     "", // The "Extras" field is unused for scope selectors.
-			}}},
-		TagSelectors: []*model.RetentionSelector{{
-			Decoration: TagSelectorExcludes.String(),
-			Extras:     ToTagSelectorExtras(false),
-			Kind:       SelectorTypeDefault,
-			Pattern:    "**",
-		}},
-		Template: PolicyTemplateDaysSinceLastPull.String(),
-	},
+			}},
+			Template: PolicyTemplateDaysSinceLastPull.String(),
+		},
 	}
 
 	err = c.UpdateRetentionPolicy(ctx, changed)

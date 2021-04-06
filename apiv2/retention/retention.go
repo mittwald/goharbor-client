@@ -178,7 +178,6 @@ func (c *RESTClient) DisableRetentionPolicy(ctx context.Context, ret *model.Rete
 	}
 
 	return nil
-
 }
 
 // UpdateRetentionPolicy updates the specified retention policy ret.

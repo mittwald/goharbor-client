@@ -136,7 +136,6 @@ func (c *RESTClient) GetProjectByName(ctx context.Context, name string) (*modelv
 	}
 
 	projectList, err := c.ListProjects(ctx, name)
-
 	if err != nil {
 		return nil, handleSwaggerProjectErrors(err)
 	}
@@ -153,7 +152,6 @@ func (c *RESTClient) GetProjectByName(ctx context.Context, name string) (*modelv
 		ProjectID: projectID,
 		Context:   ctx,
 	}, c.AuthInfo)
-
 	if err != nil {
 		return nil, handleSwaggerProjectErrors(err)
 	}
@@ -171,7 +169,6 @@ func (c *RESTClient) GetProjectByID(ctx context.Context, projectID int64) (*mode
 		ProjectID: projectID,
 		Context:   ctx,
 	}, c.AuthInfo)
-
 	if err != nil {
 		return nil, handleSwaggerProjectErrors(err)
 	}
@@ -191,7 +188,6 @@ func (c *RESTClient) ListProjects(ctx context.Context, nameFilter string) ([]*mo
 		Name:    &nameFilter,
 		Context: ctx,
 	}, c.AuthInfo)
-
 	if err != nil {
 		return nil, handleSwaggerProjectErrors(err)
 	}
@@ -431,7 +427,6 @@ func (c *RESTClient) AddProjectMetadata(ctx context.Context, p *modelv2.Project,
 // GetProjectMetadataValue retrieves metadata with key of project p.
 func (c *RESTClient) GetProjectMetadataValue(ctx context.Context, projectID int64, key MetadataKey) (string, error) {
 	project, err := c.GetProjectByID(ctx, projectID)
-
 	if err != nil {
 		return "", handleSwaggerProjectErrors(err)
 	}

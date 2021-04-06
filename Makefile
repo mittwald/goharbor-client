@@ -48,7 +48,14 @@ integration-test-v1: harbor-v1
 integration-test-v2: harbor-v2
 	CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v3/apiv2/... -tags integration
 
-# Exclude auto-generated code to be formatted by gofmt
+# Exclude auto-generated code to be formatted by gofmt, gofumpt & goimports.
+FIND=find . \( -path "./apiv*/internal" -o -path "./apiv*/mocks" -o -path "./apiv*/model" \) -prune -false -o -name '*.go'
+
 gofmt:
-	find . \( -path "./apiv*/internal" -o -path "./apiv*/mocks" -o -path "./apiv*/model" \)  \
-	-prune -false -o -name '*.go' -exec gofmt -l -w {} \;
+	$(FIND) -exec gofmt -l -w {} \;
+
+gofumpt:
+	$(FIND) -exec gofumpt -w {} \;
+
+goimports:
+	$(FIND) -exec goimports -w {} \;
