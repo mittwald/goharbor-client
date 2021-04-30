@@ -70,6 +70,11 @@ type Client interface {
 	AddProjectRobot(ctx context.Context, p *modelv2.Project, robot *model.RobotAccountCreate) (string, error)
 	UpdateProjectRobot(ctx context.Context, p *modelv2.Project, robotID int, robot *model.RobotAccountUpdate) error
 	DeleteProjectRobot(ctx context.Context, p *modelv2.Project, robotID int) error
+
+	ListProjectWebhookPolicies(ctx context.Context, p *modelv2.Project) ([]*model.WebhookPolicy, error)
+	AddProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, webhookPolicy *model.WebhookPolicy) error
+	UpdateProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int, policy *model.WebhookPolicy) error
+	DeleteProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int) error
 }
 
 type MetadataKey string
@@ -584,6 +589,82 @@ func (c *RESTClient) DeleteProjectRobot(ctx context.Context, p *modelv2.Project,
 		&products.DeleteProjectsProjectIDRobotsRobotIDParams{
 			ProjectID: int64(p.ProjectID),
 			RobotID:   int64(robotID),
+			Context:   ctx,
+		}, c.AuthInfo)
+	if err != nil {
+		return handleSwaggerProjectErrors(err)
+	}
+
+	return nil
+}
+
+// ListProjectWebhookPolicies returns a list of all webhook policies in project p.
+func (c *RESTClient) ListProjectWebhookPolicies(ctx context.Context, p *modelv2.Project) ([]*model.WebhookPolicy, error) {
+	if p == nil {
+		return nil, &ErrProjectNotProvided{}
+	}
+
+	resp, err := c.LegacyClient.Products.GetProjectsProjectIDWebhookPolicies(
+		&products.GetProjectsProjectIDWebhookPoliciesParams{
+			ProjectID: int64(p.ProjectID),
+			Context:   ctx,
+		}, c.AuthInfo)
+	if err != nil {
+		return nil, handleSwaggerProjectErrors(err)
+	}
+
+	return resp.Payload, nil
+}
+
+// AddProjectWebhookPolicy adds a webhook policy to project p.
+func (c *RESTClient) AddProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policy *model.WebhookPolicy) error {
+	if p == nil {
+		return &ErrProjectNotProvided{}
+	}
+
+	if policy == nil {
+		return &ErrProjectNoWebhookPolicyProvided{}
+	}
+
+	_, err := c.LegacyClient.Products.PostProjectsProjectIDWebhookPolicies(
+		&products.PostProjectsProjectIDWebhookPoliciesParams{
+			Policy:    policy,
+			ProjectID: int64(p.ProjectID),
+			Context:   ctx,
+		}, c.AuthInfo)
+	return handleSwaggerProjectErrors(err)
+}
+
+// UpdateProjectWebhookPolicy updates a webhook policy in project p.
+func (c *RESTClient) UpdateProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int, policy *model.WebhookPolicy) error {
+	if p == nil {
+		return &ErrProjectNotProvided{}
+	}
+
+	_, err := c.LegacyClient.Products.PutProjectsProjectIDWebhookPoliciesPolicyID(
+		&products.PutProjectsProjectIDWebhookPoliciesPolicyIDParams{
+			ProjectID: int64(p.ProjectID),
+			Policy:    policy,
+			PolicyID:  int64(policyID),
+			Context:   ctx,
+		}, c.AuthInfo)
+	if err != nil {
+		return handleSwaggerProjectErrors(err)
+	}
+
+	return nil
+}
+
+// DeleteProjectWebhookPolicy deletes a webhook policy from project p.
+func (c *RESTClient) DeleteProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int) error {
+	if p == nil {
+		return &ErrProjectNotProvided{}
+	}
+
+	_, err := c.LegacyClient.Products.DeleteProjectsProjectIDWebhookPoliciesPolicyID(
+		&products.DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams{
+			ProjectID: int64(p.ProjectID),
+			PolicyID:  int64(policyID),
 			Context:   ctx,
 		}, c.AuthInfo)
 	if err != nil {

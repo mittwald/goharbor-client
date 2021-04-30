@@ -67,6 +67,9 @@ const (
 
 	// ErrProjectMetadataValueUndefinedMsg is the error message used for MetadataKey's being undefined or nil.
 	ErrProjectMetadataValueUndefinedMsg = "project metadata value is nil: "
+
+	// ErrProjectNoWebhookPolicyProvidedMsg is the error message for ErrProjectNoWebhookPolicyProvided error.
+	ErrProjectNoWebhookPolicyProvidedMsg = "no project member provided"
 )
 
 // ErrProjectNameNotProvided describes a missing project name.
@@ -276,6 +279,15 @@ type ErrProjectUnknownResource struct{}
 // Error returns the error message.
 func (e *ErrProjectUnknownResource) Error() string {
 	return ErrProjectUnknownResourceMsg
+}
+
+// ErrProjectNoWebhookPolicyProvided describes which happens,
+// when no webhook policy is provided.
+type ErrProjectNoWebhookPolicyProvided struct{}
+
+// Error returns the error message.
+func (e *ErrProjectNoWebhookPolicyProvided) Error() string {
+	return ErrProjectNoWebhookPolicyProvidedMsg
 }
 
 // retrieveMetadataValue returns the value of the metadata k that is contained in the project metadata m.

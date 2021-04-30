@@ -211,6 +211,26 @@ func (c *RESTClient) DeleteProjectRobot(ctx context.Context, p *modelv2.Project,
 	return c.project.DeleteProjectRobot(ctx, p, robotID)
 }
 
+// ListProjectWebhookPolicies wraps the ListProjectWebhookPolicies method of the project sub-package.
+func (c *RESTClient) ListProjectWebhookPolicies(ctx context.Context, p *modelv2.Project) ([]*legacymodel.WebhookPolicy, error) {
+	return c.project.ListProjectWebhookPolicies(ctx, p)
+}
+
+// UpdateProjectWebhookPolicy wraps the UpdateProjectWebhookPolicy method of the project sub-package.
+func (c *RESTClient) UpdateProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int, policy *legacymodel.WebhookPolicy) error {
+	return c.project.UpdateProjectWebhookPolicy(ctx, p, policyID, policy)
+}
+
+// AddProjectWebhookPolicy wraps the AddProjectWebhookPolicy method of the project sub-package.
+func (c *RESTClient) AddProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policy *legacymodel.WebhookPolicy) error {
+	return c.project.AddProjectWebhookPolicy(ctx, p, policy)
+}
+
+// DeleteProjectWebhookPolicy wraps the DeleteProjectWebhookPolicy method of the project sub-package.
+func (c *RESTClient) DeleteProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int) error {
+	return c.project.DeleteProjectWebhookPolicy(ctx, p, policyID)
+}
+
 // Registry Client
 
 // NewRegistry wraps the NewRegistry method of the registry sub-package.
