@@ -69,7 +69,7 @@ const (
 	ErrProjectMetadataValueUndefinedMsg = "project metadata value is nil: "
 
 	// ErrProjectNoWebhookPolicyProvidedMsg is the error message for ErrProjectNoWebhookPolicyProvided error.
-	ErrProjectNoWebhookPolicyProvidedMsg = "no project member provided"
+	ErrProjectNoWebhookPolicyProvidedMsg = "no webhook policy provided"
 )
 
 // ErrProjectNameNotProvided describes a missing project name.

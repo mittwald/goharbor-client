@@ -641,6 +641,10 @@ func (c *RESTClient) UpdateProjectWebhookPolicy(ctx context.Context, p *modelv2.
 		return &ErrProjectNotProvided{}
 	}
 
+	if policy == nil {
+		return &ErrProjectNoWebhookPolicyProvided{}
+	}
+
 	_, err := c.LegacyClient.Products.PutProjectsProjectIDWebhookPoliciesPolicyID(
 		&products.PutProjectsProjectIDWebhookPoliciesPolicyIDParams{
 			ProjectID: int64(p.ProjectID),
