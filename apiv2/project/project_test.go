@@ -2183,6 +2183,148 @@ func TestRESTClient_DeleteProjectRobot(t *testing.T) {
 	p.AssertExpectations(t)
 }
 
+func TestRESTClient_ListProjectWebhookPolicies(t *testing.T) {
+	p := &mocks.MockProductsClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(p)
+	v2Client := BuildProjectClientWithMocks(nil)
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	expectedWebhookPolicies := []*model.WebhookPolicy{
+		{
+			ID:        42,
+			Name:      "example-policy",
+			ProjectID: exampleProjectID,
+		},
+	}
+
+	params := &products.GetProjectsProjectIDWebhookPoliciesParams{
+		ProjectID: exampleProjectID,
+		Context:   ctx,
+	}
+
+	p.On("GetProjectsProjectIDWebhookPolicies", params, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetProjectsProjectIDWebhookPoliciesOK{Payload: expectedWebhookPolicies}, nil)
+
+	webhookPolicies, err := cl.ListProjectWebhookPolicies(ctx, exampleProject)
+
+	assert.NoError(t, err)
+
+	assert.Equal(t, expectedWebhookPolicies, webhookPolicies)
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_AddProjectWebhookPolicy(t *testing.T) {
+	p := &mocks.MockProductsClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(p)
+	v2Client := BuildProjectClientWithMocks(nil)
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	newPolicy := &model.WebhookPolicy{
+		Enabled: true,
+		Name:    "my-policy",
+		Targets: []*model.WebhookTargetObject{{
+			Address: "http://example-webhook.com",
+		}},
+		EventTypes: []string{
+			"SCANNING_FAILED",
+			"SCANNING_COMPLETED",
+		},
+	}
+
+	params := &products.PostProjectsProjectIDWebhookPoliciesParams{
+		ProjectID: exampleProjectID,
+		Policy:    newPolicy,
+		Context:   ctx,
+	}
+
+	p.On("PostProjectsProjectIDWebhookPolicies", params, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PostProjectsProjectIDWebhookPoliciesCreated{}, nil)
+
+	err := cl.AddProjectWebhookPolicy(ctx, exampleProject, newPolicy)
+
+	assert.NoError(t, err)
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_UpdateProjectWebhookPolicy(t *testing.T) {
+	p := &mocks.MockProductsClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(p)
+	v2Client := BuildProjectClientWithMocks(nil)
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	const examplePolicyID = 42
+
+	updatePolicy := &model.WebhookPolicy{
+		Enabled: false,
+		Name:    "my-policy",
+		Targets: []*model.WebhookTargetObject{{
+			Address: "http://example-webhook.com",
+		}},
+		EventTypes: []string{
+			"SCANNING_FAILED",
+			"SCANNING_COMPLETED",
+		},
+	}
+
+	params := &products.PutProjectsProjectIDWebhookPoliciesPolicyIDParams{
+		ProjectID: exampleProjectID,
+		PolicyID:  examplePolicyID,
+		Policy:    updatePolicy,
+		Context:   ctx,
+	}
+
+	p.On("PutProjectsProjectIDWebhookPoliciesPolicyID", params, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.PutProjectsProjectIDWebhookPoliciesPolicyIDOK{}, nil)
+
+	err := cl.UpdateProjectWebhookPolicy(ctx, exampleProject, examplePolicyID, updatePolicy)
+
+	assert.NoError(t, err)
+
+	p.AssertExpectations(t)
+}
+
+func TestRESTClient_DeleteProjectWebhookPolicy(t *testing.T) {
+	p := &mocks.MockProductsClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(p)
+	v2Client := BuildProjectClientWithMocks(nil)
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	const examplePolicyID = 42
+
+	params := &products.DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams{
+		ProjectID: exampleProjectID,
+		PolicyID:  examplePolicyID,
+		Context:   ctx,
+	}
+
+	p.On("DeleteProjectsProjectIDWebhookPoliciesPolicyID", params, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.DeleteProjectsProjectIDWebhookPoliciesPolicyIDOK{}, nil)
+
+	err := cl.DeleteProjectWebhookPolicy(ctx, exampleProject, examplePolicyID)
+
+	assert.NoError(t, err)
+
+	p.AssertExpectations(t)
+}
+
 func TestErrProjectNameNotProvided_Error(t *testing.T) {
 	var e ErrProjectNameNotProvided
 
