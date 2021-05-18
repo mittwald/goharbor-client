@@ -195,9 +195,8 @@ func (c *RESTClient) UserExists(ctx context.Context, u *model.User) (bool, error
 	if err != nil {
 		if _, ok := err.(*ErrUserNotFound); ok {
 			return false, nil
-		} else {
-			return false, err
 		}
+		return false, err
 	}
 
 	return true, nil

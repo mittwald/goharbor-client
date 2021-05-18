@@ -38,8 +38,9 @@ func TestAPIGetQuotaByProjectID_PositiveQuota(t *testing.T) {
 	p, err := pc.NewProject(ctx, testProjectName, &storageLimitPositive)
 	defer pc.DeleteProject(ctx, p)
 
-	project, err := pc.GetProjectByName(ctx, testProjectName)
+	project, err := pc.GetProject(ctx, testProjectName)
 	require.NoError(t, err)
+	require.NotNil(t, project)
 
 	q, err := c.GetQuotaByProjectID(ctx, int64(project.ProjectID))
 	require.NoError(t, err)
@@ -58,7 +59,7 @@ func TestAPIGetQuotaByProjectID_NegativeQuota(t *testing.T) {
 	p, err := pc.NewProject(ctx, testProjectName, &storageLimitNegative)
 	defer pc.DeleteProject(ctx, p)
 
-	project, err := pc.GetProjectByName(ctx, testProjectName)
+	project, err := pc.GetProject(ctx, testProjectName)
 	require.NoError(t, err)
 
 	q, err := c.GetQuotaByProjectID(ctx, int64(project.ProjectID))
@@ -75,10 +76,10 @@ func TestAPIUpdateQuotaByProjectID(t *testing.T) {
 	// Updates the projects storage quota to a positive value and compares the observed values.
 	t.Run("PositiveQuota", func(t *testing.T) {
 		pc := project.NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
-		p, err := pc.NewProject(ctx, testProjectName, &storageLimitNegative)
+		p, err := pc.NewProject(ctx, testProjectName, &storageLimitPositive)
 		defer pc.DeleteProject(ctx, p)
 
-		project, err := pc.GetProjectByName(ctx, testProjectName)
+		project, err := pc.GetProject(ctx, testProjectName)
 		require.NoError(t, err)
 
 		err = c.UpdateStorageQuotaByProjectID(ctx, int64(project.ProjectID), storageLimitPositive)
@@ -90,14 +91,14 @@ func TestAPIUpdateQuotaByProjectID(t *testing.T) {
 		require.Equal(t, storageLimitPositive, q.Hard["storage"])
 	})
 
-	// TestAPIUpdateQuotaByProjectID_PositiveQuota creates a project with a positive storage limit.
+	// TestAPIUpdateQuotaByProjectID_NegativeQuota creates a project with a positive storage limit.
 	// Updates the projects storage quota to a negative value and compares the observed values.
 	t.Run("NegativeQuota", func(t *testing.T) {
 		pc := project.NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
-		p, err := pc.NewProject(ctx, testProjectName, &storageLimitPositive)
+		p, err := pc.NewProject(ctx, testProjectName, &storageLimitNegative)
 		defer pc.DeleteProject(ctx, p)
 
-		project, err := pc.GetProjectByName(ctx, testProjectName)
+		project, err := pc.GetProject(ctx, testProjectName)
 		require.NoError(t, err)
 
 		err = c.UpdateStorageQuotaByProjectID(ctx, int64(project.ProjectID), storageLimitNegative)
@@ -117,7 +118,7 @@ func TestAPIUpdateQuotaByProjectID(t *testing.T) {
 		p, err := pc.NewProject(ctx, testProjectName, &storageLimitNegative)
 		defer pc.DeleteProject(ctx, p)
 
-		project, err := pc.GetProjectByName(ctx, testProjectName)
+		project, err := pc.GetProject(ctx, testProjectName)
 		require.NoError(t, err)
 
 		err = c.UpdateStorageQuotaByProjectID(ctx, int64(project.ProjectID), storageLimitNegative2)
@@ -137,7 +138,7 @@ func TestAPIUpdateQuotaByProjectID(t *testing.T) {
 		p, err := pc.NewProject(ctx, testProjectName, &storageLimitNegative)
 		defer pc.DeleteProject(ctx, p)
 
-		project, err := pc.GetProjectByName(ctx, testProjectName)
+		project, err := pc.GetProject(ctx, testProjectName)
 		require.NoError(t, err)
 
 		err = c.UpdateStorageQuotaByProjectID(ctx, int64(project.ProjectID), storageLimitNull)

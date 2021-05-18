@@ -21,6 +21,8 @@ const (
 
 	// ErrQuotaUnknownResourceMsg is the errors message for ErrQuotaUnknownResource errors.
 	ErrQuotaUnknownResourceMsg = "quota does not exist"
+
+	ErrQuotaRefNotFoundMsg = "quota could not be found or contains unexpected reference object"
 )
 
 // ErrQuotaIllegalIDFormat describes an error due to an illegal request format.
@@ -61,6 +63,13 @@ type ErrQuotaInternalServerErrors struct{}
 // Error returns the error message.
 func (e *ErrQuotaInternalServerErrors) Error() string {
 	return ErrQuotaInternalServerErrorsMsg
+}
+
+// ErrQuotaRefNotFound describes an error when the quota reference could not be found.
+type ErrQuotaRefNotFound struct{}
+
+func (e *ErrQuotaRefNotFound) Error() string {
+	return ErrQuotaRefNotFoundMsg
 }
 
 // handleSwaggerQuotaErrors takes a swagger generated error as input,

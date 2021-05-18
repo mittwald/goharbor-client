@@ -36,7 +36,8 @@ func TestAPIProjectNew(t *testing.T) {
 	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
 
 	p, err := c.NewProject(ctx, name, &storageLimitPositive)
-	defer c.DeleteProject(ctx, p)
+	require.NoError(t, err)
+	err = c.DeleteProject(ctx, p)
 
 	require.NoError(t, err)
 	assert.Equal(t, name, p.Name)
@@ -67,7 +68,7 @@ func TestAPIProjectGet(t *testing.T) {
 	require.NoError(t, err)
 	defer c.DeleteProject(ctx, p)
 
-	p2, err := c.GetProjectByName(ctx, name)
+	p2, err := c.GetProject(ctx, name)
 	require.NoError(t, err)
 	assert.Equal(t, p, p2)
 }
@@ -83,7 +84,7 @@ func TestAPIProjectDelete(t *testing.T) {
 	err = c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	p, err = c.GetProjectByName(ctx, name)
+	p, err = c.GetProject(ctx, name)
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrProjectNotFound{}, err)
 	}
@@ -131,7 +132,7 @@ func TestAPIProjectUpdate(t *testing.T) {
 	p.Metadata.AutoScan = &mPtr
 	err = c.UpdateProject(ctx, p, &storageLimitPositive)
 	require.NoError(t, err)
-	p2, err := c.GetProjectByName(ctx, name)
+	p2, err := c.GetProject(ctx, name)
 	require.NoError(t, err)
 
 	assert.NotEqual(t, p, p2)
@@ -315,7 +316,7 @@ func TestAPIProjectMetadataGet(t *testing.T) {
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	m, err := c.GetProjectMetadataValue(ctx, int64(p.ProjectID), ProjectMetadataKeyPublic)
+	m, err := c.GetProjectMetadataValue(ctx, fmt.Sprint(p.ProjectID), ProjectMetadataKeyPublic)
 	require.NoError(t, err)
 
 	assert.Equal(t, "false", m)
@@ -331,7 +332,7 @@ func TestAPIProjectMetadataGetInvalidKey(t *testing.T) {
 	defer c.DeleteProject(ctx, p)
 	require.NoError(t, err)
 
-	m, err := c.GetProjectMetadataValue(ctx, int64(p.ProjectID), "foobar")
+	m, err := c.GetProjectMetadataValue(ctx, fmt.Sprint(p.ProjectID), "foobar")
 
 	if assert.Error(t, err) {
 		assert.Equal(t, "invalid request", err.Error())
