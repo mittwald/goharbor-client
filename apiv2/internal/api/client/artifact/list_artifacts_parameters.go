@@ -60,6 +60,15 @@ func NewListArtifactsParamsWithHTTPClient(client *http.Client) *ListArtifactsPar
 */
 type ListArtifactsParams struct {
 
+	/* XAcceptVulnerabilities.
+
+	     A comma-separated lists of MIME types for the scan report or scan summary. The first mime type will be used when the report found for it.
+	Currently the mime type supports 'application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0' and 'application/vnd.security.vulnerability.report; version=1.1'
+
+	     Default: "application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0"
+	*/
+	XAcceptVulnerabilities *string
+
 	/* XRequestID.
 
 	   An unique ID for the request
@@ -152,6 +161,8 @@ func (o *ListArtifactsParams) WithDefaults() *ListArtifactsParams {
 // All values with no default are reset to their zero value.
 func (o *ListArtifactsParams) SetDefaults() {
 	var (
+		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
+
 		pageDefault = int64(1)
 
 		pageSizeDefault = int64(10)
@@ -168,13 +179,14 @@ func (o *ListArtifactsParams) SetDefaults() {
 	)
 
 	val := ListArtifactsParams{
-		Page:                &pageDefault,
-		PageSize:            &pageSizeDefault,
-		WithImmutableStatus: &withImmutableStatusDefault,
-		WithLabel:           &withLabelDefault,
-		WithScanOverview:    &withScanOverviewDefault,
-		WithSignature:       &withSignatureDefault,
-		WithTag:             &withTagDefault,
+		XAcceptVulnerabilities: &xAcceptVulnerabilitiesDefault,
+		Page:                   &pageDefault,
+		PageSize:               &pageSizeDefault,
+		WithImmutableStatus:    &withImmutableStatusDefault,
+		WithLabel:              &withLabelDefault,
+		WithScanOverview:       &withScanOverviewDefault,
+		WithSignature:          &withSignatureDefault,
+		WithTag:                &withTagDefault,
 	}
 
 	val.timeout = o.timeout
@@ -214,6 +226,17 @@ func (o *ListArtifactsParams) WithHTTPClient(client *http.Client) *ListArtifacts
 // SetHTTPClient adds the HTTPClient to the list artifacts params
 func (o *ListArtifactsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
+}
+
+// WithXAcceptVulnerabilities adds the xAcceptVulnerabilities to the list artifacts params
+func (o *ListArtifactsParams) WithXAcceptVulnerabilities(xAcceptVulnerabilities *string) *ListArtifactsParams {
+	o.SetXAcceptVulnerabilities(xAcceptVulnerabilities)
+	return o
+}
+
+// SetXAcceptVulnerabilities adds the xAcceptVulnerabilities to the list artifacts params
+func (o *ListArtifactsParams) SetXAcceptVulnerabilities(xAcceptVulnerabilities *string) {
+	o.XAcceptVulnerabilities = xAcceptVulnerabilities
 }
 
 // WithXRequestID adds the xRequestID to the list artifacts params
@@ -344,6 +367,14 @@ func (o *ListArtifactsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		return err
 	}
 	var res []error
+
+	if o.XAcceptVulnerabilities != nil {
+
+		// header param X-Accept-Vulnerabilities
+		if err := r.SetHeaderParam("X-Accept-Vulnerabilities", *o.XAcceptVulnerabilities); err != nil {
+			return err
+		}
+	}
 
 	if o.XRequestID != nil {
 

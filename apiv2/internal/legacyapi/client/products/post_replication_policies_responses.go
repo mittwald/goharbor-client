@@ -77,6 +77,10 @@ func NewPostReplicationPoliciesCreated() *PostReplicationPoliciesCreated {
 Created
 */
 type PostReplicationPoliciesCreated struct {
+
+	/* The URL of the created resource
+	 */
+	Location string
 }
 
 func (o *PostReplicationPoliciesCreated) Error() string {
@@ -84,6 +88,13 @@ func (o *PostReplicationPoliciesCreated) Error() string {
 }
 
 func (o *PostReplicationPoliciesCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// hydrates response header Location
+	hdrLocation := response.GetHeader("Location")
+
+	if hdrLocation != "" {
+		o.Location = hdrLocation
+	}
 
 	return nil
 }

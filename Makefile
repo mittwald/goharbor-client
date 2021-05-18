@@ -2,9 +2,9 @@
 mock-cleanup integration-test-v1 integration-test-v2
 
 V1_VERSION = v1.10.6
-V2_VERSION = v2.1.3
-MOCKERY_VERSION = v2.5.1
-GOSWAGGER_VERSION = v0.26.1
+V2_VERSION = v2.2.1
+MOCKERY_VERSION = v2.7.5
+GOSWAGGER_VERSION = v0.27.0
 
 # Run all code generation targets
 generate: swagger-generate mock-generate

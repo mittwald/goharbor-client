@@ -65,6 +65,10 @@ func NewPostProjectsProjectIDWebhookPoliciesCreated() *PostProjectsProjectIDWebh
 Project webhook policy create successfully.
 */
 type PostProjectsProjectIDWebhookPoliciesCreated struct {
+
+	/* The URL of the created resource
+	 */
+	Location string
 }
 
 func (o *PostProjectsProjectIDWebhookPoliciesCreated) Error() string {
@@ -72,6 +76,13 @@ func (o *PostProjectsProjectIDWebhookPoliciesCreated) Error() string {
 }
 
 func (o *PostProjectsProjectIDWebhookPoliciesCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// hydrates response header Location
+	hdrLocation := response.GetHeader("Location")
+
+	if hdrLocation != "" {
+		o.Location = hdrLocation
+	}
 
 	return nil
 }

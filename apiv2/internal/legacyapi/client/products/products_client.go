@@ -40,8 +40,6 @@ type ClientService interface {
 
 	DeleteProjectsProjectIDMetadatasMetaName(params *DeleteProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProjectsProjectIDMetadatasMetaNameOK, error)
 
-	DeleteProjectsProjectIDRobotsRobotID(params *DeleteProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProjectsProjectIDRobotsRobotIDOK, error)
-
 	DeleteProjectsProjectIDWebhookPoliciesPolicyID(params *DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProjectsProjectIDWebhookPoliciesPolicyIDOK, error)
 
 	DeleteRegistriesID(params *DeleteRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteRegistriesIDOK, error)
@@ -76,10 +74,6 @@ type ClientService interface {
 
 	GetProjectsProjectIDMetadatasMetaName(params *GetProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDMetadatasMetaNameOK, error)
 
-	GetProjectsProjectIDRobots(params *GetProjectsProjectIDRobotsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDRobotsOK, error)
-
-	GetProjectsProjectIDRobotsRobotID(params *GetProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDRobotsRobotIDOK, error)
-
 	GetProjectsProjectIDScanner(params *GetProjectsProjectIDScannerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDScannerOK, error)
 
 	GetProjectsProjectIDScannerCandidates(params *GetProjectsProjectIDScannerCandidatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDScannerCandidatesOK, error)
@@ -108,27 +102,9 @@ type ClientService interface {
 
 	GetReplicationAdapters(params *GetReplicationAdaptersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationAdaptersOK, error)
 
-	GetReplicationExecutions(params *GetReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationExecutionsOK, error)
-
-	GetReplicationExecutionsID(params *GetReplicationExecutionsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationExecutionsIDOK, error)
-
-	GetReplicationExecutionsIDTasks(params *GetReplicationExecutionsIDTasksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationExecutionsIDTasksOK, error)
-
-	GetReplicationExecutionsIDTasksTaskIDLog(params *GetReplicationExecutionsIDTasksTaskIDLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationExecutionsIDTasksTaskIDLogOK, error)
-
 	GetReplicationPolicies(params *GetReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationPoliciesOK, error)
 
 	GetReplicationPoliciesID(params *GetReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationPoliciesIDOK, error)
-
-	GetRetentionsID(params *GetRetentionsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionsIDOK, error)
-
-	GetRetentionsIDExecutions(params *GetRetentionsIDExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionsIDExecutionsOK, error)
-
-	GetRetentionsIDExecutionsEidTasks(params *GetRetentionsIDExecutionsEidTasksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionsIDExecutionsEidTasksOK, error)
-
-	GetRetentionsIDExecutionsEidTasksTid(params *GetRetentionsIDExecutionsEidTasksTidParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionsIDExecutionsEidTasksTidOK, error)
-
-	GetRetentionsMetadatas(params *GetRetentionsMetadatasParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionsMetadatasOK, error)
 
 	GetScanners(params *GetScannersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetScannersOK, error)
 
@@ -136,31 +112,11 @@ type ClientService interface {
 
 	GetScannersRegistrationIDMetadata(params *GetScannersRegistrationIDMetadataParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetScannersRegistrationIDMetadataOK, error)
 
-	GetScansAllMetrics(params *GetScansAllMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetScansAllMetricsOK, error)
-
-	GetScansScheduleMetrics(params *GetScansScheduleMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetScansScheduleMetricsOK, error)
-
 	GetSearch(params *GetSearchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSearchOK, error)
 
 	GetStatistics(params *GetStatisticsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetStatisticsOK, error)
 
 	GetSystemCVEAllowlist(params *GetSystemCVEAllowlistParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemCVEAllowlistOK, error)
-
-	GetSystemGc(params *GetSystemGcParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemGcOK, error)
-
-	GetSystemGcID(params *GetSystemGcIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemGcIDOK, error)
-
-	GetSystemGcIDLog(params *GetSystemGcIDLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemGcIDLogOK, error)
-
-	GetSystemGcSchedule(params *GetSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemGcScheduleOK, error)
-
-	GetSystemScanAllSchedule(params *GetSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemScanAllScheduleOK, error)
-
-	GetSysteminfo(params *GetSysteminfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSysteminfoOK, error)
-
-	GetSysteminfoGetcert(params *GetSysteminfoGetcertParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSysteminfoGetcertOK, error)
-
-	GetSysteminfoVolumes(params *GetSysteminfoVolumesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSysteminfoVolumesOK, error)
 
 	GetUsergroups(params *GetUsergroupsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsergroupsOK, error)
 
@@ -175,8 +131,6 @@ type ClientService interface {
 	GetUsersSearch(params *GetUsersSearchParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsersSearchOK, error)
 
 	GetUsersUserID(params *GetUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsersUserIDOK, error)
-
-	PatchRetentionsIDExecutionsEid(params *PatchRetentionsIDExecutionsEidParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PatchRetentionsIDExecutionsEidOK, error)
 
 	PostChartrepoRepoChartsNameVersionLabels(params *PostChartrepoRepoChartsNameVersionLabelsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostChartrepoRepoChartsNameVersionLabelsOK, error)
 
@@ -194,8 +148,6 @@ type ClientService interface {
 
 	PostProjectsProjectIDMetadatas(params *PostProjectsProjectIDMetadatasParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostProjectsProjectIDMetadatasOK, error)
 
-	PostProjectsProjectIDRobots(params *PostProjectsProjectIDRobotsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostProjectsProjectIDRobotsCreated, error)
-
 	PostProjectsProjectIDWebhookPolicies(params *PostProjectsProjectIDWebhookPoliciesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostProjectsProjectIDWebhookPoliciesCreated, error)
 
 	PostProjectsProjectIDWebhookPoliciesTest(params *PostProjectsProjectIDWebhookPoliciesTestParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostProjectsProjectIDWebhookPoliciesTestOK, error)
@@ -204,21 +156,11 @@ type ClientService interface {
 
 	PostRegistriesPing(params *PostRegistriesPingParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostRegistriesPingOK, error)
 
-	PostReplicationExecutions(params *PostReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostReplicationExecutionsCreated, error)
-
 	PostReplicationPolicies(params *PostReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostReplicationPoliciesCreated, error)
-
-	PostRetentions(params *PostRetentionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostRetentionsCreated, error)
-
-	PostRetentionsIDExecutions(params *PostRetentionsIDExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostRetentionsIDExecutionsOK, error)
 
 	PostScannersPing(params *PostScannersPingParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostScannersPingOK, error)
 
-	PostSystemGcSchedule(params *PostSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostSystemGcScheduleOK, error)
-
 	PostSystemOidcPing(params *PostSystemOidcPingParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostSystemOidcPingOK, error)
-
-	PostSystemScanAllSchedule(params *PostSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostSystemScanAllScheduleOK, error)
 
 	PostUsergroups(params *PostUsergroupsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostUsergroupsCreated, error)
 
@@ -234,25 +176,15 @@ type ClientService interface {
 
 	PutProjectsProjectIDMetadatasMetaName(params *PutProjectsProjectIDMetadatasMetaNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutProjectsProjectIDMetadatasMetaNameOK, error)
 
-	PutProjectsProjectIDRobotsRobotID(params *PutProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutProjectsProjectIDRobotsRobotIDOK, error)
-
 	PutProjectsProjectIDWebhookPoliciesPolicyID(params *PutProjectsProjectIDWebhookPoliciesPolicyIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutProjectsProjectIDWebhookPoliciesPolicyIDOK, error)
 
 	PutQuotasID(params *PutQuotasIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutQuotasIDOK, error)
 
 	PutRegistriesID(params *PutRegistriesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutRegistriesIDOK, error)
 
-	PutReplicationExecutionsID(params *PutReplicationExecutionsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutReplicationExecutionsIDOK, error)
-
 	PutReplicationPoliciesID(params *PutReplicationPoliciesIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutReplicationPoliciesIDOK, error)
 
-	PutRetentionsID(params *PutRetentionsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutRetentionsIDOK, error)
-
 	PutSystemCVEAllowlist(params *PutSystemCVEAllowlistParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutSystemCVEAllowlistOK, error)
-
-	PutSystemGcSchedule(params *PutSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutSystemGcScheduleOK, error)
-
-	PutSystemScanAllSchedule(params *PutSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutSystemScanAllScheduleOK, error)
 
 	PutUsergroupsGroupID(params *PutUsergroupsGroupIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutUsergroupsGroupIDOK, error)
 
@@ -467,47 +399,6 @@ func (a *Client) DeleteProjectsProjectIDMetadatasMetaName(params *DeleteProjects
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for DeleteProjectsProjectIDMetadatasMetaName: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  DeleteProjectsProjectIDRobotsRobotID deletes the specified robot account
-
-  Delete the specified robot account
-*/
-func (a *Client) DeleteProjectsProjectIDRobotsRobotID(params *DeleteProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProjectsProjectIDRobotsRobotIDOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDeleteProjectsProjectIDRobotsRobotIDParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "DeleteProjectsProjectIDRobotsRobotID",
-		Method:             "DELETE",
-		PathPattern:        "/projects/{project_id}/robots/{robot_id}",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &DeleteProjectsProjectIDRobotsRobotIDReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DeleteProjectsProjectIDRobotsRobotIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteProjectsProjectIDRobotsRobotID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -1223,88 +1114,6 @@ func (a *Client) GetProjectsProjectIDMetadatasMetaName(params *GetProjectsProjec
 }
 
 /*
-  GetProjectsProjectIDRobots gets all robot accounts of specified project
-
-  Get all robot accounts of specified project
-*/
-func (a *Client) GetProjectsProjectIDRobots(params *GetProjectsProjectIDRobotsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDRobotsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetProjectsProjectIDRobotsParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetProjectsProjectIDRobots",
-		Method:             "GET",
-		PathPattern:        "/projects/{project_id}/robots",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetProjectsProjectIDRobotsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetProjectsProjectIDRobotsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetProjectsProjectIDRobots: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetProjectsProjectIDRobotsRobotID returns the infor of the specified robot account
-
-  Return the infor of the specified robot account.
-*/
-func (a *Client) GetProjectsProjectIDRobotsRobotID(params *GetProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProjectsProjectIDRobotsRobotIDOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetProjectsProjectIDRobotsRobotIDParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetProjectsProjectIDRobotsRobotID",
-		Method:             "GET",
-		PathPattern:        "/projects/{project_id}/robots/{robot_id}",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetProjectsProjectIDRobotsRobotIDReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetProjectsProjectIDRobotsRobotIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetProjectsProjectIDRobotsRobotID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
   GetProjectsProjectIDScanner gets project level scanner
 
   Get the scanner registration of the specified project. If no scanner registration is configured for the specified project, the system default scanner registration will be returned.
@@ -1887,174 +1696,6 @@ func (a *Client) GetReplicationAdapters(params *GetReplicationAdaptersParams, au
 }
 
 /*
-  GetReplicationExecutions lists replication executions
-
-  This endpoint let user list replication executions.
-
-*/
-func (a *Client) GetReplicationExecutions(params *GetReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationExecutionsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetReplicationExecutionsParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetReplicationExecutions",
-		Method:             "GET",
-		PathPattern:        "/replication/executions",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetReplicationExecutionsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetReplicationExecutionsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetReplicationExecutions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetReplicationExecutionsID gets the execution of the replication
-
-  This endpoint is for user to get one execution of the replication.
-
-*/
-func (a *Client) GetReplicationExecutionsID(params *GetReplicationExecutionsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationExecutionsIDOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetReplicationExecutionsIDParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetReplicationExecutionsID",
-		Method:             "GET",
-		PathPattern:        "/replication/executions/{id}",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetReplicationExecutionsIDReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetReplicationExecutionsIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetReplicationExecutionsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetReplicationExecutionsIDTasks gets the task list of one execution
-
-  This endpoint is for user to get the task list of one execution.
-
-*/
-func (a *Client) GetReplicationExecutionsIDTasks(params *GetReplicationExecutionsIDTasksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationExecutionsIDTasksOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetReplicationExecutionsIDTasksParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetReplicationExecutionsIDTasks",
-		Method:             "GET",
-		PathPattern:        "/replication/executions/{id}/tasks",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetReplicationExecutionsIDTasksReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetReplicationExecutionsIDTasksOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetReplicationExecutionsIDTasks: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetReplicationExecutionsIDTasksTaskIDLog gets the log of one task
-
-  This endpoint is for user to get the log of one task.
-
-*/
-func (a *Client) GetReplicationExecutionsIDTasksTaskIDLog(params *GetReplicationExecutionsIDTasksTaskIDLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationExecutionsIDTasksTaskIDLogOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetReplicationExecutionsIDTasksTaskIDLogParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetReplicationExecutionsIDTasksTaskIDLog",
-		Method:             "GET",
-		PathPattern:        "/replication/executions/{id}/tasks/{task_id}/log",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetReplicationExecutionsIDTasksTaskIDLogReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetReplicationExecutionsIDTasksTaskIDLogOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetReplicationExecutionsIDTasksTaskIDLog: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
   GetReplicationPolicies lists replication policies
 
   This endpoint let user list replication policies
@@ -2135,211 +1776,6 @@ func (a *Client) GetReplicationPoliciesID(params *GetReplicationPoliciesIDParams
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for GetReplicationPoliciesID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetRetentionsID gets retention policy
-
-  Get Retention Policy.
-*/
-func (a *Client) GetRetentionsID(params *GetRetentionsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionsIDOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetRetentionsIDParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetRetentionsID",
-		Method:             "GET",
-		PathPattern:        "/retentions/{id}",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetRetentionsIDReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetRetentionsIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetRetentionsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetRetentionsIDExecutions gets a retention job
-
-  Get a Retention job, job status may be delayed before job service schedule it up.
-*/
-func (a *Client) GetRetentionsIDExecutions(params *GetRetentionsIDExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionsIDExecutionsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetRetentionsIDExecutionsParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetRetentionsIDExecutions",
-		Method:             "GET",
-		PathPattern:        "/retentions/{id}/executions",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetRetentionsIDExecutionsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetRetentionsIDExecutionsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetRetentionsIDExecutions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetRetentionsIDExecutionsEidTasks gets retention job tasks
-
-  Get Retention job tasks, each repository as a task.
-*/
-func (a *Client) GetRetentionsIDExecutionsEidTasks(params *GetRetentionsIDExecutionsEidTasksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionsIDExecutionsEidTasksOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetRetentionsIDExecutionsEidTasksParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetRetentionsIDExecutionsEidTasks",
-		Method:             "GET",
-		PathPattern:        "/retentions/{id}/executions/{eid}/tasks",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetRetentionsIDExecutionsEidTasksReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetRetentionsIDExecutionsEidTasksOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetRetentionsIDExecutionsEidTasks: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetRetentionsIDExecutionsEidTasksTid gets retention job task log
-
-  Get Retention job task log, tags ratain or deletion detail will be shown in a table.
-*/
-func (a *Client) GetRetentionsIDExecutionsEidTasksTid(params *GetRetentionsIDExecutionsEidTasksTidParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionsIDExecutionsEidTasksTidOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetRetentionsIDExecutionsEidTasksTidParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetRetentionsIDExecutionsEidTasksTid",
-		Method:             "GET",
-		PathPattern:        "/retentions/{id}/executions/{eid}/tasks/{tid}",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetRetentionsIDExecutionsEidTasksTidReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetRetentionsIDExecutionsEidTasksTidOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetRetentionsIDExecutionsEidTasksTid: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetRetentionsMetadatas gets retention metadatas
-
-  Get Retention Metadatas.
-*/
-func (a *Client) GetRetentionsMetadatas(params *GetRetentionsMetadatasParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionsMetadatasOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetRetentionsMetadatasParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetRetentionsMetadatas",
-		Method:             "GET",
-		PathPattern:        "/retentions/metadatas",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetRetentionsMetadatasReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetRetentionsMetadatasOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetRetentionsMetadatas: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -2470,88 +1906,6 @@ func (a *Client) GetScannersRegistrationIDMetadata(params *GetScannersRegistrati
 }
 
 /*
-  GetScansAllMetrics gets the metrics of the latest scan all process
-
-  Get the metrics of the latest scan all process
-*/
-func (a *Client) GetScansAllMetrics(params *GetScansAllMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetScansAllMetricsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetScansAllMetricsParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetScansAllMetrics",
-		Method:             "GET",
-		PathPattern:        "/scans/all/metrics",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetScansAllMetricsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetScansAllMetricsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetScansAllMetrics: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetScansScheduleMetrics gets the metrics of the latest scheduled scan all process
-
-  Get the metrics of the latest scheduled scan all process
-*/
-func (a *Client) GetScansScheduleMetrics(params *GetScansScheduleMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetScansScheduleMetricsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetScansScheduleMetricsParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetScansScheduleMetrics",
-		Method:             "GET",
-		PathPattern:        "/scans/schedule/metrics",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetScansScheduleMetricsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetScansScheduleMetricsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetScansScheduleMetrics: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
   GetSearch searches for projects repositories and helm charts
 
   The Search endpoint returns information about the projects ,repositories  and helm charts offered at public status or related to the current logged in user. The response includes the project, repository list and charts in a proper display order.
@@ -2673,337 +2027,6 @@ func (a *Client) GetSystemCVEAllowlist(params *GetSystemCVEAllowlistParams, auth
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for GetSystemCVEAllowlist: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetSystemGc gets gc results
-
-  This endpoint let user get latest ten gc results.
-*/
-func (a *Client) GetSystemGc(params *GetSystemGcParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemGcOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetSystemGcParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetSystemGc",
-		Method:             "GET",
-		PathPattern:        "/system/gc",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetSystemGcReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetSystemGcOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetSystemGc: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetSystemGcID gets gc status
-
-  This endpoint let user get gc status filtered by specific ID.
-*/
-func (a *Client) GetSystemGcID(params *GetSystemGcIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemGcIDOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetSystemGcIDParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetSystemGcID",
-		Method:             "GET",
-		PathPattern:        "/system/gc/{id}",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetSystemGcIDReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetSystemGcIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetSystemGcID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetSystemGcIDLog gets gc job log
-
-  This endpoint let user get gc job logs filtered by specific ID.
-*/
-func (a *Client) GetSystemGcIDLog(params *GetSystemGcIDLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemGcIDLogOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetSystemGcIDLogParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetSystemGcIDLog",
-		Method:             "GET",
-		PathPattern:        "/system/gc/{id}/log",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetSystemGcIDLogReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetSystemGcIDLogOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetSystemGcIDLog: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetSystemGcSchedule gets gc s schedule
-
-  This endpoint is for get schedule of gc job.
-*/
-func (a *Client) GetSystemGcSchedule(params *GetSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemGcScheduleOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetSystemGcScheduleParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetSystemGcSchedule",
-		Method:             "GET",
-		PathPattern:        "/system/gc/schedule",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetSystemGcScheduleReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetSystemGcScheduleOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetSystemGcSchedule: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetSystemScanAllSchedule gets scan all s schedule
-
-  This endpoint is for getting a schedule for the scan all job, which scans all of images in Harbor.
-*/
-func (a *Client) GetSystemScanAllSchedule(params *GetSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSystemScanAllScheduleOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetSystemScanAllScheduleParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetSystemScanAllSchedule",
-		Method:             "GET",
-		PathPattern:        "/system/scanAll/schedule",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetSystemScanAllScheduleReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetSystemScanAllScheduleOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetSystemScanAllSchedule: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetSysteminfo gets general system info
-
-  This API is for retrieving general system info, this can be called by anonymous request.
-
-*/
-func (a *Client) GetSysteminfo(params *GetSysteminfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSysteminfoOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetSysteminfoParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetSysteminfo",
-		Method:             "GET",
-		PathPattern:        "/systeminfo",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetSysteminfoReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetSysteminfoOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetSysteminfo: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetSysteminfoGetcert gets default root certificate
-
-  This endpoint is for downloading a default root certificate.
-
-*/
-func (a *Client) GetSysteminfoGetcert(params *GetSysteminfoGetcertParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSysteminfoGetcertOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetSysteminfoGetcertParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetSysteminfoGetcert",
-		Method:             "GET",
-		PathPattern:        "/systeminfo/getcert",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetSysteminfoGetcertReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetSysteminfoGetcertOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetSysteminfoGetcert: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetSysteminfoVolumes gets system volume info total free size
-
-  This endpoint is for retrieving system volume info that only provides for admin user.
-
-*/
-func (a *Client) GetSysteminfoVolumes(params *GetSysteminfoVolumesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSysteminfoVolumesOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetSysteminfoVolumesParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetSysteminfoVolumes",
-		Method:             "GET",
-		PathPattern:        "/systeminfo/volumes",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetSysteminfoVolumesReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetSysteminfoVolumesOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetSysteminfoVolumes: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -3296,47 +2319,6 @@ func (a *Client) GetUsersUserID(params *GetUsersUserIDParams, authInfo runtime.C
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for GetUsersUserID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  PatchRetentionsIDExecutionsEid stops a retention job
-
-  Stop a Retention job, only support "stop" action now.
-*/
-func (a *Client) PatchRetentionsIDExecutionsEid(params *PatchRetentionsIDExecutionsEidParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PatchRetentionsIDExecutionsEidOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPatchRetentionsIDExecutionsEidParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "PatchRetentionsIDExecutionsEid",
-		Method:             "PATCH",
-		PathPattern:        "/retentions/{id}/executions/{eid}",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &PatchRetentionsIDExecutionsEidReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*PatchRetentionsIDExecutionsEidOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PatchRetentionsIDExecutionsEid: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -3676,47 +2658,6 @@ func (a *Client) PostProjectsProjectIDMetadatas(params *PostProjectsProjectIDMet
 }
 
 /*
-  PostProjectsProjectIDRobots creates a robot account for project
-
-  Create a robot account for project
-*/
-func (a *Client) PostProjectsProjectIDRobots(params *PostProjectsProjectIDRobotsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostProjectsProjectIDRobotsCreated, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPostProjectsProjectIDRobotsParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "PostProjectsProjectIDRobots",
-		Method:             "POST",
-		PathPattern:        "/projects/{project_id}/robots",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &PostProjectsProjectIDRobotsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*PostProjectsProjectIDRobotsCreated)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PostProjectsProjectIDRobots: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
   PostProjectsProjectIDWebhookPolicies creates project webhook policy
 
   This endpoint create a webhook policy if the project does not have one.
@@ -3885,48 +2826,6 @@ func (a *Client) PostRegistriesPing(params *PostRegistriesPingParams, authInfo r
 }
 
 /*
-  PostReplicationExecutions starts one execution of the replication
-
-  This endpoint is for user to start one execution of the replication.
-
-*/
-func (a *Client) PostReplicationExecutions(params *PostReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostReplicationExecutionsCreated, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPostReplicationExecutionsParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "PostReplicationExecutions",
-		Method:             "POST",
-		PathPattern:        "/replication/executions",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &PostReplicationExecutionsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*PostReplicationExecutionsCreated)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PostReplicationExecutions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
   PostReplicationPolicies creates a replication policy
 
   This endpoint let user create a replication policy
@@ -3965,91 +2864,6 @@ func (a *Client) PostReplicationPolicies(params *PostReplicationPoliciesParams, 
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for PostReplicationPolicies: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  PostRetentions creates retention policy
-
-  Create Retention Policy, you can reference metadatas API for the policy model.
-You can check project metadatas to find whether a retention policy is already binded.
-This method should only be called when no retention policy binded to project yet.
-
-*/
-func (a *Client) PostRetentions(params *PostRetentionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostRetentionsCreated, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPostRetentionsParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "PostRetentions",
-		Method:             "POST",
-		PathPattern:        "/retentions",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &PostRetentionsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*PostRetentionsCreated)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PostRetentions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  PostRetentionsIDExecutions triggers a retention job
-
-  Trigger a Retention job, if dry_run is True, nothing would be deleted actually.
-*/
-func (a *Client) PostRetentionsIDExecutions(params *PostRetentionsIDExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostRetentionsIDExecutionsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPostRetentionsIDExecutionsParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "PostRetentionsIDExecutions",
-		Method:             "POST",
-		PathPattern:        "/retentions/{id}/executions",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &PostRetentionsIDExecutionsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*PostRetentionsIDExecutionsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PostRetentionsIDExecutions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -4096,48 +2910,6 @@ func (a *Client) PostScannersPing(params *PostScannersPingParams, authInfo runti
 }
 
 /*
-  PostSystemGcSchedule creates a gc schedule
-
-  This endpoint is for update gc schedule.
-
-*/
-func (a *Client) PostSystemGcSchedule(params *PostSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostSystemGcScheduleOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPostSystemGcScheduleParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "PostSystemGcSchedule",
-		Method:             "POST",
-		PathPattern:        "/system/gc/schedule",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &PostSystemGcScheduleReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*PostSystemGcScheduleOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PostSystemGcSchedule: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
   PostSystemOidcPing tests the o ID c endpoint
 
   Test the OIDC endpoint, the setting of the endpoint is provided in the request.  This API can only be called by system admin.
@@ -4175,48 +2947,6 @@ func (a *Client) PostSystemOidcPing(params *PostSystemOidcPingParams, authInfo r
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for PostSystemOidcPing: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  PostSystemScanAllSchedule creates a schedule or a manual trigger for the scan all job
-
-  This endpoint is for creating a schedule or a manual trigger for the scan all job, which scans all of images in Harbor.
-
-*/
-func (a *Client) PostSystemScanAllSchedule(params *PostSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostSystemScanAllScheduleOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPostSystemScanAllScheduleParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "PostSystemScanAllSchedule",
-		Method:             "POST",
-		PathPattern:        "/system/scanAll/schedule",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &PostSystemScanAllScheduleReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*PostSystemScanAllScheduleOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PostSystemScanAllSchedule: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -4510,47 +3240,6 @@ func (a *Client) PutProjectsProjectIDMetadatasMetaName(params *PutProjectsProjec
 }
 
 /*
-  PutProjectsProjectIDRobotsRobotID updates status of robot account
-
-  Used to disable/enable a specified robot account.
-*/
-func (a *Client) PutProjectsProjectIDRobotsRobotID(params *PutProjectsProjectIDRobotsRobotIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutProjectsProjectIDRobotsRobotIDOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPutProjectsProjectIDRobotsRobotIDParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "PutProjectsProjectIDRobotsRobotID",
-		Method:             "PUT",
-		PathPattern:        "/projects/{project_id}/robots/{robot_id}",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &PutProjectsProjectIDRobotsRobotIDReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*PutProjectsProjectIDRobotsRobotIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PutProjectsProjectIDRobotsRobotID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
   PutProjectsProjectIDWebhookPoliciesPolicyID updates webhook policy of a project
 
   This endpoint is aimed to update the webhook policy of a project.
@@ -4676,48 +3365,6 @@ func (a *Client) PutRegistriesID(params *PutRegistriesIDParams, authInfo runtime
 }
 
 /*
-  PutReplicationExecutionsID stops the execution of the replication
-
-  This endpoint is for user to stop one execution of the replication.
-
-*/
-func (a *Client) PutReplicationExecutionsID(params *PutReplicationExecutionsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutReplicationExecutionsIDOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPutReplicationExecutionsIDParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "PutReplicationExecutionsID",
-		Method:             "PUT",
-		PathPattern:        "/replication/executions/{id}",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &PutReplicationExecutionsIDReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*PutReplicationExecutionsIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PutReplicationExecutionsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
   PutReplicationPoliciesID updates the replication policy
 
   This endpoint let user update policy.
@@ -4760,50 +3407,6 @@ func (a *Client) PutReplicationPoliciesID(params *PutReplicationPoliciesIDParams
 }
 
 /*
-  PutRetentionsID updates retention policy
-
-  Update Retention Policy, you can reference metadatas API for the policy model.
-You can check project metadatas to find whether a retention policy is already binded.
-This method should only be called when retention policy has already binded to project.
-
-*/
-func (a *Client) PutRetentionsID(params *PutRetentionsIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutRetentionsIDOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPutRetentionsIDParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "PutRetentionsID",
-		Method:             "PUT",
-		PathPattern:        "/retentions/{id}",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &PutRetentionsIDReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*PutRetentionsIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PutRetentionsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
   PutSystemCVEAllowlist updates the system level allowlist of c v e
 
   This API overwrites the system level allowlist of CVE with the list in request body.  Only system Admin has permission to call this API.
@@ -4841,90 +3444,6 @@ func (a *Client) PutSystemCVEAllowlist(params *PutSystemCVEAllowlistParams, auth
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for PutSystemCVEAllowlist: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  PutSystemGcSchedule updates gc s schedule
-
-  This endpoint is for update gc schedule.
-
-*/
-func (a *Client) PutSystemGcSchedule(params *PutSystemGcScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutSystemGcScheduleOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPutSystemGcScheduleParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "PutSystemGcSchedule",
-		Method:             "PUT",
-		PathPattern:        "/system/gc/schedule",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &PutSystemGcScheduleReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*PutSystemGcScheduleOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PutSystemGcSchedule: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  PutSystemScanAllSchedule updates scan all s schedule
-
-  This endpoint is for updating the schedule of scan all job, which scans all of images in Harbor.
-
-*/
-func (a *Client) PutSystemScanAllSchedule(params *PutSystemScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutSystemScanAllScheduleOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPutSystemScanAllScheduleParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "PutSystemScanAllSchedule",
-		Method:             "PUT",
-		PathPattern:        "/system/scanAll/schedule",
-		ProducesMediaTypes: []string{"application/json", "text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &PutSystemScanAllScheduleReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*PutSystemScanAllScheduleOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PutSystemScanAllSchedule: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

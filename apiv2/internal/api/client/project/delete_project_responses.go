@@ -81,7 +81,7 @@ type DeleteProjectOK struct {
 }
 
 func (o *DeleteProjectOK) Error() string {
-	return fmt.Sprintf("[DELETE /projects/{project_id}][%d] deleteProjectOK ", 200)
+	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}][%d] deleteProjectOK ", 200)
 }
 
 func (o *DeleteProjectOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -115,7 +115,7 @@ type DeleteProjectBadRequest struct {
 }
 
 func (o *DeleteProjectBadRequest) Error() string {
-	return fmt.Sprintf("[DELETE /projects/{project_id}][%d] deleteProjectBadRequest  %+v", 400, o.Payload)
+	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}][%d] deleteProjectBadRequest  %+v", 400, o.Payload)
 }
 func (o *DeleteProjectBadRequest) GetPayload() *model.Errors {
 	return o.Payload
@@ -159,7 +159,7 @@ type DeleteProjectForbidden struct {
 }
 
 func (o *DeleteProjectForbidden) Error() string {
-	return fmt.Sprintf("[DELETE /projects/{project_id}][%d] deleteProjectForbidden  %+v", 403, o.Payload)
+	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}][%d] deleteProjectForbidden  %+v", 403, o.Payload)
 }
 func (o *DeleteProjectForbidden) GetPayload() *model.Errors {
 	return o.Payload
@@ -203,7 +203,7 @@ type DeleteProjectNotFound struct {
 }
 
 func (o *DeleteProjectNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /projects/{project_id}][%d] deleteProjectNotFound  %+v", 404, o.Payload)
+	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}][%d] deleteProjectNotFound  %+v", 404, o.Payload)
 }
 func (o *DeleteProjectNotFound) GetPayload() *model.Errors {
 	return o.Payload
@@ -247,7 +247,7 @@ type DeleteProjectPreconditionFailed struct {
 }
 
 func (o *DeleteProjectPreconditionFailed) Error() string {
-	return fmt.Sprintf("[DELETE /projects/{project_id}][%d] deleteProjectPreconditionFailed  %+v", 412, o.Payload)
+	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}][%d] deleteProjectPreconditionFailed  %+v", 412, o.Payload)
 }
 func (o *DeleteProjectPreconditionFailed) GetPayload() *model.Errors {
 	return o.Payload
@@ -291,7 +291,7 @@ type DeleteProjectInternalServerError struct {
 }
 
 func (o *DeleteProjectInternalServerError) Error() string {
-	return fmt.Sprintf("[DELETE /projects/{project_id}][%d] deleteProjectInternalServerError  %+v", 500, o.Payload)
+	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}][%d] deleteProjectInternalServerError  %+v", 500, o.Payload)
 }
 func (o *DeleteProjectInternalServerError) GetPayload() *model.Errors {
 	return o.Payload

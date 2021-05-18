@@ -68,7 +68,7 @@ type GetLabelsParams struct {
 
 	/* Page.
 
-	   The page nubmer.
+	   The page number.
 
 	   Format: int32
 	*/

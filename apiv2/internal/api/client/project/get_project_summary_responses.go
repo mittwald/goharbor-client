@@ -78,7 +78,7 @@ type GetProjectSummaryOK struct {
 }
 
 func (o *GetProjectSummaryOK) Error() string {
-	return fmt.Sprintf("[GET /projects/{project_id}/summary][%d] getProjectSummaryOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /projects/{project_name_or_id}/summary][%d] getProjectSummaryOK  %+v", 200, o.Payload)
 }
 func (o *GetProjectSummaryOK) GetPayload() *model.ProjectSummary {
 	return o.Payload
@@ -115,7 +115,7 @@ type GetProjectSummaryBadRequest struct {
 }
 
 func (o *GetProjectSummaryBadRequest) Error() string {
-	return fmt.Sprintf("[GET /projects/{project_id}/summary][%d] getProjectSummaryBadRequest  %+v", 400, o.Payload)
+	return fmt.Sprintf("[GET /projects/{project_name_or_id}/summary][%d] getProjectSummaryBadRequest  %+v", 400, o.Payload)
 }
 func (o *GetProjectSummaryBadRequest) GetPayload() *model.Errors {
 	return o.Payload
@@ -159,7 +159,7 @@ type GetProjectSummaryUnauthorized struct {
 }
 
 func (o *GetProjectSummaryUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /projects/{project_id}/summary][%d] getProjectSummaryUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[GET /projects/{project_name_or_id}/summary][%d] getProjectSummaryUnauthorized  %+v", 401, o.Payload)
 }
 func (o *GetProjectSummaryUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
@@ -203,7 +203,7 @@ type GetProjectSummaryForbidden struct {
 }
 
 func (o *GetProjectSummaryForbidden) Error() string {
-	return fmt.Sprintf("[GET /projects/{project_id}/summary][%d] getProjectSummaryForbidden  %+v", 403, o.Payload)
+	return fmt.Sprintf("[GET /projects/{project_name_or_id}/summary][%d] getProjectSummaryForbidden  %+v", 403, o.Payload)
 }
 func (o *GetProjectSummaryForbidden) GetPayload() *model.Errors {
 	return o.Payload
@@ -247,7 +247,7 @@ type GetProjectSummaryNotFound struct {
 }
 
 func (o *GetProjectSummaryNotFound) Error() string {
-	return fmt.Sprintf("[GET /projects/{project_id}/summary][%d] getProjectSummaryNotFound  %+v", 404, o.Payload)
+	return fmt.Sprintf("[GET /projects/{project_name_or_id}/summary][%d] getProjectSummaryNotFound  %+v", 404, o.Payload)
 }
 func (o *GetProjectSummaryNotFound) GetPayload() *model.Errors {
 	return o.Payload
@@ -291,7 +291,7 @@ type GetProjectSummaryInternalServerError struct {
 }
 
 func (o *GetProjectSummaryInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /projects/{project_id}/summary][%d] getProjectSummaryInternalServerError  %+v", 500, o.Payload)
+	return fmt.Sprintf("[GET /projects/{project_name_or_id}/summary][%d] getProjectSummaryInternalServerError  %+v", 500, o.Payload)
 }
 func (o *GetProjectSummaryInternalServerError) GetPayload() *model.Errors {
 	return o.Payload

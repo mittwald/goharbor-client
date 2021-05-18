@@ -60,19 +60,23 @@ func NewDeleteProjectParamsWithHTTPClient(client *http.Client) *DeleteProjectPar
 */
 type DeleteProjectParams struct {
 
+	/* XIsResourceName.
+
+	   The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
+	*/
+	XIsResourceName *bool
+
 	/* XRequestID.
 
 	   An unique ID for the request
 	*/
 	XRequestID *string
 
-	/* ProjectID.
+	/* ProjectNameOrID.
 
-	   The ID of the project
-
-	   Format: int64
+	   The name or id of the project
 	*/
-	ProjectID int64
+	ProjectNameOrID string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -91,7 +95,18 @@ func (o *DeleteProjectParams) WithDefaults() *DeleteProjectParams {
 //
 // All values with no default are reset to their zero value.
 func (o *DeleteProjectParams) SetDefaults() {
-	// no default values defined for this parameter
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
+
+	val := DeleteProjectParams{
+		XIsResourceName: &xIsResourceNameDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the delete project params
@@ -127,6 +142,17 @@ func (o *DeleteProjectParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXIsResourceName adds the xIsResourceName to the delete project params
+func (o *DeleteProjectParams) WithXIsResourceName(xIsResourceName *bool) *DeleteProjectParams {
+	o.SetXIsResourceName(xIsResourceName)
+	return o
+}
+
+// SetXIsResourceName adds the xIsResourceName to the delete project params
+func (o *DeleteProjectParams) SetXIsResourceName(xIsResourceName *bool) {
+	o.XIsResourceName = xIsResourceName
+}
+
 // WithXRequestID adds the xRequestID to the delete project params
 func (o *DeleteProjectParams) WithXRequestID(xRequestID *string) *DeleteProjectParams {
 	o.SetXRequestID(xRequestID)
@@ -138,15 +164,15 @@ func (o *DeleteProjectParams) SetXRequestID(xRequestID *string) {
 	o.XRequestID = xRequestID
 }
 
-// WithProjectID adds the projectID to the delete project params
-func (o *DeleteProjectParams) WithProjectID(projectID int64) *DeleteProjectParams {
-	o.SetProjectID(projectID)
+// WithProjectNameOrID adds the projectNameOrID to the delete project params
+func (o *DeleteProjectParams) WithProjectNameOrID(projectNameOrID string) *DeleteProjectParams {
+	o.SetProjectNameOrID(projectNameOrID)
 	return o
 }
 
-// SetProjectID adds the projectId to the delete project params
-func (o *DeleteProjectParams) SetProjectID(projectID int64) {
-	o.ProjectID = projectID
+// SetProjectNameOrID adds the projectNameOrId to the delete project params
+func (o *DeleteProjectParams) SetProjectNameOrID(projectNameOrID string) {
+	o.ProjectNameOrID = projectNameOrID
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -157,6 +183,14 @@ func (o *DeleteProjectParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 	}
 	var res []error
 
+	if o.XIsResourceName != nil {
+
+		// header param X-Is-Resource-Name
+		if err := r.SetHeaderParam("X-Is-Resource-Name", swag.FormatBool(*o.XIsResourceName)); err != nil {
+			return err
+		}
+	}
+
 	if o.XRequestID != nil {
 
 		// header param X-Request-Id
@@ -165,8 +199,8 @@ func (o *DeleteProjectParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		}
 	}
 
-	// path param project_id
-	if err := r.SetPathParam("project_id", swag.FormatInt64(o.ProjectID)); err != nil {
+	// path param project_name_or_id
+	if err := r.SetPathParam("project_name_or_id", o.ProjectNameOrID); err != nil {
 		return err
 	}
 

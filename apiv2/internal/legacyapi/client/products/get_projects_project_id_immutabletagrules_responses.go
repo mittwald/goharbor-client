@@ -68,13 +68,13 @@ func NewGetProjectsProjectIDImmutabletagrulesOK() *GetProjectsProjectIDImmutable
 List project immutable tag rules successfully.
 */
 type GetProjectsProjectIDImmutabletagrulesOK struct {
-	Payload []*legacy.RetentionRule
+	Payload []*legacy.ImmutableRule
 }
 
 func (o *GetProjectsProjectIDImmutabletagrulesOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_id}/immutabletagrules][%d] getProjectsProjectIdImmutabletagrulesOK  %+v", 200, o.Payload)
 }
-func (o *GetProjectsProjectIDImmutabletagrulesOK) GetPayload() []*legacy.RetentionRule {
+func (o *GetProjectsProjectIDImmutabletagrulesOK) GetPayload() []*legacy.ImmutableRule {
 	return o.Payload
 }
 
