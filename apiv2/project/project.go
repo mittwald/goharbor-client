@@ -6,7 +6,6 @@ import (
 	"fmt"
 
 	projectapi "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/project"
-	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/robotv1"
 
 	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
 	uc "github.com/mittwald/goharbor-client/v3/apiv2/user"
@@ -66,11 +65,6 @@ type Client interface {
 	ListProjectMetadata(ctx context.Context, p *modelv2.Project) (*modelv2.ProjectMetadata, error)
 	UpdateProjectMetadata(ctx context.Context, p *modelv2.Project, key MetadataKey, value string) error
 	DeleteProjectMetadataValue(ctx context.Context, p *modelv2.Project, key MetadataKey) error
-
-	ListProjectRobots(ctx context.Context, p *modelv2.Project) ([]*modelv2.Robot, error)
-	AddProjectRobot(ctx context.Context, p *modelv2.Project, r *modelv2.RobotCreateV1) (*modelv2.RobotCreated, error)
-	UpdateProjectRobot(ctx context.Context, p *modelv2.Project, robotID int64, r *modelv2.Robot) error
-	DeleteProjectRobot(ctx context.Context, p *modelv2.Project, robotID int64) error
 
 	ListProjectWebhookPolicies(ctx context.Context, p *modelv2.Project) ([]*legacymodel.WebhookPolicy, error)
 	AddProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policy *legacymodel.WebhookPolicy) error
@@ -490,79 +484,6 @@ func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context, p *modelv2.
 		}, c.AuthInfo)
 
 	return handleSwaggerProjectErrors(err)
-}
-
-// ListProjectRobots returns a list of all robot accounts in project p.
-func (c *RESTClient) ListProjectRobots(ctx context.Context, p *modelv2.Project) ([]*modelv2.Robot, error) {
-	if p == nil {
-		return nil, &ErrProjectNotProvided{}
-	}
-
-	resp, err := c.V2Client.Robotv1.ListRobotV1(&robotv1.ListRobotV1Params{
-		ProjectNameOrID: fmt.Sprint(p.ProjectID),
-		Context:         ctx,
-	}, c.AuthInfo)
-	if err != nil {
-		return nil, handleSwaggerProjectErrors(err)
-	}
-
-	return resp.Payload, nil
-}
-
-// AddProjectRobot creates the robot account 'r' and adds it to the project 'p'.
-// and returns a 'RobotCreated' response.
-func (c *RESTClient) AddProjectRobot(ctx context.Context, p *modelv2.Project, r *modelv2.RobotCreateV1) (*modelv2.RobotCreated, error) {
-	if p == nil {
-		return nil, &ErrProjectNotProvided{}
-	}
-
-	resp, err := c.V2Client.Robotv1.CreateRobotV1(&robotv1.CreateRobotV1Params{
-		ProjectNameOrID: fmt.Sprint(p.ProjectID),
-		Robot:           r,
-		Context:         ctx,
-	}, c.AuthInfo)
-	if err != nil {
-		return nil, handleSwaggerProjectErrors(err)
-	}
-
-	return resp.Payload, nil
-}
-
-// UpdateProjectRobot updates a robot account 'r' in project 'p' using the 'robotID'.
-func (c *RESTClient) UpdateProjectRobot(ctx context.Context, p *modelv2.Project, robotID int64, r *modelv2.Robot) error {
-	if p == nil {
-		return &ErrProjectNotProvided{}
-	}
-
-	_, err := c.V2Client.Robotv1.UpdateRobotV1(&robotv1.UpdateRobotV1Params{
-		ProjectNameOrID: fmt.Sprint(p.ProjectID),
-		Robot:           r,
-		RobotID:         robotID,
-		Context:         ctx,
-	}, c.AuthInfo)
-	if err != nil {
-		return handleSwaggerProjectErrors(err)
-	}
-
-	return nil
-}
-
-// DeleteProjectRobot deletes a robot account from project p.
-func (c *RESTClient) DeleteProjectRobot(ctx context.Context, p *modelv2.Project, robotID int64) error {
-	if p == nil {
-		return &ErrProjectNotProvided{}
-	}
-
-	_, err := c.V2Client.Robotv1.DeleteRobotV1(&robotv1.DeleteRobotV1Params{
-		ProjectNameOrID: fmt.Sprint(p.ProjectID),
-		RobotID:         robotID,
-		Context:         ctx,
-	}, c.AuthInfo)
-	if err != nil {
-		return handleSwaggerProjectErrors(err)
-	}
-
-	return nil
 }
 
 // ListProjectWebhookPolicies returns a list of all webhook policies in project p.

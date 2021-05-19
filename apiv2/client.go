@@ -9,6 +9,7 @@ import (
 	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
 	"github.com/mittwald/goharbor-client/v3/apiv2/quota"
 	"github.com/mittwald/goharbor-client/v3/apiv2/retention"
+	"github.com/mittwald/goharbor-client/v3/apiv2/robot"
 
 	"github.com/go-openapi/runtime"
 	runtimeclient "github.com/go-openapi/runtime/client"
@@ -46,6 +47,7 @@ type RESTClient struct {
 	retention   *retention.RESTClient
 	quota       *quota.RESTClient
 	gc          *gc.RESTClient
+	robot       *robot.RESTClient
 }
 
 // NewRESTClient constructs a new REST client containing each sub client.
@@ -59,6 +61,7 @@ func NewRESTClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authI
 		retention:   retention.NewClient(legacyClient, v2Client, authInfo),
 		quota:       quota.NewClient(legacyClient, v2Client, authInfo),
 		gc:          gc.NewClient(legacyClient, v2Client, authInfo),
+		robot:       robot.NewClient(v2Client, authInfo),
 	}
 }
 
@@ -188,26 +191,6 @@ func (c *RESTClient) UpdateProjectMetadata(ctx context.Context, p *modelv2.Proje
 // DeleteProjectMetadataValue wraps the DeleteProjectMetadataValue method of the project sub-package.
 func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context, p *modelv2.Project, key project.MetadataKey) error {
 	return c.project.DeleteProjectMetadataValue(ctx, p, key)
-}
-
-// ListProjectRobots wraps the ListProjectRobots method of the project sub-package.
-func (c *RESTClient) ListProjectRobots(ctx context.Context, p *modelv2.Project) ([]*modelv2.Robot, error) {
-	return c.project.ListProjectRobots(ctx, p)
-}
-
-// AddProjectRobot wraps the AddProjectRobot method of the project sub-package.
-func (c *RESTClient) AddProjectRobot(ctx context.Context, p *modelv2.Project, r *modelv2.RobotCreateV1) (*modelv2.RobotCreated, error) {
-	return c.project.AddProjectRobot(ctx, p, r)
-}
-
-// UpdateProjectRobot wraps the UpdateProjectRobot method of the project sub-package.
-func (c *RESTClient) UpdateProjectRobot(ctx context.Context, p *modelv2.Project, robotID int64, r *modelv2.Robot) error {
-	return c.project.UpdateProjectRobot(ctx, p, robotID, r)
-}
-
-// DeleteProjectRobot wraps the DeleteProjectRobot method of the project sub-package.
-func (c *RESTClient) DeleteProjectRobot(ctx context.Context, p *modelv2.Project, robotID int64) error {
-	return c.project.DeleteProjectRobot(ctx, p, robotID)
 }
 
 // ListProjectWebhookPolicies wraps the ListProjectWebhookPolicies method of the project sub-package.
@@ -363,4 +346,41 @@ func (c *RESTClient) GetQuotaByProjectID(ctx context.Context, projectID int64) (
 // UpdateStorageQuotaByProjectID wraps the UpdateStorageQuotaByProjectID method of the quota sub-package.
 func (c *RESTClient) UpdateStorageQuotaByProjectID(ctx context.Context, projectID int64, storageLimit int64) error {
 	return c.quota.UpdateStorageQuotaByProjectID(ctx, projectID, storageLimit)
+}
+
+// Robot Client
+
+// ListRobotAccounts wraps the ListRobotAccounts method of the robot sub-package.
+func (c *RESTClient) ListRobotAccounts(ctx context.Context) ([]*modelv2.Robot, error) {
+	return c.robot.ListRobotAccounts(ctx)
+}
+
+// GetRobotAccountByName wraps the GetRobotAccountByName method of the robot sub-package.
+func (c *RESTClient) GetRobotAccountByName(ctx context.Context, name string) (*modelv2.Robot, error) {
+	return c.robot.GetRobotAccountByName(ctx, name)
+}
+
+// GetRobotAccountByID wraps the GetRobotAccountByID method of the robot sub-package.
+func (c *RESTClient) GetRobotAccountByID(ctx context.Context, id int64) (*modelv2.Robot, error) {
+	return c.GetRobotAccountByID(ctx, id)
+}
+
+// NewRobotAccount wraps the NewRobotAccount method of the robot sub-package.
+func (c *RESTClient) NewRobotAccount(ctx context.Context, r *modelv2.RobotCreate) (*modelv2.RobotCreated, error) {
+	return c.robot.NewRobotAccount(ctx, r)
+}
+
+// DeleteRobotAccountByName wraps the DeleteRobotAccountByName method of the robot sub-package.
+func (c *RESTClient) DeleteRobotAccountByName(ctx context.Context, name string) error {
+	return c.robot.DeleteRobotAccountByName(ctx, name)
+}
+
+// DeleteRobotAccountByID wraps the DeleteRobotAccountByID method of the robot sub-package.
+func (c *RESTClient) DeleteRobotAccountByID(ctx context.Context, id int64) error {
+	return c.robot.DeleteRobotAccountByID(ctx, id)
+}
+
+// UpdateRobotAccount wraps the UpdateRobotAccount method of the robot sub-package.
+func (c *RESTClient) UpdateRobotAccount(ctx context.Context, r *modelv2.Robot) error {
+	return c.robot.UpdateRobotAccount(ctx, r)
 }
