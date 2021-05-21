@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/go-openapi/runtime"
-	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client/products"
+	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/retention"
 )
 
 const (
@@ -88,11 +88,11 @@ func handleSwaggerRetentionErrors(in error) error {
 	}
 
 	switch in.(type) {
-	case *products.PostRetentionsIDExecutionsInternalServerError:
+	case *retention.CreateRetentionInternalServerError:
 		return &ErrRetentionInternalErrors{}
-	case *products.GetRetentionsIDExecutionsUnauthorized:
+	case *retention.GetRetentionUnauthorized:
 		return &ErrRetentionUnauthorized{}
-	case *products.PostRetentionsForbidden:
+	case *retention.CreateRetentionForbidden:
 		return &ErrRetentionUnauthorized{}
 	default:
 		return in

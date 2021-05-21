@@ -2,6 +2,9 @@ package quota
 
 import (
 	"context"
+	"encoding/json"
+	"reflect"
+	"strconv"
 
 	"github.com/go-openapi/runtime"
 	v2client "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client"
@@ -35,17 +38,38 @@ type Client interface {
 	UpdateStorageQuotaByProjectID(ctx context.Context, projectID int64, storageLimit int64) error
 }
 
-// GetQuotaByProjectID returns a quota object containing all configured quotas for a project.
-func (c *RESTClient) GetQuotaByProjectID(ctx context.Context, projectID int64) (*legacymodel.Quota, error) {
-	quota, err := c.LegacyClient.Products.GetQuotasID(&products.GetQuotasIDParams{
-		ID:      projectID,
-		Context: ctx,
+func (c *RESTClient) ListQuotas(ctx context.Context, referenceType, referenceID, sort *string) ([]*legacymodel.Quota, error) {
+	resp, err := c.LegacyClient.Products.GetQuotas(&products.GetQuotasParams{
+		Reference:   referenceType,
+		ReferenceID: referenceID,
+		Sort:        sort,
+		Context:     ctx,
 	}, c.AuthInfo)
 	if err != nil {
 		return nil, handleSwaggerQuotaErrors(err)
 	}
 
-	return quota.Payload, nil
+	return resp.Payload, nil
+}
+
+// GetQuotaByProjectID returns a quota object containing all configured quotas for a project.
+func (c *RESTClient) GetQuotaByProjectID(ctx context.Context, projectID int64) (*legacymodel.Quota, error) {
+	projectIDStr := strconv.Itoa(int(projectID))
+	quotas, err := c.ListQuotas(ctx, nil, &projectIDStr, nil)
+	if err != nil {
+		return nil, handleSwaggerQuotaErrors(err)
+	}
+
+	// Assert that quota.Ref implements a map[string]interface{} type, as it holds json data.
+	for _, quota := range quotas {
+		if values, ok := quota.Ref.(map[string]interface{}); ok {
+			if reflect.DeepEqual(values["id"], json.Number(projectIDStr)) {
+				return quota, nil
+			}
+		}
+	}
+
+	return nil, &ErrQuotaRefNotFound{}
 }
 
 // UpdateStorageQuotaByProjectID updates the storageLimit quota of a project.

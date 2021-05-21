@@ -6,9 +6,12 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"strconv"
 	"testing"
 
+	"github.com/go-openapi/strfmt"
 	projectapi "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/project"
+	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/robotv1"
 	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
 
 	"github.com/go-openapi/runtime"
@@ -18,7 +21,7 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client"
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client/products"
 	"github.com/mittwald/goharbor-client/v3/apiv2/mocks"
-	model "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
+	legacymodel "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
@@ -27,14 +30,13 @@ var (
 	authInfo                    = runtimeclient.BasicAuth("foo", "bar")
 	exampleStorageLimitPositive = int64(1)
 	exampleStorageLimitNegative = int64(-1)
-	exampleProjectID            = int64(0)
+	exampleProjectID            = int64(1)
 	exampleUser                 = "example-user"
 	exampleUserRoleID           = int64(1)
 	exampleProject              = &modelv2.Project{Name: "example-project", ProjectID: int32(exampleProjectID)}
 	exampleProject2             = &modelv2.Project{Name: "example-project", ProjectID: int32(exampleProjectID + 1)}
 	exampleProject3             = &modelv2.Project{Name: "example-project", ProjectID: int32(exampleProjectID)}
-	usr                         = &model.User{Username: exampleUser}
-	sPtr                        = exampleStorageLimitPositive
+	usr                         = &legacymodel.User{Username: exampleUser}
 	pReq                        = &modelv2.ProjectReq{
 		ProjectName:  "example-project",
 		StorageLimit: &exampleStorageLimitPositive,
@@ -57,9 +59,11 @@ func BuildLegacyClientWithMock(service *mocks.MockProductsClientService) *client
 	}
 }
 
-func BuildProjectClientWithMocks(project *mocks.MockProjectClientService) *v2client.Harbor {
+func BuildV2ClientWithMocks(project *mocks.MockProjectClientService,
+	robot *mocks.MockRobotv1ClientService) *v2client.Harbor {
 	return &v2client.Harbor{
 		Project: project,
+		Robotv1: robot,
 	}
 }
 
@@ -67,7 +71,7 @@ func TestRESTClient_NewProject(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -78,21 +82,13 @@ func TestRESTClient_NewProject(t *testing.T) {
 		Context: ctx,
 	}
 
-	listProjectParams := &projectapi.ListProjectsParams{
-		Name:    &pReq.ProjectName,
-		Context: ctx,
-	}
-
 	getProjectParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: exampleProject.Name,
+		Context:         ctx,
 	}
 
 	p.On("CreateProject", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.CreateProjectCreated{}, nil)
-
-	p.On("ListProjects", listProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{Payload: exampleProject}, nil)
@@ -108,7 +104,7 @@ func TestRESTClient_NewProject_UnlimitedStorage(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -119,21 +115,13 @@ func TestRESTClient_NewProject_UnlimitedStorage(t *testing.T) {
 		Context: ctx,
 	}
 
-	listProjectParams := &projectapi.ListProjectsParams{
-		Name:    &pReq3.ProjectName,
-		Context: ctx,
-	}
-
 	getProjectParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: exampleProject.Name,
+		Context:         ctx,
 	}
 
 	p.On("CreateProject", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.CreateProjectCreated{}, nil)
-
-	p.On("ListProjects", listProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject3}}, nil)
 
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{Payload: exampleProject3}, nil)
@@ -149,7 +137,7 @@ func TestRESTClient_NewProject_ErrProjectNotFound(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -160,24 +148,16 @@ func TestRESTClient_NewProject_ErrProjectNotFound(t *testing.T) {
 		Context: ctx,
 	}
 
-	listProjectParams := &projectapi.ListProjectsParams{
-		Name:    &pReq.ProjectName,
-		Context: ctx,
-	}
-
 	getProjectParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: exampleProject.Name,
+		Context:         ctx,
 	}
 
 	p.On("CreateProject", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.CreateProjectCreated{}, nil)
 
-	p.On("ListProjects", listProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
-
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.GetProjectOK{Payload: nil}, nil)
+		Return(nil, &runtime.APIError{Code: http.StatusNotFound})
 
 	_, err := cl.NewProject(ctx, exampleProject.Name, &exampleStorageLimitPositive)
 
@@ -192,7 +172,7 @@ func TestRESTClient_NewProject_ErrProjectIllegalIDFormat(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -203,21 +183,13 @@ func TestRESTClient_NewProject_ErrProjectIllegalIDFormat(t *testing.T) {
 		Context: ctx,
 	}
 
-	listProjectParams := &projectapi.ListProjectsParams{
-		Name:    &pReq.ProjectName,
-		Context: ctx,
-	}
-
 	getProjectParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: exampleProject.Name,
+		Context:         ctx,
 	}
 
 	p.On("CreateProject", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.CreateProjectCreated{}, nil)
-
-	p.On("ListProjects", listProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{Payload: nil}, &ErrProjectIllegalIDFormat{})
@@ -235,7 +207,7 @@ func TestRESTClient_NewProject_ErrProjectUnauthorized(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -262,7 +234,7 @@ func TestRESTClient_NewProject_ErrProjectNoPermission(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -273,21 +245,13 @@ func TestRESTClient_NewProject_ErrProjectNoPermission(t *testing.T) {
 		Context: ctx,
 	}
 
-	listProjectParams := &projectapi.ListProjectsParams{
-		Name:    &pReq.ProjectName,
-		Context: ctx,
-	}
-
 	getProjectParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: exampleProject.Name,
+		Context:         ctx,
 	}
 
 	p.On("CreateProject", postProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.CreateProjectCreated{}, nil)
-
-	p.On("ListProjects", listProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{Payload: nil}, &runtime.APIError{Code: http.StatusForbidden})
@@ -305,7 +269,7 @@ func TestRESTClient_NewProject_ErrProjectUnknownResource(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -332,7 +296,7 @@ func TestRESTClient_NewProject_ErrProjectInternalErrors(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -359,7 +323,7 @@ func TestRESTClient_NewProject_ErrProjectIDNotExists(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -386,7 +350,7 @@ func TestRESTClient_NewProject_ErrProjectNameAlreadyExists(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -413,7 +377,7 @@ func TestRESTClient_NewProject_ErrProjectInvalidRequest(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -440,7 +404,7 @@ func TestRESTClient_NewProject_ErrProjectInvalidRequest_2(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -467,7 +431,7 @@ func TestRESTClient_Project_ErrProjectNotProvided(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -558,31 +522,21 @@ func TestRESTClient_DeleteProject(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
-	listProjectParams := &projectapi.ListProjectsParams{
-		Name:    &pReq.ProjectName,
-		Context: ctx,
-	}
-
 	getProjectParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: exampleProject.Name,
+		Context:         ctx,
 	}
 
 	deleteProjectParams := &projectapi.DeleteProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: strconv.Itoa(int(exampleProjectID)),
+		Context:         ctx,
 	}
-
-	p.On("ListProjects", listProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{
-			Payload: []*modelv2.Project{exampleProject},
-		}, nil)
 
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{
@@ -604,7 +558,7 @@ func TestRESTClient_DeleteProject_ErrProjectMismatch(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -613,21 +567,13 @@ func TestRESTClient_DeleteProject_ErrProjectMismatch(t *testing.T) {
 	n := "example-nonexistent"
 	nonExistentProject := &modelv2.Project{Name: n}
 
-	listProjectParams := &projectapi.ListProjectsParams{
-		Name:    &n,
-		Context: ctx,
-	}
-
 	getProjectParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: nonExistentProject.Name,
+		Context:         ctx,
 	}
-
-	p.On("ListProjects", listProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.GetProjectOK{Payload: nil}, nil)
+		Return(nil, &ErrProjectNotFound{})
 
 	err := cl.DeleteProject(ctx, nonExistentProject)
 
@@ -642,7 +588,7 @@ func TestRESTClient_DeleteProject_ErrProjectUnknownResource(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -651,17 +597,9 @@ func TestRESTClient_DeleteProject_ErrProjectUnknownResource(t *testing.T) {
 	n := "example-nonexistent"
 	nonExistentProject := &modelv2.Project{Name: n}
 
-	listProjectParams := &projectapi.ListProjectsParams{
-		Name:    &n,
-		Context: ctx,
-	}
-
-	p.On("ListProjects", listProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
-
 	getProjectParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: n,
+		Context:         ctx,
 	}
 
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
@@ -681,31 +619,23 @@ func TestRESTClient_GetProject(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
 	getProjectParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: exampleProject.Name,
+		Context:         ctx,
 	}
-
-	listProjectParams := &projectapi.ListProjectsParams{
-		Name:    &exampleProject.Name,
-		Context: ctx,
-	}
-
-	p.On("ListProjects", listProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{
 			Payload: exampleProject,
 		}, nil)
 
-	_, err := cl.GetProjectByName(ctx, exampleProject.Name)
+	_, err := cl.GetProject(ctx, exampleProject.Name)
 
 	assert.NoError(t, err)
 
@@ -716,13 +646,13 @@ func TestRESTClient_GetProject_ErrProjectNameNotProvided(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
-	_, err := cl.GetProjectByName(ctx, "")
+	_, err := cl.GetProject(ctx, "")
 
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrProjectNameNotProvided{}, err)
@@ -733,7 +663,7 @@ func TestRESTClient_ListProjects(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -758,7 +688,7 @@ func TestRESTClient_ListProjectsErrProjectNotFound(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -786,7 +716,7 @@ func TestRESTClient_ListProjects_ErrProjectUnknownResource(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -811,30 +741,22 @@ func TestRESTClient_UpdateProject(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
-	listProjectsParams := &projectapi.ListProjectsParams{
-		Name:    &exampleProject.Name,
-		Context: ctx,
-	}
-
 	getProjectParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: exampleProject.Name,
+		Context:         ctx,
 	}
 
 	updateProjectParams := &projectapi.UpdateProjectParams{
-		Project:   pReq3,
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		Project:         pReq3,
+		ProjectNameOrID: strconv.Itoa(int(exampleProjectID)),
+		Context:         ctx,
 	}
-
-	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{
@@ -845,7 +767,7 @@ func TestRESTClient_UpdateProject(t *testing.T) {
 		updateProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.UpdateProjectOK{}, nil)
 
-	project, err := cl.GetProjectByName(ctx, exampleProject.Name)
+	project, err := cl.GetProject(ctx, exampleProject.Name)
 
 	assert.NoError(t, err)
 
@@ -860,24 +782,16 @@ func TestRESTClient_UpdateProject_ErrProjectInternalErrors(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
 	getProjectParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: exampleProject.Name,
+		Context:         ctx,
 	}
-
-	listProjectsParams := &projectapi.ListProjectsParams{
-		Name:    &exampleProject.Name,
-		Context: ctx,
-	}
-
-	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{}, &runtime.APIError{
@@ -899,7 +813,7 @@ func TestRESTClient_UpdateProject_ErrProjectMismatch(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -908,17 +822,9 @@ func TestRESTClient_UpdateProject_ErrProjectMismatch(t *testing.T) {
 	project2 := *exampleProject
 
 	getProjectParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: exampleProject.Name,
+		Context:         ctx,
 	}
-
-	listProjectsParams := &projectapi.ListProjectsParams{
-		Name:    &exampleProject.Name,
-		Context: ctx,
-	}
-
-	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{Payload: exampleProject}, nil)
@@ -938,20 +844,15 @@ func TestRESTClient_AddProjectMember(t *testing.T) {
 	l := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(l)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
-	listProjectsParams := &projectapi.ListProjectsParams{
-		Name:    &exampleProject.Name,
-		Context: ctx,
-	}
-
 	getProjectsParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: exampleProject.Name,
+		Context:         ctx,
 	}
 
 	getUserParams := &products.GetUsersParams{
@@ -961,11 +862,11 @@ func TestRESTClient_AddProjectMember(t *testing.T) {
 
 	postProjectsProjectIDMembersParams := &products.PostProjectsProjectIDMembersParams{
 		ProjectID: exampleProjectID,
-		ProjectMember: &model.ProjectMember{
-			MemberUser: &model.UserEntity{
+		ProjectMember: &legacymodel.ProjectMember{
+			MemberUser: &legacymodel.UserEntity{
 				Username: usr.Username,
 			},
-			MemberGroup: &model.UserGroup{
+			MemberGroup: &legacymodel.UserGroup{
 				GroupName: "",
 				GroupType: 0,
 				ID:        0,
@@ -975,9 +876,6 @@ func TestRESTClient_AddProjectMember(t *testing.T) {
 		Context: ctx,
 	}
 
-	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
-
 	p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{
 			Payload: exampleProject,
@@ -985,7 +883,7 @@ func TestRESTClient_AddProjectMember(t *testing.T) {
 
 	l.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
-			Payload: []*model.User{{Username: exampleUser}},
+			Payload: []*legacymodel.User{{Username: exampleUser}},
 		}, nil)
 
 	l.On("PostProjectsProjectIDMembers", postProjectsProjectIDMembersParams,
@@ -1005,24 +903,16 @@ func TestRESTClient_AddProjectMember_ErrProjectUnknownResource(t *testing.T) {
 	l := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(l)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
-	listProjectsParams := &projectapi.ListProjectsParams{
-		Name:    &exampleProject.Name,
-		Context: ctx,
-	}
-
 	getProjectsParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: exampleProject.Name,
+		Context:         ctx,
 	}
-
-	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{
@@ -1043,7 +933,7 @@ func TestRESTClient_AddProjectMember_ErrProjectNoMemberProvided(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -1061,29 +951,21 @@ func TestRESTClient_AddProjectMember_ErrProjectMemberMismatch(t *testing.T) {
 	l := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(l)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
 	getProjectsParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: exampleProject.Name,
+		Context:         ctx,
 	}
 
 	getUserParams := &products.GetUsersParams{
 		Context:  ctx,
 		Username: &exampleUser,
 	}
-
-	listProjectsParams := &projectapi.ListProjectsParams{
-		Name:    &exampleProject.Name,
-		Context: ctx,
-	}
-
-	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{
@@ -1092,7 +974,7 @@ func TestRESTClient_AddProjectMember_ErrProjectMemberMismatch(t *testing.T) {
 
 	l.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
-			Payload: []*model.User{{Username: "example-nonexistent"}},
+			Payload: []*legacymodel.User{{Username: "example-nonexistent"}},
 		}, nil)
 
 	err := cl.AddProjectMember(ctx, exampleProject, usr, 1)
@@ -1109,7 +991,7 @@ func TestRESTClient_ListProjectMembers(t *testing.T) {
 	l := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(l)
-	v2Client := BuildProjectClientWithMocks(nil)
+	v2Client := BuildV2ClientWithMocks(nil, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -1126,7 +1008,7 @@ func TestRESTClient_ListProjectMembers(t *testing.T) {
 	l.On("GetProjectsProjectIDMembers",
 		&getProjectsProjectIDMembersParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsProjectIDMembersOK{
-			Payload: []*model.ProjectMemberEntity{{}},
+			Payload: []*legacymodel.ProjectMemberEntity{{}},
 		}, nil)
 
 	_, err := cl.ListProjectMembers(ctx, exampleProject)
@@ -1140,7 +1022,7 @@ func TestRESTClient_ListProjectMembers_ErrProjectUnknownResource(t *testing.T) {
 	l := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(l)
-	v2Client := BuildProjectClientWithMocks(nil)
+	v2Client := BuildV2ClientWithMocks(nil, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -1174,7 +1056,7 @@ func TestRESTClient_UpdateProjectMemberRole(t *testing.T) {
 	l := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(l)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -1183,8 +1065,8 @@ func TestRESTClient_UpdateProjectMemberRole(t *testing.T) {
 	e := ""
 
 	getProjectsParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: exampleProject.Name,
+		Context:         ctx,
 	}
 
 	getUserParams := &products.GetUsersParams{
@@ -1194,11 +1076,11 @@ func TestRESTClient_UpdateProjectMemberRole(t *testing.T) {
 
 	postProjectsProjectIDMembersParams := &products.PostProjectsProjectIDMembersParams{
 		ProjectID: exampleProjectID,
-		ProjectMember: &model.ProjectMember{
-			MemberUser: &model.UserEntity{
+		ProjectMember: &legacymodel.ProjectMember{
+			MemberUser: &legacymodel.UserEntity{
 				Username: usr.Username,
 			},
-			MemberGroup: &model.UserGroup{
+			MemberGroup: &legacymodel.UserGroup{
 				GroupName: "",
 				GroupType: 0,
 				ID:        0,
@@ -1208,14 +1090,6 @@ func TestRESTClient_UpdateProjectMemberRole(t *testing.T) {
 		Context: ctx,
 	}
 
-	listProjectsParams := &projectapi.ListProjectsParams{
-		Name:    &exampleProject.Name,
-		Context: ctx,
-	}
-
-	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
-
 	p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{
 			Payload: exampleProject,
@@ -1223,7 +1097,7 @@ func TestRESTClient_UpdateProjectMemberRole(t *testing.T) {
 
 	l.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
-			Payload: []*model.User{{Username: exampleUser}},
+			Payload: []*legacymodel.User{{Username: exampleUser}},
 		}, nil)
 
 	l.On("PostProjectsProjectIDMembers", postProjectsProjectIDMembersParams,
@@ -1243,12 +1117,9 @@ func TestRESTClient_UpdateProjectMemberRole(t *testing.T) {
 	putProjectsProjectIDMembersMidParams := products.PutProjectsProjectIDMembersMidParams{
 		Mid:       1,
 		ProjectID: exampleProjectID,
-		Role:      &model.RoleRequest{RoleID: exampleUserRoleID},
+		Role:      &legacymodel.RoleRequest{RoleID: exampleUserRoleID},
 		Context:   ctx,
 	}
-
-	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{
@@ -1258,7 +1129,7 @@ func TestRESTClient_UpdateProjectMemberRole(t *testing.T) {
 	l.On("GetProjectsProjectIDMembers",
 		&getProjectsProjectIDMembersParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsProjectIDMembersOK{
-			Payload: []*model.ProjectMemberEntity{{
+			Payload: []*legacymodel.ProjectMemberEntity{{
 				EntityType: "u",
 				EntityName: exampleUser,
 				ID:         exampleUserRoleID,
@@ -1282,7 +1153,7 @@ func TestRESTClient_UpdateProjectMemberRole_UserIsNoMember(t *testing.T) {
 	l := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(l)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -1291,8 +1162,8 @@ func TestRESTClient_UpdateProjectMemberRole_UserIsNoMember(t *testing.T) {
 	e := ""
 
 	getProjectsParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: exampleProject.Name,
+		Context:         ctx,
 	}
 
 	getProjectsProjectIDMembersParams := products.GetProjectsProjectIDMembersParams{
@@ -1300,14 +1171,6 @@ func TestRESTClient_UpdateProjectMemberRole_UserIsNoMember(t *testing.T) {
 		ProjectID:  exampleProjectID,
 		Context:    ctx,
 	}
-
-	listProjectsParams := &projectapi.ListProjectsParams{
-		Name:    &exampleProject.Name,
-		Context: ctx,
-	}
-
-	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{
@@ -1317,7 +1180,7 @@ func TestRESTClient_UpdateProjectMemberRole_UserIsNoMember(t *testing.T) {
 	l.On("GetProjectsProjectIDMembers",
 		&getProjectsProjectIDMembersParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsProjectIDMembersOK{
-			Payload: []*model.ProjectMemberEntity{{}},
+			Payload: []*legacymodel.ProjectMemberEntity{{}},
 		}, nil)
 
 	err := cl.UpdateProjectMemberRole(ctx, exampleProject, usr, int(exampleUserRoleID))
@@ -1334,7 +1197,7 @@ func TestRESTClient_UpdateProjectMemberRole_ErrProjectNoMemberProvided(t *testin
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -1352,7 +1215,7 @@ func TestRESTClient_DeleteProjectMember(t *testing.T) {
 	l := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(l)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -1361,8 +1224,8 @@ func TestRESTClient_DeleteProjectMember(t *testing.T) {
 	e := ""
 
 	getProjectsParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: exampleProject.Name,
+		Context:         ctx,
 	}
 
 	getUserParams := &products.GetUsersParams{
@@ -1372,11 +1235,11 @@ func TestRESTClient_DeleteProjectMember(t *testing.T) {
 
 	postProjectsProjectIDMembersParams := &products.PostProjectsProjectIDMembersParams{
 		ProjectID: exampleProjectID,
-		ProjectMember: &model.ProjectMember{
-			MemberUser: &model.UserEntity{
+		ProjectMember: &legacymodel.ProjectMember{
+			MemberUser: &legacymodel.UserEntity{
 				Username: usr.Username,
 			},
-			MemberGroup: &model.UserGroup{
+			MemberGroup: &legacymodel.UserGroup{
 				GroupName: "",
 				GroupType: 0,
 				ID:        0,
@@ -1386,14 +1249,6 @@ func TestRESTClient_DeleteProjectMember(t *testing.T) {
 		Context: ctx,
 	}
 
-	listProjectsParams := &projectapi.ListProjectsParams{
-		Name:    &exampleProject.Name,
-		Context: ctx,
-	}
-
-	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
-
 	p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.GetProjectOK{
 			Payload: exampleProject,
@@ -1401,7 +1256,7 @@ func TestRESTClient_DeleteProjectMember(t *testing.T) {
 
 	l.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
-			Payload: []*model.User{{Username: exampleUser}},
+			Payload: []*legacymodel.User{{Username: exampleUser}},
 		}, nil)
 
 	l.On("PostProjectsProjectIDMembers", postProjectsProjectIDMembersParams,
@@ -1432,7 +1287,7 @@ func TestRESTClient_DeleteProjectMember(t *testing.T) {
 	l.On("GetProjectsProjectIDMembers",
 		&getProjectsProjectIDMembersParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetProjectsProjectIDMembersOK{
-			Payload: []*model.ProjectMemberEntity{{
+			Payload: []*legacymodel.ProjectMemberEntity{{
 				EntityType: "u",
 				EntityName: exampleUser,
 				ID:         exampleUserRoleID,
@@ -1455,7 +1310,7 @@ func TestRESTClient_DeleteProjectMember_ErrProjectNoMemberProvided(t *testing.T)
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -1472,27 +1327,19 @@ func TestRESTClient_DeleteProjectMember_ErrProjectMismatch(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
 	getProjectsParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: exampleProject.Name,
+		Context:         ctx,
 	}
-
-	listProjectsParams := &projectapi.ListProjectsParams{
-		Name:    &exampleProject.Name,
-		Context: ctx,
-	}
-
-	p.On("ListProjects", listProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, nil)
 
 	p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.GetProjectOK{Payload: nil}, nil)
+		Return(&projectapi.GetProjectOK{Payload: nil}, &ErrProjectNotFound{})
 
 	err := cl.DeleteProjectMember(ctx, exampleProject, usr)
 
@@ -1507,7 +1354,7 @@ func TestRESTClient_AddProjectMetadata(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -1520,9 +1367,9 @@ func TestRESTClient_AddProjectMetadata(t *testing.T) {
 	pReq.StorageLimit = nil
 
 	updateProjectParams := &projectapi.UpdateProjectParams{
-		Project:   pReq,
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		Project:         pReq,
+		ProjectNameOrID: strconv.Itoa(int(exampleProjectID)),
+		Context:         ctx,
 	}
 
 	p.On("UpdateProject", updateProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
@@ -1539,7 +1386,7 @@ func TestRESTClient_AddProjectMetadata_ErrProjectMetadataAlreadyExists(t *testin
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -1550,9 +1397,9 @@ func TestRESTClient_AddProjectMetadata_ErrProjectMetadataAlreadyExists(t *testin
 	pReq.StorageLimit = nil
 
 	updateProjectParams := &projectapi.UpdateProjectParams{
-		Project:   pReq,
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		Project:         pReq,
+		ProjectNameOrID: strconv.Itoa(int(exampleProjectID)),
+		Context:         ctx,
 	}
 
 	p.On("UpdateProject", updateProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
@@ -1571,7 +1418,7 @@ func TestRESTClient_GetProjectMetadataValue(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -1591,8 +1438,8 @@ func TestRESTClient_GetProjectMetadataValue(t *testing.T) {
 
 	for _, k := range keys {
 		getProjectsParams := &projectapi.GetProjectParams{
-			ProjectID: exampleProjectID,
-			Context:   ctx,
+			ProjectNameOrID: strconv.Itoa(int(exampleProjectID)),
+			Context:         ctx,
 		}
 
 		p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
@@ -1609,7 +1456,7 @@ func TestRESTClient_GetProjectMetadataValue(t *testing.T) {
 				ProjectID: int32(exampleProjectID),
 			}}, nil)
 
-		val, err := cl.GetProjectMetadataValue(ctx, exampleProjectID, k)
+		val, err := cl.GetProjectMetadataValue(ctx, strconv.Itoa(int(exampleProjectID)), k)
 
 		assert.Equal(t, val, sPtr)
 
@@ -1625,15 +1472,15 @@ func TestRESTClient_GetProjectMetadataValue_ValuesUndefined(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
 	getProjectsParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: strconv.Itoa(int(exampleProjectID)),
+		Context:         ctx,
 	}
 
 	var k MetadataKey
@@ -1644,7 +1491,7 @@ func TestRESTClient_GetProjectMetadataValue_ValuesUndefined(t *testing.T) {
 				Metadata:  &modelv2.ProjectMetadata{},
 				ProjectID: int32(exampleProjectID),
 			}}, nil)
-		val, err := cl.GetProjectMetadataValue(ctx, exampleProjectID, k)
+		val, err := cl.GetProjectMetadataValue(ctx, strconv.Itoa(int(exampleProjectID)), k)
 		if assert.Error(t, err) {
 			assert.Equal(t, val, "")
 			assert.IsType(t, &ErrProjectMetadataValueEnableContentTrustUndefined{}, err)
@@ -1658,7 +1505,7 @@ func TestRESTClient_GetProjectMetadataValue_ValuesUndefined(t *testing.T) {
 				Metadata:  &modelv2.ProjectMetadata{},
 				ProjectID: int32(exampleProjectID),
 			}}, nil)
-		val, err := cl.GetProjectMetadataValue(ctx, exampleProjectID, k)
+		val, err := cl.GetProjectMetadataValue(ctx, strconv.Itoa(int(exampleProjectID)), k)
 		if assert.Error(t, err) {
 			assert.Equal(t, val, "")
 			assert.IsType(t, &ErrProjectMetadataValueAutoScanUndefined{}, err)
@@ -1672,7 +1519,7 @@ func TestRESTClient_GetProjectMetadataValue_ValuesUndefined(t *testing.T) {
 				Metadata:  &modelv2.ProjectMetadata{},
 				ProjectID: int32(exampleProjectID),
 			}}, nil)
-		val, err := cl.GetProjectMetadataValue(ctx, exampleProjectID, k)
+		val, err := cl.GetProjectMetadataValue(ctx, strconv.Itoa(int(exampleProjectID)), k)
 		if assert.Error(t, err) {
 			assert.Equal(t, val, "")
 			assert.IsType(t, &ErrProjectMetadataValueSeverityUndefined{}, err)
@@ -1686,7 +1533,7 @@ func TestRESTClient_GetProjectMetadataValue_ValuesUndefined(t *testing.T) {
 				Metadata:  &modelv2.ProjectMetadata{},
 				ProjectID: int32(exampleProjectID),
 			}}, nil)
-		val, err := cl.GetProjectMetadataValue(ctx, exampleProjectID, k)
+		val, err := cl.GetProjectMetadataValue(ctx, strconv.Itoa(int(exampleProjectID)), k)
 		if assert.Error(t, err) {
 			assert.Equal(t, val, "")
 			assert.IsType(t, &ErrProjectMetadataValueReuseSysCveAllowlistUndefined{}, err)
@@ -1700,7 +1547,7 @@ func TestRESTClient_GetProjectMetadataValue_ValuesUndefined(t *testing.T) {
 				Metadata:  &modelv2.ProjectMetadata{},
 				ProjectID: int32(exampleProjectID),
 			}}, nil)
-		val, err := cl.GetProjectMetadataValue(ctx, exampleProjectID, k)
+		val, err := cl.GetProjectMetadataValue(ctx, strconv.Itoa(int(exampleProjectID)), k)
 		if assert.Error(t, err) {
 			assert.Equal(t, val, "")
 			assert.IsType(t, &ErrProjectMetadataValueRetentionIDUndefined{}, err)
@@ -1714,7 +1561,7 @@ func TestRESTClient_GetProjectMetadataValue_ValuesUndefined(t *testing.T) {
 				Metadata:  &modelv2.ProjectMetadata{},
 				ProjectID: int32(exampleProjectID),
 			}}, nil)
-		val, err := cl.GetProjectMetadataValue(ctx, exampleProjectID, k)
+		val, err := cl.GetProjectMetadataValue(ctx, strconv.Itoa(int(exampleProjectID)), k)
 		if assert.Error(t, err) {
 			assert.Equal(t, val, "")
 			assert.IsType(t, &ErrProjectMetadataValuePublicUndefined{}, err)
@@ -1728,7 +1575,7 @@ func TestRESTClient_GetProjectMetadataValue_ValuesUndefined(t *testing.T) {
 				Metadata:  &modelv2.ProjectMetadata{},
 				ProjectID: int32(exampleProjectID),
 			}}, nil)
-		val, err := cl.GetProjectMetadataValue(ctx, exampleProjectID, k)
+		val, err := cl.GetProjectMetadataValue(ctx, strconv.Itoa(int(exampleProjectID)), k)
 		if assert.Error(t, err) {
 			assert.Equal(t, val, "")
 			assert.IsType(t, &ErrProjectMetadataValuePreventVulUndefined{}, err)
@@ -1741,15 +1588,15 @@ func TestRESTClient_GetProjectMetadataValue_MetadataNil(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
 	getProjectsParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: strconv.Itoa(int(exampleProjectID)),
+		Context:         ctx,
 	}
 
 	p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
@@ -1758,7 +1605,7 @@ func TestRESTClient_GetProjectMetadataValue_MetadataNil(t *testing.T) {
 			ProjectID: int32(exampleProjectID),
 		}}, nil)
 
-	_, err := cl.GetProjectMetadataValue(ctx, exampleProjectID, ProjectMetadataKeyRetentionID)
+	_, err := cl.GetProjectMetadataValue(ctx, strconv.Itoa(int(exampleProjectID)), ProjectMetadataKeyRetentionID)
 
 	if assert.Error(t, err) {
 		assert.IsType(t, &ErrProjectMetadataUndefined{}, err)
@@ -1771,7 +1618,7 @@ func TestRESTClient_GetProjectMetadataValue_ErrProjectUnknownResource(t *testing
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -1801,14 +1648,14 @@ func TestRESTClient_GetProjectMetadataValue_ErrProjectUnknownResource(t *testing
 
 	for i := range keys {
 		getProjectsParams := &projectapi.GetProjectParams{
-			ProjectID: exampleProjectID,
-			Context:   ctx,
+			ProjectNameOrID: strconv.Itoa(int(exampleProjectID)),
+			Context:         ctx,
 		}
 
 		p.On("GetProject", getProjectsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 			Return(&projectapi.GetProjectOK{Payload: nil}, &runtime.APIError{Code: http.StatusNotFound})
 
-		_, err := cl.GetProjectMetadataValue(ctx, int64(exampleProject.ProjectID), keys[i])
+		_, err := cl.GetProjectMetadataValue(ctx, strconv.Itoa(int(exampleProject.ProjectID)), keys[i])
 
 		if assert.Error(t, err) {
 			assert.IsType(t, &ErrProjectUnknownResource{}, err)
@@ -1822,7 +1669,7 @@ func TestRESTClient_ListProjectMetadata(t *testing.T) {
 	p := &mocks.MockProjectClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(nil)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -1843,8 +1690,8 @@ func TestRESTClient_ListProjectMetadata(t *testing.T) {
 	}
 
 	getProjectParams := &projectapi.GetProjectParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+		ProjectNameOrID: strconv.Itoa(int(exampleProjectID)),
+		Context:         ctx,
 	}
 
 	p.On("GetProject", getProjectParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
@@ -1864,7 +1711,7 @@ func TestRESTClient_UpdateProjectMetadata(t *testing.T) {
 	l := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(l)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -1885,14 +1732,14 @@ func TestRESTClient_UpdateProjectMetadata(t *testing.T) {
 	mPtr := "true"
 	pReq2.Metadata.EnableContentTrust = &mPtr
 	updateProjectParams := &projectapi.UpdateProjectParams{
-		Project:   pReq2,
-		ProjectID: int64(exampleProject2.ProjectID),
-		Context:   ctx,
+		Project:         pReq2,
+		ProjectNameOrID: strconv.Itoa(int(exampleProject2.ProjectID)),
+		Context:         ctx,
 	}
 
 	l.On("GetProjectsProjectIDMetadatasMetaName",
 		getProjectsProjectIDMetadatasMetaName, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.GetProjectsProjectIDMetadatasMetaNameOK{Payload: &model.ProjectMetadata{
+		Return(&products.GetProjectsProjectIDMetadatasMetaNameOK{Payload: &legacymodel.ProjectMetadata{
 			EnableContentTrust: exampleMetadataValue,
 		}}, nil)
 
@@ -1917,7 +1764,7 @@ func TestRESTClient_UpdateProjectMetadata_GetProjectMeta_ErrProjectUnknownResour
 	l := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(l)
-	v2Client := BuildProjectClientWithMocks(p)
+	v2Client := BuildV2ClientWithMocks(p, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -1940,7 +1787,7 @@ func TestRESTClient_UpdateProjectMetadata_GetProjectMeta_ErrProjectUnknownResour
 
 	l.On("GetProjectsProjectIDMetadatasMetaName",
 		getProjectsProjectIDMetadatasMetaName, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.GetProjectsProjectIDMetadatasMetaNameOK{Payload: &model.ProjectMetadata{
+		Return(&products.GetProjectsProjectIDMetadatasMetaNameOK{Payload: &legacymodel.ProjectMetadata{
 			EnableContentTrust: exampleMetadataValue,
 		}}, &runtime.APIError{Code: http.StatusNotFound})
 
@@ -1958,7 +1805,7 @@ func TestRESTClient_UpdateProjectMetadata_DeleteProjectMeta_ErrProjectUnknownRes
 	l := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(l)
-	v2Client := BuildProjectClientWithMocks(nil)
+	v2Client := BuildV2ClientWithMocks(nil, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -1967,7 +1814,7 @@ func TestRESTClient_UpdateProjectMetadata_DeleteProjectMeta_ErrProjectUnknownRes
 	metaPtr := "true"
 
 	project := &modelv2.Project{
-		ProjectID: int32(exampleProjectID),
+		ProjectID: exampleProject.ProjectID,
 		Metadata: &modelv2.ProjectMetadata{
 			EnableContentTrust: &metaPtr,
 		},
@@ -1981,13 +1828,13 @@ func TestRESTClient_UpdateProjectMetadata_DeleteProjectMeta_ErrProjectUnknownRes
 
 	deleteProjectsProjectIDMetadatasMetaName := &products.DeleteProjectsProjectIDMetadatasMetaNameParams{
 		MetaName:  string(ProjectMetadataKeyEnableContentTrust),
-		ProjectID: 0,
+		ProjectID: 1,
 		Context:   ctx,
 	}
 
 	l.On("GetProjectsProjectIDMetadatasMetaName",
 		getProjectsProjectIDMetadatasMetaName, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.GetProjectsProjectIDMetadatasMetaNameOK{Payload: &model.ProjectMetadata{
+		Return(&products.GetProjectsProjectIDMetadatasMetaNameOK{Payload: &legacymodel.ProjectMetadata{
 			EnableContentTrust: exampleMetadataValue,
 		}}, nil)
 
@@ -2008,7 +1855,7 @@ func TestRESTClient_DeleteProjectMetadataValue(t *testing.T) {
 	l := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(l)
-	v2Client := BuildProjectClientWithMocks(nil)
+	v2Client := BuildV2ClientWithMocks(nil, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -2042,91 +1889,87 @@ func TestRESTClient_DeleteProjectMetadataValue(t *testing.T) {
 
 func TestRESTClient_ListProjectRobots(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
+	r := &mocks.MockRobotv1ClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildProjectClientWithMocks(nil)
+	v2Client := BuildV2ClientWithMocks(nil, r)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
-	expectedRobots := []*model.RobotAccount{
-		{
-			Description: "some robot account",
-			Disabled:    false,
-			ID:          42,
-			Name:        "robot$account",
-			ProjectID:   exampleProjectID,
-		},
+	expectedRobot := &modelv2.Robot{
+		Description: "some robot account",
+		Disable:     false,
+		ID:          42,
+		Name:        "robot$account",
 	}
 
-	params := &products.GetProjectsProjectIDRobotsParams{
-		ProjectID: exampleProjectID,
-		Context:   ctx,
+	params := &robotv1.ListRobotV1Params{
+		ProjectNameOrID: strconv.Itoa(int(exampleProjectID)),
+		Context:         ctx,
 	}
 
-	p.On("GetProjectsProjectIDRobots", params, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.GetProjectsProjectIDRobotsOK{Payload: expectedRobots}, nil)
+	r.On("ListRobotV1", params, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&robotv1.ListRobotV1OK{Payload: []*modelv2.Robot{expectedRobot}}, nil)
 
 	robots, err := cl.ListProjectRobots(ctx, exampleProject)
 
 	assert.NoError(t, err)
 
-	assert.Equal(t, expectedRobots, robots)
+	assert.Equal(t, expectedRobot, robots[0])
 
-	p.AssertExpectations(t)
+	r.AssertExpectations(t)
 }
 
 func TestRESTClient_AddProjectRobot(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
+	r := &mocks.MockRobotv1ClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildProjectClientWithMocks(nil)
+	v2Client := BuildV2ClientWithMocks(nil, r)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
-	newRobot := &model.RobotAccountCreate{
-		Access: []*model.RobotAccountAccess{
-			{
-				Action:   "push",
-				Resource: fmt.Sprintf("/project/%d/repository", exampleProjectID),
-			},
-		},
-		Description: "some robot account",
-		ExpiresAt:   0,
-		Name:        "my-account",
+	newRobot := &modelv2.RobotCreateV1{
+		Access: []*modelv2.Access{{
+			Action:   "push",
+			Effect:   "",
+			Resource: fmt.Sprintf("/project/%d/repository", exampleProjectID),
+		}},
+		Name: "test-robot",
 	}
 
-	params := &products.PostProjectsProjectIDRobotsParams{
-		ProjectID: exampleProjectID,
-		Robot:     newRobot,
-		Context:   ctx,
+	params := &robotv1.CreateRobotV1Params{
+		ProjectNameOrID: strconv.Itoa(int(exampleProjectID)),
+		Robot:           newRobot,
+		Context:         ctx,
 	}
 
-	expectedPayload := &model.RobotAccountPostRep{
-		Name:  "robot$my-account",
-		Token: "very-secret-token-here",
+	expectedPayload := &modelv2.RobotCreated{
+		Name: "test-robot",
 	}
 
-	p.On("PostProjectsProjectIDRobots", params, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.PostProjectsProjectIDRobotsCreated{Payload: expectedPayload}, nil)
+	r.On("CreateRobotV1", params, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&robotv1.CreateRobotV1Created{Payload: expectedPayload}, nil)
 
-	token, err := cl.AddProjectRobot(ctx, exampleProject, newRobot)
+	createdRobot, err := cl.AddProjectRobot(ctx, exampleProject, newRobot)
 
 	assert.NoError(t, err)
 
-	assert.Equal(t, expectedPayload.Token, token)
+	assert.NotNil(t, createdRobot)
 
-	p.AssertExpectations(t)
+	r.AssertExpectations(t)
 }
 
 func TestRESTClient_UpdateProjectRobot(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
+	r := &mocks.MockRobotv1ClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildProjectClientWithMocks(nil)
+	v2Client := BuildV2ClientWithMocks(nil, r)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -2134,32 +1977,37 @@ func TestRESTClient_UpdateProjectRobot(t *testing.T) {
 
 	const exampleRobotID = 42
 
-	updateRobot := &model.RobotAccountUpdate{
-		Disabled: true,
+	updateRobot := &modelv2.Robot{
+		CreationTime: strfmt.DateTime{},
+		Disable:      false,
+		Editable:     true,
+		ID:           exampleRobotID,
+		Name:         "test-robot",
 	}
 
-	params := &products.PutProjectsProjectIDRobotsRobotIDParams{
-		ProjectID: exampleProjectID,
-		RobotID:   exampleRobotID,
-		Robot:     updateRobot,
-		Context:   ctx,
+	params := &robotv1.UpdateRobotV1Params{
+		ProjectNameOrID: strconv.Itoa(int(exampleProjectID)),
+		Robot:           updateRobot,
+		RobotID:         exampleRobotID,
+		Context:         ctx,
 	}
 
-	p.On("PutProjectsProjectIDRobotsRobotID", params, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.PutProjectsProjectIDRobotsRobotIDOK{}, nil)
+	r.On("UpdateRobotV1", params, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&robotv1.UpdateRobotV1OK{}, nil)
 
 	err := cl.UpdateProjectRobot(ctx, exampleProject, exampleRobotID, updateRobot)
 
 	assert.NoError(t, err)
 
-	p.AssertExpectations(t)
+	r.AssertExpectations(t)
 }
 
 func TestRESTClient_DeleteProjectRobot(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
+	r := &mocks.MockRobotv1ClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildProjectClientWithMocks(nil)
+	v2Client := BuildV2ClientWithMocks(nil, r)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -2167,33 +2015,33 @@ func TestRESTClient_DeleteProjectRobot(t *testing.T) {
 
 	const exampleRobotID = 42
 
-	params := &products.DeleteProjectsProjectIDRobotsRobotIDParams{
-		ProjectID: exampleProjectID,
-		RobotID:   exampleRobotID,
-		Context:   ctx,
+	params := &robotv1.DeleteRobotV1Params{
+		ProjectNameOrID: strconv.Itoa(int(exampleProjectID)),
+		RobotID:         exampleRobotID,
+		Context:         ctx,
 	}
 
-	p.On("DeleteProjectsProjectIDRobotsRobotID", params, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.DeleteProjectsProjectIDRobotsRobotIDOK{}, nil)
+	r.On("DeleteRobotV1", params, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&robotv1.DeleteRobotV1OK{}, nil)
 
 	err := cl.DeleteProjectRobot(ctx, exampleProject, exampleRobotID)
 
 	assert.NoError(t, err)
 
-	p.AssertExpectations(t)
+	r.AssertExpectations(t)
 }
 
 func TestRESTClient_ListProjectWebhookPolicies(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildProjectClientWithMocks(nil)
+	v2Client := BuildV2ClientWithMocks(nil, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
-	expectedWebhookPolicies := []*model.WebhookPolicy{
+	expectedWebhookPolicies := []*legacymodel.WebhookPolicy{
 		{
 			ID:        42,
 			Name:      "example-policy",
@@ -2222,16 +2070,16 @@ func TestRESTClient_AddProjectWebhookPolicy(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildProjectClientWithMocks(nil)
+	v2Client := BuildV2ClientWithMocks(nil, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
-	newPolicy := &model.WebhookPolicy{
+	newPolicy := &legacymodel.WebhookPolicy{
 		Enabled: true,
 		Name:    "my-policy",
-		Targets: []*model.WebhookTargetObject{{
+		Targets: []*legacymodel.WebhookTargetObject{{
 			Address: "http://example-webhook.com",
 		}},
 		EventTypes: []string{
@@ -2260,7 +2108,7 @@ func TestRESTClient_UpdateProjectWebhookPolicy(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildProjectClientWithMocks(nil)
+	v2Client := BuildV2ClientWithMocks(nil, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -2268,10 +2116,10 @@ func TestRESTClient_UpdateProjectWebhookPolicy(t *testing.T) {
 
 	const examplePolicyID = 42
 
-	updatePolicy := &model.WebhookPolicy{
+	updatePolicy := &legacymodel.WebhookPolicy{
 		Enabled: false,
 		Name:    "my-policy",
-		Targets: []*model.WebhookTargetObject{{
+		Targets: []*legacymodel.WebhookTargetObject{{
 			Address: "http://example-webhook.com",
 		}},
 		EventTypes: []string{
@@ -2301,7 +2149,7 @@ func TestRESTClient_DeleteProjectWebhookPolicy(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildProjectClientWithMocks(nil)
+	v2Client := BuildV2ClientWithMocks(nil, nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 

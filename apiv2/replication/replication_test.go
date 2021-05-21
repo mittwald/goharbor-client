@@ -8,10 +8,12 @@ import (
 	"testing"
 
 	v2client "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client"
+	replicationapi "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/replication"
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client"
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client/products"
 	"github.com/mittwald/goharbor-client/v3/apiv2/mocks"
-	model "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
+	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
+	legacymodel "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 
 	"github.com/go-openapi/runtime"
 	runtimeclient "github.com/go-openapi/runtime/client"
@@ -29,15 +31,15 @@ const (
 var (
 	authInfo = runtimeclient.BasicAuth("foo", "bar")
 
-	destRegistry      = &model.Registry{ID: 1, Name: "reg1"}
-	srcRegistry       = &model.Registry{Name: "reg2"}
+	destRegistry      = &legacymodel.Registry{ID: 1, Name: "reg1"}
+	srcRegistry       = &legacymodel.Registry{Name: "reg2"}
 	replicateDeletion = true
 	override          = true
 	enablePolicy      = true
-	filters           []*model.ReplicationFilter
-	trigger           = &model.ReplicationTrigger{}
+	filters           []*legacymodel.ReplicationFilter
+	trigger           = &legacymodel.ReplicationTrigger{}
 	destNamespace     = ns
-	replication       = &model.ReplicationPolicy{
+	replication       = &legacymodel.ReplicationPolicy{
 		Deletion:      replicateDeletion,
 		Description:   description,
 		DestNamespace: destNamespace,
@@ -50,9 +52,12 @@ var (
 		Trigger:       trigger,
 		ID:            0,
 	}
-	replExec = &model.ReplicationExecution{
-		ID:       0,
-		PolicyID: 0,
+	replExec = &modelv2.ReplicationExecution{
+		ID:       1,
+		PolicyID: 1,
+	}
+	startReplExec = &modelv2.StartReplicationExecution{
+		PolicyID: 1,
 	}
 )
 
@@ -62,15 +67,16 @@ func BuildLegacyClientWithMock(service *mocks.MockProductsClientService) *client
 	}
 }
 
-func BuildV2ClientWithMocks() *v2client.Harbor {
+func BuildV2ClientWithMocks(r *mocks.MockReplicationClientService) *v2client.Harbor {
 	return &v2client.Harbor{
-		Artifact:   &mocks.MockArtifactClientService{},
-		Auditlog:   &mocks.MockAuditlogClientService{},
-		Icon:       &mocks.MockIconClientService{},
-		Preheat:    &mocks.MockPreheatClientService{},
-		Project:    &mocks.MockProjectClientService{},
-		Repository: &mocks.MockRepositoryClientService{},
-		Scan:       &mocks.MockScanClientService{},
+		Artifact:    &mocks.MockArtifactClientService{},
+		Auditlog:    &mocks.MockAuditlogClientService{},
+		Icon:        &mocks.MockIconClientService{},
+		Preheat:     &mocks.MockPreheatClientService{},
+		Project:     &mocks.MockProjectClientService{},
+		Repository:  &mocks.MockRepositoryClientService{},
+		Scan:        &mocks.MockScanClientService{},
+		Replication: r,
 	}
 }
 
@@ -78,7 +84,7 @@ func TestNewClient(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -92,7 +98,7 @@ func TestRESTClient_NewReplicationPolicy(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -111,7 +117,7 @@ func TestRESTClient_NewReplicationPolicy(t *testing.T) {
 		Name:    &name,
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		&products.GetReplicationPoliciesOK{Payload: []*model.ReplicationPolicy{replication}}, nil)
+		&products.GetReplicationPoliciesOK{Payload: []*legacymodel.ReplicationPolicy{replication}}, nil)
 
 	r, err := cl.NewReplicationPolicy(ctx, destRegistry, srcRegistry, replicateDeletion, override, enablePolicy, filters,
 		trigger, destNamespace, description, name)
@@ -125,7 +131,7 @@ func TestRESTClient_NewReplicationPolicy_ErrOnPOST(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -159,7 +165,7 @@ func TestRESTClient_NewReplicationPolicy_ErrOnGET(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -194,7 +200,7 @@ func TestRESTClient_NewReplicationPolicy_ErrReplicationNameAlreadyExists(t *test
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -225,7 +231,7 @@ func TestRESTClient_GetReplicationPolicy(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -235,7 +241,7 @@ func TestRESTClient_GetReplicationPolicy(t *testing.T) {
 		Name:    &replication.Name,
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		&products.GetReplicationPoliciesOK{Payload: []*model.ReplicationPolicy{replication}}, nil)
+		&products.GetReplicationPoliciesOK{Payload: []*legacymodel.ReplicationPolicy{replication}}, nil)
 
 	r, err := cl.GetReplicationPolicy(ctx, replication.Name)
 
@@ -249,7 +255,7 @@ func TestRESTClient_GetReplicationPolicyByID(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -265,13 +271,13 @@ func TestRESTClient_GetReplicationPolicyByID(t *testing.T) {
 		Name:    &replication.Name,
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		&products.GetReplicationPoliciesOK{Payload: []*model.ReplicationPolicy{replication}}, nil)
+		&products.GetReplicationPoliciesOK{Payload: []*legacymodel.ReplicationPolicy{replication}}, nil)
 
 	p.On("GetReplicationPoliciesID", &products.GetReplicationPoliciesIDParams{
 		ID:      replication.ID,
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		&products.GetReplicationPoliciesIDOK{Payload: &model.ReplicationPolicy{}}, nil)
+		&products.GetReplicationPoliciesIDOK{Payload: &legacymodel.ReplicationPolicy{}}, nil)
 	r, err := cl.NewReplicationPolicy(ctx, destRegistry, srcRegistry, replicateDeletion, override, enablePolicy,
 		filters,
 		trigger, destNamespace, description, name)
@@ -285,7 +291,7 @@ func TestRESTClient_GetReplicationPolicyByID_ErrReplicationIllegalIDFormat(t *te
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -309,7 +315,7 @@ func TestRESTClient_GetReplicationPolicy_EmptyName(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -325,7 +331,7 @@ func TestRESTClient_GetReplicationPolicy_NotFound(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -335,7 +341,7 @@ func TestRESTClient_GetReplicationPolicy_NotFound(t *testing.T) {
 		Name:    &replication.Name,
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		&products.GetReplicationPoliciesOK{Payload: []*model.ReplicationPolicy{}}, nil)
+		&products.GetReplicationPoliciesOK{Payload: []*legacymodel.ReplicationPolicy{}}, nil)
 
 	r, err := cl.GetReplicationPolicy(ctx, replication.Name)
 
@@ -350,7 +356,7 @@ func TestRESTClient_DeleteReplicationPolicy(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -360,7 +366,7 @@ func TestRESTClient_DeleteReplicationPolicy(t *testing.T) {
 		Name:    &replication.Name,
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		&products.GetReplicationPoliciesOK{Payload: []*model.ReplicationPolicy{replication}}, nil)
+		&products.GetReplicationPoliciesOK{Payload: []*legacymodel.ReplicationPolicy{replication}}, nil)
 	p.On("DeleteReplicationPoliciesID", &products.DeleteReplicationPoliciesIDParams{
 		ID:      replication.ID,
 		Context: ctx,
@@ -377,7 +383,7 @@ func TestRESTClient_DeleteReplicationPolicy_NotFound(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -387,7 +393,7 @@ func TestRESTClient_DeleteReplicationPolicy_NotFound(t *testing.T) {
 		Name:    &replication.Name,
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		&products.GetReplicationPoliciesOK{Payload: []*model.ReplicationPolicy{}}, nil)
+		&products.GetReplicationPoliciesOK{Payload: []*legacymodel.ReplicationPolicy{}}, nil)
 
 	err := cl.DeleteReplicationPolicy(ctx, replication)
 
@@ -401,7 +407,7 @@ func TestRESTClient_DeleteReplicationPolicy_NilParam(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -418,7 +424,7 @@ func TestRESTClient_DeleteReplicationPolicy_ErrReplicationMismatch(t *testing.T)
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -428,7 +434,7 @@ func TestRESTClient_DeleteReplicationPolicy_ErrReplicationMismatch(t *testing.T)
 		Name:    &replication.Name,
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		&products.GetReplicationPoliciesOK{Payload: []*model.ReplicationPolicy{{
+		&products.GetReplicationPoliciesOK{Payload: []*legacymodel.ReplicationPolicy{{
 			ID:   1,
 			Name: replication.Name,
 		}}}, nil)
@@ -445,7 +451,7 @@ func TestRESTClient_UpdateReplicationPolicy(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -455,7 +461,7 @@ func TestRESTClient_UpdateReplicationPolicy(t *testing.T) {
 		Name:    &replication.Name,
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		&products.GetReplicationPoliciesOK{Payload: []*model.ReplicationPolicy{replication}}, nil)
+		&products.GetReplicationPoliciesOK{Payload: []*legacymodel.ReplicationPolicy{replication}}, nil)
 
 	p.On("PutReplicationPoliciesID", &products.PutReplicationPoliciesIDParams{
 		ID:      replication.ID,
@@ -474,7 +480,7 @@ func TestRESTClient_UpdateReplicationPolicy_NilParam(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -491,7 +497,7 @@ func TestRESTClient_UpdateReplicationPolicy_ErrReplicationMismatch(t *testing.T)
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -501,7 +507,7 @@ func TestRESTClient_UpdateReplicationPolicy_ErrReplicationMismatch(t *testing.T)
 		Name:    &replication.Name,
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		&products.GetReplicationPoliciesOK{Payload: []*model.ReplicationPolicy{{
+		&products.GetReplicationPoliciesOK{Payload: []*legacymodel.ReplicationPolicy{{
 			ID:   1,
 			Name: replication.Name,
 		}}}, nil)
@@ -518,7 +524,7 @@ func TestRESTClient_UpdateReplicationPolicy_NotFound(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -528,7 +534,7 @@ func TestRESTClient_UpdateReplicationPolicy_NotFound(t *testing.T) {
 		Name:    &replication.Name,
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		&products.GetReplicationPoliciesOK{Payload: []*model.ReplicationPolicy{}}, nil)
+		&products.GetReplicationPoliciesOK{Payload: []*legacymodel.ReplicationPolicy{}}, nil)
 
 	err := cl.UpdateReplicationPolicy(ctx, replication)
 
@@ -543,7 +549,7 @@ func TestRESTClient_UpdateReplicationPolicy_ErrReplicationIDNotExists(t *testing
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -553,7 +559,7 @@ func TestRESTClient_UpdateReplicationPolicy_ErrReplicationIDNotExists(t *testing
 		Name:    &replication.Name,
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		&products.GetReplicationPoliciesOK{Payload: []*model.ReplicationPolicy{replication}}, nil)
+		&products.GetReplicationPoliciesOK{Payload: []*legacymodel.ReplicationPolicy{replication}}, nil)
 
 	p.On("PutReplicationPoliciesID", &products.PutReplicationPoliciesIDParams{
 		ID:      replication.ID,
@@ -573,37 +579,39 @@ func TestRESTClient_UpdateReplicationPolicy_ErrReplicationIDNotExists(t *testing
 
 func TestRESTClient_GetReplicationExecutions(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
+	r := &mocks.MockReplicationClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(r)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
-	p.On("GetReplicationExecutions",
+	r.On("ListReplicationExecutions",
 		mock.Anything,
 		mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		&products.GetReplicationExecutionsOK{Payload: []*model.ReplicationExecution{}}, nil)
+		&replicationapi.ListReplicationExecutionsOK{Payload: []*modelv2.ReplicationExecution{}}, nil)
 
 	_, err := cl.GetReplicationExecutions(ctx, replExec)
 
 	assert.NoError(t, err)
 
-	p.AssertExpectations(t)
+	r.AssertExpectations(t)
 }
 
 func TestRESTClient_GetReplicationExecutions_ErrReplicationIllegalIDFormat(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
+	r := &mocks.MockReplicationClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(r)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
-	p.On("GetReplicationExecutions",
+	r.On("ListReplicationExecutions",
 		mock.Anything,
 		mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
 		nil, &runtime.APIError{Code: http.StatusBadRequest})
@@ -614,20 +622,21 @@ func TestRESTClient_GetReplicationExecutions_ErrReplicationIllegalIDFormat(t *te
 		assert.IsType(t, &ErrReplicationIllegalIDFormat{}, err)
 	}
 
-	p.AssertExpectations(t)
+	r.AssertExpectations(t)
 }
 
 func TestRESTClient_GetReplicationExecutions_ErrReplicationUnauthorized(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
+	r := &mocks.MockReplicationClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(r)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
-	p.On("GetReplicationExecutions",
+	r.On("ListReplicationExecutions",
 		mock.Anything,
 		mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
 		nil, &runtime.APIError{Code: http.StatusUnauthorized})
@@ -638,20 +647,21 @@ func TestRESTClient_GetReplicationExecutions_ErrReplicationUnauthorized(t *testi
 		assert.IsType(t, &ErrReplicationUnauthorized{}, err)
 	}
 
-	p.AssertExpectations(t)
+	r.AssertExpectations(t)
 }
 
 func TestRESTClient_GetReplicationExecutions_ErrReplicationNoPermission(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
+	r := &mocks.MockReplicationClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(r)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
-	p.On("GetReplicationExecutions",
+	r.On("ListReplicationExecutions",
 		mock.Anything,
 		mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
 		nil, &runtime.APIError{Code: http.StatusForbidden})
@@ -662,20 +672,21 @@ func TestRESTClient_GetReplicationExecutions_ErrReplicationNoPermission(t *testi
 		assert.IsType(t, &ErrReplicationNoPermission{}, err)
 	}
 
-	p.AssertExpectations(t)
+	r.AssertExpectations(t)
 }
 
 func TestRESTClient_GetReplicationExecutions_ErrReplicationInternalErrors(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
+	r := &mocks.MockReplicationClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(r)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
-	p.On("GetReplicationExecutions",
+	r.On("ListReplicationExecutions",
 		mock.Anything,
 		mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
 		nil, &runtime.APIError{Code: http.StatusInternalServerError})
@@ -686,30 +697,36 @@ func TestRESTClient_GetReplicationExecutions_ErrReplicationInternalErrors(t *tes
 		assert.IsType(t, &ErrReplicationInternalErrors{}, err)
 	}
 
-	p.AssertExpectations(t)
+	r.AssertExpectations(t)
 }
 
 func TestRESTClient_TriggerReplicationExecution(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
+	r := &mocks.MockReplicationClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(r)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
-	destRegistry := &model.Registry{ID: 1, Name: "reg1"}
-	srcRegistry := &model.Registry{Name: "reg2"}
+	destRegistry := &legacymodel.Registry{ID: 1, Name: "reg1"}
+	srcRegistry := &legacymodel.Registry{Name: "reg2"}
 	replicateDeletion := true
 	override := true
 	enablePolicy := true
 
-	var filters []*model.ReplicationFilter
+	var filters []*legacymodel.ReplicationFilter
 
-	trigger := &model.ReplicationTrigger{}
+	trigger := &legacymodel.ReplicationTrigger{}
 	destNamespace := ns
 	description := description
 	name := name
+
+	startReplParams := &replicationapi.StartReplicationParams{
+		Execution: startReplExec,
+		Context:   ctx,
+	}
 
 	p.On("PostReplicationPolicies", &products.PostReplicationPoliciesParams{
 		Policy:  replication,
@@ -720,32 +737,30 @@ func TestRESTClient_TriggerReplicationExecution(t *testing.T) {
 		Name:    &name,
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		&products.GetReplicationPoliciesOK{Payload: []*model.ReplicationPolicy{replication}}, nil)
+		&products.GetReplicationPoliciesOK{Payload: []*legacymodel.ReplicationPolicy{replication}}, nil)
 
-	p.On("PostReplicationExecutions", &products.PostReplicationExecutionsParams{
-		Execution: replExec,
-		Context:   ctx,
-	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		&products.PostReplicationExecutionsCreated{}, nil)
+	r.On("StartReplication", startReplParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
+		&replicationapi.StartReplicationCreated{}, nil)
 
-	r, err := cl.NewReplicationPolicy(ctx, destRegistry, srcRegistry, replicateDeletion, override, enablePolicy, filters,
+	rep, err := cl.NewReplicationPolicy(ctx, destRegistry, srcRegistry, replicateDeletion, override, enablePolicy, filters,
 		trigger, destNamespace, description, name)
 
 	assert.NoError(t, err)
-	assert.Equal(t, r, replication)
+	assert.Equal(t, rep, replication)
 
-	err = cl.TriggerReplicationExecution(ctx, replExec)
+	err = cl.TriggerReplicationExecution(ctx, startReplExec)
 
 	assert.NoError(t, err)
 
 	p.AssertExpectations(t)
+	r.AssertExpectations(t)
 }
 
 func TestRESTClient_TriggerReplicationExecution_ErrReplicationExecutionNotProvided(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(nil)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
@@ -760,38 +775,40 @@ func TestRESTClient_TriggerReplicationExecution_ErrReplicationExecutionNotProvid
 
 func TestRESTClient_GetReplicationExecutionByID(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
+	r := &mocks.MockReplicationClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(r)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
-	p.On("GetReplicationExecutionsID", &products.GetReplicationExecutionsIDParams{
+	r.On("GetReplicationExecution", &replicationapi.GetReplicationExecutionParams{
 		ID:      replExec.ID,
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
-		&products.GetReplicationExecutionsIDOK{Payload: &model.ReplicationExecution{}}, nil)
+		&replicationapi.GetReplicationExecutionOK{Payload: &modelv2.ReplicationExecution{ID: replExec.ID}}, nil)
 
 	_, err := cl.GetReplicationExecutionByID(ctx, replExec.ID)
 
 	assert.NoError(t, err)
 
-	p.AssertExpectations(t)
+	r.AssertExpectations(t)
 }
 
 func TestRESTClient_GetReplicationExecutionByID_ErrReplicationIllegalIDFormat(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
+	r := &mocks.MockReplicationClientService{}
 
 	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildV2ClientWithMocks()
+	v2Client := BuildV2ClientWithMocks(r)
 
 	cl := NewClient(legacyClient, v2Client, authInfo)
 
 	ctx := context.Background()
 
-	p.On("GetReplicationExecutionsID", &products.GetReplicationExecutionsIDParams{
+	r.On("GetReplicationExecution", &replicationapi.GetReplicationExecutionParams{
 		ID:      replExec.ID,
 		Context: ctx,
 	}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).Return(
@@ -803,7 +820,7 @@ func TestRESTClient_GetReplicationExecutionByID_ErrReplicationIllegalIDFormat(t 
 		assert.IsType(t, &ErrReplicationIllegalIDFormat{}, err)
 	}
 
-	p.AssertExpectations(t)
+	r.AssertExpectations(t)
 }
 
 func TestErrReplicationExecutionNotProvided_Error(t *testing.T) {

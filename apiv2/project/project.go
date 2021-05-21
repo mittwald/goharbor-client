@@ -3,8 +3,10 @@ package project
 import (
 	"context"
 	"errors"
+	"strconv"
 
 	projectapi "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/project"
+	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/robotv1"
 
 	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
 	uc "github.com/mittwald/goharbor-client/v3/apiv2/user"
@@ -14,7 +16,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client/products"
-	model "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
+	legacymodel "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
 
 const (
@@ -50,30 +52,29 @@ func NewClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authInfo 
 type Client interface {
 	NewProject(ctx context.Context, name string, storageLimit *int64) (*modelv2.Project, error)
 	DeleteProject(ctx context.Context, p *modelv2.Project) error
-	GetProjectByName(ctx context.Context, name string) (*modelv2.Project, error)
-	GetProjectByID(ctx context.Context, projectID int64) (*modelv2.Project, error)
+	GetProject(ctx context.Context, nameOrID string) (*modelv2.Project, error)
 	ListProjects(ctx context.Context, nameFilter string) ([]*modelv2.Project, error)
 	UpdateProject(ctx context.Context, p *modelv2.Project, storageLimit *int64) error
 
-	AddProjectMember(ctx context.Context, p *modelv2.Project, u *model.User, roleID int) error
-	ListProjectMembers(ctx context.Context, p *modelv2.Project) ([]*model.ProjectMemberEntity, error)
-	UpdateProjectMemberRole(ctx context.Context, p *modelv2.Project, u *model.User, roleID int) error
-	DeleteProjectMember(ctx context.Context, p *modelv2.Project, u *model.User) error
+	AddProjectMember(ctx context.Context, p *modelv2.Project, u *legacymodel.User, roleID int) error
+	ListProjectMembers(ctx context.Context, p *modelv2.Project) ([]*legacymodel.ProjectMemberEntity, error)
+	UpdateProjectMemberRole(ctx context.Context, p *modelv2.Project, u *legacymodel.User, roleID int) error
+	DeleteProjectMember(ctx context.Context, p *modelv2.Project, u *legacymodel.User) error
 
 	AddProjectMetadata(ctx context.Context, p *modelv2.Project, key MetadataKey, value string) error
-	GetProjectMetadataValue(ctx context.Context, projectID int64, key MetadataKey) (string, error)
+	GetProjectMetadataValue(ctx context.Context, projectNameOrID string, key MetadataKey) (string, error)
 	ListProjectMetadata(ctx context.Context, p *modelv2.Project) (*modelv2.ProjectMetadata, error)
 	UpdateProjectMetadata(ctx context.Context, p *modelv2.Project, key MetadataKey, value string) error
 	DeleteProjectMetadataValue(ctx context.Context, p *modelv2.Project, key MetadataKey) error
 
-	ListProjectRobots(ctx context.Context, p *modelv2.Project) ([]*model.RobotAccount, error)
-	AddProjectRobot(ctx context.Context, p *modelv2.Project, robot *model.RobotAccountCreate) (string, error)
-	UpdateProjectRobot(ctx context.Context, p *modelv2.Project, robotID int, robot *model.RobotAccountUpdate) error
-	DeleteProjectRobot(ctx context.Context, p *modelv2.Project, robotID int) error
+	ListProjectRobots(ctx context.Context, p *modelv2.Project) ([]*modelv2.Robot, error)
+	AddProjectRobot(ctx context.Context, p *modelv2.Project, r *modelv2.RobotCreateV1) (*modelv2.RobotCreated, error)
+	UpdateProjectRobot(ctx context.Context, p *modelv2.Project, robotID int64, r *modelv2.Robot) error
+	DeleteProjectRobot(ctx context.Context, p *modelv2.Project, robotID int64) error
 
-	ListProjectWebhookPolicies(ctx context.Context, p *modelv2.Project) ([]*model.WebhookPolicy, error)
-	AddProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, webhookPolicy *model.WebhookPolicy) error
-	UpdateProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int, policy *model.WebhookPolicy) error
+	ListProjectWebhookPolicies(ctx context.Context, p *modelv2.Project) ([]*legacymodel.WebhookPolicy, error)
+	AddProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policy *legacymodel.WebhookPolicy) error
+	UpdateProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int, policy *legacymodel.WebhookPolicy) error
 	DeleteProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int) error
 }
 
@@ -99,7 +100,7 @@ func (c *RESTClient) NewProject(ctx context.Context, name string, storageLimit *
 		return nil, handleSwaggerProjectErrors(err)
 	}
 
-	project, err := c.GetProjectByName(ctx, name)
+	project, err := c.GetProject(ctx, name)
 	if err != nil {
 		return nil, err
 	}
@@ -119,70 +120,41 @@ func (c *RESTClient) DeleteProject(ctx context.Context, p *modelv2.Project) erro
 	if err != nil {
 		return err
 	}
+
 	if !projectExists {
 		return &ErrProjectMismatch{}
 	}
 
 	_, err = c.V2Client.Project.DeleteProject(
 		&projectapi.DeleteProjectParams{
-			ProjectID: int64(p.ProjectID),
-			Context:   ctx,
+			ProjectNameOrID: strconv.Itoa(int(p.ProjectID)),
+			Context:         ctx,
 		}, c.AuthInfo)
 
 	return handleSwaggerProjectErrors(err)
 }
 
-// GetProjectByName returns an existing project identified by name.
+// GetProject returns an existing project identified by nameOrID.
+// nameOrID may contain a unique project name or its unique ID.
 // Returns an error if it cannot find a matching project or when
 // having difficulties talking to the API.
-func (c *RESTClient) GetProjectByName(ctx context.Context, name string) (*modelv2.Project, error) {
-	if name == "" {
+func (c *RESTClient) GetProject(ctx context.Context, nameOrID string) (*modelv2.Project, error) {
+	if nameOrID == "" {
 		return nil, &ErrProjectNameNotProvided{}
 	}
 
-	projectList, err := c.ListProjects(ctx, name)
+	resp, err := c.V2Client.Project.GetProject(&projectapi.GetProjectParams{
+		ProjectNameOrID: nameOrID,
+		Context:         ctx,
+	}, c.AuthInfo)
 	if err != nil {
-		return nil, handleSwaggerProjectErrors(err)
-	}
-
-	var projectID int64
-
-	for _, p := range projectList {
-		if p.Name == name {
-			projectID = int64(p.ProjectID)
+		if resp == nil {
+			return nil, &ErrProjectNotFound{}
 		}
-	}
-
-	resp, err := c.V2Client.Project.GetProject(&projectapi.GetProjectParams{
-		ProjectID: projectID,
-		Context:   ctx,
-	}, c.AuthInfo)
-	if err != nil {
 		return nil, handleSwaggerProjectErrors(err)
 	}
 
-	if resp.Payload != nil {
-		return resp.Payload, nil
-	}
-
-	return nil, &ErrProjectNotFound{}
-}
-
-// GetProjectByID returns a project identified by its ID.
-func (c *RESTClient) GetProjectByID(ctx context.Context, projectID int64) (*modelv2.Project, error) {
-	resp, err := c.V2Client.Project.GetProject(&projectapi.GetProjectParams{
-		ProjectID: projectID,
-		Context:   ctx,
-	}, c.AuthInfo)
-	if err != nil {
-		return nil, handleSwaggerProjectErrors(err)
-	}
-
-	if resp != nil {
-		return resp.Payload, nil
-	}
-
-	return nil, &ErrProjectNotFound{}
+	return resp.Payload, nil
 }
 
 // ListProjects returns a list of projects based on a name filter.
@@ -210,7 +182,7 @@ func (c *RESTClient) ListProjects(ctx context.Context, nameFilter string) ([]*mo
 // If you want to set an infinite storageLimit (-1),
 // please refer to the quota client's 'UpdateStorageQuotaByProjectID' method.
 func (c *RESTClient) UpdateProject(ctx context.Context, p *modelv2.Project, storageLimit *int64) error {
-	project, err := c.GetProjectByName(ctx, p.Name)
+	project, err := c.GetProject(ctx, p.Name)
 	if err != nil {
 		return err
 	}
@@ -227,16 +199,16 @@ func (c *RESTClient) UpdateProject(ctx context.Context, p *modelv2.Project, stor
 	}
 
 	_, err = c.V2Client.Project.UpdateProject(&projectapi.UpdateProjectParams{
-		Project:   pReq,
-		ProjectID: int64(p.ProjectID),
-		Context:   ctx,
+		Project:         pReq,
+		ProjectNameOrID: strconv.Itoa(int(p.ProjectID)),
+		Context:         ctx,
 	}, c.AuthInfo)
 
 	return handleSwaggerProjectErrors(err)
 }
 
 // AddProjectMember creates a membership between a user and a project.
-func (c *RESTClient) AddProjectMember(ctx context.Context, p *modelv2.Project, u *model.User, roleID int) error {
+func (c *RESTClient) AddProjectMember(ctx context.Context, p *modelv2.Project, u *legacymodel.User, roleID int) error {
 	if p == nil {
 		return &ErrProjectNotProvided{}
 	}
@@ -244,7 +216,6 @@ func (c *RESTClient) AddProjectMember(ctx context.Context, p *modelv2.Project, u
 	if u == nil {
 		return &ErrProjectNoMemberProvided{}
 	}
-
 	projectExists, err := c.projectExists(ctx, p)
 	if err != nil {
 		return err
@@ -264,13 +235,13 @@ func (c *RESTClient) AddProjectMember(ctx context.Context, p *modelv2.Project, u
 		return &ErrProjectMemberMismatch{}
 	}
 
-	m := &model.ProjectMember{
+	m := &legacymodel.ProjectMember{
 		RoleID: int64(roleID),
-		MemberUser: &model.UserEntity{
+		MemberUser: &legacymodel.UserEntity{
 			UserID:   u.UserID,
 			Username: u.Username,
 		},
-		MemberGroup: &model.UserGroup{},
+		MemberGroup: &legacymodel.UserGroup{},
 	}
 
 	_, err = c.LegacyClient.Products.PostProjectsProjectIDMembers(
@@ -284,7 +255,7 @@ func (c *RESTClient) AddProjectMember(ctx context.Context, p *modelv2.Project, u
 }
 
 // ListProjectMembers returns a list of project members.
-func (c *RESTClient) ListProjectMembers(ctx context.Context, p *modelv2.Project) ([]*model.ProjectMemberEntity, error) {
+func (c *RESTClient) ListProjectMembers(ctx context.Context, p *modelv2.Project) ([]*legacymodel.ProjectMemberEntity, error) {
 	if p == nil {
 		return nil, &ErrProjectNotProvided{}
 	}
@@ -305,7 +276,7 @@ func (c *RESTClient) ListProjectMembers(ctx context.Context, p *modelv2.Project)
 }
 
 // UpdateProjectMemberRole updates the role of a project member.
-func (c *RESTClient) UpdateProjectMemberRole(ctx context.Context, p *modelv2.Project, u *model.User, roleID int) error {
+func (c *RESTClient) UpdateProjectMemberRole(ctx context.Context, p *modelv2.Project, u *legacymodel.User, roleID int) error {
 	if p == nil {
 		return &ErrProjectNotProvided{}
 	}
@@ -326,7 +297,7 @@ func (c *RESTClient) UpdateProjectMemberRole(ctx context.Context, p *modelv2.Pro
 		return err
 	}
 
-	roleRequest := &model.RoleRequest{RoleID: int64(roleID)}
+	roleRequest := &legacymodel.RoleRequest{RoleID: int64(roleID)}
 
 	_, err = c.LegacyClient.Products.PutProjectsProjectIDMembersMid(
 		&products.PutProjectsProjectIDMembersMidParams{
@@ -340,7 +311,7 @@ func (c *RESTClient) UpdateProjectMemberRole(ctx context.Context, p *modelv2.Pro
 }
 
 // DeleteProjectMember deletes the membership between a user and a project.
-func (c *RESTClient) DeleteProjectMember(ctx context.Context, p *modelv2.Project, u *model.User) error {
+func (c *RESTClient) DeleteProjectMember(ctx context.Context, p *modelv2.Project, u *legacymodel.User) error {
 	if p == nil {
 		return &ErrProjectNotProvided{}
 	}
@@ -407,7 +378,7 @@ func (c *RESTClient) AddProjectMetadata(ctx context.Context, p *modelv2.Project,
 	meta := getProjectMetadataByKey(key, value)
 
 	_, err := c.V2Client.Project.UpdateProject(&projectapi.UpdateProjectParams{
-		ProjectID: int64(p.ProjectID),
+		ProjectNameOrID: strconv.Itoa(int(p.ProjectID)),
 		Project: &modelv2.ProjectReq{
 			Metadata:    meta,
 			ProjectName: p.Name,
@@ -430,8 +401,8 @@ func (c *RESTClient) AddProjectMetadata(ctx context.Context, p *modelv2.Project,
 }
 
 // GetProjectMetadataValue retrieves metadata with key of project p.
-func (c *RESTClient) GetProjectMetadataValue(ctx context.Context, projectID int64, key MetadataKey) (string, error) {
-	project, err := c.GetProjectByID(ctx, projectID)
+func (c *RESTClient) GetProjectMetadataValue(ctx context.Context, projectNameOrID string, key MetadataKey) (string, error) {
+	project, err := c.GetProject(ctx, projectNameOrID)
 	if err != nil {
 		return "", handleSwaggerProjectErrors(err)
 	}
@@ -449,7 +420,7 @@ func (c *RESTClient) ListProjectMetadata(ctx context.Context, p *modelv2.Project
 		return nil, &ErrProjectNotProvided{}
 	}
 
-	resp, err := c.GetProjectByID(ctx, int64(p.ProjectID))
+	resp, err := c.GetProject(ctx, strconv.Itoa(int(p.ProjectID)))
 	if err != nil {
 		return nil, handleSwaggerProjectErrors(err)
 	}
@@ -468,13 +439,12 @@ func (c *RESTClient) UpdateProjectMetadata(ctx context.Context, p *modelv2.Proje
 		return &ErrProjectNotProvided{}
 	}
 
-	pID := int64(p.ProjectID)
 	metaKeyName := string(key)
 
 	_, err := c.LegacyClient.Products.GetProjectsProjectIDMetadatasMetaName(
 		&products.GetProjectsProjectIDMetadatasMetaNameParams{
 			MetaName:  metaKeyName,
-			ProjectID: pID,
+			ProjectID: int64(p.ProjectID),
 			Context:   ctx,
 		}, c.AuthInfo)
 	if err != nil {
@@ -484,7 +454,7 @@ func (c *RESTClient) UpdateProjectMetadata(ctx context.Context, p *modelv2.Proje
 	_, err = c.LegacyClient.Products.DeleteProjectsProjectIDMetadatasMetaName(
 		&products.DeleteProjectsProjectIDMetadatasMetaNameParams{
 			MetaName:  metaKeyName,
-			ProjectID: pID,
+			ProjectID: int64(p.ProjectID),
 			Context:   ctx,
 		}, c.AuthInfo)
 
@@ -499,8 +469,8 @@ func (c *RESTClient) UpdateProjectMetadata(ctx context.Context, p *modelv2.Proje
 			Metadata:    meta,
 			ProjectName: p.Name,
 		},
-		ProjectID: pID,
-		Context:   ctx,
+		ProjectNameOrID: strconv.Itoa(int(p.ProjectID)),
+		Context:         ctx,
 	}, c.AuthInfo)
 
 	return handleSwaggerProjectErrors(err)
@@ -523,16 +493,15 @@ func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context, p *modelv2.
 }
 
 // ListProjectRobots returns a list of all robot accounts in project p.
-func (c *RESTClient) ListProjectRobots(ctx context.Context, p *modelv2.Project) ([]*model.RobotAccount, error) {
+func (c *RESTClient) ListProjectRobots(ctx context.Context, p *modelv2.Project) ([]*modelv2.Robot, error) {
 	if p == nil {
 		return nil, &ErrProjectNotProvided{}
 	}
 
-	resp, err := c.LegacyClient.Products.GetProjectsProjectIDRobots(
-		&products.GetProjectsProjectIDRobotsParams{
-			ProjectID: int64(p.ProjectID),
-			Context:   ctx,
-		}, c.AuthInfo)
+	resp, err := c.V2Client.Robotv1.ListRobotV1(&robotv1.ListRobotV1Params{
+		ProjectNameOrID: strconv.Itoa(int(p.ProjectID)),
+		Context:         ctx,
+	}, c.AuthInfo)
 	if err != nil {
 		return nil, handleSwaggerProjectErrors(err)
 	}
@@ -540,38 +509,37 @@ func (c *RESTClient) ListProjectRobots(ctx context.Context, p *modelv2.Project) 
 	return resp.Payload, nil
 }
 
-// AddProjectRobot adds a robot account to project p and returns the token.
-func (c *RESTClient) AddProjectRobot(ctx context.Context, p *modelv2.Project, robot *model.RobotAccountCreate) (string, error) {
+// AddProjectRobot creates the robot account 'r' and adds it to the project 'p'.
+// and returns a 'RobotCreated' response.
+func (c *RESTClient) AddProjectRobot(ctx context.Context, p *modelv2.Project, r *modelv2.RobotCreateV1) (*modelv2.RobotCreated, error) {
 	if p == nil {
-		return "", &ErrProjectNotProvided{}
+		return nil, &ErrProjectNotProvided{}
 	}
 
-	resp, err := c.LegacyClient.Products.PostProjectsProjectIDRobots(
-		&products.PostProjectsProjectIDRobotsParams{
-			Robot:     robot,
-			ProjectID: int64(p.ProjectID),
-			Context:   ctx,
-		}, c.AuthInfo)
+	resp, err := c.V2Client.Robotv1.CreateRobotV1(&robotv1.CreateRobotV1Params{
+		ProjectNameOrID: strconv.Itoa(int(p.ProjectID)),
+		Robot:           r,
+		Context:         ctx,
+	}, c.AuthInfo)
 	if err != nil {
-		return "", handleSwaggerProjectErrors(err)
+		return nil, handleSwaggerProjectErrors(err)
 	}
 
-	return resp.Payload.Token, nil
+	return resp.Payload, nil
 }
 
-// UpdateProjectRobot updates a robot account in project p.
-func (c *RESTClient) UpdateProjectRobot(ctx context.Context, p *modelv2.Project, robotID int, robot *model.RobotAccountUpdate) error {
+// UpdateProjectRobot updates a robot account 'r' in project 'p' using the 'robotID'.
+func (c *RESTClient) UpdateProjectRobot(ctx context.Context, p *modelv2.Project, robotID int64, r *modelv2.Robot) error {
 	if p == nil {
 		return &ErrProjectNotProvided{}
 	}
 
-	_, err := c.LegacyClient.Products.PutProjectsProjectIDRobotsRobotID(
-		&products.PutProjectsProjectIDRobotsRobotIDParams{
-			ProjectID: int64(p.ProjectID),
-			Robot:     robot,
-			RobotID:   int64(robotID),
-			Context:   ctx,
-		}, c.AuthInfo)
+	_, err := c.V2Client.Robotv1.UpdateRobotV1(&robotv1.UpdateRobotV1Params{
+		ProjectNameOrID: strconv.Itoa(int(p.ProjectID)),
+		Robot:           r,
+		RobotID:         robotID,
+		Context:         ctx,
+	}, c.AuthInfo)
 	if err != nil {
 		return handleSwaggerProjectErrors(err)
 	}
@@ -580,17 +548,16 @@ func (c *RESTClient) UpdateProjectRobot(ctx context.Context, p *modelv2.Project,
 }
 
 // DeleteProjectRobot deletes a robot account from project p.
-func (c *RESTClient) DeleteProjectRobot(ctx context.Context, p *modelv2.Project, robotID int) error {
+func (c *RESTClient) DeleteProjectRobot(ctx context.Context, p *modelv2.Project, robotID int64) error {
 	if p == nil {
 		return &ErrProjectNotProvided{}
 	}
 
-	_, err := c.LegacyClient.Products.DeleteProjectsProjectIDRobotsRobotID(
-		&products.DeleteProjectsProjectIDRobotsRobotIDParams{
-			ProjectID: int64(p.ProjectID),
-			RobotID:   int64(robotID),
-			Context:   ctx,
-		}, c.AuthInfo)
+	_, err := c.V2Client.Robotv1.DeleteRobotV1(&robotv1.DeleteRobotV1Params{
+		ProjectNameOrID: strconv.Itoa(int(p.ProjectID)),
+		RobotID:         robotID,
+		Context:         ctx,
+	}, c.AuthInfo)
 	if err != nil {
 		return handleSwaggerProjectErrors(err)
 	}
@@ -599,7 +566,7 @@ func (c *RESTClient) DeleteProjectRobot(ctx context.Context, p *modelv2.Project,
 }
 
 // ListProjectWebhookPolicies returns a list of all webhook policies in project p.
-func (c *RESTClient) ListProjectWebhookPolicies(ctx context.Context, p *modelv2.Project) ([]*model.WebhookPolicy, error) {
+func (c *RESTClient) ListProjectWebhookPolicies(ctx context.Context, p *modelv2.Project) ([]*legacymodel.WebhookPolicy, error) {
 	if p == nil {
 		return nil, &ErrProjectNotProvided{}
 	}
@@ -617,7 +584,7 @@ func (c *RESTClient) ListProjectWebhookPolicies(ctx context.Context, p *modelv2.
 }
 
 // AddProjectWebhookPolicy adds a webhook policy to project p.
-func (c *RESTClient) AddProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policy *model.WebhookPolicy) error {
+func (c *RESTClient) AddProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policy *legacymodel.WebhookPolicy) error {
 	if p == nil {
 		return &ErrProjectNotProvided{}
 	}
@@ -636,7 +603,7 @@ func (c *RESTClient) AddProjectWebhookPolicy(ctx context.Context, p *modelv2.Pro
 }
 
 // UpdateProjectWebhookPolicy updates a webhook policy in project p.
-func (c *RESTClient) UpdateProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int, policy *model.WebhookPolicy) error {
+func (c *RESTClient) UpdateProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int, policy *legacymodel.WebhookPolicy) error {
 	if p == nil {
 		return &ErrProjectNotProvided{}
 	}
@@ -682,7 +649,7 @@ func (c *RESTClient) DeleteProjectWebhookPolicy(ctx context.Context, p *modelv2.
 // Returns false, if not found.
 // Returns an error in case of communication problems.
 func (c *RESTClient) projectExists(ctx context.Context, p *modelv2.Project) (bool, error) {
-	_, err := c.GetProjectByName(ctx, p.Name)
+	_, err := c.GetProject(ctx, p.Name)
 	if err != nil {
 		if errors.Is(err, &ErrProjectNotFound{}) {
 			return false, nil
@@ -697,7 +664,7 @@ func (c *RESTClient) projectExists(ctx context.Context, p *modelv2.Project) (boo
 // getMid returns the member ID of a user u in project p.
 // Returns an error, if user is not a member in project or
 // in case a communication error has occurred.
-func (c *RESTClient) getMid(ctx context.Context, p *modelv2.Project, u *model.User) (int64, error) {
+func (c *RESTClient) getMid(ctx context.Context, p *modelv2.Project, u *legacymodel.User) (int64, error) {
 	members, err := c.ListProjectMembers(ctx, p)
 	if err != nil {
 		return 0, err

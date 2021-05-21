@@ -7,7 +7,7 @@ import (
 	"net/url"
 	"testing"
 
-	model "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
+	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
@@ -30,16 +30,16 @@ const (
 	projectName string = "test-project"
 )
 
-func newTestRetention(projectID int64) model.RetentionPolicy {
-	return model.RetentionPolicy{
+func newTestRetention(projectID int64) modelv2.RetentionPolicy {
+	return modelv2.RetentionPolicy{
 		Algorithm: AlgorithmOr,
-		Rules: []*model.RetentionRule{{
+		Rules: []*modelv2.RetentionRule{{
 			Action:   "retain",
 			Disabled: false,
 			Params: map[string]interface{}{
 				PolicyTemplateDaysSinceLastPush.String(): 1,
 			},
-			ScopeSelectors: map[string][]model.RetentionSelector{
+			ScopeSelectors: map[string][]modelv2.RetentionSelector{
 				"repository": {{
 					Decoration: ScopeSelectorRepoMatches.String(),
 					Kind:       SelectorTypeDefault,
@@ -47,7 +47,7 @@ func newTestRetention(projectID int64) model.RetentionPolicy {
 					Extras:     "", // The "Extras" field is unused for scope selectors.
 				}},
 			},
-			TagSelectors: []*model.RetentionSelector{{
+			TagSelectors: []*modelv2.RetentionSelector{{
 				Decoration: TagSelectorMatches.String(),
 				Extras:     ToTagSelectorExtras(true),
 				Kind:       SelectorTypeDefault,
@@ -55,11 +55,11 @@ func newTestRetention(projectID int64) model.RetentionPolicy {
 			}},
 			Template: PolicyTemplateDaysSinceLastPush.String(),
 		}},
-		Scope: &model.RetentionPolicyScope{
+		Scope: &modelv2.RetentionPolicyScope{
 			Level: "project",
 			Ref:   projectID,
 		},
-		Trigger: &model.RetentionRuleTrigger{
+		Trigger: &modelv2.RetentionRuleTrigger{
 			Kind:     "Schedule",
 			Settings: map[string]interface{}{"cron": "0 * * * *"},
 		},
@@ -80,7 +80,7 @@ func TestAPIRetentionNew(t *testing.T) {
 
 	ret := newTestRetention(int64(p.ProjectID))
 
-	p, err = pc.GetProjectByName(ctx, projectName)
+	p, err = pc.GetProject(ctx, projectName)
 
 	err = c.NewRetentionPolicy(ctx, &ret)
 
@@ -101,7 +101,7 @@ func TestAPIRetentionGet(t *testing.T) {
 
 	defer pc.DeleteProject(ctx, p)
 
-	p, err = pc.GetProjectByName(ctx, projectName)
+	p, err = pc.GetProject(ctx, projectName)
 
 	ret := newTestRetention(int64(p.ProjectID))
 
@@ -127,7 +127,7 @@ func TestAPIRetentionUpdate(t *testing.T) {
 
 	defer pc.DeleteProject(ctx, p)
 
-	p, err = pc.GetProjectByName(ctx, projectName)
+	p, err = pc.GetProject(ctx, projectName)
 
 	ret := newTestRetention(int64(p.ProjectID))
 
@@ -143,14 +143,14 @@ func TestAPIRetentionUpdate(t *testing.T) {
 
 	changed := rp
 
-	changed.Rules = []*model.RetentionRule{
+	changed.Rules = []*modelv2.RetentionRule{
 		{
 			Action:   "retain",
 			Disabled: true,
 			Params: map[string]interface{}{
 				PolicyTemplateDaysSinceLastPull.String(): 2,
 			},
-			ScopeSelectors: map[string][]model.RetentionSelector{
+			ScopeSelectors: map[string][]modelv2.RetentionSelector{
 				"repository": {{
 					Decoration: ScopeSelectorRepoExcludes.String(),
 					Kind:       SelectorTypeDefault,
@@ -158,7 +158,7 @@ func TestAPIRetentionUpdate(t *testing.T) {
 					Extras:     "", // The "Extras" field is unused for scope selectors.
 				}},
 			},
-			TagSelectors: []*model.RetentionSelector{{
+			TagSelectors: []*modelv2.RetentionSelector{{
 				Decoration: TagSelectorExcludes.String(),
 				Extras:     ToTagSelectorExtras(false),
 				Kind:       SelectorTypeDefault,
@@ -184,7 +184,7 @@ func TestAPIRetentionDelete(t *testing.T) {
 
 	defer pc.DeleteProject(ctx, p)
 
-	p, err = pc.GetProjectByName(ctx, projectName)
+	p, err = pc.GetProject(ctx, projectName)
 
 	ret := newTestRetention(int64(p.ProjectID))
 
