@@ -81,7 +81,7 @@ type UpdateProjectOK struct {
 }
 
 func (o *UpdateProjectOK) Error() string {
-	return fmt.Sprintf("[PUT /projects/{project_id}][%d] updateProjectOK ", 200)
+	return fmt.Sprintf("[PUT /projects/{project_name_or_id}][%d] updateProjectOK ", 200)
 }
 
 func (o *UpdateProjectOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -115,7 +115,7 @@ type UpdateProjectBadRequest struct {
 }
 
 func (o *UpdateProjectBadRequest) Error() string {
-	return fmt.Sprintf("[PUT /projects/{project_id}][%d] updateProjectBadRequest  %+v", 400, o.Payload)
+	return fmt.Sprintf("[PUT /projects/{project_name_or_id}][%d] updateProjectBadRequest  %+v", 400, o.Payload)
 }
 func (o *UpdateProjectBadRequest) GetPayload() *model.Errors {
 	return o.Payload
@@ -159,7 +159,7 @@ type UpdateProjectUnauthorized struct {
 }
 
 func (o *UpdateProjectUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /projects/{project_id}][%d] updateProjectUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[PUT /projects/{project_name_or_id}][%d] updateProjectUnauthorized  %+v", 401, o.Payload)
 }
 func (o *UpdateProjectUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
@@ -203,7 +203,7 @@ type UpdateProjectForbidden struct {
 }
 
 func (o *UpdateProjectForbidden) Error() string {
-	return fmt.Sprintf("[PUT /projects/{project_id}][%d] updateProjectForbidden  %+v", 403, o.Payload)
+	return fmt.Sprintf("[PUT /projects/{project_name_or_id}][%d] updateProjectForbidden  %+v", 403, o.Payload)
 }
 func (o *UpdateProjectForbidden) GetPayload() *model.Errors {
 	return o.Payload
@@ -247,7 +247,7 @@ type UpdateProjectNotFound struct {
 }
 
 func (o *UpdateProjectNotFound) Error() string {
-	return fmt.Sprintf("[PUT /projects/{project_id}][%d] updateProjectNotFound  %+v", 404, o.Payload)
+	return fmt.Sprintf("[PUT /projects/{project_name_or_id}][%d] updateProjectNotFound  %+v", 404, o.Payload)
 }
 func (o *UpdateProjectNotFound) GetPayload() *model.Errors {
 	return o.Payload
@@ -291,7 +291,7 @@ type UpdateProjectInternalServerError struct {
 }
 
 func (o *UpdateProjectInternalServerError) Error() string {
-	return fmt.Sprintf("[PUT /projects/{project_id}][%d] updateProjectInternalServerError  %+v", 500, o.Payload)
+	return fmt.Sprintf("[PUT /projects/{project_name_or_id}][%d] updateProjectInternalServerError  %+v", 500, o.Payload)
 }
 func (o *UpdateProjectInternalServerError) GetPayload() *model.Errors {
 	return o.Payload

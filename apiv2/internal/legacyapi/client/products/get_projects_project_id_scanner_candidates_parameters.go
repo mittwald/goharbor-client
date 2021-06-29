@@ -60,6 +60,22 @@ func NewGetProjectsProjectIDScannerCandidatesParamsWithHTTPClient(client *http.C
 */
 type GetProjectsProjectIDScannerCandidatesParams struct {
 
+	/* Page.
+
+	   The page number.
+
+	   Format: int32
+	*/
+	Page *int32
+
+	/* PageSize.
+
+	   The size of per page.
+
+	   Format: int32
+	*/
+	PageSize *int32
+
 	/* ProjectID.
 
 	   The project identifier.
@@ -121,6 +137,28 @@ func (o *GetProjectsProjectIDScannerCandidatesParams) SetHTTPClient(client *http
 	o.HTTPClient = client
 }
 
+// WithPage adds the page to the get projects project ID scanner candidates params
+func (o *GetProjectsProjectIDScannerCandidatesParams) WithPage(page *int32) *GetProjectsProjectIDScannerCandidatesParams {
+	o.SetPage(page)
+	return o
+}
+
+// SetPage adds the page to the get projects project ID scanner candidates params
+func (o *GetProjectsProjectIDScannerCandidatesParams) SetPage(page *int32) {
+	o.Page = page
+}
+
+// WithPageSize adds the pageSize to the get projects project ID scanner candidates params
+func (o *GetProjectsProjectIDScannerCandidatesParams) WithPageSize(pageSize *int32) *GetProjectsProjectIDScannerCandidatesParams {
+	o.SetPageSize(pageSize)
+	return o
+}
+
+// SetPageSize adds the pageSize to the get projects project ID scanner candidates params
+func (o *GetProjectsProjectIDScannerCandidatesParams) SetPageSize(pageSize *int32) {
+	o.PageSize = pageSize
+}
+
 // WithProjectID adds the projectID to the get projects project ID scanner candidates params
 func (o *GetProjectsProjectIDScannerCandidatesParams) WithProjectID(projectID int64) *GetProjectsProjectIDScannerCandidatesParams {
 	o.SetProjectID(projectID)
@@ -139,6 +177,40 @@ func (o *GetProjectsProjectIDScannerCandidatesParams) WriteToRequest(r runtime.C
 		return err
 	}
 	var res []error
+
+	if o.Page != nil {
+
+		// query param page
+		var qrPage int32
+
+		if o.Page != nil {
+			qrPage = *o.Page
+		}
+		qPage := swag.FormatInt32(qrPage)
+		if qPage != "" {
+
+			if err := r.SetQueryParam("page", qPage); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.PageSize != nil {
+
+		// query param page_size
+		var qrPageSize int32
+
+		if o.PageSize != nil {
+			qrPageSize = *o.PageSize
+		}
+		qPageSize := swag.FormatInt32(qrPageSize)
+		if qPageSize != "" {
+
+			if err := r.SetQueryParam("page_size", qPageSize); err != nil {
+				return err
+			}
+		}
+	}
 
 	// path param project_id
 	if err := r.SetPathParam("project_id", swag.FormatInt64(o.ProjectID)); err != nil {

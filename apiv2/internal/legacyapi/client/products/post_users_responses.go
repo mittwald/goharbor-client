@@ -65,6 +65,10 @@ func NewPostUsersCreated() *PostUsersCreated {
 User created successfully.
 */
 type PostUsersCreated struct {
+
+	/* The URL of the created resource
+	 */
+	Location string
 }
 
 func (o *PostUsersCreated) Error() string {
@@ -72,6 +76,13 @@ func (o *PostUsersCreated) Error() string {
 }
 
 func (o *PostUsersCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// hydrates response header Location
+	hdrLocation := response.GetHeader("Location")
+
+	if hdrLocation != "" {
+		o.Location = hdrLocation
+	}
 
 	return nil
 }

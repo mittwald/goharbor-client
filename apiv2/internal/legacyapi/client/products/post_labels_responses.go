@@ -71,6 +71,10 @@ func NewPostLabelsCreated() *PostLabelsCreated {
 Create successfully.
 */
 type PostLabelsCreated struct {
+
+	/* The URL of the created resource
+	 */
+	Location string
 }
 
 func (o *PostLabelsCreated) Error() string {
@@ -78,6 +82,13 @@ func (o *PostLabelsCreated) Error() string {
 }
 
 func (o *PostLabelsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// hydrates response header Location
+	hdrLocation := response.GetHeader("Location")
+
+	if hdrLocation != "" {
+		o.Location = hdrLocation
+	}
 
 	return nil
 }

@@ -68,7 +68,7 @@ type GetReplicationPoliciesParams struct {
 
 	/* Page.
 
-	   The page nubmer.
+	   The page number.
 
 	   Format: int32
 	*/

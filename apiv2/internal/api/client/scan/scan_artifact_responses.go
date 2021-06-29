@@ -29,6 +29,12 @@ func (o *ScanArtifactReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewScanArtifactBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 401:
 		result := NewScanArtifactUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -85,6 +91,50 @@ func (o *ScanArtifactAccepted) readResponse(response runtime.ClientResponse, con
 
 	if hdrXRequestID != "" {
 		o.XRequestID = hdrXRequestID
+	}
+
+	return nil
+}
+
+// NewScanArtifactBadRequest creates a ScanArtifactBadRequest with default headers values
+func NewScanArtifactBadRequest() *ScanArtifactBadRequest {
+	return &ScanArtifactBadRequest{}
+}
+
+/* ScanArtifactBadRequest describes a response with status code 400, with default header values.
+
+Bad request
+*/
+type ScanArtifactBadRequest struct {
+
+	/* The ID of the corresponding request for the response
+	 */
+	XRequestID string
+
+	Payload *model.Errors
+}
+
+func (o *ScanArtifactBadRequest) Error() string {
+	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/scan][%d] scanArtifactBadRequest  %+v", 400, o.Payload)
+}
+func (o *ScanArtifactBadRequest) GetPayload() *model.Errors {
+	return o.Payload
+}
+
+func (o *ScanArtifactBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// hydrates response header X-Request-Id
+	hdrXRequestID := response.GetHeader("X-Request-Id")
+
+	if hdrXRequestID != "" {
+		o.XRequestID = hdrXRequestID
+	}
+
+	o.Payload = new(model.Errors)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
 	}
 
 	return nil

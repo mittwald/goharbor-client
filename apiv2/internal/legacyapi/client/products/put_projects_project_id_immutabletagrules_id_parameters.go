@@ -62,8 +62,8 @@ func NewPutProjectsProjectIDImmutabletagrulesIDParamsWithHTTPClient(client *http
 */
 type PutProjectsProjectIDImmutabletagrulesIDParams struct {
 
-	// RetentionRule.
-	RetentionRule *legacy.RetentionRule
+	// ImmutableRule.
+	ImmutableRule *legacy.ImmutableRule
 
 	/* ID.
 
@@ -134,15 +134,15 @@ func (o *PutProjectsProjectIDImmutabletagrulesIDParams) SetHTTPClient(client *ht
 	o.HTTPClient = client
 }
 
-// WithRetentionRule adds the retentionRule to the put projects project ID immutabletagrules ID params
-func (o *PutProjectsProjectIDImmutabletagrulesIDParams) WithRetentionRule(retentionRule *legacy.RetentionRule) *PutProjectsProjectIDImmutabletagrulesIDParams {
-	o.SetRetentionRule(retentionRule)
+// WithImmutableRule adds the immutableRule to the put projects project ID immutabletagrules ID params
+func (o *PutProjectsProjectIDImmutabletagrulesIDParams) WithImmutableRule(immutableRule *legacy.ImmutableRule) *PutProjectsProjectIDImmutabletagrulesIDParams {
+	o.SetImmutableRule(immutableRule)
 	return o
 }
 
-// SetRetentionRule adds the retentionRule to the put projects project ID immutabletagrules ID params
-func (o *PutProjectsProjectIDImmutabletagrulesIDParams) SetRetentionRule(retentionRule *legacy.RetentionRule) {
-	o.RetentionRule = retentionRule
+// SetImmutableRule adds the immutableRule to the put projects project ID immutabletagrules ID params
+func (o *PutProjectsProjectIDImmutabletagrulesIDParams) SetImmutableRule(immutableRule *legacy.ImmutableRule) {
+	o.ImmutableRule = immutableRule
 }
 
 // WithID adds the id to the put projects project ID immutabletagrules ID params
@@ -174,8 +174,8 @@ func (o *PutProjectsProjectIDImmutabletagrulesIDParams) WriteToRequest(r runtime
 		return err
 	}
 	var res []error
-	if o.RetentionRule != nil {
-		if err := r.SetBodyParam(o.RetentionRule); err != nil {
+	if o.ImmutableRule != nil {
+		if err := r.SetBodyParam(o.ImmutableRule); err != nil {
 			return err
 		}
 	}

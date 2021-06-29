@@ -34,7 +34,7 @@ type Task struct {
 	ID int64 `json:"id,omitempty"`
 
 	// The count of task run
-	RunCount int64 `json:"run_count,omitempty"`
+	RunCount int32 `json:"run_count,omitempty"`
 
 	// The start time of task
 	StartTime string `json:"start_time,omitempty"`

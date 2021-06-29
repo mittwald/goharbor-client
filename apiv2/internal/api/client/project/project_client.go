@@ -105,7 +105,7 @@ func (a *Client) DeleteProject(params *DeleteProjectParams, authInfo runtime.Cli
 	op := &runtime.ClientOperation{
 		ID:                 "deleteProject",
 		Method:             "DELETE",
-		PathPattern:        "/projects/{project_id}",
+		PathPattern:        "/projects/{project_name_or_id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -187,7 +187,7 @@ func (a *Client) GetProject(params *GetProjectParams, authInfo runtime.ClientAut
 	op := &runtime.ClientOperation{
 		ID:                 "getProject",
 		Method:             "GET",
-		PathPattern:        "/projects/{project_id}",
+		PathPattern:        "/projects/{project_name_or_id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -228,7 +228,7 @@ func (a *Client) GetProjectDeletable(params *GetProjectDeletableParams, authInfo
 	op := &runtime.ClientOperation{
 		ID:                 "getProjectDeletable",
 		Method:             "GET",
-		PathPattern:        "/projects/{project_id}/_deletable",
+		PathPattern:        "/projects/{project_name_or_id}/_deletable",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -269,7 +269,7 @@ func (a *Client) GetProjectSummary(params *GetProjectSummaryParams, authInfo run
 	op := &runtime.ClientOperation{
 		ID:                 "getProjectSummary",
 		Method:             "GET",
-		PathPattern:        "/projects/{project_id}/summary",
+		PathPattern:        "/projects/{project_name_or_id}/summary",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -392,7 +392,7 @@ func (a *Client) UpdateProject(params *UpdateProjectParams, authInfo runtime.Cli
 	op := &runtime.ClientOperation{
 		ID:                 "updateProject",
 		Method:             "PUT",
-		PathPattern:        "/projects/{project_id}",
+		PathPattern:        "/projects/{project_name_or_id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},

@@ -60,7 +60,7 @@ type GetProjectOK struct {
 }
 
 func (o *GetProjectOK) Error() string {
-	return fmt.Sprintf("[GET /projects/{project_id}][%d] getProjectOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /projects/{project_name_or_id}][%d] getProjectOK  %+v", 200, o.Payload)
 }
 func (o *GetProjectOK) GetPayload() *model.Project {
 	return o.Payload
@@ -97,7 +97,7 @@ type GetProjectUnauthorized struct {
 }
 
 func (o *GetProjectUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /projects/{project_id}][%d] getProjectUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[GET /projects/{project_name_or_id}][%d] getProjectUnauthorized  %+v", 401, o.Payload)
 }
 func (o *GetProjectUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
@@ -141,7 +141,7 @@ type GetProjectInternalServerError struct {
 }
 
 func (o *GetProjectInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /projects/{project_id}][%d] getProjectInternalServerError  %+v", 500, o.Payload)
+	return fmt.Sprintf("[GET /projects/{project_name_or_id}][%d] getProjectInternalServerError  %+v", 500, o.Payload)
 }
 func (o *GetProjectInternalServerError) GetPayload() *model.Errors {
 	return o.Payload

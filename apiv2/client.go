@@ -5,6 +5,7 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/mittwald/goharbor-client/v3/apiv2/gc"
 	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
 	"github.com/mittwald/goharbor-client/v3/apiv2/quota"
 	"github.com/mittwald/goharbor-client/v3/apiv2/retention"
@@ -12,6 +13,7 @@ import (
 	"github.com/go-openapi/runtime"
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+
 	v2client "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client"
 	legacymodel "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
@@ -32,6 +34,7 @@ type Client interface {
 	system.Client
 	retention.Client
 	quota.Client
+	gc.Client
 }
 
 // RESTClient implements the Client interface as a REST client
@@ -43,6 +46,7 @@ type RESTClient struct {
 	system      *system.RESTClient
 	retention   *retention.RESTClient
 	quota       *quota.RESTClient
+	gc          *gc.RESTClient
 }
 
 // NewRESTClient constructs a new REST client containing each sub client.
@@ -55,6 +59,7 @@ func NewRESTClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authI
 		system:      system.NewClient(legacyClient, v2Client, authInfo),
 		retention:   retention.NewClient(legacyClient, v2Client, authInfo),
 		quota:       quota.NewClient(legacyClient, v2Client, authInfo),
+		gc:          gc.NewClient(legacyClient, v2Client, authInfo),
 	}
 }
 
@@ -126,14 +131,9 @@ func (c *RESTClient) DeleteProject(ctx context.Context, p *modelv2.Project) erro
 	return c.project.DeleteProject(ctx, p)
 }
 
-// GetProjectByName wraps the GetProjectByName method of the project sub-package.
-func (c *RESTClient) GetProjectByName(ctx context.Context, name string) (*modelv2.Project, error) {
-	return c.project.GetProjectByName(ctx, name)
-}
-
-// GetProjectByID wraps the GetProjectByID method of the project sub-package.
-func (c *RESTClient) GetProjectByID(ctx context.Context, projectID int64) (*modelv2.Project, error) {
-	return c.project.GetProjectByID(ctx, projectID)
+// GetProject wraps the GetProject method of the project sub-package.
+func (c *RESTClient) GetProject(ctx context.Context, nameOrID string) (*modelv2.Project, error) {
+	return c.project.GetProject(ctx, nameOrID)
 }
 
 // ListProjects wraps the ListProjects method of the project sub-package.
@@ -172,8 +172,8 @@ func (c *RESTClient) AddProjectMetadata(ctx context.Context, p *modelv2.Project,
 }
 
 // GetProjectMetadataValue wraps the GetProjectMetadataValue method of the project sub-package.
-func (c *RESTClient) GetProjectMetadataValue(ctx context.Context, projectID int64, key project.MetadataKey) (string, error) {
-	return c.project.GetProjectMetadataValue(ctx, projectID, key)
+func (c *RESTClient) GetProjectMetadataValue(ctx context.Context, projectNameOrID string, key project.MetadataKey) (string, error) {
+	return c.project.GetProjectMetadataValue(ctx, projectNameOrID, key)
 }
 
 // ListProjectMetadata wraps the ListProjectMetadata method of the project sub-package.
@@ -192,22 +192,22 @@ func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context, p *modelv2.
 }
 
 // ListProjectRobots wraps the ListProjectRobots method of the project sub-package.
-func (c *RESTClient) ListProjectRobots(ctx context.Context, p *modelv2.Project) ([]*legacymodel.RobotAccount, error) {
+func (c *RESTClient) ListProjectRobots(ctx context.Context, p *modelv2.Project) ([]*modelv2.Robot, error) {
 	return c.project.ListProjectRobots(ctx, p)
 }
 
 // AddProjectRobot wraps the AddProjectRobot method of the project sub-package.
-func (c *RESTClient) AddProjectRobot(ctx context.Context, p *modelv2.Project, robot *legacymodel.RobotAccountCreate) (string, error) {
-	return c.project.AddProjectRobot(ctx, p, robot)
+func (c *RESTClient) AddProjectRobot(ctx context.Context, p *modelv2.Project, r *modelv2.RobotCreateV1) (*modelv2.RobotCreated, error) {
+	return c.project.AddProjectRobot(ctx, p, r)
 }
 
 // UpdateProjectRobot wraps the UpdateProjectRobot method of the project sub-package.
-func (c *RESTClient) UpdateProjectRobot(ctx context.Context, p *modelv2.Project, robotID int, robot *legacymodel.RobotAccountUpdate) error {
-	return c.project.UpdateProjectRobot(ctx, p, robotID, robot)
+func (c *RESTClient) UpdateProjectRobot(ctx context.Context, p *modelv2.Project, robotID int64, r *modelv2.Robot) error {
+	return c.project.UpdateProjectRobot(ctx, p, robotID, r)
 }
 
 // DeleteProjectRobot wraps the DeleteProjectRobot method of the project sub-package.
-func (c *RESTClient) DeleteProjectRobot(ctx context.Context, p *modelv2.Project, robotID int) error {
+func (c *RESTClient) DeleteProjectRobot(ctx context.Context, p *modelv2.Project, robotID int64) error {
 	return c.project.DeleteProjectRobot(ctx, p, robotID)
 }
 
@@ -217,7 +217,7 @@ func (c *RESTClient) ListProjectWebhookPolicies(ctx context.Context, p *modelv2.
 }
 
 // UpdateProjectWebhookPolicy wraps the UpdateProjectWebhookPolicy method of the project sub-package.
-func (c *RESTClient) UpdateProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int, policy *legacymodel.WebhookPolicy) error {
+func (c *RESTClient) UpdateProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int64, policy *legacymodel.WebhookPolicy) error {
 	return c.project.UpdateProjectWebhookPolicy(ctx, p, policyID, policy)
 }
 
@@ -227,7 +227,7 @@ func (c *RESTClient) AddProjectWebhookPolicy(ctx context.Context, p *modelv2.Pro
 }
 
 // DeleteProjectWebhookPolicy wraps the DeleteProjectWebhookPolicy method of the project sub-package.
-func (c *RESTClient) DeleteProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int) error {
+func (c *RESTClient) DeleteProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int64) error {
 	return c.project.DeleteProjectWebhookPolicy(ctx, p, policyID)
 }
 
@@ -286,43 +286,40 @@ func (c *RESTClient) UpdateReplicationPolicy(ctx context.Context, r *legacymodel
 }
 
 // TriggerReplicationExecution wraps the TriggerReplicationExecution method of the replication sub-package.
-func (c *RESTClient) TriggerReplicationExecution(ctx context.Context, r *legacymodel.ReplicationExecution) error {
+func (c *RESTClient) TriggerReplicationExecution(ctx context.Context, r *modelv2.StartReplicationExecution) error {
 	return c.replication.TriggerReplicationExecution(ctx, r)
 }
 
 // GetReplicationExecutions wraps the GetReplicationExecutions method of the replication sub-package.
-func (c *RESTClient) GetReplicationExecutions(ctx context.Context,
-	r *legacymodel.ReplicationExecution) ([]*legacymodel.ReplicationExecution, error) {
+func (c *RESTClient) GetReplicationExecutions(ctx context.Context, r *modelv2.ReplicationExecution) ([]*modelv2.ReplicationExecution, error) {
 	return c.replication.GetReplicationExecutions(ctx, r)
 }
 
 // GetReplicationExecutionsByID wraps the GetReplicationExecutionsByID method of the replication sub-package.
-func (c *RESTClient) GetReplicationExecutionByID(ctx context.Context, id int64) (*legacymodel.ReplicationExecution, error) {
+func (c *RESTClient) GetReplicationExecutionByID(ctx context.Context, id int64) (*modelv2.ReplicationExecution, error) {
 	return c.replication.GetReplicationExecutionByID(ctx, id)
 }
 
 // System Client
 
-// NewSystemGarbageCollection wraps the NewSystemGarbageCollection method of the system sub-package.
-func (c *RESTClient) NewSystemGarbageCollection(ctx context.Context,
-	cron, scheduleType string) (*legacymodel.AdminJobSchedule, error) {
-	return c.system.NewSystemGarbageCollection(ctx, cron, scheduleType)
+// NewGarbageCollection wraps the NewSystemGarbageCollection method of the system sub-package.
+func (c *RESTClient) NewGarbageCollection(ctx context.Context, gcSchedule *modelv2.Schedule) error {
+	return c.gc.NewGarbageCollection(ctx, gcSchedule)
 }
 
-// UpdateSystemGarbageCollection wraps the UpdateSystemGarbageCollection method of the system sub-package.
-func (c *RESTClient) UpdateSystemGarbageCollection(ctx context.Context,
-	newGcSchedule *legacymodel.AdminJobScheduleObj) error {
-	return c.system.UpdateSystemGarbageCollection(ctx, newGcSchedule)
+// UpdateGarbageCollection wraps the UpdateSystemGarbageCollection method of the system sub-package.
+func (c *RESTClient) UpdateGarbageCollection(ctx context.Context, newGCSchedule *modelv2.Schedule) error {
+	return c.gc.UpdateGarbageCollection(ctx, newGCSchedule)
 }
 
-// GetSystemGarbageCollection wraps the GetSystemGarbageCollection method of the system sub-package.
-func (c *RESTClient) GetSystemGarbageCollection(ctx context.Context) (*legacymodel.AdminJobSchedule, error) {
-	return c.system.GetSystemGarbageCollection(ctx)
+// GetGarbageCollectionSchedule wraps the GetSystemGarbageCollection method of the system sub-package.
+func (c *RESTClient) GetGarbageCollectionSchedule(ctx context.Context) (*modelv2.GCHistory, error) {
+	return c.gc.GetGarbageCollectionSchedule(ctx)
 }
 
-// ResetSystemGarbageCollection wraps the ResetSystemGarbageCollection method of the system sub-package.
-func (c *RESTClient) ResetSystemGarbageCollection(ctx context.Context) error {
-	return c.system.ResetSystemGarbageCollection(ctx)
+// ResetGarbageCollection wraps the ResetSystemGarbageCollection method of the system sub-package.
+func (c *RESTClient) ResetGarbageCollection(ctx context.Context) error {
+	return c.gc.ResetGarbageCollection(ctx)
 }
 
 // Health wraps the Health method of the system sub-package.
@@ -333,27 +330,27 @@ func (c *RESTClient) Health(ctx context.Context) (*legacymodel.OverallHealthStat
 // Retention Client
 
 // NewRetentionPolicy wraps the NewRetentionPolicy method of the retention sub-package.
-func (c *RESTClient) NewRetentionPolicy(ctx context.Context, ret *legacymodel.RetentionPolicy) error {
+func (c *RESTClient) NewRetentionPolicy(ctx context.Context, ret *modelv2.RetentionPolicy) error {
 	return c.retention.NewRetentionPolicy(ctx, ret)
 }
 
 // GetRetentionPolicyByProjectID wraps the GetRetentionPolicyByProject method of the retention sub-package.
-func (c *RESTClient) GetRetentionPolicyByProject(ctx context.Context, project *modelv2.Project) (*legacymodel.RetentionPolicy, error) {
+func (c *RESTClient) GetRetentionPolicyByProject(ctx context.Context, project *modelv2.Project) (*modelv2.RetentionPolicy, error) {
 	return c.retention.GetRetentionPolicyByProject(ctx, project)
 }
 
 // GetRetentionPolicyByID wraps the GetRetentionPolicyByID method of the retention sub-package.
-func (c *RESTClient) GetRetentionPolicyByID(ctx context.Context, id int64) (*legacymodel.RetentionPolicy, error) {
+func (c *RESTClient) GetRetentionPolicyByID(ctx context.Context, id int64) (*modelv2.RetentionPolicy, error) {
 	return c.retention.GetRetentionPolicyByID(ctx, id)
 }
 
 // UpdateRetentionPolicy wraps the UpdateRetentionPolicy method of the retention sub-package.
-func (c *RESTClient) UpdateRetentionPolicy(ctx context.Context, ret *legacymodel.RetentionPolicy) error {
+func (c *RESTClient) UpdateRetentionPolicy(ctx context.Context, ret *modelv2.RetentionPolicy) error {
 	return c.retention.UpdateRetentionPolicy(ctx, ret)
 }
 
 // DisableRetentionPolicy wraps the DisableRetentionPolicy method of the retention sub-package.
-func (c *RESTClient) DisableRetentionPolicy(ctx context.Context, ret *legacymodel.RetentionPolicy) error {
+func (c *RESTClient) DisableRetentionPolicy(ctx context.Context, ret *modelv2.RetentionPolicy) error {
 	return c.retention.DisableRetentionPolicy(ctx, ret)
 }
 

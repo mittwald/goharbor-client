@@ -72,7 +72,7 @@ type GetProjectDeletableOK struct {
 }
 
 func (o *GetProjectDeletableOK) Error() string {
-	return fmt.Sprintf("[GET /projects/{project_id}/_deletable][%d] getProjectDeletableOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /projects/{project_name_or_id}/_deletable][%d] getProjectDeletableOK  %+v", 200, o.Payload)
 }
 func (o *GetProjectDeletableOK) GetPayload() *model.ProjectDeletable {
 	return o.Payload
@@ -109,7 +109,7 @@ type GetProjectDeletableUnauthorized struct {
 }
 
 func (o *GetProjectDeletableUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /projects/{project_id}/_deletable][%d] getProjectDeletableUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[GET /projects/{project_name_or_id}/_deletable][%d] getProjectDeletableUnauthorized  %+v", 401, o.Payload)
 }
 func (o *GetProjectDeletableUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
@@ -153,7 +153,7 @@ type GetProjectDeletableForbidden struct {
 }
 
 func (o *GetProjectDeletableForbidden) Error() string {
-	return fmt.Sprintf("[GET /projects/{project_id}/_deletable][%d] getProjectDeletableForbidden  %+v", 403, o.Payload)
+	return fmt.Sprintf("[GET /projects/{project_name_or_id}/_deletable][%d] getProjectDeletableForbidden  %+v", 403, o.Payload)
 }
 func (o *GetProjectDeletableForbidden) GetPayload() *model.Errors {
 	return o.Payload
@@ -197,7 +197,7 @@ type GetProjectDeletableNotFound struct {
 }
 
 func (o *GetProjectDeletableNotFound) Error() string {
-	return fmt.Sprintf("[GET /projects/{project_id}/_deletable][%d] getProjectDeletableNotFound  %+v", 404, o.Payload)
+	return fmt.Sprintf("[GET /projects/{project_name_or_id}/_deletable][%d] getProjectDeletableNotFound  %+v", 404, o.Payload)
 }
 func (o *GetProjectDeletableNotFound) GetPayload() *model.Errors {
 	return o.Payload
@@ -241,7 +241,7 @@ type GetProjectDeletableInternalServerError struct {
 }
 
 func (o *GetProjectDeletableInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /projects/{project_id}/_deletable][%d] getProjectDeletableInternalServerError  %+v", 500, o.Payload)
+	return fmt.Sprintf("[GET /projects/{project_name_or_id}/_deletable][%d] getProjectDeletableInternalServerError  %+v", 500, o.Payload)
 }
 func (o *GetProjectDeletableInternalServerError) GetPayload() *model.Errors {
 	return o.Payload

@@ -12,11 +12,19 @@ import (
 
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/artifact"
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/auditlog"
+	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/gc"
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/icon"
+	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/ping"
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/preheat"
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/project"
+	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/replication"
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/repository"
+	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/retention"
+	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/robot"
+	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/robotv1"
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/scan"
+	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/scan_all"
+	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/systeminfo"
 )
 
 // Default harbor HTTP client.
@@ -63,11 +71,19 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Harbor {
 	cli.Transport = transport
 	cli.Artifact = artifact.New(transport, formats)
 	cli.Auditlog = auditlog.New(transport, formats)
+	cli.Gc = gc.New(transport, formats)
 	cli.Icon = icon.New(transport, formats)
+	cli.Ping = ping.New(transport, formats)
 	cli.Preheat = preheat.New(transport, formats)
 	cli.Project = project.New(transport, formats)
+	cli.Replication = replication.New(transport, formats)
 	cli.Repository = repository.New(transport, formats)
+	cli.Retention = retention.New(transport, formats)
+	cli.Robot = robot.New(transport, formats)
+	cli.Robotv1 = robotv1.New(transport, formats)
 	cli.Scan = scan.New(transport, formats)
+	cli.ScanAll = scan_all.New(transport, formats)
+	cli.Systeminfo = systeminfo.New(transport, formats)
 	return cli
 }
 
@@ -116,15 +132,31 @@ type Harbor struct {
 
 	Auditlog auditlog.ClientService
 
+	Gc gc.ClientService
+
 	Icon icon.ClientService
+
+	Ping ping.ClientService
 
 	Preheat preheat.ClientService
 
 	Project project.ClientService
 
+	Replication replication.ClientService
+
 	Repository repository.ClientService
 
+	Retention retention.ClientService
+
+	Robot robot.ClientService
+
+	Robotv1 robotv1.ClientService
+
 	Scan scan.ClientService
+
+	ScanAll scan_all.ClientService
+
+	Systeminfo systeminfo.ClientService
 
 	Transport runtime.ClientTransport
 }
@@ -134,9 +166,17 @@ func (c *Harbor) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 	c.Artifact.SetTransport(transport)
 	c.Auditlog.SetTransport(transport)
+	c.Gc.SetTransport(transport)
 	c.Icon.SetTransport(transport)
+	c.Ping.SetTransport(transport)
 	c.Preheat.SetTransport(transport)
 	c.Project.SetTransport(transport)
+	c.Replication.SetTransport(transport)
 	c.Repository.SetTransport(transport)
+	c.Retention.SetTransport(transport)
+	c.Robot.SetTransport(transport)
+	c.Robotv1.SetTransport(transport)
 	c.Scan.SetTransport(transport)
+	c.ScanAll.SetTransport(transport)
+	c.Systeminfo.SetTransport(transport)
 }

@@ -104,6 +104,14 @@ type ListProjectsParams struct {
 	*/
 	Public *bool
 
+	/* WithDetail.
+
+	   Bool value indicating whether return detailed information of the project
+
+	   Default: true
+	*/
+	WithDetail *bool
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -125,11 +133,14 @@ func (o *ListProjectsParams) SetDefaults() {
 		pageDefault = int64(1)
 
 		pageSizeDefault = int64(10)
+
+		withDetailDefault = bool(true)
 	)
 
 	val := ListProjectsParams{
-		Page:     &pageDefault,
-		PageSize: &pageSizeDefault,
+		Page:       &pageDefault,
+		PageSize:   &pageSizeDefault,
+		WithDetail: &withDetailDefault,
 	}
 
 	val.timeout = o.timeout
@@ -237,6 +248,17 @@ func (o *ListProjectsParams) SetPublic(public *bool) {
 	o.Public = public
 }
 
+// WithWithDetail adds the withDetail to the list projects params
+func (o *ListProjectsParams) WithWithDetail(withDetail *bool) *ListProjectsParams {
+	o.SetWithDetail(withDetail)
+	return o
+}
+
+// SetWithDetail adds the withDetail to the list projects params
+func (o *ListProjectsParams) SetWithDetail(withDetail *bool) {
+	o.WithDetail = withDetail
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *ListProjectsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -333,6 +355,23 @@ func (o *ListProjectsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		if qPublic != "" {
 
 			if err := r.SetQueryParam("public", qPublic); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.WithDetail != nil {
+
+		// query param with_detail
+		var qrWithDetail bool
+
+		if o.WithDetail != nil {
+			qrWithDetail = *o.WithDetail
+		}
+		qWithDetail := swag.FormatBool(qrWithDetail)
+		if qWithDetail != "" {
+
+			if err := r.SetQueryParam("with_detail", qWithDetail); err != nil {
 				return err
 			}
 		}

@@ -9,8 +9,10 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
 	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
@@ -68,6 +70,15 @@ func NewGetProjectsProjectIDWebhookJobsOK() *GetProjectsProjectIDWebhookJobsOK {
 List project webhook jobs successfully.
 */
 type GetProjectsProjectIDWebhookJobsOK struct {
+
+	/* Link to previous page and next page
+	 */
+	Link string
+
+	/* The total count of available items
+	 */
+	XTotalCount int64
+
 	Payload []*legacy.WebhookJob
 }
 
@@ -79,6 +90,24 @@ func (o *GetProjectsProjectIDWebhookJobsOK) GetPayload() []*legacy.WebhookJob {
 }
 
 func (o *GetProjectsProjectIDWebhookJobsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// hydrates response header Link
+	hdrLink := response.GetHeader("Link")
+
+	if hdrLink != "" {
+		o.Link = hdrLink
+	}
+
+	// hydrates response header X-Total-Count
+	hdrXTotalCount := response.GetHeader("X-Total-Count")
+
+	if hdrXTotalCount != "" {
+		valxTotalCount, err := swag.ConvertInt64(hdrXTotalCount)
+		if err != nil {
+			return errors.InvalidType("X-Total-Count", "header", "int64", hdrXTotalCount)
+		}
+		o.XTotalCount = valxTotalCount
+	}
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
