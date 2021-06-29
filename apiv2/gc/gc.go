@@ -71,8 +71,9 @@ func (c *RESTClient) UpdateGarbageCollection(ctx context.Context,
 		return &ErrSystemGcScheduleNotProvided{}
 	}
 	if newGCSchedule.Parameters == nil {
-		newGCSchedule.Parameters = make(map[string]interface{})
-		newGCSchedule.Parameters["delete_untagged"] = false
+		newGCSchedule.Parameters = map[string]interface{}{
+		    "delete_untagged": false,
+		}
 	}
 
 	_, err := c.V2Client.Gc.UpdateGCSchedule(&gc.UpdateGCScheduleParams{
