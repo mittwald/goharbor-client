@@ -8,8 +8,8 @@ import (
 	"testing"
 
 	"github.com/go-openapi/strfmt"
-	"github.com/mittwald/goharbor-client/v3/apiv1/internal/api/client"
-	integrationtest "github.com/mittwald/goharbor-client/v3/apiv1/testing"
+	"github.com/mittwald/goharbor-client/v4/apiv1/internal/api/client"
+	integrationtest "github.com/mittwald/goharbor-client/v4/apiv1/testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/stretchr/testify/assert"

@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	artifact "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/artifact"
+	artifact "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/artifact"
 	mock "github.com/stretchr/testify/mock"
 
 	runtime "github.com/go-openapi/runtime"

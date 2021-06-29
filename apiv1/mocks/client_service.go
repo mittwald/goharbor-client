@@ -4,7 +4,7 @@ package mocks
 
 import (
 	runtime "github.com/go-openapi/runtime"
-	products "github.com/mittwald/goharbor-client/v3/apiv1/internal/api/client/products"
+	products "github.com/mittwald/goharbor-client/v4/apiv1/internal/api/client/products"
 	mock "github.com/stretchr/testify/mock"
 )
 

@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
+	"github.com/mittwald/goharbor-client/v4/apiv2/model/legacy"
 )
 
 // GetScannersRegistrationIDReader is a Reader for the GetScannersRegistrationID structure.
