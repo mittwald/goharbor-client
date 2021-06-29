@@ -46,8 +46,9 @@ func (c *RESTClient) NewGarbageCollection(ctx context.Context, gcSchedule *model
 	}
 
 	if gcSchedule.Parameters == nil {
-		gcSchedule.Parameters = make(map[string]interface{})
-		gcSchedule.Parameters["delete_untagged"] = false
+		gcSchedule.Parameters = map[string]interface{}{
+		    "delete_untagged": false,
+		}
 	}
 
 	_, err := c.V2Client.Gc.CreateGCSchedule(&gc.CreateGCScheduleParams{
