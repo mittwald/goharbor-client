@@ -1,10 +1,10 @@
-package system
+package gc
 
 import (
 	"net/http"
 
 	"github.com/go-openapi/runtime"
-	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client/products"
+	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/gc"
 )
 
 const (
@@ -31,6 +31,12 @@ const (
 
 	// ErrSystemGcScheduleNotProvidedMsg describes the absence of a required schedule
 	ErrSystemGcScheduleNotProvidedMsg = "no schedule provided"
+
+	// ErrSystemGcScheduleUndefinedMsg describes an error when the GC schedule is undefined
+	ErrSystemGcScheduleUndefinedMsg = "the garbage collection schedule is undefined"
+
+	// ErrSystemGcScheduleParametersUndefinedMsg describes an error when a GC schedule's parameters are undefined
+	ErrSystemGcScheduleParametersUndefinedMsg = "garbage collection schedule parameters are undefined"
 )
 
 // ErrSystemInvalidSchedule describes an invalid schedule type request.
@@ -97,6 +103,22 @@ func (e *ErrSystemGcScheduleNotProvided) Error() string {
 	return ErrSystemGcScheduleNotProvidedMsg
 }
 
+// ErrSystemGcScheduleUndefined describes an error when the fetched gc schedule is undefined.
+type ErrSystemGcScheduleUndefined struct{}
+
+// Error returns the error message.
+func (e *ErrSystemGcScheduleUndefined) Error() string {
+	return ErrSystemGcScheduleUndefinedMsg
+}
+
+// ErrSystemGcScheduleParametersUndefined describes an error when a GC schedule's parameters are undefined
+type ErrSystemGcScheduleParametersUndefined struct{}
+
+// Error returns the error message.
+func (e *ErrSystemGcScheduleParametersUndefined) Error() string {
+	return ErrSystemGcScheduleParametersUndefinedMsg
+}
+
 // handleSystemErrors takes a swagger generated error as input,
 // which usually does not contain any form of error message,
 // and outputs a new error with proper message.
@@ -122,9 +144,9 @@ func handleSwaggerSystemErrors(in error) error {
 	}
 
 	switch in.(type) {
-	case *products.PostSystemGcScheduleConflict:
+	case *gc.CreateGCScheduleConflict:
 		return &ErrSystemGcInProgress{}
-	case *products.PutSystemGcScheduleBadRequest:
+	case *gc.UpdateGCScheduleBadRequest:
 		return &ErrSystemInvalidSchedule{}
 	default:
 		return in

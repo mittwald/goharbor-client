@@ -4,7 +4,7 @@ on: pull_request
 
 env:
   GOPROXY: https://proxy.golang.org
-  YQ_VERSION: v4.6.0
+  YQ_VERSION: v4.9.1
 
 jobs:
   test-harbor:
@@ -31,4 +31,4 @@ jobs:
       - name: Setup yq
         run: wget https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64.tar.gz -O - | tar xz && sudo mv yq_linux_amd64 /usr/bin/yq
       - name: Test
-        run: make integration-test-${{ matrix.harbor }}
+        run: make integration-test-${{ matrix.harbor }}-ci

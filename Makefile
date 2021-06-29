@@ -1,30 +1,40 @@
-.PHONY: generate swagger-generate mock harbor-v1 harbor-v2 harbor-teardown test swagger-cleanup \
-mock-cleanup integration-test-v1 integration-test-v2
+.PHONY: generate swagger-generate swagger-cleanup mock-generate mock-cleanup setup-harbor-v1 setup-harbor-v2 \
+harbor-teardown test integration-test-v1-ci integration-test-v2-ci integration-test-v1 integration-test-v2 \
+fmt gofmt gofumpt goimports lint
 
 V1_VERSION = v1.10.6
 V2_VERSION = v2.2.1
 MOCKERY_VERSION = v2.7.5
 GOSWAGGER_VERSION = v0.27.0
+GOLANGCI_LINT_VERSION = v1.40.0
 
 # Run all code generation targets
-generate: swagger-generate mock-generate
+generate: swagger-generate mock-generate fmt
 
 # Run go-swagger code generation
 swagger-generate: swagger-cleanup
 	scripts/swagger-gen.sh $(V1_VERSION) $(GOSWAGGER_VERSION)
 	scripts/swagger-gen.sh $(V2_VERSION) $(GOSWAGGER_VERSION)
 
+# Delete all auto-generated API files
+swagger-cleanup:
+	rm -rf ./apiv*/internal ./apiv*/model/
+
 # Run mockery
 mock-generate: mock-cleanup
 	scripts/gen-mock.sh v1 $(MOCKERY_VERSION)
 	scripts/gen-mock.sh v2 $(MOCKERY_VERSION)
 
+# Delete all auto-generated mock files
+mock-cleanup:
+	rm -rf ./apiv*/mocks/*
+
 # Create a Harbor instance as a docker container via Kind.
 # Delete cluster via scripts/teardown-harbor.sh
-harbor-v1:
+setup-harbor-v1:
 	scripts/setup-harbor.sh $(V1_VERSION)
 
-harbor-v2:
+setup-harbor-v2:
 	scripts/setup-harbor.sh $(V2_VERSION)
 
 harbor-teardown:
@@ -33,23 +43,27 @@ harbor-teardown:
 test:
 	go test -v ./...
 
-swagger-cleanup:
-	rm -rf ./apiv*/internal ./apiv*/model/
+INTREGRATION_V1 = CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v3/apiv1/... -tags integration
+INTEGRATION_V2 = CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v3/apiv2/... -tags integration
 
-# Delete all auto-generated mock files
-mock-cleanup:
-	rm -rf ./apiv*/mocks/*
+# Integration testing (CI Jobs)
+integration-test-v1-ci: setup-harbor-v1
+	$(INTEGRATION_V1)
 
-# Integration testing on Harbor v1
-integration-test-v1: harbor-v1
-	CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v3/apiv1/... -tags integration
+integration-test-v2-ci: setup-harbor-v2
+	$(INTEGRATION_V2)
 
-# Integration testing on Harbor v2
-integration-test-v2: harbor-v2
-	CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v3/apiv2/... -tags integration
+# Integration testing (local execution)
+integration-test-v1:
+	$(INTEGRATION_V1)
+
+integration-test-v2:
+	$(INTEGRATION_V2)
 
 # Exclude auto-generated code to be formatted by gofmt, gofumpt & goimports.
 FIND=find . \( -path "./apiv*/internal" -o -path "./apiv*/mocks" -o -path "./apiv*/model" \) -prune -false -o -name '*.go'
+
+fmt: gofmt gofumpt goimports
 
 gofmt:
 	$(FIND) -exec gofmt -l -w {} \;
@@ -59,3 +73,7 @@ gofumpt:
 
 goimports:
 	$(FIND) -exec goimports -w {} \;
+
+lint:
+	docker run --rm -v $(shell pwd):/goharbor-client -w /goharbor-client/. \
+	golangci/golangci-lint:v1.40.0 golangci-lint run --sort-results

@@ -4,6 +4,8 @@ package quota
 
 import (
 	"context"
+	"encoding/json"
+	"strconv"
 	"testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
@@ -14,6 +16,7 @@ import (
 	legacymodel "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
+	"github.com/stretchr/testify/require"
 )
 
 var (
@@ -34,6 +37,34 @@ func BuildProjectClientWithMocks() *v2client.Harbor {
 	return &v2client.Harbor{}
 }
 
+func TestRESTClient_GetQuotaByProjectID_Unexpected(t *testing.T) {
+	p := &mocks.MockProductsClientService{}
+
+	legacyClient := BuildLegacyClientWithMock(p)
+	v2Client := BuildProjectClientWithMocks()
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+
+	ctx := context.Background()
+
+	s := strconv.FormatInt(testProjectID, 10)
+
+	getQuotasParams := &products.GetQuotasParams{
+		ReferenceID: &s,
+		Context:     ctx,
+	}
+
+	p.On("GetQuotas", getQuotasParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetQuotasOK{}, nil)
+
+	_, err := cl.GetQuotaByProjectID(ctx, testProjectID)
+	if assert.Error(t, err) {
+		assert.IsType(t, &ErrQuotaRefNotFound{}, err)
+	}
+
+	p.AssertExpectations(t)
+}
+
 func TestRESTClient_GetQuotaByProjectID(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
@@ -44,16 +75,30 @@ func TestRESTClient_GetQuotaByProjectID(t *testing.T) {
 
 	ctx := context.Background()
 
-	getQuotasIDParams := &products.GetQuotasIDParams{
-		ID:      testProjectID,
-		Context: ctx,
+	s := strconv.Itoa(int(testProjectID))
+
+	getQuotasParams := &products.GetQuotasParams{
+		ReferenceID: &s,
+		Context:     ctx,
 	}
 
-	p.On("GetQuotasID", getQuotasIDParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.GetQuotasIDOK{Payload: &legacymodel.Quota{}}, nil)
+	p.On("GetQuotas", getQuotasParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetQuotasOK{Payload: []*legacymodel.Quota{{
+			Ref: map[string]interface{}{
+				"id": json.Number(strconv.Itoa(1)),
+			},
+			Hard: legacymodel.ResourceList{
+				"storage": 10,
+			},
+			ID: testProjectID,
+		}}}, nil)
 
-	_, err := cl.GetQuotaByProjectID(ctx, testProjectID)
+	q, err := cl.GetQuotaByProjectID(ctx, testProjectID)
 	assert.NoError(t, err)
+
+	if assert.NotNil(t, q) {
+		require.Equal(t, int64(10), q.Hard["storage"])
+	}
 
 	p.AssertExpectations(t)
 }

@@ -6,13 +6,12 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client/retention"
 	modelv2 "github.com/mittwald/goharbor-client/v3/apiv2/model"
 
 	"github.com/go-openapi/runtime"
 	v2client "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client"
-	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client/products"
-	model "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 	projectapi "github.com/mittwald/goharbor-client/v3/apiv2/project"
 )
 
@@ -52,11 +51,11 @@ const (
 )
 
 type Client interface {
-	NewRetentionPolicy(ctx context.Context, ret *model.RetentionPolicy) error
-	GetRetentionPolicyByProject(ctx context.Context, project *modelv2.Project) (*model.RetentionPolicy, error)
-	GetRetentionPolicyByID(ctx context.Context, id int64) (*model.RetentionPolicy, error)
-	DisableRetentionPolicy(ctx context.Context, ret *model.RetentionPolicy) error
-	UpdateRetentionPolicy(ctx context.Context, ret *model.RetentionPolicy) error
+	NewRetentionPolicy(ctx context.Context, ret *modelv2.RetentionPolicy) error
+	GetRetentionPolicyByProject(ctx context.Context, project *modelv2.Project) (*modelv2.RetentionPolicy, error)
+	GetRetentionPolicyByID(ctx context.Context, id int64) (*modelv2.RetentionPolicy, error)
+	DisableRetentionPolicy(ctx context.Context, ret *modelv2.RetentionPolicy) error
+	UpdateRetentionPolicy(ctx context.Context, ret *modelv2.RetentionPolicy) error
 }
 
 // RESTClient is a subclient for handling retention related actions.
@@ -101,16 +100,15 @@ func (t TagSelector) String() string {
 }
 
 // NewRetentionPolicy creates a new tag retention policy for a project.
-func (c *RESTClient) NewRetentionPolicy(ctx context.Context, ret *model.RetentionPolicy) error {
+func (c *RESTClient) NewRetentionPolicy(ctx context.Context, ret *modelv2.RetentionPolicy) error {
 	if ret == nil {
 		return &ErrRetentionNotProvided{}
 	}
 
-	_, err := c.LegacyClient.Products.PostRetentions(
-		&products.PostRetentionsParams{
-			Policy:  ret,
-			Context: ctx,
-		}, c.AuthInfo)
+	_, err := c.V2Client.Retention.CreateRetention(&retention.CreateRetentionParams{
+		Policy:  ret,
+		Context: ctx,
+	}, c.AuthInfo)
 	if err != nil {
 		return handleSwaggerRetentionErrors(err)
 	}
@@ -119,10 +117,10 @@ func (c *RESTClient) NewRetentionPolicy(ctx context.Context, ret *model.Retentio
 }
 
 // GetRetentionPolicyByProject returns a retention policy that is fetched by the metadata value contained in a project's metadata.
-func (c *RESTClient) GetRetentionPolicyByProject(ctx context.Context, project *modelv2.Project) (*model.RetentionPolicy, error) {
+func (c *RESTClient) GetRetentionPolicyByProject(ctx context.Context, project *modelv2.Project) (*modelv2.RetentionPolicy, error) {
 	pc := projectapi.NewClient(c.LegacyClient, c.V2Client, c.AuthInfo)
 
-	val, err := pc.GetProjectMetadataValue(ctx, int64(project.ProjectID), projectapi.ProjectMetadataKeyRetentionID)
+	val, err := pc.GetProjectMetadataValue(ctx, fmt.Sprint(project.ProjectID), projectapi.ProjectMetadataKeyRetentionID)
 	if err != nil {
 		return nil, err
 	}
@@ -136,8 +134,8 @@ func (c *RESTClient) GetRetentionPolicyByProject(ctx context.Context, project *m
 }
 
 // GetRetentionPolicyByID returns a retention policy identified by it's id.
-func (c *RESTClient) GetRetentionPolicyByID(ctx context.Context, id int64) (*model.RetentionPolicy, error) {
-	resp, err := c.LegacyClient.Products.GetRetentionsID(&products.GetRetentionsIDParams{
+func (c *RESTClient) GetRetentionPolicyByID(ctx context.Context, id int64) (*modelv2.RetentionPolicy, error) {
+	resp, err := c.V2Client.Retention.GetRetention(&retention.GetRetentionParams{
 		ID:      id,
 		Context: ctx,
 	}, c.AuthInfo)
@@ -149,20 +147,23 @@ func (c *RESTClient) GetRetentionPolicyByID(ctx context.Context, id int64) (*mod
 }
 
 // DisableRetentionPolicy replaces the rules of a retention policy with an empty set of rules.
-// As of now (Harbor v2.1.3) the swagger specifications do not contain a DELETE route for
+// As of Harbor v2.2.1, the swagger specifications do not contain a DELETE route for
 // retention policies, but instead PUT a retention policy with a dummy retention rule.
 // This function provides the same functionality as "Action -> Delete" when editing retention rules in the GUI.
-func (c *RESTClient) DisableRetentionPolicy(ctx context.Context, ret *model.RetentionPolicy) error {
+// TODO: replace this method with a new one 'DeleteRetentionPolicy'
+// once the delete route for the retention API [^1] has been released.
+// [^1]: https://github.com/goharbor/harbor/pull/14747/commits/81e5aa715b98b39fbf729048c34fe46c3af31505
+func (c *RESTClient) DisableRetentionPolicy(ctx context.Context, ret *modelv2.RetentionPolicy) error {
 	if ret == nil {
 		return &ErrRetentionNotProvided{}
 	}
 
-	resp, err := c.LegacyClient.Products.PutRetentionsID(&products.PutRetentionsIDParams{
+	resp, err := c.V2Client.Retention.UpdateRetention(&retention.UpdateRetentionParams{
 		ID: ret.ID,
-		Policy: &model.RetentionPolicy{
+		Policy: &modelv2.RetentionPolicy{
 			Algorithm: ret.Algorithm,
 			ID:        ret.ID,
-			Rules:     []*model.RetentionRule{},
+			Rules:     []*modelv2.RetentionRule{},
 			Scope:     ret.Scope,
 			Trigger:   ret.Trigger,
 		},
@@ -181,12 +182,12 @@ func (c *RESTClient) DisableRetentionPolicy(ctx context.Context, ret *model.Rete
 }
 
 // UpdateRetentionPolicy updates the specified retention policy ret.
-func (c *RESTClient) UpdateRetentionPolicy(ctx context.Context, ret *model.RetentionPolicy) error {
+func (c *RESTClient) UpdateRetentionPolicy(ctx context.Context, ret *modelv2.RetentionPolicy) error {
 	if ret == nil {
 		return &ErrRetentionNotProvided{}
 	}
 
-	resp, err := c.LegacyClient.Products.PutRetentionsID(&products.PutRetentionsIDParams{
+	resp, err := c.V2Client.Retention.UpdateRetention(&retention.UpdateRetentionParams{
 		ID:      ret.ID,
 		Policy:  ret,
 		Context: ctx,
