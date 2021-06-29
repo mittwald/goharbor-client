@@ -15,6 +15,7 @@ import (
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client"
 
 	"github.com/go-openapi/runtime"
+
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client/products"
 	legacymodel "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
 )
@@ -74,8 +75,8 @@ type Client interface {
 
 	ListProjectWebhookPolicies(ctx context.Context, p *modelv2.Project) ([]*legacymodel.WebhookPolicy, error)
 	AddProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policy *legacymodel.WebhookPolicy) error
-	UpdateProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int, policy *legacymodel.WebhookPolicy) error
-	DeleteProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int) error
+	UpdateProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int64, policy *legacymodel.WebhookPolicy) error
+	DeleteProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int64) error
 }
 
 type MetadataKey string
@@ -127,7 +128,7 @@ func (c *RESTClient) DeleteProject(ctx context.Context, p *modelv2.Project) erro
 
 	_, err = c.V2Client.Project.DeleteProject(
 		&projectapi.DeleteProjectParams{
-			ProjectNameOrID: strconv.Itoa(int(p.ProjectID)),
+			ProjectNameOrID: ProjectIDAsString(p.ProjectID),
 			Context:         ctx,
 		}, c.AuthInfo)
 
@@ -200,7 +201,7 @@ func (c *RESTClient) UpdateProject(ctx context.Context, p *modelv2.Project, stor
 
 	_, err = c.V2Client.Project.UpdateProject(&projectapi.UpdateProjectParams{
 		Project:         pReq,
-		ProjectNameOrID: strconv.Itoa(int(p.ProjectID)),
+		ProjectNameOrID: ProjectIDAsString(p.ProjectID),
 		Context:         ctx,
 	}, c.AuthInfo)
 
@@ -367,7 +368,7 @@ func getProjectMetadataByKey(key MetadataKey, value string) *modelv2.ProjectMeta
 	return &m
 }
 
-// AddMetadata adds metadata with a specific key and value to project p.
+// AddProjectMetadata AddMetadata adds metadata with a specific key and value to project p.
 // See this for more explanation of possible keys and values:
 // https://github.com/goharbor/harbor/blob/v1.10.2/api/harbor/swagger.yaml#L4894
 func (c *RESTClient) AddProjectMetadata(ctx context.Context, p *modelv2.Project, key MetadataKey, value string) error {
@@ -378,7 +379,7 @@ func (c *RESTClient) AddProjectMetadata(ctx context.Context, p *modelv2.Project,
 	meta := getProjectMetadataByKey(key, value)
 
 	_, err := c.V2Client.Project.UpdateProject(&projectapi.UpdateProjectParams{
-		ProjectNameOrID: strconv.Itoa(int(p.ProjectID)),
+		ProjectNameOrID: ProjectIDAsString(p.ProjectID),
 		Project: &modelv2.ProjectReq{
 			Metadata:    meta,
 			ProjectName: p.Name,
@@ -414,13 +415,13 @@ func (c *RESTClient) GetProjectMetadataValue(ctx context.Context, projectNameOrI
 	return retrieveMetadataValue(key, project.Metadata)
 }
 
-// ListMetadata lists all metadata of a project
+// ListProjectMetadata ListMetadata lists all metadata of a project
 func (c *RESTClient) ListProjectMetadata(ctx context.Context, p *modelv2.Project) (*modelv2.ProjectMetadata, error) {
 	if p == nil {
 		return nil, &ErrProjectNotProvided{}
 	}
 
-	resp, err := c.GetProject(ctx, strconv.Itoa(int(p.ProjectID)))
+	resp, err := c.GetProject(ctx, ProjectIDAsString(p.ProjectID))
 	if err != nil {
 		return nil, handleSwaggerProjectErrors(err)
 	}
@@ -432,7 +433,7 @@ func (c *RESTClient) ListProjectMetadata(ctx context.Context, p *modelv2.Project
 	return nil, &ErrProjectMetadataAlreadyExists{}
 }
 
-// UpdateMetadata deletes the specified metadata key, if it exists and re-adds this metadata key with the given value.
+// UpdateProjectMetadata UpdateMetadata deletes the specified metadata key, if it exists and re-adds this metadata key with the given value.
 // This function works around the faulty behaviour of the corresponding 'Update' endpoint of the Harbor API.
 func (c *RESTClient) UpdateProjectMetadata(ctx context.Context, p *modelv2.Project, key MetadataKey, value string) error {
 	if p == nil {
@@ -469,14 +470,14 @@ func (c *RESTClient) UpdateProjectMetadata(ctx context.Context, p *modelv2.Proje
 			Metadata:    meta,
 			ProjectName: p.Name,
 		},
-		ProjectNameOrID: strconv.Itoa(int(p.ProjectID)),
+		ProjectNameOrID: ProjectIDAsString(p.ProjectID),
 		Context:         ctx,
 	}, c.AuthInfo)
 
 	return handleSwaggerProjectErrors(err)
 }
 
-// DeleteMetadataValue deletes metadata of project p given by key.
+// DeleteProjectMetadataValue DeleteMetadataValue deletes metadata of project p given by key.
 func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context, p *modelv2.Project, key MetadataKey) error {
 	if p == nil {
 		return &ErrProjectNotProvided{}
@@ -499,7 +500,7 @@ func (c *RESTClient) ListProjectRobots(ctx context.Context, p *modelv2.Project) 
 	}
 
 	resp, err := c.V2Client.Robotv1.ListRobotV1(&robotv1.ListRobotV1Params{
-		ProjectNameOrID: strconv.Itoa(int(p.ProjectID)),
+		ProjectNameOrID: ProjectIDAsString(p.ProjectID),
 		Context:         ctx,
 	}, c.AuthInfo)
 	if err != nil {
@@ -517,7 +518,7 @@ func (c *RESTClient) AddProjectRobot(ctx context.Context, p *modelv2.Project, r 
 	}
 
 	resp, err := c.V2Client.Robotv1.CreateRobotV1(&robotv1.CreateRobotV1Params{
-		ProjectNameOrID: strconv.Itoa(int(p.ProjectID)),
+		ProjectNameOrID: ProjectIDAsString(p.ProjectID),
 		Robot:           r,
 		Context:         ctx,
 	}, c.AuthInfo)
@@ -535,7 +536,7 @@ func (c *RESTClient) UpdateProjectRobot(ctx context.Context, p *modelv2.Project,
 	}
 
 	_, err := c.V2Client.Robotv1.UpdateRobotV1(&robotv1.UpdateRobotV1Params{
-		ProjectNameOrID: strconv.Itoa(int(p.ProjectID)),
+		ProjectNameOrID: ProjectIDAsString(p.ProjectID),
 		Robot:           r,
 		RobotID:         robotID,
 		Context:         ctx,
@@ -554,7 +555,7 @@ func (c *RESTClient) DeleteProjectRobot(ctx context.Context, p *modelv2.Project,
 	}
 
 	_, err := c.V2Client.Robotv1.DeleteRobotV1(&robotv1.DeleteRobotV1Params{
-		ProjectNameOrID: strconv.Itoa(int(p.ProjectID)),
+		ProjectNameOrID: ProjectIDAsString(p.ProjectID),
 		RobotID:         robotID,
 		Context:         ctx,
 	}, c.AuthInfo)
@@ -603,7 +604,7 @@ func (c *RESTClient) AddProjectWebhookPolicy(ctx context.Context, p *modelv2.Pro
 }
 
 // UpdateProjectWebhookPolicy updates a webhook policy in project p.
-func (c *RESTClient) UpdateProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int, policy *legacymodel.WebhookPolicy) error {
+func (c *RESTClient) UpdateProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int64, policy *legacymodel.WebhookPolicy) error {
 	if p == nil {
 		return &ErrProjectNotProvided{}
 	}
@@ -616,7 +617,7 @@ func (c *RESTClient) UpdateProjectWebhookPolicy(ctx context.Context, p *modelv2.
 		&products.PutProjectsProjectIDWebhookPoliciesPolicyIDParams{
 			ProjectID: int64(p.ProjectID),
 			Policy:    policy,
-			PolicyID:  int64(policyID),
+			PolicyID:  policyID,
 			Context:   ctx,
 		}, c.AuthInfo)
 	if err != nil {
@@ -627,7 +628,7 @@ func (c *RESTClient) UpdateProjectWebhookPolicy(ctx context.Context, p *modelv2.
 }
 
 // DeleteProjectWebhookPolicy deletes a webhook policy from project p.
-func (c *RESTClient) DeleteProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int) error {
+func (c *RESTClient) DeleteProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int64) error {
 	if p == nil {
 		return &ErrProjectNotProvided{}
 	}
@@ -635,7 +636,7 @@ func (c *RESTClient) DeleteProjectWebhookPolicy(ctx context.Context, p *modelv2.
 	_, err := c.LegacyClient.Products.DeleteProjectsProjectIDWebhookPoliciesPolicyID(
 		&products.DeleteProjectsProjectIDWebhookPoliciesPolicyIDParams{
 			ProjectID: int64(p.ProjectID),
-			PolicyID:  int64(policyID),
+			PolicyID:  policyID,
 			Context:   ctx,
 		}, c.AuthInfo)
 	if err != nil {
@@ -677,4 +678,8 @@ func (c *RESTClient) getMid(ctx context.Context, p *modelv2.Project, u *legacymo
 	}
 
 	return 0, &ErrProjectUserIsNoMember{}
+}
+
+func ProjectIDAsString(projectID int32) string {
+	return strconv.Itoa(int(projectID))
 }

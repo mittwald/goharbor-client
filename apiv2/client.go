@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/runtime"
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+
 	v2client "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client"
 	legacymodel "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
@@ -216,7 +217,7 @@ func (c *RESTClient) ListProjectWebhookPolicies(ctx context.Context, p *modelv2.
 }
 
 // UpdateProjectWebhookPolicy wraps the UpdateProjectWebhookPolicy method of the project sub-package.
-func (c *RESTClient) UpdateProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int, policy *legacymodel.WebhookPolicy) error {
+func (c *RESTClient) UpdateProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int64, policy *legacymodel.WebhookPolicy) error {
 	return c.project.UpdateProjectWebhookPolicy(ctx, p, policyID, policy)
 }
 
@@ -226,7 +227,7 @@ func (c *RESTClient) AddProjectWebhookPolicy(ctx context.Context, p *modelv2.Pro
 }
 
 // DeleteProjectWebhookPolicy wraps the DeleteProjectWebhookPolicy method of the project sub-package.
-func (c *RESTClient) DeleteProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int) error {
+func (c *RESTClient) DeleteProjectWebhookPolicy(ctx context.Context, p *modelv2.Project, policyID int64) error {
 	return c.project.DeleteProjectWebhookPolicy(ctx, p, policyID)
 }
 

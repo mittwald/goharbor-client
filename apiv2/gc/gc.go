@@ -47,7 +47,7 @@ func (c *RESTClient) NewGarbageCollection(ctx context.Context, gcSchedule *model
 
 	if gcSchedule.Parameters == nil {
 		gcSchedule.Parameters = map[string]interface{}{
-		    "delete_untagged": false,
+			"delete_untagged": false,
 		}
 	}
 
@@ -72,7 +72,7 @@ func (c *RESTClient) UpdateGarbageCollection(ctx context.Context,
 	}
 	if newGCSchedule.Parameters == nil {
 		newGCSchedule.Parameters = map[string]interface{}{
-		    "delete_untagged": false,
+			"delete_untagged": false,
 		}
 	}
 
