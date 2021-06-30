@@ -9,7 +9,7 @@ GOSWAGGER_VERSION = v0.27.0
 GOLANGCI_LINT_VERSION = v1.40.0
 
 # Run all code generation targets
-generate: swagger-generate mock-generate fmt
+generate: swagger-generate mock-generate
 
 # Run go-swagger code generation
 swagger-generate: swagger-cleanup
@@ -63,7 +63,10 @@ integration-test-v2:
 # Exclude auto-generated code to be formatted by gofmt, gofumpt & goimports.
 FIND=find . \( -path "./apiv*/internal" -o -path "./apiv*/mocks" -o -path "./apiv*/model" \) -prune -false -o -name '*.go'
 
-fmt: gofmt gofumpt goimports
+fmt: gofmt gofumpt goimports tidy
+
+tidy:
+	go mod tidy
 
 gofmt:
 	$(FIND) -exec gofmt -l -w {} \;

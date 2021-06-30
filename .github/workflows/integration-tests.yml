@@ -9,11 +9,11 @@ env:
 jobs:
   test-harbor:
     name: Test on Harbor
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         harbor: [v1, v2]
-        go: [1.15]
+        go: [1.16]
     steps:
       - uses: actions/checkout@v2
       - name: Setup Go
