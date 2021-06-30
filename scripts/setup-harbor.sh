@@ -66,6 +66,7 @@ echo "Installing Harbor via Helm..."
 helm repo add harbor https://helm.goharbor.io && helm repo update
 helm install harbor harbor/harbor \
     --set expose.type=nodePort,expose.tls.enabled=false,externalURL=http://localhost \
+    --set trivy.enabled=false,notary.enabled=false,chartmuseum.enabled=false \
     --namespace default \
     --kube-context kind-"${CLUSTER_NAME}" \
     --version="${HARBOR_CHART_VERSION}"
@@ -99,5 +100,8 @@ for i in {1..100}; do
     sleep 5
 done
 
-echo -e "Timeout while waiting for the Harbor installation to finish."
+HEALTH_STATUS="$(curl -s -X GET --connect-timeout 3 "${API_URL_PREFIX}/health" | jq)"
+
+echo -e "Timeout while waiting for the Harbor installation to finish. Health status:"
+echo "${HEALTH_STATUS}"
 exit 1

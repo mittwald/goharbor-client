@@ -37,9 +37,6 @@ setup-harbor-v1:
 setup-harbor-v2:
 	scripts/setup-harbor.sh $(V2_VERSION)
 
-harbor-teardown:
-	scripts/teardown-harbor.sh
-
 test:
 	go test -v ./...
 

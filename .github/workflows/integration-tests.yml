@@ -9,7 +9,7 @@ env:
 jobs:
   test-harbor:
     name: Test on Harbor
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     strategy:
       matrix:
         harbor: [v1, v2]
