@@ -35,7 +35,7 @@ jobs:
         with:
           coverageCommand: go test -coverprofile=c.out ./...
           debug: true
-          prefix: 'github.com/${{ github.repository }}/'
+          prefix: 'github.com/${{ github.repository }}/v4'
 
       - name: Go Test
         if: github.event_name == 'pull_request'
