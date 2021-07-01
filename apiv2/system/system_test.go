@@ -8,10 +8,10 @@ import (
 	"testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
-	legacyclient "github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client"
-	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client/products"
-	"github.com/mittwald/goharbor-client/v3/apiv2/mocks"
-	legacymodel "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
+	legacyclient "github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client/products"
+	"github.com/mittwald/goharbor-client/v4/apiv2/mocks"
+	legacymodel "github.com/mittwald/goharbor-client/v4/apiv2/model/legacy"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

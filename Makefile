@@ -9,7 +9,7 @@ GOSWAGGER_VERSION = v0.27.0
 GOLANGCI_LINT_VERSION = v1.40.0
 
 # Run all code generation targets
-generate: swagger-generate mock-generate fmt
+generate: swagger-generate mock-generate
 
 # Run go-swagger code generation
 swagger-generate: swagger-cleanup
@@ -37,14 +37,11 @@ setup-harbor-v1:
 setup-harbor-v2:
 	scripts/setup-harbor.sh $(V2_VERSION)
 
-harbor-teardown:
-	scripts/teardown-harbor.sh
-
 test:
 	go test -v ./...
 
-INTREGRATION_V1 = CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v3/apiv1/... -tags integration
-INTEGRATION_V2 = CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v3/apiv2/... -tags integration
+INTREGRATION_V1 = CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v4/apiv1/... -tags integration
+INTEGRATION_V2 = CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v4/apiv2/... -tags integration
 
 # Integration testing (CI Jobs)
 integration-test-v1-ci: setup-harbor-v1
@@ -63,7 +60,10 @@ integration-test-v2:
 # Exclude auto-generated code to be formatted by gofmt, gofumpt & goimports.
 FIND=find . \( -path "./apiv*/internal" -o -path "./apiv*/mocks" -o -path "./apiv*/model" \) -prune -false -o -name '*.go'
 
-fmt: gofmt gofumpt goimports
+fmt: gofmt gofumpt goimports tidy
+
+tidy:
+	go mod tidy
 
 gofmt:
 	$(FIND) -exec gofmt -l -w {} \;

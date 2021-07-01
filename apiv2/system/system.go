@@ -4,10 +4,10 @@ import (
 	"context"
 
 	"github.com/go-openapi/runtime"
-	v2client "github.com/mittwald/goharbor-client/v3/apiv2/internal/api/client"
-	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client"
-	"github.com/mittwald/goharbor-client/v3/apiv2/internal/legacyapi/client/products"
-	legacymodel "github.com/mittwald/goharbor-client/v3/apiv2/model/legacy"
+	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client/products"
+	legacymodel "github.com/mittwald/goharbor-client/v4/apiv2/model/legacy"
 )
 
 // RESTClient is a subclient for handling system related actions.
