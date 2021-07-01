@@ -197,7 +197,7 @@ func (e *ErrProjectMetadataAlreadyExists) Error() string {
 }
 
 // ErrProjectUnknownResource describes which happens,
-// when requesting an unknown ressource.
+// when requesting an unknown resource.
 type ErrProjectUnknownResource struct{}
 
 // Error returns the error message.
