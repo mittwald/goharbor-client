@@ -7,6 +7,7 @@ import (
 	modelv2 "github.com/mittwald/goharbor-client/v4/apiv2/model"
 
 	"github.com/go-openapi/runtime"
+
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client/products"
 )
 
@@ -154,7 +155,8 @@ func (e *ErrProjectNotProvided) Error() string {
 	return ErrProjectNotProvidedMsg
 }
 
-// ErrProjectNoMemberProvided
+// ErrProjectNoMemberProvided describes an error
+// when a project's member is not provided.
 type ErrProjectNoMemberProvided struct{}
 
 // Error returns the error message.
@@ -273,7 +275,7 @@ func (e *ErrProjectMetadataAlreadyExists) Error() string {
 }
 
 // ErrProjectUnknownResource describes which happens,
-// when requesting an unknown ressource.
+// when requesting an unknown resource.
 type ErrProjectUnknownResource struct{}
 
 // Error returns the error message.

@@ -9,12 +9,14 @@ import (
 	modelv2 "github.com/mittwald/goharbor-client/v4/apiv2/model"
 	"github.com/mittwald/goharbor-client/v4/apiv2/quota"
 	"github.com/mittwald/goharbor-client/v4/apiv2/retention"
+	"github.com/mittwald/goharbor-client/v4/apiv2/robot"
 
 	"github.com/go-openapi/runtime"
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
 	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
+
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client"
 	legacymodel "github.com/mittwald/goharbor-client/v4/apiv2/model/legacy"
 	"github.com/mittwald/goharbor-client/v4/apiv2/project"
@@ -47,6 +49,7 @@ type RESTClient struct {
 	retention   *retention.RESTClient
 	quota       *quota.RESTClient
 	gc          *gc.RESTClient
+	robot       *robot.RESTClient
 }
 
 // NewRESTClient constructs a new REST client containing each sub client.
@@ -60,6 +63,7 @@ func NewRESTClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authI
 		retention:   retention.NewClient(legacyClient, v2Client, authInfo),
 		quota:       quota.NewClient(legacyClient, v2Client, authInfo),
 		gc:          gc.NewClient(legacyClient, v2Client, authInfo),
+		robot:       robot.NewClient(v2Client, authInfo),
 	}
 }
 
@@ -295,12 +299,12 @@ func (c *RESTClient) GetReplicationExecutions(ctx context.Context, r *modelv2.Re
 	return c.replication.GetReplicationExecutions(ctx, r)
 }
 
-// GetReplicationExecutionsByID wraps the GetReplicationExecutionsByID method of the replication sub-package.
+// GetReplicationExecutionByID GetReplicationExecutionsByID wraps the GetReplicationExecutionsByID method of the replication sub-package.
 func (c *RESTClient) GetReplicationExecutionByID(ctx context.Context, id int64) (*modelv2.ReplicationExecution, error) {
 	return c.replication.GetReplicationExecutionByID(ctx, id)
 }
 
-// System Client
+// GarbageCollection Client
 
 // NewGarbageCollection wraps the NewSystemGarbageCollection method of the system sub-package.
 func (c *RESTClient) NewGarbageCollection(ctx context.Context, gcSchedule *modelv2.Schedule) error {
@@ -322,6 +326,8 @@ func (c *RESTClient) ResetGarbageCollection(ctx context.Context) error {
 	return c.gc.ResetGarbageCollection(ctx)
 }
 
+// System Client
+
 // Health wraps the Health method of the system sub-package.
 func (c *RESTClient) Health(ctx context.Context) (*legacymodel.OverallHealthStatus, error) {
 	return c.system.Health(ctx)
@@ -334,7 +340,7 @@ func (c *RESTClient) NewRetentionPolicy(ctx context.Context, ret *modelv2.Retent
 	return c.retention.NewRetentionPolicy(ctx, ret)
 }
 
-// GetRetentionPolicyByProjectID wraps the GetRetentionPolicyByProject method of the retention sub-package.
+// GetRetentionPolicyByProject GetRetentionPolicyByProjectID wraps the GetRetentionPolicyByProject method of the retention sub-package.
 func (c *RESTClient) GetRetentionPolicyByProject(ctx context.Context, project *modelv2.Project) (*modelv2.RetentionPolicy, error) {
 	return c.retention.GetRetentionPolicyByProject(ctx, project)
 }
@@ -364,4 +370,41 @@ func (c *RESTClient) GetQuotaByProjectID(ctx context.Context, projectID int64) (
 // UpdateStorageQuotaByProjectID wraps the UpdateStorageQuotaByProjectID method of the quota sub-package.
 func (c *RESTClient) UpdateStorageQuotaByProjectID(ctx context.Context, projectID int64, storageLimit int64) error {
 	return c.quota.UpdateStorageQuotaByProjectID(ctx, projectID, storageLimit)
+}
+
+// Robot Client
+
+// ListRobotAccounts wraps the ListRobotAccounts method of the robot sub-package.
+func (c *RESTClient) ListRobotAccounts(ctx context.Context) ([]*modelv2.Robot, error) {
+	return c.robot.ListRobotAccounts(ctx)
+}
+
+// GetRobotAccountByName wraps the GetRobotAccountByName method of the robot sub-package.
+func (c *RESTClient) GetRobotAccountByName(ctx context.Context, name string) (*modelv2.Robot, error) {
+	return c.robot.GetRobotAccountByName(ctx, name)
+}
+
+// GetRobotAccountByID wraps the GetRobotAccountByID method of the robot sub-package.
+func (c *RESTClient) GetRobotAccountByID(ctx context.Context, id int64) (*modelv2.Robot, error) {
+	return c.robot.GetRobotAccountByID(ctx, id)
+}
+
+// NewRobotAccount wraps the NewRobotAccount method of the robot sub-package.
+func (c *RESTClient) NewRobotAccount(ctx context.Context, r *modelv2.RobotCreate) (*modelv2.RobotCreated, error) {
+	return c.robot.NewRobotAccount(ctx, r)
+}
+
+// DeleteRobotAccountByName wraps the DeleteRobotAccountByName method of the robot sub-package.
+func (c *RESTClient) DeleteRobotAccountByName(ctx context.Context, name string) error {
+	return c.robot.DeleteRobotAccountByName(ctx, name)
+}
+
+// DeleteRobotAccountByID wraps the DeleteRobotAccountByID method of the robot sub-package.
+func (c *RESTClient) DeleteRobotAccountByID(ctx context.Context, id int64) error {
+	return c.robot.DeleteRobotAccountByID(ctx, id)
+}
+
+// UpdateRobotAccount wraps the UpdateRobotAccount method of the robot sub-package.
+func (c *RESTClient) UpdateRobotAccount(ctx context.Context, r *modelv2.Robot) error {
+	return c.robot.UpdateRobotAccount(ctx, r)
 }
