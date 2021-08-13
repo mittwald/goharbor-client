@@ -126,8 +126,8 @@ func (c *RESTClient) UserExists(ctx context.Context, u *legacymodel.User) (bool,
 // Project Client
 
 // NewProject wraps the NewProject method of the project sub-package.
-func (c *RESTClient) NewProject(ctx context.Context, name string, storageLimit *int64) (*modelv2.Project, error) {
-	return c.project.NewProject(ctx, name, storageLimit)
+func (c *RESTClient) NewProject(ctx context.Context, name string, storageLimit *int64, public *bool) (*modelv2.Project, error) {
+	return c.project.NewProject(ctx, name, storageLimit, public)
 }
 
 // DeleteProject wraps the DeleteProject method of the project sub-package.

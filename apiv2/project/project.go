@@ -51,7 +51,7 @@ func NewClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authInfo 
 }
 
 type Client interface {
-	NewProject(ctx context.Context, name string, storageLimit *int64) (*modelv2.Project, error)
+	NewProject(ctx context.Context, name string, storageLimit *int64, public *bool) (*modelv2.Project, error)
 	DeleteProject(ctx context.Context, p *modelv2.Project) error
 	GetProject(ctx context.Context, nameOrID string) (*modelv2.Project, error)
 	ListProjects(ctx context.Context, nameFilter string) ([]*modelv2.Project, error)
@@ -86,10 +86,11 @@ type MetadataKey string
 // if the project could not be created.
 // CountLimit limits the number of repositories for this project.
 // StorageLimit limits the allocatable space for this project.
-func (c *RESTClient) NewProject(ctx context.Context, name string, storageLimit *int64) (*modelv2.Project, error) {
+func (c *RESTClient) NewProject(ctx context.Context, name string, storageLimit *int64, public *bool) (*modelv2.Project, error) {
 	pReq := &modelv2.ProjectReq{
 		ProjectName:  name,
 		StorageLimit: storageLimit,
+		Public:       public,
 	}
 
 	_, err := c.V2Client.Project.CreateProject(
