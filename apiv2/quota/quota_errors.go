@@ -74,7 +74,7 @@ func (e *ErrQuotaRefNotFound) Error() string {
 
 // handleSwaggerQuotaErrors takes a swagger generated error as input,
 // which usually does not contain any form of error message,
-// and outputs a new error with proper message.
+// and outputs a new error with a proper message.
 func handleSwaggerQuotaErrors(in error) error {
 	t, ok := in.(*runtime.APIError)
 	if ok {

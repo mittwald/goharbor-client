@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/go-openapi/runtime"
+
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client/products"
 )
 
@@ -12,12 +13,12 @@ const (
 	ErrUserNotFoundMsg = "user not found on server side"
 
 	// ErrUserBadRequestMsg is the error message for ErrUserBadRequest error.
-	ErrUserBadRequestMsg = "Unsatisfied with constraints of the user creation/modification."
+	ErrUserBadRequestMsg = "unsatisfied with constraints of the user creation/modification."
 
 	// ErrUserMismatchMsg is the error message for ErrUserMismatch error.
 	ErrUserMismatchMsg = "id/name pair not found on server side"
 
-	// ErrUserAlreadyExistMsg is the error message for ErrUserAlreadyExists error.
+	// ErrUserAlreadyExistsMsg is the error message for ErrUserAlreadyExists error.
 	ErrUserAlreadyExistsMsg = "user with this username already exists"
 
 	// ErrUserInvalidIDMsg is the error message for ErrUserInvalidID error.
@@ -26,7 +27,7 @@ const (
 	// ErrUserIDNotExistsMsg is the error message for ErrUserIDNotExists error.
 	ErrUserIDNotExistsMsg = "user id does not exist"
 
-	// ErrUserPasswordInvalid  is the error message for ErrUserPasswordInvalid error.
+	// ErrUserPasswordInvalidMsg  is the error message for ErrUserPasswordInvalid error.
 	ErrUserPasswordInvalidMsg = "invalid user password"
 )
 
@@ -88,7 +89,7 @@ func (e *ErrUserPasswordInvalid) Error() string {
 
 // handleUserErrors takes a swagger generated error as input,
 // which usually does not contain any form of error message,
-// and outputs a new error with proper message.
+// and outputs a new error with a proper message.
 func handleSwaggerUserErrors(in error) error {
 	t, ok := in.(*runtime.APIError)
 	if ok {
