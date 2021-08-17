@@ -414,7 +414,7 @@ func (c *RESTClient) UpdateRobotAccount(ctx context.Context, r *modelv2.Robot) e
 
 // AuditLog Client
 
-// ListAuditLogs wraps the ListAuditLogs method of the robot sub-package.
+// ListAuditLogs wraps the ListAuditLogs method of the auditlog sub-package.
 func (c *RESTClient) ListAuditLogs(ctx context.Context, pageSize *int64, query *string) ([]*modelv2.AuditLog, error) {
 	return c.auditlog.ListAuditLogs(ctx, pageSize, query)
 }

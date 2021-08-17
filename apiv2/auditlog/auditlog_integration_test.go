@@ -1,8 +1,11 @@
+// +build integration
+
 package auditlog
 
 import (
 	"context"
 	"net/url"
+	"strconv"
 	"testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
@@ -22,6 +25,8 @@ var (
 	authInfo            = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
 )
 
+// TestAPIListAuditLogs tests listing the latest auditlog entry by creating
+// a project and expecting the audit log entry to contain the proper metadata.
 func TestAPIListAuditLogs(t *testing.T) {
 	ctx := context.Background()
 	pageSize := int64(1)
@@ -44,4 +49,26 @@ func TestAPIListAuditLogs(t *testing.T) {
 	require.Equal(t, "test-auditlog", a[0].Resource)
 	require.Equal(t, "project", a[0].ResourceType)
 	require.Equal(t, "admin", a[0].Username)
+}
+
+func TestAPIListAuditLogs_BigPageSize(t *testing.T) {
+	ctx := context.Background()
+	pageSize := int64(42)
+	storageLimit := int64(0)
+
+	c := NewClient(v2SwaggerClient, authInfo)
+
+	pc := project.NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
+
+	for i := 0; i < 42; i++ {
+		p, err := pc.NewProject(ctx, "test-auditlog-"+strconv.Itoa(i), &storageLimit)
+		require.NoError(t, err)
+
+		defer pc.DeleteProject(ctx, p)
+	}
+
+	a, err := c.ListAuditLogs(ctx, &pageSize, nil)
+	require.NoError(t, err)
+
+	require.Equal(t, 42, len(a))
 }
