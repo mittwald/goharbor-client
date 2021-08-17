@@ -72,3 +72,24 @@ func TestAPIListAuditLogs_BigPageSize(t *testing.T) {
 
 	require.Equal(t, 42, len(a))
 }
+
+func TestAPIListAuditLogs_NilPageSize(t *testing.T) {
+	ctx := context.Background()
+	storageLimit := int64(0)
+
+	c := NewClient(v2SwaggerClient, authInfo)
+
+	pc := project.NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
+
+	for i := 0; i < 10; i++ {
+		p, err := pc.NewProject(ctx, "test-auditlog-"+strconv.Itoa(i), &storageLimit)
+		require.NoError(t, err)
+
+		defer pc.DeleteProject(ctx, p)
+	}
+
+	a, err := c.ListAuditLogs(ctx, nil, nil)
+	require.NoError(t, err)
+
+	require.Equal(t, 10, len(a))
+}
