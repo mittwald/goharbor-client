@@ -9,30 +9,30 @@ import (
 )
 
 const (
-	// ErrReplicationIllegalIDFormatMsg ErrReplicationIllegalIDFormat describes an illegal request format
+	// ErrReplicationIllegalIDFormatMsg describes an illegal request format
 	ErrReplicationIllegalIDFormatMsg = "illegal format of provided ID value"
 
-	// ErrReplicationUnauthorizedMsg ErrReplicationUnauthorized describes an unauthorized request
+	// ErrReplicationUnauthorizedMsg describes an unauthorized request
 	ErrReplicationUnauthorizedMsg = "unauthorized"
 
-	// ErrReplicationInternalErrorsMsg ErrReplicationInternalErrors describes server-side internal errors
+	// ErrReplicationInternalErrorsMsg describes server-side internal errors
 	ErrReplicationInternalErrorsMsg = "unexpected internal errors"
 
-	// ErrReplicationNoPermissionMsg ErrReplicationNoPermission describes a request error without permission
+	// ErrReplicationNoPermissionMsg describes a request error without permission
 	ErrReplicationNoPermissionMsg = "user does not have permission to the replication"
 
-	// ErrReplicationIDNotExistsMsg ErrReplicationIDNotExists describes an error
+	// ErrReplicationIDNotExistsMsg describes an error
 	// when no proper replication ID is found
 	ErrReplicationIDNotExistsMsg = "replication ID does not exist"
 
-	// ErrReplicationNameAlreadyExistsMsg ErrReplicationNameAlreadyExists describes a duplicate replication name error
+	// ErrReplicationNameAlreadyExistsMsg describes a duplicate replication name error
 	ErrReplicationNameAlreadyExistsMsg = "replication name already exists"
 
-	// ErrReplicationMismatchMsg ErrReplicationMismatch describes a failed lookup
+	// ErrReplicationMismatchMsg describes a failed lookup
 	// of a replication with name/id pair
 	ErrReplicationMismatchMsg = "id/name pair not found on server side"
 
-	// ErrReplicationNotFoundMsg ErrReplicationNotFound describes an error
+	// ErrReplicationNotFoundMsg describes an error
 	// when a specific replication is not found
 	ErrReplicationNotFoundMsg = "replication not found on server side"
 
