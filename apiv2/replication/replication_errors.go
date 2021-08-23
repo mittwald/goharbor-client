@@ -4,34 +4,35 @@ import (
 	"net/http"
 
 	"github.com/go-openapi/runtime"
+
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client/products"
 )
 
 const (
-	// ErrReplicationIllegalIDFormat describes an illegal request format
+	// ErrReplicationIllegalIDFormatMsg describes an illegal request format
 	ErrReplicationIllegalIDFormatMsg = "illegal format of provided ID value"
 
-	// ErrReplicationUnauthorized describes an unauthorized request
+	// ErrReplicationUnauthorizedMsg describes an unauthorized request
 	ErrReplicationUnauthorizedMsg = "unauthorized"
 
-	// ErrReplicationInternalErrors describes server-side internal errors
+	// ErrReplicationInternalErrorsMsg describes server-side internal errors
 	ErrReplicationInternalErrorsMsg = "unexpected internal errors"
 
-	// ErrReplicationNoPermission describes a request error without permission
+	// ErrReplicationNoPermissionMsg describes a request error without permission
 	ErrReplicationNoPermissionMsg = "user does not have permission to the replication"
 
-	// ErrReplicationIDNotExists describes an error
+	// ErrReplicationIDNotExistsMsg describes an error
 	// when no proper replication ID is found
 	ErrReplicationIDNotExistsMsg = "replication ID does not exist"
 
-	// ErrReplicationNameAlreadyExists describes a duplicate replication name error
+	// ErrReplicationNameAlreadyExistsMsg describes a duplicate replication name error
 	ErrReplicationNameAlreadyExistsMsg = "replication name already exists"
 
-	// ErrReplicationMismatch describes a failed lookup
+	// ErrReplicationMismatchMsg describes a failed lookup
 	// of a replication with name/id pair
 	ErrReplicationMismatchMsg = "id/name pair not found on server side"
 
-	// ErrReplicationNotFound describes an error
+	// ErrReplicationNotFoundMsg describes an error
 	// when a specific replication is not found
 	ErrReplicationNotFoundMsg = "replication not found on server side"
 
@@ -46,6 +47,10 @@ const (
 	// ErrReplicationExecutionReplicationIDMismatchMsg describes an error
 	// caused by an ID mismatch of the desired replication execution and an existing replication
 	ErrReplicationExecutionReplicationIDMismatchMsg = "received replication execution id doesn't match"
+
+	// ErrReplicationDisabledMsg describes an error when actions cannot be performed
+	// because the underlying replication is currently disabled.
+	ErrReplicationDisabledMsg = "the underlying replication is disabled"
 )
 
 // ErrReplicationIllegalIDFormat describes an illegal request format.
@@ -136,6 +141,14 @@ func (e *ErrReplicationExecutionReplicationIDMismatch) Error() string {
 	return ErrReplicationExecutionReplicationIDMismatchMsg
 }
 
+// ErrReplicationDisabled describes an error that the underlying replication is disabled.
+type ErrReplicationDisabled struct{}
+
+// Error returns the error message.
+func (e *ErrReplicationDisabled) Error() string {
+	return ErrReplicationDisabledMsg
+}
+
 // handleReplicationErrors takes a swagger generated error as input,
 // which usually does not contain any form of error message,
 // and outputs a new error with a proper message.
@@ -151,6 +164,8 @@ func handleSwaggerReplicationErrors(in error) error {
 			return &ErrReplicationNoPermission{}
 		case http.StatusInternalServerError:
 			return &ErrReplicationInternalErrors{}
+		case http.StatusPreconditionFailed:
+			return &ErrReplicationDisabled{}
 		}
 	}
 
