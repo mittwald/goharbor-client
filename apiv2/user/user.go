@@ -10,7 +10,7 @@ import (
 	"github.com/go-openapi/runtime"
 
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client/products"
-	model "github.com/mittwald/goharbor-client/v4/apiv2/model/legacy"
+	legacymodel "github.com/mittwald/goharbor-client/v4/apiv2/model/legacy"
 )
 
 // RESTClient is a subclient for handling user related actions.
@@ -35,13 +35,14 @@ func NewClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authInfo 
 
 type Client interface {
 	NewUser(ctx context.Context, username, email, realname, password,
-		comments string) (*model.User, error)
-	GetUser(ctx context.Context, username string) (*model.User, error)
-	GetUserByID(ctx context.Context, id int64) (*model.User, error)
-	DeleteUser(ctx context.Context, u *model.User) error
-	UpdateUser(ctx context.Context, u *model.User) error
-	UpdateUserPassword(ctx context.Context, id int64, password *model.Password) error
-	UserExists(ctx context.Context, u *model.User) (bool, error)
+		comments string) (*legacymodel.User, error)
+	GetUser(ctx context.Context, username string) (*legacymodel.User, error)
+	GetUserByID(ctx context.Context, id int64) (*legacymodel.User, error)
+	ListUsers(ctx context.Context) ([]*legacymodel.User, error)
+	DeleteUser(ctx context.Context, u *legacymodel.User) error
+	UpdateUser(ctx context.Context, u *legacymodel.User) error
+	UpdateUserPassword(ctx context.Context, id int64, password *legacymodel.Password) error
+	UserExists(ctx context.Context, u *legacymodel.User) (bool, error)
 }
 
 // NewUser creates and returns a new user, or error in case of failure.
@@ -51,8 +52,8 @@ type Client interface {
 // password is the password for this user.
 // comments as a comment attached to the user.
 func (c *RESTClient) NewUser(ctx context.Context, username, email, realname, password,
-	comments string) (*model.User, error) {
-	uReq := &model.User{
+	comments string) (*legacymodel.User, error) {
+	uReq := &legacymodel.User{
 		Username: username,
 		Password: password,
 		Email:    email,
@@ -77,7 +78,7 @@ func (c *RESTClient) NewUser(ctx context.Context, username, email, realname, pas
 }
 
 // GetUser returns an existing user or an error in case of failure.
-func (c *RESTClient) GetUser(ctx context.Context, username string) (*model.User, error) {
+func (c *RESTClient) GetUser(ctx context.Context, username string) (*legacymodel.User, error) {
 	if username == "" {
 		return nil, errors.New("no username provided")
 	}
@@ -99,9 +100,21 @@ func (c *RESTClient) GetUser(ctx context.Context, username string) (*model.User,
 	return nil, &ErrUserNotFound{}
 }
 
+// ListUsers lists and returns all registered Harbor users.
+func (c *RESTClient) ListUsers(ctx context.Context) ([]*legacymodel.User, error) {
+	resp, err := c.LegacyClient.Products.GetUsers(&products.GetUsersParams{
+		Context: ctx,
+	}, c.AuthInfo)
+	if err != nil {
+		return nil, handleSwaggerUserErrors(err)
+	}
+
+	return resp.Payload, nil
+}
+
 // GetUserByID fetches a registered user by the provided user id.
 // Returns an error if no user could be found, or if the id is '0'.
-func (c *RESTClient) GetUserByID(ctx context.Context, id int64) (*model.User, error) {
+func (c *RESTClient) GetUserByID(ctx context.Context, id int64) (*legacymodel.User, error) {
 	if id <= 0 {
 		return nil, &ErrUserInvalidID{}
 	}
@@ -122,7 +135,7 @@ func (c *RESTClient) GetUserByID(ctx context.Context, id int64) (*model.User, er
 }
 
 // DeleteUser deletes the specified user.
-func (c *RESTClient) DeleteUser(ctx context.Context, u *model.User) error {
+func (c *RESTClient) DeleteUser(ctx context.Context, u *legacymodel.User) error {
 	if u == nil {
 		return errors.New("no user provided")
 	}
@@ -146,7 +159,7 @@ func (c *RESTClient) DeleteUser(ctx context.Context, u *model.User) error {
 
 // UpdateUser updates a user with the specified data.
 // Note that only realname, email and comment properties are updateable.
-func (c *RESTClient) UpdateUser(ctx context.Context, u *model.User) error {
+func (c *RESTClient) UpdateUser(ctx context.Context, u *legacymodel.User) error {
 	if u == nil {
 		return errors.New("no user provided")
 	}
@@ -156,7 +169,7 @@ func (c *RESTClient) UpdateUser(ctx context.Context, u *model.User) error {
 		return err
 	}
 
-	profile := &model.UserProfile{
+	profile := &legacymodel.UserProfile{
 		Comment:  u.Comment,
 		Email:    u.Email,
 		Realname: u.Realname,
@@ -176,7 +189,7 @@ func (c *RESTClient) UpdateUser(ctx context.Context, u *model.User) error {
 }
 
 // UpdateUserPassword updates a users password
-func (c *RESTClient) UpdateUserPassword(ctx context.Context, id int64, password *model.Password) error {
+func (c *RESTClient) UpdateUserPassword(ctx context.Context, id int64, password *legacymodel.Password) error {
 	if password == nil {
 		return errors.New("no password provided")
 	}
@@ -190,7 +203,7 @@ func (c *RESTClient) UpdateUserPassword(ctx context.Context, id int64, password 
 	return handleSwaggerUserErrors(err)
 }
 
-func (c *RESTClient) UserExists(ctx context.Context, u *model.User) (bool, error) {
+func (c *RESTClient) UserExists(ctx context.Context, u *legacymodel.User) (bool, error) {
 	_, err := c.GetUser(ctx, u.Username)
 	if err != nil {
 		if _, ok := err.(*ErrUserNotFound); ok {

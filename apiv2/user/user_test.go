@@ -9,15 +9,18 @@ import (
 	"testing"
 
 	"github.com/go-openapi/runtime"
+	"github.com/stretchr/testify/require"
+
 	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/mock"
+
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client/products"
 	"github.com/mittwald/goharbor-client/v4/apiv2/mocks"
-	model "github.com/mittwald/goharbor-client/v4/apiv2/model/legacy"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/mock"
+	legacymodel "github.com/mittwald/goharbor-client/v4/apiv2/model/legacy"
 )
 
 var (
@@ -56,7 +59,7 @@ func TestRESTClient_NewUser(t *testing.T) {
 
 	ctx := context.Background()
 
-	uReq := &model.User{
+	uReq := &legacymodel.User{
 		Username: exampleUser,
 		Password: examplePassword,
 		Email:    exampleEmail,
@@ -82,7 +85,7 @@ func TestRESTClient_NewUser(t *testing.T) {
 
 	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
-			Payload: []*model.User{{Username: exampleUser}},
+			Payload: []*legacymodel.User{{Username: exampleUser}},
 		}, nil)
 
 	_, err := cl.NewUser(ctx, exampleUser, exampleEmail, "", examplePassword, "")
@@ -102,7 +105,7 @@ func TestRESTClient_NewUser_EmptyUserName(t *testing.T) {
 
 	ctx := context.Background()
 
-	uReq := &model.User{
+	uReq := &legacymodel.User{
 		Username: exampleUser,
 		Password: examplePassword,
 		Email:    exampleEmail,
@@ -142,7 +145,7 @@ func TestRESTClient_NewUser_StatusConflict(t *testing.T) {
 
 	ctx := context.Background()
 
-	uReq := &model.User{
+	uReq := &legacymodel.User{
 		Username: exampleUser,
 		Password: examplePassword,
 		Email:    exampleEmail,
@@ -182,7 +185,7 @@ func TestRESTClient_NewUser_ErrUserBadRequest(t *testing.T) {
 
 	ctx := context.Background()
 
-	uReq := &model.User{
+	uReq := &legacymodel.User{
 		Username: exampleUser,
 		Password: examplePassword,
 		Email:    exampleEmail,
@@ -229,7 +232,7 @@ func TestRESTClient_GetUser(t *testing.T) {
 
 	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
-			Payload: []*model.User{{Username: exampleUser}},
+			Payload: []*legacymodel.User{{Username: exampleUser}},
 		}, nil)
 
 	_, err := cl.GetUser(ctx, exampleUser)
@@ -256,7 +259,7 @@ func TestRESTClient_GetUserByID(t *testing.T) {
 
 	p.On("GetUsersUserID", getUserIDParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersUserIDOK{
-			Payload: &model.User{
+			Payload: &legacymodel.User{
 				UserID: exampleUserID,
 			},
 		}, nil)
@@ -286,7 +289,7 @@ func TestRESTClient_GetUserByID_ID_Mismatch(t *testing.T) {
 	t.Run("IDMismatch", func(t *testing.T) {
 		p.On("GetUsersUserID", getUserIDParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 			Return(&products.GetUsersUserIDOK{
-				Payload: &model.User{
+				Payload: &legacymodel.User{
 					UserID: 0,
 				},
 			}, nil)
@@ -371,6 +374,26 @@ func TestRESTClient_GetUser_ErrUserNotFound(t *testing.T) {
 	p.AssertExpectations(t)
 }
 
+func TestRESTClient_ListUsers(t *testing.T) {
+	p := &mocks.MockProductsClientService{}
+	legacyClient := BuildLegacyClientWithMock(p)
+	v2Client := BuildV2ClientWithMocks()
+
+	cl := NewClient(legacyClient, v2Client, authInfo)
+	ctx := context.Background()
+
+	listUserParams := &products.GetUsersParams{Context: ctx}
+
+	p.On("GetUsers", listUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&products.GetUsersOK{Payload: []*legacymodel.User{}}, nil)
+
+	_, err := cl.ListUsers(ctx)
+
+	require.NoError(t, err)
+
+	p.AssertExpectations(t)
+}
+
 func TestRESTClient_UpdateUser(t *testing.T) {
 	p := &mocks.MockProductsClientService{}
 
@@ -388,7 +411,7 @@ func TestRESTClient_UpdateUser(t *testing.T) {
 
 	putUserParams := &products.PutUsersUserIDParams{
 		UserID: exampleUserID,
-		Profile: &model.UserProfile{
+		Profile: &legacymodel.UserProfile{
 			Comment:  "",
 			Email:    exampleEmail,
 			Realname: "",
@@ -398,7 +421,7 @@ func TestRESTClient_UpdateUser(t *testing.T) {
 
 	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
-			Payload: []*model.User{{
+			Payload: []*legacymodel.User{{
 				Username: exampleUser, UserID: exampleUserID, Email: exampleEmail,
 				Password: examplePassword,
 			}},
@@ -427,7 +450,7 @@ func TestRESTClient_UpdateUserPassword(t *testing.T) {
 
 	ctx := context.Background()
 
-	password := &model.Password{
+	password := &legacymodel.Password{
 		NewPassword: "foo",
 		OldPassword: "bar",
 	}
@@ -474,7 +497,7 @@ func TestRESTClient_UpdateUserPassword_ErrUserPasswordInvalid(t *testing.T) {
 
 	ctx := context.Background()
 
-	password := &model.Password{
+	password := &legacymodel.Password{
 		NewPassword: "",
 		OldPassword: "",
 	}
@@ -506,7 +529,7 @@ func TestRESTClient_UpdateUser_EmptyUserName(t *testing.T) {
 
 	ctx := context.Background()
 
-	u := &model.User{Username: ""}
+	u := &legacymodel.User{Username: ""}
 
 	err := cl.UpdateUser(ctx, u)
 
@@ -544,12 +567,12 @@ func TestRESTClient_UpdateUser_UserIDMismatch(t *testing.T) {
 
 	ctx := context.Background()
 
-	u := &model.User{
+	u := &legacymodel.User{
 		Username: exampleUser,
 		UserID:   1,
 	}
 
-	u2 := &model.User{
+	u2 := &legacymodel.User{
 		Username: exampleUser,
 		UserID:   2,
 	}
@@ -560,7 +583,7 @@ func TestRESTClient_UpdateUser_UserIDMismatch(t *testing.T) {
 	}
 
 	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.GetUsersOK{Payload: []*model.User{u}}, nil)
+		Return(&products.GetUsersOK{Payload: []*legacymodel.User{u}}, nil)
 
 	err := cl.UpdateUser(ctx, u2)
 
@@ -588,7 +611,7 @@ func TestRESTClient_UpdateUser_PutUsersUserIDBadRequest(t *testing.T) {
 
 	putUserParams := &products.PutUsersUserIDParams{
 		UserID: exampleUserID,
-		Profile: &model.UserProfile{
+		Profile: &legacymodel.UserProfile{
 			Comment:  "",
 			Email:    exampleEmail,
 			Realname: "",
@@ -598,7 +621,7 @@ func TestRESTClient_UpdateUser_PutUsersUserIDBadRequest(t *testing.T) {
 
 	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
-			Payload: []*model.User{{
+			Payload: []*legacymodel.User{{
 				Username: exampleUser, UserID: exampleUserID, Email: exampleEmail,
 				Password: examplePassword,
 			}},
@@ -629,7 +652,7 @@ func TestRESTClient_DeleteUser(t *testing.T) {
 
 	ctx := context.Background()
 
-	u := &model.User{
+	u := &legacymodel.User{
 		Username: exampleUser,
 	}
 
@@ -645,7 +668,7 @@ func TestRESTClient_DeleteUser(t *testing.T) {
 
 	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
-			Payload: []*model.User{{Username: exampleUser}},
+			Payload: []*legacymodel.User{{Username: exampleUser}},
 		}, nil)
 
 	p.On("DeleteUsersUserID", deleteUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
@@ -668,7 +691,7 @@ func TestRESTClient_DeleteUser_EmptyUserName(t *testing.T) {
 
 	ctx := context.Background()
 
-	u := &model.User{Username: ""}
+	u := &legacymodel.User{Username: ""}
 
 	err := cl.DeleteUser(ctx, u)
 
@@ -704,12 +727,12 @@ func TestRESTClient_DeleteUser_UserIDMismatch(t *testing.T) {
 
 	ctx := context.Background()
 
-	u := &model.User{
+	u := &legacymodel.User{
 		Username: exampleUser,
 		UserID:   1,
 	}
 
-	u2 := &model.User{
+	u2 := &legacymodel.User{
 		Username: exampleUser,
 		UserID:   2,
 	}
@@ -720,7 +743,7 @@ func TestRESTClient_DeleteUser_UserIDMismatch(t *testing.T) {
 	}
 
 	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.GetUsersOK{Payload: []*model.User{u}}, nil)
+		Return(&products.GetUsersOK{Payload: []*legacymodel.User{u}}, nil)
 
 	err := cl.DeleteUser(ctx, u2)
 
@@ -741,7 +764,7 @@ func TestRESTClient_UserExists(t *testing.T) {
 
 	ctx := context.Background()
 
-	u := &model.User{
+	u := &legacymodel.User{
 		Username: exampleUser,
 	}
 
@@ -752,7 +775,7 @@ func TestRESTClient_UserExists(t *testing.T) {
 
 	p.On("GetUsers", getUserParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&products.GetUsersOK{
-			Payload: []*model.User{{Username: exampleUser}},
+			Payload: []*legacymodel.User{{Username: exampleUser}},
 		}, nil)
 
 	exists, err := cl.UserExists(ctx, u)
@@ -774,7 +797,7 @@ func TestRESTClient_UserExists_ErrUserNotFound(t *testing.T) {
 
 	ctx := context.Background()
 
-	u := &model.User{
+	u := &legacymodel.User{
 		Username: exampleUser,
 	}
 
@@ -793,7 +816,7 @@ func TestRESTClient_UserExists_ErrUserNotFound(t *testing.T) {
 	assert.Equal(t, false, exists)
 	assert.NoError(t, err)
 
-	u2 := &model.User{
+	u2 := &legacymodel.User{
 		Username: "",
 	}
 
