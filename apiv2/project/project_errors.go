@@ -192,7 +192,7 @@ func (e *ErrProjectUserIsNoMember) Error() string {
 	return ErrProjectUserIsNoMemberMsg
 }
 
-// ErrProjectMemberIllegalFormat describes an communication
+// ErrProjectInvalidRequest describes a communication
 // error when performing project member operations.
 type ErrProjectInvalidRequest struct{}
 
@@ -209,7 +209,7 @@ func (e *ErrProjectMetadataUndefined) Error() string {
 	return ErrProjectMetadataUndefinedMsg
 }
 
-// ProjectMetadataValueEnableContentTrustUndefined describes an error regarding a metadata value being undefined or nil.
+// ErrProjectMetadataValueEnableContentTrustUndefined describes an error regarding a metadata value being undefined or nil.
 type ErrProjectMetadataValueEnableContentTrustUndefined struct{}
 
 // Error returns the error message.
@@ -217,7 +217,7 @@ func (e *ErrProjectMetadataValueEnableContentTrustUndefined) Error() string {
 	return string(ErrProjectMetadataValueUndefinedMsg + ProjectMetadataKeyEnableContentTrust)
 }
 
-// ProjectMetadataValueEnableContentTrustUndefined describes an error regarding a metadata value being undefined or nil.
+// ErrProjectMetadataValueAutoScanUndefined describes an error regarding a metadata value being undefined or nil.
 type ErrProjectMetadataValueAutoScanUndefined struct{}
 
 // Error returns the error message.
@@ -225,7 +225,7 @@ func (e *ErrProjectMetadataValueAutoScanUndefined) Error() string {
 	return string(ErrProjectMetadataValueUndefinedMsg + ProjectMetadataKeyAutoScan)
 }
 
-// ProjectMetadataValueEnableContentTrustUndefined describes an error regarding a metadata value being undefined or nil.
+// ErrProjectMetadataValueSeverityUndefined describes an error regarding a metadata value being undefined or nil.
 type ErrProjectMetadataValueSeverityUndefined struct{}
 
 // Error returns the error message.
@@ -233,7 +233,7 @@ func (e *ErrProjectMetadataValueSeverityUndefined) Error() string {
 	return string(ErrProjectMetadataValueUndefinedMsg + ProjectMetadataKeySeverity)
 }
 
-// ProjectMetadataValueEnableContentTrustUndefined describes an error regarding a metadata value being undefined or nil.
+// ErrProjectMetadataValueReuseSysCveAllowlistUndefined describes an error regarding a metadata value being undefined or nil.
 type ErrProjectMetadataValueReuseSysCveAllowlistUndefined struct{}
 
 // Error returns the error message.
@@ -241,7 +241,7 @@ func (e *ErrProjectMetadataValueReuseSysCveAllowlistUndefined) Error() string {
 	return string(ErrProjectMetadataValueUndefinedMsg + ProjectMetadataKeyReuseSysCveAllowlist)
 }
 
-// ProjectMetadataValueEnableContentTrustUndefined describes an error regarding a metadata value being undefined or nil.
+// ErrProjectMetadataValuePublicUndefined describes an error regarding a metadata value being undefined or nil.
 type ErrProjectMetadataValuePublicUndefined struct{}
 
 // Error returns the error message.
@@ -249,7 +249,7 @@ func (e *ErrProjectMetadataValuePublicUndefined) Error() string {
 	return string(ErrProjectMetadataValueUndefinedMsg + ProjectMetadataKeyPublic)
 }
 
-// ProjectMetadataValueEnableContentTrustUndefined describes an error regarding a metadata value being undefined or nil.
+// ErrProjectMetadataValuePreventVulUndefined describes an error regarding a metadata value being undefined or nil.
 type ErrProjectMetadataValuePreventVulUndefined struct{}
 
 // Error returns the error message.
@@ -257,7 +257,7 @@ func (e *ErrProjectMetadataValuePreventVulUndefined) Error() string {
 	return string(ErrProjectMetadataValueUndefinedMsg + ProjectMetadataKeyPreventVul)
 }
 
-// ProjectMetadataValueEnableContentTrustUndefined describes an error regarding a metadata value being undefined or nil.
+// ErrProjectMetadataValueRetentionIDUndefined describes an error regarding a metadata value being undefined or nil.
 type ErrProjectMetadataValueRetentionIDUndefined struct{}
 
 // Error returns the error message.
@@ -342,7 +342,7 @@ func retrieveMetadataValue(k MetadataKey, m *modelv2.ProjectMetadata) (string, e
 
 // handleProjectErrors takes a swagger generated error as input,
 // which usually does not contain any form of error message,
-// and outputs a new error with proper message.
+// and outputs a new error with a proper message.
 func handleSwaggerProjectErrors(in error) error {
 	t, ok := in.(*runtime.APIError)
 	if ok {

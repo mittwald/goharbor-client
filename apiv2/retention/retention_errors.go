@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/go-openapi/runtime"
+
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/retention"
 )
 
@@ -66,7 +67,7 @@ func (e *ErrRetentionInternalErrors) Error() string {
 
 // handleProjectErrors takes a swagger generated error as input,
 // which usually does not contain any form of error message,
-// and outputs a new error with proper message.
+// and outputs a new error with a proper message.
 func handleSwaggerRetentionErrors(in error) error {
 	t, ok := in.(*runtime.APIError)
 	if ok {
