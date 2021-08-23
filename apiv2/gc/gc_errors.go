@@ -121,7 +121,7 @@ func (e *ErrSystemGcScheduleParametersUndefined) Error() string {
 
 // handleSystemErrors takes a swagger generated error as input,
 // which usually does not contain any form of error message,
-// and outputs a new error with proper message.
+// and outputs a new error with a proper message.
 func handleSwaggerSystemErrors(in error) error {
 	t, ok := in.(*runtime.APIError)
 	if ok {

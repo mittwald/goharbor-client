@@ -5,6 +5,7 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/mittwald/goharbor-client/v4/apiv2/auditlog"
 	"github.com/mittwald/goharbor-client/v4/apiv2/gc"
 	modelv2 "github.com/mittwald/goharbor-client/v4/apiv2/model"
 	"github.com/mittwald/goharbor-client/v4/apiv2/quota"
@@ -41,6 +42,7 @@ type Client interface {
 
 // RESTClient implements the Client interface as a REST client
 type RESTClient struct {
+	auditlog    *auditlog.RESTClient
 	user        *user.RESTClient
 	project     *project.RESTClient
 	registry    *registry.RESTClient
@@ -55,6 +57,7 @@ type RESTClient struct {
 // NewRESTClient constructs a new REST client containing each sub client.
 func NewRESTClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
 	return &RESTClient{
+		auditlog:    auditlog.NewClient(v2Client, authInfo),
 		user:        user.NewClient(legacyClient, v2Client, authInfo),
 		project:     project.NewClient(legacyClient, v2Client, authInfo),
 		registry:    registry.NewClient(legacyClient, v2Client, authInfo),
@@ -101,6 +104,11 @@ func (c *RESTClient) GetUser(ctx context.Context, username string) (*legacymodel
 // GetUserByID wraps the GetUserByID method of the user sub-package.
 func (c *RESTClient) GetUserByID(ctx context.Context, id int64) (*legacymodel.User, error) {
 	return c.user.GetUserByID(ctx, id)
+}
+
+// ListUsers wraps the ListUsers method of the user sub-package.
+func (c *RESTClient) ListUsers(ctx context.Context) ([]*legacymodel.User, error) {
+	return c.user.ListUsers(ctx)
 }
 
 // DeleteUser wraps the DeleteUser method of the user sub-package.
@@ -407,4 +415,11 @@ func (c *RESTClient) DeleteRobotAccountByID(ctx context.Context, id int64) error
 // UpdateRobotAccount wraps the UpdateRobotAccount method of the robot sub-package.
 func (c *RESTClient) UpdateRobotAccount(ctx context.Context, r *modelv2.Robot) error {
 	return c.robot.UpdateRobotAccount(ctx, r)
+}
+
+// AuditLog Client
+
+// ListAuditLogs wraps the ListAuditLogs method of the auditlog sub-package.
+func (c *RESTClient) ListAuditLogs(ctx context.Context, pageSize *int64, query *string) ([]*modelv2.AuditLog, error) {
+	return c.auditlog.ListAuditLogs(ctx, pageSize, query)
 }

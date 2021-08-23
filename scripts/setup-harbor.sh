@@ -75,7 +75,7 @@ if [[ "$?" -ne "0" ]]; then
     exit 1
 fi
 
-echo "Installing seperate docker registry for integration tests..."
+echo "Installing separate docker registry for integration tests..."
 helm repo add stable https://charts.helm.sh/stable && helm repo update
 helm install registry stable/docker-registry \
     --set service.port=5000,image.tag=${REGISTRY_IMAGE_TAG}
