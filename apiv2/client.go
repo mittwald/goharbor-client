@@ -5,6 +5,7 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/mittwald/goharbor-client/v4/apiv2/artifact"
 	"github.com/mittwald/goharbor-client/v4/apiv2/auditlog"
 	"github.com/mittwald/goharbor-client/v4/apiv2/gc"
 	modelv2 "github.com/mittwald/goharbor-client/v4/apiv2/model"
@@ -30,6 +31,7 @@ import (
 const v2URLSuffix string = "/v2.0"
 
 type Client interface {
+	artifact.Client
 	user.Client
 	project.Client
 	registry.Client
@@ -42,6 +44,7 @@ type Client interface {
 
 // RESTClient implements the Client interface as a REST client
 type RESTClient struct {
+	artifact    *artifact.RESTClient
 	auditlog    *auditlog.RESTClient
 	user        *user.RESTClient
 	project     *project.RESTClient
@@ -57,6 +60,7 @@ type RESTClient struct {
 // NewRESTClient constructs a new REST client containing each sub client.
 func NewRESTClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
 	return &RESTClient{
+		artifact:    artifact.NewClient(v2Client, authInfo),
 		auditlog:    auditlog.NewClient(v2Client, authInfo),
 		user:        user.NewClient(legacyClient, v2Client, authInfo),
 		project:     project.NewClient(legacyClient, v2Client, authInfo),
@@ -422,4 +426,37 @@ func (c *RESTClient) UpdateRobotAccount(ctx context.Context, r *modelv2.Robot) e
 // ListAuditLogs wraps the ListAuditLogs method of the auditlog sub-package.
 func (c *RESTClient) ListAuditLogs(ctx context.Context, pageSize *int64, query *string) ([]*modelv2.AuditLog, error) {
 	return c.auditlog.ListAuditLogs(ctx, pageSize, query)
+}
+
+// Artifact Client
+
+// GetArtifact wraps the GetArtifact method of the artifact sub-package.
+func (c *RESTClient) GetArtifact(ctx context.Context, options artifact.ParamOptions) (*modelv2.Artifact, error) {
+	return c.artifact.GetArtifact(ctx, options)
+}
+
+// ListArtifacts wraps the ListArtifacts method of the artifact sub-package.
+func (c *RESTClient) ListArtifacts(ctx context.Context, options artifact.ParamOptions) ([]*modelv2.Artifact, error) {
+	return c.artifact.ListArtifacts(ctx, options)
+}
+
+// DeleteArtifact wraps the DeleteArtifact method of the artifact sub-package.
+func (c *RESTClient) DeleteArtifact(ctx context.Context, options artifact.ParamOptions) error {
+	return c.artifact.DeleteArtifact(ctx, options)
+}
+
+// CreateTag wraps the CreateTag method of the artifact sub-package.
+func (c *RESTClient) CreateTag(ctx context.Context, options artifact.ParamOptions) error {
+	return c.artifact.CreateTag(ctx, options)
+}
+
+// DeleteTag wraps the DeleteTag method of the artifact sub-package.
+func (c *RESTClient) DeleteTag(ctx context.Context, options artifact.ParamOptions) error {
+	return c.artifact.DeleteTag(ctx, options)
+}
+
+// GetRepositoryVulnerabilities wraps the GetRepositoryVulnerabilities method of the artifact sub-package.
+func (c *RESTClient) GetRepositoryVulnerabilities(ctx context.Context, projectName, repositoryName, reference string,
+	MIMETypes []artifact.MIMEType) (string, error) {
+	return c.artifact.GetRepositoryVulnerabilities(ctx, projectName, repositoryName, reference, MIMETypes)
 }
