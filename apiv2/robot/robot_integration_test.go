@@ -117,3 +117,25 @@ func TestAPIUpdateRobotAccount(t *testing.T) {
 
 	require.Equal(t, "test-updated", r.Description)
 }
+
+func TestAPIRefreshRobotAccountSecret(t *testing.T) {
+	ctx := context.Background()
+	c := NewClient(v2SwaggerClient, authInfo)
+
+	defer c.DeleteRobotAccountByName(ctx, "test-robot")
+
+	_, err := c.NewRobotAccount(ctx, testRobotAccountCreate)
+	require.NoError(t, err)
+
+	r, err := c.GetRobotAccountByName(ctx, "test-robot")
+	require.NoError(t, err)
+	require.NotNil(t, r)
+
+    rSec, err := c.RefreshRobotAccountSecretByName(ctx, "test-robot", "aVeryL0000ngSecret")
+	require.NoError(t, err)
+	require.NotNil(t, rSec)
+
+	r, err = c.GetRobotAccountByName(ctx, "test-robot")
+	require.NoError(t, err)
+	require.NotNil(t, r)
+}
