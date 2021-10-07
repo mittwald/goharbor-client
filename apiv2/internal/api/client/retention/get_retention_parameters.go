@@ -60,6 +60,12 @@ func NewGetRetentionParamsWithHTTPClient(client *http.Client) *GetRetentionParam
 */
 type GetRetentionParams struct {
 
+	/* XRequestID.
+
+	   An unique ID for the request
+	*/
+	XRequestID *string
+
 	/* ID.
 
 	   Retention ID.
@@ -121,6 +127,17 @@ func (o *GetRetentionParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXRequestID adds the xRequestID to the get retention params
+func (o *GetRetentionParams) WithXRequestID(xRequestID *string) *GetRetentionParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the get retention params
+func (o *GetRetentionParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WithID adds the id to the get retention params
 func (o *GetRetentionParams) WithID(id int64) *GetRetentionParams {
 	o.SetID(id)
@@ -139,6 +156,14 @@ func (o *GetRetentionParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		return err
 	}
 	var res []error
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-Id
+		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
+			return err
+		}
+	}
 
 	// path param id
 	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {

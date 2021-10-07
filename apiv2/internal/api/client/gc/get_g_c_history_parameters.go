@@ -60,6 +60,12 @@ func NewGetGCHistoryParamsWithHTTPClient(client *http.Client) *GetGCHistoryParam
 */
 type GetGCHistoryParams struct {
 
+	/* XRequestID.
+
+	   An unique ID for the request
+	*/
+	XRequestID *string
+
 	/* Page.
 
 	   The page number
@@ -83,6 +89,12 @@ type GetGCHistoryParams struct {
 	   Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
 	*/
 	Q *string
+
+	/* Sort.
+
+	   Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending orderr and field2 in descending order with "sort=field1,-field2"
+	*/
+	Sort *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -151,6 +163,17 @@ func (o *GetGCHistoryParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXRequestID adds the xRequestID to the get g c history params
+func (o *GetGCHistoryParams) WithXRequestID(xRequestID *string) *GetGCHistoryParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the get g c history params
+func (o *GetGCHistoryParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WithPage adds the page to the get g c history params
 func (o *GetGCHistoryParams) WithPage(page *int64) *GetGCHistoryParams {
 	o.SetPage(page)
@@ -184,6 +207,17 @@ func (o *GetGCHistoryParams) SetQ(q *string) {
 	o.Q = q
 }
 
+// WithSort adds the sort to the get g c history params
+func (o *GetGCHistoryParams) WithSort(sort *string) *GetGCHistoryParams {
+	o.SetSort(sort)
+	return o
+}
+
+// SetSort adds the sort to the get g c history params
+func (o *GetGCHistoryParams) SetSort(sort *string) {
+	o.Sort = sort
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetGCHistoryParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -191,6 +225,14 @@ func (o *GetGCHistoryParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		return err
 	}
 	var res []error
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-Id
+		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
+			return err
+		}
+	}
 
 	if o.Page != nil {
 
@@ -238,6 +280,23 @@ func (o *GetGCHistoryParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		if qQ != "" {
 
 			if err := r.SetQueryParam("q", qQ); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Sort != nil {
+
+		// query param sort
+		var qrSort string
+
+		if o.Sort != nil {
+			qrSort = *o.Sort
+		}
+		qSort := qrSort
+		if qSort != "" {
+
+			if err := r.SetQueryParam("sort", qSort); err != nil {
 				return err
 			}
 		}

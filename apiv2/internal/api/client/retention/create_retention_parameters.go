@@ -61,6 +61,12 @@ func NewCreateRetentionParamsWithHTTPClient(client *http.Client) *CreateRetentio
 */
 type CreateRetentionParams struct {
 
+	/* XRequestID.
+
+	   An unique ID for the request
+	*/
+	XRequestID *string
+
 	/* Policy.
 
 	   Create Retention Policy successfully.
@@ -120,6 +126,17 @@ func (o *CreateRetentionParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXRequestID adds the xRequestID to the create retention params
+func (o *CreateRetentionParams) WithXRequestID(xRequestID *string) *CreateRetentionParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the create retention params
+func (o *CreateRetentionParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WithPolicy adds the policy to the create retention params
 func (o *CreateRetentionParams) WithPolicy(policy *model.RetentionPolicy) *CreateRetentionParams {
 	o.SetPolicy(policy)
@@ -138,6 +155,14 @@ func (o *CreateRetentionParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-Id
+		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
+			return err
+		}
+	}
 	if o.Policy != nil {
 		if err := r.SetBodyParam(o.Policy); err != nil {
 			return err

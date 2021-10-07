@@ -25,22 +25,19 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientOption is the option for Client methods
-type ClientOption func(*runtime.ClientOperation)
-
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateGCSchedule(params *CreateGCScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateGCScheduleCreated, error)
+	CreateGCSchedule(params *CreateGCScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*CreateGCScheduleCreated, error)
 
-	GetGC(params *GetGCParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGCOK, error)
+	GetGC(params *GetGCParams, authInfo runtime.ClientAuthInfoWriter) (*GetGCOK, error)
 
-	GetGCHistory(params *GetGCHistoryParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGCHistoryOK, error)
+	GetGCHistory(params *GetGCHistoryParams, authInfo runtime.ClientAuthInfoWriter) (*GetGCHistoryOK, error)
 
-	GetGCLog(params *GetGCLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGCLogOK, error)
+	GetGCLog(params *GetGCLogParams, authInfo runtime.ClientAuthInfoWriter) (*GetGCLogOK, error)
 
-	GetGCSchedule(params *GetGCScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGCScheduleOK, error)
+	GetGCSchedule(params *GetGCScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*GetGCScheduleOK, error)
 
-	UpdateGCSchedule(params *UpdateGCScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateGCScheduleOK, error)
+	UpdateGCSchedule(params *UpdateGCScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateGCScheduleOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -51,12 +48,13 @@ type ClientService interface {
   This endpoint is for update gc schedule.
 
 */
-func (a *Client) CreateGCSchedule(params *CreateGCScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateGCScheduleCreated, error) {
+func (a *Client) CreateGCSchedule(params *CreateGCScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*CreateGCScheduleCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateGCScheduleParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "createGCSchedule",
 		Method:             "POST",
 		PathPattern:        "/system/gc/schedule",
@@ -68,12 +66,7 @@ func (a *Client) CreateGCSchedule(params *CreateGCScheduleParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -92,12 +85,13 @@ func (a *Client) CreateGCSchedule(params *CreateGCScheduleParams, authInfo runti
 
   This endpoint let user get gc status filtered by specific ID.
 */
-func (a *Client) GetGC(params *GetGCParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGCOK, error) {
+func (a *Client) GetGC(params *GetGCParams, authInfo runtime.ClientAuthInfoWriter) (*GetGCOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetGCParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getGC",
 		Method:             "GET",
 		PathPattern:        "/system/gc/{gc_id}",
@@ -109,12 +103,7 @@ func (a *Client) GetGC(params *GetGCParams, authInfo runtime.ClientAuthInfoWrite
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -133,12 +122,13 @@ func (a *Client) GetGC(params *GetGCParams, authInfo runtime.ClientAuthInfoWrite
 
   This endpoint let user get gc execution history.
 */
-func (a *Client) GetGCHistory(params *GetGCHistoryParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGCHistoryOK, error) {
+func (a *Client) GetGCHistory(params *GetGCHistoryParams, authInfo runtime.ClientAuthInfoWriter) (*GetGCHistoryOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetGCHistoryParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getGCHistory",
 		Method:             "GET",
 		PathPattern:        "/system/gc",
@@ -150,12 +140,7 @@ func (a *Client) GetGCHistory(params *GetGCHistoryParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -174,12 +159,13 @@ func (a *Client) GetGCHistory(params *GetGCHistoryParams, authInfo runtime.Clien
 
   This endpoint let user get gc job logs filtered by specific ID.
 */
-func (a *Client) GetGCLog(params *GetGCLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGCLogOK, error) {
+func (a *Client) GetGCLog(params *GetGCLogParams, authInfo runtime.ClientAuthInfoWriter) (*GetGCLogOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetGCLogParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getGCLog",
 		Method:             "GET",
 		PathPattern:        "/system/gc/{gc_id}/log",
@@ -191,12 +177,7 @@ func (a *Client) GetGCLog(params *GetGCLogParams, authInfo runtime.ClientAuthInf
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -215,12 +196,13 @@ func (a *Client) GetGCLog(params *GetGCLogParams, authInfo runtime.ClientAuthInf
 
   This endpoint is for get schedule of gc job.
 */
-func (a *Client) GetGCSchedule(params *GetGCScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGCScheduleOK, error) {
+func (a *Client) GetGCSchedule(params *GetGCScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*GetGCScheduleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetGCScheduleParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getGCSchedule",
 		Method:             "GET",
 		PathPattern:        "/system/gc/schedule",
@@ -232,12 +214,7 @@ func (a *Client) GetGCSchedule(params *GetGCScheduleParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -257,12 +234,13 @@ func (a *Client) GetGCSchedule(params *GetGCScheduleParams, authInfo runtime.Cli
   This endpoint is for update gc schedule.
 
 */
-func (a *Client) UpdateGCSchedule(params *UpdateGCScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateGCScheduleOK, error) {
+func (a *Client) UpdateGCSchedule(params *UpdateGCScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateGCScheduleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateGCScheduleParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "updateGCSchedule",
 		Method:             "PUT",
 		PathPattern:        "/system/gc/schedule",
@@ -274,12 +252,7 @@ func (a *Client) UpdateGCSchedule(params *UpdateGCScheduleParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}

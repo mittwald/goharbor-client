@@ -20,7 +20,7 @@ import (
 type Project struct {
 
 	// The total number of charts under this project.
-	ChartCount int64 `json:"chart_count,omitempty"`
+	ChartCount int64 `json:"chart_count"`
 
 	// The creation time of the project.
 	// Format: date-time
@@ -57,7 +57,7 @@ type Project struct {
 	RegistryID int64 `json:"registry_id,omitempty"`
 
 	// The number of the repositories under this project.
-	RepoCount int64 `json:"repo_count,omitempty"`
+	RepoCount int64 `json:"repo_count"`
 
 	// Correspond to the UI about whether the project's publicity is  updatable (for UI)
 	Togglable bool `json:"togglable,omitempty"`

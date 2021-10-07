@@ -60,6 +60,12 @@ func NewListReplicationTasksParamsWithHTTPClient(client *http.Client) *ListRepli
 */
 type ListReplicationTasksParams struct {
 
+	/* XRequestID.
+
+	   An unique ID for the request
+	*/
+	XRequestID *string
+
 	/* ID.
 
 	   The ID of the execution that the tasks belongs to.
@@ -91,6 +97,12 @@ type ListReplicationTasksParams struct {
 	   The resource type.
 	*/
 	ResourceType *string
+
+	/* Sort.
+
+	   Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending orderr and field2 in descending order with "sort=field1,-field2"
+	*/
+	Sort *string
 
 	/* Status.
 
@@ -165,6 +177,17 @@ func (o *ListReplicationTasksParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXRequestID adds the xRequestID to the list replication tasks params
+func (o *ListReplicationTasksParams) WithXRequestID(xRequestID *string) *ListReplicationTasksParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the list replication tasks params
+func (o *ListReplicationTasksParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WithID adds the id to the list replication tasks params
 func (o *ListReplicationTasksParams) WithID(id int64) *ListReplicationTasksParams {
 	o.SetID(id)
@@ -209,6 +232,17 @@ func (o *ListReplicationTasksParams) SetResourceType(resourceType *string) {
 	o.ResourceType = resourceType
 }
 
+// WithSort adds the sort to the list replication tasks params
+func (o *ListReplicationTasksParams) WithSort(sort *string) *ListReplicationTasksParams {
+	o.SetSort(sort)
+	return o
+}
+
+// SetSort adds the sort to the list replication tasks params
+func (o *ListReplicationTasksParams) SetSort(sort *string) {
+	o.Sort = sort
+}
+
 // WithStatus adds the status to the list replication tasks params
 func (o *ListReplicationTasksParams) WithStatus(status *string) *ListReplicationTasksParams {
 	o.SetStatus(status)
@@ -227,6 +261,14 @@ func (o *ListReplicationTasksParams) WriteToRequest(r runtime.ClientRequest, reg
 		return err
 	}
 	var res []error
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-Id
+		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
+			return err
+		}
+	}
 
 	// path param id
 	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
@@ -279,6 +321,23 @@ func (o *ListReplicationTasksParams) WriteToRequest(r runtime.ClientRequest, reg
 		if qResourceType != "" {
 
 			if err := r.SetQueryParam("resource_type", qResourceType); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Sort != nil {
+
+		// query param sort
+		var qrSort string
+
+		if o.Sort != nil {
+			qrSort = *o.Sort
+		}
+		qSort := qrSort
+		if qSort != "" {
+
+			if err := r.SetQueryParam("sort", qSort); err != nil {
 				return err
 			}
 		}

@@ -61,6 +61,12 @@ func NewCreateGCScheduleParamsWithHTTPClient(client *http.Client) *CreateGCSched
 */
 type CreateGCScheduleParams struct {
 
+	/* XRequestID.
+
+	   An unique ID for the request
+	*/
+	XRequestID *string
+
 	/* Schedule.
 
 	   Updates of gc's schedule.
@@ -120,6 +126,17 @@ func (o *CreateGCScheduleParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXRequestID adds the xRequestID to the create g c schedule params
+func (o *CreateGCScheduleParams) WithXRequestID(xRequestID *string) *CreateGCScheduleParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the create g c schedule params
+func (o *CreateGCScheduleParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WithSchedule adds the schedule to the create g c schedule params
 func (o *CreateGCScheduleParams) WithSchedule(schedule *model.Schedule) *CreateGCScheduleParams {
 	o.SetSchedule(schedule)
@@ -138,6 +155,14 @@ func (o *CreateGCScheduleParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-Id
+		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
+			return err
+		}
+	}
 	if o.Schedule != nil {
 		if err := r.SetBodyParam(o.Schedule); err != nil {
 			return err

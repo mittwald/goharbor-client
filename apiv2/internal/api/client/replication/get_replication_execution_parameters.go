@@ -60,6 +60,12 @@ func NewGetReplicationExecutionParamsWithHTTPClient(client *http.Client) *GetRep
 */
 type GetReplicationExecutionParams struct {
 
+	/* XRequestID.
+
+	   An unique ID for the request
+	*/
+	XRequestID *string
+
 	/* ID.
 
 	   The ID of the execution.
@@ -121,6 +127,17 @@ func (o *GetReplicationExecutionParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXRequestID adds the xRequestID to the get replication execution params
+func (o *GetReplicationExecutionParams) WithXRequestID(xRequestID *string) *GetReplicationExecutionParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the get replication execution params
+func (o *GetReplicationExecutionParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WithID adds the id to the get replication execution params
 func (o *GetReplicationExecutionParams) WithID(id int64) *GetReplicationExecutionParams {
 	o.SetID(id)
@@ -139,6 +156,14 @@ func (o *GetReplicationExecutionParams) WriteToRequest(r runtime.ClientRequest, 
 		return err
 	}
 	var res []error
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-Id
+		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
+			return err
+		}
+	}
 
 	// path param id
 	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {

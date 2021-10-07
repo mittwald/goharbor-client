@@ -111,6 +111,12 @@ type ListArtifactsParams struct {
 	*/
 	RepositoryName string
 
+	/* Sort.
+
+	   Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending orderr and field2 in descending order with "sort=field1,-field2"
+	*/
+	Sort *string
+
 	/* WithImmutableStatus.
 
 	   Specify whether the immutable status is included inside the tags of the returning artifacts. Only works when setting "with_tag=true"
@@ -305,6 +311,17 @@ func (o *ListArtifactsParams) SetRepositoryName(repositoryName string) {
 	o.RepositoryName = repositoryName
 }
 
+// WithSort adds the sort to the list artifacts params
+func (o *ListArtifactsParams) WithSort(sort *string) *ListArtifactsParams {
+	o.SetSort(sort)
+	return o
+}
+
+// SetSort adds the sort to the list artifacts params
+func (o *ListArtifactsParams) SetSort(sort *string) {
+	o.Sort = sort
+}
+
 // WithWithImmutableStatus adds the withImmutableStatus to the list artifacts params
 func (o *ListArtifactsParams) WithWithImmutableStatus(withImmutableStatus *bool) *ListArtifactsParams {
 	o.SetWithImmutableStatus(withImmutableStatus)
@@ -443,6 +460,23 @@ func (o *ListArtifactsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 	// path param repository_name
 	if err := r.SetPathParam("repository_name", o.RepositoryName); err != nil {
 		return err
+	}
+
+	if o.Sort != nil {
+
+		// query param sort
+		var qrSort string
+
+		if o.Sort != nil {
+			qrSort = *o.Sort
+		}
+		qSort := qrSort
+		if qSort != "" {
+
+			if err := r.SetQueryParam("sort", qSort); err != nil {
+				return err
+			}
+		}
 	}
 
 	if o.WithImmutableStatus != nil {

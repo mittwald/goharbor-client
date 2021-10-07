@@ -25,20 +25,17 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientOption is the option for Client methods
-type ClientOption func(*runtime.ClientOperation)
-
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateScanAllSchedule(params *CreateScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateScanAllScheduleCreated, error)
+	CreateScanAllSchedule(params *CreateScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*CreateScanAllScheduleCreated, error)
 
-	GetLatestScanAllMetrics(params *GetLatestScanAllMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLatestScanAllMetricsOK, error)
+	GetLatestScanAllMetrics(params *GetLatestScanAllMetricsParams, authInfo runtime.ClientAuthInfoWriter) (*GetLatestScanAllMetricsOK, error)
 
-	GetLatestScheduledScanAllMetrics(params *GetLatestScheduledScanAllMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLatestScheduledScanAllMetricsOK, error)
+	GetLatestScheduledScanAllMetrics(params *GetLatestScheduledScanAllMetricsParams, authInfo runtime.ClientAuthInfoWriter) (*GetLatestScheduledScanAllMetricsOK, error)
 
-	GetScanAllSchedule(params *GetScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetScanAllScheduleOK, error)
+	GetScanAllSchedule(params *GetScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*GetScanAllScheduleOK, error)
 
-	UpdateScanAllSchedule(params *UpdateScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateScanAllScheduleOK, error)
+	UpdateScanAllSchedule(params *UpdateScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateScanAllScheduleOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -48,12 +45,13 @@ type ClientService interface {
 
   This endpoint is for creating a schedule or a manual trigger for the scan all job, which scans all of images in Harbor.
 */
-func (a *Client) CreateScanAllSchedule(params *CreateScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateScanAllScheduleCreated, error) {
+func (a *Client) CreateScanAllSchedule(params *CreateScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*CreateScanAllScheduleCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateScanAllScheduleParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "createScanAllSchedule",
 		Method:             "POST",
 		PathPattern:        "/system/scanAll/schedule",
@@ -65,12 +63,7 @@ func (a *Client) CreateScanAllSchedule(params *CreateScanAllScheduleParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -89,12 +82,13 @@ func (a *Client) CreateScanAllSchedule(params *CreateScanAllScheduleParams, auth
 
   Get the metrics of the latest scan all process
 */
-func (a *Client) GetLatestScanAllMetrics(params *GetLatestScanAllMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLatestScanAllMetricsOK, error) {
+func (a *Client) GetLatestScanAllMetrics(params *GetLatestScanAllMetricsParams, authInfo runtime.ClientAuthInfoWriter) (*GetLatestScanAllMetricsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetLatestScanAllMetricsParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getLatestScanAllMetrics",
 		Method:             "GET",
 		PathPattern:        "/scans/all/metrics",
@@ -106,12 +100,7 @@ func (a *Client) GetLatestScanAllMetrics(params *GetLatestScanAllMetricsParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -130,12 +119,13 @@ func (a *Client) GetLatestScanAllMetrics(params *GetLatestScanAllMetricsParams, 
 
   Get the metrics of the latest scheduled scan all process
 */
-func (a *Client) GetLatestScheduledScanAllMetrics(params *GetLatestScheduledScanAllMetricsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLatestScheduledScanAllMetricsOK, error) {
+func (a *Client) GetLatestScheduledScanAllMetrics(params *GetLatestScheduledScanAllMetricsParams, authInfo runtime.ClientAuthInfoWriter) (*GetLatestScheduledScanAllMetricsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetLatestScheduledScanAllMetricsParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getLatestScheduledScanAllMetrics",
 		Method:             "GET",
 		PathPattern:        "/scans/schedule/metrics",
@@ -147,12 +137,7 @@ func (a *Client) GetLatestScheduledScanAllMetrics(params *GetLatestScheduledScan
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -171,12 +156,13 @@ func (a *Client) GetLatestScheduledScanAllMetrics(params *GetLatestScheduledScan
 
   This endpoint is for getting a schedule for the scan all job, which scans all of images in Harbor.
 */
-func (a *Client) GetScanAllSchedule(params *GetScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetScanAllScheduleOK, error) {
+func (a *Client) GetScanAllSchedule(params *GetScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*GetScanAllScheduleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetScanAllScheduleParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getScanAllSchedule",
 		Method:             "GET",
 		PathPattern:        "/system/scanAll/schedule",
@@ -188,12 +174,7 @@ func (a *Client) GetScanAllSchedule(params *GetScanAllScheduleParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -212,12 +193,13 @@ func (a *Client) GetScanAllSchedule(params *GetScanAllScheduleParams, authInfo r
 
   This endpoint is for updating the schedule of scan all job, which scans all of images in Harbor.
 */
-func (a *Client) UpdateScanAllSchedule(params *UpdateScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateScanAllScheduleOK, error) {
+func (a *Client) UpdateScanAllSchedule(params *UpdateScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateScanAllScheduleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateScanAllScheduleParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "updateScanAllSchedule",
 		Method:             "PUT",
 		PathPattern:        "/system/scanAll/schedule",
@@ -229,12 +211,7 @@ func (a *Client) UpdateScanAllSchedule(params *UpdateScanAllScheduleParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}

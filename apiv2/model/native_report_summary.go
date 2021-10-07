@@ -28,7 +28,7 @@ type NativeReportSummary struct {
 	Duration int64 `json:"duration,omitempty"`
 
 	// The end time of the scan process that generating report
-	// Example: 2006-01-02T15:04:05
+	// Example: 2006-01-02T15:04:05Z
 	// Format: date-time
 	EndTime strfmt.DateTime `json:"end_time,omitempty"`
 
@@ -48,7 +48,7 @@ type NativeReportSummary struct {
 	Severity string `json:"severity,omitempty"`
 
 	// The start time of the scan process that generating report
-	// Example: 2006-01-02T14:04:05
+	// Example: 2006-01-02T14:04:05Z
 	// Format: date-time
 	StartTime strfmt.DateTime `json:"start_time,omitempty"`
 

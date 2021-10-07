@@ -23,7 +23,7 @@ type AuditLog struct {
 	ID int64 `json:"id,omitempty"`
 
 	// The time when this operation is triggered.
-	// Example: 2006-01-02T15:04:05
+	// Example: 2006-01-02T15:04:05Z
 	// Format: date-time
 	OpTime strfmt.DateTime `json:"op_time,omitempty"`
 

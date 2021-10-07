@@ -104,6 +104,18 @@ type ListProjectsParams struct {
 	*/
 	Public *bool
 
+	/* Q.
+
+	   Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+	*/
+	Q *string
+
+	/* Sort.
+
+	   Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending orderr and field2 in descending order with "sort=field1,-field2"
+	*/
+	Sort *string
+
 	/* WithDetail.
 
 	   Bool value indicating whether return detailed information of the project
@@ -248,6 +260,28 @@ func (o *ListProjectsParams) SetPublic(public *bool) {
 	o.Public = public
 }
 
+// WithQ adds the q to the list projects params
+func (o *ListProjectsParams) WithQ(q *string) *ListProjectsParams {
+	o.SetQ(q)
+	return o
+}
+
+// SetQ adds the q to the list projects params
+func (o *ListProjectsParams) SetQ(q *string) {
+	o.Q = q
+}
+
+// WithSort adds the sort to the list projects params
+func (o *ListProjectsParams) WithSort(sort *string) *ListProjectsParams {
+	o.SetSort(sort)
+	return o
+}
+
+// SetSort adds the sort to the list projects params
+func (o *ListProjectsParams) SetSort(sort *string) {
+	o.Sort = sort
+}
+
 // WithWithDetail adds the withDetail to the list projects params
 func (o *ListProjectsParams) WithWithDetail(withDetail *bool) *ListProjectsParams {
 	o.SetWithDetail(withDetail)
@@ -355,6 +389,40 @@ func (o *ListProjectsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		if qPublic != "" {
 
 			if err := r.SetQueryParam("public", qPublic); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Q != nil {
+
+		// query param q
+		var qrQ string
+
+		if o.Q != nil {
+			qrQ = *o.Q
+		}
+		qQ := qrQ
+		if qQ != "" {
+
+			if err := r.SetQueryParam("q", qQ); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Sort != nil {
+
+		// query param sort
+		var qrSort string
+
+		if o.Sort != nil {
+			qrSort = *o.Sort
+		}
+		qSort := qrSort
+		if qSort != "" {
+
+			if err := r.SetQueryParam("sort", qSort); err != nil {
 				return err
 			}
 		}

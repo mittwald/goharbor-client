@@ -60,6 +60,12 @@ func NewOperateRetentionExecutionParamsWithHTTPClient(client *http.Client) *Oper
 */
 type OperateRetentionExecutionParams struct {
 
+	/* XRequestID.
+
+	   An unique ID for the request
+	*/
+	XRequestID *string
+
 	/* Body.
 
 	   The action, only support "stop" now.
@@ -135,6 +141,17 @@ func (o *OperateRetentionExecutionParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXRequestID adds the xRequestID to the operate retention execution params
+func (o *OperateRetentionExecutionParams) WithXRequestID(xRequestID *string) *OperateRetentionExecutionParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the operate retention execution params
+func (o *OperateRetentionExecutionParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WithBody adds the body to the operate retention execution params
 func (o *OperateRetentionExecutionParams) WithBody(body OperateRetentionExecutionBody) *OperateRetentionExecutionParams {
 	o.SetBody(body)
@@ -175,6 +192,14 @@ func (o *OperateRetentionExecutionParams) WriteToRequest(r runtime.ClientRequest
 		return err
 	}
 	var res []error
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-Id
+		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
+			return err
+		}
+	}
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err
 	}

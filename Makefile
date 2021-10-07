@@ -2,11 +2,11 @@
 harbor-teardown test integration-test-v1-ci integration-test-v2-ci integration-test-v1 integration-test-v2 \
 fmt gofmt gofumpt goimports lint
 
-V1_VERSION = v1.10.6
-V2_VERSION = v2.2.1
-MOCKERY_VERSION = v2.7.5
-GOSWAGGER_VERSION = v0.27.0
-GOLANGCI_LINT_VERSION = v1.40.0
+V1_VERSION = v1.10.8
+V2_VERSION = v2.3.3
+MOCKERY_VERSION = v2.9.4
+GOSWAGGER_VERSION = v0.26.0
+GOLANGCI_LINT_VERSION = v1.42.1
 
 # Run all code generation targets
 generate: swagger-generate mock-generate

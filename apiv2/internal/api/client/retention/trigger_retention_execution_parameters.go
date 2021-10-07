@@ -60,6 +60,12 @@ func NewTriggerRetentionExecutionParamsWithHTTPClient(client *http.Client) *Trig
 */
 type TriggerRetentionExecutionParams struct {
 
+	/* XRequestID.
+
+	   An unique ID for the request
+	*/
+	XRequestID *string
+
 	// Body.
 	Body TriggerRetentionExecutionBody
 
@@ -124,6 +130,17 @@ func (o *TriggerRetentionExecutionParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXRequestID adds the xRequestID to the trigger retention execution params
+func (o *TriggerRetentionExecutionParams) WithXRequestID(xRequestID *string) *TriggerRetentionExecutionParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the trigger retention execution params
+func (o *TriggerRetentionExecutionParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WithBody adds the body to the trigger retention execution params
 func (o *TriggerRetentionExecutionParams) WithBody(body TriggerRetentionExecutionBody) *TriggerRetentionExecutionParams {
 	o.SetBody(body)
@@ -153,6 +170,14 @@ func (o *TriggerRetentionExecutionParams) WriteToRequest(r runtime.ClientRequest
 		return err
 	}
 	var res []error
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-Id
+		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
+			return err
+		}
+	}
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err
 	}

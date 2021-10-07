@@ -6,6 +6,7 @@ import (
 
 	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client"
+	modelv2 "github.com/mittwald/goharbor-client/v4/apiv2/model"
 
 	"github.com/go-openapi/runtime"
 
@@ -114,7 +115,7 @@ func (c *RESTClient) ListUsers(ctx context.Context) ([]*legacymodel.User, error)
 
 // GetUserByID fetches a registered user by the provided user id.
 // Returns an error if no user could be found, or if the id is '0'.
-func (c *RESTClient) GetUserByID(ctx context.Context, id int64) (*legacymodel.User, error) {
+func (c *RESTClient) GetUserByID(ctx context.Context, id int64) (*modelv2.UserEntity, error) {
 	if id <= 0 {
 		return nil, &ErrUserInvalidID{}
 	}

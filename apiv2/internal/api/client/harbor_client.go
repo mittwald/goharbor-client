@@ -12,11 +12,21 @@ import (
 
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/artifact"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/auditlog"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/configure"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/gc"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/health"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/icon"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/immutable"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/label"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/ldap"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/member"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/oidc"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/ping"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/preheat"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/project"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/project_metadata"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/quota"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/registry"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/replication"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/repository"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/retention"
@@ -24,7 +34,15 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/robotv1"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/scan"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/scan_all"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/scanner"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/search"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/statistic"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/system_c_v_e_allowlist"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/systeminfo"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/user"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/usergroup"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/webhook"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/webhookjob"
 )
 
 // Default harbor HTTP client.
@@ -71,11 +89,21 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Harbor {
 	cli.Transport = transport
 	cli.Artifact = artifact.New(transport, formats)
 	cli.Auditlog = auditlog.New(transport, formats)
+	cli.Configure = configure.New(transport, formats)
 	cli.Gc = gc.New(transport, formats)
+	cli.Health = health.New(transport, formats)
 	cli.Icon = icon.New(transport, formats)
+	cli.Immutable = immutable.New(transport, formats)
+	cli.Label = label.New(transport, formats)
+	cli.Ldap = ldap.New(transport, formats)
+	cli.Member = member.New(transport, formats)
+	cli.Oidc = oidc.New(transport, formats)
 	cli.Ping = ping.New(transport, formats)
 	cli.Preheat = preheat.New(transport, formats)
 	cli.Project = project.New(transport, formats)
+	cli.ProjectMetadata = project_metadata.New(transport, formats)
+	cli.Quota = quota.New(transport, formats)
+	cli.Registry = registry.New(transport, formats)
 	cli.Replication = replication.New(transport, formats)
 	cli.Repository = repository.New(transport, formats)
 	cli.Retention = retention.New(transport, formats)
@@ -83,7 +111,15 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Harbor {
 	cli.Robotv1 = robotv1.New(transport, formats)
 	cli.Scan = scan.New(transport, formats)
 	cli.ScanAll = scan_all.New(transport, formats)
+	cli.Scanner = scanner.New(transport, formats)
+	cli.Search = search.New(transport, formats)
+	cli.Statistic = statistic.New(transport, formats)
+	cli.SystemcveAllowlist = system_c_v_e_allowlist.New(transport, formats)
 	cli.Systeminfo = systeminfo.New(transport, formats)
+	cli.User = user.New(transport, formats)
+	cli.Usergroup = usergroup.New(transport, formats)
+	cli.Webhook = webhook.New(transport, formats)
+	cli.Webhookjob = webhookjob.New(transport, formats)
 	return cli
 }
 
@@ -132,15 +168,35 @@ type Harbor struct {
 
 	Auditlog auditlog.ClientService
 
+	Configure configure.ClientService
+
 	Gc gc.ClientService
 
+	Health health.ClientService
+
 	Icon icon.ClientService
+
+	Immutable immutable.ClientService
+
+	Label label.ClientService
+
+	Ldap ldap.ClientService
+
+	Member member.ClientService
+
+	Oidc oidc.ClientService
 
 	Ping ping.ClientService
 
 	Preheat preheat.ClientService
 
 	Project project.ClientService
+
+	ProjectMetadata project_metadata.ClientService
+
+	Quota quota.ClientService
+
+	Registry registry.ClientService
 
 	Replication replication.ClientService
 
@@ -156,7 +212,23 @@ type Harbor struct {
 
 	ScanAll scan_all.ClientService
 
+	Scanner scanner.ClientService
+
+	Search search.ClientService
+
+	Statistic statistic.ClientService
+
+	SystemcveAllowlist system_c_v_e_allowlist.ClientService
+
 	Systeminfo systeminfo.ClientService
+
+	User user.ClientService
+
+	Usergroup usergroup.ClientService
+
+	Webhook webhook.ClientService
+
+	Webhookjob webhookjob.ClientService
 
 	Transport runtime.ClientTransport
 }
@@ -166,11 +238,21 @@ func (c *Harbor) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 	c.Artifact.SetTransport(transport)
 	c.Auditlog.SetTransport(transport)
+	c.Configure.SetTransport(transport)
 	c.Gc.SetTransport(transport)
+	c.Health.SetTransport(transport)
 	c.Icon.SetTransport(transport)
+	c.Immutable.SetTransport(transport)
+	c.Label.SetTransport(transport)
+	c.Ldap.SetTransport(transport)
+	c.Member.SetTransport(transport)
+	c.Oidc.SetTransport(transport)
 	c.Ping.SetTransport(transport)
 	c.Preheat.SetTransport(transport)
 	c.Project.SetTransport(transport)
+	c.ProjectMetadata.SetTransport(transport)
+	c.Quota.SetTransport(transport)
+	c.Registry.SetTransport(transport)
 	c.Replication.SetTransport(transport)
 	c.Repository.SetTransport(transport)
 	c.Retention.SetTransport(transport)
@@ -178,5 +260,13 @@ func (c *Harbor) SetTransport(transport runtime.ClientTransport) {
 	c.Robotv1.SetTransport(transport)
 	c.Scan.SetTransport(transport)
 	c.ScanAll.SetTransport(transport)
+	c.Scanner.SetTransport(transport)
+	c.Search.SetTransport(transport)
+	c.Statistic.SetTransport(transport)
+	c.SystemcveAllowlist.SetTransport(transport)
 	c.Systeminfo.SetTransport(transport)
+	c.User.SetTransport(transport)
+	c.Usergroup.SetTransport(transport)
+	c.Webhook.SetTransport(transport)
+	c.Webhookjob.SetTransport(transport)
 }

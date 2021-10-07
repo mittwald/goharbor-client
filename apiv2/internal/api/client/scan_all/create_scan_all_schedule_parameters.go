@@ -61,6 +61,12 @@ func NewCreateScanAllScheduleParamsWithHTTPClient(client *http.Client) *CreateSc
 */
 type CreateScanAllScheduleParams struct {
 
+	/* XRequestID.
+
+	   An unique ID for the request
+	*/
+	XRequestID *string
+
 	/* Schedule.
 
 	   Create a schedule or a manual trigger for the scan all job.
@@ -120,6 +126,17 @@ func (o *CreateScanAllScheduleParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXRequestID adds the xRequestID to the create scan all schedule params
+func (o *CreateScanAllScheduleParams) WithXRequestID(xRequestID *string) *CreateScanAllScheduleParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the create scan all schedule params
+func (o *CreateScanAllScheduleParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WithSchedule adds the schedule to the create scan all schedule params
 func (o *CreateScanAllScheduleParams) WithSchedule(schedule *model.Schedule) *CreateScanAllScheduleParams {
 	o.SetSchedule(schedule)
@@ -138,6 +155,14 @@ func (o *CreateScanAllScheduleParams) WriteToRequest(r runtime.ClientRequest, re
 		return err
 	}
 	var res []error
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-Id
+		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
+			return err
+		}
+	}
 	if o.Schedule != nil {
 		if err := r.SetBodyParam(o.Schedule); err != nil {
 			return err

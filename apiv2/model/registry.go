@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Registry registry
@@ -19,7 +20,8 @@ import (
 type Registry struct {
 
 	// The create time of the policy.
-	CreationTime string `json:"creation_time,omitempty"`
+	// Format: date-time
+	CreationTime strfmt.DateTime `json:"creation_time,omitempty"`
 
 	// credential
 	Credential *RegistryCredential `json:"credential,omitempty"`
@@ -28,7 +30,7 @@ type Registry struct {
 	Description string `json:"description,omitempty"`
 
 	// The registry ID.
-	ID int64 `json:"id,omitempty"`
+	ID int64 `json:"id"`
 
 	// Whether or not the certificate will be verified when Harbor tries to access the server.
 	Insecure bool `json:"insecure,omitempty"`
@@ -43,7 +45,8 @@ type Registry struct {
 	Type string `json:"type,omitempty"`
 
 	// The update time of the policy.
-	UpdateTime string `json:"update_time,omitempty"`
+	// Format: date-time
+	UpdateTime strfmt.DateTime `json:"update_time,omitempty"`
 
 	// The registry URL string.
 	URL string `json:"url,omitempty"`
@@ -53,13 +56,33 @@ type Registry struct {
 func (m *Registry) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateCreationTime(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCredential(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUpdateTime(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Registry) validateCreationTime(formats strfmt.Registry) error {
+	if swag.IsZero(m.CreationTime) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("creation_time", "body", "date-time", m.CreationTime.String(), formats); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -75,6 +98,18 @@ func (m *Registry) validateCredential(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *Registry) validateUpdateTime(formats strfmt.Registry) error {
+	if swag.IsZero(m.UpdateTime) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("update_time", "body", "date-time", m.UpdateTime.String(), formats); err != nil {
+		return err
 	}
 
 	return nil

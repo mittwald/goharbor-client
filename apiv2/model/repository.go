@@ -20,7 +20,7 @@ import (
 type Repository struct {
 
 	// The count of the artifacts inside the repository
-	ArtifactCount int64 `json:"artifact_count,omitempty"`
+	ArtifactCount int64 `json:"artifact_count"`
 
 	// The creation time of the repository
 	// Format: date-time
@@ -39,7 +39,7 @@ type Repository struct {
 	ProjectID int64 `json:"project_id,omitempty"`
 
 	// The count that the artifact inside the repository pulled
-	PullCount int64 `json:"pull_count,omitempty"`
+	PullCount int64 `json:"pull_count"`
 
 	// The update time of the repository
 	// Format: date-time

@@ -11,7 +11,6 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client/products"
-	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client/scanners"
 )
 
 // Default harbor HTTP client.
@@ -57,7 +56,6 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Harbor {
 	cli := new(Harbor)
 	cli.Transport = transport
 	cli.Products = products.New(transport, formats)
-	cli.Scanners = scanners.New(transport, formats)
 	return cli
 }
 
@@ -104,8 +102,6 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 type Harbor struct {
 	Products products.ClientService
 
-	Scanners scanners.ClientService
-
 	Transport runtime.ClientTransport
 }
 
@@ -113,5 +109,4 @@ type Harbor struct {
 func (c *Harbor) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 	c.Products.SetTransport(transport)
-	c.Scanners.SetTransport(transport)
 }

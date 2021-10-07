@@ -58,6 +58,13 @@ func NewGetLatestScheduledScanAllMetricsParamsWithHTTPClient(client *http.Client
    Typically these are written to a http.Request.
 */
 type GetLatestScheduledScanAllMetricsParams struct {
+
+	/* XRequestID.
+
+	   An unique ID for the request
+	*/
+	XRequestID *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -111,6 +118,17 @@ func (o *GetLatestScheduledScanAllMetricsParams) SetHTTPClient(client *http.Clie
 	o.HTTPClient = client
 }
 
+// WithXRequestID adds the xRequestID to the get latest scheduled scan all metrics params
+func (o *GetLatestScheduledScanAllMetricsParams) WithXRequestID(xRequestID *string) *GetLatestScheduledScanAllMetricsParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the get latest scheduled scan all metrics params
+func (o *GetLatestScheduledScanAllMetricsParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetLatestScheduledScanAllMetricsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -118,6 +136,14 @@ func (o *GetLatestScheduledScanAllMetricsParams) WriteToRequest(r runtime.Client
 		return err
 	}
 	var res []error
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-Id
+		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
+			return err
+		}
+	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)

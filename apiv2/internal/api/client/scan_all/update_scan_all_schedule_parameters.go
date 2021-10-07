@@ -61,6 +61,12 @@ func NewUpdateScanAllScheduleParamsWithHTTPClient(client *http.Client) *UpdateSc
 */
 type UpdateScanAllScheduleParams struct {
 
+	/* XRequestID.
+
+	   An unique ID for the request
+	*/
+	XRequestID *string
+
 	/* Schedule.
 
 	   Updates the schedule of scan all job, which scans all of images in Harbor.
@@ -120,6 +126,17 @@ func (o *UpdateScanAllScheduleParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXRequestID adds the xRequestID to the update scan all schedule params
+func (o *UpdateScanAllScheduleParams) WithXRequestID(xRequestID *string) *UpdateScanAllScheduleParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the update scan all schedule params
+func (o *UpdateScanAllScheduleParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WithSchedule adds the schedule to the update scan all schedule params
 func (o *UpdateScanAllScheduleParams) WithSchedule(schedule *model.Schedule) *UpdateScanAllScheduleParams {
 	o.SetSchedule(schedule)
@@ -138,6 +155,14 @@ func (o *UpdateScanAllScheduleParams) WriteToRequest(r runtime.ClientRequest, re
 		return err
 	}
 	var res []error
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-Id
+		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
+			return err
+		}
+	}
 	if o.Schedule != nil {
 		if err := r.SetBodyParam(o.Schedule); err != nil {
 			return err

@@ -60,6 +60,12 @@ func NewListRetentionTasksParamsWithHTTPClient(client *http.Client) *ListRetenti
 */
 type ListRetentionTasksParams struct {
 
+	/* XRequestID.
+
+	   An unique ID for the request
+	*/
+	XRequestID *string
+
 	/* Eid.
 
 	   Retention execution ID.
@@ -145,6 +151,17 @@ func (o *ListRetentionTasksParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXRequestID adds the xRequestID to the list retention tasks params
+func (o *ListRetentionTasksParams) WithXRequestID(xRequestID *string) *ListRetentionTasksParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the list retention tasks params
+func (o *ListRetentionTasksParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WithEid adds the eid to the list retention tasks params
 func (o *ListRetentionTasksParams) WithEid(eid int64) *ListRetentionTasksParams {
 	o.SetEid(eid)
@@ -196,6 +213,14 @@ func (o *ListRetentionTasksParams) WriteToRequest(r runtime.ClientRequest, reg s
 		return err
 	}
 	var res []error
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-Id
+		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
+			return err
+		}
+	}
 
 	// path param eid
 	if err := r.SetPathParam("eid", swag.FormatInt64(o.Eid)); err != nil {

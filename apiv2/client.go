@@ -102,7 +102,7 @@ func (c *RESTClient) GetUser(ctx context.Context, username string) (*legacymodel
 }
 
 // GetUserByID wraps the GetUserByID method of the user sub-package.
-func (c *RESTClient) GetUserByID(ctx context.Context, id int64) (*legacymodel.User, error) {
+func (c *RESTClient) GetUserByID(ctx context.Context, id int64) (*modelv2.UserEntity, error) {
 	return c.user.GetUserByID(ctx, id)
 }
 

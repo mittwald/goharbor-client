@@ -60,6 +60,12 @@ func NewListReplicationExecutionsParamsWithHTTPClient(client *http.Client) *List
 */
 type ListReplicationExecutionsParams struct {
 
+	/* XRequestID.
+
+	   An unique ID for the request
+	*/
+	XRequestID *string
+
 	/* Page.
 
 	   The page number
@@ -83,6 +89,12 @@ type ListReplicationExecutionsParams struct {
 	   The ID of the policy that the executions belong to.
 	*/
 	PolicyID *int64
+
+	/* Sort.
+
+	   Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending orderr and field2 in descending order with "sort=field1,-field2"
+	*/
+	Sort *string
 
 	/* Status.
 
@@ -163,6 +175,17 @@ func (o *ListReplicationExecutionsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXRequestID adds the xRequestID to the list replication executions params
+func (o *ListReplicationExecutionsParams) WithXRequestID(xRequestID *string) *ListReplicationExecutionsParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the list replication executions params
+func (o *ListReplicationExecutionsParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WithPage adds the page to the list replication executions params
 func (o *ListReplicationExecutionsParams) WithPage(page *int64) *ListReplicationExecutionsParams {
 	o.SetPage(page)
@@ -196,6 +219,17 @@ func (o *ListReplicationExecutionsParams) SetPolicyID(policyID *int64) {
 	o.PolicyID = policyID
 }
 
+// WithSort adds the sort to the list replication executions params
+func (o *ListReplicationExecutionsParams) WithSort(sort *string) *ListReplicationExecutionsParams {
+	o.SetSort(sort)
+	return o
+}
+
+// SetSort adds the sort to the list replication executions params
+func (o *ListReplicationExecutionsParams) SetSort(sort *string) {
+	o.Sort = sort
+}
+
 // WithStatus adds the status to the list replication executions params
 func (o *ListReplicationExecutionsParams) WithStatus(status *string) *ListReplicationExecutionsParams {
 	o.SetStatus(status)
@@ -225,6 +259,14 @@ func (o *ListReplicationExecutionsParams) WriteToRequest(r runtime.ClientRequest
 		return err
 	}
 	var res []error
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-Id
+		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
+			return err
+		}
+	}
 
 	if o.Page != nil {
 
@@ -272,6 +314,23 @@ func (o *ListReplicationExecutionsParams) WriteToRequest(r runtime.ClientRequest
 		if qPolicyID != "" {
 
 			if err := r.SetQueryParam("policy_id", qPolicyID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Sort != nil {
+
+		// query param sort
+		var qrSort string
+
+		if o.Sort != nil {
+			qrSort = *o.Sort
+		}
+		qSort := qrSort
+		if qSort != "" {
+
+			if err := r.SetQueryParam("sort", qSort); err != nil {
 				return err
 			}
 		}

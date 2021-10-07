@@ -25,24 +25,105 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientOption is the option for Client methods
-type ClientOption func(*runtime.ClientOperation)
-
 // ClientService is the interface for Client methods
 type ClientService interface {
-	GetReplicationExecution(params *GetReplicationExecutionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationExecutionOK, error)
+	CreateReplicationPolicy(params *CreateReplicationPolicyParams, authInfo runtime.ClientAuthInfoWriter) (*CreateReplicationPolicyCreated, error)
 
-	GetReplicationLog(params *GetReplicationLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationLogOK, error)
+	DeleteReplicationPolicy(params *DeleteReplicationPolicyParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteReplicationPolicyOK, error)
 
-	ListReplicationExecutions(params *ListReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListReplicationExecutionsOK, error)
+	GetReplicationExecution(params *GetReplicationExecutionParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationExecutionOK, error)
 
-	ListReplicationTasks(params *ListReplicationTasksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListReplicationTasksOK, error)
+	GetReplicationLog(params *GetReplicationLogParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationLogOK, error)
 
-	StartReplication(params *StartReplicationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartReplicationCreated, error)
+	GetReplicationPolicy(params *GetReplicationPolicyParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationPolicyOK, error)
 
-	StopReplication(params *StopReplicationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopReplicationOK, error)
+	ListReplicationExecutions(params *ListReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*ListReplicationExecutionsOK, error)
+
+	ListReplicationPolicies(params *ListReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*ListReplicationPoliciesOK, error)
+
+	ListReplicationTasks(params *ListReplicationTasksParams, authInfo runtime.ClientAuthInfoWriter) (*ListReplicationTasksOK, error)
+
+	StartReplication(params *StartReplicationParams, authInfo runtime.ClientAuthInfoWriter) (*StartReplicationCreated, error)
+
+	StopReplication(params *StopReplicationParams, authInfo runtime.ClientAuthInfoWriter) (*StopReplicationOK, error)
+
+	UpdateReplicationPolicy(params *UpdateReplicationPolicyParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateReplicationPolicyOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  CreateReplicationPolicy creates a replication policy
+
+  Create a replication policy
+*/
+func (a *Client) CreateReplicationPolicy(params *CreateReplicationPolicyParams, authInfo runtime.ClientAuthInfoWriter) (*CreateReplicationPolicyCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateReplicationPolicyParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "createReplicationPolicy",
+		Method:             "POST",
+		PathPattern:        "/replication/policies",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CreateReplicationPolicyReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateReplicationPolicyCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createReplicationPolicy: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DeleteReplicationPolicy deletes the specific replication policy
+
+  Delete the specific replication policy
+*/
+func (a *Client) DeleteReplicationPolicy(params *DeleteReplicationPolicyParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteReplicationPolicyOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteReplicationPolicyParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteReplicationPolicy",
+		Method:             "DELETE",
+		PathPattern:        "/replication/policies/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DeleteReplicationPolicyReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteReplicationPolicyOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteReplicationPolicy: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -50,12 +131,13 @@ type ClientService interface {
 
   Get the replication execution specified by ID
 */
-func (a *Client) GetReplicationExecution(params *GetReplicationExecutionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationExecutionOK, error) {
+func (a *Client) GetReplicationExecution(params *GetReplicationExecutionParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationExecutionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetReplicationExecutionParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getReplicationExecution",
 		Method:             "GET",
 		PathPattern:        "/replication/executions/{id}",
@@ -67,12 +149,7 @@ func (a *Client) GetReplicationExecution(params *GetReplicationExecutionParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -91,12 +168,13 @@ func (a *Client) GetReplicationExecution(params *GetReplicationExecutionParams, 
 
   Get the log of the specific replication task
 */
-func (a *Client) GetReplicationLog(params *GetReplicationLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetReplicationLogOK, error) {
+func (a *Client) GetReplicationLog(params *GetReplicationLogParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationLogOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetReplicationLogParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getReplicationLog",
 		Method:             "GET",
 		PathPattern:        "/replication/executions/{id}/tasks/{task_id}/log",
@@ -108,12 +186,7 @@ func (a *Client) GetReplicationLog(params *GetReplicationLogParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -128,16 +201,54 @@ func (a *Client) GetReplicationLog(params *GetReplicationLogParams, authInfo run
 }
 
 /*
+  GetReplicationPolicy gets the specific replication policy
+
+  Get the specific replication policy
+*/
+func (a *Client) GetReplicationPolicy(params *GetReplicationPolicyParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplicationPolicyOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetReplicationPolicyParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getReplicationPolicy",
+		Method:             "GET",
+		PathPattern:        "/replication/policies/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetReplicationPolicyReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetReplicationPolicyOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getReplicationPolicy: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   ListReplicationExecutions lists replication executions
 
   List replication executions
 */
-func (a *Client) ListReplicationExecutions(params *ListReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListReplicationExecutionsOK, error) {
+func (a *Client) ListReplicationExecutions(params *ListReplicationExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*ListReplicationExecutionsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListReplicationExecutionsParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listReplicationExecutions",
 		Method:             "GET",
 		PathPattern:        "/replication/executions",
@@ -149,12 +260,7 @@ func (a *Client) ListReplicationExecutions(params *ListReplicationExecutionsPara
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -169,16 +275,54 @@ func (a *Client) ListReplicationExecutions(params *ListReplicationExecutionsPara
 }
 
 /*
+  ListReplicationPolicies lists replication policies
+
+  List replication policies
+*/
+func (a *Client) ListReplicationPolicies(params *ListReplicationPoliciesParams, authInfo runtime.ClientAuthInfoWriter) (*ListReplicationPoliciesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListReplicationPoliciesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "listReplicationPolicies",
+		Method:             "GET",
+		PathPattern:        "/replication/policies",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListReplicationPoliciesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ListReplicationPoliciesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for listReplicationPolicies: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   ListReplicationTasks lists replication tasks for a specific execution
 
   List replication tasks for a specific execution
 */
-func (a *Client) ListReplicationTasks(params *ListReplicationTasksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListReplicationTasksOK, error) {
+func (a *Client) ListReplicationTasks(params *ListReplicationTasksParams, authInfo runtime.ClientAuthInfoWriter) (*ListReplicationTasksOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListReplicationTasksParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listReplicationTasks",
 		Method:             "GET",
 		PathPattern:        "/replication/executions/{id}/tasks",
@@ -190,12 +334,7 @@ func (a *Client) ListReplicationTasks(params *ListReplicationTasksParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -214,12 +353,13 @@ func (a *Client) ListReplicationTasks(params *ListReplicationTasksParams, authIn
 
   Start one replication execution according to the policy
 */
-func (a *Client) StartReplication(params *StartReplicationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartReplicationCreated, error) {
+func (a *Client) StartReplication(params *StartReplicationParams, authInfo runtime.ClientAuthInfoWriter) (*StartReplicationCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartReplicationParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "startReplication",
 		Method:             "POST",
 		PathPattern:        "/replication/executions",
@@ -231,12 +371,7 @@ func (a *Client) StartReplication(params *StartReplicationParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -255,12 +390,13 @@ func (a *Client) StartReplication(params *StartReplicationParams, authInfo runti
 
   Stop the replication execution specified by ID
 */
-func (a *Client) StopReplication(params *StopReplicationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopReplicationOK, error) {
+func (a *Client) StopReplication(params *StopReplicationParams, authInfo runtime.ClientAuthInfoWriter) (*StopReplicationOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopReplicationParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "stopReplication",
 		Method:             "PUT",
 		PathPattern:        "/replication/executions/{id}",
@@ -272,12 +408,7 @@ func (a *Client) StopReplication(params *StopReplicationParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -288,6 +419,43 @@ func (a *Client) StopReplication(params *StopReplicationParams, authInfo runtime
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for stopReplication: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  UpdateReplicationPolicy updates the replication policy
+
+  Update the replication policy
+*/
+func (a *Client) UpdateReplicationPolicy(params *UpdateReplicationPolicyParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateReplicationPolicyOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateReplicationPolicyParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateReplicationPolicy",
+		Method:             "PUT",
+		PathPattern:        "/replication/policies/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdateReplicationPolicyReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateReplicationPolicyOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateReplicationPolicy: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

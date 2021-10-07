@@ -93,7 +93,7 @@ if [[ "${1}" = *"v2"* ]]; then
   --model-package="apiv2/model/legacy" \
   --name="harbor" \
   --client-package="apiv2/internal/legacyapi/client" \
-  --spec="${LEGACY_SWAGGER_FILE}"
+  --spec="${LEGACY_SWAGGER_FILE}" \
   # Generate client using the new / changed Harbor v2 API
   docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" "${GOSWAGGER_IMAGE}" \
   generate client \

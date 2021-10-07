@@ -61,6 +61,12 @@ func NewStartReplicationParamsWithHTTPClient(client *http.Client) *StartReplicat
 */
 type StartReplicationParams struct {
 
+	/* XRequestID.
+
+	   An unique ID for the request
+	*/
+	XRequestID *string
+
 	/* Execution.
 
 	   The ID of policy that the execution belongs to
@@ -120,6 +126,17 @@ func (o *StartReplicationParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXRequestID adds the xRequestID to the start replication params
+func (o *StartReplicationParams) WithXRequestID(xRequestID *string) *StartReplicationParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the start replication params
+func (o *StartReplicationParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WithExecution adds the execution to the start replication params
 func (o *StartReplicationParams) WithExecution(execution *model.StartReplicationExecution) *StartReplicationParams {
 	o.SetExecution(execution)
@@ -138,6 +155,14 @@ func (o *StartReplicationParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-Id
+		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
+			return err
+		}
+	}
 	if o.Execution != nil {
 		if err := r.SetBodyParam(o.Execution); err != nil {
 			return err
