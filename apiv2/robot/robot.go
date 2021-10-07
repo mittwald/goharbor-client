@@ -57,6 +57,8 @@ type Client interface {
 	DeleteRobotAccountByName(ctx context.Context, name string) error
 	DeleteRobotAccountByID(ctx context.Context, id int64) error
 	UpdateRobotAccount(ctx context.Context, r *modelv2.Robot) error
+	RefreshRobotAccountSecretByName(ctx context.Context, name string, sec string) (*modelv2.RobotSec, error)
+	RefreshRobotAccountSecretByID(ctx context.Context, id int64, sec string) (*modelv2.RobotSec, error)
 }
 
 type Level string
@@ -175,4 +177,35 @@ func (c *RESTClient) UpdateRobotAccount(ctx context.Context, r *modelv2.Robot) e
 	}
 
 	return nil
+}
+
+// RefreshRobotAccountSecretByID updates the robot account secret with the provided string "sec", by its id and return a 'RobotSec' response.
+func (c *RESTClient) RefreshRobotAccountSecretByID(ctx context.Context, id int64, sec string) (*modelv2.RobotSec, error) {
+    r := &modelv2.RobotSec{Secret: sec}
+	res, err := c.V2Client.Robot.RefreshSec(&robot.RefreshSecParams{
+		RobotSec: r,
+		RobotID:  id,
+		Context:  ctx,
+	}, c.AuthInfo)
+	if err != nil {
+		return nil, handleSwaggerRobotErrors(err)
+	}
+
+	return res.Payload, nil
+}
+
+// RefreshRobotAccountSecretByName updates the robot account secret with the provided string "sec", by its name and return a 'RobotSec' response.
+func (c *RESTClient) RefreshRobotAccountSecretByName(ctx context.Context, name string, sec string) (*modelv2.RobotSec, error) {
+	robots, err := c.ListRobotAccounts(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, r := range robots {
+		if r.Name == "robot$"+name {
+			return c.RefreshRobotAccountSecretByID(ctx, r.ID, sec)
+		}
+	}
+
+	return nil, &ErrRobotAccountUnknownResource{}
 }

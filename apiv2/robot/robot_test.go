@@ -64,6 +64,7 @@ var (
 			Namespace: "library",
 		}},
 	}
+	exampleSec = "aVeryL0000ngSecret"
 )
 
 func BuildV2ClientWithMock(r *mocks.MockRobotClientService) *client.Harbor {
@@ -208,6 +209,49 @@ func TestRESTClient_UpdateRobotAccount(t *testing.T) {
 
 	err := cl.UpdateRobotAccount(ctx, exampleRobotUpdate)
 	require.NoError(t, err)
+
+	r.AssertExpectations(t)
+}
+
+func TestRESTClient_RefreshRobotAccountSecretByID(t *testing.T) {
+	r := &mocks.MockRobotClientService{}
+
+	v2Client := BuildV2ClientWithMock(r)
+
+	cl := NewClient(v2Client, authInfo)
+
+	ctx := context.Background()
+
+    r.On("RefreshSec", &robot.RefreshSecParams{Context: ctx, RobotID: exampleRobotAccount.ID, RobotSec: &modelv2.RobotSec{Secret: exampleSec}}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+        Return(&robot.RefreshSecOK{Payload: &modelv2.RobotSec{Secret: exampleSec}}, nil)
+
+	rSec, err := cl.RefreshRobotAccountSecretByID(ctx, 1, exampleSec)
+
+	require.NoError(t, err)
+	require.NotNil(t, rSec)
+
+	r.AssertExpectations(t)
+}
+
+func TestRESTClient_RefreshRobotAccountSecretByName(t *testing.T) {
+	r := &mocks.MockRobotClientService{}
+
+	v2Client := BuildV2ClientWithMock(r)
+
+	cl := NewClient(v2Client, authInfo)
+
+	ctx := context.Background()
+
+	r.On("ListRobot", &robot.ListRobotParams{Context: ctx}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&robot.ListRobotOK{Payload: []*modelv2.Robot{exampleRobotAccount}}, nil)
+
+    r.On("RefreshSec", &robot.RefreshSecParams{Context: ctx, RobotID: exampleRobotAccount.ID, RobotSec: &modelv2.RobotSec{Secret: exampleSec}}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+        Return(&robot.RefreshSecOK{Payload: &modelv2.RobotSec{Secret: exampleSec}}, nil)
+
+	rSec, err := cl.RefreshRobotAccountSecretByName(ctx, "test-robot", exampleSec)
+
+	require.NoError(t, err)
+	require.NotNil(t, rSec)
 
 	r.AssertExpectations(t)
 }
