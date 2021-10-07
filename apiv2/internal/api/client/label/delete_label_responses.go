@@ -53,6 +53,7 @@ func (o *DeleteLabelReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,13 +64,12 @@ func NewDeleteLabelOK() *DeleteLabelOK {
 	return &DeleteLabelOK{}
 }
 
-/* DeleteLabelOK describes a response with status code 200, with default header values.
+/*DeleteLabelOK handles this case with default header values.
 
 Success
 */
 type DeleteLabelOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -80,12 +80,8 @@ func (o *DeleteLabelOK) Error() string {
 
 func (o *DeleteLabelOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -95,13 +91,12 @@ func NewDeleteLabelBadRequest() *DeleteLabelBadRequest {
 	return &DeleteLabelBadRequest{}
 }
 
-/* DeleteLabelBadRequest describes a response with status code 400, with default header values.
+/*DeleteLabelBadRequest handles this case with default header values.
 
 Bad request
 */
 type DeleteLabelBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +106,15 @@ type DeleteLabelBadRequest struct {
 func (o *DeleteLabelBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /labels/{label_id}][%d] deleteLabelBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *DeleteLabelBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteLabelBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +131,12 @@ func NewDeleteLabelUnauthorized() *DeleteLabelUnauthorized {
 	return &DeleteLabelUnauthorized{}
 }
 
-/* DeleteLabelUnauthorized describes a response with status code 401, with default header values.
+/*DeleteLabelUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type DeleteLabelUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +146,15 @@ type DeleteLabelUnauthorized struct {
 func (o *DeleteLabelUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /labels/{label_id}][%d] deleteLabelUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteLabelUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteLabelUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +171,12 @@ func NewDeleteLabelNotFound() *DeleteLabelNotFound {
 	return &DeleteLabelNotFound{}
 }
 
-/* DeleteLabelNotFound describes a response with status code 404, with default header values.
+/*DeleteLabelNotFound handles this case with default header values.
 
 Not found
 */
 type DeleteLabelNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +186,15 @@ type DeleteLabelNotFound struct {
 func (o *DeleteLabelNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /labels/{label_id}][%d] deleteLabelNotFound  %+v", 404, o.Payload)
 }
+
 func (o *DeleteLabelNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteLabelNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +211,12 @@ func NewDeleteLabelInternalServerError() *DeleteLabelInternalServerError {
 	return &DeleteLabelInternalServerError{}
 }
 
-/* DeleteLabelInternalServerError describes a response with status code 500, with default header values.
+/*DeleteLabelInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type DeleteLabelInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +226,15 @@ type DeleteLabelInternalServerError struct {
 func (o *DeleteLabelInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /labels/{label_id}][%d] deleteLabelInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteLabelInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteLabelInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

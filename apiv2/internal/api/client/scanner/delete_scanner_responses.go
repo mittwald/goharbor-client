@@ -53,6 +53,7 @@ func (o *DeleteScannerReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +64,7 @@ func NewDeleteScannerOK() *DeleteScannerOK {
 	return &DeleteScannerOK{}
 }
 
-/* DeleteScannerOK describes a response with status code 200, with default header values.
+/*DeleteScannerOK handles this case with default header values.
 
 Deleted successfully and return the deleted registration
 */
@@ -74,6 +75,7 @@ type DeleteScannerOK struct {
 func (o *DeleteScannerOK) Error() string {
 	return fmt.Sprintf("[DELETE /scanners/{registration_id}][%d] deleteScannerOK  %+v", 200, o.Payload)
 }
+
 func (o *DeleteScannerOK) GetPayload() *model.ScannerRegistration {
 	return o.Payload
 }
@@ -95,13 +97,12 @@ func NewDeleteScannerUnauthorized() *DeleteScannerUnauthorized {
 	return &DeleteScannerUnauthorized{}
 }
 
-/* DeleteScannerUnauthorized describes a response with status code 401, with default header values.
+/*DeleteScannerUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type DeleteScannerUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +112,15 @@ type DeleteScannerUnauthorized struct {
 func (o *DeleteScannerUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /scanners/{registration_id}][%d] deleteScannerUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteScannerUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteScannerUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +137,12 @@ func NewDeleteScannerForbidden() *DeleteScannerForbidden {
 	return &DeleteScannerForbidden{}
 }
 
-/* DeleteScannerForbidden describes a response with status code 403, with default header values.
+/*DeleteScannerForbidden handles this case with default header values.
 
 Forbidden
 */
 type DeleteScannerForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +152,15 @@ type DeleteScannerForbidden struct {
 func (o *DeleteScannerForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /scanners/{registration_id}][%d] deleteScannerForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteScannerForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteScannerForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +177,12 @@ func NewDeleteScannerNotFound() *DeleteScannerNotFound {
 	return &DeleteScannerNotFound{}
 }
 
-/* DeleteScannerNotFound describes a response with status code 404, with default header values.
+/*DeleteScannerNotFound handles this case with default header values.
 
 Not found
 */
 type DeleteScannerNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +192,15 @@ type DeleteScannerNotFound struct {
 func (o *DeleteScannerNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /scanners/{registration_id}][%d] deleteScannerNotFound  %+v", 404, o.Payload)
 }
+
 func (o *DeleteScannerNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteScannerNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +217,12 @@ func NewDeleteScannerInternalServerError() *DeleteScannerInternalServerError {
 	return &DeleteScannerInternalServerError{}
 }
 
-/* DeleteScannerInternalServerError describes a response with status code 500, with default header values.
+/*DeleteScannerInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type DeleteScannerInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +232,15 @@ type DeleteScannerInternalServerError struct {
 func (o *DeleteScannerInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /scanners/{registration_id}][%d] deleteScannerInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteScannerInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteScannerInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

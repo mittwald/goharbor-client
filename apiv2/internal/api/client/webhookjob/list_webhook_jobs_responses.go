@@ -55,6 +55,7 @@ func (o *ListWebhookJobsReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -65,17 +66,15 @@ func NewListWebhookJobsOK() *ListWebhookJobsOK {
 	return &ListWebhookJobsOK{}
 }
 
-/* ListWebhookJobsOK describes a response with status code 200, with default header values.
+/*ListWebhookJobsOK handles this case with default header values.
 
 List project webhook jobs successfully.
 */
 type ListWebhookJobsOK struct {
-
-	/* Link to previous page and next page
+	/*Link to previous page and next page
 	 */
 	Link string
-
-	/* The total count of available items
+	/*The total count of available items
 	 */
 	XTotalCount int64
 
@@ -85,29 +84,22 @@ type ListWebhookJobsOK struct {
 func (o *ListWebhookJobsOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/webhook/jobs][%d] listWebhookJobsOK  %+v", 200, o.Payload)
 }
+
 func (o *ListWebhookJobsOK) GetPayload() []*model.WebhookJob {
 	return o.Payload
 }
 
 func (o *ListWebhookJobsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Link
-	hdrLink := response.GetHeader("Link")
+	// response header Link
+	o.Link = response.GetHeader("Link")
 
-	if hdrLink != "" {
-		o.Link = hdrLink
+	// response header X-Total-Count
+	xTotalCount, err := swag.ConvertInt64(response.GetHeader("X-Total-Count"))
+	if err != nil {
+		return errors.InvalidType("X-Total-Count", "header", "int64", response.GetHeader("X-Total-Count"))
 	}
-
-	// hydrates response header X-Total-Count
-	hdrXTotalCount := response.GetHeader("X-Total-Count")
-
-	if hdrXTotalCount != "" {
-		valxTotalCount, err := swag.ConvertInt64(hdrXTotalCount)
-		if err != nil {
-			return errors.InvalidType("X-Total-Count", "header", "int64", hdrXTotalCount)
-		}
-		o.XTotalCount = valxTotalCount
-	}
+	o.XTotalCount = xTotalCount
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -122,13 +114,12 @@ func NewListWebhookJobsBadRequest() *ListWebhookJobsBadRequest {
 	return &ListWebhookJobsBadRequest{}
 }
 
-/* ListWebhookJobsBadRequest describes a response with status code 400, with default header values.
+/*ListWebhookJobsBadRequest handles this case with default header values.
 
 Bad request
 */
 type ListWebhookJobsBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -138,18 +129,15 @@ type ListWebhookJobsBadRequest struct {
 func (o *ListWebhookJobsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/webhook/jobs][%d] listWebhookJobsBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *ListWebhookJobsBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListWebhookJobsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -166,13 +154,12 @@ func NewListWebhookJobsUnauthorized() *ListWebhookJobsUnauthorized {
 	return &ListWebhookJobsUnauthorized{}
 }
 
-/* ListWebhookJobsUnauthorized describes a response with status code 401, with default header values.
+/*ListWebhookJobsUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type ListWebhookJobsUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -182,18 +169,15 @@ type ListWebhookJobsUnauthorized struct {
 func (o *ListWebhookJobsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/webhook/jobs][%d] listWebhookJobsUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *ListWebhookJobsUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListWebhookJobsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -210,13 +194,12 @@ func NewListWebhookJobsForbidden() *ListWebhookJobsForbidden {
 	return &ListWebhookJobsForbidden{}
 }
 
-/* ListWebhookJobsForbidden describes a response with status code 403, with default header values.
+/*ListWebhookJobsForbidden handles this case with default header values.
 
 Forbidden
 */
 type ListWebhookJobsForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -226,18 +209,15 @@ type ListWebhookJobsForbidden struct {
 func (o *ListWebhookJobsForbidden) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/webhook/jobs][%d] listWebhookJobsForbidden  %+v", 403, o.Payload)
 }
+
 func (o *ListWebhookJobsForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListWebhookJobsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -254,13 +234,12 @@ func NewListWebhookJobsInternalServerError() *ListWebhookJobsInternalServerError
 	return &ListWebhookJobsInternalServerError{}
 }
 
-/* ListWebhookJobsInternalServerError describes a response with status code 500, with default header values.
+/*ListWebhookJobsInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type ListWebhookJobsInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -270,18 +249,15 @@ type ListWebhookJobsInternalServerError struct {
 func (o *ListWebhookJobsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/webhook/jobs][%d] listWebhookJobsInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *ListWebhookJobsInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListWebhookJobsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

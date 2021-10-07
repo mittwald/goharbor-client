@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/strfmt"
 )
 
@@ -18,10 +16,5 @@ type Annotations map[string]string
 
 // Validate validates this annotations
 func (m Annotations) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this annotations based on context it is used
-func (m Annotations) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }

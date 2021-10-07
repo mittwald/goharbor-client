@@ -47,6 +47,7 @@ func (o *GetRetentionReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +58,7 @@ func NewGetRetentionOK() *GetRetentionOK {
 	return &GetRetentionOK{}
 }
 
-/* GetRetentionOK describes a response with status code 200, with default header values.
+/*GetRetentionOK handles this case with default header values.
 
 Get Retention Policy successfully.
 */
@@ -68,6 +69,7 @@ type GetRetentionOK struct {
 func (o *GetRetentionOK) Error() string {
 	return fmt.Sprintf("[GET /retentions/{id}][%d] getRetentionOK  %+v", 200, o.Payload)
 }
+
 func (o *GetRetentionOK) GetPayload() *model.RetentionPolicy {
 	return o.Payload
 }
@@ -89,13 +91,12 @@ func NewGetRetentionUnauthorized() *GetRetentionUnauthorized {
 	return &GetRetentionUnauthorized{}
 }
 
-/* GetRetentionUnauthorized describes a response with status code 401, with default header values.
+/*GetRetentionUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type GetRetentionUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -105,18 +106,15 @@ type GetRetentionUnauthorized struct {
 func (o *GetRetentionUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /retentions/{id}][%d] getRetentionUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetRetentionUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetRetentionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -133,13 +131,12 @@ func NewGetRetentionForbidden() *GetRetentionForbidden {
 	return &GetRetentionForbidden{}
 }
 
-/* GetRetentionForbidden describes a response with status code 403, with default header values.
+/*GetRetentionForbidden handles this case with default header values.
 
 Forbidden
 */
 type GetRetentionForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -149,18 +146,15 @@ type GetRetentionForbidden struct {
 func (o *GetRetentionForbidden) Error() string {
 	return fmt.Sprintf("[GET /retentions/{id}][%d] getRetentionForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetRetentionForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetRetentionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -177,13 +171,12 @@ func NewGetRetentionInternalServerError() *GetRetentionInternalServerError {
 	return &GetRetentionInternalServerError{}
 }
 
-/* GetRetentionInternalServerError describes a response with status code 500, with default header values.
+/*GetRetentionInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetRetentionInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -193,18 +186,15 @@ type GetRetentionInternalServerError struct {
 func (o *GetRetentionInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /retentions/{id}][%d] getRetentionInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetRetentionInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetRetentionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

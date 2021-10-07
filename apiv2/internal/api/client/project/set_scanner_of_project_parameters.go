@@ -19,99 +19,83 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/model"
 )
 
-// NewSetScannerOfProjectParams creates a new SetScannerOfProjectParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewSetScannerOfProjectParams creates a new SetScannerOfProjectParams object
+// with the default values initialized.
 func NewSetScannerOfProjectParams() *SetScannerOfProjectParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &SetScannerOfProjectParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetScannerOfProjectParamsWithTimeout creates a new SetScannerOfProjectParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewSetScannerOfProjectParamsWithTimeout(timeout time.Duration) *SetScannerOfProjectParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &SetScannerOfProjectParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		timeout: timeout,
 	}
 }
 
 // NewSetScannerOfProjectParamsWithContext creates a new SetScannerOfProjectParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewSetScannerOfProjectParamsWithContext(ctx context.Context) *SetScannerOfProjectParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &SetScannerOfProjectParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		Context: ctx,
 	}
 }
 
 // NewSetScannerOfProjectParamsWithHTTPClient creates a new SetScannerOfProjectParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewSetScannerOfProjectParamsWithHTTPClient(client *http.Client) *SetScannerOfProjectParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &SetScannerOfProjectParams{
-		HTTPClient: client,
+		XIsResourceName: &xIsResourceNameDefault,
+		HTTPClient:      client,
 	}
 }
 
-/* SetScannerOfProjectParams contains all the parameters to send to the API endpoint
-   for the set scanner of project operation.
-
-   Typically these are written to a http.Request.
+/*SetScannerOfProjectParams contains all the parameters to send to the API endpoint
+for the set scanner of project operation typically these are written to a http.Request
 */
 type SetScannerOfProjectParams struct {
 
-	/* XIsResourceName.
+	/*XIsResourceName
+	  The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
 
-	   The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
 	*/
 	XIsResourceName *bool
+	/*XRequestID
+	  An unique ID for the request
 
-	/* XRequestID.
-
-	   An unique ID for the request
 	*/
 	XRequestID *string
-
-	// Payload.
+	/*Payload*/
 	Payload *model.ProjectScanner
+	/*ProjectNameOrID
+	  The name or id of the project
 
-	/* ProjectNameOrID.
-
-	   The name or id of the project
 	*/
 	ProjectNameOrID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the set scanner of project params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *SetScannerOfProjectParams) WithDefaults() *SetScannerOfProjectParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the set scanner of project params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *SetScannerOfProjectParams) SetDefaults() {
-	var (
-		xIsResourceNameDefault = bool(false)
-	)
-
-	val := SetScannerOfProjectParams{
-		XIsResourceName: &xIsResourceNameDefault,
-	}
-
-	val.timeout = o.timeout
-	val.Context = o.Context
-	val.HTTPClient = o.HTTPClient
-	*o = val
 }
 
 // WithTimeout adds the timeout to the set scanner of project params
@@ -205,6 +189,7 @@ func (o *SetScannerOfProjectParams) WriteToRequest(r runtime.ClientRequest, reg 
 		if err := r.SetHeaderParam("X-Is-Resource-Name", swag.FormatBool(*o.XIsResourceName)); err != nil {
 			return err
 		}
+
 	}
 
 	if o.XRequestID != nil {
@@ -213,7 +198,9 @@ func (o *SetScannerOfProjectParams) WriteToRequest(r runtime.ClientRequest, reg 
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
+
 	if o.Payload != nil {
 		if err := r.SetBodyParam(o.Payload); err != nil {
 			return err

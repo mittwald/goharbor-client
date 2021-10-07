@@ -17,95 +17,74 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewOperateRetentionExecutionParams creates a new OperateRetentionExecutionParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewOperateRetentionExecutionParams creates a new OperateRetentionExecutionParams object
+// with the default values initialized.
 func NewOperateRetentionExecutionParams() *OperateRetentionExecutionParams {
+	var ()
 	return &OperateRetentionExecutionParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewOperateRetentionExecutionParamsWithTimeout creates a new OperateRetentionExecutionParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewOperateRetentionExecutionParamsWithTimeout(timeout time.Duration) *OperateRetentionExecutionParams {
+	var ()
 	return &OperateRetentionExecutionParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewOperateRetentionExecutionParamsWithContext creates a new OperateRetentionExecutionParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewOperateRetentionExecutionParamsWithContext(ctx context.Context) *OperateRetentionExecutionParams {
+	var ()
 	return &OperateRetentionExecutionParams{
+
 		Context: ctx,
 	}
 }
 
 // NewOperateRetentionExecutionParamsWithHTTPClient creates a new OperateRetentionExecutionParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewOperateRetentionExecutionParamsWithHTTPClient(client *http.Client) *OperateRetentionExecutionParams {
+	var ()
 	return &OperateRetentionExecutionParams{
 		HTTPClient: client,
 	}
 }
 
-/* OperateRetentionExecutionParams contains all the parameters to send to the API endpoint
-   for the operate retention execution operation.
-
-   Typically these are written to a http.Request.
+/*OperateRetentionExecutionParams contains all the parameters to send to the API endpoint
+for the operate retention execution operation typically these are written to a http.Request
 */
 type OperateRetentionExecutionParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Body
+	  The action, only support "stop" now.
 
-	/* Body.
-
-	   The action, only support "stop" now.
 	*/
 	Body OperateRetentionExecutionBody
+	/*Eid
+	  Retention execution ID.
 
-	/* Eid.
-
-	   Retention execution ID.
-
-	   Format: int64
 	*/
 	Eid int64
+	/*ID
+	  Retention ID.
 
-	/* ID.
-
-	   Retention ID.
-
-	   Format: int64
 	*/
 	ID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the operate retention execution params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *OperateRetentionExecutionParams) WithDefaults() *OperateRetentionExecutionParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the operate retention execution params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *OperateRetentionExecutionParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the operate retention execution params
@@ -199,7 +178,9 @@ func (o *OperateRetentionExecutionParams) WriteToRequest(r runtime.ClientRequest
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
+
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err
 	}

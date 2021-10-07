@@ -65,6 +65,7 @@ func (o *CreateScanAllScheduleReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,17 +76,15 @@ func NewCreateScanAllScheduleCreated() *CreateScanAllScheduleCreated {
 	return &CreateScanAllScheduleCreated{}
 }
 
-/* CreateScanAllScheduleCreated describes a response with status code 201, with default header values.
+/*CreateScanAllScheduleCreated handles this case with default header values.
 
 Created
 */
 type CreateScanAllScheduleCreated struct {
-
-	/* The location of the resource
+	/*The location of the resource
 	 */
 	Location string
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -96,19 +95,11 @@ func (o *CreateScanAllScheduleCreated) Error() string {
 
 func (o *CreateScanAllScheduleCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Location
-	hdrLocation := response.GetHeader("Location")
+	// response header Location
+	o.Location = response.GetHeader("Location")
 
-	if hdrLocation != "" {
-		o.Location = hdrLocation
-	}
-
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -118,13 +109,12 @@ func NewCreateScanAllScheduleBadRequest() *CreateScanAllScheduleBadRequest {
 	return &CreateScanAllScheduleBadRequest{}
 }
 
-/* CreateScanAllScheduleBadRequest describes a response with status code 400, with default header values.
+/*CreateScanAllScheduleBadRequest handles this case with default header values.
 
 Bad request
 */
 type CreateScanAllScheduleBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -134,18 +124,15 @@ type CreateScanAllScheduleBadRequest struct {
 func (o *CreateScanAllScheduleBadRequest) Error() string {
 	return fmt.Sprintf("[POST /system/scanAll/schedule][%d] createScanAllScheduleBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *CreateScanAllScheduleBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateScanAllScheduleBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -162,13 +149,12 @@ func NewCreateScanAllScheduleUnauthorized() *CreateScanAllScheduleUnauthorized {
 	return &CreateScanAllScheduleUnauthorized{}
 }
 
-/* CreateScanAllScheduleUnauthorized describes a response with status code 401, with default header values.
+/*CreateScanAllScheduleUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type CreateScanAllScheduleUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -178,18 +164,15 @@ type CreateScanAllScheduleUnauthorized struct {
 func (o *CreateScanAllScheduleUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /system/scanAll/schedule][%d] createScanAllScheduleUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *CreateScanAllScheduleUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateScanAllScheduleUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -206,13 +189,12 @@ func NewCreateScanAllScheduleForbidden() *CreateScanAllScheduleForbidden {
 	return &CreateScanAllScheduleForbidden{}
 }
 
-/* CreateScanAllScheduleForbidden describes a response with status code 403, with default header values.
+/*CreateScanAllScheduleForbidden handles this case with default header values.
 
 Forbidden
 */
 type CreateScanAllScheduleForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -222,18 +204,15 @@ type CreateScanAllScheduleForbidden struct {
 func (o *CreateScanAllScheduleForbidden) Error() string {
 	return fmt.Sprintf("[POST /system/scanAll/schedule][%d] createScanAllScheduleForbidden  %+v", 403, o.Payload)
 }
+
 func (o *CreateScanAllScheduleForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateScanAllScheduleForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -250,13 +229,12 @@ func NewCreateScanAllScheduleConflict() *CreateScanAllScheduleConflict {
 	return &CreateScanAllScheduleConflict{}
 }
 
-/* CreateScanAllScheduleConflict describes a response with status code 409, with default header values.
+/*CreateScanAllScheduleConflict handles this case with default header values.
 
 Conflict
 */
 type CreateScanAllScheduleConflict struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -266,18 +244,15 @@ type CreateScanAllScheduleConflict struct {
 func (o *CreateScanAllScheduleConflict) Error() string {
 	return fmt.Sprintf("[POST /system/scanAll/schedule][%d] createScanAllScheduleConflict  %+v", 409, o.Payload)
 }
+
 func (o *CreateScanAllScheduleConflict) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateScanAllScheduleConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -294,13 +269,12 @@ func NewCreateScanAllSchedulePreconditionFailed() *CreateScanAllSchedulePrecondi
 	return &CreateScanAllSchedulePreconditionFailed{}
 }
 
-/* CreateScanAllSchedulePreconditionFailed describes a response with status code 412, with default header values.
+/*CreateScanAllSchedulePreconditionFailed handles this case with default header values.
 
 Precondition failed
 */
 type CreateScanAllSchedulePreconditionFailed struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -310,18 +284,15 @@ type CreateScanAllSchedulePreconditionFailed struct {
 func (o *CreateScanAllSchedulePreconditionFailed) Error() string {
 	return fmt.Sprintf("[POST /system/scanAll/schedule][%d] createScanAllSchedulePreconditionFailed  %+v", 412, o.Payload)
 }
+
 func (o *CreateScanAllSchedulePreconditionFailed) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateScanAllSchedulePreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -338,13 +309,12 @@ func NewCreateScanAllScheduleInternalServerError() *CreateScanAllScheduleInterna
 	return &CreateScanAllScheduleInternalServerError{}
 }
 
-/* CreateScanAllScheduleInternalServerError describes a response with status code 500, with default header values.
+/*CreateScanAllScheduleInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type CreateScanAllScheduleInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -354,18 +324,15 @@ type CreateScanAllScheduleInternalServerError struct {
 func (o *CreateScanAllScheduleInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /system/scanAll/schedule][%d] createScanAllScheduleInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *CreateScanAllScheduleInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateScanAllScheduleInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

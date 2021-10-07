@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -56,11 +54,12 @@ func (m *UserCreationReq) Validate(formats strfmt.Registry) error {
 }
 
 func (m *UserCreationReq) validateEmail(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Email) { // not required
 		return nil
 	}
 
-	if err := validate.MaxLength("email", "body", m.Email, 255); err != nil {
+	if err := validate.MaxLength("email", "body", string(m.Email), 255); err != nil {
 		return err
 	}
 
@@ -68,19 +67,15 @@ func (m *UserCreationReq) validateEmail(formats strfmt.Registry) error {
 }
 
 func (m *UserCreationReq) validateUsername(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Username) { // not required
 		return nil
 	}
 
-	if err := validate.MaxLength("username", "body", m.Username, 255); err != nil {
+	if err := validate.MaxLength("username", "body", string(m.Username), 255); err != nil {
 		return err
 	}
 
-	return nil
-}
-
-// ContextValidate validates this user creation req based on context it is used
-func (m *UserCreationReq) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

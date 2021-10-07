@@ -53,6 +53,7 @@ func (o *StopReplicationReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,13 +64,12 @@ func NewStopReplicationOK() *StopReplicationOK {
 	return &StopReplicationOK{}
 }
 
-/* StopReplicationOK describes a response with status code 200, with default header values.
+/*StopReplicationOK handles this case with default header values.
 
 Success
 */
 type StopReplicationOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -80,12 +80,8 @@ func (o *StopReplicationOK) Error() string {
 
 func (o *StopReplicationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -95,13 +91,12 @@ func NewStopReplicationUnauthorized() *StopReplicationUnauthorized {
 	return &StopReplicationUnauthorized{}
 }
 
-/* StopReplicationUnauthorized describes a response with status code 401, with default header values.
+/*StopReplicationUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type StopReplicationUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +106,15 @@ type StopReplicationUnauthorized struct {
 func (o *StopReplicationUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /replication/executions/{id}][%d] stopReplicationUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *StopReplicationUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *StopReplicationUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +131,12 @@ func NewStopReplicationForbidden() *StopReplicationForbidden {
 	return &StopReplicationForbidden{}
 }
 
-/* StopReplicationForbidden describes a response with status code 403, with default header values.
+/*StopReplicationForbidden handles this case with default header values.
 
 Forbidden
 */
 type StopReplicationForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +146,15 @@ type StopReplicationForbidden struct {
 func (o *StopReplicationForbidden) Error() string {
 	return fmt.Sprintf("[PUT /replication/executions/{id}][%d] stopReplicationForbidden  %+v", 403, o.Payload)
 }
+
 func (o *StopReplicationForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *StopReplicationForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +171,12 @@ func NewStopReplicationNotFound() *StopReplicationNotFound {
 	return &StopReplicationNotFound{}
 }
 
-/* StopReplicationNotFound describes a response with status code 404, with default header values.
+/*StopReplicationNotFound handles this case with default header values.
 
 Not found
 */
 type StopReplicationNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +186,15 @@ type StopReplicationNotFound struct {
 func (o *StopReplicationNotFound) Error() string {
 	return fmt.Sprintf("[PUT /replication/executions/{id}][%d] stopReplicationNotFound  %+v", 404, o.Payload)
 }
+
 func (o *StopReplicationNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *StopReplicationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +211,12 @@ func NewStopReplicationInternalServerError() *StopReplicationInternalServerError
 	return &StopReplicationInternalServerError{}
 }
 
-/* StopReplicationInternalServerError describes a response with status code 500, with default header values.
+/*StopReplicationInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type StopReplicationInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +226,15 @@ type StopReplicationInternalServerError struct {
 func (o *StopReplicationInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /replication/executions/{id}][%d] stopReplicationInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *StopReplicationInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *StopReplicationInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

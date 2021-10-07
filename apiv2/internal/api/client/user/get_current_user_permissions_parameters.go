@@ -17,87 +17,71 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetCurrentUserPermissionsParams creates a new GetCurrentUserPermissionsParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetCurrentUserPermissionsParams creates a new GetCurrentUserPermissionsParams object
+// with the default values initialized.
 func NewGetCurrentUserPermissionsParams() *GetCurrentUserPermissionsParams {
+	var ()
 	return &GetCurrentUserPermissionsParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetCurrentUserPermissionsParamsWithTimeout creates a new GetCurrentUserPermissionsParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetCurrentUserPermissionsParamsWithTimeout(timeout time.Duration) *GetCurrentUserPermissionsParams {
+	var ()
 	return &GetCurrentUserPermissionsParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetCurrentUserPermissionsParamsWithContext creates a new GetCurrentUserPermissionsParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetCurrentUserPermissionsParamsWithContext(ctx context.Context) *GetCurrentUserPermissionsParams {
+	var ()
 	return &GetCurrentUserPermissionsParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetCurrentUserPermissionsParamsWithHTTPClient creates a new GetCurrentUserPermissionsParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetCurrentUserPermissionsParamsWithHTTPClient(client *http.Client) *GetCurrentUserPermissionsParams {
+	var ()
 	return &GetCurrentUserPermissionsParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetCurrentUserPermissionsParams contains all the parameters to send to the API endpoint
-   for the get current user permissions operation.
-
-   Typically these are written to a http.Request.
+/*GetCurrentUserPermissionsParams contains all the parameters to send to the API endpoint
+for the get current user permissions operation typically these are written to a http.Request
 */
 type GetCurrentUserPermissionsParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
-
-	/* Relative.
-
-	     If true, the resources in the response are relative to the scope,
+	/*Relative
+	  If true, the resources in the response are relative to the scope,
 	eg for resource '/project/1/repository' if relative is 'true' then the resource in response will be 'repository'.
+
 
 	*/
 	Relative *bool
+	/*Scope
+	  The scope for the permission
 
-	/* Scope.
-
-	   The scope for the permission
 	*/
 	Scope *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get current user permissions params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetCurrentUserPermissionsParams) WithDefaults() *GetCurrentUserPermissionsParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get current user permissions params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetCurrentUserPermissionsParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get current user permissions params
@@ -180,40 +164,39 @@ func (o *GetCurrentUserPermissionsParams) WriteToRequest(r runtime.ClientRequest
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	if o.Relative != nil {
 
 		// query param relative
 		var qrRelative bool
-
 		if o.Relative != nil {
 			qrRelative = *o.Relative
 		}
 		qRelative := swag.FormatBool(qrRelative)
 		if qRelative != "" {
-
 			if err := r.SetQueryParam("relative", qRelative); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.Scope != nil {
 
 		// query param scope
 		var qrScope string
-
 		if o.Scope != nil {
 			qrScope = *o.Scope
 		}
 		qScope := qrScope
 		if qScope != "" {
-
 			if err := r.SetQueryParam("scope", qScope); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if len(res) > 0 {

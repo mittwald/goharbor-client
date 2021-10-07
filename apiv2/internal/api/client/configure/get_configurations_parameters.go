@@ -16,73 +16,59 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetConfigurationsParams creates a new GetConfigurationsParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetConfigurationsParams creates a new GetConfigurationsParams object
+// with the default values initialized.
 func NewGetConfigurationsParams() *GetConfigurationsParams {
+	var ()
 	return &GetConfigurationsParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetConfigurationsParamsWithTimeout creates a new GetConfigurationsParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetConfigurationsParamsWithTimeout(timeout time.Duration) *GetConfigurationsParams {
+	var ()
 	return &GetConfigurationsParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetConfigurationsParamsWithContext creates a new GetConfigurationsParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetConfigurationsParamsWithContext(ctx context.Context) *GetConfigurationsParams {
+	var ()
 	return &GetConfigurationsParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetConfigurationsParamsWithHTTPClient creates a new GetConfigurationsParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetConfigurationsParamsWithHTTPClient(client *http.Client) *GetConfigurationsParams {
+	var ()
 	return &GetConfigurationsParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetConfigurationsParams contains all the parameters to send to the API endpoint
-   for the get configurations operation.
-
-   Typically these are written to a http.Request.
+/*GetConfigurationsParams contains all the parameters to send to the API endpoint
+for the get configurations operation typically these are written to a http.Request
 */
 type GetConfigurationsParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get configurations params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetConfigurationsParams) WithDefaults() *GetConfigurationsParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get configurations params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetConfigurationsParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get configurations params
@@ -143,6 +129,7 @@ func (o *GetConfigurationsParams) WriteToRequest(r runtime.ClientRequest, reg st
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	if len(res) > 0 {

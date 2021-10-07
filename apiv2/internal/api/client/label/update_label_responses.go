@@ -59,6 +59,7 @@ func (o *UpdateLabelReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,13 +70,12 @@ func NewUpdateLabelOK() *UpdateLabelOK {
 	return &UpdateLabelOK{}
 }
 
-/* UpdateLabelOK describes a response with status code 200, with default header values.
+/*UpdateLabelOK handles this case with default header values.
 
 Success
 */
 type UpdateLabelOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -86,12 +86,8 @@ func (o *UpdateLabelOK) Error() string {
 
 func (o *UpdateLabelOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -101,13 +97,12 @@ func NewUpdateLabelBadRequest() *UpdateLabelBadRequest {
 	return &UpdateLabelBadRequest{}
 }
 
-/* UpdateLabelBadRequest describes a response with status code 400, with default header values.
+/*UpdateLabelBadRequest handles this case with default header values.
 
 Bad request
 */
 type UpdateLabelBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -117,18 +112,15 @@ type UpdateLabelBadRequest struct {
 func (o *UpdateLabelBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /labels/{label_id}][%d] updateLabelBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *UpdateLabelBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateLabelBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -145,13 +137,12 @@ func NewUpdateLabelUnauthorized() *UpdateLabelUnauthorized {
 	return &UpdateLabelUnauthorized{}
 }
 
-/* UpdateLabelUnauthorized describes a response with status code 401, with default header values.
+/*UpdateLabelUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type UpdateLabelUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -161,18 +152,15 @@ type UpdateLabelUnauthorized struct {
 func (o *UpdateLabelUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /labels/{label_id}][%d] updateLabelUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *UpdateLabelUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateLabelUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -189,13 +177,12 @@ func NewUpdateLabelNotFound() *UpdateLabelNotFound {
 	return &UpdateLabelNotFound{}
 }
 
-/* UpdateLabelNotFound describes a response with status code 404, with default header values.
+/*UpdateLabelNotFound handles this case with default header values.
 
 Not found
 */
 type UpdateLabelNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -205,18 +192,15 @@ type UpdateLabelNotFound struct {
 func (o *UpdateLabelNotFound) Error() string {
 	return fmt.Sprintf("[PUT /labels/{label_id}][%d] updateLabelNotFound  %+v", 404, o.Payload)
 }
+
 func (o *UpdateLabelNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateLabelNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -233,13 +217,12 @@ func NewUpdateLabelConflict() *UpdateLabelConflict {
 	return &UpdateLabelConflict{}
 }
 
-/* UpdateLabelConflict describes a response with status code 409, with default header values.
+/*UpdateLabelConflict handles this case with default header values.
 
 Conflict
 */
 type UpdateLabelConflict struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,18 +232,15 @@ type UpdateLabelConflict struct {
 func (o *UpdateLabelConflict) Error() string {
 	return fmt.Sprintf("[PUT /labels/{label_id}][%d] updateLabelConflict  %+v", 409, o.Payload)
 }
+
 func (o *UpdateLabelConflict) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateLabelConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -277,13 +257,12 @@ func NewUpdateLabelInternalServerError() *UpdateLabelInternalServerError {
 	return &UpdateLabelInternalServerError{}
 }
 
-/* UpdateLabelInternalServerError describes a response with status code 500, with default header values.
+/*UpdateLabelInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type UpdateLabelInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -293,18 +272,15 @@ type UpdateLabelInternalServerError struct {
 func (o *UpdateLabelInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /labels/{label_id}][%d] updateLabelInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *UpdateLabelInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateLabelInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

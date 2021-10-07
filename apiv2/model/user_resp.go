@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -33,7 +31,7 @@ type UserResp struct {
 	Email string `json:"email,omitempty"`
 
 	// oidc user meta
-	OidcUserMeta *OIDCUserInfo `json:"oidc_user_meta,omitempty"`
+	OIDCUserMeta *OIDCUserInfo `json:"oidc_user_meta,omitempty"`
 
 	// realname
 	Realname string `json:"realname,omitempty"`
@@ -60,7 +58,7 @@ func (m *UserResp) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateOidcUserMeta(formats); err != nil {
+	if err := m.validateOIDCUserMeta(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -75,6 +73,7 @@ func (m *UserResp) Validate(formats strfmt.Registry) error {
 }
 
 func (m *UserResp) validateCreationTime(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.CreationTime) { // not required
 		return nil
 	}
@@ -86,13 +85,14 @@ func (m *UserResp) validateCreationTime(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *UserResp) validateOidcUserMeta(formats strfmt.Registry) error {
-	if swag.IsZero(m.OidcUserMeta) { // not required
+func (m *UserResp) validateOIDCUserMeta(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.OIDCUserMeta) { // not required
 		return nil
 	}
 
-	if m.OidcUserMeta != nil {
-		if err := m.OidcUserMeta.Validate(formats); err != nil {
+	if m.OIDCUserMeta != nil {
+		if err := m.OIDCUserMeta.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("oidc_user_meta")
 			}
@@ -104,40 +104,13 @@ func (m *UserResp) validateOidcUserMeta(formats strfmt.Registry) error {
 }
 
 func (m *UserResp) validateUpdateTime(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.UpdateTime) { // not required
 		return nil
 	}
 
 	if err := validate.FormatOf("update_time", "body", "date-time", m.UpdateTime.String(), formats); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this user resp based on the context it is used
-func (m *UserResp) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateOidcUserMeta(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *UserResp) contextValidateOidcUserMeta(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.OidcUserMeta != nil {
-		if err := m.OidcUserMeta.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("oidc_user_meta")
-			}
-			return err
-		}
 	}
 
 	return nil

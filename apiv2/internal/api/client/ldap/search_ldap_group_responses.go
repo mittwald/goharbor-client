@@ -53,6 +53,7 @@ func (o *SearchLdapGroupReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +64,7 @@ func NewSearchLdapGroupOK() *SearchLdapGroupOK {
 	return &SearchLdapGroupOK{}
 }
 
-/* SearchLdapGroupOK describes a response with status code 200, with default header values.
+/*SearchLdapGroupOK handles this case with default header values.
 
 Search ldap group successfully.
 */
@@ -74,6 +75,7 @@ type SearchLdapGroupOK struct {
 func (o *SearchLdapGroupOK) Error() string {
 	return fmt.Sprintf("[GET /ldap/groups/search][%d] searchLdapGroupOK  %+v", 200, o.Payload)
 }
+
 func (o *SearchLdapGroupOK) GetPayload() []*model.UserGroup {
 	return o.Payload
 }
@@ -93,13 +95,12 @@ func NewSearchLdapGroupBadRequest() *SearchLdapGroupBadRequest {
 	return &SearchLdapGroupBadRequest{}
 }
 
-/* SearchLdapGroupBadRequest describes a response with status code 400, with default header values.
+/*SearchLdapGroupBadRequest handles this case with default header values.
 
 Bad request
 */
 type SearchLdapGroupBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -109,18 +110,15 @@ type SearchLdapGroupBadRequest struct {
 func (o *SearchLdapGroupBadRequest) Error() string {
 	return fmt.Sprintf("[GET /ldap/groups/search][%d] searchLdapGroupBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *SearchLdapGroupBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SearchLdapGroupBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -137,13 +135,12 @@ func NewSearchLdapGroupUnauthorized() *SearchLdapGroupUnauthorized {
 	return &SearchLdapGroupUnauthorized{}
 }
 
-/* SearchLdapGroupUnauthorized describes a response with status code 401, with default header values.
+/*SearchLdapGroupUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type SearchLdapGroupUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -153,18 +150,15 @@ type SearchLdapGroupUnauthorized struct {
 func (o *SearchLdapGroupUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /ldap/groups/search][%d] searchLdapGroupUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *SearchLdapGroupUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SearchLdapGroupUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -181,13 +175,12 @@ func NewSearchLdapGroupForbidden() *SearchLdapGroupForbidden {
 	return &SearchLdapGroupForbidden{}
 }
 
-/* SearchLdapGroupForbidden describes a response with status code 403, with default header values.
+/*SearchLdapGroupForbidden handles this case with default header values.
 
 Forbidden
 */
 type SearchLdapGroupForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -197,18 +190,15 @@ type SearchLdapGroupForbidden struct {
 func (o *SearchLdapGroupForbidden) Error() string {
 	return fmt.Sprintf("[GET /ldap/groups/search][%d] searchLdapGroupForbidden  %+v", 403, o.Payload)
 }
+
 func (o *SearchLdapGroupForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SearchLdapGroupForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -225,13 +215,12 @@ func NewSearchLdapGroupInternalServerError() *SearchLdapGroupInternalServerError
 	return &SearchLdapGroupInternalServerError{}
 }
 
-/* SearchLdapGroupInternalServerError describes a response with status code 500, with default header values.
+/*SearchLdapGroupInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type SearchLdapGroupInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -241,18 +230,15 @@ type SearchLdapGroupInternalServerError struct {
 func (o *SearchLdapGroupInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /ldap/groups/search][%d] searchLdapGroupInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *SearchLdapGroupInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SearchLdapGroupInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

@@ -17,96 +17,81 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetSupportedEventTypesParams creates a new GetSupportedEventTypesParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetSupportedEventTypesParams creates a new GetSupportedEventTypesParams object
+// with the default values initialized.
 func NewGetSupportedEventTypesParams() *GetSupportedEventTypesParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &GetSupportedEventTypesParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetSupportedEventTypesParamsWithTimeout creates a new GetSupportedEventTypesParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetSupportedEventTypesParamsWithTimeout(timeout time.Duration) *GetSupportedEventTypesParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &GetSupportedEventTypesParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		timeout: timeout,
 	}
 }
 
 // NewGetSupportedEventTypesParamsWithContext creates a new GetSupportedEventTypesParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetSupportedEventTypesParamsWithContext(ctx context.Context) *GetSupportedEventTypesParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &GetSupportedEventTypesParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		Context: ctx,
 	}
 }
 
 // NewGetSupportedEventTypesParamsWithHTTPClient creates a new GetSupportedEventTypesParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetSupportedEventTypesParamsWithHTTPClient(client *http.Client) *GetSupportedEventTypesParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &GetSupportedEventTypesParams{
-		HTTPClient: client,
+		XIsResourceName: &xIsResourceNameDefault,
+		HTTPClient:      client,
 	}
 }
 
-/* GetSupportedEventTypesParams contains all the parameters to send to the API endpoint
-   for the get supported event types operation.
-
-   Typically these are written to a http.Request.
+/*GetSupportedEventTypesParams contains all the parameters to send to the API endpoint
+for the get supported event types operation typically these are written to a http.Request
 */
 type GetSupportedEventTypesParams struct {
 
-	/* XIsResourceName.
+	/*XIsResourceName
+	  The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
 
-	   The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
 	*/
 	XIsResourceName *bool
+	/*XRequestID
+	  An unique ID for the request
 
-	/* XRequestID.
-
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*ProjectNameOrID
+	  The name or id of the project
 
-	/* ProjectNameOrID.
-
-	   The name or id of the project
 	*/
 	ProjectNameOrID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get supported event types params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetSupportedEventTypesParams) WithDefaults() *GetSupportedEventTypesParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get supported event types params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetSupportedEventTypesParams) SetDefaults() {
-	var (
-		xIsResourceNameDefault = bool(false)
-	)
-
-	val := GetSupportedEventTypesParams{
-		XIsResourceName: &xIsResourceNameDefault,
-	}
-
-	val.timeout = o.timeout
-	val.Context = o.Context
-	val.HTTPClient = o.HTTPClient
-	*o = val
 }
 
 // WithTimeout adds the timeout to the get supported event types params
@@ -189,6 +174,7 @@ func (o *GetSupportedEventTypesParams) WriteToRequest(r runtime.ClientRequest, r
 		if err := r.SetHeaderParam("X-Is-Resource-Name", swag.FormatBool(*o.XIsResourceName)); err != nil {
 			return err
 		}
+
 	}
 
 	if o.XRequestID != nil {
@@ -197,6 +183,7 @@ func (o *GetSupportedEventTypesParams) WriteToRequest(r runtime.ClientRequest, r
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param project_name_or_id

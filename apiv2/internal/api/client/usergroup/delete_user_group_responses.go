@@ -53,6 +53,7 @@ func (o *DeleteUserGroupReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,13 +64,12 @@ func NewDeleteUserGroupOK() *DeleteUserGroupOK {
 	return &DeleteUserGroupOK{}
 }
 
-/* DeleteUserGroupOK describes a response with status code 200, with default header values.
+/*DeleteUserGroupOK handles this case with default header values.
 
 Success
 */
 type DeleteUserGroupOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -80,12 +80,8 @@ func (o *DeleteUserGroupOK) Error() string {
 
 func (o *DeleteUserGroupOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -95,13 +91,12 @@ func NewDeleteUserGroupBadRequest() *DeleteUserGroupBadRequest {
 	return &DeleteUserGroupBadRequest{}
 }
 
-/* DeleteUserGroupBadRequest describes a response with status code 400, with default header values.
+/*DeleteUserGroupBadRequest handles this case with default header values.
 
 Bad request
 */
 type DeleteUserGroupBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +106,15 @@ type DeleteUserGroupBadRequest struct {
 func (o *DeleteUserGroupBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /usergroups/{group_id}][%d] deleteUserGroupBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *DeleteUserGroupBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteUserGroupBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +131,12 @@ func NewDeleteUserGroupUnauthorized() *DeleteUserGroupUnauthorized {
 	return &DeleteUserGroupUnauthorized{}
 }
 
-/* DeleteUserGroupUnauthorized describes a response with status code 401, with default header values.
+/*DeleteUserGroupUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type DeleteUserGroupUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +146,15 @@ type DeleteUserGroupUnauthorized struct {
 func (o *DeleteUserGroupUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /usergroups/{group_id}][%d] deleteUserGroupUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteUserGroupUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteUserGroupUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +171,12 @@ func NewDeleteUserGroupForbidden() *DeleteUserGroupForbidden {
 	return &DeleteUserGroupForbidden{}
 }
 
-/* DeleteUserGroupForbidden describes a response with status code 403, with default header values.
+/*DeleteUserGroupForbidden handles this case with default header values.
 
 Forbidden
 */
 type DeleteUserGroupForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +186,15 @@ type DeleteUserGroupForbidden struct {
 func (o *DeleteUserGroupForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /usergroups/{group_id}][%d] deleteUserGroupForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteUserGroupForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteUserGroupForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +211,12 @@ func NewDeleteUserGroupInternalServerError() *DeleteUserGroupInternalServerError
 	return &DeleteUserGroupInternalServerError{}
 }
 
-/* DeleteUserGroupInternalServerError describes a response with status code 500, with default header values.
+/*DeleteUserGroupInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type DeleteUserGroupInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +226,15 @@ type DeleteUserGroupInternalServerError struct {
 func (o *DeleteUserGroupInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /usergroups/{group_id}][%d] deleteUserGroupInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteUserGroupInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteUserGroupInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

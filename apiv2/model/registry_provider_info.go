@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -44,6 +42,7 @@ func (m *RegistryProviderInfo) Validate(formats strfmt.Registry) error {
 }
 
 func (m *RegistryProviderInfo) validateCredentialPattern(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.CredentialPattern) { // not required
 		return nil
 	}
@@ -61,58 +60,13 @@ func (m *RegistryProviderInfo) validateCredentialPattern(formats strfmt.Registry
 }
 
 func (m *RegistryProviderInfo) validateEndpointPattern(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.EndpointPattern) { // not required
 		return nil
 	}
 
 	if m.EndpointPattern != nil {
 		if err := m.EndpointPattern.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("endpoint_pattern")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this registry provider info based on the context it is used
-func (m *RegistryProviderInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateCredentialPattern(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateEndpointPattern(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *RegistryProviderInfo) contextValidateCredentialPattern(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.CredentialPattern != nil {
-		if err := m.CredentialPattern.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("credential_pattern")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *RegistryProviderInfo) contextValidateEndpointPattern(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.EndpointPattern != nil {
-		if err := m.EndpointPattern.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("endpoint_pattern")
 			}

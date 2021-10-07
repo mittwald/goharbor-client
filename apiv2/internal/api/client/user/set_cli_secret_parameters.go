@@ -19,84 +19,66 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/model"
 )
 
-// NewSetCliSecretParams creates a new SetCliSecretParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewSetCliSecretParams creates a new SetCliSecretParams object
+// with the default values initialized.
 func NewSetCliSecretParams() *SetCliSecretParams {
+	var ()
 	return &SetCliSecretParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetCliSecretParamsWithTimeout creates a new SetCliSecretParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewSetCliSecretParamsWithTimeout(timeout time.Duration) *SetCliSecretParams {
+	var ()
 	return &SetCliSecretParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewSetCliSecretParamsWithContext creates a new SetCliSecretParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewSetCliSecretParamsWithContext(ctx context.Context) *SetCliSecretParams {
+	var ()
 	return &SetCliSecretParams{
+
 		Context: ctx,
 	}
 }
 
 // NewSetCliSecretParamsWithHTTPClient creates a new SetCliSecretParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewSetCliSecretParamsWithHTTPClient(client *http.Client) *SetCliSecretParams {
+	var ()
 	return &SetCliSecretParams{
 		HTTPClient: client,
 	}
 }
 
-/* SetCliSecretParams contains all the parameters to send to the API endpoint
-   for the set cli secret operation.
-
-   Typically these are written to a http.Request.
+/*SetCliSecretParams contains all the parameters to send to the API endpoint
+for the set cli secret operation typically these are written to a http.Request
 */
 type SetCliSecretParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
-
-	// Secret.
+	/*Secret*/
 	Secret *model.OIDCCliSecretReq
+	/*UserID
+	  User ID
 
-	/* UserID.
-
-	   User ID
-
-	   Format: int
 	*/
 	UserID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the set cli secret params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *SetCliSecretParams) WithDefaults() *SetCliSecretParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the set cli secret params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *SetCliSecretParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set cli secret params
@@ -179,7 +161,9 @@ func (o *SetCliSecretParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
+
 	if o.Secret != nil {
 		if err := r.SetBodyParam(o.Secret); err != nil {
 			return err

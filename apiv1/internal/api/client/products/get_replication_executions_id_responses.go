@@ -65,6 +65,7 @@ func (o *GetReplicationExecutionsIDReader) ReadResponse(response runtime.ClientR
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +76,7 @@ func NewGetReplicationExecutionsIDOK() *GetReplicationExecutionsIDOK {
 	return &GetReplicationExecutionsIDOK{}
 }
 
-/* GetReplicationExecutionsIDOK describes a response with status code 200, with default header values.
+/*GetReplicationExecutionsIDOK handles this case with default header values.
 
 Success.
 */
@@ -86,6 +87,7 @@ type GetReplicationExecutionsIDOK struct {
 func (o *GetReplicationExecutionsIDOK) Error() string {
 	return fmt.Sprintf("[GET /replication/executions/{id}][%d] getReplicationExecutionsIdOK  %+v", 200, o.Payload)
 }
+
 func (o *GetReplicationExecutionsIDOK) GetPayload() *model.ReplicationExecution {
 	return o.Payload
 }
@@ -107,7 +109,7 @@ func NewGetReplicationExecutionsIDBadRequest() *GetReplicationExecutionsIDBadReq
 	return &GetReplicationExecutionsIDBadRequest{}
 }
 
-/* GetReplicationExecutionsIDBadRequest describes a response with status code 400, with default header values.
+/*GetReplicationExecutionsIDBadRequest handles this case with default header values.
 
 Bad request.
 */
@@ -128,7 +130,7 @@ func NewGetReplicationExecutionsIDUnauthorized() *GetReplicationExecutionsIDUnau
 	return &GetReplicationExecutionsIDUnauthorized{}
 }
 
-/* GetReplicationExecutionsIDUnauthorized describes a response with status code 401, with default header values.
+/*GetReplicationExecutionsIDUnauthorized handles this case with default header values.
 
 User need to login first.
 */
@@ -149,7 +151,7 @@ func NewGetReplicationExecutionsIDForbidden() *GetReplicationExecutionsIDForbidd
 	return &GetReplicationExecutionsIDForbidden{}
 }
 
-/* GetReplicationExecutionsIDForbidden describes a response with status code 403, with default header values.
+/*GetReplicationExecutionsIDForbidden handles this case with default header values.
 
 User has no privilege for the operation.
 */
@@ -170,7 +172,7 @@ func NewGetReplicationExecutionsIDNotFound() *GetReplicationExecutionsIDNotFound
 	return &GetReplicationExecutionsIDNotFound{}
 }
 
-/* GetReplicationExecutionsIDNotFound describes a response with status code 404, with default header values.
+/*GetReplicationExecutionsIDNotFound handles this case with default header values.
 
 Resource requested does not exist.
 */
@@ -191,7 +193,7 @@ func NewGetReplicationExecutionsIDUnsupportedMediaType() *GetReplicationExecutio
 	return &GetReplicationExecutionsIDUnsupportedMediaType{}
 }
 
-/* GetReplicationExecutionsIDUnsupportedMediaType describes a response with status code 415, with default header values.
+/*GetReplicationExecutionsIDUnsupportedMediaType handles this case with default header values.
 
 The Media Type of the request is not supported, it has to be "application/json"
 */
@@ -212,7 +214,7 @@ func NewGetReplicationExecutionsIDInternalServerError() *GetReplicationExecution
 	return &GetReplicationExecutionsIDInternalServerError{}
 }
 
-/* GetReplicationExecutionsIDInternalServerError describes a response with status code 500, with default header values.
+/*GetReplicationExecutionsIDInternalServerError handles this case with default header values.
 
 Unexpected internal errors.
 */

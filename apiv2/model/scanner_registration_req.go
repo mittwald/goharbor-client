@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -21,24 +19,20 @@ type ScannerRegistrationReq struct {
 
 	// An optional value of the HTTP Authorization header sent with each request to the Scanner Adapter API.
 	//
-	// Example: Bearer: JWTTOKENGOESHERE
 	AccessCredential string `json:"access_credential,omitempty"`
 
 	// Specify what authentication approach is adopted for the HTTP communications.
 	// Supported types Basic", "Bearer" and api key header "X-ScannerAdapter-API-Key"
 	//
-	// Example: Bearer
 	Auth string `json:"auth,omitempty"`
 
 	// An optional description of this registration.
-	// Example: A free-to-use tool that scans container images for package vulnerabilities.\n
 	Description string `json:"description,omitempty"`
 
 	// Indicate whether the registration is enabled or not
 	Disabled *bool `json:"disabled,omitempty"`
 
 	// The name of this registration
-	// Example: Trivy
 	// Required: true
 	Name *string `json:"name"`
 
@@ -46,7 +40,6 @@ type ScannerRegistrationReq struct {
 	SkipCertVerify *bool `json:"skip_certVerify,omitempty"`
 
 	// A base URL of the scanner adapter.
-	// Example: http://harbor-scanner-trivy:8080
 	// Required: true
 	// Format: uri
 	URL *strfmt.URI `json:"url"`
@@ -92,11 +85,6 @@ func (m *ScannerRegistrationReq) validateURL(formats strfmt.Registry) error {
 		return err
 	}
 
-	return nil
-}
-
-// ContextValidate validates this scanner registration req based on context it is used
-func (m *ScannerRegistrationReq) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

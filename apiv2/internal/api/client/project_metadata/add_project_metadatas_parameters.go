@@ -17,99 +17,83 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewAddProjectMetadatasParams creates a new AddProjectMetadatasParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewAddProjectMetadatasParams creates a new AddProjectMetadatasParams object
+// with the default values initialized.
 func NewAddProjectMetadatasParams() *AddProjectMetadatasParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &AddProjectMetadatasParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewAddProjectMetadatasParamsWithTimeout creates a new AddProjectMetadatasParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewAddProjectMetadatasParamsWithTimeout(timeout time.Duration) *AddProjectMetadatasParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &AddProjectMetadatasParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		timeout: timeout,
 	}
 }
 
 // NewAddProjectMetadatasParamsWithContext creates a new AddProjectMetadatasParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewAddProjectMetadatasParamsWithContext(ctx context.Context) *AddProjectMetadatasParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &AddProjectMetadatasParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		Context: ctx,
 	}
 }
 
 // NewAddProjectMetadatasParamsWithHTTPClient creates a new AddProjectMetadatasParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewAddProjectMetadatasParamsWithHTTPClient(client *http.Client) *AddProjectMetadatasParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &AddProjectMetadatasParams{
-		HTTPClient: client,
+		XIsResourceName: &xIsResourceNameDefault,
+		HTTPClient:      client,
 	}
 }
 
-/* AddProjectMetadatasParams contains all the parameters to send to the API endpoint
-   for the add project metadatas operation.
-
-   Typically these are written to a http.Request.
+/*AddProjectMetadatasParams contains all the parameters to send to the API endpoint
+for the add project metadatas operation typically these are written to a http.Request
 */
 type AddProjectMetadatasParams struct {
 
-	/* XIsResourceName.
+	/*XIsResourceName
+	  The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
 
-	   The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
 	*/
 	XIsResourceName *bool
+	/*XRequestID
+	  An unique ID for the request
 
-	/* XRequestID.
-
-	   An unique ID for the request
 	*/
 	XRequestID *string
-
-	// Metadata.
+	/*Metadata*/
 	Metadata map[string]string
+	/*ProjectNameOrID
+	  The name or id of the project
 
-	/* ProjectNameOrID.
-
-	   The name or id of the project
 	*/
 	ProjectNameOrID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the add project metadatas params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *AddProjectMetadatasParams) WithDefaults() *AddProjectMetadatasParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the add project metadatas params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *AddProjectMetadatasParams) SetDefaults() {
-	var (
-		xIsResourceNameDefault = bool(false)
-	)
-
-	val := AddProjectMetadatasParams{
-		XIsResourceName: &xIsResourceNameDefault,
-	}
-
-	val.timeout = o.timeout
-	val.Context = o.Context
-	val.HTTPClient = o.HTTPClient
-	*o = val
 }
 
 // WithTimeout adds the timeout to the add project metadatas params
@@ -203,6 +187,7 @@ func (o *AddProjectMetadatasParams) WriteToRequest(r runtime.ClientRequest, reg 
 		if err := r.SetHeaderParam("X-Is-Resource-Name", swag.FormatBool(*o.XIsResourceName)); err != nil {
 			return err
 		}
+
 	}
 
 	if o.XRequestID != nil {
@@ -211,7 +196,9 @@ func (o *AddProjectMetadatasParams) WriteToRequest(r runtime.ClientRequest, reg 
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
+
 	if o.Metadata != nil {
 		if err := r.SetBodyParam(o.Metadata); err != nil {
 			return err

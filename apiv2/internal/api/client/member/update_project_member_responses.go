@@ -59,6 +59,7 @@ func (o *UpdateProjectMemberReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,13 +70,12 @@ func NewUpdateProjectMemberOK() *UpdateProjectMemberOK {
 	return &UpdateProjectMemberOK{}
 }
 
-/* UpdateProjectMemberOK describes a response with status code 200, with default header values.
+/*UpdateProjectMemberOK handles this case with default header values.
 
 Success
 */
 type UpdateProjectMemberOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -86,12 +86,8 @@ func (o *UpdateProjectMemberOK) Error() string {
 
 func (o *UpdateProjectMemberOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -101,13 +97,12 @@ func NewUpdateProjectMemberBadRequest() *UpdateProjectMemberBadRequest {
 	return &UpdateProjectMemberBadRequest{}
 }
 
-/* UpdateProjectMemberBadRequest describes a response with status code 400, with default header values.
+/*UpdateProjectMemberBadRequest handles this case with default header values.
 
 Bad request
 */
 type UpdateProjectMemberBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -117,18 +112,15 @@ type UpdateProjectMemberBadRequest struct {
 func (o *UpdateProjectMemberBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name_or_id}/members/{mid}][%d] updateProjectMemberBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *UpdateProjectMemberBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateProjectMemberBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -145,13 +137,12 @@ func NewUpdateProjectMemberUnauthorized() *UpdateProjectMemberUnauthorized {
 	return &UpdateProjectMemberUnauthorized{}
 }
 
-/* UpdateProjectMemberUnauthorized describes a response with status code 401, with default header values.
+/*UpdateProjectMemberUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type UpdateProjectMemberUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -161,18 +152,15 @@ type UpdateProjectMemberUnauthorized struct {
 func (o *UpdateProjectMemberUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name_or_id}/members/{mid}][%d] updateProjectMemberUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *UpdateProjectMemberUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateProjectMemberUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -189,13 +177,12 @@ func NewUpdateProjectMemberForbidden() *UpdateProjectMemberForbidden {
 	return &UpdateProjectMemberForbidden{}
 }
 
-/* UpdateProjectMemberForbidden describes a response with status code 403, with default header values.
+/*UpdateProjectMemberForbidden handles this case with default header values.
 
 Forbidden
 */
 type UpdateProjectMemberForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -205,18 +192,15 @@ type UpdateProjectMemberForbidden struct {
 func (o *UpdateProjectMemberForbidden) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name_or_id}/members/{mid}][%d] updateProjectMemberForbidden  %+v", 403, o.Payload)
 }
+
 func (o *UpdateProjectMemberForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateProjectMemberForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -233,13 +217,12 @@ func NewUpdateProjectMemberNotFound() *UpdateProjectMemberNotFound {
 	return &UpdateProjectMemberNotFound{}
 }
 
-/* UpdateProjectMemberNotFound describes a response with status code 404, with default header values.
+/*UpdateProjectMemberNotFound handles this case with default header values.
 
 Not found
 */
 type UpdateProjectMemberNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,18 +232,15 @@ type UpdateProjectMemberNotFound struct {
 func (o *UpdateProjectMemberNotFound) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name_or_id}/members/{mid}][%d] updateProjectMemberNotFound  %+v", 404, o.Payload)
 }
+
 func (o *UpdateProjectMemberNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateProjectMemberNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -277,13 +257,12 @@ func NewUpdateProjectMemberInternalServerError() *UpdateProjectMemberInternalSer
 	return &UpdateProjectMemberInternalServerError{}
 }
 
-/* UpdateProjectMemberInternalServerError describes a response with status code 500, with default header values.
+/*UpdateProjectMemberInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type UpdateProjectMemberInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -293,18 +272,15 @@ type UpdateProjectMemberInternalServerError struct {
 func (o *UpdateProjectMemberInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name_or_id}/members/{mid}][%d] updateProjectMemberInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *UpdateProjectMemberInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateProjectMemberInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

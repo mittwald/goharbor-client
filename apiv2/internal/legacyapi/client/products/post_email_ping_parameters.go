@@ -18,73 +18,59 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/model/legacy"
 )
 
-// NewPostEmailPingParams creates a new PostEmailPingParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPostEmailPingParams creates a new PostEmailPingParams object
+// with the default values initialized.
 func NewPostEmailPingParams() *PostEmailPingParams {
+	var ()
 	return &PostEmailPingParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostEmailPingParamsWithTimeout creates a new PostEmailPingParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPostEmailPingParamsWithTimeout(timeout time.Duration) *PostEmailPingParams {
+	var ()
 	return &PostEmailPingParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPostEmailPingParamsWithContext creates a new PostEmailPingParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPostEmailPingParamsWithContext(ctx context.Context) *PostEmailPingParams {
+	var ()
 	return &PostEmailPingParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPostEmailPingParamsWithHTTPClient creates a new PostEmailPingParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPostEmailPingParamsWithHTTPClient(client *http.Client) *PostEmailPingParams {
+	var ()
 	return &PostEmailPingParams{
 		HTTPClient: client,
 	}
 }
 
-/* PostEmailPingParams contains all the parameters to send to the API endpoint
-   for the post email ping operation.
-
-   Typically these are written to a http.Request.
+/*PostEmailPingParams contains all the parameters to send to the API endpoint
+for the post email ping operation typically these are written to a http.Request
 */
 type PostEmailPingParams struct {
 
-	/* Settings.
+	/*Settings
+	  Email server settings, if some of the settings are not assigned, they will be read from system configuration.
 
-	   Email server settings, if some of the settings are not assigned, they will be read from system configuration.
 	*/
 	Settings *legacy.EmailServerSetting
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the post email ping params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostEmailPingParams) WithDefaults() *PostEmailPingParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the post email ping params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostEmailPingParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post email ping params
@@ -138,6 +124,7 @@ func (o *PostEmailPingParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		return err
 	}
 	var res []error
+
 	if o.Settings != nil {
 		if err := r.SetBodyParam(o.Settings); err != nil {
 			return err

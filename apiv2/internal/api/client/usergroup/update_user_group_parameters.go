@@ -19,84 +19,66 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/model"
 )
 
-// NewUpdateUserGroupParams creates a new UpdateUserGroupParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewUpdateUserGroupParams creates a new UpdateUserGroupParams object
+// with the default values initialized.
 func NewUpdateUserGroupParams() *UpdateUserGroupParams {
+	var ()
 	return &UpdateUserGroupParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateUserGroupParamsWithTimeout creates a new UpdateUserGroupParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewUpdateUserGroupParamsWithTimeout(timeout time.Duration) *UpdateUserGroupParams {
+	var ()
 	return &UpdateUserGroupParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewUpdateUserGroupParamsWithContext creates a new UpdateUserGroupParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewUpdateUserGroupParamsWithContext(ctx context.Context) *UpdateUserGroupParams {
+	var ()
 	return &UpdateUserGroupParams{
+
 		Context: ctx,
 	}
 }
 
 // NewUpdateUserGroupParamsWithHTTPClient creates a new UpdateUserGroupParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewUpdateUserGroupParamsWithHTTPClient(client *http.Client) *UpdateUserGroupParams {
+	var ()
 	return &UpdateUserGroupParams{
 		HTTPClient: client,
 	}
 }
 
-/* UpdateUserGroupParams contains all the parameters to send to the API endpoint
-   for the update user group operation.
-
-   Typically these are written to a http.Request.
+/*UpdateUserGroupParams contains all the parameters to send to the API endpoint
+for the update user group operation typically these are written to a http.Request
 */
 type UpdateUserGroupParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*GroupID
+	  Group ID
 
-	/* GroupID.
-
-	   Group ID
-
-	   Format: int64
 	*/
 	GroupID int64
-
-	// Usergroup.
+	/*Usergroup*/
 	Usergroup *model.UserGroup
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the update user group params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *UpdateUserGroupParams) WithDefaults() *UpdateUserGroupParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the update user group params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *UpdateUserGroupParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update user group params
@@ -179,12 +161,14 @@ func (o *UpdateUserGroupParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param group_id
 	if err := r.SetPathParam("group_id", swag.FormatInt64(o.GroupID)); err != nil {
 		return err
 	}
+
 	if o.Usergroup != nil {
 		if err := r.SetBodyParam(o.Usergroup); err != nil {
 			return err

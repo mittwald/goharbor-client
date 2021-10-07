@@ -18,79 +18,64 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/model"
 )
 
-// NewCreateReplicationPolicyParams creates a new CreateReplicationPolicyParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewCreateReplicationPolicyParams creates a new CreateReplicationPolicyParams object
+// with the default values initialized.
 func NewCreateReplicationPolicyParams() *CreateReplicationPolicyParams {
+	var ()
 	return &CreateReplicationPolicyParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateReplicationPolicyParamsWithTimeout creates a new CreateReplicationPolicyParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewCreateReplicationPolicyParamsWithTimeout(timeout time.Duration) *CreateReplicationPolicyParams {
+	var ()
 	return &CreateReplicationPolicyParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewCreateReplicationPolicyParamsWithContext creates a new CreateReplicationPolicyParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewCreateReplicationPolicyParamsWithContext(ctx context.Context) *CreateReplicationPolicyParams {
+	var ()
 	return &CreateReplicationPolicyParams{
+
 		Context: ctx,
 	}
 }
 
 // NewCreateReplicationPolicyParamsWithHTTPClient creates a new CreateReplicationPolicyParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewCreateReplicationPolicyParamsWithHTTPClient(client *http.Client) *CreateReplicationPolicyParams {
+	var ()
 	return &CreateReplicationPolicyParams{
 		HTTPClient: client,
 	}
 }
 
-/* CreateReplicationPolicyParams contains all the parameters to send to the API endpoint
-   for the create replication policy operation.
-
-   Typically these are written to a http.Request.
+/*CreateReplicationPolicyParams contains all the parameters to send to the API endpoint
+for the create replication policy operation typically these are written to a http.Request
 */
 type CreateReplicationPolicyParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Policy
+	  The replication policy
 
-	/* Policy.
-
-	   The replication policy
 	*/
 	Policy *model.ReplicationPolicy
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the create replication policy params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *CreateReplicationPolicyParams) WithDefaults() *CreateReplicationPolicyParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the create replication policy params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *CreateReplicationPolicyParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create replication policy params
@@ -162,7 +147,9 @@ func (o *CreateReplicationPolicyParams) WriteToRequest(r runtime.ClientRequest, 
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
+
 	if o.Policy != nil {
 		if err := r.SetBodyParam(o.Policy); err != nil {
 			return err

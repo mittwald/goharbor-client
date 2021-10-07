@@ -131,7 +131,7 @@ func TestAPIRefreshRobotAccountSecret(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, r)
 
-    rSec, err := c.RefreshRobotAccountSecretByName(ctx, "test-robot", "aVeryL0000ngSecret")
+	rSec, err := c.RefreshRobotAccountSecretByName(ctx, "test-robot", "aVeryL0000ngSecret")
 	require.NoError(t, err)
 	require.NotNil(t, rSec)
 

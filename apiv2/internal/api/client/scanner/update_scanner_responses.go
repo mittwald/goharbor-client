@@ -53,6 +53,7 @@ func (o *UpdateScannerReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,13 +64,12 @@ func NewUpdateScannerOK() *UpdateScannerOK {
 	return &UpdateScannerOK{}
 }
 
-/* UpdateScannerOK describes a response with status code 200, with default header values.
+/*UpdateScannerOK handles this case with default header values.
 
 Success
 */
 type UpdateScannerOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -80,12 +80,8 @@ func (o *UpdateScannerOK) Error() string {
 
 func (o *UpdateScannerOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -95,13 +91,12 @@ func NewUpdateScannerUnauthorized() *UpdateScannerUnauthorized {
 	return &UpdateScannerUnauthorized{}
 }
 
-/* UpdateScannerUnauthorized describes a response with status code 401, with default header values.
+/*UpdateScannerUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type UpdateScannerUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +106,15 @@ type UpdateScannerUnauthorized struct {
 func (o *UpdateScannerUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /scanners/{registration_id}][%d] updateScannerUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *UpdateScannerUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateScannerUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +131,12 @@ func NewUpdateScannerForbidden() *UpdateScannerForbidden {
 	return &UpdateScannerForbidden{}
 }
 
-/* UpdateScannerForbidden describes a response with status code 403, with default header values.
+/*UpdateScannerForbidden handles this case with default header values.
 
 Forbidden
 */
 type UpdateScannerForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +146,15 @@ type UpdateScannerForbidden struct {
 func (o *UpdateScannerForbidden) Error() string {
 	return fmt.Sprintf("[PUT /scanners/{registration_id}][%d] updateScannerForbidden  %+v", 403, o.Payload)
 }
+
 func (o *UpdateScannerForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateScannerForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +171,12 @@ func NewUpdateScannerNotFound() *UpdateScannerNotFound {
 	return &UpdateScannerNotFound{}
 }
 
-/* UpdateScannerNotFound describes a response with status code 404, with default header values.
+/*UpdateScannerNotFound handles this case with default header values.
 
 Not found
 */
 type UpdateScannerNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +186,15 @@ type UpdateScannerNotFound struct {
 func (o *UpdateScannerNotFound) Error() string {
 	return fmt.Sprintf("[PUT /scanners/{registration_id}][%d] updateScannerNotFound  %+v", 404, o.Payload)
 }
+
 func (o *UpdateScannerNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateScannerNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +211,12 @@ func NewUpdateScannerInternalServerError() *UpdateScannerInternalServerError {
 	return &UpdateScannerInternalServerError{}
 }
 
-/* UpdateScannerInternalServerError describes a response with status code 500, with default header values.
+/*UpdateScannerInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type UpdateScannerInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +226,15 @@ type UpdateScannerInternalServerError struct {
 func (o *UpdateScannerInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /scanners/{registration_id}][%d] updateScannerInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *UpdateScannerInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateScannerInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

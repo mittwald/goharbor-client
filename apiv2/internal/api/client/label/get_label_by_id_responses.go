@@ -47,6 +47,7 @@ func (o *GetLabelByIDReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +58,7 @@ func NewGetLabelByIDOK() *GetLabelByIDOK {
 	return &GetLabelByIDOK{}
 }
 
-/* GetLabelByIDOK describes a response with status code 200, with default header values.
+/*GetLabelByIDOK handles this case with default header values.
 
 Get successfully.
 */
@@ -68,6 +69,7 @@ type GetLabelByIDOK struct {
 func (o *GetLabelByIDOK) Error() string {
 	return fmt.Sprintf("[GET /labels/{label_id}][%d] getLabelByIdOK  %+v", 200, o.Payload)
 }
+
 func (o *GetLabelByIDOK) GetPayload() *model.Label {
 	return o.Payload
 }
@@ -89,13 +91,12 @@ func NewGetLabelByIDUnauthorized() *GetLabelByIDUnauthorized {
 	return &GetLabelByIDUnauthorized{}
 }
 
-/* GetLabelByIDUnauthorized describes a response with status code 401, with default header values.
+/*GetLabelByIDUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type GetLabelByIDUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -105,18 +106,15 @@ type GetLabelByIDUnauthorized struct {
 func (o *GetLabelByIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /labels/{label_id}][%d] getLabelByIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetLabelByIDUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetLabelByIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -133,13 +131,12 @@ func NewGetLabelByIDNotFound() *GetLabelByIDNotFound {
 	return &GetLabelByIDNotFound{}
 }
 
-/* GetLabelByIDNotFound describes a response with status code 404, with default header values.
+/*GetLabelByIDNotFound handles this case with default header values.
 
 Not found
 */
 type GetLabelByIDNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -149,18 +146,15 @@ type GetLabelByIDNotFound struct {
 func (o *GetLabelByIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /labels/{label_id}][%d] getLabelByIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetLabelByIDNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetLabelByIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -177,13 +171,12 @@ func NewGetLabelByIDInternalServerError() *GetLabelByIDInternalServerError {
 	return &GetLabelByIDInternalServerError{}
 }
 
-/* GetLabelByIDInternalServerError describes a response with status code 500, with default header values.
+/*GetLabelByIDInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetLabelByIDInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -193,18 +186,15 @@ type GetLabelByIDInternalServerError struct {
 func (o *GetLabelByIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /labels/{label_id}][%d] getLabelByIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetLabelByIDInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetLabelByIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

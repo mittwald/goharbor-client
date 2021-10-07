@@ -53,6 +53,7 @@ func (o *CreateScannerReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,13 +64,12 @@ func NewCreateScannerCreated() *CreateScannerCreated {
 	return &CreateScannerCreated{}
 }
 
-/* CreateScannerCreated describes a response with status code 201, with default header values.
+/*CreateScannerCreated handles this case with default header values.
 
 Created successfully
 */
 type CreateScannerCreated struct {
-
-	/* The URL of the created resource
+	/*The URL of the created resource
 	 */
 	Location string
 }
@@ -80,12 +80,8 @@ func (o *CreateScannerCreated) Error() string {
 
 func (o *CreateScannerCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Location
-	hdrLocation := response.GetHeader("Location")
-
-	if hdrLocation != "" {
-		o.Location = hdrLocation
-	}
+	// response header Location
+	o.Location = response.GetHeader("Location")
 
 	return nil
 }
@@ -95,13 +91,12 @@ func NewCreateScannerBadRequest() *CreateScannerBadRequest {
 	return &CreateScannerBadRequest{}
 }
 
-/* CreateScannerBadRequest describes a response with status code 400, with default header values.
+/*CreateScannerBadRequest handles this case with default header values.
 
 Bad request
 */
 type CreateScannerBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +106,15 @@ type CreateScannerBadRequest struct {
 func (o *CreateScannerBadRequest) Error() string {
 	return fmt.Sprintf("[POST /scanners][%d] createScannerBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *CreateScannerBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateScannerBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +131,12 @@ func NewCreateScannerUnauthorized() *CreateScannerUnauthorized {
 	return &CreateScannerUnauthorized{}
 }
 
-/* CreateScannerUnauthorized describes a response with status code 401, with default header values.
+/*CreateScannerUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type CreateScannerUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +146,15 @@ type CreateScannerUnauthorized struct {
 func (o *CreateScannerUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /scanners][%d] createScannerUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *CreateScannerUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateScannerUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +171,12 @@ func NewCreateScannerForbidden() *CreateScannerForbidden {
 	return &CreateScannerForbidden{}
 }
 
-/* CreateScannerForbidden describes a response with status code 403, with default header values.
+/*CreateScannerForbidden handles this case with default header values.
 
 Forbidden
 */
 type CreateScannerForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +186,15 @@ type CreateScannerForbidden struct {
 func (o *CreateScannerForbidden) Error() string {
 	return fmt.Sprintf("[POST /scanners][%d] createScannerForbidden  %+v", 403, o.Payload)
 }
+
 func (o *CreateScannerForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateScannerForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +211,12 @@ func NewCreateScannerInternalServerError() *CreateScannerInternalServerError {
 	return &CreateScannerInternalServerError{}
 }
 
-/* CreateScannerInternalServerError describes a response with status code 500, with default header values.
+/*CreateScannerInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type CreateScannerInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +226,15 @@ type CreateScannerInternalServerError struct {
 func (o *CreateScannerInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /scanners][%d] createScannerInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *CreateScannerInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateScannerInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

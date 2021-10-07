@@ -56,6 +56,7 @@ func (o *DeleteUsersUserIDReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -66,7 +67,7 @@ func NewDeleteUsersUserIDOK() *DeleteUsersUserIDOK {
 	return &DeleteUsersUserIDOK{}
 }
 
-/* DeleteUsersUserIDOK describes a response with status code 200, with default header values.
+/*DeleteUsersUserIDOK handles this case with default header values.
 
 Marked user as be removed successfully.
 */
@@ -87,7 +88,7 @@ func NewDeleteUsersUserIDBadRequest() *DeleteUsersUserIDBadRequest {
 	return &DeleteUsersUserIDBadRequest{}
 }
 
-/* DeleteUsersUserIDBadRequest describes a response with status code 400, with default header values.
+/*DeleteUsersUserIDBadRequest handles this case with default header values.
 
 Invalid user ID.
 */
@@ -108,7 +109,7 @@ func NewDeleteUsersUserIDUnauthorized() *DeleteUsersUserIDUnauthorized {
 	return &DeleteUsersUserIDUnauthorized{}
 }
 
-/* DeleteUsersUserIDUnauthorized describes a response with status code 401, with default header values.
+/*DeleteUsersUserIDUnauthorized handles this case with default header values.
 
 User need to log in first.
 */
@@ -129,7 +130,7 @@ func NewDeleteUsersUserIDForbidden() *DeleteUsersUserIDForbidden {
 	return &DeleteUsersUserIDForbidden{}
 }
 
-/* DeleteUsersUserIDForbidden describes a response with status code 403, with default header values.
+/*DeleteUsersUserIDForbidden handles this case with default header values.
 
 User does not have permission of admin role.
 */
@@ -150,7 +151,7 @@ func NewDeleteUsersUserIDNotFound() *DeleteUsersUserIDNotFound {
 	return &DeleteUsersUserIDNotFound{}
 }
 
-/* DeleteUsersUserIDNotFound describes a response with status code 404, with default header values.
+/*DeleteUsersUserIDNotFound handles this case with default header values.
 
 User ID does not exist.
 */
@@ -171,7 +172,7 @@ func NewDeleteUsersUserIDInternalServerError() *DeleteUsersUserIDInternalServerE
 	return &DeleteUsersUserIDInternalServerError{}
 }
 
-/* DeleteUsersUserIDInternalServerError describes a response with status code 500, with default header values.
+/*DeleteUsersUserIDInternalServerError handles this case with default header values.
 
 Unexpected internal errors.
 */

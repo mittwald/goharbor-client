@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -64,40 +62,13 @@ func (m *Registry) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Registry) validateCredential(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Credential) { // not required
 		return nil
 	}
 
 	if m.Credential != nil {
 		if err := m.Credential.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("credential")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this registry based on the context it is used
-func (m *Registry) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateCredential(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *Registry) contextValidateCredential(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Credential != nil {
-		if err := m.Credential.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("credential")
 			}

@@ -49,6 +49,7 @@ func (o *GetLogsReader) ReadResponse(response runtime.ClientResponse, consumer r
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -59,17 +60,15 @@ func NewGetLogsOK() *GetLogsOK {
 	return &GetLogsOK{}
 }
 
-/* GetLogsOK describes a response with status code 200, with default header values.
+/*GetLogsOK handles this case with default header values.
 
 Success
 */
 type GetLogsOK struct {
-
-	/* Link refers to the previous page and next page
+	/*Link refers to the previous page and next page
 	 */
 	Link string
-
-	/* The total count of auditlogs
+	/*The total count of auditlogs
 	 */
 	XTotalCount int64
 
@@ -79,29 +78,22 @@ type GetLogsOK struct {
 func (o *GetLogsOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/logs][%d] getLogsOK  %+v", 200, o.Payload)
 }
+
 func (o *GetLogsOK) GetPayload() []*model.AuditLog {
 	return o.Payload
 }
 
 func (o *GetLogsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Link
-	hdrLink := response.GetHeader("Link")
+	// response header Link
+	o.Link = response.GetHeader("Link")
 
-	if hdrLink != "" {
-		o.Link = hdrLink
+	// response header X-Total-Count
+	xTotalCount, err := swag.ConvertInt64(response.GetHeader("X-Total-Count"))
+	if err != nil {
+		return errors.InvalidType("X-Total-Count", "header", "int64", response.GetHeader("X-Total-Count"))
 	}
-
-	// hydrates response header X-Total-Count
-	hdrXTotalCount := response.GetHeader("X-Total-Count")
-
-	if hdrXTotalCount != "" {
-		valxTotalCount, err := swag.ConvertInt64(hdrXTotalCount)
-		if err != nil {
-			return errors.InvalidType("X-Total-Count", "header", "int64", hdrXTotalCount)
-		}
-		o.XTotalCount = valxTotalCount
-	}
+	o.XTotalCount = xTotalCount
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -116,13 +108,12 @@ func NewGetLogsBadRequest() *GetLogsBadRequest {
 	return &GetLogsBadRequest{}
 }
 
-/* GetLogsBadRequest describes a response with status code 400, with default header values.
+/*GetLogsBadRequest handles this case with default header values.
 
 Bad request
 */
 type GetLogsBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -132,18 +123,15 @@ type GetLogsBadRequest struct {
 func (o *GetLogsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/logs][%d] getLogsBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetLogsBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetLogsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -160,13 +148,12 @@ func NewGetLogsUnauthorized() *GetLogsUnauthorized {
 	return &GetLogsUnauthorized{}
 }
 
-/* GetLogsUnauthorized describes a response with status code 401, with default header values.
+/*GetLogsUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type GetLogsUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -176,18 +163,15 @@ type GetLogsUnauthorized struct {
 func (o *GetLogsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/logs][%d] getLogsUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetLogsUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetLogsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -204,13 +188,12 @@ func NewGetLogsInternalServerError() *GetLogsInternalServerError {
 	return &GetLogsInternalServerError{}
 }
 
-/* GetLogsInternalServerError describes a response with status code 500, with default header values.
+/*GetLogsInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetLogsInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -220,18 +203,15 @@ type GetLogsInternalServerError struct {
 func (o *GetLogsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/logs][%d] getLogsInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetLogsInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetLogsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

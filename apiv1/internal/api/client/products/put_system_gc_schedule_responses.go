@@ -50,6 +50,7 @@ func (o *PutSystemGcScheduleReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -60,7 +61,7 @@ func NewPutSystemGcScheduleOK() *PutSystemGcScheduleOK {
 	return &PutSystemGcScheduleOK{}
 }
 
-/* PutSystemGcScheduleOK describes a response with status code 200, with default header values.
+/*PutSystemGcScheduleOK handles this case with default header values.
 
 Updated gc's schedule successfully.
 */
@@ -81,7 +82,7 @@ func NewPutSystemGcScheduleBadRequest() *PutSystemGcScheduleBadRequest {
 	return &PutSystemGcScheduleBadRequest{}
 }
 
-/* PutSystemGcScheduleBadRequest describes a response with status code 400, with default header values.
+/*PutSystemGcScheduleBadRequest handles this case with default header values.
 
 Invalid schedule type.
 */
@@ -102,7 +103,7 @@ func NewPutSystemGcScheduleUnauthorized() *PutSystemGcScheduleUnauthorized {
 	return &PutSystemGcScheduleUnauthorized{}
 }
 
-/* PutSystemGcScheduleUnauthorized describes a response with status code 401, with default header values.
+/*PutSystemGcScheduleUnauthorized handles this case with default header values.
 
 User need to log in first.
 */
@@ -123,7 +124,7 @@ func NewPutSystemGcScheduleForbidden() *PutSystemGcScheduleForbidden {
 	return &PutSystemGcScheduleForbidden{}
 }
 
-/* PutSystemGcScheduleForbidden describes a response with status code 403, with default header values.
+/*PutSystemGcScheduleForbidden handles this case with default header values.
 
 User does not have permission of admin role.
 */
@@ -144,7 +145,7 @@ func NewPutSystemGcScheduleInternalServerError() *PutSystemGcScheduleInternalSer
 	return &PutSystemGcScheduleInternalServerError{}
 }
 
-/* PutSystemGcScheduleInternalServerError describes a response with status code 500, with default header values.
+/*PutSystemGcScheduleInternalServerError handles this case with default header values.
 
 Unexpected internal errors.
 */

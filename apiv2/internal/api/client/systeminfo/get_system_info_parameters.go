@@ -16,73 +16,59 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetSystemInfoParams creates a new GetSystemInfoParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetSystemInfoParams creates a new GetSystemInfoParams object
+// with the default values initialized.
 func NewGetSystemInfoParams() *GetSystemInfoParams {
+	var ()
 	return &GetSystemInfoParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetSystemInfoParamsWithTimeout creates a new GetSystemInfoParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetSystemInfoParamsWithTimeout(timeout time.Duration) *GetSystemInfoParams {
+	var ()
 	return &GetSystemInfoParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetSystemInfoParamsWithContext creates a new GetSystemInfoParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetSystemInfoParamsWithContext(ctx context.Context) *GetSystemInfoParams {
+	var ()
 	return &GetSystemInfoParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetSystemInfoParamsWithHTTPClient creates a new GetSystemInfoParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetSystemInfoParamsWithHTTPClient(client *http.Client) *GetSystemInfoParams {
+	var ()
 	return &GetSystemInfoParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetSystemInfoParams contains all the parameters to send to the API endpoint
-   for the get system info operation.
-
-   Typically these are written to a http.Request.
+/*GetSystemInfoParams contains all the parameters to send to the API endpoint
+for the get system info operation typically these are written to a http.Request
 */
 type GetSystemInfoParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get system info params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetSystemInfoParams) WithDefaults() *GetSystemInfoParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get system info params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetSystemInfoParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get system info params
@@ -143,6 +129,7 @@ func (o *GetSystemInfoParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	if len(res) > 0 {

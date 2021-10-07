@@ -59,6 +59,7 @@ func (o *DeletePolicyReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,13 +70,12 @@ func NewDeletePolicyOK() *DeletePolicyOK {
 	return &DeletePolicyOK{}
 }
 
-/* DeletePolicyOK describes a response with status code 200, with default header values.
+/*DeletePolicyOK handles this case with default header values.
 
 Success
 */
 type DeletePolicyOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -86,12 +86,8 @@ func (o *DeletePolicyOK) Error() string {
 
 func (o *DeletePolicyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -101,13 +97,12 @@ func NewDeletePolicyBadRequest() *DeletePolicyBadRequest {
 	return &DeletePolicyBadRequest{}
 }
 
-/* DeletePolicyBadRequest describes a response with status code 400, with default header values.
+/*DeletePolicyBadRequest handles this case with default header values.
 
 Bad request
 */
 type DeletePolicyBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -117,18 +112,15 @@ type DeletePolicyBadRequest struct {
 func (o *DeletePolicyBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/preheat/policies/{preheat_policy_name}][%d] deletePolicyBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *DeletePolicyBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeletePolicyBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -145,13 +137,12 @@ func NewDeletePolicyUnauthorized() *DeletePolicyUnauthorized {
 	return &DeletePolicyUnauthorized{}
 }
 
-/* DeletePolicyUnauthorized describes a response with status code 401, with default header values.
+/*DeletePolicyUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type DeletePolicyUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -161,18 +152,15 @@ type DeletePolicyUnauthorized struct {
 func (o *DeletePolicyUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/preheat/policies/{preheat_policy_name}][%d] deletePolicyUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeletePolicyUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeletePolicyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -189,13 +177,12 @@ func NewDeletePolicyForbidden() *DeletePolicyForbidden {
 	return &DeletePolicyForbidden{}
 }
 
-/* DeletePolicyForbidden describes a response with status code 403, with default header values.
+/*DeletePolicyForbidden handles this case with default header values.
 
 Forbidden
 */
 type DeletePolicyForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -205,18 +192,15 @@ type DeletePolicyForbidden struct {
 func (o *DeletePolicyForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/preheat/policies/{preheat_policy_name}][%d] deletePolicyForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeletePolicyForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeletePolicyForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -233,13 +217,12 @@ func NewDeletePolicyNotFound() *DeletePolicyNotFound {
 	return &DeletePolicyNotFound{}
 }
 
-/* DeletePolicyNotFound describes a response with status code 404, with default header values.
+/*DeletePolicyNotFound handles this case with default header values.
 
 Not found
 */
 type DeletePolicyNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,18 +232,15 @@ type DeletePolicyNotFound struct {
 func (o *DeletePolicyNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/preheat/policies/{preheat_policy_name}][%d] deletePolicyNotFound  %+v", 404, o.Payload)
 }
+
 func (o *DeletePolicyNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeletePolicyNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -277,13 +257,12 @@ func NewDeletePolicyInternalServerError() *DeletePolicyInternalServerError {
 	return &DeletePolicyInternalServerError{}
 }
 
-/* DeletePolicyInternalServerError describes a response with status code 500, with default header values.
+/*DeletePolicyInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type DeletePolicyInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -293,18 +272,15 @@ type DeletePolicyInternalServerError struct {
 func (o *DeletePolicyInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/preheat/policies/{preheat_policy_name}][%d] deletePolicyInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeletePolicyInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeletePolicyInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

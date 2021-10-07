@@ -53,6 +53,7 @@ func (o *PingLdapReader) ReadResponse(response runtime.ClientResponse, consumer 
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +64,7 @@ func NewPingLdapOK() *PingLdapOK {
 	return &PingLdapOK{}
 }
 
-/* PingLdapOK describes a response with status code 200, with default header values.
+/*PingLdapOK handles this case with default header values.
 
 Ping ldap service successfully.
 */
@@ -74,6 +75,7 @@ type PingLdapOK struct {
 func (o *PingLdapOK) Error() string {
 	return fmt.Sprintf("[POST /ldap/ping][%d] pingLdapOK  %+v", 200, o.Payload)
 }
+
 func (o *PingLdapOK) GetPayload() *model.LdapPingResult {
 	return o.Payload
 }
@@ -95,13 +97,12 @@ func NewPingLdapBadRequest() *PingLdapBadRequest {
 	return &PingLdapBadRequest{}
 }
 
-/* PingLdapBadRequest describes a response with status code 400, with default header values.
+/*PingLdapBadRequest handles this case with default header values.
 
 Bad request
 */
 type PingLdapBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +112,15 @@ type PingLdapBadRequest struct {
 func (o *PingLdapBadRequest) Error() string {
 	return fmt.Sprintf("[POST /ldap/ping][%d] pingLdapBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *PingLdapBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *PingLdapBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +137,12 @@ func NewPingLdapUnauthorized() *PingLdapUnauthorized {
 	return &PingLdapUnauthorized{}
 }
 
-/* PingLdapUnauthorized describes a response with status code 401, with default header values.
+/*PingLdapUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type PingLdapUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +152,15 @@ type PingLdapUnauthorized struct {
 func (o *PingLdapUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /ldap/ping][%d] pingLdapUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *PingLdapUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *PingLdapUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +177,12 @@ func NewPingLdapForbidden() *PingLdapForbidden {
 	return &PingLdapForbidden{}
 }
 
-/* PingLdapForbidden describes a response with status code 403, with default header values.
+/*PingLdapForbidden handles this case with default header values.
 
 Forbidden
 */
 type PingLdapForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +192,15 @@ type PingLdapForbidden struct {
 func (o *PingLdapForbidden) Error() string {
 	return fmt.Sprintf("[POST /ldap/ping][%d] pingLdapForbidden  %+v", 403, o.Payload)
 }
+
 func (o *PingLdapForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *PingLdapForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +217,12 @@ func NewPingLdapInternalServerError() *PingLdapInternalServerError {
 	return &PingLdapInternalServerError{}
 }
 
-/* PingLdapInternalServerError describes a response with status code 500, with default header values.
+/*PingLdapInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type PingLdapInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +232,15 @@ type PingLdapInternalServerError struct {
 func (o *PingLdapInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /ldap/ping][%d] pingLdapInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *PingLdapInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *PingLdapInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

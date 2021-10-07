@@ -59,6 +59,7 @@ func (o *GetRepositoryReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +70,7 @@ func NewGetRepositoryOK() *GetRepositoryOK {
 	return &GetRepositoryOK{}
 }
 
-/* GetRepositoryOK describes a response with status code 200, with default header values.
+/*GetRepositoryOK handles this case with default header values.
 
 Success
 */
@@ -80,6 +81,7 @@ type GetRepositoryOK struct {
 func (o *GetRepositoryOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}][%d] getRepositoryOK  %+v", 200, o.Payload)
 }
+
 func (o *GetRepositoryOK) GetPayload() *model.Repository {
 	return o.Payload
 }
@@ -101,13 +103,12 @@ func NewGetRepositoryBadRequest() *GetRepositoryBadRequest {
 	return &GetRepositoryBadRequest{}
 }
 
-/* GetRepositoryBadRequest describes a response with status code 400, with default header values.
+/*GetRepositoryBadRequest handles this case with default header values.
 
 Bad request
 */
 type GetRepositoryBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -117,18 +118,15 @@ type GetRepositoryBadRequest struct {
 func (o *GetRepositoryBadRequest) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}][%d] getRepositoryBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetRepositoryBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetRepositoryBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -145,13 +143,12 @@ func NewGetRepositoryUnauthorized() *GetRepositoryUnauthorized {
 	return &GetRepositoryUnauthorized{}
 }
 
-/* GetRepositoryUnauthorized describes a response with status code 401, with default header values.
+/*GetRepositoryUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type GetRepositoryUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -161,18 +158,15 @@ type GetRepositoryUnauthorized struct {
 func (o *GetRepositoryUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}][%d] getRepositoryUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetRepositoryUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetRepositoryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -189,13 +183,12 @@ func NewGetRepositoryForbidden() *GetRepositoryForbidden {
 	return &GetRepositoryForbidden{}
 }
 
-/* GetRepositoryForbidden describes a response with status code 403, with default header values.
+/*GetRepositoryForbidden handles this case with default header values.
 
 Forbidden
 */
 type GetRepositoryForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -205,18 +198,15 @@ type GetRepositoryForbidden struct {
 func (o *GetRepositoryForbidden) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}][%d] getRepositoryForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetRepositoryForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetRepositoryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -233,13 +223,12 @@ func NewGetRepositoryNotFound() *GetRepositoryNotFound {
 	return &GetRepositoryNotFound{}
 }
 
-/* GetRepositoryNotFound describes a response with status code 404, with default header values.
+/*GetRepositoryNotFound handles this case with default header values.
 
 Not found
 */
 type GetRepositoryNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,18 +238,15 @@ type GetRepositoryNotFound struct {
 func (o *GetRepositoryNotFound) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}][%d] getRepositoryNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetRepositoryNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetRepositoryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -277,13 +263,12 @@ func NewGetRepositoryInternalServerError() *GetRepositoryInternalServerError {
 	return &GetRepositoryInternalServerError{}
 }
 
-/* GetRepositoryInternalServerError describes a response with status code 500, with default header values.
+/*GetRepositoryInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetRepositoryInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -293,18 +278,15 @@ type GetRepositoryInternalServerError struct {
 func (o *GetRepositoryInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}][%d] getRepositoryInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetRepositoryInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetRepositoryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

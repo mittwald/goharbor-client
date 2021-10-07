@@ -59,6 +59,7 @@ func (o *CreateLabelReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,13 +70,12 @@ func NewCreateLabelCreated() *CreateLabelCreated {
 	return &CreateLabelCreated{}
 }
 
-/* CreateLabelCreated describes a response with status code 201, with default header values.
+/*CreateLabelCreated handles this case with default header values.
 
 Create successfully.
 */
 type CreateLabelCreated struct {
-
-	/* The URL of the created resource
+	/*The URL of the created resource
 	 */
 	Location string
 }
@@ -86,12 +86,8 @@ func (o *CreateLabelCreated) Error() string {
 
 func (o *CreateLabelCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Location
-	hdrLocation := response.GetHeader("Location")
-
-	if hdrLocation != "" {
-		o.Location = hdrLocation
-	}
+	// response header Location
+	o.Location = response.GetHeader("Location")
 
 	return nil
 }
@@ -101,13 +97,12 @@ func NewCreateLabelBadRequest() *CreateLabelBadRequest {
 	return &CreateLabelBadRequest{}
 }
 
-/* CreateLabelBadRequest describes a response with status code 400, with default header values.
+/*CreateLabelBadRequest handles this case with default header values.
 
 Bad request
 */
 type CreateLabelBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -117,18 +112,15 @@ type CreateLabelBadRequest struct {
 func (o *CreateLabelBadRequest) Error() string {
 	return fmt.Sprintf("[POST /labels][%d] createLabelBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *CreateLabelBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateLabelBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -145,13 +137,12 @@ func NewCreateLabelUnauthorized() *CreateLabelUnauthorized {
 	return &CreateLabelUnauthorized{}
 }
 
-/* CreateLabelUnauthorized describes a response with status code 401, with default header values.
+/*CreateLabelUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type CreateLabelUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -161,18 +152,15 @@ type CreateLabelUnauthorized struct {
 func (o *CreateLabelUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /labels][%d] createLabelUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *CreateLabelUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateLabelUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -189,13 +177,12 @@ func NewCreateLabelConflict() *CreateLabelConflict {
 	return &CreateLabelConflict{}
 }
 
-/* CreateLabelConflict describes a response with status code 409, with default header values.
+/*CreateLabelConflict handles this case with default header values.
 
 Conflict
 */
 type CreateLabelConflict struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -205,18 +192,15 @@ type CreateLabelConflict struct {
 func (o *CreateLabelConflict) Error() string {
 	return fmt.Sprintf("[POST /labels][%d] createLabelConflict  %+v", 409, o.Payload)
 }
+
 func (o *CreateLabelConflict) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateLabelConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -233,13 +217,12 @@ func NewCreateLabelUnsupportedMediaType() *CreateLabelUnsupportedMediaType {
 	return &CreateLabelUnsupportedMediaType{}
 }
 
-/* CreateLabelUnsupportedMediaType describes a response with status code 415, with default header values.
+/*CreateLabelUnsupportedMediaType handles this case with default header values.
 
 Unsupported MediaType
 */
 type CreateLabelUnsupportedMediaType struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,18 +232,15 @@ type CreateLabelUnsupportedMediaType struct {
 func (o *CreateLabelUnsupportedMediaType) Error() string {
 	return fmt.Sprintf("[POST /labels][%d] createLabelUnsupportedMediaType  %+v", 415, o.Payload)
 }
+
 func (o *CreateLabelUnsupportedMediaType) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateLabelUnsupportedMediaType) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -277,13 +257,12 @@ func NewCreateLabelInternalServerError() *CreateLabelInternalServerError {
 	return &CreateLabelInternalServerError{}
 }
 
-/* CreateLabelInternalServerError describes a response with status code 500, with default header values.
+/*CreateLabelInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type CreateLabelInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -293,18 +272,15 @@ type CreateLabelInternalServerError struct {
 func (o *CreateLabelInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /labels][%d] createLabelInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *CreateLabelInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateLabelInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

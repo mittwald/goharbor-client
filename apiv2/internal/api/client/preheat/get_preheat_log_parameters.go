@@ -17,97 +17,79 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetPreheatLogParams creates a new GetPreheatLogParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetPreheatLogParams creates a new GetPreheatLogParams object
+// with the default values initialized.
 func NewGetPreheatLogParams() *GetPreheatLogParams {
+	var ()
 	return &GetPreheatLogParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetPreheatLogParamsWithTimeout creates a new GetPreheatLogParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetPreheatLogParamsWithTimeout(timeout time.Duration) *GetPreheatLogParams {
+	var ()
 	return &GetPreheatLogParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetPreheatLogParamsWithContext creates a new GetPreheatLogParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetPreheatLogParamsWithContext(ctx context.Context) *GetPreheatLogParams {
+	var ()
 	return &GetPreheatLogParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetPreheatLogParamsWithHTTPClient creates a new GetPreheatLogParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetPreheatLogParamsWithHTTPClient(client *http.Client) *GetPreheatLogParams {
+	var ()
 	return &GetPreheatLogParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetPreheatLogParams contains all the parameters to send to the API endpoint
-   for the get preheat log operation.
-
-   Typically these are written to a http.Request.
+/*GetPreheatLogParams contains all the parameters to send to the API endpoint
+for the get preheat log operation typically these are written to a http.Request
 */
 type GetPreheatLogParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*ExecutionID
+	  Execution ID
 
-	/* ExecutionID.
-
-	   Execution ID
 	*/
 	ExecutionID int64
+	/*PreheatPolicyName
+	  Preheat Policy Name
 
-	/* PreheatPolicyName.
-
-	   Preheat Policy Name
 	*/
 	PreheatPolicyName string
+	/*ProjectName
+	  The name of the project
 
-	/* ProjectName.
-
-	   The name of the project
 	*/
 	ProjectName string
+	/*TaskID
+	  Task ID
 
-	/* TaskID.
-
-	   Task ID
 	*/
 	TaskID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get preheat log params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetPreheatLogParams) WithDefaults() *GetPreheatLogParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get preheat log params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetPreheatLogParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get preheat log params
@@ -212,6 +194,7 @@ func (o *GetPreheatLogParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param execution_id

@@ -53,6 +53,7 @@ func (o *StartReplicationReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,17 +64,15 @@ func NewStartReplicationCreated() *StartReplicationCreated {
 	return &StartReplicationCreated{}
 }
 
-/* StartReplicationCreated describes a response with status code 201, with default header values.
+/*StartReplicationCreated handles this case with default header values.
 
 Created
 */
 type StartReplicationCreated struct {
-
-	/* The location of the resource
+	/*The location of the resource
 	 */
 	Location string
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -84,19 +83,11 @@ func (o *StartReplicationCreated) Error() string {
 
 func (o *StartReplicationCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Location
-	hdrLocation := response.GetHeader("Location")
+	// response header Location
+	o.Location = response.GetHeader("Location")
 
-	if hdrLocation != "" {
-		o.Location = hdrLocation
-	}
-
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -106,13 +97,12 @@ func NewStartReplicationBadRequest() *StartReplicationBadRequest {
 	return &StartReplicationBadRequest{}
 }
 
-/* StartReplicationBadRequest describes a response with status code 400, with default header values.
+/*StartReplicationBadRequest handles this case with default header values.
 
 Bad request
 */
 type StartReplicationBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -122,18 +112,15 @@ type StartReplicationBadRequest struct {
 func (o *StartReplicationBadRequest) Error() string {
 	return fmt.Sprintf("[POST /replication/executions][%d] startReplicationBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *StartReplicationBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *StartReplicationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -150,13 +137,12 @@ func NewStartReplicationUnauthorized() *StartReplicationUnauthorized {
 	return &StartReplicationUnauthorized{}
 }
 
-/* StartReplicationUnauthorized describes a response with status code 401, with default header values.
+/*StartReplicationUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type StartReplicationUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -166,18 +152,15 @@ type StartReplicationUnauthorized struct {
 func (o *StartReplicationUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /replication/executions][%d] startReplicationUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *StartReplicationUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *StartReplicationUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -194,13 +177,12 @@ func NewStartReplicationForbidden() *StartReplicationForbidden {
 	return &StartReplicationForbidden{}
 }
 
-/* StartReplicationForbidden describes a response with status code 403, with default header values.
+/*StartReplicationForbidden handles this case with default header values.
 
 Forbidden
 */
 type StartReplicationForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -210,18 +192,15 @@ type StartReplicationForbidden struct {
 func (o *StartReplicationForbidden) Error() string {
 	return fmt.Sprintf("[POST /replication/executions][%d] startReplicationForbidden  %+v", 403, o.Payload)
 }
+
 func (o *StartReplicationForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *StartReplicationForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -238,13 +217,12 @@ func NewStartReplicationInternalServerError() *StartReplicationInternalServerErr
 	return &StartReplicationInternalServerError{}
 }
 
-/* StartReplicationInternalServerError describes a response with status code 500, with default header values.
+/*StartReplicationInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type StartReplicationInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -254,18 +232,15 @@ type StartReplicationInternalServerError struct {
 func (o *StartReplicationInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /replication/executions][%d] startReplicationInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *StartReplicationInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *StartReplicationInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

@@ -16,79 +16,64 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewSearchLdapUserParams creates a new SearchLdapUserParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewSearchLdapUserParams creates a new SearchLdapUserParams object
+// with the default values initialized.
 func NewSearchLdapUserParams() *SearchLdapUserParams {
+	var ()
 	return &SearchLdapUserParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSearchLdapUserParamsWithTimeout creates a new SearchLdapUserParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewSearchLdapUserParamsWithTimeout(timeout time.Duration) *SearchLdapUserParams {
+	var ()
 	return &SearchLdapUserParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewSearchLdapUserParamsWithContext creates a new SearchLdapUserParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewSearchLdapUserParamsWithContext(ctx context.Context) *SearchLdapUserParams {
+	var ()
 	return &SearchLdapUserParams{
+
 		Context: ctx,
 	}
 }
 
 // NewSearchLdapUserParamsWithHTTPClient creates a new SearchLdapUserParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewSearchLdapUserParamsWithHTTPClient(client *http.Client) *SearchLdapUserParams {
+	var ()
 	return &SearchLdapUserParams{
 		HTTPClient: client,
 	}
 }
 
-/* SearchLdapUserParams contains all the parameters to send to the API endpoint
-   for the search ldap user operation.
-
-   Typically these are written to a http.Request.
+/*SearchLdapUserParams contains all the parameters to send to the API endpoint
+for the search ldap user operation typically these are written to a http.Request
 */
 type SearchLdapUserParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Username
+	  Registered user ID
 
-	/* Username.
-
-	   Registered user ID
 	*/
 	Username *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the search ldap user params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *SearchLdapUserParams) WithDefaults() *SearchLdapUserParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the search ldap user params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *SearchLdapUserParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the search ldap user params
@@ -160,23 +145,23 @@ func (o *SearchLdapUserParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	if o.Username != nil {
 
 		// query param username
 		var qrUsername string
-
 		if o.Username != nil {
 			qrUsername = *o.Username
 		}
 		qUsername := qrUsername
 		if qUsername != "" {
-
 			if err := r.SetQueryParam("username", qUsername); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if len(res) > 0 {

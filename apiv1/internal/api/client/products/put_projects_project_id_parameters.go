@@ -19,81 +19,64 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv1/model"
 )
 
-// NewPutProjectsProjectIDParams creates a new PutProjectsProjectIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPutProjectsProjectIDParams creates a new PutProjectsProjectIDParams object
+// with the default values initialized.
 func NewPutProjectsProjectIDParams() *PutProjectsProjectIDParams {
+	var ()
 	return &PutProjectsProjectIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutProjectsProjectIDParamsWithTimeout creates a new PutProjectsProjectIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPutProjectsProjectIDParamsWithTimeout(timeout time.Duration) *PutProjectsProjectIDParams {
+	var ()
 	return &PutProjectsProjectIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPutProjectsProjectIDParamsWithContext creates a new PutProjectsProjectIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPutProjectsProjectIDParamsWithContext(ctx context.Context) *PutProjectsProjectIDParams {
+	var ()
 	return &PutProjectsProjectIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPutProjectsProjectIDParamsWithHTTPClient creates a new PutProjectsProjectIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPutProjectsProjectIDParamsWithHTTPClient(client *http.Client) *PutProjectsProjectIDParams {
+	var ()
 	return &PutProjectsProjectIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* PutProjectsProjectIDParams contains all the parameters to send to the API endpoint
-   for the put projects project ID operation.
-
-   Typically these are written to a http.Request.
+/*PutProjectsProjectIDParams contains all the parameters to send to the API endpoint
+for the put projects project ID operation typically these are written to a http.Request
 */
 type PutProjectsProjectIDParams struct {
 
-	/* Project.
+	/*Project
+	  Updates of project.
 
-	   Updates of project.
 	*/
 	Project *model.ProjectReq
+	/*ProjectID
+	  Selected project ID.
 
-	/* ProjectID.
-
-	   Selected project ID.
-
-	   Format: int64
 	*/
 	ProjectID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the put projects project ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PutProjectsProjectIDParams) WithDefaults() *PutProjectsProjectIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the put projects project ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PutProjectsProjectIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put projects project ID params
@@ -158,6 +141,7 @@ func (o *PutProjectsProjectIDParams) WriteToRequest(r runtime.ClientRequest, reg
 		return err
 	}
 	var res []error
+
 	if o.Project != nil {
 		if err := r.SetBodyParam(o.Project); err != nil {
 			return err

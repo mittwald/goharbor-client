@@ -53,6 +53,7 @@ func (o *UpdateImmuRuleReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,13 +64,12 @@ func NewUpdateImmuRuleOK() *UpdateImmuRuleOK {
 	return &UpdateImmuRuleOK{}
 }
 
-/* UpdateImmuRuleOK describes a response with status code 200, with default header values.
+/*UpdateImmuRuleOK handles this case with default header values.
 
 Success
 */
 type UpdateImmuRuleOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -80,12 +80,8 @@ func (o *UpdateImmuRuleOK) Error() string {
 
 func (o *UpdateImmuRuleOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -95,13 +91,12 @@ func NewUpdateImmuRuleBadRequest() *UpdateImmuRuleBadRequest {
 	return &UpdateImmuRuleBadRequest{}
 }
 
-/* UpdateImmuRuleBadRequest describes a response with status code 400, with default header values.
+/*UpdateImmuRuleBadRequest handles this case with default header values.
 
 Bad request
 */
 type UpdateImmuRuleBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +106,15 @@ type UpdateImmuRuleBadRequest struct {
 func (o *UpdateImmuRuleBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name_or_id}/immutabletagrules/{immutable_rule_id}][%d] updateImmuRuleBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *UpdateImmuRuleBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateImmuRuleBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +131,12 @@ func NewUpdateImmuRuleUnauthorized() *UpdateImmuRuleUnauthorized {
 	return &UpdateImmuRuleUnauthorized{}
 }
 
-/* UpdateImmuRuleUnauthorized describes a response with status code 401, with default header values.
+/*UpdateImmuRuleUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type UpdateImmuRuleUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +146,15 @@ type UpdateImmuRuleUnauthorized struct {
 func (o *UpdateImmuRuleUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name_or_id}/immutabletagrules/{immutable_rule_id}][%d] updateImmuRuleUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *UpdateImmuRuleUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateImmuRuleUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +171,12 @@ func NewUpdateImmuRuleForbidden() *UpdateImmuRuleForbidden {
 	return &UpdateImmuRuleForbidden{}
 }
 
-/* UpdateImmuRuleForbidden describes a response with status code 403, with default header values.
+/*UpdateImmuRuleForbidden handles this case with default header values.
 
 Forbidden
 */
 type UpdateImmuRuleForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +186,15 @@ type UpdateImmuRuleForbidden struct {
 func (o *UpdateImmuRuleForbidden) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name_or_id}/immutabletagrules/{immutable_rule_id}][%d] updateImmuRuleForbidden  %+v", 403, o.Payload)
 }
+
 func (o *UpdateImmuRuleForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateImmuRuleForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +211,12 @@ func NewUpdateImmuRuleInternalServerError() *UpdateImmuRuleInternalServerError {
 	return &UpdateImmuRuleInternalServerError{}
 }
 
-/* UpdateImmuRuleInternalServerError describes a response with status code 500, with default header values.
+/*UpdateImmuRuleInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type UpdateImmuRuleInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +226,15 @@ type UpdateImmuRuleInternalServerError struct {
 func (o *UpdateImmuRuleInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name_or_id}/immutabletagrules/{immutable_rule_id}][%d] updateImmuRuleInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *UpdateImmuRuleInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateImmuRuleInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

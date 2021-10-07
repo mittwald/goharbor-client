@@ -55,6 +55,7 @@ func (o *ListImmuRulesReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -65,17 +66,15 @@ func NewListImmuRulesOK() *ListImmuRulesOK {
 	return &ListImmuRulesOK{}
 }
 
-/* ListImmuRulesOK describes a response with status code 200, with default header values.
+/*ListImmuRulesOK handles this case with default header values.
 
 Success
 */
 type ListImmuRulesOK struct {
-
-	/* Link refers to the previous page and next page
+	/*Link refers to the previous page and next page
 	 */
 	Link string
-
-	/* The total count of immutable tag
+	/*The total count of immutable tag
 	 */
 	XTotalCount int64
 
@@ -85,29 +84,22 @@ type ListImmuRulesOK struct {
 func (o *ListImmuRulesOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/immutabletagrules][%d] listImmuRulesOK  %+v", 200, o.Payload)
 }
+
 func (o *ListImmuRulesOK) GetPayload() []*model.ImmutableRule {
 	return o.Payload
 }
 
 func (o *ListImmuRulesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Link
-	hdrLink := response.GetHeader("Link")
+	// response header Link
+	o.Link = response.GetHeader("Link")
 
-	if hdrLink != "" {
-		o.Link = hdrLink
+	// response header X-Total-Count
+	xTotalCount, err := swag.ConvertInt64(response.GetHeader("X-Total-Count"))
+	if err != nil {
+		return errors.InvalidType("X-Total-Count", "header", "int64", response.GetHeader("X-Total-Count"))
 	}
-
-	// hydrates response header X-Total-Count
-	hdrXTotalCount := response.GetHeader("X-Total-Count")
-
-	if hdrXTotalCount != "" {
-		valxTotalCount, err := swag.ConvertInt64(hdrXTotalCount)
-		if err != nil {
-			return errors.InvalidType("X-Total-Count", "header", "int64", hdrXTotalCount)
-		}
-		o.XTotalCount = valxTotalCount
-	}
+	o.XTotalCount = xTotalCount
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -122,13 +114,12 @@ func NewListImmuRulesBadRequest() *ListImmuRulesBadRequest {
 	return &ListImmuRulesBadRequest{}
 }
 
-/* ListImmuRulesBadRequest describes a response with status code 400, with default header values.
+/*ListImmuRulesBadRequest handles this case with default header values.
 
 Bad request
 */
 type ListImmuRulesBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -138,18 +129,15 @@ type ListImmuRulesBadRequest struct {
 func (o *ListImmuRulesBadRequest) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/immutabletagrules][%d] listImmuRulesBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *ListImmuRulesBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListImmuRulesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -166,13 +154,12 @@ func NewListImmuRulesUnauthorized() *ListImmuRulesUnauthorized {
 	return &ListImmuRulesUnauthorized{}
 }
 
-/* ListImmuRulesUnauthorized describes a response with status code 401, with default header values.
+/*ListImmuRulesUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type ListImmuRulesUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -182,18 +169,15 @@ type ListImmuRulesUnauthorized struct {
 func (o *ListImmuRulesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/immutabletagrules][%d] listImmuRulesUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *ListImmuRulesUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListImmuRulesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -210,13 +194,12 @@ func NewListImmuRulesForbidden() *ListImmuRulesForbidden {
 	return &ListImmuRulesForbidden{}
 }
 
-/* ListImmuRulesForbidden describes a response with status code 403, with default header values.
+/*ListImmuRulesForbidden handles this case with default header values.
 
 Forbidden
 */
 type ListImmuRulesForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -226,18 +209,15 @@ type ListImmuRulesForbidden struct {
 func (o *ListImmuRulesForbidden) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/immutabletagrules][%d] listImmuRulesForbidden  %+v", 403, o.Payload)
 }
+
 func (o *ListImmuRulesForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListImmuRulesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -254,13 +234,12 @@ func NewListImmuRulesInternalServerError() *ListImmuRulesInternalServerError {
 	return &ListImmuRulesInternalServerError{}
 }
 
-/* ListImmuRulesInternalServerError describes a response with status code 500, with default header values.
+/*ListImmuRulesInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type ListImmuRulesInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -270,18 +249,15 @@ type ListImmuRulesInternalServerError struct {
 func (o *ListImmuRulesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/immutabletagrules][%d] listImmuRulesInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *ListImmuRulesInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListImmuRulesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

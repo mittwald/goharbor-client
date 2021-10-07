@@ -53,6 +53,7 @@ func (o *UpdateUserPasswordReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,13 +64,12 @@ func NewUpdateUserPasswordOK() *UpdateUserPasswordOK {
 	return &UpdateUserPasswordOK{}
 }
 
-/* UpdateUserPasswordOK describes a response with status code 200, with default header values.
+/*UpdateUserPasswordOK handles this case with default header values.
 
 Success
 */
 type UpdateUserPasswordOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -80,12 +80,8 @@ func (o *UpdateUserPasswordOK) Error() string {
 
 func (o *UpdateUserPasswordOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -95,7 +91,7 @@ func NewUpdateUserPasswordBadRequest() *UpdateUserPasswordBadRequest {
 	return &UpdateUserPasswordBadRequest{}
 }
 
-/* UpdateUserPasswordBadRequest describes a response with status code 400, with default header values.
+/*UpdateUserPasswordBadRequest handles this case with default header values.
 
 Invalid user ID; Password does not meet requirement
 */
@@ -116,13 +112,12 @@ func NewUpdateUserPasswordUnauthorized() *UpdateUserPasswordUnauthorized {
 	return &UpdateUserPasswordUnauthorized{}
 }
 
-/* UpdateUserPasswordUnauthorized describes a response with status code 401, with default header values.
+/*UpdateUserPasswordUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type UpdateUserPasswordUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -132,18 +127,15 @@ type UpdateUserPasswordUnauthorized struct {
 func (o *UpdateUserPasswordUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /users/{user_id}/password][%d] updateUserPasswordUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *UpdateUserPasswordUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateUserPasswordUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -160,7 +152,7 @@ func NewUpdateUserPasswordForbidden() *UpdateUserPasswordForbidden {
 	return &UpdateUserPasswordForbidden{}
 }
 
-/* UpdateUserPasswordForbidden describes a response with status code 403, with default header values.
+/*UpdateUserPasswordForbidden handles this case with default header values.
 
 The caller does not have permission to update the password of the user with given ID, or the old password in request body is not correct.
 */
@@ -181,13 +173,12 @@ func NewUpdateUserPasswordInternalServerError() *UpdateUserPasswordInternalServe
 	return &UpdateUserPasswordInternalServerError{}
 }
 
-/* UpdateUserPasswordInternalServerError describes a response with status code 500, with default header values.
+/*UpdateUserPasswordInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type UpdateUserPasswordInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -197,18 +188,15 @@ type UpdateUserPasswordInternalServerError struct {
 func (o *UpdateUserPasswordInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /users/{user_id}/password][%d] updateUserPasswordInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *UpdateUserPasswordInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateUserPasswordInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

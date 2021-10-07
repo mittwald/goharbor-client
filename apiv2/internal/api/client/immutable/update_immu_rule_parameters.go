@@ -19,107 +19,88 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/model"
 )
 
-// NewUpdateImmuRuleParams creates a new UpdateImmuRuleParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewUpdateImmuRuleParams creates a new UpdateImmuRuleParams object
+// with the default values initialized.
 func NewUpdateImmuRuleParams() *UpdateImmuRuleParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &UpdateImmuRuleParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateImmuRuleParamsWithTimeout creates a new UpdateImmuRuleParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewUpdateImmuRuleParamsWithTimeout(timeout time.Duration) *UpdateImmuRuleParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &UpdateImmuRuleParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		timeout: timeout,
 	}
 }
 
 // NewUpdateImmuRuleParamsWithContext creates a new UpdateImmuRuleParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewUpdateImmuRuleParamsWithContext(ctx context.Context) *UpdateImmuRuleParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &UpdateImmuRuleParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		Context: ctx,
 	}
 }
 
 // NewUpdateImmuRuleParamsWithHTTPClient creates a new UpdateImmuRuleParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewUpdateImmuRuleParamsWithHTTPClient(client *http.Client) *UpdateImmuRuleParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &UpdateImmuRuleParams{
-		HTTPClient: client,
+		XIsResourceName: &xIsResourceNameDefault,
+		HTTPClient:      client,
 	}
 }
 
-/* UpdateImmuRuleParams contains all the parameters to send to the API endpoint
-   for the update immu rule operation.
-
-   Typically these are written to a http.Request.
+/*UpdateImmuRuleParams contains all the parameters to send to the API endpoint
+for the update immu rule operation typically these are written to a http.Request
 */
 type UpdateImmuRuleParams struct {
 
-	// ImmutableRule.
+	/*ImmutableRule*/
 	ImmutableRule *model.ImmutableRule
+	/*XIsResourceName
+	  The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
 
-	/* XIsResourceName.
-
-	   The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
 	*/
 	XIsResourceName *bool
+	/*XRequestID
+	  An unique ID for the request
 
-	/* XRequestID.
-
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*ImmutableRuleID
+	  The ID of the immutable rule
 
-	/* ImmutableRuleID.
-
-	   The ID of the immutable rule
-
-	   Format: int64
 	*/
 	ImmutableRuleID int64
+	/*ProjectNameOrID
+	  The name or id of the project
 
-	/* ProjectNameOrID.
-
-	   The name or id of the project
 	*/
 	ProjectNameOrID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the update immu rule params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *UpdateImmuRuleParams) WithDefaults() *UpdateImmuRuleParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the update immu rule params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *UpdateImmuRuleParams) SetDefaults() {
-	var (
-		xIsResourceNameDefault = bool(false)
-	)
-
-	val := UpdateImmuRuleParams{
-		XIsResourceName: &xIsResourceNameDefault,
-	}
-
-	val.timeout = o.timeout
-	val.Context = o.Context
-	val.HTTPClient = o.HTTPClient
-	*o = val
 }
 
 // WithTimeout adds the timeout to the update immu rule params
@@ -217,6 +198,7 @@ func (o *UpdateImmuRuleParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		return err
 	}
 	var res []error
+
 	if o.ImmutableRule != nil {
 		if err := r.SetBodyParam(o.ImmutableRule); err != nil {
 			return err
@@ -229,6 +211,7 @@ func (o *UpdateImmuRuleParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		if err := r.SetHeaderParam("X-Is-Resource-Name", swag.FormatBool(*o.XIsResourceName)); err != nil {
 			return err
 		}
+
 	}
 
 	if o.XRequestID != nil {
@@ -237,6 +220,7 @@ func (o *UpdateImmuRuleParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param immutable_rule_id

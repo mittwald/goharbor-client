@@ -47,6 +47,7 @@ func (o *GetScannerMetadataReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +58,7 @@ func NewGetScannerMetadataOK() *GetScannerMetadataOK {
 	return &GetScannerMetadataOK{}
 }
 
-/* GetScannerMetadataOK describes a response with status code 200, with default header values.
+/*GetScannerMetadataOK handles this case with default header values.
 
 The metadata of the specified scanner adapter
 */
@@ -68,6 +69,7 @@ type GetScannerMetadataOK struct {
 func (o *GetScannerMetadataOK) Error() string {
 	return fmt.Sprintf("[GET /scanners/{registration_id}/metadata][%d] getScannerMetadataOK  %+v", 200, o.Payload)
 }
+
 func (o *GetScannerMetadataOK) GetPayload() *model.ScannerAdapterMetadata {
 	return o.Payload
 }
@@ -89,13 +91,12 @@ func NewGetScannerMetadataUnauthorized() *GetScannerMetadataUnauthorized {
 	return &GetScannerMetadataUnauthorized{}
 }
 
-/* GetScannerMetadataUnauthorized describes a response with status code 401, with default header values.
+/*GetScannerMetadataUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type GetScannerMetadataUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -105,18 +106,15 @@ type GetScannerMetadataUnauthorized struct {
 func (o *GetScannerMetadataUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /scanners/{registration_id}/metadata][%d] getScannerMetadataUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetScannerMetadataUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetScannerMetadataUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -133,13 +131,12 @@ func NewGetScannerMetadataForbidden() *GetScannerMetadataForbidden {
 	return &GetScannerMetadataForbidden{}
 }
 
-/* GetScannerMetadataForbidden describes a response with status code 403, with default header values.
+/*GetScannerMetadataForbidden handles this case with default header values.
 
 Forbidden
 */
 type GetScannerMetadataForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -149,18 +146,15 @@ type GetScannerMetadataForbidden struct {
 func (o *GetScannerMetadataForbidden) Error() string {
 	return fmt.Sprintf("[GET /scanners/{registration_id}/metadata][%d] getScannerMetadataForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetScannerMetadataForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetScannerMetadataForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -177,13 +171,12 @@ func NewGetScannerMetadataInternalServerError() *GetScannerMetadataInternalServe
 	return &GetScannerMetadataInternalServerError{}
 }
 
-/* GetScannerMetadataInternalServerError describes a response with status code 500, with default header values.
+/*GetScannerMetadataInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetScannerMetadataInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -193,18 +186,15 @@ type GetScannerMetadataInternalServerError struct {
 func (o *GetScannerMetadataInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /scanners/{registration_id}/metadata][%d] getScannerMetadataInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetScannerMetadataInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetScannerMetadataInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

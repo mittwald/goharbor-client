@@ -56,6 +56,7 @@ func (o *PostProjectsReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -66,7 +67,7 @@ func NewPostProjectsCreated() *PostProjectsCreated {
 	return &PostProjectsCreated{}
 }
 
-/* PostProjectsCreated describes a response with status code 201, with default header values.
+/*PostProjectsCreated handles this case with default header values.
 
 Project created successfully.
 */
@@ -87,7 +88,7 @@ func NewPostProjectsBadRequest() *PostProjectsBadRequest {
 	return &PostProjectsBadRequest{}
 }
 
-/* PostProjectsBadRequest describes a response with status code 400, with default header values.
+/*PostProjectsBadRequest handles this case with default header values.
 
 Unsatisfied with constraints of the project creation.
 */
@@ -108,7 +109,7 @@ func NewPostProjectsUnauthorized() *PostProjectsUnauthorized {
 	return &PostProjectsUnauthorized{}
 }
 
-/* PostProjectsUnauthorized describes a response with status code 401, with default header values.
+/*PostProjectsUnauthorized handles this case with default header values.
 
 User need to log in first.
 */
@@ -129,7 +130,7 @@ func NewPostProjectsConflict() *PostProjectsConflict {
 	return &PostProjectsConflict{}
 }
 
-/* PostProjectsConflict describes a response with status code 409, with default header values.
+/*PostProjectsConflict handles this case with default header values.
 
 Project name already exists.
 */
@@ -150,7 +151,7 @@ func NewPostProjectsUnsupportedMediaType() *PostProjectsUnsupportedMediaType {
 	return &PostProjectsUnsupportedMediaType{}
 }
 
-/* PostProjectsUnsupportedMediaType describes a response with status code 415, with default header values.
+/*PostProjectsUnsupportedMediaType handles this case with default header values.
 
 The Media Type of the request is not supported, it has to be "application/json"
 */
@@ -171,7 +172,7 @@ func NewPostProjectsInternalServerError() *PostProjectsInternalServerError {
 	return &PostProjectsInternalServerError{}
 }
 
-/* PostProjectsInternalServerError describes a response with status code 500, with default header values.
+/*PostProjectsInternalServerError handles this case with default header values.
 
 Unexpected internal errors.
 */

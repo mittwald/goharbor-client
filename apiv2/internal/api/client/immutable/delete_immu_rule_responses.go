@@ -53,6 +53,7 @@ func (o *DeleteImmuRuleReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,13 +64,12 @@ func NewDeleteImmuRuleOK() *DeleteImmuRuleOK {
 	return &DeleteImmuRuleOK{}
 }
 
-/* DeleteImmuRuleOK describes a response with status code 200, with default header values.
+/*DeleteImmuRuleOK handles this case with default header values.
 
 Success
 */
 type DeleteImmuRuleOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -80,12 +80,8 @@ func (o *DeleteImmuRuleOK) Error() string {
 
 func (o *DeleteImmuRuleOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -95,13 +91,12 @@ func NewDeleteImmuRuleBadRequest() *DeleteImmuRuleBadRequest {
 	return &DeleteImmuRuleBadRequest{}
 }
 
-/* DeleteImmuRuleBadRequest describes a response with status code 400, with default header values.
+/*DeleteImmuRuleBadRequest handles this case with default header values.
 
 Bad request
 */
 type DeleteImmuRuleBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +106,15 @@ type DeleteImmuRuleBadRequest struct {
 func (o *DeleteImmuRuleBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}/immutabletagrules/{immutable_rule_id}][%d] deleteImmuRuleBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *DeleteImmuRuleBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteImmuRuleBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +131,12 @@ func NewDeleteImmuRuleUnauthorized() *DeleteImmuRuleUnauthorized {
 	return &DeleteImmuRuleUnauthorized{}
 }
 
-/* DeleteImmuRuleUnauthorized describes a response with status code 401, with default header values.
+/*DeleteImmuRuleUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type DeleteImmuRuleUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +146,15 @@ type DeleteImmuRuleUnauthorized struct {
 func (o *DeleteImmuRuleUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}/immutabletagrules/{immutable_rule_id}][%d] deleteImmuRuleUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteImmuRuleUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteImmuRuleUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +171,12 @@ func NewDeleteImmuRuleForbidden() *DeleteImmuRuleForbidden {
 	return &DeleteImmuRuleForbidden{}
 }
 
-/* DeleteImmuRuleForbidden describes a response with status code 403, with default header values.
+/*DeleteImmuRuleForbidden handles this case with default header values.
 
 Forbidden
 */
 type DeleteImmuRuleForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +186,15 @@ type DeleteImmuRuleForbidden struct {
 func (o *DeleteImmuRuleForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}/immutabletagrules/{immutable_rule_id}][%d] deleteImmuRuleForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteImmuRuleForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteImmuRuleForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +211,12 @@ func NewDeleteImmuRuleInternalServerError() *DeleteImmuRuleInternalServerError {
 	return &DeleteImmuRuleInternalServerError{}
 }
 
-/* DeleteImmuRuleInternalServerError describes a response with status code 500, with default header values.
+/*DeleteImmuRuleInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type DeleteImmuRuleInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +226,15 @@ type DeleteImmuRuleInternalServerError struct {
 func (o *DeleteImmuRuleInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}/immutabletagrules/{immutable_rule_id}][%d] deleteImmuRuleInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteImmuRuleInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteImmuRuleInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

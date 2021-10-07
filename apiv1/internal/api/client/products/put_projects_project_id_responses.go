@@ -56,6 +56,7 @@ func (o *PutProjectsProjectIDReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -66,7 +67,7 @@ func NewPutProjectsProjectIDOK() *PutProjectsProjectIDOK {
 	return &PutProjectsProjectIDOK{}
 }
 
-/* PutProjectsProjectIDOK describes a response with status code 200, with default header values.
+/*PutProjectsProjectIDOK handles this case with default header values.
 
 Updated project properties successfully.
 */
@@ -87,7 +88,7 @@ func NewPutProjectsProjectIDBadRequest() *PutProjectsProjectIDBadRequest {
 	return &PutProjectsProjectIDBadRequest{}
 }
 
-/* PutProjectsProjectIDBadRequest describes a response with status code 400, with default header values.
+/*PutProjectsProjectIDBadRequest handles this case with default header values.
 
 Illegal format of provided ID value.
 */
@@ -108,7 +109,7 @@ func NewPutProjectsProjectIDUnauthorized() *PutProjectsProjectIDUnauthorized {
 	return &PutProjectsProjectIDUnauthorized{}
 }
 
-/* PutProjectsProjectIDUnauthorized describes a response with status code 401, with default header values.
+/*PutProjectsProjectIDUnauthorized handles this case with default header values.
 
 User need to log in first.
 */
@@ -129,7 +130,7 @@ func NewPutProjectsProjectIDForbidden() *PutProjectsProjectIDForbidden {
 	return &PutProjectsProjectIDForbidden{}
 }
 
-/* PutProjectsProjectIDForbidden describes a response with status code 403, with default header values.
+/*PutProjectsProjectIDForbidden handles this case with default header values.
 
 User does not have permission to the project.
 */
@@ -150,7 +151,7 @@ func NewPutProjectsProjectIDNotFound() *PutProjectsProjectIDNotFound {
 	return &PutProjectsProjectIDNotFound{}
 }
 
-/* PutProjectsProjectIDNotFound describes a response with status code 404, with default header values.
+/*PutProjectsProjectIDNotFound handles this case with default header values.
 
 Project ID does not exist.
 */
@@ -171,7 +172,7 @@ func NewPutProjectsProjectIDInternalServerError() *PutProjectsProjectIDInternalS
 	return &PutProjectsProjectIDInternalServerError{}
 }
 
-/* PutProjectsProjectIDInternalServerError describes a response with status code 500, with default header values.
+/*PutProjectsProjectIDInternalServerError handles this case with default header values.
 
 Unexpected internal errors.
 */

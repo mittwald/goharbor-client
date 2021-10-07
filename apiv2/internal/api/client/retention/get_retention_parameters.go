@@ -17,81 +17,64 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetRetentionParams creates a new GetRetentionParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetRetentionParams creates a new GetRetentionParams object
+// with the default values initialized.
 func NewGetRetentionParams() *GetRetentionParams {
+	var ()
 	return &GetRetentionParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetRetentionParamsWithTimeout creates a new GetRetentionParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetRetentionParamsWithTimeout(timeout time.Duration) *GetRetentionParams {
+	var ()
 	return &GetRetentionParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetRetentionParamsWithContext creates a new GetRetentionParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetRetentionParamsWithContext(ctx context.Context) *GetRetentionParams {
+	var ()
 	return &GetRetentionParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetRetentionParamsWithHTTPClient creates a new GetRetentionParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetRetentionParamsWithHTTPClient(client *http.Client) *GetRetentionParams {
+	var ()
 	return &GetRetentionParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetRetentionParams contains all the parameters to send to the API endpoint
-   for the get retention operation.
-
-   Typically these are written to a http.Request.
+/*GetRetentionParams contains all the parameters to send to the API endpoint
+for the get retention operation typically these are written to a http.Request
 */
 type GetRetentionParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*ID
+	  Retention ID.
 
-	/* ID.
-
-	   Retention ID.
-
-	   Format: int64
 	*/
 	ID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get retention params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetRetentionParams) WithDefaults() *GetRetentionParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get retention params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetRetentionParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get retention params
@@ -163,6 +146,7 @@ func (o *GetRetentionParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param id

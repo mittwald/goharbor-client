@@ -6,13 +6,11 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
-// OIDCCliSecretReq o ID c cli secret req
+// OIDCCliSecretReq OIDC cli secret req
 //
 // swagger:model OIDCCliSecretReq
 type OIDCCliSecretReq struct {
@@ -21,13 +19,8 @@ type OIDCCliSecretReq struct {
 	Secret string `json:"secret,omitempty"`
 }
 
-// Validate validates this o ID c cli secret req
+// Validate validates this OIDC cli secret req
 func (m *OIDCCliSecretReq) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this o ID c cli secret req based on context it is used
-func (m *OIDCCliSecretReq) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

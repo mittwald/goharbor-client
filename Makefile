@@ -5,7 +5,7 @@ fmt gofmt gofumpt goimports lint
 V1_VERSION = v1.10.8
 V2_VERSION = v2.3.3
 MOCKERY_VERSION = v2.9.4
-GOSWAGGER_VERSION = v0.26.0
+GOSWAGGER_VERSION = v0.25.0
 GOLANGCI_LINT_VERSION = v1.42.1
 
 # Run all code generation targets

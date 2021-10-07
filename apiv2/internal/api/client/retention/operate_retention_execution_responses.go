@@ -6,7 +6,6 @@ package retention
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"fmt"
 	"io"
 
@@ -49,6 +48,7 @@ func (o *OperateRetentionExecutionReader) ReadResponse(response runtime.ClientRe
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -59,7 +59,7 @@ func NewOperateRetentionExecutionOK() *OperateRetentionExecutionOK {
 	return &OperateRetentionExecutionOK{}
 }
 
-/* OperateRetentionExecutionOK describes a response with status code 200, with default header values.
+/*OperateRetentionExecutionOK handles this case with default header values.
 
 Stop a Retention job successfully.
 */
@@ -80,13 +80,12 @@ func NewOperateRetentionExecutionUnauthorized() *OperateRetentionExecutionUnauth
 	return &OperateRetentionExecutionUnauthorized{}
 }
 
-/* OperateRetentionExecutionUnauthorized describes a response with status code 401, with default header values.
+/*OperateRetentionExecutionUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type OperateRetentionExecutionUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -96,18 +95,15 @@ type OperateRetentionExecutionUnauthorized struct {
 func (o *OperateRetentionExecutionUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /retentions/{id}/executions/{eid}][%d] operateRetentionExecutionUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *OperateRetentionExecutionUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *OperateRetentionExecutionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -124,13 +120,12 @@ func NewOperateRetentionExecutionForbidden() *OperateRetentionExecutionForbidden
 	return &OperateRetentionExecutionForbidden{}
 }
 
-/* OperateRetentionExecutionForbidden describes a response with status code 403, with default header values.
+/*OperateRetentionExecutionForbidden handles this case with default header values.
 
 Forbidden
 */
 type OperateRetentionExecutionForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -140,18 +135,15 @@ type OperateRetentionExecutionForbidden struct {
 func (o *OperateRetentionExecutionForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /retentions/{id}/executions/{eid}][%d] operateRetentionExecutionForbidden  %+v", 403, o.Payload)
 }
+
 func (o *OperateRetentionExecutionForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *OperateRetentionExecutionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -168,13 +160,12 @@ func NewOperateRetentionExecutionInternalServerError() *OperateRetentionExecutio
 	return &OperateRetentionExecutionInternalServerError{}
 }
 
-/* OperateRetentionExecutionInternalServerError describes a response with status code 500, with default header values.
+/*OperateRetentionExecutionInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type OperateRetentionExecutionInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -184,18 +175,15 @@ type OperateRetentionExecutionInternalServerError struct {
 func (o *OperateRetentionExecutionInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /retentions/{id}/executions/{eid}][%d] operateRetentionExecutionInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *OperateRetentionExecutionInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *OperateRetentionExecutionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -218,11 +206,6 @@ type OperateRetentionExecutionBody struct {
 
 // Validate validates this operate retention execution body
 func (o *OperateRetentionExecutionBody) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this operate retention execution body based on context it is used
-func (o *OperateRetentionExecutionBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

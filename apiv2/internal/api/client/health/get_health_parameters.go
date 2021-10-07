@@ -16,73 +16,59 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetHealthParams creates a new GetHealthParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetHealthParams creates a new GetHealthParams object
+// with the default values initialized.
 func NewGetHealthParams() *GetHealthParams {
+	var ()
 	return &GetHealthParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetHealthParamsWithTimeout creates a new GetHealthParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetHealthParamsWithTimeout(timeout time.Duration) *GetHealthParams {
+	var ()
 	return &GetHealthParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetHealthParamsWithContext creates a new GetHealthParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetHealthParamsWithContext(ctx context.Context) *GetHealthParams {
+	var ()
 	return &GetHealthParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetHealthParamsWithHTTPClient creates a new GetHealthParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetHealthParamsWithHTTPClient(client *http.Client) *GetHealthParams {
+	var ()
 	return &GetHealthParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetHealthParams contains all the parameters to send to the API endpoint
-   for the get health operation.
-
-   Typically these are written to a http.Request.
+/*GetHealthParams contains all the parameters to send to the API endpoint
+for the get health operation typically these are written to a http.Request
 */
 type GetHealthParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get health params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetHealthParams) WithDefaults() *GetHealthParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get health params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetHealthParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get health params
@@ -143,6 +129,7 @@ func (o *GetHealthParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	if len(res) > 0 {

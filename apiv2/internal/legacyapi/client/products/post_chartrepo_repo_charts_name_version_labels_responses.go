@@ -62,6 +62,7 @@ func (o *PostChartrepoRepoChartsNameVersionLabelsReader) ReadResponse(response r
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -72,7 +73,7 @@ func NewPostChartrepoRepoChartsNameVersionLabelsOK() *PostChartrepoRepoChartsNam
 	return &PostChartrepoRepoChartsNameVersionLabelsOK{}
 }
 
-/* PostChartrepoRepoChartsNameVersionLabelsOK describes a response with status code 200, with default header values.
+/*PostChartrepoRepoChartsNameVersionLabelsOK handles this case with default header values.
 
 The label is successfully marked to the chart version.
 */
@@ -93,7 +94,7 @@ func NewPostChartrepoRepoChartsNameVersionLabelsBadRequest() *PostChartrepoRepoC
 	return &PostChartrepoRepoChartsNameVersionLabelsBadRequest{}
 }
 
-/* PostChartrepoRepoChartsNameVersionLabelsBadRequest describes a response with status code 400, with default header values.
+/*PostChartrepoRepoChartsNameVersionLabelsBadRequest handles this case with default header values.
 
 Bad request
 */
@@ -114,7 +115,7 @@ func NewPostChartrepoRepoChartsNameVersionLabelsUnauthorized() *PostChartrepoRep
 	return &PostChartrepoRepoChartsNameVersionLabelsUnauthorized{}
 }
 
-/* PostChartrepoRepoChartsNameVersionLabelsUnauthorized describes a response with status code 401, with default header values.
+/*PostChartrepoRepoChartsNameVersionLabelsUnauthorized handles this case with default header values.
 
 Unauthorized
 */
@@ -135,7 +136,7 @@ func NewPostChartrepoRepoChartsNameVersionLabelsForbidden() *PostChartrepoRepoCh
 	return &PostChartrepoRepoChartsNameVersionLabelsForbidden{}
 }
 
-/* PostChartrepoRepoChartsNameVersionLabelsForbidden describes a response with status code 403, with default header values.
+/*PostChartrepoRepoChartsNameVersionLabelsForbidden handles this case with default header values.
 
 Operation is forbidden or quota exceeded
 */
@@ -156,7 +157,7 @@ func NewPostChartrepoRepoChartsNameVersionLabelsNotFound() *PostChartrepoRepoCha
 	return &PostChartrepoRepoChartsNameVersionLabelsNotFound{}
 }
 
-/* PostChartrepoRepoChartsNameVersionLabelsNotFound describes a response with status code 404, with default header values.
+/*PostChartrepoRepoChartsNameVersionLabelsNotFound handles this case with default header values.
 
 Not found
 */
@@ -177,7 +178,7 @@ func NewPostChartrepoRepoChartsNameVersionLabelsConflict() *PostChartrepoRepoCha
 	return &PostChartrepoRepoChartsNameVersionLabelsConflict{}
 }
 
-/* PostChartrepoRepoChartsNameVersionLabelsConflict describes a response with status code 409, with default header values.
+/*PostChartrepoRepoChartsNameVersionLabelsConflict handles this case with default header values.
 
 Conflicts
 */
@@ -198,7 +199,7 @@ func NewPostChartrepoRepoChartsNameVersionLabelsInternalServerError() *PostChart
 	return &PostChartrepoRepoChartsNameVersionLabelsInternalServerError{}
 }
 
-/* PostChartrepoRepoChartsNameVersionLabelsInternalServerError describes a response with status code 500, with default header values.
+/*PostChartrepoRepoChartsNameVersionLabelsInternalServerError handles this case with default header values.
 
 Internal server error occurred
 */

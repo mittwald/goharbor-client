@@ -59,6 +59,7 @@ func (o *CreateRobotReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,17 +70,15 @@ func NewCreateRobotCreated() *CreateRobotCreated {
 	return &CreateRobotCreated{}
 }
 
-/* CreateRobotCreated describes a response with status code 201, with default header values.
+/*CreateRobotCreated handles this case with default header values.
 
 Created
 */
 type CreateRobotCreated struct {
-
-	/* The location of the resource
+	/*The location of the resource
 	 */
 	Location string
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -89,25 +88,18 @@ type CreateRobotCreated struct {
 func (o *CreateRobotCreated) Error() string {
 	return fmt.Sprintf("[POST /robots][%d] createRobotCreated  %+v", 201, o.Payload)
 }
+
 func (o *CreateRobotCreated) GetPayload() *model.RobotCreated {
 	return o.Payload
 }
 
 func (o *CreateRobotCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Location
-	hdrLocation := response.GetHeader("Location")
+	// response header Location
+	o.Location = response.GetHeader("Location")
 
-	if hdrLocation != "" {
-		o.Location = hdrLocation
-	}
-
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.RobotCreated)
 
@@ -124,13 +116,12 @@ func NewCreateRobotBadRequest() *CreateRobotBadRequest {
 	return &CreateRobotBadRequest{}
 }
 
-/* CreateRobotBadRequest describes a response with status code 400, with default header values.
+/*CreateRobotBadRequest handles this case with default header values.
 
 Bad request
 */
 type CreateRobotBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -140,18 +131,15 @@ type CreateRobotBadRequest struct {
 func (o *CreateRobotBadRequest) Error() string {
 	return fmt.Sprintf("[POST /robots][%d] createRobotBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *CreateRobotBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateRobotBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -168,13 +156,12 @@ func NewCreateRobotUnauthorized() *CreateRobotUnauthorized {
 	return &CreateRobotUnauthorized{}
 }
 
-/* CreateRobotUnauthorized describes a response with status code 401, with default header values.
+/*CreateRobotUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type CreateRobotUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -184,18 +171,15 @@ type CreateRobotUnauthorized struct {
 func (o *CreateRobotUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /robots][%d] createRobotUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *CreateRobotUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateRobotUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -212,13 +196,12 @@ func NewCreateRobotForbidden() *CreateRobotForbidden {
 	return &CreateRobotForbidden{}
 }
 
-/* CreateRobotForbidden describes a response with status code 403, with default header values.
+/*CreateRobotForbidden handles this case with default header values.
 
 Forbidden
 */
 type CreateRobotForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -228,18 +211,15 @@ type CreateRobotForbidden struct {
 func (o *CreateRobotForbidden) Error() string {
 	return fmt.Sprintf("[POST /robots][%d] createRobotForbidden  %+v", 403, o.Payload)
 }
+
 func (o *CreateRobotForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateRobotForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -256,13 +236,12 @@ func NewCreateRobotNotFound() *CreateRobotNotFound {
 	return &CreateRobotNotFound{}
 }
 
-/* CreateRobotNotFound describes a response with status code 404, with default header values.
+/*CreateRobotNotFound handles this case with default header values.
 
 Not found
 */
 type CreateRobotNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -272,18 +251,15 @@ type CreateRobotNotFound struct {
 func (o *CreateRobotNotFound) Error() string {
 	return fmt.Sprintf("[POST /robots][%d] createRobotNotFound  %+v", 404, o.Payload)
 }
+
 func (o *CreateRobotNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateRobotNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -300,13 +276,12 @@ func NewCreateRobotInternalServerError() *CreateRobotInternalServerError {
 	return &CreateRobotInternalServerError{}
 }
 
-/* CreateRobotInternalServerError describes a response with status code 500, with default header values.
+/*CreateRobotInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type CreateRobotInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -316,18 +291,15 @@ type CreateRobotInternalServerError struct {
 func (o *CreateRobotInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /robots][%d] createRobotInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *CreateRobotInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateRobotInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

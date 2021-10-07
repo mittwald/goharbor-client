@@ -18,79 +18,64 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/model"
 )
 
-// NewCreateScanAllScheduleParams creates a new CreateScanAllScheduleParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewCreateScanAllScheduleParams creates a new CreateScanAllScheduleParams object
+// with the default values initialized.
 func NewCreateScanAllScheduleParams() *CreateScanAllScheduleParams {
+	var ()
 	return &CreateScanAllScheduleParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateScanAllScheduleParamsWithTimeout creates a new CreateScanAllScheduleParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewCreateScanAllScheduleParamsWithTimeout(timeout time.Duration) *CreateScanAllScheduleParams {
+	var ()
 	return &CreateScanAllScheduleParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewCreateScanAllScheduleParamsWithContext creates a new CreateScanAllScheduleParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewCreateScanAllScheduleParamsWithContext(ctx context.Context) *CreateScanAllScheduleParams {
+	var ()
 	return &CreateScanAllScheduleParams{
+
 		Context: ctx,
 	}
 }
 
 // NewCreateScanAllScheduleParamsWithHTTPClient creates a new CreateScanAllScheduleParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewCreateScanAllScheduleParamsWithHTTPClient(client *http.Client) *CreateScanAllScheduleParams {
+	var ()
 	return &CreateScanAllScheduleParams{
 		HTTPClient: client,
 	}
 }
 
-/* CreateScanAllScheduleParams contains all the parameters to send to the API endpoint
-   for the create scan all schedule operation.
-
-   Typically these are written to a http.Request.
+/*CreateScanAllScheduleParams contains all the parameters to send to the API endpoint
+for the create scan all schedule operation typically these are written to a http.Request
 */
 type CreateScanAllScheduleParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Schedule
+	  Create a schedule or a manual trigger for the scan all job.
 
-	/* Schedule.
-
-	   Create a schedule or a manual trigger for the scan all job.
 	*/
 	Schedule *model.Schedule
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the create scan all schedule params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *CreateScanAllScheduleParams) WithDefaults() *CreateScanAllScheduleParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the create scan all schedule params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *CreateScanAllScheduleParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create scan all schedule params
@@ -162,7 +147,9 @@ func (o *CreateScanAllScheduleParams) WriteToRequest(r runtime.ClientRequest, re
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
+
 	if o.Schedule != nil {
 		if err := r.SetBodyParam(o.Schedule); err != nil {
 			return err

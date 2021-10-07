@@ -59,6 +59,7 @@ func (o *SetScannerOfProjectReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,13 +70,12 @@ func NewSetScannerOfProjectOK() *SetScannerOfProjectOK {
 	return &SetScannerOfProjectOK{}
 }
 
-/* SetScannerOfProjectOK describes a response with status code 200, with default header values.
+/*SetScannerOfProjectOK handles this case with default header values.
 
 Success
 */
 type SetScannerOfProjectOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -86,12 +86,8 @@ func (o *SetScannerOfProjectOK) Error() string {
 
 func (o *SetScannerOfProjectOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -101,13 +97,12 @@ func NewSetScannerOfProjectBadRequest() *SetScannerOfProjectBadRequest {
 	return &SetScannerOfProjectBadRequest{}
 }
 
-/* SetScannerOfProjectBadRequest describes a response with status code 400, with default header values.
+/*SetScannerOfProjectBadRequest handles this case with default header values.
 
 Bad request
 */
 type SetScannerOfProjectBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -117,18 +112,15 @@ type SetScannerOfProjectBadRequest struct {
 func (o *SetScannerOfProjectBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name_or_id}/scanner][%d] setScannerOfProjectBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *SetScannerOfProjectBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SetScannerOfProjectBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -145,13 +137,12 @@ func NewSetScannerOfProjectUnauthorized() *SetScannerOfProjectUnauthorized {
 	return &SetScannerOfProjectUnauthorized{}
 }
 
-/* SetScannerOfProjectUnauthorized describes a response with status code 401, with default header values.
+/*SetScannerOfProjectUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type SetScannerOfProjectUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -161,18 +152,15 @@ type SetScannerOfProjectUnauthorized struct {
 func (o *SetScannerOfProjectUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name_or_id}/scanner][%d] setScannerOfProjectUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *SetScannerOfProjectUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SetScannerOfProjectUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -189,13 +177,12 @@ func NewSetScannerOfProjectForbidden() *SetScannerOfProjectForbidden {
 	return &SetScannerOfProjectForbidden{}
 }
 
-/* SetScannerOfProjectForbidden describes a response with status code 403, with default header values.
+/*SetScannerOfProjectForbidden handles this case with default header values.
 
 Forbidden
 */
 type SetScannerOfProjectForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -205,18 +192,15 @@ type SetScannerOfProjectForbidden struct {
 func (o *SetScannerOfProjectForbidden) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name_or_id}/scanner][%d] setScannerOfProjectForbidden  %+v", 403, o.Payload)
 }
+
 func (o *SetScannerOfProjectForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SetScannerOfProjectForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -233,13 +217,12 @@ func NewSetScannerOfProjectNotFound() *SetScannerOfProjectNotFound {
 	return &SetScannerOfProjectNotFound{}
 }
 
-/* SetScannerOfProjectNotFound describes a response with status code 404, with default header values.
+/*SetScannerOfProjectNotFound handles this case with default header values.
 
 Not found
 */
 type SetScannerOfProjectNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,18 +232,15 @@ type SetScannerOfProjectNotFound struct {
 func (o *SetScannerOfProjectNotFound) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name_or_id}/scanner][%d] setScannerOfProjectNotFound  %+v", 404, o.Payload)
 }
+
 func (o *SetScannerOfProjectNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SetScannerOfProjectNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -277,13 +257,12 @@ func NewSetScannerOfProjectInternalServerError() *SetScannerOfProjectInternalSer
 	return &SetScannerOfProjectInternalServerError{}
 }
 
-/* SetScannerOfProjectInternalServerError describes a response with status code 500, with default header values.
+/*SetScannerOfProjectInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type SetScannerOfProjectInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -293,18 +272,15 @@ type SetScannerOfProjectInternalServerError struct {
 func (o *SetScannerOfProjectInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name_or_id}/scanner][%d] setScannerOfProjectInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *SetScannerOfProjectInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SetScannerOfProjectInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

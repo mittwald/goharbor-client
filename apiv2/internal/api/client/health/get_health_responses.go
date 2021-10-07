@@ -35,6 +35,7 @@ func (o *GetHealthReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -45,7 +46,7 @@ func NewGetHealthOK() *GetHealthOK {
 	return &GetHealthOK{}
 }
 
-/* GetHealthOK describes a response with status code 200, with default header values.
+/*GetHealthOK handles this case with default header values.
 
 The health status of Harbor components
 */
@@ -56,6 +57,7 @@ type GetHealthOK struct {
 func (o *GetHealthOK) Error() string {
 	return fmt.Sprintf("[GET /health][%d] getHealthOK  %+v", 200, o.Payload)
 }
+
 func (o *GetHealthOK) GetPayload() *model.OverallHealthStatus {
 	return o.Payload
 }
@@ -77,13 +79,12 @@ func NewGetHealthInternalServerError() *GetHealthInternalServerError {
 	return &GetHealthInternalServerError{}
 }
 
-/* GetHealthInternalServerError describes a response with status code 500, with default header values.
+/*GetHealthInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetHealthInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -93,18 +94,15 @@ type GetHealthInternalServerError struct {
 func (o *GetHealthInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /health][%d] getHealthInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetHealthInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetHealthInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

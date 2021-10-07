@@ -44,6 +44,7 @@ func (o *UpdateConfigurationsReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -54,7 +55,7 @@ func NewUpdateConfigurationsOK() *UpdateConfigurationsOK {
 	return &UpdateConfigurationsOK{}
 }
 
-/* UpdateConfigurationsOK describes a response with status code 200, with default header values.
+/*UpdateConfigurationsOK handles this case with default header values.
 
 Modify system configurations successfully.
 */
@@ -75,7 +76,7 @@ func NewUpdateConfigurationsUnauthorized() *UpdateConfigurationsUnauthorized {
 	return &UpdateConfigurationsUnauthorized{}
 }
 
-/* UpdateConfigurationsUnauthorized describes a response with status code 401, with default header values.
+/*UpdateConfigurationsUnauthorized handles this case with default header values.
 
 User need to log in first.
 */
@@ -96,7 +97,7 @@ func NewUpdateConfigurationsForbidden() *UpdateConfigurationsForbidden {
 	return &UpdateConfigurationsForbidden{}
 }
 
-/* UpdateConfigurationsForbidden describes a response with status code 403, with default header values.
+/*UpdateConfigurationsForbidden handles this case with default header values.
 
 User does not have permission of admin role.
 */
@@ -117,7 +118,7 @@ func NewUpdateConfigurationsInternalServerError() *UpdateConfigurationsInternalS
 	return &UpdateConfigurationsInternalServerError{}
 }
 
-/* UpdateConfigurationsInternalServerError describes a response with status code 500, with default header values.
+/*UpdateConfigurationsInternalServerError handles this case with default header values.
 
 Unexpected internal errors.
 */

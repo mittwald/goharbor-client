@@ -59,6 +59,7 @@ func (o *UpdateScanAllScheduleReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,13 +70,12 @@ func NewUpdateScanAllScheduleOK() *UpdateScanAllScheduleOK {
 	return &UpdateScanAllScheduleOK{}
 }
 
-/* UpdateScanAllScheduleOK describes a response with status code 200, with default header values.
+/*UpdateScanAllScheduleOK handles this case with default header values.
 
 Success
 */
 type UpdateScanAllScheduleOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -86,12 +86,8 @@ func (o *UpdateScanAllScheduleOK) Error() string {
 
 func (o *UpdateScanAllScheduleOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -101,13 +97,12 @@ func NewUpdateScanAllScheduleBadRequest() *UpdateScanAllScheduleBadRequest {
 	return &UpdateScanAllScheduleBadRequest{}
 }
 
-/* UpdateScanAllScheduleBadRequest describes a response with status code 400, with default header values.
+/*UpdateScanAllScheduleBadRequest handles this case with default header values.
 
 Bad request
 */
 type UpdateScanAllScheduleBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -117,18 +112,15 @@ type UpdateScanAllScheduleBadRequest struct {
 func (o *UpdateScanAllScheduleBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /system/scanAll/schedule][%d] updateScanAllScheduleBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *UpdateScanAllScheduleBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateScanAllScheduleBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -145,13 +137,12 @@ func NewUpdateScanAllScheduleUnauthorized() *UpdateScanAllScheduleUnauthorized {
 	return &UpdateScanAllScheduleUnauthorized{}
 }
 
-/* UpdateScanAllScheduleUnauthorized describes a response with status code 401, with default header values.
+/*UpdateScanAllScheduleUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type UpdateScanAllScheduleUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -161,18 +152,15 @@ type UpdateScanAllScheduleUnauthorized struct {
 func (o *UpdateScanAllScheduleUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /system/scanAll/schedule][%d] updateScanAllScheduleUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *UpdateScanAllScheduleUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateScanAllScheduleUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -189,13 +177,12 @@ func NewUpdateScanAllScheduleForbidden() *UpdateScanAllScheduleForbidden {
 	return &UpdateScanAllScheduleForbidden{}
 }
 
-/* UpdateScanAllScheduleForbidden describes a response with status code 403, with default header values.
+/*UpdateScanAllScheduleForbidden handles this case with default header values.
 
 Forbidden
 */
 type UpdateScanAllScheduleForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -205,18 +192,15 @@ type UpdateScanAllScheduleForbidden struct {
 func (o *UpdateScanAllScheduleForbidden) Error() string {
 	return fmt.Sprintf("[PUT /system/scanAll/schedule][%d] updateScanAllScheduleForbidden  %+v", 403, o.Payload)
 }
+
 func (o *UpdateScanAllScheduleForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateScanAllScheduleForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -233,13 +217,12 @@ func NewUpdateScanAllSchedulePreconditionFailed() *UpdateScanAllSchedulePrecondi
 	return &UpdateScanAllSchedulePreconditionFailed{}
 }
 
-/* UpdateScanAllSchedulePreconditionFailed describes a response with status code 412, with default header values.
+/*UpdateScanAllSchedulePreconditionFailed handles this case with default header values.
 
 Precondition failed
 */
 type UpdateScanAllSchedulePreconditionFailed struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,18 +232,15 @@ type UpdateScanAllSchedulePreconditionFailed struct {
 func (o *UpdateScanAllSchedulePreconditionFailed) Error() string {
 	return fmt.Sprintf("[PUT /system/scanAll/schedule][%d] updateScanAllSchedulePreconditionFailed  %+v", 412, o.Payload)
 }
+
 func (o *UpdateScanAllSchedulePreconditionFailed) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateScanAllSchedulePreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -277,13 +257,12 @@ func NewUpdateScanAllScheduleInternalServerError() *UpdateScanAllScheduleInterna
 	return &UpdateScanAllScheduleInternalServerError{}
 }
 
-/* UpdateScanAllScheduleInternalServerError describes a response with status code 500, with default header values.
+/*UpdateScanAllScheduleInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type UpdateScanAllScheduleInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -293,18 +272,15 @@ type UpdateScanAllScheduleInternalServerError struct {
 func (o *UpdateScanAllScheduleInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /system/scanAll/schedule][%d] updateScanAllScheduleInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *UpdateScanAllScheduleInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateScanAllScheduleInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

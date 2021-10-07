@@ -17,104 +17,86 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteProjectMemberParams creates a new DeleteProjectMemberParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewDeleteProjectMemberParams creates a new DeleteProjectMemberParams object
+// with the default values initialized.
 func NewDeleteProjectMemberParams() *DeleteProjectMemberParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &DeleteProjectMemberParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteProjectMemberParamsWithTimeout creates a new DeleteProjectMemberParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteProjectMemberParamsWithTimeout(timeout time.Duration) *DeleteProjectMemberParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &DeleteProjectMemberParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		timeout: timeout,
 	}
 }
 
 // NewDeleteProjectMemberParamsWithContext creates a new DeleteProjectMemberParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewDeleteProjectMemberParamsWithContext(ctx context.Context) *DeleteProjectMemberParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &DeleteProjectMemberParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		Context: ctx,
 	}
 }
 
 // NewDeleteProjectMemberParamsWithHTTPClient creates a new DeleteProjectMemberParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteProjectMemberParamsWithHTTPClient(client *http.Client) *DeleteProjectMemberParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &DeleteProjectMemberParams{
-		HTTPClient: client,
+		XIsResourceName: &xIsResourceNameDefault,
+		HTTPClient:      client,
 	}
 }
 
-/* DeleteProjectMemberParams contains all the parameters to send to the API endpoint
-   for the delete project member operation.
-
-   Typically these are written to a http.Request.
+/*DeleteProjectMemberParams contains all the parameters to send to the API endpoint
+for the delete project member operation typically these are written to a http.Request
 */
 type DeleteProjectMemberParams struct {
 
-	/* XIsResourceName.
+	/*XIsResourceName
+	  The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
 
-	   The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
 	*/
 	XIsResourceName *bool
+	/*XRequestID
+	  An unique ID for the request
 
-	/* XRequestID.
-
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Mid
+	  Member ID.
 
-	/* Mid.
-
-	   Member ID.
-
-	   Format: int64
 	*/
 	Mid int64
+	/*ProjectNameOrID
+	  The name or id of the project
 
-	/* ProjectNameOrID.
-
-	   The name or id of the project
 	*/
 	ProjectNameOrID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the delete project member params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteProjectMemberParams) WithDefaults() *DeleteProjectMemberParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the delete project member params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteProjectMemberParams) SetDefaults() {
-	var (
-		xIsResourceNameDefault = bool(false)
-	)
-
-	val := DeleteProjectMemberParams{
-		XIsResourceName: &xIsResourceNameDefault,
-	}
-
-	val.timeout = o.timeout
-	val.Context = o.Context
-	val.HTTPClient = o.HTTPClient
-	*o = val
 }
 
 // WithTimeout adds the timeout to the delete project member params
@@ -208,6 +190,7 @@ func (o *DeleteProjectMemberParams) WriteToRequest(r runtime.ClientRequest, reg 
 		if err := r.SetHeaderParam("X-Is-Resource-Name", swag.FormatBool(*o.XIsResourceName)); err != nil {
 			return err
 		}
+
 	}
 
 	if o.XRequestID != nil {
@@ -216,6 +199,7 @@ func (o *DeleteProjectMemberParams) WriteToRequest(r runtime.ClientRequest, reg 
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param mid

@@ -47,6 +47,7 @@ func (o *GetIconReader) ReadResponse(response runtime.ClientResponse, consumer r
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +58,7 @@ func NewGetIconOK() *GetIconOK {
 	return &GetIconOK{}
 }
 
-/* GetIconOK describes a response with status code 200, with default header values.
+/*GetIconOK handles this case with default header values.
 
 Success
 */
@@ -68,6 +69,7 @@ type GetIconOK struct {
 func (o *GetIconOK) Error() string {
 	return fmt.Sprintf("[GET /icons/{digest}][%d] getIconOK  %+v", 200, o.Payload)
 }
+
 func (o *GetIconOK) GetPayload() *model.Icon {
 	return o.Payload
 }
@@ -89,13 +91,12 @@ func NewGetIconBadRequest() *GetIconBadRequest {
 	return &GetIconBadRequest{}
 }
 
-/* GetIconBadRequest describes a response with status code 400, with default header values.
+/*GetIconBadRequest handles this case with default header values.
 
 Bad request
 */
 type GetIconBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -105,18 +106,15 @@ type GetIconBadRequest struct {
 func (o *GetIconBadRequest) Error() string {
 	return fmt.Sprintf("[GET /icons/{digest}][%d] getIconBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetIconBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetIconBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -133,13 +131,12 @@ func NewGetIconNotFound() *GetIconNotFound {
 	return &GetIconNotFound{}
 }
 
-/* GetIconNotFound describes a response with status code 404, with default header values.
+/*GetIconNotFound handles this case with default header values.
 
 Not found
 */
 type GetIconNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -149,18 +146,15 @@ type GetIconNotFound struct {
 func (o *GetIconNotFound) Error() string {
 	return fmt.Sprintf("[GET /icons/{digest}][%d] getIconNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetIconNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetIconNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -177,13 +171,12 @@ func NewGetIconInternalServerError() *GetIconInternalServerError {
 	return &GetIconInternalServerError{}
 }
 
-/* GetIconInternalServerError describes a response with status code 500, with default header values.
+/*GetIconInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetIconInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -193,18 +186,15 @@ type GetIconInternalServerError struct {
 func (o *GetIconInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /icons/{digest}][%d] getIconInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetIconInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetIconInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

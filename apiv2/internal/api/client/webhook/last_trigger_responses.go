@@ -53,6 +53,7 @@ func (o *LastTriggerReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +64,7 @@ func NewLastTriggerOK() *LastTriggerOK {
 	return &LastTriggerOK{}
 }
 
-/* LastTriggerOK describes a response with status code 200, with default header values.
+/*LastTriggerOK handles this case with default header values.
 
 Test webhook connection successfully.
 */
@@ -74,6 +75,7 @@ type LastTriggerOK struct {
 func (o *LastTriggerOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/webhook/lasttrigger][%d] lastTriggerOK  %+v", 200, o.Payload)
 }
+
 func (o *LastTriggerOK) GetPayload() []*model.WebhookLastTrigger {
 	return o.Payload
 }
@@ -93,13 +95,12 @@ func NewLastTriggerBadRequest() *LastTriggerBadRequest {
 	return &LastTriggerBadRequest{}
 }
 
-/* LastTriggerBadRequest describes a response with status code 400, with default header values.
+/*LastTriggerBadRequest handles this case with default header values.
 
 Bad request
 */
 type LastTriggerBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -109,18 +110,15 @@ type LastTriggerBadRequest struct {
 func (o *LastTriggerBadRequest) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/webhook/lasttrigger][%d] lastTriggerBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *LastTriggerBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *LastTriggerBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -137,13 +135,12 @@ func NewLastTriggerUnauthorized() *LastTriggerUnauthorized {
 	return &LastTriggerUnauthorized{}
 }
 
-/* LastTriggerUnauthorized describes a response with status code 401, with default header values.
+/*LastTriggerUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type LastTriggerUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -153,18 +150,15 @@ type LastTriggerUnauthorized struct {
 func (o *LastTriggerUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/webhook/lasttrigger][%d] lastTriggerUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *LastTriggerUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *LastTriggerUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -181,13 +175,12 @@ func NewLastTriggerForbidden() *LastTriggerForbidden {
 	return &LastTriggerForbidden{}
 }
 
-/* LastTriggerForbidden describes a response with status code 403, with default header values.
+/*LastTriggerForbidden handles this case with default header values.
 
 Forbidden
 */
 type LastTriggerForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -197,18 +190,15 @@ type LastTriggerForbidden struct {
 func (o *LastTriggerForbidden) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/webhook/lasttrigger][%d] lastTriggerForbidden  %+v", 403, o.Payload)
 }
+
 func (o *LastTriggerForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *LastTriggerForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -225,13 +215,12 @@ func NewLastTriggerInternalServerError() *LastTriggerInternalServerError {
 	return &LastTriggerInternalServerError{}
 }
 
-/* LastTriggerInternalServerError describes a response with status code 500, with default header values.
+/*LastTriggerInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type LastTriggerInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -241,18 +230,15 @@ type LastTriggerInternalServerError struct {
 func (o *LastTriggerInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/webhook/lasttrigger][%d] lastTriggerInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *LastTriggerInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *LastTriggerInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

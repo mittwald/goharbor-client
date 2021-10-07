@@ -222,8 +222,8 @@ func TestRESTClient_RefreshRobotAccountSecretByID(t *testing.T) {
 
 	ctx := context.Background()
 
-    r.On("RefreshSec", &robot.RefreshSecParams{Context: ctx, RobotID: exampleRobotAccount.ID, RobotSec: &modelv2.RobotSec{Secret: exampleSec}}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-        Return(&robot.RefreshSecOK{Payload: &modelv2.RobotSec{Secret: exampleSec}}, nil)
+	r.On("RefreshSec", &robot.RefreshSecParams{Context: ctx, RobotID: exampleRobotAccount.ID, RobotSec: &modelv2.RobotSec{Secret: exampleSec}}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&robot.RefreshSecOK{Payload: &modelv2.RobotSec{Secret: exampleSec}}, nil)
 
 	rSec, err := cl.RefreshRobotAccountSecretByID(ctx, 1, exampleSec)
 
@@ -245,8 +245,8 @@ func TestRESTClient_RefreshRobotAccountSecretByName(t *testing.T) {
 	r.On("ListRobot", &robot.ListRobotParams{Context: ctx}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&robot.ListRobotOK{Payload: []*modelv2.Robot{exampleRobotAccount}}, nil)
 
-    r.On("RefreshSec", &robot.RefreshSecParams{Context: ctx, RobotID: exampleRobotAccount.ID, RobotSec: &modelv2.RobotSec{Secret: exampleSec}}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-        Return(&robot.RefreshSecOK{Payload: &modelv2.RobotSec{Secret: exampleSec}}, nil)
+	r.On("RefreshSec", &robot.RefreshSecParams{Context: ctx, RobotID: exampleRobotAccount.ID, RobotSec: &modelv2.RobotSec{Secret: exampleSec}}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&robot.RefreshSecOK{Payload: &modelv2.RobotSec{Secret: exampleSec}}, nil)
 
 	rSec, err := cl.RefreshRobotAccountSecretByName(ctx, "test-robot", exampleSec)
 

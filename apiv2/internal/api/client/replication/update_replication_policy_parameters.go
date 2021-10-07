@@ -19,87 +19,69 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/model"
 )
 
-// NewUpdateReplicationPolicyParams creates a new UpdateReplicationPolicyParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewUpdateReplicationPolicyParams creates a new UpdateReplicationPolicyParams object
+// with the default values initialized.
 func NewUpdateReplicationPolicyParams() *UpdateReplicationPolicyParams {
+	var ()
 	return &UpdateReplicationPolicyParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateReplicationPolicyParamsWithTimeout creates a new UpdateReplicationPolicyParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewUpdateReplicationPolicyParamsWithTimeout(timeout time.Duration) *UpdateReplicationPolicyParams {
+	var ()
 	return &UpdateReplicationPolicyParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewUpdateReplicationPolicyParamsWithContext creates a new UpdateReplicationPolicyParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewUpdateReplicationPolicyParamsWithContext(ctx context.Context) *UpdateReplicationPolicyParams {
+	var ()
 	return &UpdateReplicationPolicyParams{
+
 		Context: ctx,
 	}
 }
 
 // NewUpdateReplicationPolicyParamsWithHTTPClient creates a new UpdateReplicationPolicyParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewUpdateReplicationPolicyParamsWithHTTPClient(client *http.Client) *UpdateReplicationPolicyParams {
+	var ()
 	return &UpdateReplicationPolicyParams{
 		HTTPClient: client,
 	}
 }
 
-/* UpdateReplicationPolicyParams contains all the parameters to send to the API endpoint
-   for the update replication policy operation.
-
-   Typically these are written to a http.Request.
+/*UpdateReplicationPolicyParams contains all the parameters to send to the API endpoint
+for the update replication policy operation typically these are written to a http.Request
 */
 type UpdateReplicationPolicyParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*ID
+	  The policy ID
 
-	/* ID.
-
-	   The policy ID
-
-	   Format: int64
 	*/
 	ID int64
+	/*Policy
+	  The replication policy
 
-	/* Policy.
-
-	   The replication policy
 	*/
 	Policy *model.ReplicationPolicy
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the update replication policy params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *UpdateReplicationPolicyParams) WithDefaults() *UpdateReplicationPolicyParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the update replication policy params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *UpdateReplicationPolicyParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update replication policy params
@@ -182,12 +164,14 @@ func (o *UpdateReplicationPolicyParams) WriteToRequest(r runtime.ClientRequest, 
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param id
 	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
 		return err
 	}
+
 	if o.Policy != nil {
 		if err := r.SetBodyParam(o.Policy); err != nil {
 			return err

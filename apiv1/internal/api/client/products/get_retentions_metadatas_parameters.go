@@ -16,66 +16,52 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetRetentionsMetadatasParams creates a new GetRetentionsMetadatasParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetRetentionsMetadatasParams creates a new GetRetentionsMetadatasParams object
+// with the default values initialized.
 func NewGetRetentionsMetadatasParams() *GetRetentionsMetadatasParams {
+
 	return &GetRetentionsMetadatasParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetRetentionsMetadatasParamsWithTimeout creates a new GetRetentionsMetadatasParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetRetentionsMetadatasParamsWithTimeout(timeout time.Duration) *GetRetentionsMetadatasParams {
+
 	return &GetRetentionsMetadatasParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetRetentionsMetadatasParamsWithContext creates a new GetRetentionsMetadatasParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetRetentionsMetadatasParamsWithContext(ctx context.Context) *GetRetentionsMetadatasParams {
+
 	return &GetRetentionsMetadatasParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetRetentionsMetadatasParamsWithHTTPClient creates a new GetRetentionsMetadatasParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetRetentionsMetadatasParamsWithHTTPClient(client *http.Client) *GetRetentionsMetadatasParams {
+
 	return &GetRetentionsMetadatasParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetRetentionsMetadatasParams contains all the parameters to send to the API endpoint
-   for the get retentions metadatas operation.
-
-   Typically these are written to a http.Request.
+/*GetRetentionsMetadatasParams contains all the parameters to send to the API endpoint
+for the get retentions metadatas operation typically these are written to a http.Request
 */
 type GetRetentionsMetadatasParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get retentions metadatas params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetRetentionsMetadatasParams) WithDefaults() *GetRetentionsMetadatasParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get retentions metadatas params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetRetentionsMetadatasParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get retentions metadatas params

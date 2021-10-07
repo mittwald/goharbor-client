@@ -18,79 +18,64 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/model"
 )
 
-// NewPingLdapParams creates a new PingLdapParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPingLdapParams creates a new PingLdapParams object
+// with the default values initialized.
 func NewPingLdapParams() *PingLdapParams {
+	var ()
 	return &PingLdapParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPingLdapParamsWithTimeout creates a new PingLdapParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPingLdapParamsWithTimeout(timeout time.Duration) *PingLdapParams {
+	var ()
 	return &PingLdapParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPingLdapParamsWithContext creates a new PingLdapParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPingLdapParamsWithContext(ctx context.Context) *PingLdapParams {
+	var ()
 	return &PingLdapParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPingLdapParamsWithHTTPClient creates a new PingLdapParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPingLdapParamsWithHTTPClient(client *http.Client) *PingLdapParams {
+	var ()
 	return &PingLdapParams{
 		HTTPClient: client,
 	}
 }
 
-/* PingLdapParams contains all the parameters to send to the API endpoint
-   for the ping ldap operation.
-
-   Typically these are written to a http.Request.
+/*PingLdapParams contains all the parameters to send to the API endpoint
+for the ping ldap operation typically these are written to a http.Request
 */
 type PingLdapParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Ldapconf
+	  ldap configuration. support input ldap service configuration. If it is a empty request, will load current configuration from the system.
 
-	/* Ldapconf.
-
-	   ldap configuration. support input ldap service configuration. If it is a empty request, will load current configuration from the system.
 	*/
 	Ldapconf *model.LdapConf
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the ping ldap params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PingLdapParams) WithDefaults() *PingLdapParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the ping ldap params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PingLdapParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the ping ldap params
@@ -162,7 +147,9 @@ func (o *PingLdapParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
+
 	if o.Ldapconf != nil {
 		if err := r.SetBodyParam(o.Ldapconf); err != nil {
 			return err

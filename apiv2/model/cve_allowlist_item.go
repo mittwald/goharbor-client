@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -18,16 +16,11 @@ import (
 type CVEAllowlistItem struct {
 
 	// The ID of the CVE, such as "CVE-2019-10164"
-	CveID string `json:"cve_id,omitempty"`
+	CVEID string `json:"cve_id,omitempty"`
 }
 
-// Validate validates this c v e allowlist item
+// Validate validates this CVE allowlist item
 func (m *CVEAllowlistItem) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this c v e allowlist item based on context it is used
-func (m *CVEAllowlistItem) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

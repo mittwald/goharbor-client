@@ -29,6 +29,7 @@ func (o *GetRetentionsMetadatasReader) ReadResponse(response runtime.ClientRespo
 			return nil, err
 		}
 		return result, nil
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -39,7 +40,7 @@ func NewGetRetentionsMetadatasOK() *GetRetentionsMetadatasOK {
 	return &GetRetentionsMetadatasOK{}
 }
 
-/* GetRetentionsMetadatasOK describes a response with status code 200, with default header values.
+/*GetRetentionsMetadatasOK handles this case with default header values.
 
 Get Retention Metadatas successfully.
 */
@@ -50,6 +51,7 @@ type GetRetentionsMetadatasOK struct {
 func (o *GetRetentionsMetadatasOK) Error() string {
 	return fmt.Sprintf("[GET /retentions/metadatas][%d] getRetentionsMetadatasOK  %+v", 200, o.Payload)
 }
+
 func (o *GetRetentionsMetadatasOK) GetPayload() *model.RetentionMetadata {
 	return o.Payload
 }

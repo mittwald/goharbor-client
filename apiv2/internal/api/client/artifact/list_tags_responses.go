@@ -61,6 +61,7 @@ func (o *ListTagsReader) ReadResponse(response runtime.ClientResponse, consumer 
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -71,17 +72,15 @@ func NewListTagsOK() *ListTagsOK {
 	return &ListTagsOK{}
 }
 
-/* ListTagsOK describes a response with status code 200, with default header values.
+/*ListTagsOK handles this case with default header values.
 
 Success
 */
 type ListTagsOK struct {
-
-	/* Link refers to the previous page and next page
+	/*Link refers to the previous page and next page
 	 */
 	Link string
-
-	/* The total count of tags
+	/*The total count of tags
 	 */
 	XTotalCount int64
 
@@ -91,29 +90,22 @@ type ListTagsOK struct {
 func (o *ListTagsOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags][%d] listTagsOK  %+v", 200, o.Payload)
 }
+
 func (o *ListTagsOK) GetPayload() []*model.Tag {
 	return o.Payload
 }
 
 func (o *ListTagsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Link
-	hdrLink := response.GetHeader("Link")
+	// response header Link
+	o.Link = response.GetHeader("Link")
 
-	if hdrLink != "" {
-		o.Link = hdrLink
+	// response header X-Total-Count
+	xTotalCount, err := swag.ConvertInt64(response.GetHeader("X-Total-Count"))
+	if err != nil {
+		return errors.InvalidType("X-Total-Count", "header", "int64", response.GetHeader("X-Total-Count"))
 	}
-
-	// hydrates response header X-Total-Count
-	hdrXTotalCount := response.GetHeader("X-Total-Count")
-
-	if hdrXTotalCount != "" {
-		valxTotalCount, err := swag.ConvertInt64(hdrXTotalCount)
-		if err != nil {
-			return errors.InvalidType("X-Total-Count", "header", "int64", hdrXTotalCount)
-		}
-		o.XTotalCount = valxTotalCount
-	}
+	o.XTotalCount = xTotalCount
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -128,13 +120,12 @@ func NewListTagsBadRequest() *ListTagsBadRequest {
 	return &ListTagsBadRequest{}
 }
 
-/* ListTagsBadRequest describes a response with status code 400, with default header values.
+/*ListTagsBadRequest handles this case with default header values.
 
 Bad request
 */
 type ListTagsBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -144,18 +135,15 @@ type ListTagsBadRequest struct {
 func (o *ListTagsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags][%d] listTagsBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *ListTagsBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListTagsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -172,13 +160,12 @@ func NewListTagsUnauthorized() *ListTagsUnauthorized {
 	return &ListTagsUnauthorized{}
 }
 
-/* ListTagsUnauthorized describes a response with status code 401, with default header values.
+/*ListTagsUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type ListTagsUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -188,18 +175,15 @@ type ListTagsUnauthorized struct {
 func (o *ListTagsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags][%d] listTagsUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *ListTagsUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListTagsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -216,13 +200,12 @@ func NewListTagsForbidden() *ListTagsForbidden {
 	return &ListTagsForbidden{}
 }
 
-/* ListTagsForbidden describes a response with status code 403, with default header values.
+/*ListTagsForbidden handles this case with default header values.
 
 Forbidden
 */
 type ListTagsForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -232,18 +215,15 @@ type ListTagsForbidden struct {
 func (o *ListTagsForbidden) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags][%d] listTagsForbidden  %+v", 403, o.Payload)
 }
+
 func (o *ListTagsForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListTagsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -260,13 +240,12 @@ func NewListTagsNotFound() *ListTagsNotFound {
 	return &ListTagsNotFound{}
 }
 
-/* ListTagsNotFound describes a response with status code 404, with default header values.
+/*ListTagsNotFound handles this case with default header values.
 
 Not found
 */
 type ListTagsNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -276,18 +255,15 @@ type ListTagsNotFound struct {
 func (o *ListTagsNotFound) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags][%d] listTagsNotFound  %+v", 404, o.Payload)
 }
+
 func (o *ListTagsNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListTagsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -304,13 +280,12 @@ func NewListTagsInternalServerError() *ListTagsInternalServerError {
 	return &ListTagsInternalServerError{}
 }
 
-/* ListTagsInternalServerError describes a response with status code 500, with default header values.
+/*ListTagsInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type ListTagsInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -320,18 +295,15 @@ type ListTagsInternalServerError struct {
 func (o *ListTagsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags][%d] listTagsInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *ListTagsInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListTagsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

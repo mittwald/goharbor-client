@@ -16,52 +16,53 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetGCScheduleParams creates a new GetGCScheduleParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetGCScheduleParams creates a new GetGCScheduleParams object
+// with the default values initialized.
 func NewGetGCScheduleParams() *GetGCScheduleParams {
+	var ()
 	return &GetGCScheduleParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetGCScheduleParamsWithTimeout creates a new GetGCScheduleParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetGCScheduleParamsWithTimeout(timeout time.Duration) *GetGCScheduleParams {
+	var ()
 	return &GetGCScheduleParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetGCScheduleParamsWithContext creates a new GetGCScheduleParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetGCScheduleParamsWithContext(ctx context.Context) *GetGCScheduleParams {
+	var ()
 	return &GetGCScheduleParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetGCScheduleParamsWithHTTPClient creates a new GetGCScheduleParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetGCScheduleParamsWithHTTPClient(client *http.Client) *GetGCScheduleParams {
+	var ()
 	return &GetGCScheduleParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetGCScheduleParams contains all the parameters to send to the API endpoint
-   for the get g c schedule operation.
-
-   Typically these are written to a http.Request.
+/*GetGCScheduleParams contains all the parameters to send to the API endpoint
+for the get GC schedule operation typically these are written to a http.Request
 */
 type GetGCScheduleParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
 
@@ -70,61 +71,46 @@ type GetGCScheduleParams struct {
 	HTTPClient *http.Client
 }
 
-// WithDefaults hydrates default values in the get g c schedule params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetGCScheduleParams) WithDefaults() *GetGCScheduleParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get g c schedule params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetGCScheduleParams) SetDefaults() {
-	// no default values defined for this parameter
-}
-
-// WithTimeout adds the timeout to the get g c schedule params
+// WithTimeout adds the timeout to the get GC schedule params
 func (o *GetGCScheduleParams) WithTimeout(timeout time.Duration) *GetGCScheduleParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the get g c schedule params
+// SetTimeout adds the timeout to the get GC schedule params
 func (o *GetGCScheduleParams) SetTimeout(timeout time.Duration) {
 	o.timeout = timeout
 }
 
-// WithContext adds the context to the get g c schedule params
+// WithContext adds the context to the get GC schedule params
 func (o *GetGCScheduleParams) WithContext(ctx context.Context) *GetGCScheduleParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the get g c schedule params
+// SetContext adds the context to the get GC schedule params
 func (o *GetGCScheduleParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the get g c schedule params
+// WithHTTPClient adds the HTTPClient to the get GC schedule params
 func (o *GetGCScheduleParams) WithHTTPClient(client *http.Client) *GetGCScheduleParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the get g c schedule params
+// SetHTTPClient adds the HTTPClient to the get GC schedule params
 func (o *GetGCScheduleParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithXRequestID adds the xRequestID to the get g c schedule params
+// WithXRequestID adds the xRequestID to the get GC schedule params
 func (o *GetGCScheduleParams) WithXRequestID(xRequestID *string) *GetGCScheduleParams {
 	o.SetXRequestID(xRequestID)
 	return o
 }
 
-// SetXRequestID adds the xRequestId to the get g c schedule params
+// SetXRequestID adds the xRequestId to the get GC schedule params
 func (o *GetGCScheduleParams) SetXRequestID(xRequestID *string) {
 	o.XRequestID = xRequestID
 }
@@ -143,6 +129,7 @@ func (o *GetGCScheduleParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	if len(res) > 0 {

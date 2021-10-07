@@ -17,81 +17,64 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteRegistryParams creates a new DeleteRegistryParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewDeleteRegistryParams creates a new DeleteRegistryParams object
+// with the default values initialized.
 func NewDeleteRegistryParams() *DeleteRegistryParams {
+	var ()
 	return &DeleteRegistryParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteRegistryParamsWithTimeout creates a new DeleteRegistryParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteRegistryParamsWithTimeout(timeout time.Duration) *DeleteRegistryParams {
+	var ()
 	return &DeleteRegistryParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewDeleteRegistryParamsWithContext creates a new DeleteRegistryParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewDeleteRegistryParamsWithContext(ctx context.Context) *DeleteRegistryParams {
+	var ()
 	return &DeleteRegistryParams{
+
 		Context: ctx,
 	}
 }
 
 // NewDeleteRegistryParamsWithHTTPClient creates a new DeleteRegistryParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteRegistryParamsWithHTTPClient(client *http.Client) *DeleteRegistryParams {
+	var ()
 	return &DeleteRegistryParams{
 		HTTPClient: client,
 	}
 }
 
-/* DeleteRegistryParams contains all the parameters to send to the API endpoint
-   for the delete registry operation.
-
-   Typically these are written to a http.Request.
+/*DeleteRegistryParams contains all the parameters to send to the API endpoint
+for the delete registry operation typically these are written to a http.Request
 */
 type DeleteRegistryParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*ID
+	  Registry ID
 
-	/* ID.
-
-	   Registry ID
-
-	   Format: int64
 	*/
 	ID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the delete registry params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteRegistryParams) WithDefaults() *DeleteRegistryParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the delete registry params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteRegistryParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete registry params
@@ -163,6 +146,7 @@ func (o *DeleteRegistryParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param id

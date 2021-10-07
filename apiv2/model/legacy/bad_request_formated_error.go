@@ -6,8 +6,6 @@ package legacy
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -50,21 +48,6 @@ func (m *BadRequestFormatedError) Validate(formats strfmt.Registry) error {
 
 	// validation for a type composition with ChartAPIError
 	if err := m.ChartAPIError.Validate(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-// ContextValidate validate this bad request formated error based on the context it is used
-func (m *BadRequestFormatedError) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	// validation for a type composition with ChartAPIError
-	if err := m.ChartAPIError.ContextValidate(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 

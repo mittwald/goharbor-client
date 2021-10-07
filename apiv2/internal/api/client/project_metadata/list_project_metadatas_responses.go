@@ -59,6 +59,7 @@ func (o *ListProjectMetadatasReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +70,7 @@ func NewListProjectMetadatasOK() *ListProjectMetadatasOK {
 	return &ListProjectMetadatasOK{}
 }
 
-/* ListProjectMetadatasOK describes a response with status code 200, with default header values.
+/*ListProjectMetadatasOK handles this case with default header values.
 
 Success
 */
@@ -80,6 +81,7 @@ type ListProjectMetadatasOK struct {
 func (o *ListProjectMetadatasOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/metadatas/][%d] listProjectMetadatasOK  %+v", 200, o.Payload)
 }
+
 func (o *ListProjectMetadatasOK) GetPayload() map[string]string {
 	return o.Payload
 }
@@ -99,13 +101,12 @@ func NewListProjectMetadatasBadRequest() *ListProjectMetadatasBadRequest {
 	return &ListProjectMetadatasBadRequest{}
 }
 
-/* ListProjectMetadatasBadRequest describes a response with status code 400, with default header values.
+/*ListProjectMetadatasBadRequest handles this case with default header values.
 
 Bad request
 */
 type ListProjectMetadatasBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -115,18 +116,15 @@ type ListProjectMetadatasBadRequest struct {
 func (o *ListProjectMetadatasBadRequest) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/metadatas/][%d] listProjectMetadatasBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *ListProjectMetadatasBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListProjectMetadatasBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -143,13 +141,12 @@ func NewListProjectMetadatasUnauthorized() *ListProjectMetadatasUnauthorized {
 	return &ListProjectMetadatasUnauthorized{}
 }
 
-/* ListProjectMetadatasUnauthorized describes a response with status code 401, with default header values.
+/*ListProjectMetadatasUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type ListProjectMetadatasUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -159,18 +156,15 @@ type ListProjectMetadatasUnauthorized struct {
 func (o *ListProjectMetadatasUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/metadatas/][%d] listProjectMetadatasUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *ListProjectMetadatasUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListProjectMetadatasUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -187,13 +181,12 @@ func NewListProjectMetadatasForbidden() *ListProjectMetadatasForbidden {
 	return &ListProjectMetadatasForbidden{}
 }
 
-/* ListProjectMetadatasForbidden describes a response with status code 403, with default header values.
+/*ListProjectMetadatasForbidden handles this case with default header values.
 
 Forbidden
 */
 type ListProjectMetadatasForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -203,18 +196,15 @@ type ListProjectMetadatasForbidden struct {
 func (o *ListProjectMetadatasForbidden) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/metadatas/][%d] listProjectMetadatasForbidden  %+v", 403, o.Payload)
 }
+
 func (o *ListProjectMetadatasForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListProjectMetadatasForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -231,13 +221,12 @@ func NewListProjectMetadatasNotFound() *ListProjectMetadatasNotFound {
 	return &ListProjectMetadatasNotFound{}
 }
 
-/* ListProjectMetadatasNotFound describes a response with status code 404, with default header values.
+/*ListProjectMetadatasNotFound handles this case with default header values.
 
 Not found
 */
 type ListProjectMetadatasNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -247,18 +236,15 @@ type ListProjectMetadatasNotFound struct {
 func (o *ListProjectMetadatasNotFound) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/metadatas/][%d] listProjectMetadatasNotFound  %+v", 404, o.Payload)
 }
+
 func (o *ListProjectMetadatasNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListProjectMetadatasNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -275,13 +261,12 @@ func NewListProjectMetadatasInternalServerError() *ListProjectMetadatasInternalS
 	return &ListProjectMetadatasInternalServerError{}
 }
 
-/* ListProjectMetadatasInternalServerError describes a response with status code 500, with default header values.
+/*ListProjectMetadatasInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type ListProjectMetadatasInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -291,18 +276,15 @@ type ListProjectMetadatasInternalServerError struct {
 func (o *ListProjectMetadatasInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/metadatas/][%d] listProjectMetadatasInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *ListProjectMetadatasInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListProjectMetadatasInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -43,40 +41,13 @@ func (m *SearchResult) Validate(formats strfmt.Registry) error {
 }
 
 func (m *SearchResult) validateChart(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Chart) { // not required
 		return nil
 	}
 
 	if m.Chart != nil {
 		if err := m.Chart.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("Chart")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this search result based on the context it is used
-func (m *SearchResult) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateChart(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *SearchResult) contextValidateChart(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Chart != nil {
-		if err := m.Chart.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Chart")
 			}

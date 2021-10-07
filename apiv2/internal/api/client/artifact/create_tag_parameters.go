@@ -18,97 +18,79 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/model"
 )
 
-// NewCreateTagParams creates a new CreateTagParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewCreateTagParams creates a new CreateTagParams object
+// with the default values initialized.
 func NewCreateTagParams() *CreateTagParams {
+	var ()
 	return &CreateTagParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateTagParamsWithTimeout creates a new CreateTagParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewCreateTagParamsWithTimeout(timeout time.Duration) *CreateTagParams {
+	var ()
 	return &CreateTagParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewCreateTagParamsWithContext creates a new CreateTagParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewCreateTagParamsWithContext(ctx context.Context) *CreateTagParams {
+	var ()
 	return &CreateTagParams{
+
 		Context: ctx,
 	}
 }
 
 // NewCreateTagParamsWithHTTPClient creates a new CreateTagParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewCreateTagParamsWithHTTPClient(client *http.Client) *CreateTagParams {
+	var ()
 	return &CreateTagParams{
 		HTTPClient: client,
 	}
 }
 
-/* CreateTagParams contains all the parameters to send to the API endpoint
-   for the create tag operation.
-
-   Typically these are written to a http.Request.
+/*CreateTagParams contains all the parameters to send to the API endpoint
+for the create tag operation typically these are written to a http.Request
 */
 type CreateTagParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*ProjectName
+	  The name of the project
 
-	/* ProjectName.
-
-	   The name of the project
 	*/
 	ProjectName string
+	/*Reference
+	  The reference of the artifact, can be digest or tag
 
-	/* Reference.
-
-	   The reference of the artifact, can be digest or tag
 	*/
 	Reference string
+	/*RepositoryName
+	  The name of the repository. If it contains slash, encode it with URL encoding. e.g. a/b -> a%252Fb
 
-	/* RepositoryName.
-
-	   The name of the repository. If it contains slash, encode it with URL encoding. e.g. a/b -> a%252Fb
 	*/
 	RepositoryName string
+	/*Tag
+	  The JSON object of tag.
 
-	/* Tag.
-
-	   The JSON object of tag.
 	*/
 	Tag *model.Tag
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the create tag params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *CreateTagParams) WithDefaults() *CreateTagParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the create tag params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *CreateTagParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create tag params
@@ -213,6 +195,7 @@ func (o *CreateTagParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param project_name
@@ -229,6 +212,7 @@ func (o *CreateTagParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 	if err := r.SetPathParam("repository_name", o.RepositoryName); err != nil {
 		return err
 	}
+
 	if o.Tag != nil {
 		if err := r.SetBodyParam(o.Tag); err != nil {
 			return err

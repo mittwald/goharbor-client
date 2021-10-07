@@ -16,85 +16,69 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewSearchLdapGroupParams creates a new SearchLdapGroupParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewSearchLdapGroupParams creates a new SearchLdapGroupParams object
+// with the default values initialized.
 func NewSearchLdapGroupParams() *SearchLdapGroupParams {
+	var ()
 	return &SearchLdapGroupParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSearchLdapGroupParamsWithTimeout creates a new SearchLdapGroupParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewSearchLdapGroupParamsWithTimeout(timeout time.Duration) *SearchLdapGroupParams {
+	var ()
 	return &SearchLdapGroupParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewSearchLdapGroupParamsWithContext creates a new SearchLdapGroupParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewSearchLdapGroupParamsWithContext(ctx context.Context) *SearchLdapGroupParams {
+	var ()
 	return &SearchLdapGroupParams{
+
 		Context: ctx,
 	}
 }
 
 // NewSearchLdapGroupParamsWithHTTPClient creates a new SearchLdapGroupParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewSearchLdapGroupParamsWithHTTPClient(client *http.Client) *SearchLdapGroupParams {
+	var ()
 	return &SearchLdapGroupParams{
 		HTTPClient: client,
 	}
 }
 
-/* SearchLdapGroupParams contains all the parameters to send to the API endpoint
-   for the search ldap group operation.
-
-   Typically these are written to a http.Request.
+/*SearchLdapGroupParams contains all the parameters to send to the API endpoint
+for the search ldap group operation typically these are written to a http.Request
 */
 type SearchLdapGroupParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Groupdn
+	  The LDAP group DN
 
-	/* Groupdn.
-
-	   The LDAP group DN
 	*/
 	Groupdn *string
+	/*Groupname
+	  Ldap group name
 
-	/* Groupname.
-
-	   Ldap group name
 	*/
 	Groupname *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the search ldap group params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *SearchLdapGroupParams) WithDefaults() *SearchLdapGroupParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the search ldap group params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *SearchLdapGroupParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the search ldap group params
@@ -177,40 +161,39 @@ func (o *SearchLdapGroupParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	if o.Groupdn != nil {
 
 		// query param groupdn
 		var qrGroupdn string
-
 		if o.Groupdn != nil {
 			qrGroupdn = *o.Groupdn
 		}
 		qGroupdn := qrGroupdn
 		if qGroupdn != "" {
-
 			if err := r.SetQueryParam("groupdn", qGroupdn); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.Groupname != nil {
 
 		// query param groupname
 		var qrGroupname string
-
 		if o.Groupname != nil {
 			qrGroupname = *o.Groupname
 		}
 		qGroupname := qrGroupname
 		if qGroupname != "" {
-
 			if err := r.SetQueryParam("groupname", qGroupname); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if len(res) > 0 {

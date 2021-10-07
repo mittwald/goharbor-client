@@ -53,6 +53,7 @@ func (o *GetUserReader) ReadResponse(response runtime.ClientResponse, consumer r
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +64,7 @@ func NewGetUserOK() *GetUserOK {
 	return &GetUserOK{}
 }
 
-/* GetUserOK describes a response with status code 200, with default header values.
+/*GetUserOK handles this case with default header values.
 
 Get user's info successfully.
 */
@@ -74,6 +75,7 @@ type GetUserOK struct {
 func (o *GetUserOK) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}][%d] getUserOK  %+v", 200, o.Payload)
 }
+
 func (o *GetUserOK) GetPayload() *model.UserResp {
 	return o.Payload
 }
@@ -95,13 +97,12 @@ func NewGetUserUnauthorized() *GetUserUnauthorized {
 	return &GetUserUnauthorized{}
 }
 
-/* GetUserUnauthorized describes a response with status code 401, with default header values.
+/*GetUserUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type GetUserUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +112,15 @@ type GetUserUnauthorized struct {
 func (o *GetUserUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}][%d] getUserUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetUserUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetUserUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +137,12 @@ func NewGetUserForbidden() *GetUserForbidden {
 	return &GetUserForbidden{}
 }
 
-/* GetUserForbidden describes a response with status code 403, with default header values.
+/*GetUserForbidden handles this case with default header values.
 
 Forbidden
 */
 type GetUserForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +152,15 @@ type GetUserForbidden struct {
 func (o *GetUserForbidden) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}][%d] getUserForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetUserForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetUserForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +177,12 @@ func NewGetUserNotFound() *GetUserNotFound {
 	return &GetUserNotFound{}
 }
 
-/* GetUserNotFound describes a response with status code 404, with default header values.
+/*GetUserNotFound handles this case with default header values.
 
 Not found
 */
 type GetUserNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +192,15 @@ type GetUserNotFound struct {
 func (o *GetUserNotFound) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}][%d] getUserNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetUserNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +217,12 @@ func NewGetUserInternalServerError() *GetUserInternalServerError {
 	return &GetUserInternalServerError{}
 }
 
-/* GetUserInternalServerError describes a response with status code 500, with default header values.
+/*GetUserInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetUserInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +232,15 @@ type GetUserInternalServerError struct {
 func (o *GetUserInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}][%d] getUserInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetUserInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetUserInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

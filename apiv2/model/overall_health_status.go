@@ -6,7 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -41,6 +40,7 @@ func (m *OverallHealthStatus) Validate(formats strfmt.Registry) error {
 }
 
 func (m *OverallHealthStatus) validateComponents(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Components) { // not required
 		return nil
 	}
@@ -52,38 +52,6 @@ func (m *OverallHealthStatus) validateComponents(formats strfmt.Registry) error 
 
 		if m.Components[i] != nil {
 			if err := m.Components[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("components" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-// ContextValidate validate this overall health status based on the context it is used
-func (m *OverallHealthStatus) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateComponents(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *OverallHealthStatus) contextValidateComponents(ctx context.Context, formats strfmt.Registry) error {
-
-	for i := 0; i < len(m.Components); i++ {
-
-		if m.Components[i] != nil {
-			if err := m.Components[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("components" + "." + strconv.Itoa(i))
 				}

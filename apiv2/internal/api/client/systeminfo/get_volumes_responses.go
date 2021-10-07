@@ -53,6 +53,7 @@ func (o *GetVolumesReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +64,7 @@ func NewGetVolumesOK() *GetVolumesOK {
 	return &GetVolumesOK{}
 }
 
-/* GetVolumesOK describes a response with status code 200, with default header values.
+/*GetVolumesOK handles this case with default header values.
 
 Get system volumes successfully.
 */
@@ -74,6 +75,7 @@ type GetVolumesOK struct {
 func (o *GetVolumesOK) Error() string {
 	return fmt.Sprintf("[GET /systeminfo/volumes][%d] getVolumesOK  %+v", 200, o.Payload)
 }
+
 func (o *GetVolumesOK) GetPayload() *model.SystemInfo {
 	return o.Payload
 }
@@ -95,13 +97,12 @@ func NewGetVolumesUnauthorized() *GetVolumesUnauthorized {
 	return &GetVolumesUnauthorized{}
 }
 
-/* GetVolumesUnauthorized describes a response with status code 401, with default header values.
+/*GetVolumesUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type GetVolumesUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +112,15 @@ type GetVolumesUnauthorized struct {
 func (o *GetVolumesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /systeminfo/volumes][%d] getVolumesUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetVolumesUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetVolumesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +137,12 @@ func NewGetVolumesForbidden() *GetVolumesForbidden {
 	return &GetVolumesForbidden{}
 }
 
-/* GetVolumesForbidden describes a response with status code 403, with default header values.
+/*GetVolumesForbidden handles this case with default header values.
 
 Forbidden
 */
 type GetVolumesForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +152,15 @@ type GetVolumesForbidden struct {
 func (o *GetVolumesForbidden) Error() string {
 	return fmt.Sprintf("[GET /systeminfo/volumes][%d] getVolumesForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetVolumesForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetVolumesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +177,12 @@ func NewGetVolumesNotFound() *GetVolumesNotFound {
 	return &GetVolumesNotFound{}
 }
 
-/* GetVolumesNotFound describes a response with status code 404, with default header values.
+/*GetVolumesNotFound handles this case with default header values.
 
 Not found
 */
 type GetVolumesNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +192,15 @@ type GetVolumesNotFound struct {
 func (o *GetVolumesNotFound) Error() string {
 	return fmt.Sprintf("[GET /systeminfo/volumes][%d] getVolumesNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetVolumesNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetVolumesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +217,12 @@ func NewGetVolumesInternalServerError() *GetVolumesInternalServerError {
 	return &GetVolumesInternalServerError{}
 }
 
-/* GetVolumesInternalServerError describes a response with status code 500, with default header values.
+/*GetVolumesInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetVolumesInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +232,15 @@ type GetVolumesInternalServerError struct {
 func (o *GetVolumesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /systeminfo/volumes][%d] getVolumesInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetVolumesInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetVolumesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

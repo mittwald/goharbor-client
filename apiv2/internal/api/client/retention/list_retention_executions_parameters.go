@@ -17,97 +17,74 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewListRetentionExecutionsParams creates a new ListRetentionExecutionsParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewListRetentionExecutionsParams creates a new ListRetentionExecutionsParams object
+// with the default values initialized.
 func NewListRetentionExecutionsParams() *ListRetentionExecutionsParams {
+	var ()
 	return &ListRetentionExecutionsParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewListRetentionExecutionsParamsWithTimeout creates a new ListRetentionExecutionsParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewListRetentionExecutionsParamsWithTimeout(timeout time.Duration) *ListRetentionExecutionsParams {
+	var ()
 	return &ListRetentionExecutionsParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewListRetentionExecutionsParamsWithContext creates a new ListRetentionExecutionsParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewListRetentionExecutionsParamsWithContext(ctx context.Context) *ListRetentionExecutionsParams {
+	var ()
 	return &ListRetentionExecutionsParams{
+
 		Context: ctx,
 	}
 }
 
 // NewListRetentionExecutionsParamsWithHTTPClient creates a new ListRetentionExecutionsParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewListRetentionExecutionsParamsWithHTTPClient(client *http.Client) *ListRetentionExecutionsParams {
+	var ()
 	return &ListRetentionExecutionsParams{
 		HTTPClient: client,
 	}
 }
 
-/* ListRetentionExecutionsParams contains all the parameters to send to the API endpoint
-   for the list retention executions operation.
-
-   Typically these are written to a http.Request.
+/*ListRetentionExecutionsParams contains all the parameters to send to the API endpoint
+for the list retention executions operation typically these are written to a http.Request
 */
 type ListRetentionExecutionsParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*ID
+	  Retention ID.
 
-	/* ID.
-
-	   Retention ID.
-
-	   Format: int64
 	*/
 	ID int64
+	/*Page
+	  The page number.
 
-	/* Page.
-
-	   The page number.
-
-	   Format: int64
 	*/
 	Page *int64
+	/*PageSize
+	  The size of per page.
 
-	/* PageSize.
-
-	   The size of per page.
-
-	   Format: int64
 	*/
 	PageSize *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the list retention executions params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *ListRetentionExecutionsParams) WithDefaults() *ListRetentionExecutionsParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the list retention executions params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *ListRetentionExecutionsParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the list retention executions params
@@ -201,6 +178,7 @@ func (o *ListRetentionExecutionsParams) WriteToRequest(r runtime.ClientRequest, 
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param id
@@ -212,34 +190,32 @@ func (o *ListRetentionExecutionsParams) WriteToRequest(r runtime.ClientRequest, 
 
 		// query param page
 		var qrPage int64
-
 		if o.Page != nil {
 			qrPage = *o.Page
 		}
 		qPage := swag.FormatInt64(qrPage)
 		if qPage != "" {
-
 			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.PageSize != nil {
 
 		// query param page_size
 		var qrPageSize int64
-
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt64(qrPageSize)
 		if qPageSize != "" {
-
 			if err := r.SetQueryParam("page_size", qPageSize); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if len(res) > 0 {

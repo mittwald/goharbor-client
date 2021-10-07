@@ -53,6 +53,7 @@ func (o *DeleteProjectMemberReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,13 +64,12 @@ func NewDeleteProjectMemberOK() *DeleteProjectMemberOK {
 	return &DeleteProjectMemberOK{}
 }
 
-/* DeleteProjectMemberOK describes a response with status code 200, with default header values.
+/*DeleteProjectMemberOK handles this case with default header values.
 
 Success
 */
 type DeleteProjectMemberOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -80,12 +80,8 @@ func (o *DeleteProjectMemberOK) Error() string {
 
 func (o *DeleteProjectMemberOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -95,13 +91,12 @@ func NewDeleteProjectMemberBadRequest() *DeleteProjectMemberBadRequest {
 	return &DeleteProjectMemberBadRequest{}
 }
 
-/* DeleteProjectMemberBadRequest describes a response with status code 400, with default header values.
+/*DeleteProjectMemberBadRequest handles this case with default header values.
 
 Bad request
 */
 type DeleteProjectMemberBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +106,15 @@ type DeleteProjectMemberBadRequest struct {
 func (o *DeleteProjectMemberBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}/members/{mid}][%d] deleteProjectMemberBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *DeleteProjectMemberBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteProjectMemberBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +131,12 @@ func NewDeleteProjectMemberUnauthorized() *DeleteProjectMemberUnauthorized {
 	return &DeleteProjectMemberUnauthorized{}
 }
 
-/* DeleteProjectMemberUnauthorized describes a response with status code 401, with default header values.
+/*DeleteProjectMemberUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type DeleteProjectMemberUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +146,15 @@ type DeleteProjectMemberUnauthorized struct {
 func (o *DeleteProjectMemberUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}/members/{mid}][%d] deleteProjectMemberUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteProjectMemberUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteProjectMemberUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +171,12 @@ func NewDeleteProjectMemberForbidden() *DeleteProjectMemberForbidden {
 	return &DeleteProjectMemberForbidden{}
 }
 
-/* DeleteProjectMemberForbidden describes a response with status code 403, with default header values.
+/*DeleteProjectMemberForbidden handles this case with default header values.
 
 Forbidden
 */
 type DeleteProjectMemberForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +186,15 @@ type DeleteProjectMemberForbidden struct {
 func (o *DeleteProjectMemberForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}/members/{mid}][%d] deleteProjectMemberForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteProjectMemberForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteProjectMemberForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +211,12 @@ func NewDeleteProjectMemberInternalServerError() *DeleteProjectMemberInternalSer
 	return &DeleteProjectMemberInternalServerError{}
 }
 
-/* DeleteProjectMemberInternalServerError describes a response with status code 500, with default header values.
+/*DeleteProjectMemberInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type DeleteProjectMemberInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +226,15 @@ type DeleteProjectMemberInternalServerError struct {
 func (o *DeleteProjectMemberInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}/members/{mid}][%d] deleteProjectMemberInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteProjectMemberInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteProjectMemberInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

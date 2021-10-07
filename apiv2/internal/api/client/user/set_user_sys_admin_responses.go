@@ -53,6 +53,7 @@ func (o *SetUserSysAdminReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,13 +64,12 @@ func NewSetUserSysAdminOK() *SetUserSysAdminOK {
 	return &SetUserSysAdminOK{}
 }
 
-/* SetUserSysAdminOK describes a response with status code 200, with default header values.
+/*SetUserSysAdminOK handles this case with default header values.
 
 Success
 */
 type SetUserSysAdminOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -80,12 +80,8 @@ func (o *SetUserSysAdminOK) Error() string {
 
 func (o *SetUserSysAdminOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -95,13 +91,12 @@ func NewSetUserSysAdminUnauthorized() *SetUserSysAdminUnauthorized {
 	return &SetUserSysAdminUnauthorized{}
 }
 
-/* SetUserSysAdminUnauthorized describes a response with status code 401, with default header values.
+/*SetUserSysAdminUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type SetUserSysAdminUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +106,15 @@ type SetUserSysAdminUnauthorized struct {
 func (o *SetUserSysAdminUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /users/{user_id}/sysadmin][%d] setUserSysAdminUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *SetUserSysAdminUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SetUserSysAdminUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +131,12 @@ func NewSetUserSysAdminForbidden() *SetUserSysAdminForbidden {
 	return &SetUserSysAdminForbidden{}
 }
 
-/* SetUserSysAdminForbidden describes a response with status code 403, with default header values.
+/*SetUserSysAdminForbidden handles this case with default header values.
 
 Forbidden
 */
 type SetUserSysAdminForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +146,15 @@ type SetUserSysAdminForbidden struct {
 func (o *SetUserSysAdminForbidden) Error() string {
 	return fmt.Sprintf("[PUT /users/{user_id}/sysadmin][%d] setUserSysAdminForbidden  %+v", 403, o.Payload)
 }
+
 func (o *SetUserSysAdminForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SetUserSysAdminForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +171,12 @@ func NewSetUserSysAdminNotFound() *SetUserSysAdminNotFound {
 	return &SetUserSysAdminNotFound{}
 }
 
-/* SetUserSysAdminNotFound describes a response with status code 404, with default header values.
+/*SetUserSysAdminNotFound handles this case with default header values.
 
 Not found
 */
 type SetUserSysAdminNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +186,15 @@ type SetUserSysAdminNotFound struct {
 func (o *SetUserSysAdminNotFound) Error() string {
 	return fmt.Sprintf("[PUT /users/{user_id}/sysadmin][%d] setUserSysAdminNotFound  %+v", 404, o.Payload)
 }
+
 func (o *SetUserSysAdminNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SetUserSysAdminNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,7 +211,7 @@ func NewSetUserSysAdminInternalServerError() *SetUserSysAdminInternalServerError
 	return &SetUserSysAdminInternalServerError{}
 }
 
-/* SetUserSysAdminInternalServerError describes a response with status code 500, with default header values.
+/*SetUserSysAdminInternalServerError handles this case with default header values.
 
 Unexpected internal errors.
 */

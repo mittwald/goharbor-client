@@ -16,79 +16,64 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetInstanceParams creates a new GetInstanceParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetInstanceParams creates a new GetInstanceParams object
+// with the default values initialized.
 func NewGetInstanceParams() *GetInstanceParams {
+	var ()
 	return &GetInstanceParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetInstanceParamsWithTimeout creates a new GetInstanceParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetInstanceParamsWithTimeout(timeout time.Duration) *GetInstanceParams {
+	var ()
 	return &GetInstanceParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetInstanceParamsWithContext creates a new GetInstanceParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetInstanceParamsWithContext(ctx context.Context) *GetInstanceParams {
+	var ()
 	return &GetInstanceParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetInstanceParamsWithHTTPClient creates a new GetInstanceParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetInstanceParamsWithHTTPClient(client *http.Client) *GetInstanceParams {
+	var ()
 	return &GetInstanceParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetInstanceParams contains all the parameters to send to the API endpoint
-   for the get instance operation.
-
-   Typically these are written to a http.Request.
+/*GetInstanceParams contains all the parameters to send to the API endpoint
+for the get instance operation typically these are written to a http.Request
 */
 type GetInstanceParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*PreheatInstanceName
+	  Instance Name
 
-	/* PreheatInstanceName.
-
-	   Instance Name
 	*/
 	PreheatInstanceName string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get instance params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetInstanceParams) WithDefaults() *GetInstanceParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get instance params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetInstanceParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get instance params
@@ -160,6 +145,7 @@ func (o *GetInstanceParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param preheat_instance_name

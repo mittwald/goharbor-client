@@ -16,79 +16,64 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetScannerParams creates a new GetScannerParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetScannerParams creates a new GetScannerParams object
+// with the default values initialized.
 func NewGetScannerParams() *GetScannerParams {
+	var ()
 	return &GetScannerParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetScannerParamsWithTimeout creates a new GetScannerParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetScannerParamsWithTimeout(timeout time.Duration) *GetScannerParams {
+	var ()
 	return &GetScannerParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetScannerParamsWithContext creates a new GetScannerParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetScannerParamsWithContext(ctx context.Context) *GetScannerParams {
+	var ()
 	return &GetScannerParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetScannerParamsWithHTTPClient creates a new GetScannerParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetScannerParamsWithHTTPClient(client *http.Client) *GetScannerParams {
+	var ()
 	return &GetScannerParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetScannerParams contains all the parameters to send to the API endpoint
-   for the get scanner operation.
-
-   Typically these are written to a http.Request.
+/*GetScannerParams contains all the parameters to send to the API endpoint
+for the get scanner operation typically these are written to a http.Request
 */
 type GetScannerParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*RegistrationID
+	  The scanner registration identifer.
 
-	/* RegistrationID.
-
-	   The scanner registration identifer.
 	*/
 	RegistrationID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get scanner params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetScannerParams) WithDefaults() *GetScannerParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get scanner params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetScannerParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get scanner params
@@ -160,6 +145,7 @@ func (o *GetScannerParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param registration_id

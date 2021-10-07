@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -114,37 +112,37 @@ type Configurations struct {
 	NotificationEnable *bool `json:"notification_enable,omitempty"`
 
 	// The OIDC group which has the harbor admin privileges
-	OidcAdminGroup *string `json:"oidc_admin_group,omitempty"`
+	OIDCAdminGroup *string `json:"oidc_admin_group,omitempty"`
 
 	// Auto onboard the OIDC user
-	OidcAutoOnboard *bool `json:"oidc_auto_onboard,omitempty"`
+	OIDCAutoOnboard *bool `json:"oidc_auto_onboard,omitempty"`
 
 	// The client ID of the OIDC provider
-	OidcClientID *string `json:"oidc_client_id,omitempty"`
+	OIDCClientID *string `json:"oidc_client_id,omitempty"`
 
 	// The OIDC provider secret
-	OidcClientSecret *string `json:"oidc_client_secret,omitempty"`
+	OIDCClientSecret *string `json:"oidc_client_secret,omitempty"`
 
 	// The endpoint of the OIDC provider
-	OidcEndpoint *string `json:"oidc_endpoint,omitempty"`
+	OIDCEndpoint *string `json:"oidc_endpoint,omitempty"`
 
 	// Extra parameters to add when redirect request to OIDC provider
-	OidcExtraRedirectParms *string `json:"oidc_extra_redirect_parms,omitempty"`
+	OIDCExtraRedirectParms *string `json:"oidc_extra_redirect_parms,omitempty"`
 
 	// The attribute claims the group name
-	OidcGroupsClaim *string `json:"oidc_groups_claim,omitempty"`
+	OIDCGroupsClaim *string `json:"oidc_groups_claim,omitempty"`
 
 	// The OIDC provider name
-	OidcName *string `json:"oidc_name,omitempty"`
+	OIDCName *string `json:"oidc_name,omitempty"`
 
 	// The scope of the OIDC provider
-	OidcScope *string `json:"oidc_scope,omitempty"`
+	OIDCScope *string `json:"oidc_scope,omitempty"`
 
 	// The attribute claims the username
-	OidcUserClaim *string `json:"oidc_user_claim,omitempty"`
+	OIDCUserClaim *string `json:"oidc_user_claim,omitempty"`
 
 	// Verify the OIDC provider's certificate'
-	OidcVerifyCert *bool `json:"oidc_verify_cert,omitempty"`
+	OIDCVerifyCert *bool `json:"oidc_verify_cert,omitempty"`
 
 	// Indicate who can create projects, it could be ''adminonly'' or ''everyone''.
 	ProjectCreationRestriction *string `json:"project_creation_restriction,omitempty"`
@@ -185,11 +183,6 @@ type Configurations struct {
 
 // Validate validates this configurations
 func (m *Configurations) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this configurations based on context it is used
-func (m *Configurations) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

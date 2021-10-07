@@ -56,6 +56,7 @@ func (o *PostSystemGcScheduleReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -66,7 +67,7 @@ func NewPostSystemGcScheduleOK() *PostSystemGcScheduleOK {
 	return &PostSystemGcScheduleOK{}
 }
 
-/* PostSystemGcScheduleOK describes a response with status code 200, with default header values.
+/*PostSystemGcScheduleOK handles this case with default header values.
 
 GC schedule successfully.
 */
@@ -87,7 +88,7 @@ func NewPostSystemGcScheduleBadRequest() *PostSystemGcScheduleBadRequest {
 	return &PostSystemGcScheduleBadRequest{}
 }
 
-/* PostSystemGcScheduleBadRequest describes a response with status code 400, with default header values.
+/*PostSystemGcScheduleBadRequest handles this case with default header values.
 
 Invalid schedule type.
 */
@@ -108,7 +109,7 @@ func NewPostSystemGcScheduleUnauthorized() *PostSystemGcScheduleUnauthorized {
 	return &PostSystemGcScheduleUnauthorized{}
 }
 
-/* PostSystemGcScheduleUnauthorized describes a response with status code 401, with default header values.
+/*PostSystemGcScheduleUnauthorized handles this case with default header values.
 
 User need to log in first.
 */
@@ -129,7 +130,7 @@ func NewPostSystemGcScheduleForbidden() *PostSystemGcScheduleForbidden {
 	return &PostSystemGcScheduleForbidden{}
 }
 
-/* PostSystemGcScheduleForbidden describes a response with status code 403, with default header values.
+/*PostSystemGcScheduleForbidden handles this case with default header values.
 
 User does not have permission of admin role.
 */
@@ -150,7 +151,7 @@ func NewPostSystemGcScheduleConflict() *PostSystemGcScheduleConflict {
 	return &PostSystemGcScheduleConflict{}
 }
 
-/* PostSystemGcScheduleConflict describes a response with status code 409, with default header values.
+/*PostSystemGcScheduleConflict handles this case with default header values.
 
 There is a "gc" job in progress, so the request cannot be served.
 */
@@ -171,7 +172,7 @@ func NewPostSystemGcScheduleInternalServerError() *PostSystemGcScheduleInternalS
 	return &PostSystemGcScheduleInternalServerError{}
 }
 
-/* PostSystemGcScheduleInternalServerError describes a response with status code 500, with default header values.
+/*PostSystemGcScheduleInternalServerError handles this case with default header values.
 
 Unexpected internal errors.
 */

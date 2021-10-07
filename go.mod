@@ -10,6 +10,7 @@ require (
 	github.com/go-openapi/validate v0.20.2
 	github.com/goharbor/harbor/src v0.0.0-20211002023338-32023891eb41
 	github.com/stretchr/testify v1.7.0
+
 )
 
 require (

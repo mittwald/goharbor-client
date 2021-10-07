@@ -53,6 +53,7 @@ func (o *SearchLdapUserReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +64,7 @@ func NewSearchLdapUserOK() *SearchLdapUserOK {
 	return &SearchLdapUserOK{}
 }
 
-/* SearchLdapUserOK describes a response with status code 200, with default header values.
+/*SearchLdapUserOK handles this case with default header values.
 
 Search ldap users successfully.
 */
@@ -74,6 +75,7 @@ type SearchLdapUserOK struct {
 func (o *SearchLdapUserOK) Error() string {
 	return fmt.Sprintf("[GET /ldap/users/search][%d] searchLdapUserOK  %+v", 200, o.Payload)
 }
+
 func (o *SearchLdapUserOK) GetPayload() []*model.LdapUser {
 	return o.Payload
 }
@@ -93,13 +95,12 @@ func NewSearchLdapUserBadRequest() *SearchLdapUserBadRequest {
 	return &SearchLdapUserBadRequest{}
 }
 
-/* SearchLdapUserBadRequest describes a response with status code 400, with default header values.
+/*SearchLdapUserBadRequest handles this case with default header values.
 
 Bad request
 */
 type SearchLdapUserBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -109,18 +110,15 @@ type SearchLdapUserBadRequest struct {
 func (o *SearchLdapUserBadRequest) Error() string {
 	return fmt.Sprintf("[GET /ldap/users/search][%d] searchLdapUserBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *SearchLdapUserBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SearchLdapUserBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -137,13 +135,12 @@ func NewSearchLdapUserUnauthorized() *SearchLdapUserUnauthorized {
 	return &SearchLdapUserUnauthorized{}
 }
 
-/* SearchLdapUserUnauthorized describes a response with status code 401, with default header values.
+/*SearchLdapUserUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type SearchLdapUserUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -153,18 +150,15 @@ type SearchLdapUserUnauthorized struct {
 func (o *SearchLdapUserUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /ldap/users/search][%d] searchLdapUserUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *SearchLdapUserUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SearchLdapUserUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -181,13 +175,12 @@ func NewSearchLdapUserForbidden() *SearchLdapUserForbidden {
 	return &SearchLdapUserForbidden{}
 }
 
-/* SearchLdapUserForbidden describes a response with status code 403, with default header values.
+/*SearchLdapUserForbidden handles this case with default header values.
 
 Forbidden
 */
 type SearchLdapUserForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -197,18 +190,15 @@ type SearchLdapUserForbidden struct {
 func (o *SearchLdapUserForbidden) Error() string {
 	return fmt.Sprintf("[GET /ldap/users/search][%d] searchLdapUserForbidden  %+v", 403, o.Payload)
 }
+
 func (o *SearchLdapUserForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SearchLdapUserForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -225,13 +215,12 @@ func NewSearchLdapUserInternalServerError() *SearchLdapUserInternalServerError {
 	return &SearchLdapUserInternalServerError{}
 }
 
-/* SearchLdapUserInternalServerError describes a response with status code 500, with default header values.
+/*SearchLdapUserInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type SearchLdapUserInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -241,18 +230,15 @@ type SearchLdapUserInternalServerError struct {
 func (o *SearchLdapUserInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /ldap/users/search][%d] searchLdapUserInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *SearchLdapUserInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SearchLdapUserInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

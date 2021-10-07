@@ -18,79 +18,64 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/model"
 )
 
-// NewCreateScannerParams creates a new CreateScannerParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewCreateScannerParams creates a new CreateScannerParams object
+// with the default values initialized.
 func NewCreateScannerParams() *CreateScannerParams {
+	var ()
 	return &CreateScannerParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateScannerParamsWithTimeout creates a new CreateScannerParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewCreateScannerParamsWithTimeout(timeout time.Duration) *CreateScannerParams {
+	var ()
 	return &CreateScannerParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewCreateScannerParamsWithContext creates a new CreateScannerParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewCreateScannerParamsWithContext(ctx context.Context) *CreateScannerParams {
+	var ()
 	return &CreateScannerParams{
+
 		Context: ctx,
 	}
 }
 
 // NewCreateScannerParamsWithHTTPClient creates a new CreateScannerParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewCreateScannerParamsWithHTTPClient(client *http.Client) *CreateScannerParams {
+	var ()
 	return &CreateScannerParams{
 		HTTPClient: client,
 	}
 }
 
-/* CreateScannerParams contains all the parameters to send to the API endpoint
-   for the create scanner operation.
-
-   Typically these are written to a http.Request.
+/*CreateScannerParams contains all the parameters to send to the API endpoint
+for the create scanner operation typically these are written to a http.Request
 */
 type CreateScannerParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Registration
+	  A scanner registration to be created.
 
-	/* Registration.
-
-	   A scanner registration to be created.
 	*/
 	Registration *model.ScannerRegistrationReq
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the create scanner params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *CreateScannerParams) WithDefaults() *CreateScannerParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the create scanner params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *CreateScannerParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create scanner params
@@ -162,7 +147,9 @@ func (o *CreateScannerParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
+
 	if o.Registration != nil {
 		if err := r.SetBodyParam(o.Registration); err != nil {
 			return err

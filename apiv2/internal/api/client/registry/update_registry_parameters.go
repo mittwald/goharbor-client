@@ -19,87 +19,69 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/model"
 )
 
-// NewUpdateRegistryParams creates a new UpdateRegistryParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewUpdateRegistryParams creates a new UpdateRegistryParams object
+// with the default values initialized.
 func NewUpdateRegistryParams() *UpdateRegistryParams {
+	var ()
 	return &UpdateRegistryParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateRegistryParamsWithTimeout creates a new UpdateRegistryParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewUpdateRegistryParamsWithTimeout(timeout time.Duration) *UpdateRegistryParams {
+	var ()
 	return &UpdateRegistryParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewUpdateRegistryParamsWithContext creates a new UpdateRegistryParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewUpdateRegistryParamsWithContext(ctx context.Context) *UpdateRegistryParams {
+	var ()
 	return &UpdateRegistryParams{
+
 		Context: ctx,
 	}
 }
 
 // NewUpdateRegistryParamsWithHTTPClient creates a new UpdateRegistryParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewUpdateRegistryParamsWithHTTPClient(client *http.Client) *UpdateRegistryParams {
+	var ()
 	return &UpdateRegistryParams{
 		HTTPClient: client,
 	}
 }
 
-/* UpdateRegistryParams contains all the parameters to send to the API endpoint
-   for the update registry operation.
-
-   Typically these are written to a http.Request.
+/*UpdateRegistryParams contains all the parameters to send to the API endpoint
+for the update registry operation typically these are written to a http.Request
 */
 type UpdateRegistryParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*ID
+	  The registry ID
 
-	/* ID.
-
-	   The registry ID
-
-	   Format: int64
 	*/
 	ID int64
+	/*Registry
+	  The registry
 
-	/* Registry.
-
-	   The registry
 	*/
 	Registry *model.RegistryUpdate
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the update registry params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *UpdateRegistryParams) WithDefaults() *UpdateRegistryParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the update registry params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *UpdateRegistryParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update registry params
@@ -182,12 +164,14 @@ func (o *UpdateRegistryParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param id
 	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
 		return err
 	}
+
 	if o.Registry != nil {
 		if err := r.SetBodyParam(o.Registry); err != nil {
 			return err

@@ -17,81 +17,64 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetUserGroupParams creates a new GetUserGroupParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetUserGroupParams creates a new GetUserGroupParams object
+// with the default values initialized.
 func NewGetUserGroupParams() *GetUserGroupParams {
+	var ()
 	return &GetUserGroupParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetUserGroupParamsWithTimeout creates a new GetUserGroupParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetUserGroupParamsWithTimeout(timeout time.Duration) *GetUserGroupParams {
+	var ()
 	return &GetUserGroupParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetUserGroupParamsWithContext creates a new GetUserGroupParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetUserGroupParamsWithContext(ctx context.Context) *GetUserGroupParams {
+	var ()
 	return &GetUserGroupParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetUserGroupParamsWithHTTPClient creates a new GetUserGroupParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetUserGroupParamsWithHTTPClient(client *http.Client) *GetUserGroupParams {
+	var ()
 	return &GetUserGroupParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetUserGroupParams contains all the parameters to send to the API endpoint
-   for the get user group operation.
-
-   Typically these are written to a http.Request.
+/*GetUserGroupParams contains all the parameters to send to the API endpoint
+for the get user group operation typically these are written to a http.Request
 */
 type GetUserGroupParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*GroupID
+	  Group ID
 
-	/* GroupID.
-
-	   Group ID
-
-	   Format: int64
 	*/
 	GroupID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get user group params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetUserGroupParams) WithDefaults() *GetUserGroupParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get user group params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetUserGroupParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get user group params
@@ -163,6 +146,7 @@ func (o *GetUserGroupParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param group_id

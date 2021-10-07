@@ -47,6 +47,7 @@ func (o *DeleteRetentionReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +58,7 @@ func NewDeleteRetentionOK() *DeleteRetentionOK {
 	return &DeleteRetentionOK{}
 }
 
-/* DeleteRetentionOK describes a response with status code 200, with default header values.
+/*DeleteRetentionOK handles this case with default header values.
 
 Update Retention Policy successfully.
 */
@@ -78,13 +79,12 @@ func NewDeleteRetentionUnauthorized() *DeleteRetentionUnauthorized {
 	return &DeleteRetentionUnauthorized{}
 }
 
-/* DeleteRetentionUnauthorized describes a response with status code 401, with default header values.
+/*DeleteRetentionUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type DeleteRetentionUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -94,18 +94,15 @@ type DeleteRetentionUnauthorized struct {
 func (o *DeleteRetentionUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /retentions/{id}][%d] deleteRetentionUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteRetentionUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteRetentionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -122,13 +119,12 @@ func NewDeleteRetentionForbidden() *DeleteRetentionForbidden {
 	return &DeleteRetentionForbidden{}
 }
 
-/* DeleteRetentionForbidden describes a response with status code 403, with default header values.
+/*DeleteRetentionForbidden handles this case with default header values.
 
 Forbidden
 */
 type DeleteRetentionForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -138,18 +134,15 @@ type DeleteRetentionForbidden struct {
 func (o *DeleteRetentionForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /retentions/{id}][%d] deleteRetentionForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteRetentionForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteRetentionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -166,13 +159,12 @@ func NewDeleteRetentionInternalServerError() *DeleteRetentionInternalServerError
 	return &DeleteRetentionInternalServerError{}
 }
 
-/* DeleteRetentionInternalServerError describes a response with status code 500, with default header values.
+/*DeleteRetentionInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type DeleteRetentionInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -182,18 +174,15 @@ type DeleteRetentionInternalServerError struct {
 func (o *DeleteRetentionInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /retentions/{id}][%d] deleteRetentionInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteRetentionInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteRetentionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

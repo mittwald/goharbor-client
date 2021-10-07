@@ -17,89 +17,69 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetReplicationPoliciesParams creates a new GetReplicationPoliciesParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetReplicationPoliciesParams creates a new GetReplicationPoliciesParams object
+// with the default values initialized.
 func NewGetReplicationPoliciesParams() *GetReplicationPoliciesParams {
+	var ()
 	return &GetReplicationPoliciesParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetReplicationPoliciesParamsWithTimeout creates a new GetReplicationPoliciesParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetReplicationPoliciesParamsWithTimeout(timeout time.Duration) *GetReplicationPoliciesParams {
+	var ()
 	return &GetReplicationPoliciesParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetReplicationPoliciesParamsWithContext creates a new GetReplicationPoliciesParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetReplicationPoliciesParamsWithContext(ctx context.Context) *GetReplicationPoliciesParams {
+	var ()
 	return &GetReplicationPoliciesParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetReplicationPoliciesParamsWithHTTPClient creates a new GetReplicationPoliciesParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetReplicationPoliciesParamsWithHTTPClient(client *http.Client) *GetReplicationPoliciesParams {
+	var ()
 	return &GetReplicationPoliciesParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetReplicationPoliciesParams contains all the parameters to send to the API endpoint
-   for the get replication policies operation.
-
-   Typically these are written to a http.Request.
+/*GetReplicationPoliciesParams contains all the parameters to send to the API endpoint
+for the get replication policies operation typically these are written to a http.Request
 */
 type GetReplicationPoliciesParams struct {
 
-	/* Name.
+	/*Name
+	  The replication policy name.
 
-	   The replication policy name.
 	*/
 	Name *string
+	/*Page
+	  The page nubmer.
 
-	/* Page.
-
-	   The page nubmer.
-
-	   Format: int32
 	*/
 	Page *int32
+	/*PageSize
+	  The size of per page.
 
-	/* PageSize.
-
-	   The size of per page.
-
-	   Format: int32
 	*/
 	PageSize *int32
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get replication policies params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetReplicationPoliciesParams) WithDefaults() *GetReplicationPoliciesParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get replication policies params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetReplicationPoliciesParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get replication policies params
@@ -180,51 +160,48 @@ func (o *GetReplicationPoliciesParams) WriteToRequest(r runtime.ClientRequest, r
 
 		// query param name
 		var qrName string
-
 		if o.Name != nil {
 			qrName = *o.Name
 		}
 		qName := qrName
 		if qName != "" {
-
 			if err := r.SetQueryParam("name", qName); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.Page != nil {
 
 		// query param page
 		var qrPage int32
-
 		if o.Page != nil {
 			qrPage = *o.Page
 		}
 		qPage := swag.FormatInt32(qrPage)
 		if qPage != "" {
-
 			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.PageSize != nil {
 
 		// query param page_size
 		var qrPageSize int32
-
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt32(qrPageSize)
 		if qPageSize != "" {
-
 			if err := r.SetQueryParam("page_size", qPageSize); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if len(res) > 0 {

@@ -59,6 +59,7 @@ func (o *PingRegistryReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,13 +70,12 @@ func NewPingRegistryOK() *PingRegistryOK {
 	return &PingRegistryOK{}
 }
 
-/* PingRegistryOK describes a response with status code 200, with default header values.
+/*PingRegistryOK handles this case with default header values.
 
 Success
 */
 type PingRegistryOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -86,12 +86,8 @@ func (o *PingRegistryOK) Error() string {
 
 func (o *PingRegistryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -101,13 +97,12 @@ func NewPingRegistryBadRequest() *PingRegistryBadRequest {
 	return &PingRegistryBadRequest{}
 }
 
-/* PingRegistryBadRequest describes a response with status code 400, with default header values.
+/*PingRegistryBadRequest handles this case with default header values.
 
 Bad request
 */
 type PingRegistryBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -117,18 +112,15 @@ type PingRegistryBadRequest struct {
 func (o *PingRegistryBadRequest) Error() string {
 	return fmt.Sprintf("[POST /registries/ping][%d] pingRegistryBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *PingRegistryBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *PingRegistryBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -145,13 +137,12 @@ func NewPingRegistryUnauthorized() *PingRegistryUnauthorized {
 	return &PingRegistryUnauthorized{}
 }
 
-/* PingRegistryUnauthorized describes a response with status code 401, with default header values.
+/*PingRegistryUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type PingRegistryUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -161,18 +152,15 @@ type PingRegistryUnauthorized struct {
 func (o *PingRegistryUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /registries/ping][%d] pingRegistryUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *PingRegistryUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *PingRegistryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -189,13 +177,12 @@ func NewPingRegistryForbidden() *PingRegistryForbidden {
 	return &PingRegistryForbidden{}
 }
 
-/* PingRegistryForbidden describes a response with status code 403, with default header values.
+/*PingRegistryForbidden handles this case with default header values.
 
 Forbidden
 */
 type PingRegistryForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -205,18 +192,15 @@ type PingRegistryForbidden struct {
 func (o *PingRegistryForbidden) Error() string {
 	return fmt.Sprintf("[POST /registries/ping][%d] pingRegistryForbidden  %+v", 403, o.Payload)
 }
+
 func (o *PingRegistryForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *PingRegistryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -233,13 +217,12 @@ func NewPingRegistryNotFound() *PingRegistryNotFound {
 	return &PingRegistryNotFound{}
 }
 
-/* PingRegistryNotFound describes a response with status code 404, with default header values.
+/*PingRegistryNotFound handles this case with default header values.
 
 Not found
 */
 type PingRegistryNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,18 +232,15 @@ type PingRegistryNotFound struct {
 func (o *PingRegistryNotFound) Error() string {
 	return fmt.Sprintf("[POST /registries/ping][%d] pingRegistryNotFound  %+v", 404, o.Payload)
 }
+
 func (o *PingRegistryNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *PingRegistryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -277,13 +257,12 @@ func NewPingRegistryInternalServerError() *PingRegistryInternalServerError {
 	return &PingRegistryInternalServerError{}
 }
 
-/* PingRegistryInternalServerError describes a response with status code 500, with default header values.
+/*PingRegistryInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type PingRegistryInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -293,18 +272,15 @@ type PingRegistryInternalServerError struct {
 func (o *PingRegistryInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /registries/ping][%d] pingRegistryInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *PingRegistryInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *PingRegistryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

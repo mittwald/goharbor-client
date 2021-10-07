@@ -17,91 +17,74 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteChartrepoRepoChartsNameVersionLabelsIDParams creates a new DeleteChartrepoRepoChartsNameVersionLabelsIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewDeleteChartrepoRepoChartsNameVersionLabelsIDParams creates a new DeleteChartrepoRepoChartsNameVersionLabelsIDParams object
+// with the default values initialized.
 func NewDeleteChartrepoRepoChartsNameVersionLabelsIDParams() *DeleteChartrepoRepoChartsNameVersionLabelsIDParams {
+	var ()
 	return &DeleteChartrepoRepoChartsNameVersionLabelsIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteChartrepoRepoChartsNameVersionLabelsIDParamsWithTimeout creates a new DeleteChartrepoRepoChartsNameVersionLabelsIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteChartrepoRepoChartsNameVersionLabelsIDParamsWithTimeout(timeout time.Duration) *DeleteChartrepoRepoChartsNameVersionLabelsIDParams {
+	var ()
 	return &DeleteChartrepoRepoChartsNameVersionLabelsIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewDeleteChartrepoRepoChartsNameVersionLabelsIDParamsWithContext creates a new DeleteChartrepoRepoChartsNameVersionLabelsIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewDeleteChartrepoRepoChartsNameVersionLabelsIDParamsWithContext(ctx context.Context) *DeleteChartrepoRepoChartsNameVersionLabelsIDParams {
+	var ()
 	return &DeleteChartrepoRepoChartsNameVersionLabelsIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewDeleteChartrepoRepoChartsNameVersionLabelsIDParamsWithHTTPClient creates a new DeleteChartrepoRepoChartsNameVersionLabelsIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteChartrepoRepoChartsNameVersionLabelsIDParamsWithHTTPClient(client *http.Client) *DeleteChartrepoRepoChartsNameVersionLabelsIDParams {
+	var ()
 	return &DeleteChartrepoRepoChartsNameVersionLabelsIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* DeleteChartrepoRepoChartsNameVersionLabelsIDParams contains all the parameters to send to the API endpoint
-   for the delete chartrepo repo charts name version labels ID operation.
-
-   Typically these are written to a http.Request.
+/*DeleteChartrepoRepoChartsNameVersionLabelsIDParams contains all the parameters to send to the API endpoint
+for the delete chartrepo repo charts name version labels ID operation typically these are written to a http.Request
 */
 type DeleteChartrepoRepoChartsNameVersionLabelsIDParams struct {
 
-	/* ID.
+	/*ID
+	  The label ID
 
-	   The label ID
 	*/
 	ID int64
+	/*Name
+	  The chart name
 
-	/* Name.
-
-	   The chart name
 	*/
 	Name string
+	/*Repo
+	  The project name
 
-	/* Repo.
-
-	   The project name
 	*/
 	Repo string
+	/*Version
+	  The chart version
 
-	/* Version.
-
-	   The chart version
 	*/
 	Version string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the delete chartrepo repo charts name version labels ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteChartrepoRepoChartsNameVersionLabelsIDParams) WithDefaults() *DeleteChartrepoRepoChartsNameVersionLabelsIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the delete chartrepo repo charts name version labels ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteChartrepoRepoChartsNameVersionLabelsIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete chartrepo repo charts name version labels ID params

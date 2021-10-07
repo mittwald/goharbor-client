@@ -59,6 +59,7 @@ func (o *CreateUserGroupReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,13 +70,12 @@ func NewCreateUserGroupCreated() *CreateUserGroupCreated {
 	return &CreateUserGroupCreated{}
 }
 
-/* CreateUserGroupCreated describes a response with status code 201, with default header values.
+/*CreateUserGroupCreated handles this case with default header values.
 
 User group created successfully.
 */
 type CreateUserGroupCreated struct {
-
-	/* The URL of the created resource
+	/*The URL of the created resource
 	 */
 	Location string
 }
@@ -86,12 +86,8 @@ func (o *CreateUserGroupCreated) Error() string {
 
 func (o *CreateUserGroupCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Location
-	hdrLocation := response.GetHeader("Location")
-
-	if hdrLocation != "" {
-		o.Location = hdrLocation
-	}
+	// response header Location
+	o.Location = response.GetHeader("Location")
 
 	return nil
 }
@@ -101,13 +97,12 @@ func NewCreateUserGroupBadRequest() *CreateUserGroupBadRequest {
 	return &CreateUserGroupBadRequest{}
 }
 
-/* CreateUserGroupBadRequest describes a response with status code 400, with default header values.
+/*CreateUserGroupBadRequest handles this case with default header values.
 
 Bad request
 */
 type CreateUserGroupBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -117,18 +112,15 @@ type CreateUserGroupBadRequest struct {
 func (o *CreateUserGroupBadRequest) Error() string {
 	return fmt.Sprintf("[POST /usergroups][%d] createUserGroupBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *CreateUserGroupBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateUserGroupBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -145,13 +137,12 @@ func NewCreateUserGroupUnauthorized() *CreateUserGroupUnauthorized {
 	return &CreateUserGroupUnauthorized{}
 }
 
-/* CreateUserGroupUnauthorized describes a response with status code 401, with default header values.
+/*CreateUserGroupUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type CreateUserGroupUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -161,18 +152,15 @@ type CreateUserGroupUnauthorized struct {
 func (o *CreateUserGroupUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /usergroups][%d] createUserGroupUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *CreateUserGroupUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateUserGroupUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -189,13 +177,12 @@ func NewCreateUserGroupForbidden() *CreateUserGroupForbidden {
 	return &CreateUserGroupForbidden{}
 }
 
-/* CreateUserGroupForbidden describes a response with status code 403, with default header values.
+/*CreateUserGroupForbidden handles this case with default header values.
 
 Forbidden
 */
 type CreateUserGroupForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -205,18 +192,15 @@ type CreateUserGroupForbidden struct {
 func (o *CreateUserGroupForbidden) Error() string {
 	return fmt.Sprintf("[POST /usergroups][%d] createUserGroupForbidden  %+v", 403, o.Payload)
 }
+
 func (o *CreateUserGroupForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateUserGroupForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -233,13 +217,12 @@ func NewCreateUserGroupConflict() *CreateUserGroupConflict {
 	return &CreateUserGroupConflict{}
 }
 
-/* CreateUserGroupConflict describes a response with status code 409, with default header values.
+/*CreateUserGroupConflict handles this case with default header values.
 
 Conflict
 */
 type CreateUserGroupConflict struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,18 +232,15 @@ type CreateUserGroupConflict struct {
 func (o *CreateUserGroupConflict) Error() string {
 	return fmt.Sprintf("[POST /usergroups][%d] createUserGroupConflict  %+v", 409, o.Payload)
 }
+
 func (o *CreateUserGroupConflict) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateUserGroupConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -277,13 +257,12 @@ func NewCreateUserGroupInternalServerError() *CreateUserGroupInternalServerError
 	return &CreateUserGroupInternalServerError{}
 }
 
-/* CreateUserGroupInternalServerError describes a response with status code 500, with default header values.
+/*CreateUserGroupInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type CreateUserGroupInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -293,18 +272,15 @@ type CreateUserGroupInternalServerError struct {
 func (o *CreateUserGroupInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /usergroups][%d] createUserGroupInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *CreateUserGroupInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateUserGroupInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

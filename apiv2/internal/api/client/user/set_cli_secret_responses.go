@@ -65,6 +65,7 @@ func (o *SetCliSecretReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +76,7 @@ func NewSetCliSecretOK() *SetCliSecretOK {
 	return &SetCliSecretOK{}
 }
 
-/* SetCliSecretOK describes a response with status code 200, with default header values.
+/*SetCliSecretOK handles this case with default header values.
 
 The secret is successfully updated
 */
@@ -96,7 +97,7 @@ func NewSetCliSecretBadRequest() *SetCliSecretBadRequest {
 	return &SetCliSecretBadRequest{}
 }
 
-/* SetCliSecretBadRequest describes a response with status code 400, with default header values.
+/*SetCliSecretBadRequest handles this case with default header values.
 
 Invalid user ID.  Or user is not onboarded via OIDC authentication. Or the secret does not meet the standard.
 */
@@ -117,13 +118,12 @@ func NewSetCliSecretUnauthorized() *SetCliSecretUnauthorized {
 	return &SetCliSecretUnauthorized{}
 }
 
-/* SetCliSecretUnauthorized describes a response with status code 401, with default header values.
+/*SetCliSecretUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type SetCliSecretUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -133,18 +133,15 @@ type SetCliSecretUnauthorized struct {
 func (o *SetCliSecretUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /users/{user_id}/cli_secret][%d] setCliSecretUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *SetCliSecretUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SetCliSecretUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -161,13 +158,12 @@ func NewSetCliSecretForbidden() *SetCliSecretForbidden {
 	return &SetCliSecretForbidden{}
 }
 
-/* SetCliSecretForbidden describes a response with status code 403, with default header values.
+/*SetCliSecretForbidden handles this case with default header values.
 
 Forbidden
 */
 type SetCliSecretForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -177,18 +173,15 @@ type SetCliSecretForbidden struct {
 func (o *SetCliSecretForbidden) Error() string {
 	return fmt.Sprintf("[PUT /users/{user_id}/cli_secret][%d] setCliSecretForbidden  %+v", 403, o.Payload)
 }
+
 func (o *SetCliSecretForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SetCliSecretForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -205,13 +198,12 @@ func NewSetCliSecretNotFound() *SetCliSecretNotFound {
 	return &SetCliSecretNotFound{}
 }
 
-/* SetCliSecretNotFound describes a response with status code 404, with default header values.
+/*SetCliSecretNotFound handles this case with default header values.
 
 Not found
 */
 type SetCliSecretNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -221,18 +213,15 @@ type SetCliSecretNotFound struct {
 func (o *SetCliSecretNotFound) Error() string {
 	return fmt.Sprintf("[PUT /users/{user_id}/cli_secret][%d] setCliSecretNotFound  %+v", 404, o.Payload)
 }
+
 func (o *SetCliSecretNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SetCliSecretNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -249,7 +238,7 @@ func NewSetCliSecretPreconditionFailed() *SetCliSecretPreconditionFailed {
 	return &SetCliSecretPreconditionFailed{}
 }
 
-/* SetCliSecretPreconditionFailed describes a response with status code 412, with default header values.
+/*SetCliSecretPreconditionFailed handles this case with default header values.
 
 The auth mode of the system is not "oidc_auth", or the user is not onboarded via OIDC AuthN.
 */
@@ -270,13 +259,12 @@ func NewSetCliSecretInternalServerError() *SetCliSecretInternalServerError {
 	return &SetCliSecretInternalServerError{}
 }
 
-/* SetCliSecretInternalServerError describes a response with status code 500, with default header values.
+/*SetCliSecretInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type SetCliSecretInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -286,18 +274,15 @@ type SetCliSecretInternalServerError struct {
 func (o *SetCliSecretInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /users/{user_id}/cli_secret][%d] setCliSecretInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *SetCliSecretInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SetCliSecretInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

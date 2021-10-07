@@ -102,5 +102,8 @@ if [[ "${1}" = *"v2"* ]]; then
   --model-package="apiv2/model/" \
   --name="harbor" \
   --client-package="apiv2/internal/api/client" \
+  --additional-initialism=GC \
+  --additional-initialism=CVE \
+  --additional-initialism=OIDC \
   --spec="${SWAGGER_FILE}"
 fi

@@ -17,104 +17,86 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetProjectMemberParams creates a new GetProjectMemberParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetProjectMemberParams creates a new GetProjectMemberParams object
+// with the default values initialized.
 func NewGetProjectMemberParams() *GetProjectMemberParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &GetProjectMemberParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetProjectMemberParamsWithTimeout creates a new GetProjectMemberParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetProjectMemberParamsWithTimeout(timeout time.Duration) *GetProjectMemberParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &GetProjectMemberParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		timeout: timeout,
 	}
 }
 
 // NewGetProjectMemberParamsWithContext creates a new GetProjectMemberParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetProjectMemberParamsWithContext(ctx context.Context) *GetProjectMemberParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &GetProjectMemberParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		Context: ctx,
 	}
 }
 
 // NewGetProjectMemberParamsWithHTTPClient creates a new GetProjectMemberParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetProjectMemberParamsWithHTTPClient(client *http.Client) *GetProjectMemberParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &GetProjectMemberParams{
-		HTTPClient: client,
+		XIsResourceName: &xIsResourceNameDefault,
+		HTTPClient:      client,
 	}
 }
 
-/* GetProjectMemberParams contains all the parameters to send to the API endpoint
-   for the get project member operation.
-
-   Typically these are written to a http.Request.
+/*GetProjectMemberParams contains all the parameters to send to the API endpoint
+for the get project member operation typically these are written to a http.Request
 */
 type GetProjectMemberParams struct {
 
-	/* XIsResourceName.
+	/*XIsResourceName
+	  The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
 
-	   The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
 	*/
 	XIsResourceName *bool
+	/*XRequestID
+	  An unique ID for the request
 
-	/* XRequestID.
-
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Mid
+	  The member ID
 
-	/* Mid.
-
-	   The member ID
-
-	   Format: int64
 	*/
 	Mid int64
+	/*ProjectNameOrID
+	  The name or id of the project
 
-	/* ProjectNameOrID.
-
-	   The name or id of the project
 	*/
 	ProjectNameOrID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get project member params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetProjectMemberParams) WithDefaults() *GetProjectMemberParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get project member params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetProjectMemberParams) SetDefaults() {
-	var (
-		xIsResourceNameDefault = bool(false)
-	)
-
-	val := GetProjectMemberParams{
-		XIsResourceName: &xIsResourceNameDefault,
-	}
-
-	val.timeout = o.timeout
-	val.Context = o.Context
-	val.HTTPClient = o.HTTPClient
-	*o = val
 }
 
 // WithTimeout adds the timeout to the get project member params
@@ -208,6 +190,7 @@ func (o *GetProjectMemberParams) WriteToRequest(r runtime.ClientRequest, reg str
 		if err := r.SetHeaderParam("X-Is-Resource-Name", swag.FormatBool(*o.XIsResourceName)); err != nil {
 			return err
 		}
+
 	}
 
 	if o.XRequestID != nil {
@@ -216,6 +199,7 @@ func (o *GetProjectMemberParams) WriteToRequest(r runtime.ClientRequest, reg str
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param mid

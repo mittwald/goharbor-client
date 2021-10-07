@@ -47,6 +47,7 @@ func (o *GetInternalconfigReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +58,7 @@ func NewGetInternalconfigOK() *GetInternalconfigOK {
 	return &GetInternalconfigOK{}
 }
 
-/* GetInternalconfigOK describes a response with status code 200, with default header values.
+/*GetInternalconfigOK handles this case with default header values.
 
 Get system configurations successfully. The response body is a map.
 */
@@ -68,6 +69,7 @@ type GetInternalconfigOK struct {
 func (o *GetInternalconfigOK) Error() string {
 	return fmt.Sprintf("[GET /internalconfig][%d] getInternalconfigOK  %+v", 200, o.Payload)
 }
+
 func (o *GetInternalconfigOK) GetPayload() config.InternalCfg {
 	return o.Payload
 }
@@ -87,7 +89,7 @@ func NewGetInternalconfigUnauthorized() *GetInternalconfigUnauthorized {
 	return &GetInternalconfigUnauthorized{}
 }
 
-/* GetInternalconfigUnauthorized describes a response with status code 401, with default header values.
+/*GetInternalconfigUnauthorized handles this case with default header values.
 
 User need to log in first.
 */
@@ -108,7 +110,7 @@ func NewGetInternalconfigForbidden() *GetInternalconfigForbidden {
 	return &GetInternalconfigForbidden{}
 }
 
-/* GetInternalconfigForbidden describes a response with status code 403, with default header values.
+/*GetInternalconfigForbidden handles this case with default header values.
 
 User does not have permission of admin role.
 */
@@ -129,7 +131,7 @@ func NewGetInternalconfigInternalServerError() *GetInternalconfigInternalServerE
 	return &GetInternalconfigInternalServerError{}
 }
 
-/* GetInternalconfigInternalServerError describes a response with status code 500, with default header values.
+/*GetInternalconfigInternalServerError handles this case with default header values.
 
 Unexpected internal errors.
 */

@@ -19,85 +19,69 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/model"
 )
 
-// NewUpdateQuotaParams creates a new UpdateQuotaParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewUpdateQuotaParams creates a new UpdateQuotaParams object
+// with the default values initialized.
 func NewUpdateQuotaParams() *UpdateQuotaParams {
+	var ()
 	return &UpdateQuotaParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateQuotaParamsWithTimeout creates a new UpdateQuotaParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewUpdateQuotaParamsWithTimeout(timeout time.Duration) *UpdateQuotaParams {
+	var ()
 	return &UpdateQuotaParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewUpdateQuotaParamsWithContext creates a new UpdateQuotaParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewUpdateQuotaParamsWithContext(ctx context.Context) *UpdateQuotaParams {
+	var ()
 	return &UpdateQuotaParams{
+
 		Context: ctx,
 	}
 }
 
 // NewUpdateQuotaParamsWithHTTPClient creates a new UpdateQuotaParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewUpdateQuotaParamsWithHTTPClient(client *http.Client) *UpdateQuotaParams {
+	var ()
 	return &UpdateQuotaParams{
 		HTTPClient: client,
 	}
 }
 
-/* UpdateQuotaParams contains all the parameters to send to the API endpoint
-   for the update quota operation.
-
-   Typically these are written to a http.Request.
+/*UpdateQuotaParams contains all the parameters to send to the API endpoint
+for the update quota operation typically these are written to a http.Request
 */
 type UpdateQuotaParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Hard
+	  The new hard limits for the quota
 
-	/* Hard.
-
-	   The new hard limits for the quota
 	*/
 	Hard *model.QuotaUpdateReq
+	/*ID
+	  Quota ID
 
-	/* ID.
-
-	   Quota ID
 	*/
 	ID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the update quota params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *UpdateQuotaParams) WithDefaults() *UpdateQuotaParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the update quota params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *UpdateQuotaParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update quota params
@@ -180,7 +164,9 @@ func (o *UpdateQuotaParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
+
 	if o.Hard != nil {
 		if err := r.SetBodyParam(o.Hard); err != nil {
 			return err

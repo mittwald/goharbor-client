@@ -17,96 +17,81 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewLastTriggerParams creates a new LastTriggerParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewLastTriggerParams creates a new LastTriggerParams object
+// with the default values initialized.
 func NewLastTriggerParams() *LastTriggerParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &LastTriggerParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewLastTriggerParamsWithTimeout creates a new LastTriggerParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewLastTriggerParamsWithTimeout(timeout time.Duration) *LastTriggerParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &LastTriggerParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		timeout: timeout,
 	}
 }
 
 // NewLastTriggerParamsWithContext creates a new LastTriggerParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewLastTriggerParamsWithContext(ctx context.Context) *LastTriggerParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &LastTriggerParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		Context: ctx,
 	}
 }
 
 // NewLastTriggerParamsWithHTTPClient creates a new LastTriggerParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewLastTriggerParamsWithHTTPClient(client *http.Client) *LastTriggerParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &LastTriggerParams{
-		HTTPClient: client,
+		XIsResourceName: &xIsResourceNameDefault,
+		HTTPClient:      client,
 	}
 }
 
-/* LastTriggerParams contains all the parameters to send to the API endpoint
-   for the last trigger operation.
-
-   Typically these are written to a http.Request.
+/*LastTriggerParams contains all the parameters to send to the API endpoint
+for the last trigger operation typically these are written to a http.Request
 */
 type LastTriggerParams struct {
 
-	/* XIsResourceName.
+	/*XIsResourceName
+	  The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
 
-	   The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
 	*/
 	XIsResourceName *bool
+	/*XRequestID
+	  An unique ID for the request
 
-	/* XRequestID.
-
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*ProjectNameOrID
+	  The name or id of the project
 
-	/* ProjectNameOrID.
-
-	   The name or id of the project
 	*/
 	ProjectNameOrID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the last trigger params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *LastTriggerParams) WithDefaults() *LastTriggerParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the last trigger params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *LastTriggerParams) SetDefaults() {
-	var (
-		xIsResourceNameDefault = bool(false)
-	)
-
-	val := LastTriggerParams{
-		XIsResourceName: &xIsResourceNameDefault,
-	}
-
-	val.timeout = o.timeout
-	val.Context = o.Context
-	val.HTTPClient = o.HTTPClient
-	*o = val
 }
 
 // WithTimeout adds the timeout to the last trigger params
@@ -189,6 +174,7 @@ func (o *LastTriggerParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 		if err := r.SetHeaderParam("X-Is-Resource-Name", swag.FormatBool(*o.XIsResourceName)); err != nil {
 			return err
 		}
+
 	}
 
 	if o.XRequestID != nil {
@@ -197,6 +183,7 @@ func (o *LastTriggerParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param project_name_or_id

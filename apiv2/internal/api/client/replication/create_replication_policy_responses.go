@@ -59,6 +59,7 @@ func (o *CreateReplicationPolicyReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,17 +70,15 @@ func NewCreateReplicationPolicyCreated() *CreateReplicationPolicyCreated {
 	return &CreateReplicationPolicyCreated{}
 }
 
-/* CreateReplicationPolicyCreated describes a response with status code 201, with default header values.
+/*CreateReplicationPolicyCreated handles this case with default header values.
 
 Created
 */
 type CreateReplicationPolicyCreated struct {
-
-	/* The location of the resource
+	/*The location of the resource
 	 */
 	Location string
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -90,19 +89,11 @@ func (o *CreateReplicationPolicyCreated) Error() string {
 
 func (o *CreateReplicationPolicyCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Location
-	hdrLocation := response.GetHeader("Location")
+	// response header Location
+	o.Location = response.GetHeader("Location")
 
-	if hdrLocation != "" {
-		o.Location = hdrLocation
-	}
-
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -112,13 +103,12 @@ func NewCreateReplicationPolicyBadRequest() *CreateReplicationPolicyBadRequest {
 	return &CreateReplicationPolicyBadRequest{}
 }
 
-/* CreateReplicationPolicyBadRequest describes a response with status code 400, with default header values.
+/*CreateReplicationPolicyBadRequest handles this case with default header values.
 
 Bad request
 */
 type CreateReplicationPolicyBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -128,18 +118,15 @@ type CreateReplicationPolicyBadRequest struct {
 func (o *CreateReplicationPolicyBadRequest) Error() string {
 	return fmt.Sprintf("[POST /replication/policies][%d] createReplicationPolicyBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *CreateReplicationPolicyBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateReplicationPolicyBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -156,13 +143,12 @@ func NewCreateReplicationPolicyUnauthorized() *CreateReplicationPolicyUnauthoriz
 	return &CreateReplicationPolicyUnauthorized{}
 }
 
-/* CreateReplicationPolicyUnauthorized describes a response with status code 401, with default header values.
+/*CreateReplicationPolicyUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type CreateReplicationPolicyUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -172,18 +158,15 @@ type CreateReplicationPolicyUnauthorized struct {
 func (o *CreateReplicationPolicyUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /replication/policies][%d] createReplicationPolicyUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *CreateReplicationPolicyUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateReplicationPolicyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -200,13 +183,12 @@ func NewCreateReplicationPolicyForbidden() *CreateReplicationPolicyForbidden {
 	return &CreateReplicationPolicyForbidden{}
 }
 
-/* CreateReplicationPolicyForbidden describes a response with status code 403, with default header values.
+/*CreateReplicationPolicyForbidden handles this case with default header values.
 
 Forbidden
 */
 type CreateReplicationPolicyForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -216,18 +198,15 @@ type CreateReplicationPolicyForbidden struct {
 func (o *CreateReplicationPolicyForbidden) Error() string {
 	return fmt.Sprintf("[POST /replication/policies][%d] createReplicationPolicyForbidden  %+v", 403, o.Payload)
 }
+
 func (o *CreateReplicationPolicyForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateReplicationPolicyForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -244,13 +223,12 @@ func NewCreateReplicationPolicyConflict() *CreateReplicationPolicyConflict {
 	return &CreateReplicationPolicyConflict{}
 }
 
-/* CreateReplicationPolicyConflict describes a response with status code 409, with default header values.
+/*CreateReplicationPolicyConflict handles this case with default header values.
 
 Conflict
 */
 type CreateReplicationPolicyConflict struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -260,18 +238,15 @@ type CreateReplicationPolicyConflict struct {
 func (o *CreateReplicationPolicyConflict) Error() string {
 	return fmt.Sprintf("[POST /replication/policies][%d] createReplicationPolicyConflict  %+v", 409, o.Payload)
 }
+
 func (o *CreateReplicationPolicyConflict) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateReplicationPolicyConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -288,13 +263,12 @@ func NewCreateReplicationPolicyInternalServerError() *CreateReplicationPolicyInt
 	return &CreateReplicationPolicyInternalServerError{}
 }
 
-/* CreateReplicationPolicyInternalServerError describes a response with status code 500, with default header values.
+/*CreateReplicationPolicyInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type CreateReplicationPolicyInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -304,18 +278,15 @@ type CreateReplicationPolicyInternalServerError struct {
 func (o *CreateReplicationPolicyInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /replication/policies][%d] createReplicationPolicyInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *CreateReplicationPolicyInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateReplicationPolicyInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

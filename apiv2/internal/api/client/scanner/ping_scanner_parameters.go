@@ -18,79 +18,64 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/model"
 )
 
-// NewPingScannerParams creates a new PingScannerParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPingScannerParams creates a new PingScannerParams object
+// with the default values initialized.
 func NewPingScannerParams() *PingScannerParams {
+	var ()
 	return &PingScannerParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPingScannerParamsWithTimeout creates a new PingScannerParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPingScannerParamsWithTimeout(timeout time.Duration) *PingScannerParams {
+	var ()
 	return &PingScannerParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPingScannerParamsWithContext creates a new PingScannerParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPingScannerParamsWithContext(ctx context.Context) *PingScannerParams {
+	var ()
 	return &PingScannerParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPingScannerParamsWithHTTPClient creates a new PingScannerParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPingScannerParamsWithHTTPClient(client *http.Client) *PingScannerParams {
+	var ()
 	return &PingScannerParams{
 		HTTPClient: client,
 	}
 }
 
-/* PingScannerParams contains all the parameters to send to the API endpoint
-   for the ping scanner operation.
-
-   Typically these are written to a http.Request.
+/*PingScannerParams contains all the parameters to send to the API endpoint
+for the ping scanner operation typically these are written to a http.Request
 */
 type PingScannerParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Settings
+	  A scanner registration settings to be tested.
 
-	/* Settings.
-
-	   A scanner registration settings to be tested.
 	*/
 	Settings *model.ScannerRegistrationSettings
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the ping scanner params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PingScannerParams) WithDefaults() *PingScannerParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the ping scanner params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PingScannerParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the ping scanner params
@@ -162,7 +147,9 @@ func (o *PingScannerParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
+
 	if o.Settings != nil {
 		if err := r.SetBodyParam(o.Settings); err != nil {
 			return err

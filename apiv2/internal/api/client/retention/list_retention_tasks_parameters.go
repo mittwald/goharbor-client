@@ -17,105 +17,79 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewListRetentionTasksParams creates a new ListRetentionTasksParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewListRetentionTasksParams creates a new ListRetentionTasksParams object
+// with the default values initialized.
 func NewListRetentionTasksParams() *ListRetentionTasksParams {
+	var ()
 	return &ListRetentionTasksParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewListRetentionTasksParamsWithTimeout creates a new ListRetentionTasksParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewListRetentionTasksParamsWithTimeout(timeout time.Duration) *ListRetentionTasksParams {
+	var ()
 	return &ListRetentionTasksParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewListRetentionTasksParamsWithContext creates a new ListRetentionTasksParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewListRetentionTasksParamsWithContext(ctx context.Context) *ListRetentionTasksParams {
+	var ()
 	return &ListRetentionTasksParams{
+
 		Context: ctx,
 	}
 }
 
 // NewListRetentionTasksParamsWithHTTPClient creates a new ListRetentionTasksParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewListRetentionTasksParamsWithHTTPClient(client *http.Client) *ListRetentionTasksParams {
+	var ()
 	return &ListRetentionTasksParams{
 		HTTPClient: client,
 	}
 }
 
-/* ListRetentionTasksParams contains all the parameters to send to the API endpoint
-   for the list retention tasks operation.
-
-   Typically these are written to a http.Request.
+/*ListRetentionTasksParams contains all the parameters to send to the API endpoint
+for the list retention tasks operation typically these are written to a http.Request
 */
 type ListRetentionTasksParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Eid
+	  Retention execution ID.
 
-	/* Eid.
-
-	   Retention execution ID.
-
-	   Format: int64
 	*/
 	Eid int64
+	/*ID
+	  Retention ID.
 
-	/* ID.
-
-	   Retention ID.
-
-	   Format: int64
 	*/
 	ID int64
+	/*Page
+	  The page number.
 
-	/* Page.
-
-	   The page number.
-
-	   Format: int64
 	*/
 	Page *int64
+	/*PageSize
+	  The size of per page.
 
-	/* PageSize.
-
-	   The size of per page.
-
-	   Format: int64
 	*/
 	PageSize *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the list retention tasks params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *ListRetentionTasksParams) WithDefaults() *ListRetentionTasksParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the list retention tasks params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *ListRetentionTasksParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the list retention tasks params
@@ -220,6 +194,7 @@ func (o *ListRetentionTasksParams) WriteToRequest(r runtime.ClientRequest, reg s
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param eid
@@ -236,34 +211,32 @@ func (o *ListRetentionTasksParams) WriteToRequest(r runtime.ClientRequest, reg s
 
 		// query param page
 		var qrPage int64
-
 		if o.Page != nil {
 			qrPage = *o.Page
 		}
 		qPage := swag.FormatInt64(qrPage)
 		if qPage != "" {
-
 			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.PageSize != nil {
 
 		// query param page_size
 		var qrPageSize int64
-
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt64(qrPageSize)
 		if qPageSize != "" {
-
 			if err := r.SetQueryParam("page_size", qPageSize); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if len(res) > 0 {

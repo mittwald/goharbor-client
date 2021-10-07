@@ -59,6 +59,7 @@ func (o *DeleteWebhookPolicyOfProjectReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,13 +70,12 @@ func NewDeleteWebhookPolicyOfProjectOK() *DeleteWebhookPolicyOfProjectOK {
 	return &DeleteWebhookPolicyOfProjectOK{}
 }
 
-/* DeleteWebhookPolicyOfProjectOK describes a response with status code 200, with default header values.
+/*DeleteWebhookPolicyOfProjectOK handles this case with default header values.
 
 Success
 */
 type DeleteWebhookPolicyOfProjectOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -86,12 +86,8 @@ func (o *DeleteWebhookPolicyOfProjectOK) Error() string {
 
 func (o *DeleteWebhookPolicyOfProjectOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -101,13 +97,12 @@ func NewDeleteWebhookPolicyOfProjectBadRequest() *DeleteWebhookPolicyOfProjectBa
 	return &DeleteWebhookPolicyOfProjectBadRequest{}
 }
 
-/* DeleteWebhookPolicyOfProjectBadRequest describes a response with status code 400, with default header values.
+/*DeleteWebhookPolicyOfProjectBadRequest handles this case with default header values.
 
 Bad request
 */
 type DeleteWebhookPolicyOfProjectBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -117,18 +112,15 @@ type DeleteWebhookPolicyOfProjectBadRequest struct {
 func (o *DeleteWebhookPolicyOfProjectBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}/webhook/policies/{webhook_policy_id}][%d] deleteWebhookPolicyOfProjectBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *DeleteWebhookPolicyOfProjectBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteWebhookPolicyOfProjectBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -145,13 +137,12 @@ func NewDeleteWebhookPolicyOfProjectUnauthorized() *DeleteWebhookPolicyOfProject
 	return &DeleteWebhookPolicyOfProjectUnauthorized{}
 }
 
-/* DeleteWebhookPolicyOfProjectUnauthorized describes a response with status code 401, with default header values.
+/*DeleteWebhookPolicyOfProjectUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type DeleteWebhookPolicyOfProjectUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -161,18 +152,15 @@ type DeleteWebhookPolicyOfProjectUnauthorized struct {
 func (o *DeleteWebhookPolicyOfProjectUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}/webhook/policies/{webhook_policy_id}][%d] deleteWebhookPolicyOfProjectUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteWebhookPolicyOfProjectUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteWebhookPolicyOfProjectUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -189,13 +177,12 @@ func NewDeleteWebhookPolicyOfProjectForbidden() *DeleteWebhookPolicyOfProjectFor
 	return &DeleteWebhookPolicyOfProjectForbidden{}
 }
 
-/* DeleteWebhookPolicyOfProjectForbidden describes a response with status code 403, with default header values.
+/*DeleteWebhookPolicyOfProjectForbidden handles this case with default header values.
 
 Forbidden
 */
 type DeleteWebhookPolicyOfProjectForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -205,18 +192,15 @@ type DeleteWebhookPolicyOfProjectForbidden struct {
 func (o *DeleteWebhookPolicyOfProjectForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}/webhook/policies/{webhook_policy_id}][%d] deleteWebhookPolicyOfProjectForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteWebhookPolicyOfProjectForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteWebhookPolicyOfProjectForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -233,13 +217,12 @@ func NewDeleteWebhookPolicyOfProjectNotFound() *DeleteWebhookPolicyOfProjectNotF
 	return &DeleteWebhookPolicyOfProjectNotFound{}
 }
 
-/* DeleteWebhookPolicyOfProjectNotFound describes a response with status code 404, with default header values.
+/*DeleteWebhookPolicyOfProjectNotFound handles this case with default header values.
 
 Not found
 */
 type DeleteWebhookPolicyOfProjectNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,18 +232,15 @@ type DeleteWebhookPolicyOfProjectNotFound struct {
 func (o *DeleteWebhookPolicyOfProjectNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}/webhook/policies/{webhook_policy_id}][%d] deleteWebhookPolicyOfProjectNotFound  %+v", 404, o.Payload)
 }
+
 func (o *DeleteWebhookPolicyOfProjectNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteWebhookPolicyOfProjectNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -277,13 +257,12 @@ func NewDeleteWebhookPolicyOfProjectInternalServerError() *DeleteWebhookPolicyOf
 	return &DeleteWebhookPolicyOfProjectInternalServerError{}
 }
 
-/* DeleteWebhookPolicyOfProjectInternalServerError describes a response with status code 500, with default header values.
+/*DeleteWebhookPolicyOfProjectInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type DeleteWebhookPolicyOfProjectInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -293,18 +272,15 @@ type DeleteWebhookPolicyOfProjectInternalServerError struct {
 func (o *DeleteWebhookPolicyOfProjectInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}/webhook/policies/{webhook_policy_id}][%d] deleteWebhookPolicyOfProjectInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteWebhookPolicyOfProjectInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteWebhookPolicyOfProjectInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

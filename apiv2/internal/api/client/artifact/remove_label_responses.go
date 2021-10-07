@@ -59,6 +59,7 @@ func (o *RemoveLabelReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,13 +70,12 @@ func NewRemoveLabelOK() *RemoveLabelOK {
 	return &RemoveLabelOK{}
 }
 
-/* RemoveLabelOK describes a response with status code 200, with default header values.
+/*RemoveLabelOK handles this case with default header values.
 
 Success
 */
 type RemoveLabelOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -86,12 +86,8 @@ func (o *RemoveLabelOK) Error() string {
 
 func (o *RemoveLabelOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -101,13 +97,12 @@ func NewRemoveLabelUnauthorized() *RemoveLabelUnauthorized {
 	return &RemoveLabelUnauthorized{}
 }
 
-/* RemoveLabelUnauthorized describes a response with status code 401, with default header values.
+/*RemoveLabelUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type RemoveLabelUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -117,18 +112,15 @@ type RemoveLabelUnauthorized struct {
 func (o *RemoveLabelUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/labels/{label_id}][%d] removeLabelUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *RemoveLabelUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *RemoveLabelUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -145,13 +137,12 @@ func NewRemoveLabelForbidden() *RemoveLabelForbidden {
 	return &RemoveLabelForbidden{}
 }
 
-/* RemoveLabelForbidden describes a response with status code 403, with default header values.
+/*RemoveLabelForbidden handles this case with default header values.
 
 Forbidden
 */
 type RemoveLabelForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -161,18 +152,15 @@ type RemoveLabelForbidden struct {
 func (o *RemoveLabelForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/labels/{label_id}][%d] removeLabelForbidden  %+v", 403, o.Payload)
 }
+
 func (o *RemoveLabelForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *RemoveLabelForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -189,13 +177,12 @@ func NewRemoveLabelNotFound() *RemoveLabelNotFound {
 	return &RemoveLabelNotFound{}
 }
 
-/* RemoveLabelNotFound describes a response with status code 404, with default header values.
+/*RemoveLabelNotFound handles this case with default header values.
 
 Not found
 */
 type RemoveLabelNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -205,18 +192,15 @@ type RemoveLabelNotFound struct {
 func (o *RemoveLabelNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/labels/{label_id}][%d] removeLabelNotFound  %+v", 404, o.Payload)
 }
+
 func (o *RemoveLabelNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *RemoveLabelNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -233,13 +217,12 @@ func NewRemoveLabelConflict() *RemoveLabelConflict {
 	return &RemoveLabelConflict{}
 }
 
-/* RemoveLabelConflict describes a response with status code 409, with default header values.
+/*RemoveLabelConflict handles this case with default header values.
 
 Conflict
 */
 type RemoveLabelConflict struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,18 +232,15 @@ type RemoveLabelConflict struct {
 func (o *RemoveLabelConflict) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/labels/{label_id}][%d] removeLabelConflict  %+v", 409, o.Payload)
 }
+
 func (o *RemoveLabelConflict) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *RemoveLabelConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -277,13 +257,12 @@ func NewRemoveLabelInternalServerError() *RemoveLabelInternalServerError {
 	return &RemoveLabelInternalServerError{}
 }
 
-/* RemoveLabelInternalServerError describes a response with status code 500, with default header values.
+/*RemoveLabelInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type RemoveLabelInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -293,18 +272,15 @@ type RemoveLabelInternalServerError struct {
 func (o *RemoveLabelInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/labels/{label_id}][%d] removeLabelInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *RemoveLabelInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *RemoveLabelInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

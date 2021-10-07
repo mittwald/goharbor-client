@@ -17,111 +17,94 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewSearchUsersParams creates a new SearchUsersParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewSearchUsersParams creates a new SearchUsersParams object
+// with the default values initialized.
 func NewSearchUsersParams() *SearchUsersParams {
+	var (
+		pageDefault     = int64(1)
+		pageSizeDefault = int64(10)
+	)
 	return &SearchUsersParams{
+		Page:     &pageDefault,
+		PageSize: &pageSizeDefault,
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSearchUsersParamsWithTimeout creates a new SearchUsersParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewSearchUsersParamsWithTimeout(timeout time.Duration) *SearchUsersParams {
+	var (
+		pageDefault     = int64(1)
+		pageSizeDefault = int64(10)
+	)
 	return &SearchUsersParams{
+		Page:     &pageDefault,
+		PageSize: &pageSizeDefault,
+
 		timeout: timeout,
 	}
 }
 
 // NewSearchUsersParamsWithContext creates a new SearchUsersParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewSearchUsersParamsWithContext(ctx context.Context) *SearchUsersParams {
+	var (
+		pageDefault     = int64(1)
+		pageSizeDefault = int64(10)
+	)
 	return &SearchUsersParams{
+		Page:     &pageDefault,
+		PageSize: &pageSizeDefault,
+
 		Context: ctx,
 	}
 }
 
 // NewSearchUsersParamsWithHTTPClient creates a new SearchUsersParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewSearchUsersParamsWithHTTPClient(client *http.Client) *SearchUsersParams {
+	var (
+		pageDefault     = int64(1)
+		pageSizeDefault = int64(10)
+	)
 	return &SearchUsersParams{
+		Page:       &pageDefault,
+		PageSize:   &pageSizeDefault,
 		HTTPClient: client,
 	}
 }
 
-/* SearchUsersParams contains all the parameters to send to the API endpoint
-   for the search users operation.
-
-   Typically these are written to a http.Request.
+/*SearchUsersParams contains all the parameters to send to the API endpoint
+for the search users operation typically these are written to a http.Request
 */
 type SearchUsersParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Page
+	  The page number
 
-	/* Page.
-
-	   The page number
-
-	   Format: int64
-	   Default: 1
 	*/
 	Page *int64
+	/*PageSize
+	  The size of per page
 
-	/* PageSize.
-
-	   The size of per page
-
-	   Format: int64
-	   Default: 10
 	*/
 	PageSize *int64
+	/*Username
+	  Username for filtering results.
 
-	/* Username.
-
-	   Username for filtering results.
 	*/
 	Username string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the search users params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *SearchUsersParams) WithDefaults() *SearchUsersParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the search users params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *SearchUsersParams) SetDefaults() {
-	var (
-		pageDefault = int64(1)
-
-		pageSizeDefault = int64(10)
-	)
-
-	val := SearchUsersParams{
-		Page:     &pageDefault,
-		PageSize: &pageSizeDefault,
-	}
-
-	val.timeout = o.timeout
-	val.Context = o.Context
-	val.HTTPClient = o.HTTPClient
-	*o = val
 }
 
 // WithTimeout adds the timeout to the search users params
@@ -215,47 +198,45 @@ func (o *SearchUsersParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	if o.Page != nil {
 
 		// query param page
 		var qrPage int64
-
 		if o.Page != nil {
 			qrPage = *o.Page
 		}
 		qPage := swag.FormatInt64(qrPage)
 		if qPage != "" {
-
 			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.PageSize != nil {
 
 		// query param page_size
 		var qrPageSize int64
-
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt64(qrPageSize)
 		if qPageSize != "" {
-
 			if err := r.SetQueryParam("page_size", qPageSize); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	// query param username
 	qrUsername := o.Username
 	qUsername := qrUsername
 	if qUsername != "" {
-
 		if err := r.SetQueryParam("username", qUsername); err != nil {
 			return err
 		}

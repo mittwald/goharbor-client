@@ -6,7 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -72,6 +71,7 @@ func (m *DetailedTag) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DetailedTag) validateLabels(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Labels) { // not required
 		return nil
 	}
@@ -96,61 +96,12 @@ func (m *DetailedTag) validateLabels(formats strfmt.Registry) error {
 }
 
 func (m *DetailedTag) validateScanOverview(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ScanOverview) { // not required
 		return nil
 	}
 
-	if m.ScanOverview != nil {
-		if err := m.ScanOverview.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("scan_overview")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this detailed tag based on the context it is used
-func (m *DetailedTag) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateLabels(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateScanOverview(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *DetailedTag) contextValidateLabels(ctx context.Context, formats strfmt.Registry) error {
-
-	for i := 0; i < len(m.Labels); i++ {
-
-		if m.Labels[i] != nil {
-			if err := m.Labels[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("labels" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *DetailedTag) contextValidateScanOverview(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := m.ScanOverview.ContextValidate(ctx, formats); err != nil {
+	if err := m.ScanOverview.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("scan_overview")
 		}

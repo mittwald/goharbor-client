@@ -37,7 +37,7 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/scanner"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/search"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/statistic"
-	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/system_c_v_e_allowlist"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/system_cve_allowlist"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/systeminfo"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/user"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/usergroup"
@@ -90,14 +90,14 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Harbor {
 	cli.Artifact = artifact.New(transport, formats)
 	cli.Auditlog = auditlog.New(transport, formats)
 	cli.Configure = configure.New(transport, formats)
-	cli.Gc = gc.New(transport, formats)
+	cli.GC = gc.New(transport, formats)
 	cli.Health = health.New(transport, formats)
 	cli.Icon = icon.New(transport, formats)
 	cli.Immutable = immutable.New(transport, formats)
 	cli.Label = label.New(transport, formats)
 	cli.Ldap = ldap.New(transport, formats)
 	cli.Member = member.New(transport, formats)
-	cli.Oidc = oidc.New(transport, formats)
+	cli.OIDC = oidc.New(transport, formats)
 	cli.Ping = ping.New(transport, formats)
 	cli.Preheat = preheat.New(transport, formats)
 	cli.Project = project.New(transport, formats)
@@ -114,7 +114,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Harbor {
 	cli.Scanner = scanner.New(transport, formats)
 	cli.Search = search.New(transport, formats)
 	cli.Statistic = statistic.New(transport, formats)
-	cli.SystemcveAllowlist = system_c_v_e_allowlist.New(transport, formats)
+	cli.SystemCVEAllowlist = system_cve_allowlist.New(transport, formats)
 	cli.Systeminfo = systeminfo.New(transport, formats)
 	cli.User = user.New(transport, formats)
 	cli.Usergroup = usergroup.New(transport, formats)
@@ -170,7 +170,7 @@ type Harbor struct {
 
 	Configure configure.ClientService
 
-	Gc gc.ClientService
+	GC gc.ClientService
 
 	Health health.ClientService
 
@@ -184,7 +184,7 @@ type Harbor struct {
 
 	Member member.ClientService
 
-	Oidc oidc.ClientService
+	OIDC oidc.ClientService
 
 	Ping ping.ClientService
 
@@ -218,7 +218,7 @@ type Harbor struct {
 
 	Statistic statistic.ClientService
 
-	SystemcveAllowlist system_c_v_e_allowlist.ClientService
+	SystemCVEAllowlist system_cve_allowlist.ClientService
 
 	Systeminfo systeminfo.ClientService
 
@@ -239,14 +239,14 @@ func (c *Harbor) SetTransport(transport runtime.ClientTransport) {
 	c.Artifact.SetTransport(transport)
 	c.Auditlog.SetTransport(transport)
 	c.Configure.SetTransport(transport)
-	c.Gc.SetTransport(transport)
+	c.GC.SetTransport(transport)
 	c.Health.SetTransport(transport)
 	c.Icon.SetTransport(transport)
 	c.Immutable.SetTransport(transport)
 	c.Label.SetTransport(transport)
 	c.Ldap.SetTransport(transport)
 	c.Member.SetTransport(transport)
-	c.Oidc.SetTransport(transport)
+	c.OIDC.SetTransport(transport)
 	c.Ping.SetTransport(transport)
 	c.Preheat.SetTransport(transport)
 	c.Project.SetTransport(transport)
@@ -263,7 +263,7 @@ func (c *Harbor) SetTransport(transport runtime.ClientTransport) {
 	c.Scanner.SetTransport(transport)
 	c.Search.SetTransport(transport)
 	c.Statistic.SetTransport(transport)
-	c.SystemcveAllowlist.SetTransport(transport)
+	c.SystemCVEAllowlist.SetTransport(transport)
 	c.Systeminfo.SetTransport(transport)
 	c.User.SetTransport(transport)
 	c.Usergroup.SetTransport(transport)

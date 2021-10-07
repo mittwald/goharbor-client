@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -68,60 +66,12 @@ func (m *Execution) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Execution) validateExtraAttrs(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ExtraAttrs) { // not required
 		return nil
 	}
 
-	if m.ExtraAttrs != nil {
-		if err := m.ExtraAttrs.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("extra_attrs")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *Execution) validateMetrics(formats strfmt.Registry) error {
-	if swag.IsZero(m.Metrics) { // not required
-		return nil
-	}
-
-	if m.Metrics != nil {
-		if err := m.Metrics.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("metrics")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this execution based on the context it is used
-func (m *Execution) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateExtraAttrs(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateMetrics(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *Execution) contextValidateExtraAttrs(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := m.ExtraAttrs.ContextValidate(ctx, formats); err != nil {
+	if err := m.ExtraAttrs.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("extra_attrs")
 		}
@@ -131,10 +81,14 @@ func (m *Execution) contextValidateExtraAttrs(ctx context.Context, formats strfm
 	return nil
 }
 
-func (m *Execution) contextValidateMetrics(ctx context.Context, formats strfmt.Registry) error {
+func (m *Execution) validateMetrics(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Metrics) { // not required
+		return nil
+	}
 
 	if m.Metrics != nil {
-		if err := m.Metrics.ContextValidate(ctx, formats); err != nil {
+		if err := m.Metrics.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metrics")
 			}

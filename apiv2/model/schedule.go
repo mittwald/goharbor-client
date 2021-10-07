@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -67,6 +65,7 @@ func (m *Schedule) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Schedule) validateCreationTime(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.CreationTime) { // not required
 		return nil
 	}
@@ -79,6 +78,7 @@ func (m *Schedule) validateCreationTime(formats strfmt.Registry) error {
 }
 
 func (m *Schedule) validateSchedule(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Schedule) { // not required
 		return nil
 	}
@@ -96,91 +96,12 @@ func (m *Schedule) validateSchedule(formats strfmt.Registry) error {
 }
 
 func (m *Schedule) validateUpdateTime(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.UpdateTime) { // not required
 		return nil
 	}
 
 	if err := validate.FormatOf("update_time", "body", "date-time", m.UpdateTime.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this schedule based on the context it is used
-func (m *Schedule) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateCreationTime(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateID(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateSchedule(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateStatus(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateUpdateTime(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *Schedule) contextValidateCreationTime(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "creation_time", "body", strfmt.DateTime(m.CreationTime)); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Schedule) contextValidateID(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "id", "body", int64(m.ID)); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Schedule) contextValidateSchedule(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Schedule != nil {
-		if err := m.Schedule.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("schedule")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *Schedule) contextValidateStatus(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "status", "body", string(m.Status)); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Schedule) contextValidateUpdateTime(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "update_time", "body", strfmt.DateTime(m.UpdateTime)); err != nil {
 		return err
 	}
 

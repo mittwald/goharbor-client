@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -33,7 +31,7 @@ type Project struct {
 	CurrentUserRoleIds []int32 `json:"current_user_role_ids"`
 
 	// The CVE allowlist of this project.
-	CveAllowlist *CVEAllowlist `json:"cve_allowlist,omitempty"`
+	CVEAllowlist *CVEAllowlist `json:"cve_allowlist,omitempty"`
 
 	// A deletion mark of the project.
 	Deleted bool `json:"deleted,omitempty"`
@@ -75,7 +73,7 @@ func (m *Project) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateCveAllowlist(formats); err != nil {
+	if err := m.validateCVEAllowlist(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -94,6 +92,7 @@ func (m *Project) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Project) validateCreationTime(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.CreationTime) { // not required
 		return nil
 	}
@@ -105,13 +104,14 @@ func (m *Project) validateCreationTime(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Project) validateCveAllowlist(formats strfmt.Registry) error {
-	if swag.IsZero(m.CveAllowlist) { // not required
+func (m *Project) validateCVEAllowlist(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CVEAllowlist) { // not required
 		return nil
 	}
 
-	if m.CveAllowlist != nil {
-		if err := m.CveAllowlist.Validate(formats); err != nil {
+	if m.CVEAllowlist != nil {
+		if err := m.CVEAllowlist.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("cve_allowlist")
 			}
@@ -123,6 +123,7 @@ func (m *Project) validateCveAllowlist(formats strfmt.Registry) error {
 }
 
 func (m *Project) validateMetadata(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Metadata) { // not required
 		return nil
 	}
@@ -140,58 +141,13 @@ func (m *Project) validateMetadata(formats strfmt.Registry) error {
 }
 
 func (m *Project) validateUpdateTime(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.UpdateTime) { // not required
 		return nil
 	}
 
 	if err := validate.FormatOf("update_time", "body", "date-time", m.UpdateTime.String(), formats); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this project based on the context it is used
-func (m *Project) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateCveAllowlist(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateMetadata(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *Project) contextValidateCveAllowlist(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.CveAllowlist != nil {
-		if err := m.CveAllowlist.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("cve_allowlist")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *Project) contextValidateMetadata(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Metadata != nil {
-		if err := m.Metadata.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("metadata")
-			}
-			return err
-		}
 	}
 
 	return nil

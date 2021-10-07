@@ -16,79 +16,64 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewSearchParams creates a new SearchParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewSearchParams creates a new SearchParams object
+// with the default values initialized.
 func NewSearchParams() *SearchParams {
+	var ()
 	return &SearchParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSearchParamsWithTimeout creates a new SearchParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewSearchParamsWithTimeout(timeout time.Duration) *SearchParams {
+	var ()
 	return &SearchParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewSearchParamsWithContext creates a new SearchParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewSearchParamsWithContext(ctx context.Context) *SearchParams {
+	var ()
 	return &SearchParams{
+
 		Context: ctx,
 	}
 }
 
 // NewSearchParamsWithHTTPClient creates a new SearchParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewSearchParamsWithHTTPClient(client *http.Client) *SearchParams {
+	var ()
 	return &SearchParams{
 		HTTPClient: client,
 	}
 }
 
-/* SearchParams contains all the parameters to send to the API endpoint
-   for the search operation.
-
-   Typically these are written to a http.Request.
+/*SearchParams contains all the parameters to send to the API endpoint
+for the search operation typically these are written to a http.Request
 */
 type SearchParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Q
+	  Search parameter for project and repository name.
 
-	/* Q.
-
-	   Search parameter for project and repository name.
 	*/
 	Q string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the search params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *SearchParams) WithDefaults() *SearchParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the search params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *SearchParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the search params
@@ -160,13 +145,13 @@ func (o *SearchParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regist
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// query param q
 	qrQ := o.Q
 	qQ := qrQ
 	if qQ != "" {
-
 		if err := r.SetQueryParam("q", qQ); err != nil {
 			return err
 		}

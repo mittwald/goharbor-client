@@ -53,6 +53,7 @@ func (o *GetReplicationExecutionReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +64,7 @@ func NewGetReplicationExecutionOK() *GetReplicationExecutionOK {
 	return &GetReplicationExecutionOK{}
 }
 
-/* GetReplicationExecutionOK describes a response with status code 200, with default header values.
+/*GetReplicationExecutionOK handles this case with default header values.
 
 Success
 */
@@ -74,6 +75,7 @@ type GetReplicationExecutionOK struct {
 func (o *GetReplicationExecutionOK) Error() string {
 	return fmt.Sprintf("[GET /replication/executions/{id}][%d] getReplicationExecutionOK  %+v", 200, o.Payload)
 }
+
 func (o *GetReplicationExecutionOK) GetPayload() *model.ReplicationExecution {
 	return o.Payload
 }
@@ -95,13 +97,12 @@ func NewGetReplicationExecutionUnauthorized() *GetReplicationExecutionUnauthoriz
 	return &GetReplicationExecutionUnauthorized{}
 }
 
-/* GetReplicationExecutionUnauthorized describes a response with status code 401, with default header values.
+/*GetReplicationExecutionUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type GetReplicationExecutionUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +112,15 @@ type GetReplicationExecutionUnauthorized struct {
 func (o *GetReplicationExecutionUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /replication/executions/{id}][%d] getReplicationExecutionUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetReplicationExecutionUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetReplicationExecutionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +137,12 @@ func NewGetReplicationExecutionForbidden() *GetReplicationExecutionForbidden {
 	return &GetReplicationExecutionForbidden{}
 }
 
-/* GetReplicationExecutionForbidden describes a response with status code 403, with default header values.
+/*GetReplicationExecutionForbidden handles this case with default header values.
 
 Forbidden
 */
 type GetReplicationExecutionForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +152,15 @@ type GetReplicationExecutionForbidden struct {
 func (o *GetReplicationExecutionForbidden) Error() string {
 	return fmt.Sprintf("[GET /replication/executions/{id}][%d] getReplicationExecutionForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetReplicationExecutionForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetReplicationExecutionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +177,12 @@ func NewGetReplicationExecutionNotFound() *GetReplicationExecutionNotFound {
 	return &GetReplicationExecutionNotFound{}
 }
 
-/* GetReplicationExecutionNotFound describes a response with status code 404, with default header values.
+/*GetReplicationExecutionNotFound handles this case with default header values.
 
 Not found
 */
 type GetReplicationExecutionNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +192,15 @@ type GetReplicationExecutionNotFound struct {
 func (o *GetReplicationExecutionNotFound) Error() string {
 	return fmt.Sprintf("[GET /replication/executions/{id}][%d] getReplicationExecutionNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetReplicationExecutionNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetReplicationExecutionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +217,12 @@ func NewGetReplicationExecutionInternalServerError() *GetReplicationExecutionInt
 	return &GetReplicationExecutionInternalServerError{}
 }
 
-/* GetReplicationExecutionInternalServerError describes a response with status code 500, with default header values.
+/*GetReplicationExecutionInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetReplicationExecutionInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +232,15 @@ type GetReplicationExecutionInternalServerError struct {
 func (o *GetReplicationExecutionInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /replication/executions/{id}][%d] getReplicationExecutionInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetReplicationExecutionInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetReplicationExecutionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

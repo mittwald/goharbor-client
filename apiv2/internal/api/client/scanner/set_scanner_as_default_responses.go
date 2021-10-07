@@ -47,6 +47,7 @@ func (o *SetScannerAsDefaultReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +58,7 @@ func NewSetScannerAsDefaultOK() *SetScannerAsDefaultOK {
 	return &SetScannerAsDefaultOK{}
 }
 
-/* SetScannerAsDefaultOK describes a response with status code 200, with default header values.
+/*SetScannerAsDefaultOK handles this case with default header values.
 
 Successfully set the specified scanner registration as system default
 */
@@ -78,13 +79,12 @@ func NewSetScannerAsDefaultUnauthorized() *SetScannerAsDefaultUnauthorized {
 	return &SetScannerAsDefaultUnauthorized{}
 }
 
-/* SetScannerAsDefaultUnauthorized describes a response with status code 401, with default header values.
+/*SetScannerAsDefaultUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type SetScannerAsDefaultUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -94,18 +94,15 @@ type SetScannerAsDefaultUnauthorized struct {
 func (o *SetScannerAsDefaultUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /scanners/{registration_id}][%d] setScannerAsDefaultUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *SetScannerAsDefaultUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SetScannerAsDefaultUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -122,13 +119,12 @@ func NewSetScannerAsDefaultForbidden() *SetScannerAsDefaultForbidden {
 	return &SetScannerAsDefaultForbidden{}
 }
 
-/* SetScannerAsDefaultForbidden describes a response with status code 403, with default header values.
+/*SetScannerAsDefaultForbidden handles this case with default header values.
 
 Forbidden
 */
 type SetScannerAsDefaultForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -138,18 +134,15 @@ type SetScannerAsDefaultForbidden struct {
 func (o *SetScannerAsDefaultForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /scanners/{registration_id}][%d] setScannerAsDefaultForbidden  %+v", 403, o.Payload)
 }
+
 func (o *SetScannerAsDefaultForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SetScannerAsDefaultForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -166,13 +159,12 @@ func NewSetScannerAsDefaultInternalServerError() *SetScannerAsDefaultInternalSer
 	return &SetScannerAsDefaultInternalServerError{}
 }
 
-/* SetScannerAsDefaultInternalServerError describes a response with status code 500, with default header values.
+/*SetScannerAsDefaultInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type SetScannerAsDefaultInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -182,18 +174,15 @@ type SetScannerAsDefaultInternalServerError struct {
 func (o *SetScannerAsDefaultInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /scanners/{registration_id}][%d] setScannerAsDefaultInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *SetScannerAsDefaultInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *SetScannerAsDefaultInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

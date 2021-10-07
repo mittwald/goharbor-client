@@ -59,6 +59,7 @@ func (o *UpdateQuotaReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,13 +70,12 @@ func NewUpdateQuotaOK() *UpdateQuotaOK {
 	return &UpdateQuotaOK{}
 }
 
-/* UpdateQuotaOK describes a response with status code 200, with default header values.
+/*UpdateQuotaOK handles this case with default header values.
 
 Success
 */
 type UpdateQuotaOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -86,12 +86,8 @@ func (o *UpdateQuotaOK) Error() string {
 
 func (o *UpdateQuotaOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -101,13 +97,12 @@ func NewUpdateQuotaBadRequest() *UpdateQuotaBadRequest {
 	return &UpdateQuotaBadRequest{}
 }
 
-/* UpdateQuotaBadRequest describes a response with status code 400, with default header values.
+/*UpdateQuotaBadRequest handles this case with default header values.
 
 Bad request
 */
 type UpdateQuotaBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -117,18 +112,15 @@ type UpdateQuotaBadRequest struct {
 func (o *UpdateQuotaBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /quotas/{id}][%d] updateQuotaBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *UpdateQuotaBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateQuotaBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -145,13 +137,12 @@ func NewUpdateQuotaUnauthorized() *UpdateQuotaUnauthorized {
 	return &UpdateQuotaUnauthorized{}
 }
 
-/* UpdateQuotaUnauthorized describes a response with status code 401, with default header values.
+/*UpdateQuotaUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type UpdateQuotaUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -161,18 +152,15 @@ type UpdateQuotaUnauthorized struct {
 func (o *UpdateQuotaUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /quotas/{id}][%d] updateQuotaUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *UpdateQuotaUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateQuotaUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -189,13 +177,12 @@ func NewUpdateQuotaForbidden() *UpdateQuotaForbidden {
 	return &UpdateQuotaForbidden{}
 }
 
-/* UpdateQuotaForbidden describes a response with status code 403, with default header values.
+/*UpdateQuotaForbidden handles this case with default header values.
 
 Forbidden
 */
 type UpdateQuotaForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -205,18 +192,15 @@ type UpdateQuotaForbidden struct {
 func (o *UpdateQuotaForbidden) Error() string {
 	return fmt.Sprintf("[PUT /quotas/{id}][%d] updateQuotaForbidden  %+v", 403, o.Payload)
 }
+
 func (o *UpdateQuotaForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateQuotaForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -233,13 +217,12 @@ func NewUpdateQuotaNotFound() *UpdateQuotaNotFound {
 	return &UpdateQuotaNotFound{}
 }
 
-/* UpdateQuotaNotFound describes a response with status code 404, with default header values.
+/*UpdateQuotaNotFound handles this case with default header values.
 
 Not found
 */
 type UpdateQuotaNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,18 +232,15 @@ type UpdateQuotaNotFound struct {
 func (o *UpdateQuotaNotFound) Error() string {
 	return fmt.Sprintf("[PUT /quotas/{id}][%d] updateQuotaNotFound  %+v", 404, o.Payload)
 }
+
 func (o *UpdateQuotaNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateQuotaNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -277,13 +257,12 @@ func NewUpdateQuotaInternalServerError() *UpdateQuotaInternalServerError {
 	return &UpdateQuotaInternalServerError{}
 }
 
-/* UpdateQuotaInternalServerError describes a response with status code 500, with default header values.
+/*UpdateQuotaInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type UpdateQuotaInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -293,18 +272,15 @@ type UpdateQuotaInternalServerError struct {
 func (o *UpdateQuotaInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /quotas/{id}][%d] updateQuotaInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *UpdateQuotaInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateQuotaInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

@@ -17,97 +17,74 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetRetentionTaskLogParams creates a new GetRetentionTaskLogParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetRetentionTaskLogParams creates a new GetRetentionTaskLogParams object
+// with the default values initialized.
 func NewGetRetentionTaskLogParams() *GetRetentionTaskLogParams {
+	var ()
 	return &GetRetentionTaskLogParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetRetentionTaskLogParamsWithTimeout creates a new GetRetentionTaskLogParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetRetentionTaskLogParamsWithTimeout(timeout time.Duration) *GetRetentionTaskLogParams {
+	var ()
 	return &GetRetentionTaskLogParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetRetentionTaskLogParamsWithContext creates a new GetRetentionTaskLogParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetRetentionTaskLogParamsWithContext(ctx context.Context) *GetRetentionTaskLogParams {
+	var ()
 	return &GetRetentionTaskLogParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetRetentionTaskLogParamsWithHTTPClient creates a new GetRetentionTaskLogParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetRetentionTaskLogParamsWithHTTPClient(client *http.Client) *GetRetentionTaskLogParams {
+	var ()
 	return &GetRetentionTaskLogParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetRetentionTaskLogParams contains all the parameters to send to the API endpoint
-   for the get retention task log operation.
-
-   Typically these are written to a http.Request.
+/*GetRetentionTaskLogParams contains all the parameters to send to the API endpoint
+for the get retention task log operation typically these are written to a http.Request
 */
 type GetRetentionTaskLogParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Eid
+	  Retention execution ID.
 
-	/* Eid.
-
-	   Retention execution ID.
-
-	   Format: int64
 	*/
 	Eid int64
+	/*ID
+	  Retention ID.
 
-	/* ID.
-
-	   Retention ID.
-
-	   Format: int64
 	*/
 	ID int64
+	/*Tid
+	  Retention execution ID.
 
-	/* Tid.
-
-	   Retention execution ID.
-
-	   Format: int64
 	*/
 	Tid int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get retention task log params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetRetentionTaskLogParams) WithDefaults() *GetRetentionTaskLogParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get retention task log params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetRetentionTaskLogParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get retention task log params
@@ -201,6 +178,7 @@ func (o *GetRetentionTaskLogParams) WriteToRequest(r runtime.ClientRequest, reg 
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param eid

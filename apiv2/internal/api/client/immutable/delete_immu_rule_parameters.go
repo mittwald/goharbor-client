@@ -17,104 +17,86 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteImmuRuleParams creates a new DeleteImmuRuleParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewDeleteImmuRuleParams creates a new DeleteImmuRuleParams object
+// with the default values initialized.
 func NewDeleteImmuRuleParams() *DeleteImmuRuleParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &DeleteImmuRuleParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteImmuRuleParamsWithTimeout creates a new DeleteImmuRuleParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteImmuRuleParamsWithTimeout(timeout time.Duration) *DeleteImmuRuleParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &DeleteImmuRuleParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		timeout: timeout,
 	}
 }
 
 // NewDeleteImmuRuleParamsWithContext creates a new DeleteImmuRuleParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewDeleteImmuRuleParamsWithContext(ctx context.Context) *DeleteImmuRuleParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &DeleteImmuRuleParams{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		Context: ctx,
 	}
 }
 
 // NewDeleteImmuRuleParamsWithHTTPClient creates a new DeleteImmuRuleParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteImmuRuleParamsWithHTTPClient(client *http.Client) *DeleteImmuRuleParams {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &DeleteImmuRuleParams{
-		HTTPClient: client,
+		XIsResourceName: &xIsResourceNameDefault,
+		HTTPClient:      client,
 	}
 }
 
-/* DeleteImmuRuleParams contains all the parameters to send to the API endpoint
-   for the delete immu rule operation.
-
-   Typically these are written to a http.Request.
+/*DeleteImmuRuleParams contains all the parameters to send to the API endpoint
+for the delete immu rule operation typically these are written to a http.Request
 */
 type DeleteImmuRuleParams struct {
 
-	/* XIsResourceName.
+	/*XIsResourceName
+	  The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
 
-	   The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
 	*/
 	XIsResourceName *bool
+	/*XRequestID
+	  An unique ID for the request
 
-	/* XRequestID.
-
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*ImmutableRuleID
+	  The ID of the immutable rule
 
-	/* ImmutableRuleID.
-
-	   The ID of the immutable rule
-
-	   Format: int64
 	*/
 	ImmutableRuleID int64
+	/*ProjectNameOrID
+	  The name or id of the project
 
-	/* ProjectNameOrID.
-
-	   The name or id of the project
 	*/
 	ProjectNameOrID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the delete immu rule params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteImmuRuleParams) WithDefaults() *DeleteImmuRuleParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the delete immu rule params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteImmuRuleParams) SetDefaults() {
-	var (
-		xIsResourceNameDefault = bool(false)
-	)
-
-	val := DeleteImmuRuleParams{
-		XIsResourceName: &xIsResourceNameDefault,
-	}
-
-	val.timeout = o.timeout
-	val.Context = o.Context
-	val.HTTPClient = o.HTTPClient
-	*o = val
 }
 
 // WithTimeout adds the timeout to the delete immu rule params
@@ -208,6 +190,7 @@ func (o *DeleteImmuRuleParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		if err := r.SetHeaderParam("X-Is-Resource-Name", swag.FormatBool(*o.XIsResourceName)); err != nil {
 			return err
 		}
+
 	}
 
 	if o.XRequestID != nil {
@@ -216,6 +199,7 @@ func (o *DeleteImmuRuleParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param immutable_rule_id

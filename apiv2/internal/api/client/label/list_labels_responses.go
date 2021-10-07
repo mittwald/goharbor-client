@@ -49,6 +49,7 @@ func (o *ListLabelsReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -59,17 +60,15 @@ func NewListLabelsOK() *ListLabelsOK {
 	return &ListLabelsOK{}
 }
 
-/* ListLabelsOK describes a response with status code 200, with default header values.
+/*ListLabelsOK handles this case with default header values.
 
 Get successfully.
 */
 type ListLabelsOK struct {
-
-	/* Link to previous page and next page
+	/*Link to previous page and next page
 	 */
 	Link string
-
-	/* The total count of available items
+	/*The total count of available items
 	 */
 	XTotalCount int64
 
@@ -79,29 +78,22 @@ type ListLabelsOK struct {
 func (o *ListLabelsOK) Error() string {
 	return fmt.Sprintf("[GET /labels][%d] listLabelsOK  %+v", 200, o.Payload)
 }
+
 func (o *ListLabelsOK) GetPayload() []*model.Label {
 	return o.Payload
 }
 
 func (o *ListLabelsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Link
-	hdrLink := response.GetHeader("Link")
+	// response header Link
+	o.Link = response.GetHeader("Link")
 
-	if hdrLink != "" {
-		o.Link = hdrLink
+	// response header X-Total-Count
+	xTotalCount, err := swag.ConvertInt64(response.GetHeader("X-Total-Count"))
+	if err != nil {
+		return errors.InvalidType("X-Total-Count", "header", "int64", response.GetHeader("X-Total-Count"))
 	}
-
-	// hydrates response header X-Total-Count
-	hdrXTotalCount := response.GetHeader("X-Total-Count")
-
-	if hdrXTotalCount != "" {
-		valxTotalCount, err := swag.ConvertInt64(hdrXTotalCount)
-		if err != nil {
-			return errors.InvalidType("X-Total-Count", "header", "int64", hdrXTotalCount)
-		}
-		o.XTotalCount = valxTotalCount
-	}
+	o.XTotalCount = xTotalCount
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -116,13 +108,12 @@ func NewListLabelsBadRequest() *ListLabelsBadRequest {
 	return &ListLabelsBadRequest{}
 }
 
-/* ListLabelsBadRequest describes a response with status code 400, with default header values.
+/*ListLabelsBadRequest handles this case with default header values.
 
 Bad request
 */
 type ListLabelsBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -132,18 +123,15 @@ type ListLabelsBadRequest struct {
 func (o *ListLabelsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /labels][%d] listLabelsBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *ListLabelsBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListLabelsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -160,13 +148,12 @@ func NewListLabelsUnauthorized() *ListLabelsUnauthorized {
 	return &ListLabelsUnauthorized{}
 }
 
-/* ListLabelsUnauthorized describes a response with status code 401, with default header values.
+/*ListLabelsUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type ListLabelsUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -176,18 +163,15 @@ type ListLabelsUnauthorized struct {
 func (o *ListLabelsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /labels][%d] listLabelsUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *ListLabelsUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListLabelsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -204,13 +188,12 @@ func NewListLabelsInternalServerError() *ListLabelsInternalServerError {
 	return &ListLabelsInternalServerError{}
 }
 
-/* ListLabelsInternalServerError describes a response with status code 500, with default header values.
+/*ListLabelsInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type ListLabelsInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -220,18 +203,15 @@ type ListLabelsInternalServerError struct {
 func (o *ListLabelsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /labels][%d] listLabelsInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *ListLabelsInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListLabelsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

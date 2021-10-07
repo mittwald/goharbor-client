@@ -59,6 +59,7 @@ func (o *DeleteRegistryReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,13 +70,12 @@ func NewDeleteRegistryOK() *DeleteRegistryOK {
 	return &DeleteRegistryOK{}
 }
 
-/* DeleteRegistryOK describes a response with status code 200, with default header values.
+/*DeleteRegistryOK handles this case with default header values.
 
 Success
 */
 type DeleteRegistryOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -86,12 +86,8 @@ func (o *DeleteRegistryOK) Error() string {
 
 func (o *DeleteRegistryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -101,13 +97,12 @@ func NewDeleteRegistryUnauthorized() *DeleteRegistryUnauthorized {
 	return &DeleteRegistryUnauthorized{}
 }
 
-/* DeleteRegistryUnauthorized describes a response with status code 401, with default header values.
+/*DeleteRegistryUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type DeleteRegistryUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -117,18 +112,15 @@ type DeleteRegistryUnauthorized struct {
 func (o *DeleteRegistryUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /registries/{id}][%d] deleteRegistryUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteRegistryUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteRegistryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -145,13 +137,12 @@ func NewDeleteRegistryForbidden() *DeleteRegistryForbidden {
 	return &DeleteRegistryForbidden{}
 }
 
-/* DeleteRegistryForbidden describes a response with status code 403, with default header values.
+/*DeleteRegistryForbidden handles this case with default header values.
 
 Forbidden
 */
 type DeleteRegistryForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -161,18 +152,15 @@ type DeleteRegistryForbidden struct {
 func (o *DeleteRegistryForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /registries/{id}][%d] deleteRegistryForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteRegistryForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteRegistryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -189,13 +177,12 @@ func NewDeleteRegistryNotFound() *DeleteRegistryNotFound {
 	return &DeleteRegistryNotFound{}
 }
 
-/* DeleteRegistryNotFound describes a response with status code 404, with default header values.
+/*DeleteRegistryNotFound handles this case with default header values.
 
 Not found
 */
 type DeleteRegistryNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -205,18 +192,15 @@ type DeleteRegistryNotFound struct {
 func (o *DeleteRegistryNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /registries/{id}][%d] deleteRegistryNotFound  %+v", 404, o.Payload)
 }
+
 func (o *DeleteRegistryNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteRegistryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -233,13 +217,12 @@ func NewDeleteRegistryPreconditionFailed() *DeleteRegistryPreconditionFailed {
 	return &DeleteRegistryPreconditionFailed{}
 }
 
-/* DeleteRegistryPreconditionFailed describes a response with status code 412, with default header values.
+/*DeleteRegistryPreconditionFailed handles this case with default header values.
 
 Precondition failed
 */
 type DeleteRegistryPreconditionFailed struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,18 +232,15 @@ type DeleteRegistryPreconditionFailed struct {
 func (o *DeleteRegistryPreconditionFailed) Error() string {
 	return fmt.Sprintf("[DELETE /registries/{id}][%d] deleteRegistryPreconditionFailed  %+v", 412, o.Payload)
 }
+
 func (o *DeleteRegistryPreconditionFailed) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteRegistryPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -277,13 +257,12 @@ func NewDeleteRegistryInternalServerError() *DeleteRegistryInternalServerError {
 	return &DeleteRegistryInternalServerError{}
 }
 
-/* DeleteRegistryInternalServerError describes a response with status code 500, with default header values.
+/*DeleteRegistryInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type DeleteRegistryInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -293,18 +272,15 @@ type DeleteRegistryInternalServerError struct {
 func (o *DeleteRegistryInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /registries/{id}][%d] deleteRegistryInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteRegistryInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteRegistryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

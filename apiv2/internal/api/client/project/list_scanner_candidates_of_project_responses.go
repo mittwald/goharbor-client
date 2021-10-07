@@ -55,6 +55,7 @@ func (o *ListScannerCandidatesOfProjectReader) ReadResponse(response runtime.Cli
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -65,17 +66,15 @@ func NewListScannerCandidatesOfProjectOK() *ListScannerCandidatesOfProjectOK {
 	return &ListScannerCandidatesOfProjectOK{}
 }
 
-/* ListScannerCandidatesOfProjectOK describes a response with status code 200, with default header values.
+/*ListScannerCandidatesOfProjectOK handles this case with default header values.
 
 A list of scanner registrations.
 */
 type ListScannerCandidatesOfProjectOK struct {
-
-	/* Link to previous page and next page
+	/*Link to previous page and next page
 	 */
 	Link string
-
-	/* The total count of available items
+	/*The total count of available items
 	 */
 	XTotalCount int64
 
@@ -85,29 +84,22 @@ type ListScannerCandidatesOfProjectOK struct {
 func (o *ListScannerCandidatesOfProjectOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/scanner/candidates][%d] listScannerCandidatesOfProjectOK  %+v", 200, o.Payload)
 }
+
 func (o *ListScannerCandidatesOfProjectOK) GetPayload() []*model.ScannerRegistration {
 	return o.Payload
 }
 
 func (o *ListScannerCandidatesOfProjectOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Link
-	hdrLink := response.GetHeader("Link")
+	// response header Link
+	o.Link = response.GetHeader("Link")
 
-	if hdrLink != "" {
-		o.Link = hdrLink
+	// response header X-Total-Count
+	xTotalCount, err := swag.ConvertInt64(response.GetHeader("X-Total-Count"))
+	if err != nil {
+		return errors.InvalidType("X-Total-Count", "header", "int64", response.GetHeader("X-Total-Count"))
 	}
-
-	// hydrates response header X-Total-Count
-	hdrXTotalCount := response.GetHeader("X-Total-Count")
-
-	if hdrXTotalCount != "" {
-		valxTotalCount, err := swag.ConvertInt64(hdrXTotalCount)
-		if err != nil {
-			return errors.InvalidType("X-Total-Count", "header", "int64", hdrXTotalCount)
-		}
-		o.XTotalCount = valxTotalCount
-	}
+	o.XTotalCount = xTotalCount
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -122,13 +114,12 @@ func NewListScannerCandidatesOfProjectBadRequest() *ListScannerCandidatesOfProje
 	return &ListScannerCandidatesOfProjectBadRequest{}
 }
 
-/* ListScannerCandidatesOfProjectBadRequest describes a response with status code 400, with default header values.
+/*ListScannerCandidatesOfProjectBadRequest handles this case with default header values.
 
 Bad request
 */
 type ListScannerCandidatesOfProjectBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -138,18 +129,15 @@ type ListScannerCandidatesOfProjectBadRequest struct {
 func (o *ListScannerCandidatesOfProjectBadRequest) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/scanner/candidates][%d] listScannerCandidatesOfProjectBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *ListScannerCandidatesOfProjectBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListScannerCandidatesOfProjectBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -166,13 +154,12 @@ func NewListScannerCandidatesOfProjectUnauthorized() *ListScannerCandidatesOfPro
 	return &ListScannerCandidatesOfProjectUnauthorized{}
 }
 
-/* ListScannerCandidatesOfProjectUnauthorized describes a response with status code 401, with default header values.
+/*ListScannerCandidatesOfProjectUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type ListScannerCandidatesOfProjectUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -182,18 +169,15 @@ type ListScannerCandidatesOfProjectUnauthorized struct {
 func (o *ListScannerCandidatesOfProjectUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/scanner/candidates][%d] listScannerCandidatesOfProjectUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *ListScannerCandidatesOfProjectUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListScannerCandidatesOfProjectUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -210,13 +194,12 @@ func NewListScannerCandidatesOfProjectForbidden() *ListScannerCandidatesOfProjec
 	return &ListScannerCandidatesOfProjectForbidden{}
 }
 
-/* ListScannerCandidatesOfProjectForbidden describes a response with status code 403, with default header values.
+/*ListScannerCandidatesOfProjectForbidden handles this case with default header values.
 
 Forbidden
 */
 type ListScannerCandidatesOfProjectForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -226,18 +209,15 @@ type ListScannerCandidatesOfProjectForbidden struct {
 func (o *ListScannerCandidatesOfProjectForbidden) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/scanner/candidates][%d] listScannerCandidatesOfProjectForbidden  %+v", 403, o.Payload)
 }
+
 func (o *ListScannerCandidatesOfProjectForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListScannerCandidatesOfProjectForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -254,13 +234,12 @@ func NewListScannerCandidatesOfProjectInternalServerError() *ListScannerCandidat
 	return &ListScannerCandidatesOfProjectInternalServerError{}
 }
 
-/* ListScannerCandidatesOfProjectInternalServerError describes a response with status code 500, with default header values.
+/*ListScannerCandidatesOfProjectInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type ListScannerCandidatesOfProjectInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -270,18 +249,15 @@ type ListScannerCandidatesOfProjectInternalServerError struct {
 func (o *ListScannerCandidatesOfProjectInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/scanner/candidates][%d] listScannerCandidatesOfProjectInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *ListScannerCandidatesOfProjectInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListScannerCandidatesOfProjectInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

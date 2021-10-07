@@ -49,6 +49,7 @@ func (o *ListRegistriesReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -59,17 +60,15 @@ func NewListRegistriesOK() *ListRegistriesOK {
 	return &ListRegistriesOK{}
 }
 
-/* ListRegistriesOK describes a response with status code 200, with default header values.
+/*ListRegistriesOK handles this case with default header values.
 
 Success
 */
 type ListRegistriesOK struct {
-
-	/* Link refers to the previous page and next page
+	/*Link refers to the previous page and next page
 	 */
 	Link string
-
-	/* The total count of the resources
+	/*The total count of the resources
 	 */
 	XTotalCount int64
 
@@ -79,29 +78,22 @@ type ListRegistriesOK struct {
 func (o *ListRegistriesOK) Error() string {
 	return fmt.Sprintf("[GET /registries][%d] listRegistriesOK  %+v", 200, o.Payload)
 }
+
 func (o *ListRegistriesOK) GetPayload() []*model.Registry {
 	return o.Payload
 }
 
 func (o *ListRegistriesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Link
-	hdrLink := response.GetHeader("Link")
+	// response header Link
+	o.Link = response.GetHeader("Link")
 
-	if hdrLink != "" {
-		o.Link = hdrLink
+	// response header X-Total-Count
+	xTotalCount, err := swag.ConvertInt64(response.GetHeader("X-Total-Count"))
+	if err != nil {
+		return errors.InvalidType("X-Total-Count", "header", "int64", response.GetHeader("X-Total-Count"))
 	}
-
-	// hydrates response header X-Total-Count
-	hdrXTotalCount := response.GetHeader("X-Total-Count")
-
-	if hdrXTotalCount != "" {
-		valxTotalCount, err := swag.ConvertInt64(hdrXTotalCount)
-		if err != nil {
-			return errors.InvalidType("X-Total-Count", "header", "int64", hdrXTotalCount)
-		}
-		o.XTotalCount = valxTotalCount
-	}
+	o.XTotalCount = xTotalCount
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -116,13 +108,12 @@ func NewListRegistriesUnauthorized() *ListRegistriesUnauthorized {
 	return &ListRegistriesUnauthorized{}
 }
 
-/* ListRegistriesUnauthorized describes a response with status code 401, with default header values.
+/*ListRegistriesUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type ListRegistriesUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -132,18 +123,15 @@ type ListRegistriesUnauthorized struct {
 func (o *ListRegistriesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /registries][%d] listRegistriesUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *ListRegistriesUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListRegistriesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -160,13 +148,12 @@ func NewListRegistriesForbidden() *ListRegistriesForbidden {
 	return &ListRegistriesForbidden{}
 }
 
-/* ListRegistriesForbidden describes a response with status code 403, with default header values.
+/*ListRegistriesForbidden handles this case with default header values.
 
 Forbidden
 */
 type ListRegistriesForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -176,18 +163,15 @@ type ListRegistriesForbidden struct {
 func (o *ListRegistriesForbidden) Error() string {
 	return fmt.Sprintf("[GET /registries][%d] listRegistriesForbidden  %+v", 403, o.Payload)
 }
+
 func (o *ListRegistriesForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListRegistriesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -204,13 +188,12 @@ func NewListRegistriesInternalServerError() *ListRegistriesInternalServerError {
 	return &ListRegistriesInternalServerError{}
 }
 
-/* ListRegistriesInternalServerError describes a response with status code 500, with default header values.
+/*ListRegistriesInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type ListRegistriesInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -220,18 +203,15 @@ type ListRegistriesInternalServerError struct {
 func (o *ListRegistriesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /registries][%d] listRegistriesInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *ListRegistriesInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListRegistriesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

@@ -53,6 +53,7 @@ func (o *GetQuotaReader) ReadResponse(response runtime.ClientResponse, consumer 
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +64,7 @@ func NewGetQuotaOK() *GetQuotaOK {
 	return &GetQuotaOK{}
 }
 
-/* GetQuotaOK describes a response with status code 200, with default header values.
+/*GetQuotaOK handles this case with default header values.
 
 Successfully retrieved the quota.
 */
@@ -74,6 +75,7 @@ type GetQuotaOK struct {
 func (o *GetQuotaOK) Error() string {
 	return fmt.Sprintf("[GET /quotas/{id}][%d] getQuotaOK  %+v", 200, o.Payload)
 }
+
 func (o *GetQuotaOK) GetPayload() *model.Quota {
 	return o.Payload
 }
@@ -95,13 +97,12 @@ func NewGetQuotaUnauthorized() *GetQuotaUnauthorized {
 	return &GetQuotaUnauthorized{}
 }
 
-/* GetQuotaUnauthorized describes a response with status code 401, with default header values.
+/*GetQuotaUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type GetQuotaUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +112,15 @@ type GetQuotaUnauthorized struct {
 func (o *GetQuotaUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /quotas/{id}][%d] getQuotaUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetQuotaUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetQuotaUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +137,12 @@ func NewGetQuotaForbidden() *GetQuotaForbidden {
 	return &GetQuotaForbidden{}
 }
 
-/* GetQuotaForbidden describes a response with status code 403, with default header values.
+/*GetQuotaForbidden handles this case with default header values.
 
 Forbidden
 */
 type GetQuotaForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +152,15 @@ type GetQuotaForbidden struct {
 func (o *GetQuotaForbidden) Error() string {
 	return fmt.Sprintf("[GET /quotas/{id}][%d] getQuotaForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetQuotaForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetQuotaForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +177,12 @@ func NewGetQuotaNotFound() *GetQuotaNotFound {
 	return &GetQuotaNotFound{}
 }
 
-/* GetQuotaNotFound describes a response with status code 404, with default header values.
+/*GetQuotaNotFound handles this case with default header values.
 
 Not found
 */
 type GetQuotaNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +192,15 @@ type GetQuotaNotFound struct {
 func (o *GetQuotaNotFound) Error() string {
 	return fmt.Sprintf("[GET /quotas/{id}][%d] getQuotaNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetQuotaNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetQuotaNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +217,12 @@ func NewGetQuotaInternalServerError() *GetQuotaInternalServerError {
 	return &GetQuotaInternalServerError{}
 }
 
-/* GetQuotaInternalServerError describes a response with status code 500, with default header values.
+/*GetQuotaInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetQuotaInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +232,15 @@ type GetQuotaInternalServerError struct {
 func (o *GetQuotaInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /quotas/{id}][%d] getQuotaInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetQuotaInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetQuotaInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

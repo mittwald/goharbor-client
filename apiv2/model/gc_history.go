@@ -6,15 +6,13 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
-// GCHistory g c history
+// GCHistory GC history
 //
 // swagger:model GCHistory
 type GCHistory struct {
@@ -49,7 +47,7 @@ type GCHistory struct {
 	UpdateTime strfmt.DateTime `json:"update_time,omitempty"`
 }
 
-// Validate validates this g c history
+// Validate validates this GC history
 func (m *GCHistory) Validate(formats strfmt.Registry) error {
 	var res []error
 
@@ -72,6 +70,7 @@ func (m *GCHistory) Validate(formats strfmt.Registry) error {
 }
 
 func (m *GCHistory) validateCreationTime(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.CreationTime) { // not required
 		return nil
 	}
@@ -84,6 +83,7 @@ func (m *GCHistory) validateCreationTime(formats strfmt.Registry) error {
 }
 
 func (m *GCHistory) validateSchedule(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Schedule) { // not required
 		return nil
 	}
@@ -101,40 +101,13 @@ func (m *GCHistory) validateSchedule(formats strfmt.Registry) error {
 }
 
 func (m *GCHistory) validateUpdateTime(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.UpdateTime) { // not required
 		return nil
 	}
 
 	if err := validate.FormatOf("update_time", "body", "date-time", m.UpdateTime.String(), formats); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this g c history based on the context it is used
-func (m *GCHistory) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateSchedule(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *GCHistory) contextValidateSchedule(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Schedule != nil {
-		if err := m.Schedule.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("schedule")
-			}
-			return err
-		}
 	}
 
 	return nil

@@ -47,6 +47,7 @@ func (o *ListRegistryProviderInfosReader) ReadResponse(response runtime.ClientRe
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +58,7 @@ func NewListRegistryProviderInfosOK() *ListRegistryProviderInfosOK {
 	return &ListRegistryProviderInfosOK{}
 }
 
-/* ListRegistryProviderInfosOK describes a response with status code 200, with default header values.
+/*ListRegistryProviderInfosOK handles this case with default header values.
 
 Success.
 */
@@ -68,6 +69,7 @@ type ListRegistryProviderInfosOK struct {
 func (o *ListRegistryProviderInfosOK) Error() string {
 	return fmt.Sprintf("[GET /replication/adapterinfos][%d] listRegistryProviderInfosOK  %+v", 200, o.Payload)
 }
+
 func (o *ListRegistryProviderInfosOK) GetPayload() map[string]model.RegistryProviderInfo {
 	return o.Payload
 }
@@ -87,13 +89,12 @@ func NewListRegistryProviderInfosUnauthorized() *ListRegistryProviderInfosUnauth
 	return &ListRegistryProviderInfosUnauthorized{}
 }
 
-/* ListRegistryProviderInfosUnauthorized describes a response with status code 401, with default header values.
+/*ListRegistryProviderInfosUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type ListRegistryProviderInfosUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -103,18 +104,15 @@ type ListRegistryProviderInfosUnauthorized struct {
 func (o *ListRegistryProviderInfosUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /replication/adapterinfos][%d] listRegistryProviderInfosUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *ListRegistryProviderInfosUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListRegistryProviderInfosUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -131,13 +129,12 @@ func NewListRegistryProviderInfosForbidden() *ListRegistryProviderInfosForbidden
 	return &ListRegistryProviderInfosForbidden{}
 }
 
-/* ListRegistryProviderInfosForbidden describes a response with status code 403, with default header values.
+/*ListRegistryProviderInfosForbidden handles this case with default header values.
 
 Forbidden
 */
 type ListRegistryProviderInfosForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -147,18 +144,15 @@ type ListRegistryProviderInfosForbidden struct {
 func (o *ListRegistryProviderInfosForbidden) Error() string {
 	return fmt.Sprintf("[GET /replication/adapterinfos][%d] listRegistryProviderInfosForbidden  %+v", 403, o.Payload)
 }
+
 func (o *ListRegistryProviderInfosForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListRegistryProviderInfosForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -175,13 +169,12 @@ func NewListRegistryProviderInfosInternalServerError() *ListRegistryProviderInfo
 	return &ListRegistryProviderInfosInternalServerError{}
 }
 
-/* ListRegistryProviderInfosInternalServerError describes a response with status code 500, with default header values.
+/*ListRegistryProviderInfosInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type ListRegistryProviderInfosInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -191,18 +184,15 @@ type ListRegistryProviderInfosInternalServerError struct {
 func (o *ListRegistryProviderInfosInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /replication/adapterinfos][%d] listRegistryProviderInfosInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *ListRegistryProviderInfosInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListRegistryProviderInfosInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

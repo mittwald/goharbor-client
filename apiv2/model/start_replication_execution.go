@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -23,11 +21,6 @@ type StartReplicationExecution struct {
 
 // Validate validates this start replication execution
 func (m *StartReplicationExecution) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this start replication execution based on context it is used
-func (m *StartReplicationExecution) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

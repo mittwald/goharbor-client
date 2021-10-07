@@ -16,79 +16,64 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetScannerMetadataParams creates a new GetScannerMetadataParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetScannerMetadataParams creates a new GetScannerMetadataParams object
+// with the default values initialized.
 func NewGetScannerMetadataParams() *GetScannerMetadataParams {
+	var ()
 	return &GetScannerMetadataParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetScannerMetadataParamsWithTimeout creates a new GetScannerMetadataParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetScannerMetadataParamsWithTimeout(timeout time.Duration) *GetScannerMetadataParams {
+	var ()
 	return &GetScannerMetadataParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetScannerMetadataParamsWithContext creates a new GetScannerMetadataParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetScannerMetadataParamsWithContext(ctx context.Context) *GetScannerMetadataParams {
+	var ()
 	return &GetScannerMetadataParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetScannerMetadataParamsWithHTTPClient creates a new GetScannerMetadataParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetScannerMetadataParamsWithHTTPClient(client *http.Client) *GetScannerMetadataParams {
+	var ()
 	return &GetScannerMetadataParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetScannerMetadataParams contains all the parameters to send to the API endpoint
-   for the get scanner metadata operation.
-
-   Typically these are written to a http.Request.
+/*GetScannerMetadataParams contains all the parameters to send to the API endpoint
+for the get scanner metadata operation typically these are written to a http.Request
 */
 type GetScannerMetadataParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*RegistrationID
+	  The scanner registration identifier.
 
-	/* RegistrationID.
-
-	   The scanner registration identifier.
 	*/
 	RegistrationID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get scanner metadata params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetScannerMetadataParams) WithDefaults() *GetScannerMetadataParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get scanner metadata params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetScannerMetadataParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get scanner metadata params
@@ -160,6 +145,7 @@ func (o *GetScannerMetadataParams) WriteToRequest(r runtime.ClientRequest, reg s
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param registration_id

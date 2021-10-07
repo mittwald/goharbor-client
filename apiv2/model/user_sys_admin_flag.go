@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -23,11 +21,6 @@ type UserSysAdminFlag struct {
 
 // Validate validates this user sys admin flag
 func (m *UserSysAdminFlag) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this user sys admin flag based on context it is used
-func (m *UserSysAdminFlag) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

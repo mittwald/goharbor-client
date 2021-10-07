@@ -49,6 +49,7 @@ func (o *ListRobotReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -59,17 +60,15 @@ func NewListRobotOK() *ListRobotOK {
 	return &ListRobotOK{}
 }
 
-/* ListRobotOK describes a response with status code 200, with default header values.
+/*ListRobotOK handles this case with default header values.
 
 Success
 */
 type ListRobotOK struct {
-
-	/* Link refers to the previous page and next page
+	/*Link refers to the previous page and next page
 	 */
 	Link string
-
-	/* The total count of robot accounts
+	/*The total count of robot accounts
 	 */
 	XTotalCount int64
 
@@ -79,29 +78,22 @@ type ListRobotOK struct {
 func (o *ListRobotOK) Error() string {
 	return fmt.Sprintf("[GET /robots][%d] listRobotOK  %+v", 200, o.Payload)
 }
+
 func (o *ListRobotOK) GetPayload() []*model.Robot {
 	return o.Payload
 }
 
 func (o *ListRobotOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Link
-	hdrLink := response.GetHeader("Link")
+	// response header Link
+	o.Link = response.GetHeader("Link")
 
-	if hdrLink != "" {
-		o.Link = hdrLink
+	// response header X-Total-Count
+	xTotalCount, err := swag.ConvertInt64(response.GetHeader("X-Total-Count"))
+	if err != nil {
+		return errors.InvalidType("X-Total-Count", "header", "int64", response.GetHeader("X-Total-Count"))
 	}
-
-	// hydrates response header X-Total-Count
-	hdrXTotalCount := response.GetHeader("X-Total-Count")
-
-	if hdrXTotalCount != "" {
-		valxTotalCount, err := swag.ConvertInt64(hdrXTotalCount)
-		if err != nil {
-			return errors.InvalidType("X-Total-Count", "header", "int64", hdrXTotalCount)
-		}
-		o.XTotalCount = valxTotalCount
-	}
+	o.XTotalCount = xTotalCount
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -116,13 +108,12 @@ func NewListRobotBadRequest() *ListRobotBadRequest {
 	return &ListRobotBadRequest{}
 }
 
-/* ListRobotBadRequest describes a response with status code 400, with default header values.
+/*ListRobotBadRequest handles this case with default header values.
 
 Bad request
 */
 type ListRobotBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -132,18 +123,15 @@ type ListRobotBadRequest struct {
 func (o *ListRobotBadRequest) Error() string {
 	return fmt.Sprintf("[GET /robots][%d] listRobotBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *ListRobotBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListRobotBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -160,13 +148,12 @@ func NewListRobotNotFound() *ListRobotNotFound {
 	return &ListRobotNotFound{}
 }
 
-/* ListRobotNotFound describes a response with status code 404, with default header values.
+/*ListRobotNotFound handles this case with default header values.
 
 Not found
 */
 type ListRobotNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -176,18 +163,15 @@ type ListRobotNotFound struct {
 func (o *ListRobotNotFound) Error() string {
 	return fmt.Sprintf("[GET /robots][%d] listRobotNotFound  %+v", 404, o.Payload)
 }
+
 func (o *ListRobotNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListRobotNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -204,13 +188,12 @@ func NewListRobotInternalServerError() *ListRobotInternalServerError {
 	return &ListRobotInternalServerError{}
 }
 
-/* ListRobotInternalServerError describes a response with status code 500, with default header values.
+/*ListRobotInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type ListRobotInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -220,18 +203,15 @@ type ListRobotInternalServerError struct {
 func (o *ListRobotInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /robots][%d] listRobotInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *ListRobotInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListRobotInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

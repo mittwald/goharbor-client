@@ -59,6 +59,7 @@ func (o *ImportLdapUserReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +70,7 @@ func NewImportLdapUserOK() *ImportLdapUserOK {
 	return &ImportLdapUserOK{}
 }
 
-/* ImportLdapUserOK describes a response with status code 200, with default header values.
+/*ImportLdapUserOK handles this case with default header values.
 
 Add ldap users successfully.
 */
@@ -90,13 +91,12 @@ func NewImportLdapUserBadRequest() *ImportLdapUserBadRequest {
 	return &ImportLdapUserBadRequest{}
 }
 
-/* ImportLdapUserBadRequest describes a response with status code 400, with default header values.
+/*ImportLdapUserBadRequest handles this case with default header values.
 
 Bad request
 */
 type ImportLdapUserBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -106,18 +106,15 @@ type ImportLdapUserBadRequest struct {
 func (o *ImportLdapUserBadRequest) Error() string {
 	return fmt.Sprintf("[POST /ldap/users/import][%d] importLdapUserBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *ImportLdapUserBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ImportLdapUserBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -134,13 +131,12 @@ func NewImportLdapUserUnauthorized() *ImportLdapUserUnauthorized {
 	return &ImportLdapUserUnauthorized{}
 }
 
-/* ImportLdapUserUnauthorized describes a response with status code 401, with default header values.
+/*ImportLdapUserUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type ImportLdapUserUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -150,18 +146,15 @@ type ImportLdapUserUnauthorized struct {
 func (o *ImportLdapUserUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /ldap/users/import][%d] importLdapUserUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *ImportLdapUserUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ImportLdapUserUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -178,13 +171,12 @@ func NewImportLdapUserForbidden() *ImportLdapUserForbidden {
 	return &ImportLdapUserForbidden{}
 }
 
-/* ImportLdapUserForbidden describes a response with status code 403, with default header values.
+/*ImportLdapUserForbidden handles this case with default header values.
 
 Forbidden
 */
 type ImportLdapUserForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -194,18 +186,15 @@ type ImportLdapUserForbidden struct {
 func (o *ImportLdapUserForbidden) Error() string {
 	return fmt.Sprintf("[POST /ldap/users/import][%d] importLdapUserForbidden  %+v", 403, o.Payload)
 }
+
 func (o *ImportLdapUserForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ImportLdapUserForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -222,7 +211,7 @@ func NewImportLdapUserNotFound() *ImportLdapUserNotFound {
 	return &ImportLdapUserNotFound{}
 }
 
-/* ImportLdapUserNotFound describes a response with status code 404, with default header values.
+/*ImportLdapUserNotFound handles this case with default header values.
 
 Failed import some users.
 */
@@ -233,6 +222,7 @@ type ImportLdapUserNotFound struct {
 func (o *ImportLdapUserNotFound) Error() string {
 	return fmt.Sprintf("[POST /ldap/users/import][%d] importLdapUserNotFound  %+v", 404, o.Payload)
 }
+
 func (o *ImportLdapUserNotFound) GetPayload() []*model.LdapFailedImportUser {
 	return o.Payload
 }
@@ -252,13 +242,12 @@ func NewImportLdapUserInternalServerError() *ImportLdapUserInternalServerError {
 	return &ImportLdapUserInternalServerError{}
 }
 
-/* ImportLdapUserInternalServerError describes a response with status code 500, with default header values.
+/*ImportLdapUserInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type ImportLdapUserInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -268,18 +257,15 @@ type ImportLdapUserInternalServerError struct {
 func (o *ImportLdapUserInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /ldap/users/import][%d] importLdapUserInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *ImportLdapUserInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ImportLdapUserInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

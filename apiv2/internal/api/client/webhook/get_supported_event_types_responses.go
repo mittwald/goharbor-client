@@ -47,6 +47,7 @@ func (o *GetSupportedEventTypesReader) ReadResponse(response runtime.ClientRespo
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +58,7 @@ func NewGetSupportedEventTypesOK() *GetSupportedEventTypesOK {
 	return &GetSupportedEventTypesOK{}
 }
 
-/* GetSupportedEventTypesOK describes a response with status code 200, with default header values.
+/*GetSupportedEventTypesOK handles this case with default header values.
 
 Success
 */
@@ -68,6 +69,7 @@ type GetSupportedEventTypesOK struct {
 func (o *GetSupportedEventTypesOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/webhook/events][%d] getSupportedEventTypesOK  %+v", 200, o.Payload)
 }
+
 func (o *GetSupportedEventTypesOK) GetPayload() *model.SupportedWebhookEventTypes {
 	return o.Payload
 }
@@ -89,13 +91,12 @@ func NewGetSupportedEventTypesUnauthorized() *GetSupportedEventTypesUnauthorized
 	return &GetSupportedEventTypesUnauthorized{}
 }
 
-/* GetSupportedEventTypesUnauthorized describes a response with status code 401, with default header values.
+/*GetSupportedEventTypesUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type GetSupportedEventTypesUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -105,18 +106,15 @@ type GetSupportedEventTypesUnauthorized struct {
 func (o *GetSupportedEventTypesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/webhook/events][%d] getSupportedEventTypesUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetSupportedEventTypesUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetSupportedEventTypesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -133,13 +131,12 @@ func NewGetSupportedEventTypesForbidden() *GetSupportedEventTypesForbidden {
 	return &GetSupportedEventTypesForbidden{}
 }
 
-/* GetSupportedEventTypesForbidden describes a response with status code 403, with default header values.
+/*GetSupportedEventTypesForbidden handles this case with default header values.
 
 Forbidden
 */
 type GetSupportedEventTypesForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -149,18 +146,15 @@ type GetSupportedEventTypesForbidden struct {
 func (o *GetSupportedEventTypesForbidden) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/webhook/events][%d] getSupportedEventTypesForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetSupportedEventTypesForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetSupportedEventTypesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -177,13 +171,12 @@ func NewGetSupportedEventTypesInternalServerError() *GetSupportedEventTypesInter
 	return &GetSupportedEventTypesInternalServerError{}
 }
 
-/* GetSupportedEventTypesInternalServerError describes a response with status code 500, with default header values.
+/*GetSupportedEventTypesInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetSupportedEventTypesInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -193,18 +186,15 @@ type GetSupportedEventTypesInternalServerError struct {
 func (o *GetSupportedEventTypesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/webhook/events][%d] getSupportedEventTypesInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetSupportedEventTypesInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetSupportedEventTypesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

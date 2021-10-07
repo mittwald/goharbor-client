@@ -71,6 +71,7 @@ func (o *CreateTagReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,17 +82,15 @@ func NewCreateTagCreated() *CreateTagCreated {
 	return &CreateTagCreated{}
 }
 
-/* CreateTagCreated describes a response with status code 201, with default header values.
+/*CreateTagCreated handles this case with default header values.
 
 Created
 */
 type CreateTagCreated struct {
-
-	/* The location of the resource
+	/*The location of the resource
 	 */
 	Location string
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -102,19 +101,11 @@ func (o *CreateTagCreated) Error() string {
 
 func (o *CreateTagCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Location
-	hdrLocation := response.GetHeader("Location")
+	// response header Location
+	o.Location = response.GetHeader("Location")
 
-	if hdrLocation != "" {
-		o.Location = hdrLocation
-	}
-
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -124,13 +115,12 @@ func NewCreateTagBadRequest() *CreateTagBadRequest {
 	return &CreateTagBadRequest{}
 }
 
-/* CreateTagBadRequest describes a response with status code 400, with default header values.
+/*CreateTagBadRequest handles this case with default header values.
 
 Bad request
 */
 type CreateTagBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -140,18 +130,15 @@ type CreateTagBadRequest struct {
 func (o *CreateTagBadRequest) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags][%d] createTagBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *CreateTagBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateTagBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -168,13 +155,12 @@ func NewCreateTagUnauthorized() *CreateTagUnauthorized {
 	return &CreateTagUnauthorized{}
 }
 
-/* CreateTagUnauthorized describes a response with status code 401, with default header values.
+/*CreateTagUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type CreateTagUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -184,18 +170,15 @@ type CreateTagUnauthorized struct {
 func (o *CreateTagUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags][%d] createTagUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *CreateTagUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateTagUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -212,13 +195,12 @@ func NewCreateTagForbidden() *CreateTagForbidden {
 	return &CreateTagForbidden{}
 }
 
-/* CreateTagForbidden describes a response with status code 403, with default header values.
+/*CreateTagForbidden handles this case with default header values.
 
 Forbidden
 */
 type CreateTagForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -228,18 +210,15 @@ type CreateTagForbidden struct {
 func (o *CreateTagForbidden) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags][%d] createTagForbidden  %+v", 403, o.Payload)
 }
+
 func (o *CreateTagForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateTagForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -256,13 +235,12 @@ func NewCreateTagNotFound() *CreateTagNotFound {
 	return &CreateTagNotFound{}
 }
 
-/* CreateTagNotFound describes a response with status code 404, with default header values.
+/*CreateTagNotFound handles this case with default header values.
 
 Not found
 */
 type CreateTagNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -272,18 +250,15 @@ type CreateTagNotFound struct {
 func (o *CreateTagNotFound) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags][%d] createTagNotFound  %+v", 404, o.Payload)
 }
+
 func (o *CreateTagNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateTagNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -300,13 +275,12 @@ func NewCreateTagMethodNotAllowed() *CreateTagMethodNotAllowed {
 	return &CreateTagMethodNotAllowed{}
 }
 
-/* CreateTagMethodNotAllowed describes a response with status code 405, with default header values.
+/*CreateTagMethodNotAllowed handles this case with default header values.
 
 Method not allowed
 */
 type CreateTagMethodNotAllowed struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -316,18 +290,15 @@ type CreateTagMethodNotAllowed struct {
 func (o *CreateTagMethodNotAllowed) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags][%d] createTagMethodNotAllowed  %+v", 405, o.Payload)
 }
+
 func (o *CreateTagMethodNotAllowed) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateTagMethodNotAllowed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -344,13 +315,12 @@ func NewCreateTagConflict() *CreateTagConflict {
 	return &CreateTagConflict{}
 }
 
-/* CreateTagConflict describes a response with status code 409, with default header values.
+/*CreateTagConflict handles this case with default header values.
 
 Conflict
 */
 type CreateTagConflict struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -360,18 +330,15 @@ type CreateTagConflict struct {
 func (o *CreateTagConflict) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags][%d] createTagConflict  %+v", 409, o.Payload)
 }
+
 func (o *CreateTagConflict) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateTagConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -388,13 +355,12 @@ func NewCreateTagInternalServerError() *CreateTagInternalServerError {
 	return &CreateTagInternalServerError{}
 }
 
-/* CreateTagInternalServerError describes a response with status code 500, with default header values.
+/*CreateTagInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type CreateTagInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -404,18 +370,15 @@ type CreateTagInternalServerError struct {
 func (o *CreateTagInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags][%d] createTagInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *CreateTagInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateTagInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

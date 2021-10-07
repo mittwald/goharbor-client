@@ -53,6 +53,7 @@ func (o *UpdateUserProfileReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,13 +64,12 @@ func NewUpdateUserProfileOK() *UpdateUserProfileOK {
 	return &UpdateUserProfileOK{}
 }
 
-/* UpdateUserProfileOK describes a response with status code 200, with default header values.
+/*UpdateUserProfileOK handles this case with default header values.
 
 Success
 */
 type UpdateUserProfileOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -80,12 +80,8 @@ func (o *UpdateUserProfileOK) Error() string {
 
 func (o *UpdateUserProfileOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -95,13 +91,12 @@ func NewUpdateUserProfileUnauthorized() *UpdateUserProfileUnauthorized {
 	return &UpdateUserProfileUnauthorized{}
 }
 
-/* UpdateUserProfileUnauthorized describes a response with status code 401, with default header values.
+/*UpdateUserProfileUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type UpdateUserProfileUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +106,15 @@ type UpdateUserProfileUnauthorized struct {
 func (o *UpdateUserProfileUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /users/{user_id}][%d] updateUserProfileUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *UpdateUserProfileUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateUserProfileUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +131,12 @@ func NewUpdateUserProfileForbidden() *UpdateUserProfileForbidden {
 	return &UpdateUserProfileForbidden{}
 }
 
-/* UpdateUserProfileForbidden describes a response with status code 403, with default header values.
+/*UpdateUserProfileForbidden handles this case with default header values.
 
 Forbidden
 */
 type UpdateUserProfileForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +146,15 @@ type UpdateUserProfileForbidden struct {
 func (o *UpdateUserProfileForbidden) Error() string {
 	return fmt.Sprintf("[PUT /users/{user_id}][%d] updateUserProfileForbidden  %+v", 403, o.Payload)
 }
+
 func (o *UpdateUserProfileForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateUserProfileForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +171,12 @@ func NewUpdateUserProfileNotFound() *UpdateUserProfileNotFound {
 	return &UpdateUserProfileNotFound{}
 }
 
-/* UpdateUserProfileNotFound describes a response with status code 404, with default header values.
+/*UpdateUserProfileNotFound handles this case with default header values.
 
 Not found
 */
 type UpdateUserProfileNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +186,15 @@ type UpdateUserProfileNotFound struct {
 func (o *UpdateUserProfileNotFound) Error() string {
 	return fmt.Sprintf("[PUT /users/{user_id}][%d] updateUserProfileNotFound  %+v", 404, o.Payload)
 }
+
 func (o *UpdateUserProfileNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateUserProfileNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +211,12 @@ func NewUpdateUserProfileInternalServerError() *UpdateUserProfileInternalServerE
 	return &UpdateUserProfileInternalServerError{}
 }
 
-/* UpdateUserProfileInternalServerError describes a response with status code 500, with default header values.
+/*UpdateUserProfileInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type UpdateUserProfileInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +226,15 @@ type UpdateUserProfileInternalServerError struct {
 func (o *UpdateUserProfileInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /users/{user_id}][%d] updateUserProfileInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *UpdateUserProfileInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateUserProfileInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

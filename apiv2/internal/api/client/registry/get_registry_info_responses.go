@@ -53,6 +53,7 @@ func (o *GetRegistryInfoReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +64,7 @@ func NewGetRegistryInfoOK() *GetRegistryInfoOK {
 	return &GetRegistryInfoOK{}
 }
 
-/* GetRegistryInfoOK describes a response with status code 200, with default header values.
+/*GetRegistryInfoOK handles this case with default header values.
 
 Success
 */
@@ -74,6 +75,7 @@ type GetRegistryInfoOK struct {
 func (o *GetRegistryInfoOK) Error() string {
 	return fmt.Sprintf("[GET /registries/{id}/info][%d] getRegistryInfoOK  %+v", 200, o.Payload)
 }
+
 func (o *GetRegistryInfoOK) GetPayload() *model.RegistryInfo {
 	return o.Payload
 }
@@ -95,13 +97,12 @@ func NewGetRegistryInfoUnauthorized() *GetRegistryInfoUnauthorized {
 	return &GetRegistryInfoUnauthorized{}
 }
 
-/* GetRegistryInfoUnauthorized describes a response with status code 401, with default header values.
+/*GetRegistryInfoUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type GetRegistryInfoUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +112,15 @@ type GetRegistryInfoUnauthorized struct {
 func (o *GetRegistryInfoUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /registries/{id}/info][%d] getRegistryInfoUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetRegistryInfoUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetRegistryInfoUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +137,12 @@ func NewGetRegistryInfoForbidden() *GetRegistryInfoForbidden {
 	return &GetRegistryInfoForbidden{}
 }
 
-/* GetRegistryInfoForbidden describes a response with status code 403, with default header values.
+/*GetRegistryInfoForbidden handles this case with default header values.
 
 Forbidden
 */
 type GetRegistryInfoForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +152,15 @@ type GetRegistryInfoForbidden struct {
 func (o *GetRegistryInfoForbidden) Error() string {
 	return fmt.Sprintf("[GET /registries/{id}/info][%d] getRegistryInfoForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetRegistryInfoForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetRegistryInfoForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +177,12 @@ func NewGetRegistryInfoNotFound() *GetRegistryInfoNotFound {
 	return &GetRegistryInfoNotFound{}
 }
 
-/* GetRegistryInfoNotFound describes a response with status code 404, with default header values.
+/*GetRegistryInfoNotFound handles this case with default header values.
 
 Not found
 */
 type GetRegistryInfoNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +192,15 @@ type GetRegistryInfoNotFound struct {
 func (o *GetRegistryInfoNotFound) Error() string {
 	return fmt.Sprintf("[GET /registries/{id}/info][%d] getRegistryInfoNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetRegistryInfoNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetRegistryInfoNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +217,12 @@ func NewGetRegistryInfoInternalServerError() *GetRegistryInfoInternalServerError
 	return &GetRegistryInfoInternalServerError{}
 }
 
-/* GetRegistryInfoInternalServerError describes a response with status code 500, with default header values.
+/*GetRegistryInfoInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetRegistryInfoInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +232,15 @@ type GetRegistryInfoInternalServerError struct {
 func (o *GetRegistryInfoInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /registries/{id}/info][%d] getRegistryInfoInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetRegistryInfoInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetRegistryInfoInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

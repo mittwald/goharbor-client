@@ -59,6 +59,7 @@ func (o *UpdateRegistryReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,13 +70,12 @@ func NewUpdateRegistryOK() *UpdateRegistryOK {
 	return &UpdateRegistryOK{}
 }
 
-/* UpdateRegistryOK describes a response with status code 200, with default header values.
+/*UpdateRegistryOK handles this case with default header values.
 
 Success
 */
 type UpdateRegistryOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -86,12 +86,8 @@ func (o *UpdateRegistryOK) Error() string {
 
 func (o *UpdateRegistryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -101,13 +97,12 @@ func NewUpdateRegistryUnauthorized() *UpdateRegistryUnauthorized {
 	return &UpdateRegistryUnauthorized{}
 }
 
-/* UpdateRegistryUnauthorized describes a response with status code 401, with default header values.
+/*UpdateRegistryUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type UpdateRegistryUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -117,18 +112,15 @@ type UpdateRegistryUnauthorized struct {
 func (o *UpdateRegistryUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /registries/{id}][%d] updateRegistryUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *UpdateRegistryUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateRegistryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -145,13 +137,12 @@ func NewUpdateRegistryForbidden() *UpdateRegistryForbidden {
 	return &UpdateRegistryForbidden{}
 }
 
-/* UpdateRegistryForbidden describes a response with status code 403, with default header values.
+/*UpdateRegistryForbidden handles this case with default header values.
 
 Forbidden
 */
 type UpdateRegistryForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -161,18 +152,15 @@ type UpdateRegistryForbidden struct {
 func (o *UpdateRegistryForbidden) Error() string {
 	return fmt.Sprintf("[PUT /registries/{id}][%d] updateRegistryForbidden  %+v", 403, o.Payload)
 }
+
 func (o *UpdateRegistryForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateRegistryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -189,13 +177,12 @@ func NewUpdateRegistryNotFound() *UpdateRegistryNotFound {
 	return &UpdateRegistryNotFound{}
 }
 
-/* UpdateRegistryNotFound describes a response with status code 404, with default header values.
+/*UpdateRegistryNotFound handles this case with default header values.
 
 Not found
 */
 type UpdateRegistryNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -205,18 +192,15 @@ type UpdateRegistryNotFound struct {
 func (o *UpdateRegistryNotFound) Error() string {
 	return fmt.Sprintf("[PUT /registries/{id}][%d] updateRegistryNotFound  %+v", 404, o.Payload)
 }
+
 func (o *UpdateRegistryNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateRegistryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -233,13 +217,12 @@ func NewUpdateRegistryConflict() *UpdateRegistryConflict {
 	return &UpdateRegistryConflict{}
 }
 
-/* UpdateRegistryConflict describes a response with status code 409, with default header values.
+/*UpdateRegistryConflict handles this case with default header values.
 
 Conflict
 */
 type UpdateRegistryConflict struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,18 +232,15 @@ type UpdateRegistryConflict struct {
 func (o *UpdateRegistryConflict) Error() string {
 	return fmt.Sprintf("[PUT /registries/{id}][%d] updateRegistryConflict  %+v", 409, o.Payload)
 }
+
 func (o *UpdateRegistryConflict) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateRegistryConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -277,13 +257,12 @@ func NewUpdateRegistryInternalServerError() *UpdateRegistryInternalServerError {
 	return &UpdateRegistryInternalServerError{}
 }
 
-/* UpdateRegistryInternalServerError describes a response with status code 500, with default header values.
+/*UpdateRegistryInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type UpdateRegistryInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -293,18 +272,15 @@ type UpdateRegistryInternalServerError struct {
 func (o *UpdateRegistryInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /registries/{id}][%d] updateRegistryInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *UpdateRegistryInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateRegistryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

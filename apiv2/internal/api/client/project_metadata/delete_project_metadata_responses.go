@@ -65,6 +65,7 @@ func (o *DeleteProjectMetadataReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,13 +76,12 @@ func NewDeleteProjectMetadataOK() *DeleteProjectMetadataOK {
 	return &DeleteProjectMetadataOK{}
 }
 
-/* DeleteProjectMetadataOK describes a response with status code 200, with default header values.
+/*DeleteProjectMetadataOK handles this case with default header values.
 
 Success
 */
 type DeleteProjectMetadataOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -92,12 +92,8 @@ func (o *DeleteProjectMetadataOK) Error() string {
 
 func (o *DeleteProjectMetadataOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -107,13 +103,12 @@ func NewDeleteProjectMetadataBadRequest() *DeleteProjectMetadataBadRequest {
 	return &DeleteProjectMetadataBadRequest{}
 }
 
-/* DeleteProjectMetadataBadRequest describes a response with status code 400, with default header values.
+/*DeleteProjectMetadataBadRequest handles this case with default header values.
 
 Bad request
 */
 type DeleteProjectMetadataBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -123,18 +118,15 @@ type DeleteProjectMetadataBadRequest struct {
 func (o *DeleteProjectMetadataBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}/metadatas/{meta_name}][%d] deleteProjectMetadataBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *DeleteProjectMetadataBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteProjectMetadataBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -151,13 +143,12 @@ func NewDeleteProjectMetadataUnauthorized() *DeleteProjectMetadataUnauthorized {
 	return &DeleteProjectMetadataUnauthorized{}
 }
 
-/* DeleteProjectMetadataUnauthorized describes a response with status code 401, with default header values.
+/*DeleteProjectMetadataUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type DeleteProjectMetadataUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -167,18 +158,15 @@ type DeleteProjectMetadataUnauthorized struct {
 func (o *DeleteProjectMetadataUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}/metadatas/{meta_name}][%d] deleteProjectMetadataUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteProjectMetadataUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteProjectMetadataUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -195,13 +183,12 @@ func NewDeleteProjectMetadataForbidden() *DeleteProjectMetadataForbidden {
 	return &DeleteProjectMetadataForbidden{}
 }
 
-/* DeleteProjectMetadataForbidden describes a response with status code 403, with default header values.
+/*DeleteProjectMetadataForbidden handles this case with default header values.
 
 Forbidden
 */
 type DeleteProjectMetadataForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -211,18 +198,15 @@ type DeleteProjectMetadataForbidden struct {
 func (o *DeleteProjectMetadataForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}/metadatas/{meta_name}][%d] deleteProjectMetadataForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteProjectMetadataForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteProjectMetadataForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -239,13 +223,12 @@ func NewDeleteProjectMetadataNotFound() *DeleteProjectMetadataNotFound {
 	return &DeleteProjectMetadataNotFound{}
 }
 
-/* DeleteProjectMetadataNotFound describes a response with status code 404, with default header values.
+/*DeleteProjectMetadataNotFound handles this case with default header values.
 
 Not found
 */
 type DeleteProjectMetadataNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -255,18 +238,15 @@ type DeleteProjectMetadataNotFound struct {
 func (o *DeleteProjectMetadataNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}/metadatas/{meta_name}][%d] deleteProjectMetadataNotFound  %+v", 404, o.Payload)
 }
+
 func (o *DeleteProjectMetadataNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteProjectMetadataNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -283,13 +263,12 @@ func NewDeleteProjectMetadataConflict() *DeleteProjectMetadataConflict {
 	return &DeleteProjectMetadataConflict{}
 }
 
-/* DeleteProjectMetadataConflict describes a response with status code 409, with default header values.
+/*DeleteProjectMetadataConflict handles this case with default header values.
 
 Conflict
 */
 type DeleteProjectMetadataConflict struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -299,18 +278,15 @@ type DeleteProjectMetadataConflict struct {
 func (o *DeleteProjectMetadataConflict) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}/metadatas/{meta_name}][%d] deleteProjectMetadataConflict  %+v", 409, o.Payload)
 }
+
 func (o *DeleteProjectMetadataConflict) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteProjectMetadataConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -327,13 +303,12 @@ func NewDeleteProjectMetadataInternalServerError() *DeleteProjectMetadataInterna
 	return &DeleteProjectMetadataInternalServerError{}
 }
 
-/* DeleteProjectMetadataInternalServerError describes a response with status code 500, with default header values.
+/*DeleteProjectMetadataInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type DeleteProjectMetadataInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -343,18 +318,15 @@ type DeleteProjectMetadataInternalServerError struct {
 func (o *DeleteProjectMetadataInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name_or_id}/metadatas/{meta_name}][%d] deleteProjectMetadataInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteProjectMetadataInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteProjectMetadataInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

@@ -53,6 +53,7 @@ func (o *GetLatestScanAllMetricsReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +64,7 @@ func NewGetLatestScanAllMetricsOK() *GetLatestScanAllMetricsOK {
 	return &GetLatestScanAllMetricsOK{}
 }
 
-/* GetLatestScanAllMetricsOK describes a response with status code 200, with default header values.
+/*GetLatestScanAllMetricsOK handles this case with default header values.
 
 OK
 */
@@ -74,6 +75,7 @@ type GetLatestScanAllMetricsOK struct {
 func (o *GetLatestScanAllMetricsOK) Error() string {
 	return fmt.Sprintf("[GET /scans/all/metrics][%d] getLatestScanAllMetricsOK  %+v", 200, o.Payload)
 }
+
 func (o *GetLatestScanAllMetricsOK) GetPayload() *model.Stats {
 	return o.Payload
 }
@@ -95,13 +97,12 @@ func NewGetLatestScanAllMetricsUnauthorized() *GetLatestScanAllMetricsUnauthoriz
 	return &GetLatestScanAllMetricsUnauthorized{}
 }
 
-/* GetLatestScanAllMetricsUnauthorized describes a response with status code 401, with default header values.
+/*GetLatestScanAllMetricsUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type GetLatestScanAllMetricsUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +112,15 @@ type GetLatestScanAllMetricsUnauthorized struct {
 func (o *GetLatestScanAllMetricsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /scans/all/metrics][%d] getLatestScanAllMetricsUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetLatestScanAllMetricsUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetLatestScanAllMetricsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +137,12 @@ func NewGetLatestScanAllMetricsForbidden() *GetLatestScanAllMetricsForbidden {
 	return &GetLatestScanAllMetricsForbidden{}
 }
 
-/* GetLatestScanAllMetricsForbidden describes a response with status code 403, with default header values.
+/*GetLatestScanAllMetricsForbidden handles this case with default header values.
 
 Forbidden
 */
 type GetLatestScanAllMetricsForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +152,15 @@ type GetLatestScanAllMetricsForbidden struct {
 func (o *GetLatestScanAllMetricsForbidden) Error() string {
 	return fmt.Sprintf("[GET /scans/all/metrics][%d] getLatestScanAllMetricsForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetLatestScanAllMetricsForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetLatestScanAllMetricsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +177,12 @@ func NewGetLatestScanAllMetricsPreconditionFailed() *GetLatestScanAllMetricsPrec
 	return &GetLatestScanAllMetricsPreconditionFailed{}
 }
 
-/* GetLatestScanAllMetricsPreconditionFailed describes a response with status code 412, with default header values.
+/*GetLatestScanAllMetricsPreconditionFailed handles this case with default header values.
 
 Precondition failed
 */
 type GetLatestScanAllMetricsPreconditionFailed struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +192,15 @@ type GetLatestScanAllMetricsPreconditionFailed struct {
 func (o *GetLatestScanAllMetricsPreconditionFailed) Error() string {
 	return fmt.Sprintf("[GET /scans/all/metrics][%d] getLatestScanAllMetricsPreconditionFailed  %+v", 412, o.Payload)
 }
+
 func (o *GetLatestScanAllMetricsPreconditionFailed) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetLatestScanAllMetricsPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +217,12 @@ func NewGetLatestScanAllMetricsInternalServerError() *GetLatestScanAllMetricsInt
 	return &GetLatestScanAllMetricsInternalServerError{}
 }
 
-/* GetLatestScanAllMetricsInternalServerError describes a response with status code 500, with default header values.
+/*GetLatestScanAllMetricsInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetLatestScanAllMetricsInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +232,15 @@ type GetLatestScanAllMetricsInternalServerError struct {
 func (o *GetLatestScanAllMetricsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /scans/all/metrics][%d] getLatestScanAllMetricsInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetLatestScanAllMetricsInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetLatestScanAllMetricsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

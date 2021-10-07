@@ -16,79 +16,64 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewHeadProjectParams creates a new HeadProjectParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewHeadProjectParams creates a new HeadProjectParams object
+// with the default values initialized.
 func NewHeadProjectParams() *HeadProjectParams {
+	var ()
 	return &HeadProjectParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewHeadProjectParamsWithTimeout creates a new HeadProjectParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewHeadProjectParamsWithTimeout(timeout time.Duration) *HeadProjectParams {
+	var ()
 	return &HeadProjectParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewHeadProjectParamsWithContext creates a new HeadProjectParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewHeadProjectParamsWithContext(ctx context.Context) *HeadProjectParams {
+	var ()
 	return &HeadProjectParams{
+
 		Context: ctx,
 	}
 }
 
 // NewHeadProjectParamsWithHTTPClient creates a new HeadProjectParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewHeadProjectParamsWithHTTPClient(client *http.Client) *HeadProjectParams {
+	var ()
 	return &HeadProjectParams{
 		HTTPClient: client,
 	}
 }
 
-/* HeadProjectParams contains all the parameters to send to the API endpoint
-   for the head project operation.
-
-   Typically these are written to a http.Request.
+/*HeadProjectParams contains all the parameters to send to the API endpoint
+for the head project operation typically these are written to a http.Request
 */
 type HeadProjectParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*ProjectName
+	  Project name for checking exists.
 
-	/* ProjectName.
-
-	   Project name for checking exists.
 	*/
 	ProjectName string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the head project params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *HeadProjectParams) WithDefaults() *HeadProjectParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the head project params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *HeadProjectParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the head project params
@@ -160,13 +145,13 @@ func (o *HeadProjectParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// query param project_name
 	qrProjectName := o.ProjectName
 	qProjectName := qrProjectName
 	if qProjectName != "" {
-
 		if err := r.SetQueryParam("project_name", qProjectName); err != nil {
 			return err
 		}

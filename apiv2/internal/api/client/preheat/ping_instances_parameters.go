@@ -18,79 +18,64 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/model"
 )
 
-// NewPingInstancesParams creates a new PingInstancesParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPingInstancesParams creates a new PingInstancesParams object
+// with the default values initialized.
 func NewPingInstancesParams() *PingInstancesParams {
+	var ()
 	return &PingInstancesParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPingInstancesParamsWithTimeout creates a new PingInstancesParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPingInstancesParamsWithTimeout(timeout time.Duration) *PingInstancesParams {
+	var ()
 	return &PingInstancesParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPingInstancesParamsWithContext creates a new PingInstancesParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPingInstancesParamsWithContext(ctx context.Context) *PingInstancesParams {
+	var ()
 	return &PingInstancesParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPingInstancesParamsWithHTTPClient creates a new PingInstancesParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPingInstancesParamsWithHTTPClient(client *http.Client) *PingInstancesParams {
+	var ()
 	return &PingInstancesParams{
 		HTTPClient: client,
 	}
 }
 
-/* PingInstancesParams contains all the parameters to send to the API endpoint
-   for the ping instances operation.
-
-   Typically these are written to a http.Request.
+/*PingInstancesParams contains all the parameters to send to the API endpoint
+for the ping instances operation typically these are written to a http.Request
 */
 type PingInstancesParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Instance
+	  The JSON object of instance.
 
-	/* Instance.
-
-	   The JSON object of instance.
 	*/
 	Instance *model.Instance
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the ping instances params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PingInstancesParams) WithDefaults() *PingInstancesParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the ping instances params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PingInstancesParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the ping instances params
@@ -162,7 +147,9 @@ func (o *PingInstancesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
+
 	if o.Instance != nil {
 		if err := r.SetBodyParam(o.Instance); err != nil {
 			return err

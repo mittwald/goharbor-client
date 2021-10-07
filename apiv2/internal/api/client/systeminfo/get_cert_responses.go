@@ -42,6 +42,7 @@ func (o *GetCertReader) ReadResponse(response runtime.ClientResponse, consumer r
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -50,18 +51,16 @@ func (o *GetCertReader) ReadResponse(response runtime.ClientResponse, consumer r
 // NewGetCertOK creates a GetCertOK with default headers values
 func NewGetCertOK(writer io.Writer) *GetCertOK {
 	return &GetCertOK{
-
 		Payload: writer,
 	}
 }
 
-/* GetCertOK describes a response with status code 200, with default header values.
+/*GetCertOK handles this case with default header values.
 
 Get default root certificate successfully.
 */
 type GetCertOK struct {
-
-	/* To set the filename of the downloaded file.
+	/*To set the filename of the downloaded file.
 	 */
 	ContentDisposition string
 
@@ -71,18 +70,15 @@ type GetCertOK struct {
 func (o *GetCertOK) Error() string {
 	return fmt.Sprintf("[GET /systeminfo/getcert][%d] getCertOK  %+v", 200, o.Payload)
 }
+
 func (o *GetCertOK) GetPayload() io.Writer {
 	return o.Payload
 }
 
 func (o *GetCertOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Content-Disposition
-	hdrContentDisposition := response.GetHeader("Content-Disposition")
-
-	if hdrContentDisposition != "" {
-		o.ContentDisposition = hdrContentDisposition
-	}
+	// response header Content-Disposition
+	o.ContentDisposition = response.GetHeader("Content-Disposition")
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -97,7 +93,7 @@ func NewGetCertNotFound() *GetCertNotFound {
 	return &GetCertNotFound{}
 }
 
-/* GetCertNotFound describes a response with status code 404, with default header values.
+/*GetCertNotFound handles this case with default header values.
 
 Not found the default root certificate.
 */
@@ -118,13 +114,12 @@ func NewGetCertInternalServerError() *GetCertInternalServerError {
 	return &GetCertInternalServerError{}
 }
 
-/* GetCertInternalServerError describes a response with status code 500, with default header values.
+/*GetCertInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetCertInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -134,18 +129,15 @@ type GetCertInternalServerError struct {
 func (o *GetCertInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /systeminfo/getcert][%d] getCertInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetCertInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetCertInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

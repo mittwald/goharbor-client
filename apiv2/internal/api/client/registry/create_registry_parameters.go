@@ -18,79 +18,64 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/model"
 )
 
-// NewCreateRegistryParams creates a new CreateRegistryParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewCreateRegistryParams creates a new CreateRegistryParams object
+// with the default values initialized.
 func NewCreateRegistryParams() *CreateRegistryParams {
+	var ()
 	return &CreateRegistryParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateRegistryParamsWithTimeout creates a new CreateRegistryParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewCreateRegistryParamsWithTimeout(timeout time.Duration) *CreateRegistryParams {
+	var ()
 	return &CreateRegistryParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewCreateRegistryParamsWithContext creates a new CreateRegistryParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewCreateRegistryParamsWithContext(ctx context.Context) *CreateRegistryParams {
+	var ()
 	return &CreateRegistryParams{
+
 		Context: ctx,
 	}
 }
 
 // NewCreateRegistryParamsWithHTTPClient creates a new CreateRegistryParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewCreateRegistryParamsWithHTTPClient(client *http.Client) *CreateRegistryParams {
+	var ()
 	return &CreateRegistryParams{
 		HTTPClient: client,
 	}
 }
 
-/* CreateRegistryParams contains all the parameters to send to the API endpoint
-   for the create registry operation.
-
-   Typically these are written to a http.Request.
+/*CreateRegistryParams contains all the parameters to send to the API endpoint
+for the create registry operation typically these are written to a http.Request
 */
 type CreateRegistryParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Registry
+	  The registry
 
-	/* Registry.
-
-	   The registry
 	*/
 	Registry *model.Registry
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the create registry params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *CreateRegistryParams) WithDefaults() *CreateRegistryParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the create registry params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *CreateRegistryParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create registry params
@@ -162,7 +147,9 @@ func (o *CreateRegistryParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
+
 	if o.Registry != nil {
 		if err := r.SetBodyParam(o.Registry); err != nil {
 			return err

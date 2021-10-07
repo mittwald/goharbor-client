@@ -59,6 +59,7 @@ func (o *GetScannerOfProjectReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +70,7 @@ func NewGetScannerOfProjectOK() *GetScannerOfProjectOK {
 	return &GetScannerOfProjectOK{}
 }
 
-/* GetScannerOfProjectOK describes a response with status code 200, with default header values.
+/*GetScannerOfProjectOK handles this case with default header values.
 
 The details of the scanner registration.
 */
@@ -80,6 +81,7 @@ type GetScannerOfProjectOK struct {
 func (o *GetScannerOfProjectOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}/scanner][%d] getScannerOfProjectOK  %+v", 200, o.Payload)
 }
+
 func (o *GetScannerOfProjectOK) GetPayload() *model.ScannerRegistration {
 	return o.Payload
 }
@@ -101,7 +103,7 @@ func NewGetScannerOfProjectBadRequest() *GetScannerOfProjectBadRequest {
 	return &GetScannerOfProjectBadRequest{}
 }
 
-/* GetScannerOfProjectBadRequest describes a response with status code 400, with default header values.
+/*GetScannerOfProjectBadRequest handles this case with default header values.
 
 Bad project ID
 */
@@ -122,7 +124,7 @@ func NewGetScannerOfProjectUnauthorized() *GetScannerOfProjectUnauthorized {
 	return &GetScannerOfProjectUnauthorized{}
 }
 
-/* GetScannerOfProjectUnauthorized describes a response with status code 401, with default header values.
+/*GetScannerOfProjectUnauthorized handles this case with default header values.
 
 Unauthorized request
 */
@@ -143,7 +145,7 @@ func NewGetScannerOfProjectForbidden() *GetScannerOfProjectForbidden {
 	return &GetScannerOfProjectForbidden{}
 }
 
-/* GetScannerOfProjectForbidden describes a response with status code 403, with default header values.
+/*GetScannerOfProjectForbidden handles this case with default header values.
 
 Request is not allowed
 */
@@ -164,7 +166,7 @@ func NewGetScannerOfProjectNotFound() *GetScannerOfProjectNotFound {
 	return &GetScannerOfProjectNotFound{}
 }
 
-/* GetScannerOfProjectNotFound describes a response with status code 404, with default header values.
+/*GetScannerOfProjectNotFound handles this case with default header values.
 
 The requested object is not found
 */
@@ -185,7 +187,7 @@ func NewGetScannerOfProjectInternalServerError() *GetScannerOfProjectInternalSer
 	return &GetScannerOfProjectInternalServerError{}
 }
 
-/* GetScannerOfProjectInternalServerError describes a response with status code 500, with default header values.
+/*GetScannerOfProjectInternalServerError handles this case with default header values.
 
 Internal server error happened
 */

@@ -17,174 +17,20 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewListArtifactsParams creates a new ListArtifactsParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewListArtifactsParams creates a new ListArtifactsParams object
+// with the default values initialized.
 func NewListArtifactsParams() *ListArtifactsParams {
-	return &ListArtifactsParams{
-		timeout: cr.DefaultTimeout,
-	}
-}
-
-// NewListArtifactsParamsWithTimeout creates a new ListArtifactsParams object
-// with the ability to set a timeout on a request.
-func NewListArtifactsParamsWithTimeout(timeout time.Duration) *ListArtifactsParams {
-	return &ListArtifactsParams{
-		timeout: timeout,
-	}
-}
-
-// NewListArtifactsParamsWithContext creates a new ListArtifactsParams object
-// with the ability to set a context for a request.
-func NewListArtifactsParamsWithContext(ctx context.Context) *ListArtifactsParams {
-	return &ListArtifactsParams{
-		Context: ctx,
-	}
-}
-
-// NewListArtifactsParamsWithHTTPClient creates a new ListArtifactsParams object
-// with the ability to set a custom HTTPClient for a request.
-func NewListArtifactsParamsWithHTTPClient(client *http.Client) *ListArtifactsParams {
-	return &ListArtifactsParams{
-		HTTPClient: client,
-	}
-}
-
-/* ListArtifactsParams contains all the parameters to send to the API endpoint
-   for the list artifacts operation.
-
-   Typically these are written to a http.Request.
-*/
-type ListArtifactsParams struct {
-
-	/* XAcceptVulnerabilities.
-
-	     A comma-separated lists of MIME types for the scan report or scan summary. The first mime type will be used when the report found for it.
-	Currently the mime type supports 'application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0' and 'application/vnd.security.vulnerability.report; version=1.1'
-
-	     Default: "application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0"
-	*/
-	XAcceptVulnerabilities *string
-
-	/* XRequestID.
-
-	   An unique ID for the request
-	*/
-	XRequestID *string
-
-	/* Page.
-
-	   The page number
-
-	   Format: int64
-	   Default: 1
-	*/
-	Page *int64
-
-	/* PageSize.
-
-	   The size of per page
-
-	   Format: int64
-	   Default: 10
-	*/
-	PageSize *int64
-
-	/* ProjectName.
-
-	   The name of the project
-	*/
-	ProjectName string
-
-	/* Q.
-
-	   Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
-	*/
-	Q *string
-
-	/* RepositoryName.
-
-	   The name of the repository. If it contains slash, encode it with URL encoding. e.g. a/b -> a%252Fb
-	*/
-	RepositoryName string
-
-	/* Sort.
-
-	   Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending orderr and field2 in descending order with "sort=field1,-field2"
-	*/
-	Sort *string
-
-	/* WithImmutableStatus.
-
-	   Specify whether the immutable status is included inside the tags of the returning artifacts. Only works when setting "with_tag=true"
-	*/
-	WithImmutableStatus *bool
-
-	/* WithLabel.
-
-	   Specify whether the labels are included inside the returning artifacts
-	*/
-	WithLabel *bool
-
-	/* WithScanOverview.
-
-	   Specify whether the scan overview is included inside the returning artifacts
-	*/
-	WithScanOverview *bool
-
-	/* WithSignature.
-
-	   Specify whether the signature is included inside the tags of the returning artifacts. Only works when setting "with_tag=true"
-	*/
-	WithSignature *bool
-
-	/* WithTag.
-
-	   Specify whether the tags are included inside the returning artifacts
-
-	   Default: true
-	*/
-	WithTag *bool
-
-	timeout    time.Duration
-	Context    context.Context
-	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the list artifacts params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *ListArtifactsParams) WithDefaults() *ListArtifactsParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the list artifacts params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *ListArtifactsParams) SetDefaults() {
 	var (
 		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
-
-		pageDefault = int64(1)
-
-		pageSizeDefault = int64(10)
-
-		withImmutableStatusDefault = bool(false)
-
-		withLabelDefault = bool(false)
-
-		withScanOverviewDefault = bool(false)
-
-		withSignatureDefault = bool(false)
-
-		withTagDefault = bool(true)
+		pageDefault                   = int64(1)
+		pageSizeDefault               = int64(10)
+		withImmutableStatusDefault    = bool(false)
+		withLabelDefault              = bool(false)
+		withScanOverviewDefault       = bool(false)
+		withSignatureDefault          = bool(false)
+		withTagDefault                = bool(true)
 	)
-
-	val := ListArtifactsParams{
+	return &ListArtifactsParams{
 		XAcceptVulnerabilities: &xAcceptVulnerabilitiesDefault,
 		Page:                   &pageDefault,
 		PageSize:               &pageSizeDefault,
@@ -193,12 +39,166 @@ func (o *ListArtifactsParams) SetDefaults() {
 		WithScanOverview:       &withScanOverviewDefault,
 		WithSignature:          &withSignatureDefault,
 		WithTag:                &withTagDefault,
-	}
 
-	val.timeout = o.timeout
-	val.Context = o.Context
-	val.HTTPClient = o.HTTPClient
-	*o = val
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewListArtifactsParamsWithTimeout creates a new ListArtifactsParams object
+// with the default values initialized, and the ability to set a timeout on a request
+func NewListArtifactsParamsWithTimeout(timeout time.Duration) *ListArtifactsParams {
+	var (
+		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
+		pageDefault                   = int64(1)
+		pageSizeDefault               = int64(10)
+		withImmutableStatusDefault    = bool(false)
+		withLabelDefault              = bool(false)
+		withScanOverviewDefault       = bool(false)
+		withSignatureDefault          = bool(false)
+		withTagDefault                = bool(true)
+	)
+	return &ListArtifactsParams{
+		XAcceptVulnerabilities: &xAcceptVulnerabilitiesDefault,
+		Page:                   &pageDefault,
+		PageSize:               &pageSizeDefault,
+		WithImmutableStatus:    &withImmutableStatusDefault,
+		WithLabel:              &withLabelDefault,
+		WithScanOverview:       &withScanOverviewDefault,
+		WithSignature:          &withSignatureDefault,
+		WithTag:                &withTagDefault,
+
+		timeout: timeout,
+	}
+}
+
+// NewListArtifactsParamsWithContext creates a new ListArtifactsParams object
+// with the default values initialized, and the ability to set a context for a request
+func NewListArtifactsParamsWithContext(ctx context.Context) *ListArtifactsParams {
+	var (
+		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
+		pageDefault                   = int64(1)
+		pageSizeDefault               = int64(10)
+		withImmutableStatusDefault    = bool(false)
+		withLabelDefault              = bool(false)
+		withScanOverviewDefault       = bool(false)
+		withSignatureDefault          = bool(false)
+		withTagDefault                = bool(true)
+	)
+	return &ListArtifactsParams{
+		XAcceptVulnerabilities: &xAcceptVulnerabilitiesDefault,
+		Page:                   &pageDefault,
+		PageSize:               &pageSizeDefault,
+		WithImmutableStatus:    &withImmutableStatusDefault,
+		WithLabel:              &withLabelDefault,
+		WithScanOverview:       &withScanOverviewDefault,
+		WithSignature:          &withSignatureDefault,
+		WithTag:                &withTagDefault,
+
+		Context: ctx,
+	}
+}
+
+// NewListArtifactsParamsWithHTTPClient creates a new ListArtifactsParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewListArtifactsParamsWithHTTPClient(client *http.Client) *ListArtifactsParams {
+	var (
+		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
+		pageDefault                   = int64(1)
+		pageSizeDefault               = int64(10)
+		withImmutableStatusDefault    = bool(false)
+		withLabelDefault              = bool(false)
+		withScanOverviewDefault       = bool(false)
+		withSignatureDefault          = bool(false)
+		withTagDefault                = bool(true)
+	)
+	return &ListArtifactsParams{
+		XAcceptVulnerabilities: &xAcceptVulnerabilitiesDefault,
+		Page:                   &pageDefault,
+		PageSize:               &pageSizeDefault,
+		WithImmutableStatus:    &withImmutableStatusDefault,
+		WithLabel:              &withLabelDefault,
+		WithScanOverview:       &withScanOverviewDefault,
+		WithSignature:          &withSignatureDefault,
+		WithTag:                &withTagDefault,
+		HTTPClient:             client,
+	}
+}
+
+/*ListArtifactsParams contains all the parameters to send to the API endpoint
+for the list artifacts operation typically these are written to a http.Request
+*/
+type ListArtifactsParams struct {
+
+	/*XAcceptVulnerabilities
+	  A comma-separated lists of MIME types for the scan report or scan summary. The first mime type will be used when the report found for it.
+	Currently the mime type supports 'application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0' and 'application/vnd.security.vulnerability.report; version=1.1'
+
+	*/
+	XAcceptVulnerabilities *string
+	/*XRequestID
+	  An unique ID for the request
+
+	*/
+	XRequestID *string
+	/*Page
+	  The page number
+
+	*/
+	Page *int64
+	/*PageSize
+	  The size of per page
+
+	*/
+	PageSize *int64
+	/*ProjectName
+	  The name of the project
+
+	*/
+	ProjectName string
+	/*Q
+	  Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
+
+	*/
+	Q *string
+	/*RepositoryName
+	  The name of the repository. If it contains slash, encode it with URL encoding. e.g. a/b -> a%252Fb
+
+	*/
+	RepositoryName string
+	/*Sort
+	  Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending orderr and field2 in descending order with "sort=field1,-field2"
+
+	*/
+	Sort *string
+	/*WithImmutableStatus
+	  Specify whether the immutable status is included inside the tags of the returning artifacts. Only works when setting "with_tag=true"
+
+	*/
+	WithImmutableStatus *bool
+	/*WithLabel
+	  Specify whether the labels are included inside the returning artifacts
+
+	*/
+	WithLabel *bool
+	/*WithScanOverview
+	  Specify whether the scan overview is included inside the returning artifacts
+
+	*/
+	WithScanOverview *bool
+	/*WithSignature
+	  Specify whether the signature is included inside the tags of the returning artifacts. Only works when setting "with_tag=true"
+
+	*/
+	WithSignature *bool
+	/*WithTag
+	  Specify whether the tags are included inside the returning artifacts
+
+	*/
+	WithTag *bool
+
+	timeout    time.Duration
+	Context    context.Context
+	HTTPClient *http.Client
 }
 
 // WithTimeout adds the timeout to the list artifacts params
@@ -391,6 +391,7 @@ func (o *ListArtifactsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if err := r.SetHeaderParam("X-Accept-Vulnerabilities", *o.XAcceptVulnerabilities); err != nil {
 			return err
 		}
+
 	}
 
 	if o.XRequestID != nil {
@@ -399,40 +400,39 @@ func (o *ListArtifactsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	if o.Page != nil {
 
 		// query param page
 		var qrPage int64
-
 		if o.Page != nil {
 			qrPage = *o.Page
 		}
 		qPage := swag.FormatInt64(qrPage)
 		if qPage != "" {
-
 			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.PageSize != nil {
 
 		// query param page_size
 		var qrPageSize int64
-
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt64(qrPageSize)
 		if qPageSize != "" {
-
 			if err := r.SetQueryParam("page_size", qPageSize); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	// path param project_name
@@ -444,17 +444,16 @@ func (o *ListArtifactsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 
 		// query param q
 		var qrQ string
-
 		if o.Q != nil {
 			qrQ = *o.Q
 		}
 		qQ := qrQ
 		if qQ != "" {
-
 			if err := r.SetQueryParam("q", qQ); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	// path param repository_name
@@ -466,102 +465,96 @@ func (o *ListArtifactsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 
 		// query param sort
 		var qrSort string
-
 		if o.Sort != nil {
 			qrSort = *o.Sort
 		}
 		qSort := qrSort
 		if qSort != "" {
-
 			if err := r.SetQueryParam("sort", qSort); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.WithImmutableStatus != nil {
 
 		// query param with_immutable_status
 		var qrWithImmutableStatus bool
-
 		if o.WithImmutableStatus != nil {
 			qrWithImmutableStatus = *o.WithImmutableStatus
 		}
 		qWithImmutableStatus := swag.FormatBool(qrWithImmutableStatus)
 		if qWithImmutableStatus != "" {
-
 			if err := r.SetQueryParam("with_immutable_status", qWithImmutableStatus); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.WithLabel != nil {
 
 		// query param with_label
 		var qrWithLabel bool
-
 		if o.WithLabel != nil {
 			qrWithLabel = *o.WithLabel
 		}
 		qWithLabel := swag.FormatBool(qrWithLabel)
 		if qWithLabel != "" {
-
 			if err := r.SetQueryParam("with_label", qWithLabel); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.WithScanOverview != nil {
 
 		// query param with_scan_overview
 		var qrWithScanOverview bool
-
 		if o.WithScanOverview != nil {
 			qrWithScanOverview = *o.WithScanOverview
 		}
 		qWithScanOverview := swag.FormatBool(qrWithScanOverview)
 		if qWithScanOverview != "" {
-
 			if err := r.SetQueryParam("with_scan_overview", qWithScanOverview); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.WithSignature != nil {
 
 		// query param with_signature
 		var qrWithSignature bool
-
 		if o.WithSignature != nil {
 			qrWithSignature = *o.WithSignature
 		}
 		qWithSignature := swag.FormatBool(qrWithSignature)
 		if qWithSignature != "" {
-
 			if err := r.SetQueryParam("with_signature", qWithSignature); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.WithTag != nil {
 
 		// query param with_tag
 		var qrWithTag bool
-
 		if o.WithTag != nil {
 			qrWithTag = *o.WithTag
 		}
 		qWithTag := swag.FormatBool(qrWithTag)
 		if qWithTag != "" {
-
 			if err := r.SetQueryParam("with_tag", qWithTag); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if len(res) > 0 {

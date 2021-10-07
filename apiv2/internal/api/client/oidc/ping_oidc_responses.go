@@ -6,7 +6,6 @@ package oidc
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"fmt"
 	"io"
 
@@ -49,6 +48,7 @@ func (o *PingOIDCReader) ReadResponse(response runtime.ClientResponse, consumer 
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -59,29 +59,24 @@ func NewPingOIDCOK() *PingOIDCOK {
 	return &PingOIDCOK{}
 }
 
-/* PingOIDCOK describes a response with status code 200, with default header values.
+/*PingOIDCOK handles this case with default header values.
 
 Success
 */
 type PingOIDCOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
 
 func (o *PingOIDCOK) Error() string {
-	return fmt.Sprintf("[POST /system/oidc/ping][%d] pingOIdCOK ", 200)
+	return fmt.Sprintf("[POST /system/oidc/ping][%d] pingOidcOK ", 200)
 }
 
 func (o *PingOIDCOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -91,13 +86,12 @@ func NewPingOIDCBadRequest() *PingOIDCBadRequest {
 	return &PingOIDCBadRequest{}
 }
 
-/* PingOIDCBadRequest describes a response with status code 400, with default header values.
+/*PingOIDCBadRequest handles this case with default header values.
 
 Bad request
 */
 type PingOIDCBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -105,20 +99,17 @@ type PingOIDCBadRequest struct {
 }
 
 func (o *PingOIDCBadRequest) Error() string {
-	return fmt.Sprintf("[POST /system/oidc/ping][%d] pingOIdCBadRequest  %+v", 400, o.Payload)
+	return fmt.Sprintf("[POST /system/oidc/ping][%d] pingOidcBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *PingOIDCBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *PingOIDCBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -135,13 +126,12 @@ func NewPingOIDCUnauthorized() *PingOIDCUnauthorized {
 	return &PingOIDCUnauthorized{}
 }
 
-/* PingOIDCUnauthorized describes a response with status code 401, with default header values.
+/*PingOIDCUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type PingOIDCUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -149,20 +139,17 @@ type PingOIDCUnauthorized struct {
 }
 
 func (o *PingOIDCUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /system/oidc/ping][%d] pingOIdCUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[POST /system/oidc/ping][%d] pingOidcUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *PingOIDCUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *PingOIDCUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -179,13 +166,12 @@ func NewPingOIDCForbidden() *PingOIDCForbidden {
 	return &PingOIDCForbidden{}
 }
 
-/* PingOIDCForbidden describes a response with status code 403, with default header values.
+/*PingOIDCForbidden handles this case with default header values.
 
 Forbidden
 */
 type PingOIDCForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -193,20 +179,17 @@ type PingOIDCForbidden struct {
 }
 
 func (o *PingOIDCForbidden) Error() string {
-	return fmt.Sprintf("[POST /system/oidc/ping][%d] pingOIdCForbidden  %+v", 403, o.Payload)
+	return fmt.Sprintf("[POST /system/oidc/ping][%d] pingOidcForbidden  %+v", 403, o.Payload)
 }
+
 func (o *PingOIDCForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *PingOIDCForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -218,7 +201,7 @@ func (o *PingOIDCForbidden) readResponse(response runtime.ClientResponse, consum
 	return nil
 }
 
-/*PingOIDCBody ping o ID c body
+/*PingOIDCBody ping OIDC body
 swagger:model PingOIDCBody
 */
 type PingOIDCBody struct {
@@ -230,13 +213,8 @@ type PingOIDCBody struct {
 	VerifyCert bool `json:"verify_cert,omitempty"`
 }
 
-// Validate validates this ping o ID c body
+// Validate validates this ping OIDC body
 func (o *PingOIDCBody) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this ping o ID c body based on context it is used
-func (o *PingOIDCBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

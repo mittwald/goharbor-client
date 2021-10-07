@@ -53,6 +53,7 @@ func (o *DeleteTagReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,13 +64,12 @@ func NewDeleteTagOK() *DeleteTagOK {
 	return &DeleteTagOK{}
 }
 
-/* DeleteTagOK describes a response with status code 200, with default header values.
+/*DeleteTagOK handles this case with default header values.
 
 Success
 */
 type DeleteTagOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -80,12 +80,8 @@ func (o *DeleteTagOK) Error() string {
 
 func (o *DeleteTagOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -95,13 +91,12 @@ func NewDeleteTagUnauthorized() *DeleteTagUnauthorized {
 	return &DeleteTagUnauthorized{}
 }
 
-/* DeleteTagUnauthorized describes a response with status code 401, with default header values.
+/*DeleteTagUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type DeleteTagUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +106,15 @@ type DeleteTagUnauthorized struct {
 func (o *DeleteTagUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags/{tag_name}][%d] deleteTagUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteTagUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteTagUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +131,12 @@ func NewDeleteTagForbidden() *DeleteTagForbidden {
 	return &DeleteTagForbidden{}
 }
 
-/* DeleteTagForbidden describes a response with status code 403, with default header values.
+/*DeleteTagForbidden handles this case with default header values.
 
 Forbidden
 */
 type DeleteTagForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +146,15 @@ type DeleteTagForbidden struct {
 func (o *DeleteTagForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags/{tag_name}][%d] deleteTagForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteTagForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteTagForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +171,12 @@ func NewDeleteTagNotFound() *DeleteTagNotFound {
 	return &DeleteTagNotFound{}
 }
 
-/* DeleteTagNotFound describes a response with status code 404, with default header values.
+/*DeleteTagNotFound handles this case with default header values.
 
 Not found
 */
 type DeleteTagNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +186,15 @@ type DeleteTagNotFound struct {
 func (o *DeleteTagNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags/{tag_name}][%d] deleteTagNotFound  %+v", 404, o.Payload)
 }
+
 func (o *DeleteTagNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteTagNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +211,12 @@ func NewDeleteTagInternalServerError() *DeleteTagInternalServerError {
 	return &DeleteTagInternalServerError{}
 }
 
-/* DeleteTagInternalServerError describes a response with status code 500, with default header values.
+/*DeleteTagInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type DeleteTagInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +226,15 @@ type DeleteTagInternalServerError struct {
 func (o *DeleteTagInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/tags/{tag_name}][%d] deleteTagInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteTagInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteTagInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

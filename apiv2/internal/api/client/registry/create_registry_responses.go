@@ -59,6 +59,7 @@ func (o *CreateRegistryReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,17 +70,15 @@ func NewCreateRegistryCreated() *CreateRegistryCreated {
 	return &CreateRegistryCreated{}
 }
 
-/* CreateRegistryCreated describes a response with status code 201, with default header values.
+/*CreateRegistryCreated handles this case with default header values.
 
 Created
 */
 type CreateRegistryCreated struct {
-
-	/* The location of the resource
+	/*The location of the resource
 	 */
 	Location string
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -90,19 +89,11 @@ func (o *CreateRegistryCreated) Error() string {
 
 func (o *CreateRegistryCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Location
-	hdrLocation := response.GetHeader("Location")
+	// response header Location
+	o.Location = response.GetHeader("Location")
 
-	if hdrLocation != "" {
-		o.Location = hdrLocation
-	}
-
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -112,13 +103,12 @@ func NewCreateRegistryBadRequest() *CreateRegistryBadRequest {
 	return &CreateRegistryBadRequest{}
 }
 
-/* CreateRegistryBadRequest describes a response with status code 400, with default header values.
+/*CreateRegistryBadRequest handles this case with default header values.
 
 Bad request
 */
 type CreateRegistryBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -128,18 +118,15 @@ type CreateRegistryBadRequest struct {
 func (o *CreateRegistryBadRequest) Error() string {
 	return fmt.Sprintf("[POST /registries][%d] createRegistryBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *CreateRegistryBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateRegistryBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -156,13 +143,12 @@ func NewCreateRegistryUnauthorized() *CreateRegistryUnauthorized {
 	return &CreateRegistryUnauthorized{}
 }
 
-/* CreateRegistryUnauthorized describes a response with status code 401, with default header values.
+/*CreateRegistryUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type CreateRegistryUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -172,18 +158,15 @@ type CreateRegistryUnauthorized struct {
 func (o *CreateRegistryUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /registries][%d] createRegistryUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *CreateRegistryUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateRegistryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -200,13 +183,12 @@ func NewCreateRegistryForbidden() *CreateRegistryForbidden {
 	return &CreateRegistryForbidden{}
 }
 
-/* CreateRegistryForbidden describes a response with status code 403, with default header values.
+/*CreateRegistryForbidden handles this case with default header values.
 
 Forbidden
 */
 type CreateRegistryForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -216,18 +198,15 @@ type CreateRegistryForbidden struct {
 func (o *CreateRegistryForbidden) Error() string {
 	return fmt.Sprintf("[POST /registries][%d] createRegistryForbidden  %+v", 403, o.Payload)
 }
+
 func (o *CreateRegistryForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateRegistryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -244,13 +223,12 @@ func NewCreateRegistryConflict() *CreateRegistryConflict {
 	return &CreateRegistryConflict{}
 }
 
-/* CreateRegistryConflict describes a response with status code 409, with default header values.
+/*CreateRegistryConflict handles this case with default header values.
 
 Conflict
 */
 type CreateRegistryConflict struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -260,18 +238,15 @@ type CreateRegistryConflict struct {
 func (o *CreateRegistryConflict) Error() string {
 	return fmt.Sprintf("[POST /registries][%d] createRegistryConflict  %+v", 409, o.Payload)
 }
+
 func (o *CreateRegistryConflict) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateRegistryConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -288,13 +263,12 @@ func NewCreateRegistryInternalServerError() *CreateRegistryInternalServerError {
 	return &CreateRegistryInternalServerError{}
 }
 
-/* CreateRegistryInternalServerError describes a response with status code 500, with default header values.
+/*CreateRegistryInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type CreateRegistryInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -304,18 +278,15 @@ type CreateRegistryInternalServerError struct {
 func (o *CreateRegistryInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /registries][%d] createRegistryInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *CreateRegistryInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateRegistryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

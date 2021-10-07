@@ -59,6 +59,7 @@ func (o *UpdateRepositoryReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,13 +70,12 @@ func NewUpdateRepositoryOK() *UpdateRepositoryOK {
 	return &UpdateRepositoryOK{}
 }
 
-/* UpdateRepositoryOK describes a response with status code 200, with default header values.
+/*UpdateRepositoryOK handles this case with default header values.
 
 Success
 */
 type UpdateRepositoryOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -86,12 +86,8 @@ func (o *UpdateRepositoryOK) Error() string {
 
 func (o *UpdateRepositoryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -101,13 +97,12 @@ func NewUpdateRepositoryBadRequest() *UpdateRepositoryBadRequest {
 	return &UpdateRepositoryBadRequest{}
 }
 
-/* UpdateRepositoryBadRequest describes a response with status code 400, with default header values.
+/*UpdateRepositoryBadRequest handles this case with default header values.
 
 Bad request
 */
 type UpdateRepositoryBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -117,18 +112,15 @@ type UpdateRepositoryBadRequest struct {
 func (o *UpdateRepositoryBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name}/repositories/{repository_name}][%d] updateRepositoryBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *UpdateRepositoryBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateRepositoryBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -145,13 +137,12 @@ func NewUpdateRepositoryUnauthorized() *UpdateRepositoryUnauthorized {
 	return &UpdateRepositoryUnauthorized{}
 }
 
-/* UpdateRepositoryUnauthorized describes a response with status code 401, with default header values.
+/*UpdateRepositoryUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type UpdateRepositoryUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -161,18 +152,15 @@ type UpdateRepositoryUnauthorized struct {
 func (o *UpdateRepositoryUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name}/repositories/{repository_name}][%d] updateRepositoryUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *UpdateRepositoryUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateRepositoryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -189,13 +177,12 @@ func NewUpdateRepositoryForbidden() *UpdateRepositoryForbidden {
 	return &UpdateRepositoryForbidden{}
 }
 
-/* UpdateRepositoryForbidden describes a response with status code 403, with default header values.
+/*UpdateRepositoryForbidden handles this case with default header values.
 
 Forbidden
 */
 type UpdateRepositoryForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -205,18 +192,15 @@ type UpdateRepositoryForbidden struct {
 func (o *UpdateRepositoryForbidden) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name}/repositories/{repository_name}][%d] updateRepositoryForbidden  %+v", 403, o.Payload)
 }
+
 func (o *UpdateRepositoryForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateRepositoryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -233,13 +217,12 @@ func NewUpdateRepositoryNotFound() *UpdateRepositoryNotFound {
 	return &UpdateRepositoryNotFound{}
 }
 
-/* UpdateRepositoryNotFound describes a response with status code 404, with default header values.
+/*UpdateRepositoryNotFound handles this case with default header values.
 
 Not found
 */
 type UpdateRepositoryNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,18 +232,15 @@ type UpdateRepositoryNotFound struct {
 func (o *UpdateRepositoryNotFound) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name}/repositories/{repository_name}][%d] updateRepositoryNotFound  %+v", 404, o.Payload)
 }
+
 func (o *UpdateRepositoryNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateRepositoryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -277,13 +257,12 @@ func NewUpdateRepositoryInternalServerError() *UpdateRepositoryInternalServerErr
 	return &UpdateRepositoryInternalServerError{}
 }
 
-/* UpdateRepositoryInternalServerError describes a response with status code 500, with default header values.
+/*UpdateRepositoryInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type UpdateRepositoryInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -293,18 +272,15 @@ type UpdateRepositoryInternalServerError struct {
 func (o *UpdateRepositoryInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name}/repositories/{repository_name}][%d] updateRepositoryInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *UpdateRepositoryInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateRepositoryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

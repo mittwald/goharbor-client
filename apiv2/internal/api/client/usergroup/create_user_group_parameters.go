@@ -18,76 +18,61 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/model"
 )
 
-// NewCreateUserGroupParams creates a new CreateUserGroupParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewCreateUserGroupParams creates a new CreateUserGroupParams object
+// with the default values initialized.
 func NewCreateUserGroupParams() *CreateUserGroupParams {
+	var ()
 	return &CreateUserGroupParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateUserGroupParamsWithTimeout creates a new CreateUserGroupParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewCreateUserGroupParamsWithTimeout(timeout time.Duration) *CreateUserGroupParams {
+	var ()
 	return &CreateUserGroupParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewCreateUserGroupParamsWithContext creates a new CreateUserGroupParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewCreateUserGroupParamsWithContext(ctx context.Context) *CreateUserGroupParams {
+	var ()
 	return &CreateUserGroupParams{
+
 		Context: ctx,
 	}
 }
 
 // NewCreateUserGroupParamsWithHTTPClient creates a new CreateUserGroupParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewCreateUserGroupParamsWithHTTPClient(client *http.Client) *CreateUserGroupParams {
+	var ()
 	return &CreateUserGroupParams{
 		HTTPClient: client,
 	}
 }
 
-/* CreateUserGroupParams contains all the parameters to send to the API endpoint
-   for the create user group operation.
-
-   Typically these are written to a http.Request.
+/*CreateUserGroupParams contains all the parameters to send to the API endpoint
+for the create user group operation typically these are written to a http.Request
 */
 type CreateUserGroupParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
-
-	// Usergroup.
+	/*Usergroup*/
 	Usergroup *model.UserGroup
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the create user group params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *CreateUserGroupParams) WithDefaults() *CreateUserGroupParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the create user group params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *CreateUserGroupParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create user group params
@@ -159,7 +144,9 @@ func (o *CreateUserGroupParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
+
 	if o.Usergroup != nil {
 		if err := r.SetBodyParam(o.Usergroup); err != nil {
 			return err

@@ -41,6 +41,7 @@ func (o *GetProjectReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -51,7 +52,7 @@ func NewGetProjectOK() *GetProjectOK {
 	return &GetProjectOK{}
 }
 
-/* GetProjectOK describes a response with status code 200, with default header values.
+/*GetProjectOK handles this case with default header values.
 
 Return matched project information.
 */
@@ -62,6 +63,7 @@ type GetProjectOK struct {
 func (o *GetProjectOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}][%d] getProjectOK  %+v", 200, o.Payload)
 }
+
 func (o *GetProjectOK) GetPayload() *model.Project {
 	return o.Payload
 }
@@ -83,13 +85,12 @@ func NewGetProjectUnauthorized() *GetProjectUnauthorized {
 	return &GetProjectUnauthorized{}
 }
 
-/* GetProjectUnauthorized describes a response with status code 401, with default header values.
+/*GetProjectUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type GetProjectUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -99,18 +100,15 @@ type GetProjectUnauthorized struct {
 func (o *GetProjectUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}][%d] getProjectUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetProjectUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetProjectUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -127,13 +125,12 @@ func NewGetProjectInternalServerError() *GetProjectInternalServerError {
 	return &GetProjectInternalServerError{}
 }
 
-/* GetProjectInternalServerError describes a response with status code 500, with default header values.
+/*GetProjectInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetProjectInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -143,18 +140,15 @@ type GetProjectInternalServerError struct {
 func (o *GetProjectInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name_or_id}][%d] getProjectInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetProjectInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetProjectInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

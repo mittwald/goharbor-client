@@ -59,6 +59,7 @@ func (o *UpdateReplicationPolicyReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,13 +70,12 @@ func NewUpdateReplicationPolicyOK() *UpdateReplicationPolicyOK {
 	return &UpdateReplicationPolicyOK{}
 }
 
-/* UpdateReplicationPolicyOK describes a response with status code 200, with default header values.
+/*UpdateReplicationPolicyOK handles this case with default header values.
 
 Success
 */
 type UpdateReplicationPolicyOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -86,12 +86,8 @@ func (o *UpdateReplicationPolicyOK) Error() string {
 
 func (o *UpdateReplicationPolicyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -101,13 +97,12 @@ func NewUpdateReplicationPolicyUnauthorized() *UpdateReplicationPolicyUnauthoriz
 	return &UpdateReplicationPolicyUnauthorized{}
 }
 
-/* UpdateReplicationPolicyUnauthorized describes a response with status code 401, with default header values.
+/*UpdateReplicationPolicyUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type UpdateReplicationPolicyUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -117,18 +112,15 @@ type UpdateReplicationPolicyUnauthorized struct {
 func (o *UpdateReplicationPolicyUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /replication/policies/{id}][%d] updateReplicationPolicyUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *UpdateReplicationPolicyUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateReplicationPolicyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -145,13 +137,12 @@ func NewUpdateReplicationPolicyForbidden() *UpdateReplicationPolicyForbidden {
 	return &UpdateReplicationPolicyForbidden{}
 }
 
-/* UpdateReplicationPolicyForbidden describes a response with status code 403, with default header values.
+/*UpdateReplicationPolicyForbidden handles this case with default header values.
 
 Forbidden
 */
 type UpdateReplicationPolicyForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -161,18 +152,15 @@ type UpdateReplicationPolicyForbidden struct {
 func (o *UpdateReplicationPolicyForbidden) Error() string {
 	return fmt.Sprintf("[PUT /replication/policies/{id}][%d] updateReplicationPolicyForbidden  %+v", 403, o.Payload)
 }
+
 func (o *UpdateReplicationPolicyForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateReplicationPolicyForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -189,13 +177,12 @@ func NewUpdateReplicationPolicyNotFound() *UpdateReplicationPolicyNotFound {
 	return &UpdateReplicationPolicyNotFound{}
 }
 
-/* UpdateReplicationPolicyNotFound describes a response with status code 404, with default header values.
+/*UpdateReplicationPolicyNotFound handles this case with default header values.
 
 Not found
 */
 type UpdateReplicationPolicyNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -205,18 +192,15 @@ type UpdateReplicationPolicyNotFound struct {
 func (o *UpdateReplicationPolicyNotFound) Error() string {
 	return fmt.Sprintf("[PUT /replication/policies/{id}][%d] updateReplicationPolicyNotFound  %+v", 404, o.Payload)
 }
+
 func (o *UpdateReplicationPolicyNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateReplicationPolicyNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -233,13 +217,12 @@ func NewUpdateReplicationPolicyConflict() *UpdateReplicationPolicyConflict {
 	return &UpdateReplicationPolicyConflict{}
 }
 
-/* UpdateReplicationPolicyConflict describes a response with status code 409, with default header values.
+/*UpdateReplicationPolicyConflict handles this case with default header values.
 
 Conflict
 */
 type UpdateReplicationPolicyConflict struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,18 +232,15 @@ type UpdateReplicationPolicyConflict struct {
 func (o *UpdateReplicationPolicyConflict) Error() string {
 	return fmt.Sprintf("[PUT /replication/policies/{id}][%d] updateReplicationPolicyConflict  %+v", 409, o.Payload)
 }
+
 func (o *UpdateReplicationPolicyConflict) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateReplicationPolicyConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -277,13 +257,12 @@ func NewUpdateReplicationPolicyInternalServerError() *UpdateReplicationPolicyInt
 	return &UpdateReplicationPolicyInternalServerError{}
 }
 
-/* UpdateReplicationPolicyInternalServerError describes a response with status code 500, with default header values.
+/*UpdateReplicationPolicyInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type UpdateReplicationPolicyInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -293,18 +272,15 @@ type UpdateReplicationPolicyInternalServerError struct {
 func (o *UpdateReplicationPolicyInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /replication/policies/{id}][%d] updateReplicationPolicyInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *UpdateReplicationPolicyInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateReplicationPolicyInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

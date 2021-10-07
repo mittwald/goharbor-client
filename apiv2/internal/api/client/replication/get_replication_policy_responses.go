@@ -47,6 +47,7 @@ func (o *GetReplicationPolicyReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +58,7 @@ func NewGetReplicationPolicyOK() *GetReplicationPolicyOK {
 	return &GetReplicationPolicyOK{}
 }
 
-/* GetReplicationPolicyOK describes a response with status code 200, with default header values.
+/*GetReplicationPolicyOK handles this case with default header values.
 
 Success
 */
@@ -68,6 +69,7 @@ type GetReplicationPolicyOK struct {
 func (o *GetReplicationPolicyOK) Error() string {
 	return fmt.Sprintf("[GET /replication/policies/{id}][%d] getReplicationPolicyOK  %+v", 200, o.Payload)
 }
+
 func (o *GetReplicationPolicyOK) GetPayload() *model.ReplicationPolicy {
 	return o.Payload
 }
@@ -89,13 +91,12 @@ func NewGetReplicationPolicyUnauthorized() *GetReplicationPolicyUnauthorized {
 	return &GetReplicationPolicyUnauthorized{}
 }
 
-/* GetReplicationPolicyUnauthorized describes a response with status code 401, with default header values.
+/*GetReplicationPolicyUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type GetReplicationPolicyUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -105,18 +106,15 @@ type GetReplicationPolicyUnauthorized struct {
 func (o *GetReplicationPolicyUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /replication/policies/{id}][%d] getReplicationPolicyUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetReplicationPolicyUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetReplicationPolicyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -133,13 +131,12 @@ func NewGetReplicationPolicyForbidden() *GetReplicationPolicyForbidden {
 	return &GetReplicationPolicyForbidden{}
 }
 
-/* GetReplicationPolicyForbidden describes a response with status code 403, with default header values.
+/*GetReplicationPolicyForbidden handles this case with default header values.
 
 Forbidden
 */
 type GetReplicationPolicyForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -149,18 +146,15 @@ type GetReplicationPolicyForbidden struct {
 func (o *GetReplicationPolicyForbidden) Error() string {
 	return fmt.Sprintf("[GET /replication/policies/{id}][%d] getReplicationPolicyForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetReplicationPolicyForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetReplicationPolicyForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -177,13 +171,12 @@ func NewGetReplicationPolicyInternalServerError() *GetReplicationPolicyInternalS
 	return &GetReplicationPolicyInternalServerError{}
 }
 
-/* GetReplicationPolicyInternalServerError describes a response with status code 500, with default header values.
+/*GetReplicationPolicyInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetReplicationPolicyInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -193,18 +186,15 @@ type GetReplicationPolicyInternalServerError struct {
 func (o *GetReplicationPolicyInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /replication/policies/{id}][%d] getReplicationPolicyInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetReplicationPolicyInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetReplicationPolicyInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

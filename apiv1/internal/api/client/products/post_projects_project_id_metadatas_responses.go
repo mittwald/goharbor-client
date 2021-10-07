@@ -62,6 +62,7 @@ func (o *PostProjectsProjectIDMetadatasReader) ReadResponse(response runtime.Cli
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -72,7 +73,7 @@ func NewPostProjectsProjectIDMetadatasOK() *PostProjectsProjectIDMetadatasOK {
 	return &PostProjectsProjectIDMetadatasOK{}
 }
 
-/* PostProjectsProjectIDMetadatasOK describes a response with status code 200, with default header values.
+/*PostProjectsProjectIDMetadatasOK handles this case with default header values.
 
 Add metadata successfully.
 */
@@ -93,7 +94,7 @@ func NewPostProjectsProjectIDMetadatasBadRequest() *PostProjectsProjectIDMetadat
 	return &PostProjectsProjectIDMetadatasBadRequest{}
 }
 
-/* PostProjectsProjectIDMetadatasBadRequest describes a response with status code 400, with default header values.
+/*PostProjectsProjectIDMetadatasBadRequest handles this case with default header values.
 
 Invalid request.
 */
@@ -114,7 +115,7 @@ func NewPostProjectsProjectIDMetadatasUnauthorized() *PostProjectsProjectIDMetad
 	return &PostProjectsProjectIDMetadatasUnauthorized{}
 }
 
-/* PostProjectsProjectIDMetadatasUnauthorized describes a response with status code 401, with default header values.
+/*PostProjectsProjectIDMetadatasUnauthorized handles this case with default header values.
 
 User need to log in first.
 */
@@ -135,7 +136,7 @@ func NewPostProjectsProjectIDMetadatasForbidden() *PostProjectsProjectIDMetadata
 	return &PostProjectsProjectIDMetadatasForbidden{}
 }
 
-/* PostProjectsProjectIDMetadatasForbidden describes a response with status code 403, with default header values.
+/*PostProjectsProjectIDMetadatasForbidden handles this case with default header values.
 
 User does not have permission to the project.
 */
@@ -156,7 +157,7 @@ func NewPostProjectsProjectIDMetadatasNotFound() *PostProjectsProjectIDMetadatas
 	return &PostProjectsProjectIDMetadatasNotFound{}
 }
 
-/* PostProjectsProjectIDMetadatasNotFound describes a response with status code 404, with default header values.
+/*PostProjectsProjectIDMetadatasNotFound handles this case with default header values.
 
 Project ID does not exist.
 */
@@ -177,7 +178,7 @@ func NewPostProjectsProjectIDMetadatasUnsupportedMediaType() *PostProjectsProjec
 	return &PostProjectsProjectIDMetadatasUnsupportedMediaType{}
 }
 
-/* PostProjectsProjectIDMetadatasUnsupportedMediaType describes a response with status code 415, with default header values.
+/*PostProjectsProjectIDMetadatasUnsupportedMediaType handles this case with default header values.
 
 The Media Type of the request is not supported, it has to be "application/json"
 */
@@ -198,7 +199,7 @@ func NewPostProjectsProjectIDMetadatasInternalServerError() *PostProjectsProject
 	return &PostProjectsProjectIDMetadatasInternalServerError{}
 }
 
-/* PostProjectsProjectIDMetadatasInternalServerError describes a response with status code 500, with default header values.
+/*PostProjectsProjectIDMetadatasInternalServerError handles this case with default header values.
 
 Internal server errors.
 */

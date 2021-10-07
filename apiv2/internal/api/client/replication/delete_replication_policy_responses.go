@@ -59,6 +59,7 @@ func (o *DeleteReplicationPolicyReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,13 +70,12 @@ func NewDeleteReplicationPolicyOK() *DeleteReplicationPolicyOK {
 	return &DeleteReplicationPolicyOK{}
 }
 
-/* DeleteReplicationPolicyOK describes a response with status code 200, with default header values.
+/*DeleteReplicationPolicyOK handles this case with default header values.
 
 Success
 */
 type DeleteReplicationPolicyOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -86,12 +86,8 @@ func (o *DeleteReplicationPolicyOK) Error() string {
 
 func (o *DeleteReplicationPolicyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -101,13 +97,12 @@ func NewDeleteReplicationPolicyUnauthorized() *DeleteReplicationPolicyUnauthoriz
 	return &DeleteReplicationPolicyUnauthorized{}
 }
 
-/* DeleteReplicationPolicyUnauthorized describes a response with status code 401, with default header values.
+/*DeleteReplicationPolicyUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type DeleteReplicationPolicyUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -117,18 +112,15 @@ type DeleteReplicationPolicyUnauthorized struct {
 func (o *DeleteReplicationPolicyUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /replication/policies/{id}][%d] deleteReplicationPolicyUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteReplicationPolicyUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteReplicationPolicyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -145,13 +137,12 @@ func NewDeleteReplicationPolicyForbidden() *DeleteReplicationPolicyForbidden {
 	return &DeleteReplicationPolicyForbidden{}
 }
 
-/* DeleteReplicationPolicyForbidden describes a response with status code 403, with default header values.
+/*DeleteReplicationPolicyForbidden handles this case with default header values.
 
 Forbidden
 */
 type DeleteReplicationPolicyForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -161,18 +152,15 @@ type DeleteReplicationPolicyForbidden struct {
 func (o *DeleteReplicationPolicyForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /replication/policies/{id}][%d] deleteReplicationPolicyForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteReplicationPolicyForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteReplicationPolicyForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -189,13 +177,12 @@ func NewDeleteReplicationPolicyNotFound() *DeleteReplicationPolicyNotFound {
 	return &DeleteReplicationPolicyNotFound{}
 }
 
-/* DeleteReplicationPolicyNotFound describes a response with status code 404, with default header values.
+/*DeleteReplicationPolicyNotFound handles this case with default header values.
 
 Not found
 */
 type DeleteReplicationPolicyNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -205,18 +192,15 @@ type DeleteReplicationPolicyNotFound struct {
 func (o *DeleteReplicationPolicyNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /replication/policies/{id}][%d] deleteReplicationPolicyNotFound  %+v", 404, o.Payload)
 }
+
 func (o *DeleteReplicationPolicyNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteReplicationPolicyNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -233,13 +217,12 @@ func NewDeleteReplicationPolicyPreconditionFailed() *DeleteReplicationPolicyPrec
 	return &DeleteReplicationPolicyPreconditionFailed{}
 }
 
-/* DeleteReplicationPolicyPreconditionFailed describes a response with status code 412, with default header values.
+/*DeleteReplicationPolicyPreconditionFailed handles this case with default header values.
 
 Precondition failed
 */
 type DeleteReplicationPolicyPreconditionFailed struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,18 +232,15 @@ type DeleteReplicationPolicyPreconditionFailed struct {
 func (o *DeleteReplicationPolicyPreconditionFailed) Error() string {
 	return fmt.Sprintf("[DELETE /replication/policies/{id}][%d] deleteReplicationPolicyPreconditionFailed  %+v", 412, o.Payload)
 }
+
 func (o *DeleteReplicationPolicyPreconditionFailed) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteReplicationPolicyPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -277,13 +257,12 @@ func NewDeleteReplicationPolicyInternalServerError() *DeleteReplicationPolicyInt
 	return &DeleteReplicationPolicyInternalServerError{}
 }
 
-/* DeleteReplicationPolicyInternalServerError describes a response with status code 500, with default header values.
+/*DeleteReplicationPolicyInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type DeleteReplicationPolicyInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -293,18 +272,15 @@ type DeleteReplicationPolicyInternalServerError struct {
 func (o *DeleteReplicationPolicyInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /replication/policies/{id}][%d] deleteReplicationPolicyInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteReplicationPolicyInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteReplicationPolicyInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

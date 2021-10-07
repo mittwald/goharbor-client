@@ -59,6 +59,7 @@ func (o *GetVulnerabilitiesAdditionReader) ReadResponse(response runtime.ClientR
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,13 +70,12 @@ func NewGetVulnerabilitiesAdditionOK() *GetVulnerabilitiesAdditionOK {
 	return &GetVulnerabilitiesAdditionOK{}
 }
 
-/* GetVulnerabilitiesAdditionOK describes a response with status code 200, with default header values.
+/*GetVulnerabilitiesAdditionOK handles this case with default header values.
 
 Success
 */
 type GetVulnerabilitiesAdditionOK struct {
-
-	/* The content type of the vulnerabilities addition
+	/*The content type of the vulnerabilities addition
 	 */
 	ContentType string
 
@@ -85,18 +85,15 @@ type GetVulnerabilitiesAdditionOK struct {
 func (o *GetVulnerabilitiesAdditionOK) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/additions/vulnerabilities][%d] getVulnerabilitiesAdditionOK  %+v", 200, o.Payload)
 }
+
 func (o *GetVulnerabilitiesAdditionOK) GetPayload() string {
 	return o.Payload
 }
 
 func (o *GetVulnerabilitiesAdditionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Content-Type
-	hdrContentType := response.GetHeader("Content-Type")
-
-	if hdrContentType != "" {
-		o.ContentType = hdrContentType
-	}
+	// response header Content-Type
+	o.ContentType = response.GetHeader("Content-Type")
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -111,13 +108,12 @@ func NewGetVulnerabilitiesAdditionBadRequest() *GetVulnerabilitiesAdditionBadReq
 	return &GetVulnerabilitiesAdditionBadRequest{}
 }
 
-/* GetVulnerabilitiesAdditionBadRequest describes a response with status code 400, with default header values.
+/*GetVulnerabilitiesAdditionBadRequest handles this case with default header values.
 
 Bad request
 */
 type GetVulnerabilitiesAdditionBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -127,18 +123,15 @@ type GetVulnerabilitiesAdditionBadRequest struct {
 func (o *GetVulnerabilitiesAdditionBadRequest) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/additions/vulnerabilities][%d] getVulnerabilitiesAdditionBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetVulnerabilitiesAdditionBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetVulnerabilitiesAdditionBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -155,13 +148,12 @@ func NewGetVulnerabilitiesAdditionUnauthorized() *GetVulnerabilitiesAdditionUnau
 	return &GetVulnerabilitiesAdditionUnauthorized{}
 }
 
-/* GetVulnerabilitiesAdditionUnauthorized describes a response with status code 401, with default header values.
+/*GetVulnerabilitiesAdditionUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type GetVulnerabilitiesAdditionUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -171,18 +163,15 @@ type GetVulnerabilitiesAdditionUnauthorized struct {
 func (o *GetVulnerabilitiesAdditionUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/additions/vulnerabilities][%d] getVulnerabilitiesAdditionUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetVulnerabilitiesAdditionUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetVulnerabilitiesAdditionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -199,13 +188,12 @@ func NewGetVulnerabilitiesAdditionForbidden() *GetVulnerabilitiesAdditionForbidd
 	return &GetVulnerabilitiesAdditionForbidden{}
 }
 
-/* GetVulnerabilitiesAdditionForbidden describes a response with status code 403, with default header values.
+/*GetVulnerabilitiesAdditionForbidden handles this case with default header values.
 
 Forbidden
 */
 type GetVulnerabilitiesAdditionForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -215,18 +203,15 @@ type GetVulnerabilitiesAdditionForbidden struct {
 func (o *GetVulnerabilitiesAdditionForbidden) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/additions/vulnerabilities][%d] getVulnerabilitiesAdditionForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetVulnerabilitiesAdditionForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetVulnerabilitiesAdditionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -243,13 +228,12 @@ func NewGetVulnerabilitiesAdditionNotFound() *GetVulnerabilitiesAdditionNotFound
 	return &GetVulnerabilitiesAdditionNotFound{}
 }
 
-/* GetVulnerabilitiesAdditionNotFound describes a response with status code 404, with default header values.
+/*GetVulnerabilitiesAdditionNotFound handles this case with default header values.
 
 Not found
 */
 type GetVulnerabilitiesAdditionNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -259,18 +243,15 @@ type GetVulnerabilitiesAdditionNotFound struct {
 func (o *GetVulnerabilitiesAdditionNotFound) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/additions/vulnerabilities][%d] getVulnerabilitiesAdditionNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetVulnerabilitiesAdditionNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetVulnerabilitiesAdditionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -287,13 +268,12 @@ func NewGetVulnerabilitiesAdditionInternalServerError() *GetVulnerabilitiesAddit
 	return &GetVulnerabilitiesAdditionInternalServerError{}
 }
 
-/* GetVulnerabilitiesAdditionInternalServerError describes a response with status code 500, with default header values.
+/*GetVulnerabilitiesAdditionInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetVulnerabilitiesAdditionInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -303,18 +283,15 @@ type GetVulnerabilitiesAdditionInternalServerError struct {
 func (o *GetVulnerabilitiesAdditionInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/additions/vulnerabilities][%d] getVulnerabilitiesAdditionInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetVulnerabilitiesAdditionInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetVulnerabilitiesAdditionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

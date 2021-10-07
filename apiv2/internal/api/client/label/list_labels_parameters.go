@@ -17,137 +17,114 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewListLabelsParams creates a new ListLabelsParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewListLabelsParams creates a new ListLabelsParams object
+// with the default values initialized.
 func NewListLabelsParams() *ListLabelsParams {
+	var (
+		pageDefault     = int64(1)
+		pageSizeDefault = int64(10)
+	)
 	return &ListLabelsParams{
+		Page:     &pageDefault,
+		PageSize: &pageSizeDefault,
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewListLabelsParamsWithTimeout creates a new ListLabelsParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewListLabelsParamsWithTimeout(timeout time.Duration) *ListLabelsParams {
+	var (
+		pageDefault     = int64(1)
+		pageSizeDefault = int64(10)
+	)
 	return &ListLabelsParams{
+		Page:     &pageDefault,
+		PageSize: &pageSizeDefault,
+
 		timeout: timeout,
 	}
 }
 
 // NewListLabelsParamsWithContext creates a new ListLabelsParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewListLabelsParamsWithContext(ctx context.Context) *ListLabelsParams {
+	var (
+		pageDefault     = int64(1)
+		pageSizeDefault = int64(10)
+	)
 	return &ListLabelsParams{
+		Page:     &pageDefault,
+		PageSize: &pageSizeDefault,
+
 		Context: ctx,
 	}
 }
 
 // NewListLabelsParamsWithHTTPClient creates a new ListLabelsParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewListLabelsParamsWithHTTPClient(client *http.Client) *ListLabelsParams {
+	var (
+		pageDefault     = int64(1)
+		pageSizeDefault = int64(10)
+	)
 	return &ListLabelsParams{
+		Page:       &pageDefault,
+		PageSize:   &pageSizeDefault,
 		HTTPClient: client,
 	}
 }
 
-/* ListLabelsParams contains all the parameters to send to the API endpoint
-   for the list labels operation.
-
-   Typically these are written to a http.Request.
+/*ListLabelsParams contains all the parameters to send to the API endpoint
+for the list labels operation typically these are written to a http.Request
 */
 type ListLabelsParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Name
+	  The label name.
 
-	/* Name.
-
-	   The label name.
 	*/
 	Name *string
+	/*Page
+	  The page number
 
-	/* Page.
-
-	   The page number
-
-	   Format: int64
-	   Default: 1
 	*/
 	Page *int64
+	/*PageSize
+	  The size of per page
 
-	/* PageSize.
-
-	   The size of per page
-
-	   Format: int64
-	   Default: 10
 	*/
 	PageSize *int64
+	/*ProjectID
+	  Relevant project ID, required when scope is p.
 
-	/* ProjectID.
-
-	   Relevant project ID, required when scope is p.
-
-	   Format: int64
 	*/
 	ProjectID *int64
+	/*Q
+	  Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
 
-	/* Q.
-
-	   Query string to query resources. Supported query patterns are "exact match(k=v)", "fuzzy match(k=~v)", "range(k=[min~max])", "list with union releationship(k={v1 v2 v3})" and "list with intersetion relationship(k=(v1 v2 v3))". The value of range and list can be string(enclosed by " or '), integer or time(in format "2020-04-09 02:36:00"). All of these query patterns should be put in the query string "q=xxx" and splitted by ",". e.g. q=k1=v1,k2=~v2,k3=[min~max]
 	*/
 	Q *string
+	/*Scope
+	  The label scope. Valid values are g and p. g for global labels and p for project labels.
 
-	/* Scope.
-
-	   The label scope. Valid values are g and p. g for global labels and p for project labels.
 	*/
 	Scope *string
+	/*Sort
+	  Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending orderr and field2 in descending order with "sort=field1,-field2"
 
-	/* Sort.
-
-	   Sort the resource list in ascending or descending order. e.g. sort by field1 in ascending orderr and field2 in descending order with "sort=field1,-field2"
 	*/
 	Sort *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the list labels params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *ListLabelsParams) WithDefaults() *ListLabelsParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the list labels params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *ListLabelsParams) SetDefaults() {
-	var (
-		pageDefault = int64(1)
-
-		pageSizeDefault = int64(10)
-	)
-
-	val := ListLabelsParams{
-		Page:     &pageDefault,
-		PageSize: &pageSizeDefault,
-	}
-
-	val.timeout = o.timeout
-	val.Context = o.Context
-	val.HTTPClient = o.HTTPClient
-	*o = val
 }
 
 // WithTimeout adds the timeout to the list labels params
@@ -285,125 +262,119 @@ func (o *ListLabelsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	if o.Name != nil {
 
 		// query param name
 		var qrName string
-
 		if o.Name != nil {
 			qrName = *o.Name
 		}
 		qName := qrName
 		if qName != "" {
-
 			if err := r.SetQueryParam("name", qName); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.Page != nil {
 
 		// query param page
 		var qrPage int64
-
 		if o.Page != nil {
 			qrPage = *o.Page
 		}
 		qPage := swag.FormatInt64(qrPage)
 		if qPage != "" {
-
 			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.PageSize != nil {
 
 		// query param page_size
 		var qrPageSize int64
-
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt64(qrPageSize)
 		if qPageSize != "" {
-
 			if err := r.SetQueryParam("page_size", qPageSize); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.ProjectID != nil {
 
 		// query param project_id
 		var qrProjectID int64
-
 		if o.ProjectID != nil {
 			qrProjectID = *o.ProjectID
 		}
 		qProjectID := swag.FormatInt64(qrProjectID)
 		if qProjectID != "" {
-
 			if err := r.SetQueryParam("project_id", qProjectID); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.Q != nil {
 
 		// query param q
 		var qrQ string
-
 		if o.Q != nil {
 			qrQ = *o.Q
 		}
 		qQ := qrQ
 		if qQ != "" {
-
 			if err := r.SetQueryParam("q", qQ); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.Scope != nil {
 
 		// query param scope
 		var qrScope string
-
 		if o.Scope != nil {
 			qrScope = *o.Scope
 		}
 		qScope := qrScope
 		if qScope != "" {
-
 			if err := r.SetQueryParam("scope", qScope); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.Sort != nil {
 
 		// query param sort
 		var qrSort string
-
 		if o.Sort != nil {
 			qrSort = *o.Sort
 		}
 		qSort := qrSort
 		if qSort != "" {
-
 			if err := r.SetQueryParam("sort", qSort); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if len(res) > 0 {

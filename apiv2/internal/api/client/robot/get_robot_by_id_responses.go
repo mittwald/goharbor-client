@@ -53,6 +53,7 @@ func (o *GetRobotByIDReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +64,7 @@ func NewGetRobotByIDOK() *GetRobotByIDOK {
 	return &GetRobotByIDOK{}
 }
 
-/* GetRobotByIDOK describes a response with status code 200, with default header values.
+/*GetRobotByIDOK handles this case with default header values.
 
 Return matched robot information.
 */
@@ -74,6 +75,7 @@ type GetRobotByIDOK struct {
 func (o *GetRobotByIDOK) Error() string {
 	return fmt.Sprintf("[GET /robots/{robot_id}][%d] getRobotByIdOK  %+v", 200, o.Payload)
 }
+
 func (o *GetRobotByIDOK) GetPayload() *model.Robot {
 	return o.Payload
 }
@@ -95,13 +97,12 @@ func NewGetRobotByIDUnauthorized() *GetRobotByIDUnauthorized {
 	return &GetRobotByIDUnauthorized{}
 }
 
-/* GetRobotByIDUnauthorized describes a response with status code 401, with default header values.
+/*GetRobotByIDUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type GetRobotByIDUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +112,15 @@ type GetRobotByIDUnauthorized struct {
 func (o *GetRobotByIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /robots/{robot_id}][%d] getRobotByIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetRobotByIDUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetRobotByIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +137,12 @@ func NewGetRobotByIDForbidden() *GetRobotByIDForbidden {
 	return &GetRobotByIDForbidden{}
 }
 
-/* GetRobotByIDForbidden describes a response with status code 403, with default header values.
+/*GetRobotByIDForbidden handles this case with default header values.
 
 Forbidden
 */
 type GetRobotByIDForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +152,15 @@ type GetRobotByIDForbidden struct {
 func (o *GetRobotByIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /robots/{robot_id}][%d] getRobotByIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetRobotByIDForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetRobotByIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +177,12 @@ func NewGetRobotByIDNotFound() *GetRobotByIDNotFound {
 	return &GetRobotByIDNotFound{}
 }
 
-/* GetRobotByIDNotFound describes a response with status code 404, with default header values.
+/*GetRobotByIDNotFound handles this case with default header values.
 
 Not found
 */
 type GetRobotByIDNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +192,15 @@ type GetRobotByIDNotFound struct {
 func (o *GetRobotByIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /robots/{robot_id}][%d] getRobotByIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetRobotByIDNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetRobotByIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +217,12 @@ func NewGetRobotByIDInternalServerError() *GetRobotByIDInternalServerError {
 	return &GetRobotByIDInternalServerError{}
 }
 
-/* GetRobotByIDInternalServerError describes a response with status code 500, with default header values.
+/*GetRobotByIDInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetRobotByIDInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +232,15 @@ type GetRobotByIDInternalServerError struct {
 func (o *GetRobotByIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /robots/{robot_id}][%d] getRobotByIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetRobotByIDInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetRobotByIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

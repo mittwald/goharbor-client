@@ -53,6 +53,7 @@ func (o *CreateRetentionReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,17 +64,15 @@ func NewCreateRetentionCreated() *CreateRetentionCreated {
 	return &CreateRetentionCreated{}
 }
 
-/* CreateRetentionCreated describes a response with status code 201, with default header values.
+/*CreateRetentionCreated handles this case with default header values.
 
 Created
 */
 type CreateRetentionCreated struct {
-
-	/* The location of the resource
+	/*The location of the resource
 	 */
 	Location string
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -84,19 +83,11 @@ func (o *CreateRetentionCreated) Error() string {
 
 func (o *CreateRetentionCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Location
-	hdrLocation := response.GetHeader("Location")
+	// response header Location
+	o.Location = response.GetHeader("Location")
 
-	if hdrLocation != "" {
-		o.Location = hdrLocation
-	}
-
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -106,13 +97,12 @@ func NewCreateRetentionBadRequest() *CreateRetentionBadRequest {
 	return &CreateRetentionBadRequest{}
 }
 
-/* CreateRetentionBadRequest describes a response with status code 400, with default header values.
+/*CreateRetentionBadRequest handles this case with default header values.
 
 Bad request
 */
 type CreateRetentionBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -122,18 +112,15 @@ type CreateRetentionBadRequest struct {
 func (o *CreateRetentionBadRequest) Error() string {
 	return fmt.Sprintf("[POST /retentions][%d] createRetentionBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *CreateRetentionBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateRetentionBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -150,13 +137,12 @@ func NewCreateRetentionUnauthorized() *CreateRetentionUnauthorized {
 	return &CreateRetentionUnauthorized{}
 }
 
-/* CreateRetentionUnauthorized describes a response with status code 401, with default header values.
+/*CreateRetentionUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type CreateRetentionUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -166,18 +152,15 @@ type CreateRetentionUnauthorized struct {
 func (o *CreateRetentionUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /retentions][%d] createRetentionUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *CreateRetentionUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateRetentionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -194,13 +177,12 @@ func NewCreateRetentionForbidden() *CreateRetentionForbidden {
 	return &CreateRetentionForbidden{}
 }
 
-/* CreateRetentionForbidden describes a response with status code 403, with default header values.
+/*CreateRetentionForbidden handles this case with default header values.
 
 Forbidden
 */
 type CreateRetentionForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -210,18 +192,15 @@ type CreateRetentionForbidden struct {
 func (o *CreateRetentionForbidden) Error() string {
 	return fmt.Sprintf("[POST /retentions][%d] createRetentionForbidden  %+v", 403, o.Payload)
 }
+
 func (o *CreateRetentionForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateRetentionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -238,13 +217,12 @@ func NewCreateRetentionInternalServerError() *CreateRetentionInternalServerError
 	return &CreateRetentionInternalServerError{}
 }
 
-/* CreateRetentionInternalServerError describes a response with status code 500, with default header values.
+/*CreateRetentionInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type CreateRetentionInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -254,18 +232,15 @@ type CreateRetentionInternalServerError struct {
 func (o *CreateRetentionInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /retentions][%d] createRetentionInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *CreateRetentionInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CreateRetentionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

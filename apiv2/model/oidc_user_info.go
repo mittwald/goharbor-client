@@ -6,15 +6,13 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
-// OIDCUserInfo o ID c user info
+// OIDCUserInfo OIDC user info
 //
 // swagger:model OIDCUserInfo
 type OIDCUserInfo struct {
@@ -40,7 +38,7 @@ type OIDCUserInfo struct {
 	UserID int64 `json:"user_id,omitempty"`
 }
 
-// Validate validates this o ID c user info
+// Validate validates this OIDC user info
 func (m *OIDCUserInfo) Validate(formats strfmt.Registry) error {
 	var res []error
 
@@ -59,6 +57,7 @@ func (m *OIDCUserInfo) Validate(formats strfmt.Registry) error {
 }
 
 func (m *OIDCUserInfo) validateCreationTime(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.CreationTime) { // not required
 		return nil
 	}
@@ -71,6 +70,7 @@ func (m *OIDCUserInfo) validateCreationTime(formats strfmt.Registry) error {
 }
 
 func (m *OIDCUserInfo) validateUpdateTime(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.UpdateTime) { // not required
 		return nil
 	}
@@ -79,11 +79,6 @@ func (m *OIDCUserInfo) validateUpdateTime(formats strfmt.Registry) error {
 		return err
 	}
 
-	return nil
-}
-
-// ContextValidate validates this o ID c user info based on context it is used
-func (m *OIDCUserInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

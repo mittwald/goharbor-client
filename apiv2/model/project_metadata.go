@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -33,7 +31,7 @@ type ProjectMetadata struct {
 	RetentionID *string `json:"retention_id,omitempty"`
 
 	// Whether this project reuse the system level CVE allowlist as the allowlist of its own.  The valid values are "true", "false". If it is set to "true" the actual allowlist associate with this project, if any, will be ignored.
-	ReuseSysCveAllowlist *string `json:"reuse_sys_cve_allowlist,omitempty"`
+	ReuseSysCVEAllowlist *string `json:"reuse_sys_cve_allowlist,omitempty"`
 
 	// If the vulnerability is high than severity defined here, the images can't be pulled. The valid values are "none", "low", "medium", "high", "critical".
 	Severity *string `json:"severity,omitempty"`
@@ -41,11 +39,6 @@ type ProjectMetadata struct {
 
 // Validate validates this project metadata
 func (m *ProjectMetadata) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this project metadata based on context it is used
-func (m *ProjectMetadata) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

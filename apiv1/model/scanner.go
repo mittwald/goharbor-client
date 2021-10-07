@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -18,25 +16,17 @@ import (
 type Scanner struct {
 
 	// Name of the scanner
-	// Example: Clair
 	Name string `json:"name,omitempty"`
 
 	// Name of the scanner provider
-	// Example: CentOS
 	Vendor string `json:"vendor,omitempty"`
 
 	// Version of the scanner adapter
-	// Example: 1.0.1
 	Version string `json:"version,omitempty"`
 }
 
 // Validate validates this scanner
 func (m *Scanner) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this scanner based on context it is used
-func (m *Scanner) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

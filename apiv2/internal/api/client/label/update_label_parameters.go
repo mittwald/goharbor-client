@@ -19,87 +19,69 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/model"
 )
 
-// NewUpdateLabelParams creates a new UpdateLabelParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewUpdateLabelParams creates a new UpdateLabelParams object
+// with the default values initialized.
 func NewUpdateLabelParams() *UpdateLabelParams {
+	var ()
 	return &UpdateLabelParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateLabelParamsWithTimeout creates a new UpdateLabelParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewUpdateLabelParamsWithTimeout(timeout time.Duration) *UpdateLabelParams {
+	var ()
 	return &UpdateLabelParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewUpdateLabelParamsWithContext creates a new UpdateLabelParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewUpdateLabelParamsWithContext(ctx context.Context) *UpdateLabelParams {
+	var ()
 	return &UpdateLabelParams{
+
 		Context: ctx,
 	}
 }
 
 // NewUpdateLabelParamsWithHTTPClient creates a new UpdateLabelParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewUpdateLabelParamsWithHTTPClient(client *http.Client) *UpdateLabelParams {
+	var ()
 	return &UpdateLabelParams{
 		HTTPClient: client,
 	}
 }
 
-/* UpdateLabelParams contains all the parameters to send to the API endpoint
-   for the update label operation.
-
-   Typically these are written to a http.Request.
+/*UpdateLabelParams contains all the parameters to send to the API endpoint
+for the update label operation typically these are written to a http.Request
 */
 type UpdateLabelParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Label
+	  The updated label json object.
 
-	/* Label.
-
-	   The updated label json object.
 	*/
 	Label *model.Label
+	/*LabelID
+	  Label ID
 
-	/* LabelID.
-
-	   Label ID
-
-	   Format: int64
 	*/
 	LabelID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the update label params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *UpdateLabelParams) WithDefaults() *UpdateLabelParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the update label params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *UpdateLabelParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update label params
@@ -182,7 +164,9 @@ func (o *UpdateLabelParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
+
 	if o.Label != nil {
 		if err := r.SetBodyParam(o.Label); err != nil {
 			return err

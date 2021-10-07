@@ -59,6 +59,7 @@ func (o *UpdateWebhookPolicyOfProjectReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,13 +70,12 @@ func NewUpdateWebhookPolicyOfProjectOK() *UpdateWebhookPolicyOfProjectOK {
 	return &UpdateWebhookPolicyOfProjectOK{}
 }
 
-/* UpdateWebhookPolicyOfProjectOK describes a response with status code 200, with default header values.
+/*UpdateWebhookPolicyOfProjectOK handles this case with default header values.
 
 Success
 */
 type UpdateWebhookPolicyOfProjectOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -86,12 +86,8 @@ func (o *UpdateWebhookPolicyOfProjectOK) Error() string {
 
 func (o *UpdateWebhookPolicyOfProjectOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -101,13 +97,12 @@ func NewUpdateWebhookPolicyOfProjectBadRequest() *UpdateWebhookPolicyOfProjectBa
 	return &UpdateWebhookPolicyOfProjectBadRequest{}
 }
 
-/* UpdateWebhookPolicyOfProjectBadRequest describes a response with status code 400, with default header values.
+/*UpdateWebhookPolicyOfProjectBadRequest handles this case with default header values.
 
 Bad request
 */
 type UpdateWebhookPolicyOfProjectBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -117,18 +112,15 @@ type UpdateWebhookPolicyOfProjectBadRequest struct {
 func (o *UpdateWebhookPolicyOfProjectBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name_or_id}/webhook/policies/{webhook_policy_id}][%d] updateWebhookPolicyOfProjectBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *UpdateWebhookPolicyOfProjectBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateWebhookPolicyOfProjectBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -145,13 +137,12 @@ func NewUpdateWebhookPolicyOfProjectUnauthorized() *UpdateWebhookPolicyOfProject
 	return &UpdateWebhookPolicyOfProjectUnauthorized{}
 }
 
-/* UpdateWebhookPolicyOfProjectUnauthorized describes a response with status code 401, with default header values.
+/*UpdateWebhookPolicyOfProjectUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type UpdateWebhookPolicyOfProjectUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -161,18 +152,15 @@ type UpdateWebhookPolicyOfProjectUnauthorized struct {
 func (o *UpdateWebhookPolicyOfProjectUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name_or_id}/webhook/policies/{webhook_policy_id}][%d] updateWebhookPolicyOfProjectUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *UpdateWebhookPolicyOfProjectUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateWebhookPolicyOfProjectUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -189,13 +177,12 @@ func NewUpdateWebhookPolicyOfProjectForbidden() *UpdateWebhookPolicyOfProjectFor
 	return &UpdateWebhookPolicyOfProjectForbidden{}
 }
 
-/* UpdateWebhookPolicyOfProjectForbidden describes a response with status code 403, with default header values.
+/*UpdateWebhookPolicyOfProjectForbidden handles this case with default header values.
 
 Forbidden
 */
 type UpdateWebhookPolicyOfProjectForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -205,18 +192,15 @@ type UpdateWebhookPolicyOfProjectForbidden struct {
 func (o *UpdateWebhookPolicyOfProjectForbidden) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name_or_id}/webhook/policies/{webhook_policy_id}][%d] updateWebhookPolicyOfProjectForbidden  %+v", 403, o.Payload)
 }
+
 func (o *UpdateWebhookPolicyOfProjectForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateWebhookPolicyOfProjectForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -233,13 +217,12 @@ func NewUpdateWebhookPolicyOfProjectNotFound() *UpdateWebhookPolicyOfProjectNotF
 	return &UpdateWebhookPolicyOfProjectNotFound{}
 }
 
-/* UpdateWebhookPolicyOfProjectNotFound describes a response with status code 404, with default header values.
+/*UpdateWebhookPolicyOfProjectNotFound handles this case with default header values.
 
 Not found
 */
 type UpdateWebhookPolicyOfProjectNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,18 +232,15 @@ type UpdateWebhookPolicyOfProjectNotFound struct {
 func (o *UpdateWebhookPolicyOfProjectNotFound) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name_or_id}/webhook/policies/{webhook_policy_id}][%d] updateWebhookPolicyOfProjectNotFound  %+v", 404, o.Payload)
 }
+
 func (o *UpdateWebhookPolicyOfProjectNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateWebhookPolicyOfProjectNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -277,13 +257,12 @@ func NewUpdateWebhookPolicyOfProjectInternalServerError() *UpdateWebhookPolicyOf
 	return &UpdateWebhookPolicyOfProjectInternalServerError{}
 }
 
-/* UpdateWebhookPolicyOfProjectInternalServerError describes a response with status code 500, with default header values.
+/*UpdateWebhookPolicyOfProjectInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type UpdateWebhookPolicyOfProjectInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -293,18 +272,15 @@ type UpdateWebhookPolicyOfProjectInternalServerError struct {
 func (o *UpdateWebhookPolicyOfProjectInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /projects/{project_name_or_id}/webhook/policies/{webhook_policy_id}][%d] updateWebhookPolicyOfProjectInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *UpdateWebhookPolicyOfProjectInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *UpdateWebhookPolicyOfProjectInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
