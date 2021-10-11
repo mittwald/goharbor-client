@@ -341,6 +341,16 @@ func (c *RESTClient) Health(ctx context.Context) (*legacymodel.OverallHealthStat
 	return c.system.Health(ctx)
 }
 
+// GetSystemCVEAllowList wraps the GetSystemCVEAllowList method of the system sub-package.
+func (c *RESTClient) GetSystemCVEAllowList(ctx context.Context) (*legacymodel.CVEAllowlist, error) {
+	return c.system.GetSystemCVEAllowList(ctx)
+}
+
+// UpdateSystemCVEAllowList wraps the UpdateSystemCVEAllowList method of the system sub-package.
+func (c *RESTClient) UpdateSystemCVEAllowList(ctx context.Context, CVEs []string, expiresAt int64) error {
+	return c.system.UpdateSystemCVEAllowList(ctx, CVEs, expiresAt)
+}
+
 // Retention Client
 
 // NewRetentionPolicy wraps the NewRetentionPolicy method of the retention sub-package.

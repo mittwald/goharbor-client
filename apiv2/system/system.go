@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/go-openapi/runtime"
+
 	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client/products"
@@ -32,6 +33,8 @@ func NewClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authInfo 
 
 type Client interface {
 	Health(ctx context.Context) (*legacymodel.OverallHealthStatus, error)
+	GetSystemCVEAllowList(ctx context.Context) (*legacymodel.CVEAllowlist, error)
+	UpdateSystemCVEAllowList(ctx context.Context, CVEs []string, expiresAt int64) error
 }
 
 // Health reports Harbor system health information.
@@ -44,4 +47,39 @@ func (c *RESTClient) Health(ctx context.Context) (*legacymodel.OverallHealthStat
 	}
 
 	return resp.Payload, nil
+}
+
+func (c *RESTClient) GetSystemCVEAllowList(ctx context.Context) (*legacymodel.CVEAllowlist, error) {
+	resp, err := c.LegacyClient.Products.GetSystemCVEAllowlist(&products.GetSystemCVEAllowlistParams{
+		Context: ctx,
+	}, c.AuthInfo)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp.Payload, nil
+}
+
+// UpdateSystemCVEAllowList updates the system-wide CVE Allowlist using the CVE ID's specified by 'CVEs'.
+// Optionally, the time of expiry can be set via 'expiresAt' with a format of
+func (c *RESTClient) UpdateSystemCVEAllowList(ctx context.Context, CVEs []string, expiresAt int64) error {
+	params := &products.PutSystemCVEAllowlistParams{
+		Allowlist: &legacymodel.CVEAllowlist{
+			ExpiresAt: expiresAt,
+			// Explicitly set the 'ProjectID' to '0' to operate on the system-wide allowlist.
+			ProjectID: 0,
+		},
+		Context: ctx,
+	}
+
+	for _, cve := range CVEs {
+		params.Allowlist.Items = append(params.Allowlist.Items, &legacymodel.CVEAllowlistItem{CveID: cve})
+	}
+
+	_, err := c.LegacyClient.Products.PutSystemCVEAllowlist(params, c.AuthInfo)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
