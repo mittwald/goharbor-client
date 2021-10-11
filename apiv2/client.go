@@ -427,6 +427,16 @@ func (c *RESTClient) UpdateRobotAccount(ctx context.Context, r *modelv2.Robot) e
 	return c.robot.UpdateRobotAccount(ctx, r)
 }
 
+// RefreshRobotAccountSecretByID wraps the RefreshRobotAccountSecretByID method of the robot sub-package.
+func (c *RESTClient) RefreshRobotAccountSecretByID(ctx context.Context, id int64, sec string) (*modelv2.RobotSec, error) {
+	return c.robot.RefreshRobotAccountSecretByID(ctx, id, sec)
+}
+
+// RefreshRobotAccountSecretByName wraps the RefreshRobotAccountSecretByName method of the robot sub-package.
+func (c *RESTClient) RefreshRobotAccountSecretByName(ctx context.Context, name string, sec string) (*modelv2.RobotSec, error) {
+	return c.robot.RefreshRobotAccountSecretByName(ctx, name, sec)
+}
+
 // AuditLog Client
 
 // ListAuditLogs wraps the ListAuditLogs method of the auditlog sub-package.
