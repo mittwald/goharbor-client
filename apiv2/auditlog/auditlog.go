@@ -8,10 +8,14 @@ import (
 	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/auditlog"
 	"github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v4/apiv2/pkg/config"
 )
 
 // RESTClient is a subclient for handling user related actions.
 type RESTClient struct {
+	// Options contains optional configuration when making API calls.
+	Options *config.Options
+
 	// The new client of the harbor v2 API
 	V2Client *v2client.Harbor
 
@@ -19,15 +23,16 @@ type RESTClient struct {
 	AuthInfo runtime.ClientAuthInfoWriter
 }
 
-func NewClient(v2Client *v2client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
+func NewClient(v2Client *v2client.Harbor, opts *config.Options, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
 	return &RESTClient{
+		Options:  opts,
 		V2Client: v2Client,
 		AuthInfo: authInfo,
 	}
 }
 
 type Client interface {
-	ListAuditLogs(ctx context.Context, pageSize *int64, query *string) ([]*model.AuditLog, error)
+	ListAuditLogs(ctx context.Context) ([]*model.AuditLog, error)
 }
 
 // ListAuditLogs lists the audit logs of all projects the current user is a member of.
@@ -36,11 +41,12 @@ type Client interface {
 // a value of <= '0' will list all audit log entries,
 // a 'nil' value will list the ten most recent log entries.
 // Specifying 'query' will return the audit logs matching the specified query, e.g. 'operation=create'.
-func (c *RESTClient) ListAuditLogs(ctx context.Context, pageSize *int64, query *string) ([]*model.AuditLog, error) {
+func (c *RESTClient) ListAuditLogs(ctx context.Context) ([]*model.AuditLog, error) {
 	params := auditlog.ListAuditLogsParams{
+		PageSize: &c.Options.PageSize,
+		Q:        &c.Options.Query,
+		Sort:     &c.Options.Sort,
 		Context:  ctx,
-		PageSize: pageSize,
-		Q:        query,
 	}
 
 	resp, err := c.V2Client.Auditlog.ListAuditLogs(&params, c.AuthInfo)

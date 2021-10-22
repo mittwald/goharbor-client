@@ -6,6 +6,7 @@ import (
 	"github.com/go-openapi/runtime"
 
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/retention"
+	"github.com/mittwald/goharbor-client/v4/apiv2/pkg/common"
 )
 
 const (
@@ -79,6 +80,8 @@ func handleSwaggerRetentionErrors(in error) error {
 			// This is a workaround for the Harbor API sometimes returning a "status 201" response
 			// instead of a "status 200" response.
 			return nil
+		case http.StatusNotFound:
+			return &common.ErrNotFound{}
 		case http.StatusUnauthorized:
 			return &ErrRetentionUnauthorized{}
 		case http.StatusForbidden:
@@ -95,6 +98,8 @@ func handleSwaggerRetentionErrors(in error) error {
 		return &ErrRetentionUnauthorized{}
 	case *retention.CreateRetentionForbidden:
 		return &ErrRetentionUnauthorized{}
+	case *retention.GetRetentionInternalServerError:
+		return &ErrRetentionInternalErrors{}
 	default:
 		return in
 	}

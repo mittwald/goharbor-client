@@ -8,6 +8,8 @@ import (
 	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/robot"
 	modelv2 "github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v4/apiv2/pkg/common"
+	"github.com/mittwald/goharbor-client/v4/apiv2/pkg/config"
 )
 
 const (
@@ -35,6 +37,9 @@ const (
 
 // RESTClient is a subclient for handling project related actions.
 type RESTClient struct {
+	// Options contains optional configuration when making API calls.
+	Options *config.Options
+
 	// The new client of the harbor v2 API
 	V2Client *v2client.Harbor
 
@@ -42,8 +47,9 @@ type RESTClient struct {
 	AuthInfo runtime.ClientAuthInfoWriter
 }
 
-func NewClient(v2Client *v2client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
+func NewClient(v2Client *v2client.Harbor, opts *config.Options, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
 	return &RESTClient{
+		Options:  opts,
 		V2Client: v2Client,
 		AuthInfo: authInfo,
 	}
@@ -105,7 +111,7 @@ func (c *RESTClient) GetRobotAccountByName(ctx context.Context, name string) (*m
 		}
 	}
 
-	return nil, &ErrRobotAccountUnknownResource{}
+	return nil, &common.ErrRobotAccountUnknownResource{}
 }
 
 // GetRobotAccountByID GetRobotByID returns a robot account identified by its 'id'.
@@ -148,7 +154,7 @@ func (c *RESTClient) DeleteRobotAccountByName(ctx context.Context, name string) 
 		}
 	}
 
-	return &ErrRobotAccountUnknownResource{}
+	return &common.ErrRobotAccountUnknownResource{}
 }
 
 // DeleteRobotAccountByID DeleteProjectRobotByID deletes a robot account identified by its id.
@@ -207,5 +213,5 @@ func (c *RESTClient) RefreshRobotAccountSecretByName(ctx context.Context, name s
 		}
 	}
 
-	return nil, &ErrRobotAccountUnknownResource{}
+	return nil, &common.ErrRobotAccountUnknownResource{}
 }

@@ -5,7 +5,8 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client/products"
+	replicationapi "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/replication"
+	"github.com/mittwald/goharbor-client/v4/apiv2/pkg/common"
 )
 
 const (
@@ -162,6 +163,8 @@ func handleSwaggerReplicationErrors(in error) error {
 			return &ErrReplicationUnauthorized{}
 		case http.StatusForbidden:
 			return &ErrReplicationNoPermission{}
+		case http.StatusNotFound:
+			return &common.ErrNotFound{}
 		case http.StatusInternalServerError:
 			return &ErrReplicationInternalErrors{}
 		case http.StatusPreconditionFailed:
@@ -170,11 +173,11 @@ func handleSwaggerReplicationErrors(in error) error {
 	}
 
 	switch in.(type) {
-	case *products.DeleteReplicationPoliciesIDNotFound:
+	case *replicationapi.DeleteReplicationPolicyNotFound:
 		return &ErrReplicationIDNotExists{}
-	case *products.PutReplicationPoliciesIDNotFound:
+	case *replicationapi.UpdateReplicationPolicyNotFound:
 		return &ErrReplicationIDNotExists{}
-	case *products.PostReplicationPoliciesConflict:
+	case *replicationapi.CreateReplicationPolicyConflict:
 		return &ErrReplicationNameAlreadyExists{}
 	default:
 		return in

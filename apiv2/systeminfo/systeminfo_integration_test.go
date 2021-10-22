@@ -1,6 +1,6 @@
-// +build integration
+////go:build integration
 
-package system
+package systeminfo
 
 import (
 	"context"
@@ -9,10 +9,13 @@ import (
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/stretchr/testify/require"
+
+	"github.com/mittwald/goharbor-client/v4/apiv2/pkg/config"
+	integrationtest "github.com/mittwald/goharbor-client/v4/apiv2/pkg/testing"
+
 	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client"
-	integrationtest "github.com/mittwald/goharbor-client/v4/apiv2/testing"
-	"github.com/stretchr/testify/require"
 )
 
 var (
@@ -20,12 +23,18 @@ var (
 	legacySwaggerClient = client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
 	v2SwaggerClient     = v2client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
 	authInfo            = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
+	opts                = config.Options{}
+	defaultOpts         = opts.Defaults()
 )
 
-func TestAPIHealth(t *testing.T) {
+func TestAPIGetSystemInfo(t *testing.T) {
 	ctx := context.Background()
-	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
+	c := NewClient(v2SwaggerClient, defaultOpts, authInfo)
 
-	_, err := c.Health(ctx)
+	resp, err := c.GetSystemInfo(ctx)
 	require.NoError(t, err)
+
+	require.Equal(t,false,  *resp.WithChartmuseum )
+	require.Equal(t, false, *resp.WithNotary)
+	require.Equal(t, *resp.RegistryURL, "localhost")
 }

@@ -1,4 +1,4 @@
-// +build integration
+//go:build integration
 
 package replication
 
@@ -8,15 +8,18 @@ import (
 	"testing"
 
 	"github.com/go-openapi/strfmt"
+
 	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client"
-	integrationtest "github.com/mittwald/goharbor-client/v4/apiv2/testing"
+	modelv2 "github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v4/apiv2/pkg/common"
+	"github.com/mittwald/goharbor-client/v4/apiv2/pkg/config"
+	integrationtest "github.com/mittwald/goharbor-client/v4/apiv2/pkg/testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
+
 	"github.com/mittwald/goharbor-client/v4/apiv2/registry"
 
-	model "github.com/mittwald/goharbor-client/v4/apiv2/model/legacy"
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -25,39 +28,53 @@ var (
 	legacySwaggerClient = client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
 	v2SwaggerClient     = v2client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
 	authInfo            = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
+	opts                = config.Options{}
+	defaultOpts         = opts.Defaults()
 )
 
 func TestAPIReplicationNewDestRegistry(t *testing.T) {
 	name := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
+	c := NewClient(v2SwaggerClient, defaultOpts, authInfo)
 
 	regName := "test-registry"
 	registryType := "harbor"
 	url := "http://registry-docker-registry:5000/"
-	credential := model.RegistryCredential{
+	credential := modelv2.RegistryCredential{
 		AccessKey:    integrationtest.User,
 		AccessSecret: integrationtest.Password,
 		Type:         "basic",
 	}
 
-	var filters []*model.ReplicationFilter
-	trigger := &model.ReplicationTrigger{
-		TriggerSettings: &model.TriggerSettings{
+	var filters []*modelv2.ReplicationFilter
+	trigger := &modelv2.ReplicationTrigger{
+		TriggerSettings: &modelv2.ReplicationTriggerSettings{
 			Cron: "",
 		},
 		Type: "manual",
 	}
 
-	rc := registry.NewClient(c.LegacyClient, c.V2Client, c.AuthInfo)
+	rc := registry.NewClient(c.V2Client, defaultOpts, c.AuthInfo)
 
-	reg, err := rc.NewRegistry(ctx, regName, registryType, url, &credential, false)
+	registry := &modelv2.Registry{
+		Credential: &credential,
+		Insecure:   false,
+		Name:       regName,
+		Type:       registryType,
+		UpdateTime: strfmt.DateTime{},
+		URL:        url,
+	}
+
+	err := rc.NewRegistry(ctx, registry)
 	require.NoError(t, err)
-	defer rc.DeleteRegistry(ctx, reg)
 
-	r, err := c.NewReplicationPolicy(
+	reg, err := rc.GetRegistryByName(ctx, regName)
+	require.NoError(t, err)
 
+	defer rc.DeleteRegistryByID(ctx, reg.ID)
+
+	err = c.NewReplicationPolicy(
 		ctx,
 		reg,
 		nil,
@@ -69,41 +86,55 @@ func TestAPIReplicationNewDestRegistry(t *testing.T) {
 		"", "", name,
 	)
 	require.NoError(t, err)
-	defer c.DeleteReplicationPolicy(ctx, r)
 
-	assert.Equal(t, name, r.Name)
+	rep, err := c.GetReplicationPolicyByName(ctx, name)
+
+	defer c.DeleteReplicationPolicyByID(ctx, rep.ID)
+
+	require.Equal(t, name, rep.Name)
 }
 
 func TestAPIReplicationNewSrcRegistry(t *testing.T) {
 	name := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
+	c := NewClient(v2SwaggerClient, defaultOpts, authInfo)
 
 	regName := "test-registry"
 	registryType := "harbor"
 	url := "http://registry-docker-registry:5000/"
-	credential := model.RegistryCredential{
+	credential := modelv2.RegistryCredential{
 		AccessKey:    integrationtest.User,
 		AccessSecret: integrationtest.Password,
 		Type:         "basic",
 	}
 
-	var filters []*model.ReplicationFilter
-	trigger := &model.ReplicationTrigger{
-		TriggerSettings: &model.TriggerSettings{
+	var filters []*modelv2.ReplicationFilter
+	trigger := &modelv2.ReplicationTrigger{
+		TriggerSettings: &modelv2.ReplicationTriggerSettings{
 			Cron: "",
 		},
 		Type: "manual",
 	}
 
-	rc := registry.NewClient(c.LegacyClient, c.V2Client, c.AuthInfo)
+	rc := registry.NewClient(c.V2Client, defaultOpts, c.AuthInfo)
 
-	reg, err := rc.NewRegistry(ctx, regName, registryType, url, &credential, false)
+	err := rc.NewRegistry(ctx, &modelv2.Registry{
+		Credential: &credential,
+		Insecure:   false,
+		Name:       regName,
+		Type:       registryType,
+		URL:        url,
+	})
 	require.NoError(t, err)
-	defer rc.DeleteRegistry(ctx, reg)
 
-	r, err := c.NewReplicationPolicy(
+	reg, err := rc.GetRegistryByName(ctx, regName)
+
+	require.NoError(t, err)
+
+	defer rc.DeleteRegistryByID(ctx, reg.ID)
+
+	err = c.NewReplicationPolicy(
 		ctx,
 		nil,
 		reg,
@@ -115,40 +146,55 @@ func TestAPIReplicationNewSrcRegistry(t *testing.T) {
 		"", "", name,
 	)
 	require.NoError(t, err)
-	defer c.DeleteReplicationPolicy(ctx, r)
 
-	assert.Equal(t, name, r.Name)
+	rep, err := c.GetReplicationPolicyByName(ctx, name)
+	require.NoError(t, err)
+
+	defer c.DeleteReplicationPolicyByID(ctx, rep.ID)
+
+	require.Equal(t, name, rep.Name)
 }
 
 func TestAPIReplicationDelete(t *testing.T) {
 	name := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
+	c := NewClient(v2SwaggerClient, defaultOpts, authInfo)
 
 	regName := "test-registry"
 	registryType := "harbor"
 	url := "http://registry-docker-registry:5000/"
-	credential := model.RegistryCredential{
+	credential := modelv2.RegistryCredential{
 		AccessKey:    integrationtest.User,
 		AccessSecret: integrationtest.Password,
 		Type:         "basic",
 	}
 
-	var filters []*model.ReplicationFilter
-	trigger := &model.ReplicationTrigger{
-		TriggerSettings: &model.TriggerSettings{
+	var filters []*modelv2.ReplicationFilter
+	trigger := &modelv2.ReplicationTrigger{
+		TriggerSettings: &modelv2.ReplicationTriggerSettings{
 			Cron: "",
 		},
 		Type: "manual",
 	}
 
-	rc := registry.NewClient(c.LegacyClient, c.V2Client, c.AuthInfo)
+	rc := registry.NewClient(c.V2Client, defaultOpts, c.AuthInfo)
 
-	reg, err := rc.NewRegistry(ctx, regName, registryType, url, &credential, false)
+	err := rc.NewRegistry(ctx, &modelv2.Registry{
+		Credential: &credential,
+		Insecure:   false,
+		Name:       regName,
+		Type:       registryType,
+		URL:        url,
+	})
 	require.NoError(t, err)
 
-	r, err := c.NewReplicationPolicy(
+	reg, err := rc.GetRegistryByName(ctx, regName)
+	require.NoError(t, err)
+
+	defer rc.DeleteRegistryByID(ctx, reg.ID)
+
+	err = c.NewReplicationPolicy(
 		ctx,
 		nil,
 		reg,
@@ -160,47 +206,58 @@ func TestAPIReplicationDelete(t *testing.T) {
 		"", "", name,
 	)
 	require.NoError(t, err)
-	defer rc.DeleteRegistry(ctx, reg)
 
-	err = c.DeleteReplicationPolicy(ctx, r)
+	rep, err := c.GetReplicationPolicyByName(ctx, name)
+
+	err = c.DeleteReplicationPolicyByID(ctx, rep.ID)
 	require.NoError(t, err)
 
-	r, err = c.GetReplicationPolicy(ctx, name)
-	if assert.Error(t, err) {
-		assert.IsType(t, &ErrReplicationNotFound{}, err)
-	}
+	_, err = c.GetReplicationPolicyByID(ctx, rep.ID)
+	require.Error(t, err)
+	require.ErrorIs(t, err, &common.ErrNotFound{})
 }
 
 func TestAPIReplicationUpdate(t *testing.T) {
 	name := "test-project"
 
 	ctx := context.Background()
-	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
+	c := NewClient(v2SwaggerClient, defaultOpts, authInfo)
 
 	regName := "test-registry"
 	registryType := "harbor"
 	url := "http://registry-docker-registry:5000/"
-	credential := model.RegistryCredential{
+	credential := modelv2.RegistryCredential{
 		AccessKey:    integrationtest.User,
 		AccessSecret: integrationtest.Password,
 		Type:         "basic",
 	}
 
-	var filters []*model.ReplicationFilter
-	trigger := &model.ReplicationTrigger{
-		TriggerSettings: &model.TriggerSettings{
+	var filters []*modelv2.ReplicationFilter
+	trigger := &modelv2.ReplicationTrigger{
+		TriggerSettings: &modelv2.ReplicationTriggerSettings{
 			Cron: "",
 		},
 		Type: "manual",
 	}
 
-	rc := registry.NewClient(c.LegacyClient, c.V2Client, c.AuthInfo)
+	rc := registry.NewClient(c.V2Client, defaultOpts, c.AuthInfo)
 
-	reg, err := rc.NewRegistry(ctx, regName, registryType, url, &credential, false)
+	err := rc.NewRegistry(ctx, &modelv2.Registry{
+		Credential: &credential,
+		Insecure:   false,
+		Name:       regName,
+		Type:       registryType,
+		URL:        url,
+	})
+
 	require.NoError(t, err)
-	defer rc.DeleteRegistry(ctx, reg)
 
-	r, err := c.NewReplicationPolicy(
+	reg, err := rc.GetRegistryByName(ctx, regName)
+	require.NoError(t, err)
+
+	defer rc.DeleteRegistryByID(ctx, reg.ID)
+
+	err = c.NewReplicationPolicy(
 		ctx,
 		nil,
 		reg,
@@ -213,17 +270,20 @@ func TestAPIReplicationUpdate(t *testing.T) {
 	)
 
 	require.NoError(t, err)
-	defer c.DeleteReplicationPolicy(ctx, r)
 
-	descBefore := r.Description
+	rep, err := c.GetReplicationPolicyByName(ctx, name)
 
-	r.Description = "b"
+	defer c.DeleteReplicationPolicyByID(ctx, rep.ID)
 
-	err = c.UpdateReplicationPolicy(ctx, r)
+	descBefore := rep.Description
+
+	rep.Description = "b"
+
+	err = c.UpdateReplicationPolicy(ctx, rep, rep.ID)
 	require.NoError(t, err)
 
-	r, err = c.GetReplicationPolicy(ctx, name)
-	assert.NoError(t, err)
+	rep, err = c.GetReplicationPolicyByName(ctx, name)
+	require.NoError(t, err)
 
-	assert.NotEqual(t, descBefore, r.Description)
+	require.NotEqual(t, descBefore, rep.Description)
 }

@@ -1,4 +1,4 @@
-// +build integration
+//go:build integration
 
 package gc
 
@@ -9,11 +9,15 @@ import (
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+
 	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client"
 	modelv2 "github.com/mittwald/goharbor-client/v4/apiv2/model"
-	integrationtest "github.com/mittwald/goharbor-client/v4/apiv2/testing"
+	"github.com/mittwald/goharbor-client/v4/apiv2/pkg/config"
+
 	"github.com/stretchr/testify/require"
+
+	integrationtest "github.com/mittwald/goharbor-client/v4/apiv2/pkg/testing"
 )
 
 var (
@@ -21,6 +25,8 @@ var (
 	legacySwaggerClient = client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
 	v2SwaggerClient     = v2client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
 	authInfo            = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
+	opts                = config.Options{}
+	defaultOpts         = opts.Defaults()
 )
 
 func TestAPINewGarbageCollection(t *testing.T) {

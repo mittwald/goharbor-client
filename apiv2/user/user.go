@@ -4,46 +4,50 @@ import (
 	"context"
 	"errors"
 
+	"k8s.io/apimachinery/pkg/util/intstr"
+
 	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
-	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/user"
 	modelv2 "github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v4/apiv2/pkg/config"
 
 	"github.com/go-openapi/runtime"
-
-	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client/products"
-	legacymodel "github.com/mittwald/goharbor-client/v4/apiv2/model/legacy"
 )
 
 // RESTClient is a subclient for handling user related actions.
 type RESTClient struct {
-	// The legacy swagger client
-	LegacyClient *client.Harbor
-
 	// The new client of the harbor v2 API
 	V2Client *v2client.Harbor
+
+	// Options contains optional configuration when making API calls.
+	Options *config.Options
 
 	// AuthInfo contains the auth information that is provided on API calls.
 	AuthInfo runtime.ClientAuthInfoWriter
 }
 
-func NewClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
+func NewClient(v2Client *v2client.Harbor, opts *config.Options, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
 	return &RESTClient{
-		LegacyClient: legacyClient,
-		V2Client:     v2Client,
-		AuthInfo:     authInfo,
+		Options:  opts,
+		V2Client: v2Client,
+		AuthInfo: authInfo,
 	}
 }
 
 type Client interface {
 	NewUser(ctx context.Context, username, email, realname, password,
-		comments string) (*legacymodel.User, error)
-	GetUser(ctx context.Context, username string) (*legacymodel.User, error)
-	GetUserByID(ctx context.Context, id int64) (*legacymodel.User, error)
-	ListUsers(ctx context.Context) ([]*legacymodel.User, error)
-	DeleteUser(ctx context.Context, u *legacymodel.User) error
-	UpdateUser(ctx context.Context, u *legacymodel.User) error
-	UpdateUserPassword(ctx context.Context, id int64, password *legacymodel.Password) error
-	UserExists(ctx context.Context, u *legacymodel.User) (bool, error)
+		comments string) (*modelv2.UserResp, error)
+	GetUserByName(ctx context.Context, username string) (*modelv2.UserResp, error)
+	GetUserByID(ctx context.Context, id int64) (*modelv2.UserResp, error)
+	ListUsers(ctx context.Context) ([]*modelv2.UserResp, error)
+	SearchUsers(ctx context.Context, name string) ([]*modelv2.UserSearchRespItem, error)
+	GetCurrentUserInfo(ctx context.Context) (*modelv2.UserResp, error)
+	GetCurrentUserPermisisons(ctx context.Context, relative bool, scope string) ([]*modelv2.Permission, error)
+	SetUserSysAdmin(ctx context.Context, id int64, admin bool) error
+	DeleteUser(ctx context.Context, id int64) error
+	UpdateUserProfile(ctx context.Context, id int64, profile *modelv2.UserProfile) error
+	UpdateUserPassword(ctx context.Context, userID int64, old, new string) error
+	UserExists(ctx context.Context, idOrName intstr.IntOrString) (bool, error)
 }
 
 // NewUser creates and returns a new user, or error in case of failure.
@@ -53,164 +57,271 @@ type Client interface {
 // password is the password for this user.
 // comments as a comment attached to the user.
 func (c *RESTClient) NewUser(ctx context.Context, username, email, realname, password,
-	comments string) (*legacymodel.User, error) {
-	uReq := &legacymodel.User{
-		Username: username,
-		Password: password,
-		Email:    email,
-		Realname: realname,
-		Comment:  comments,
+	comments string) (*modelv2.UserResp, error) {
+	params := &user.CreateUserParams{
+		UserReq: &modelv2.UserCreationReq{
+			Username: username,
+			Password: password,
+			Email:    email,
+			Realname: realname,
+			Comment:  comments,
+		},
+		Context: ctx,
 	}
 
-	_, err := c.LegacyClient.Products.PostUsers(&products.PostUsersParams{
-		User:    uReq,
-		Context: ctx,
-	}, c.AuthInfo)
+	params.WithTimeout(c.Options.Timeout)
+
+	_, err := c.V2Client.User.CreateUser(params, c.AuthInfo)
 	if err != nil {
 		return nil, handleSwaggerUserErrors(err)
 	}
 
-	user, err := c.GetUser(ctx, username)
+	usr, err := c.GetUserByName(ctx, username)
 	if err != nil {
 		return nil, err
 	}
 
-	return user, nil
+	return usr, nil
 }
 
-// GetUser returns an existing user or an error in case of failure.
-func (c *RESTClient) GetUser(ctx context.Context, username string) (*legacymodel.User, error) {
+// GetUserByName returns an existing user identified by name.
+func (c *RESTClient) GetUserByName(ctx context.Context, username string) (*modelv2.UserResp, error) {
 	if username == "" {
 		return nil, errors.New("no username provided")
 	}
 
-	resp, err := c.LegacyClient.Products.GetUsers(&products.GetUsersParams{
-		Context:  ctx,
-		Username: &username,
-	}, c.AuthInfo)
+	c.Options.PageSize = 100
+
+	resp, err := c.ListUsers(ctx)
 	if err != nil {
 		return nil, handleSwaggerUserErrors(err)
 	}
 
-	for _, v := range resp.Payload {
-		if v.Username == username {
-			return v, nil
+	for _, u := range resp {
+		if u.Username == username {
+			return u, nil
 		}
 	}
 
 	return nil, &ErrUserNotFound{}
 }
 
-// ListUsers lists and returns all registered Harbor users.
-func (c *RESTClient) ListUsers(ctx context.Context) ([]*legacymodel.User, error) {
-	resp, err := c.LegacyClient.Products.GetUsers(&products.GetUsersParams{
-		Context: ctx,
-	}, c.AuthInfo)
-	if err != nil {
-		return nil, handleSwaggerUserErrors(err)
-	}
-
-	return resp.Payload, nil
-}
-
-// GetUserByID fetches a registered user by the provided user id.
-// Returns an error if no user could be found, or if the id is '0'.
-func (c *RESTClient) GetUserByID(ctx context.Context, id int64) (*modelv2.UserEntity, error) {
+// GetUserByID returns an existing user identified by ID.
+func (c *RESTClient) GetUserByID(ctx context.Context, id int64) (*modelv2.UserResp, error) {
 	if id <= 0 {
 		return nil, &ErrUserInvalidID{}
 	}
 
-	resp, err := c.LegacyClient.Products.GetUsersUserID(&products.GetUsersUserIDParams{
+	c.Options.PageSize = 100
+
+	params := &user.GetUserParams{
 		UserID:  id,
 		Context: ctx,
-	}, c.AuthInfo)
-	if err != nil {
-		return nil, handleSwaggerUserErrors(err)
+	}
+
+	params.WithTimeout(c.Options.Timeout)
+
+	resp, err := c.V2Client.User.GetUser(params, c.AuthInfo)
+
+	if resp.Payload == nil {
+		return nil, &ErrUserNotFound{}
 	}
 
 	if resp.Payload.UserID != id {
-		return nil, &ErrUserMismatch{}
+		return nil, &ErrUserInvalidID{}
+	}
+
+	if err != nil {
+		return nil, handleSwaggerUserErrors(err)
 	}
 
 	return resp.Payload, nil
 }
 
-// DeleteUser deletes the specified user.
-func (c *RESTClient) DeleteUser(ctx context.Context, u *legacymodel.User) error {
-	if u == nil {
-		return errors.New("no user provided")
-	}
-
-	user, err := c.GetUser(ctx, u.Username)
-	if err != nil {
-		return err
-	}
-
-	if u.UserID != user.UserID {
-		return &ErrUserMismatch{}
-	}
-
-	_, err = c.LegacyClient.Products.DeleteUsersUserID(&products.DeleteUsersUserIDParams{
-		UserID:  user.UserID,
-		Context: ctx,
-	}, c.AuthInfo)
-
-	return handleSwaggerUserErrors(err)
-}
-
-// UpdateUser updates a user with the specified data.
-// Note that only realname, email and comment properties are updateable.
-func (c *RESTClient) UpdateUser(ctx context.Context, u *legacymodel.User) error {
-	if u == nil {
-		return errors.New("no user provided")
-	}
-
-	user, err := c.GetUser(ctx, u.Username)
-	if err != nil {
-		return err
-	}
-
-	profile := &legacymodel.UserProfile{
-		Comment:  u.Comment,
-		Email:    u.Email,
-		Realname: u.Realname,
-	}
-
-	if u.UserID != user.UserID {
-		return &ErrUserMismatch{}
-	}
-
-	_, err = c.LegacyClient.Products.PutUsersUserID(&products.PutUsersUserIDParams{
-		UserID:  user.UserID,
-		Profile: profile,
-		Context: ctx,
-	}, c.AuthInfo)
-
-	return handleSwaggerUserErrors(err)
-}
-
-// UpdateUserPassword updates a users password
-func (c *RESTClient) UpdateUserPassword(ctx context.Context, id int64, password *legacymodel.Password) error {
-	if password == nil {
-		return errors.New("no password provided")
-	}
-
-	_, err := c.LegacyClient.Products.PutUsersUserIDPassword(&products.PutUsersUserIDPasswordParams{
-		Password: password,
-		UserID:   id,
+// ListUsers lists and returns all registered Harbor users.
+// The maximum number of users listed is bound to the RESTClient's configured PageSize.
+func (c *RESTClient) ListUsers(ctx context.Context) ([]*modelv2.UserResp, error) {
+	params := user.ListUsersParams{
+		PageSize: &c.Options.PageSize,
+		Q:        &c.Options.Query,
+		Sort:     &c.Options.Sort,
 		Context:  ctx,
-	}, c.AuthInfo)
+	}
+
+	params.WithTimeout(c.Options.Timeout)
+
+	resp, err := c.V2Client.User.ListUsers(&params, c.AuthInfo)
+	if err != nil {
+		return nil, handleSwaggerUserErrors(err)
+	}
+
+	return resp.Payload, nil
+}
+
+// SearchUsers searches all existing users by the provided username 'name' and returns matching users.
+func (c *RESTClient) SearchUsers(ctx context.Context, name string) ([]*modelv2.UserSearchRespItem, error) {
+	params := &user.SearchUsersParams{
+		PageSize: &c.Options.PageSize,
+		Username: name,
+		Context:  ctx,
+	}
+
+	params.WithTimeout(c.Options.Timeout)
+
+	resp, err := c.V2Client.User.SearchUsers(params, c.AuthInfo)
+	if err != nil {
+		return nil, handleSwaggerUserErrors(err)
+	}
+
+	if len(resp.Payload) == 0 {
+		return nil, &ErrUserNotFound{}
+	}
+
+	return resp.Payload, nil
+}
+
+// GetCurrentUserInfo returns information of currently active user.
+func (c *RESTClient) GetCurrentUserInfo(ctx context.Context) (*modelv2.UserResp, error) {
+	params := &user.GetCurrentUserInfoParams{
+		Context: ctx,
+	}
+
+	params.WithTimeout(c.Options.Timeout)
+
+	resp, err := c.V2Client.User.GetCurrentUserInfo(params, c.AuthInfo)
+	if err != nil {
+		return nil, handleSwaggerUserErrors(err)
+	}
+
+	return resp.Payload, nil
+}
+
+// GetCurrentUserPermisisons returns the permissions of the currently active user.
+func (c *RESTClient) GetCurrentUserPermisisons(ctx context.Context, relative bool, scope string) ([]*modelv2.Permission, error) {
+	params := &user.GetCurrentUserPermissionsParams{
+		Relative: &relative,
+		Scope:    &scope,
+		Context:  ctx,
+	}
+
+	params.WithTimeout(c.Options.Timeout)
+
+	resp, err := c.V2Client.User.GetCurrentUserPermissions(params, c.AuthInfo)
+	if err != nil {
+		return nil, handleSwaggerUserErrors(err)
+	}
+
+	return resp.Payload, nil
+}
+
+// SetUserSysAdmin updates a user's administrator privileges.
+func (c *RESTClient) SetUserSysAdmin(ctx context.Context, id int64, admin bool) error {
+	params := &user.SetUserSysAdminParams{
+		SysadminFlag: &modelv2.UserSysAdminFlag{
+			SysadminFlag: admin,
+		},
+		UserID:  id,
+		Context: ctx,
+	}
+
+	params.WithTimeout(c.Options.Timeout)
+
+	_, err := c.V2Client.User.SetUserSysAdmin(params, c.AuthInfo)
 
 	return handleSwaggerUserErrors(err)
 }
 
-func (c *RESTClient) UserExists(ctx context.Context, u *legacymodel.User) (bool, error) {
-	_, err := c.GetUser(ctx, u.Username)
+// DeleteUser deletes the specified user, first ensuring its existence.
+func (c *RESTClient) DeleteUser(ctx context.Context, id int64) error {
+	params := &user.DeleteUserParams{
+		UserID:  id,
+		Context: ctx,
+	}
+
+	params.WithTimeout(c.Options.Timeout)
+
+	_, err := c.GetUserByID(ctx, id)
 	if err != nil {
-		if _, ok := err.(*ErrUserNotFound); ok {
-			return false, nil
+		return err
+	}
+
+	_, err = c.V2Client.User.DeleteUser(params, c.AuthInfo)
+
+	return handleSwaggerUserErrors(err)
+}
+
+// UpdateUserProfile updates a user identified by id with the specified profile data.
+func (c *RESTClient) UpdateUserProfile(ctx context.Context, id int64, profile *modelv2.UserProfile) error {
+	_, err := c.GetUserByID(ctx, id)
+	if err != nil {
+		return err
+	}
+
+	params := &user.UpdateUserProfileParams{
+		Profile: profile,
+		UserID:  id,
+		Context: ctx,
+	}
+
+	params.WithTimeout(c.Options.Timeout)
+
+	_, err = c.V2Client.User.UpdateUserProfile(params, c.AuthInfo)
+
+	return handleSwaggerUserErrors(err)
+}
+
+// UpdateUserPassword updates a user's password from 'old' to 'new'.
+func (c *RESTClient) UpdateUserPassword(ctx context.Context, userID int64, old, new string) error {
+	if old == "" {
+		return errors.New("no old password provided")
+	} else if new == "" {
+		return errors.New("no new password provided")
+	}
+
+	_, err := c.GetUserByID(ctx, userID)
+	if err != nil {
+		return err
+	}
+
+	params := &user.UpdateUserPasswordParams{
+		Password: &modelv2.PasswordReq{
+			OldPassword: old,
+			NewPassword: new,
+		},
+		UserID:  userID,
+		Context: ctx,
+	}
+
+	params.WithTimeout(c.Options.Timeout)
+
+	_, err = c.V2Client.User.UpdateUserPassword(params, c.AuthInfo)
+
+	return handleSwaggerUserErrors(err)
+}
+
+// UserExists checks the user with the provided 'idOrName' for existence.
+func (c *RESTClient) UserExists(ctx context.Context, idOrName intstr.IntOrString) (bool, error) {
+	switch idOrName.Type {
+	default:
+		return false, nil
+	case intstr.Int:
+		if idOrName.Type == intstr.Int {
+			_, err := c.GetUserByID(ctx, int64(idOrName.IntVal))
+			if err != nil {
+				if _, ok := err.(*ErrUserNotFound); ok {
+					return false, nil
+				}
+				return false, err
+			}
 		}
-		return false, err
+	case intstr.String:
+		_, err := c.GetUserByName(ctx, idOrName.StrVal)
+		if err != nil {
+			if _, ok := err.(*ErrUserNotFound); ok {
+				return false, nil
+			}
+			return false, err
+		}
 	}
 
 	return true, nil

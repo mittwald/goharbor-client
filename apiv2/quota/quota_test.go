@@ -1,3 +1,4 @@
+//go:build !integration
 // +build !integration
 
 package quota
@@ -9,167 +10,166 @@ import (
 	"testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
-	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
-	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client"
-	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client/products"
-	"github.com/mittwald/goharbor-client/v4/apiv2/mocks"
-	legacymodel "github.com/mittwald/goharbor-client/v4/apiv2/model/legacy"
+	"github.com/goharbor/harbor/src/pkg/quota/types"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/quota"
+	"github.com/mittwald/goharbor-client/v4/apiv2/mocks"
+	modelv2 "github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v4/apiv2/pkg/common"
+	unittesting "github.com/mittwald/goharbor-client/v4/apiv2/pkg/testing"
+
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 )
 
 var (
 	authInfo                       = runtimeclient.BasicAuth("foo", "bar")
-	testProjectID            int64 = 1
 	testStorageLimitPositive int64 = 1
 	testStorageLimitNegative int64 = -1
 	testStorageLimitNull     int64 = 0
+	exampleQuotaID           int64 = 1
+	exampleProjectID         int64 = 1
+	ctx                            = context.Background()
 )
 
-func BuildLegacyClientWithMock(service *mocks.MockProductsClientService) *client.Harbor {
-	return &client.Harbor{
-		Products: service,
+func APIandMockClientsForTests() (*RESTClient, *unittesting.MockClients) {
+	desiredMockClients := &unittesting.MockClients{
+		Quota: mocks.MockQuotaClientService{},
 	}
-}
 
-func BuildProjectClientWithMocks() *v2client.Harbor {
-	return &v2client.Harbor{}
+	v2Client := unittesting.BuildV2ClientWithMocks(desiredMockClients)
+
+	cl := NewClient(v2Client, &unittesting.DefaultOpts, authInfo)
+
+	return cl, desiredMockClients
 }
 
 func TestRESTClient_GetQuotaByProjectID_Unexpected(t *testing.T) {
-	p := &mocks.MockProductsClientService{}
+	apiClient, mockClient := APIandMockClientsForTests()
 
-	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildProjectClientWithMocks()
-
-	cl := NewClient(legacyClient, v2Client, authInfo)
-
-	ctx := context.Background()
-
-	s := strconv.FormatInt(testProjectID, 10)
-
-	getQuotasParams := &products.GetQuotasParams{
-		ReferenceID: &s,
+	refID := strconv.Itoa(int(exampleProjectID))
+	listParams := &quota.ListQuotasParams{
+		PageSize:    &apiClient.Options.PageSize,
+		ReferenceID: &refID,
+		Sort:        &apiClient.Options.Sort,
 		Context:     ctx,
 	}
 
-	p.On("GetQuotas", getQuotasParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.GetQuotasOK{}, nil)
+	mockClient.Quota.On("ListQuotas", listParams,
+		mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&quota.ListQuotasOK{}, nil)
 
-	_, err := cl.GetQuotaByProjectID(ctx, testProjectID)
-	if assert.Error(t, err) {
-		assert.IsType(t, &ErrQuotaRefNotFound{}, err)
-	}
+	_, err := apiClient.GetQuotaByProjectID(ctx, exampleProjectID)
+	require.Error(t, err)
+	require.ErrorIs(t, err, &common.ErrQuotaRefNotFound{})
 
-	p.AssertExpectations(t)
+	mockClient.Quota.AssertExpectations(t)
 }
 
 func TestRESTClient_GetQuotaByProjectID(t *testing.T) {
-	p := &mocks.MockProductsClientService{}
+	apiClient, mockClient := APIandMockClientsForTests()
 
-	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildProjectClientWithMocks()
+	refID := strconv.Itoa(int(exampleProjectID))
 
-	cl := NewClient(legacyClient, v2Client, authInfo)
-
-	ctx := context.Background()
-
-	s := strconv.Itoa(int(testProjectID))
-
-	getQuotasParams := &products.GetQuotasParams{
-		ReferenceID: &s,
+	listParams := &quota.ListQuotasParams{
+		PageSize:    &apiClient.Options.PageSize,
+		ReferenceID: &refID,
+		Sort:        &apiClient.Options.Sort,
 		Context:     ctx,
 	}
 
-	p.On("GetQuotas", getQuotasParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&products.GetQuotasOK{Payload: []*legacymodel.Quota{{
-			Ref: map[string]interface{}{
-				"id": json.Number(strconv.Itoa(1)),
-			},
-			Hard: legacymodel.ResourceList{
-				"storage": 10,
-			},
-			ID: testProjectID,
-		}}}, nil)
+	mockClient.Quota.On("ListQuotas", listParams,
+		mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(&quota.ListQuotasOK{
+			Payload: []*modelv2.Quota{{
+				Hard: types.ResourceList{
+					types.ResourceStorage: 10,
+				},
+				ID: exampleProjectID,
+				Ref: modelv2.QuotaRefObject(map[string]interface{}{
+					"id": json.Number(strconv.Itoa(1)),
+				}),
+			}},
+		}, nil)
 
-	q, err := cl.GetQuotaByProjectID(ctx, testProjectID)
+	q, err := apiClient.GetQuotaByProjectID(ctx, exampleProjectID)
+
 	assert.NoError(t, err)
 
 	if assert.NotNil(t, q) {
 		require.Equal(t, int64(10), q.Hard["storage"])
 	}
 
-	p.AssertExpectations(t)
+	mockClient.Quota.AssertExpectations(t)
 }
 
 func TestRESTClient_UpdateStorageQuotaByProjectID(t *testing.T) {
-	p := &mocks.MockProductsClientService{}
-
-	legacyClient := BuildLegacyClientWithMock(p)
-	v2Client := BuildProjectClientWithMocks()
-
-	cl := NewClient(legacyClient, v2Client, authInfo)
-
-	ctx := context.Background()
+	apiClient, mockClient := APIandMockClientsForTests()
 
 	t.Run("PositiveLimit", func(t *testing.T) {
-		putQuotasIDParams := &products.PutQuotasIDParams{
-			ID: testProjectID,
-			Hard: &legacymodel.QuotaUpdateReq{
-				Hard: map[string]int64{
-					"storage": testStorageLimitPositive,
+		updateParams := &quota.UpdateQuotaParams{
+			Hard: &modelv2.QuotaUpdateReq{
+				Hard: map[types.ResourceName]int64{
+					types.ResourceStorage: testStorageLimitPositive,
 				},
 			},
+			ID:      exampleQuotaID,
 			Context: ctx,
 		}
 
-		p.On("PutQuotasID", putQuotasIDParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-			Return(&products.PutQuotasIDOK{}, nil)
+		mockClient.Quota.On("UpdateQuota", updateParams,
+			mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+			Return(&quota.UpdateQuotaOK{}, nil)
 
-		err := cl.UpdateStorageQuotaByProjectID(ctx, testProjectID, testStorageLimitPositive)
+		err := apiClient.UpdateStorageQuotaByProjectID(ctx, exampleProjectID, testStorageLimitPositive)
+
 		assert.NoError(t, err)
 
-		p.AssertExpectations(t)
+		mockClient.Quota.AssertExpectations(t)
 	})
 
 	t.Run("NegativeLimit", func(t *testing.T) {
-		putQuotasIDParams := &products.PutQuotasIDParams{
-			ID: testProjectID,
-			Hard: &legacymodel.QuotaUpdateReq{
-				Hard: map[string]int64{
-					"storage": testStorageLimitNegative,
+		updateParams := &quota.UpdateQuotaParams{
+			Hard: &modelv2.QuotaUpdateReq{
+				Hard: map[types.ResourceName]int64{
+					types.ResourceStorage: testStorageLimitNegative,
 				},
 			},
+			ID:      exampleQuotaID,
 			Context: ctx,
 		}
 
-		p.On("PutQuotasID", putQuotasIDParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-			Return(&products.PutQuotasIDOK{}, nil)
+		mockClient.Quota.On("UpdateQuota", updateParams,
+			mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+			Return(&quota.UpdateQuotaOK{}, nil)
 
-		err := cl.UpdateStorageQuotaByProjectID(ctx, testProjectID, testStorageLimitNegative)
+		err := apiClient.UpdateStorageQuotaByProjectID(ctx, exampleProjectID, testStorageLimitNegative)
+
 		assert.NoError(t, err)
 
-		p.AssertExpectations(t)
+		mockClient.Quota.AssertExpectations(t)
 	})
 
 	t.Run("NullLimit", func(t *testing.T) {
-		putQuotasIDParams := &products.PutQuotasIDParams{
-			ID: testProjectID,
-			Hard: &legacymodel.QuotaUpdateReq{
-				Hard: map[string]int64{
-					"storage": testStorageLimitNegative,
+		updateParams := &quota.UpdateQuotaParams{
+			Hard: &modelv2.QuotaUpdateReq{
+				Hard: map[types.ResourceName]int64{
+					types.ResourceStorage: testStorageLimitNegative,
 				},
 			},
+			ID:      exampleQuotaID,
 			Context: ctx,
 		}
 
-		p.On("PutQuotasID", putQuotasIDParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-			Return(&products.PutQuotasIDOK{}, nil)
+		mockClient.Quota.On("UpdateQuota", updateParams,
+			mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+			Return(&quota.UpdateQuotaOK{}, nil)
 
-		err := cl.UpdateStorageQuotaByProjectID(ctx, testProjectID, testStorageLimitNull)
+		err := apiClient.UpdateStorageQuotaByProjectID(ctx, exampleProjectID, testStorageLimitNull)
+
 		assert.NoError(t, err)
 
-		p.AssertExpectations(t)
+		mockClient.Quota.AssertExpectations(t)
 	})
 }

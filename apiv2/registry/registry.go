@@ -1,20 +1,22 @@
 package registry
 
+import "C"
 import (
 	"context"
 
 	"github.com/go-openapi/runtime"
-	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
-	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client"
 
-	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client/products"
-	model "github.com/mittwald/goharbor-client/v4/apiv2/model/legacy"
+	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/registry"
+	modelv2 "github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v4/apiv2/pkg/common"
+	"github.com/mittwald/goharbor-client/v4/apiv2/pkg/config"
 )
 
 // RESTClient is a subclient for handling registry related actions.
 type RESTClient struct {
-	// The legacy swagger client
-	LegacyClient *client.Harbor
+	// Options contains optional configuration when making API calls.
+	Options *config.Options
 
 	// The new client of the harbor v2 API
 	V2Client *v2client.Harbor
@@ -23,135 +25,124 @@ type RESTClient struct {
 	AuthInfo runtime.ClientAuthInfoWriter
 }
 
-func NewClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
+func NewClient(v2Client *v2client.Harbor, opts *config.Options, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
 	return &RESTClient{
-		LegacyClient: legacyClient,
-		V2Client:     v2Client,
-		AuthInfo:     authInfo,
+		Options:  opts,
+		V2Client: v2Client,
+		AuthInfo: authInfo,
 	}
 }
 
-type Client interface {
-	NewRegistry(ctx context.Context, name, registryType, url string,
-		credential *model.RegistryCredential, insecure bool) (*model.Registry, error)
-	GetRegistry(ctx context.Context, name string) (*model.Registry, error)
-	DeleteRegistry(ctx context.Context, r *model.Registry) error
-	UpdateRegistry(ctx context.Context, r *model.Registry) error
-}
+type Client interface{}
 
-// NewRegistry creates a new project with name as project name.
-// CountLimit and StorageLimit limits space and access for this project.
-// Returns the registry as it is stored inside Harbor or an error,
-// if it cannot be created.
-func (c *RESTClient) NewRegistry(ctx context.Context, name, registryType, url string,
-	credential *model.RegistryCredential, insecure bool) (*model.Registry, error) {
-	rReq := &model.Registry{
-		Credential: credential,
-		Insecure:   insecure,
-		Name:       name,
-		Type:       registryType,
-		URL:        url,
+// NewRegistry creates a new registry.
+func (c *RESTClient) NewRegistry(ctx context.Context, reg *modelv2.Registry) error {
+	params := &registry.CreateRegistryParams{
+		Registry: reg,
+		Context:  ctx,
 	}
 
-	_, err := c.LegacyClient.Products.PostRegistries(
-		&products.PostRegistriesParams{
-			Registry: rReq,
-			Context:  ctx,
-		}, c.AuthInfo)
-	if err != nil {
-		return nil, handleSwaggerRegistryErrors(err)
-	}
+	params.WithTimeout(c.Options.Timeout)
 
-	registry, err := c.GetRegistry(ctx, name)
-	if err != nil {
-		return nil, err
-	}
-
-	return registry, nil
-}
-
-// Get returns a registry identified by name.
-// Returns an error if it cannot find a matching registry or when
-// having difficulties talking to the API.
-func (c *RESTClient) GetRegistry(ctx context.Context, name string) (*model.Registry, error) {
-	if name == "" {
-		return nil, &ErrRegistryNotProvided{}
-	}
-	resp, err := c.LegacyClient.Products.GetRegistries(
-		&products.GetRegistriesParams{
-			Name:    &name,
-			Context: ctx,
-		}, c.AuthInfo)
-	if err != nil {
-		return nil, handleSwaggerRegistryErrors(err)
-	}
-
-	for _, r := range resp.Payload {
-		if r.Name == name {
-			return r, nil
-		}
-	}
-
-	return nil, &ErrRegistryNotFound{}
-}
-
-// Delete deletes a registry.
-// Returns an error when no matching registry is found or when
-// having difficulties talking to the API.
-func (c *RESTClient) DeleteRegistry(ctx context.Context,
-	r *model.Registry) error {
-	if r == nil {
-		return &ErrRegistryNotProvided{}
-	}
-
-	registry, err := c.GetRegistry(ctx, r.Name)
-	if err != nil {
-		return err
-	}
-
-	if r.ID != registry.ID {
-		return &ErrRegistryMismatch{}
-	}
-
-	_, err = c.LegacyClient.Products.DeleteRegistriesID(
-		&products.DeleteRegistriesIDParams{
-			ID:      registry.ID,
-			Context: ctx,
-		}, c.AuthInfo)
+	_, err := c.V2Client.Registry.CreateRegistry(params, c.AuthInfo)
 
 	return handleSwaggerRegistryErrors(err)
 }
 
-func (c *RESTClient) UpdateRegistry(ctx context.Context, r *model.Registry) error {
-	if r == nil {
-		return &ErrRegistryNotProvided{}
+// GetRegistryByID returns a registry identified by ID.
+// Returns an error if it cannot find a matching registry or when
+// having difficulties talking to the API.
+func (c *RESTClient) GetRegistryByID(ctx context.Context, id int64) (*modelv2.Registry, error) {
+	params := &registry.GetRegistryParams{
+		ID:      id,
+		Context: ctx,
 	}
 
-	rReq := &model.PutRegistry{
-		AccessKey:      r.Credential.AccessKey,
-		AccessSecret:   r.Credential.AccessSecret,
-		CredentialType: r.Credential.Type,
-		Description:    r.Description,
-		Insecure:       r.Insecure,
-		Name:           r.Name,
-		URL:            r.URL,
-	}
+	params.WithTimeout(c.Options.Timeout)
 
-	registry, err := c.GetRegistry(ctx, r.Name)
+	resp, err := c.V2Client.Registry.GetRegistry(params, c.AuthInfo)
 	if err != nil {
-		return err
+		return nil, handleSwaggerRegistryErrors(err)
 	}
 
-	if r.ID != registry.ID {
-		return &ErrRegistryMismatch{}
+	if resp.Payload != nil {
+		return nil, &common.ErrRegistryNotFound{}
 	}
 
-	_, err = c.LegacyClient.Products.PutRegistriesID(
-		&products.PutRegistriesIDParams{
-			ID:         registry.ID,
-			RepoTarget: rReq,
-			Context:    ctx,
-		}, c.AuthInfo)
+	return resp.Payload, nil
+}
+
+func (c *RESTClient) GetRegistryByName(ctx context.Context, name string) (*modelv2.Registry, error) {
+	c.Options.Query = "name=" + name
+
+	registries, err := c.ListRegistries(ctx)
+	if err != nil {
+		return nil, handleSwaggerRegistryErrors(err)
+	}
+
+	if len(registries) > 1 {
+		return nil, &common.ErrMultipleResults{}
+	}
+	return registries[0], nil
+}
+
+func (c *RESTClient) ListRegistries(ctx context.Context) ([]*modelv2.Registry, error) {
+	params := &registry.ListRegistriesParams{
+		PageSize: &c.Options.PageSize,
+		Q:        &c.Options.Query,
+		Sort:     &c.Options.Sort,
+		Context:  ctx,
+	}
+
+	params.WithTimeout(c.Options.Timeout)
+
+	resp, err := c.V2Client.Registry.ListRegistries(params, c.AuthInfo)
+	if err != nil {
+		return nil, handleSwaggerRegistryErrors(err)
+	}
+
+	if len(resp.Payload) == 0 {
+		return nil, &common.ErrRegistryNotFound{}
+	}
+
+	return resp.Payload, nil
+}
+
+// DeleteRegistryByID deletes a registry identified by ID.
+// Returns an error when no matching registry is found or when
+// having difficulties talking to the API.
+func (c *RESTClient) DeleteRegistryByID(ctx context.Context,
+	id int64) error {
+	params := &registry.DeleteRegistryParams{
+		ID:      id,
+		Context: ctx,
+	}
+
+	params.WithTimeout(c.Options.Timeout)
+
+	_, err := c.V2Client.Registry.DeleteRegistry(params, c.AuthInfo)
+
+	return handleSwaggerRegistryErrors(err)
+}
+
+// UpdateRegistry updates a registry identified by ID with the provided RegistryUpdate 'r'.
+func (c *RESTClient) UpdateRegistry(ctx context.Context, r *modelv2.RegistryUpdate, id int64) error {
+	if r == nil {
+		return &common.ErrRegistryNotProvided{}
+	}
+
+	params := &registry.UpdateRegistryParams{
+		ID:       id,
+		Registry: r,
+		Context:  ctx,
+	}
+
+	params.WithTimeout(c.Options.Timeout)
+
+	_, err := c.V2Client.Registry.UpdateRegistry(params, c.AuthInfo)
+	if err != nil {
+		return handleSwaggerRegistryErrors(err)
+	}
 
 	return handleSwaggerRegistryErrors(err)
 }

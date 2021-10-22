@@ -7,15 +7,16 @@ import (
 
 	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/gc"
-	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client"
+	"github.com/mittwald/goharbor-client/v4/apiv2/pkg/common"
+	"github.com/mittwald/goharbor-client/v4/apiv2/pkg/config"
 
 	modelv2 "github.com/mittwald/goharbor-client/v4/apiv2/model"
 )
 
 // RESTClient is a subclient for handling system related actions.
 type RESTClient struct {
-	// The legacy swagger client
-	LegacyClient *client.Harbor
+	// Options contains optional configuration when making API calls.
+	Options *config.Options
 
 	// The new client of the harbor v2 API
 	V2Client *v2client.Harbor
@@ -24,11 +25,11 @@ type RESTClient struct {
 	AuthInfo runtime.ClientAuthInfoWriter
 }
 
-func NewClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
+func NewClient(v2Client *v2client.Harbor, opts *config.Options, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
 	return &RESTClient{
-		LegacyClient: legacyClient,
-		V2Client:     v2Client,
-		AuthInfo:     authInfo,
+		Options:  opts,
+		V2Client: v2Client,
+		AuthInfo: authInfo,
 	}
 }
 
@@ -43,7 +44,7 @@ type Client interface {
 // NewGarbageCollection creates a new garbage collection schedule.
 func (c *RESTClient) NewGarbageCollection(ctx context.Context, gcSchedule *modelv2.Schedule) error {
 	if gcSchedule == nil {
-		return &ErrSystemGcScheduleNotProvided{}
+		return &common.ErrSystemGcScheduleNotProvided{}
 	}
 
 	if gcSchedule.Parameters == nil {
@@ -52,7 +53,7 @@ func (c *RESTClient) NewGarbageCollection(ctx context.Context, gcSchedule *model
 		}
 	}
 
-	_, err := c.V2Client.Gc.CreateGCSchedule(&gc.CreateGCScheduleParams{
+	_, err := c.V2Client.GC.CreateGCSchedule(&gc.CreateGCScheduleParams{
 		Schedule: gcSchedule,
 		Context:  ctx,
 	}, c.AuthInfo)
@@ -69,7 +70,7 @@ func (c *RESTClient) NewGarbageCollection(ctx context.Context, gcSchedule *model
 func (c *RESTClient) UpdateGarbageCollection(ctx context.Context,
 	newGCSchedule *modelv2.Schedule) error {
 	if newGCSchedule == nil {
-		return &ErrSystemGcScheduleNotProvided{}
+		return &common.ErrSystemGcScheduleNotProvided{}
 	}
 	if newGCSchedule.Parameters == nil {
 		newGCSchedule.Parameters = map[string]interface{}{
@@ -77,7 +78,7 @@ func (c *RESTClient) UpdateGarbageCollection(ctx context.Context,
 		}
 	}
 
-	_, err := c.V2Client.Gc.UpdateGCSchedule(&gc.UpdateGCScheduleParams{
+	_, err := c.V2Client.GC.UpdateGCSchedule(&gc.UpdateGCScheduleParams{
 		Schedule: newGCSchedule,
 		Context:  ctx,
 	}, c.AuthInfo)
@@ -87,16 +88,16 @@ func (c *RESTClient) UpdateGarbageCollection(ctx context.Context,
 
 // GetGarbageCollectionExecution Returns a garbage collection execution identified by its id.
 func (c *RESTClient) GetGarbageCollectionExecution(ctx context.Context, id int64) (*modelv2.GCHistory, error) {
-	resp, err := c.V2Client.Gc.GetGC(&gc.GetGCParams{
+	resp, err := c.V2Client.GC.GetGC(&gc.GetGCParams{
 		Context: ctx,
-		GcID:    id,
+		GCID:    id,
 	}, c.AuthInfo)
 	if err != nil {
 		return nil, handleSwaggerSystemErrors(err)
 	}
 
 	if resp.Payload.Schedule == nil {
-		return nil, &ErrSystemGcUndefined{}
+		return nil, &common.ErrSystemGcUndefined{}
 	}
 
 	return resp.Payload, nil
@@ -104,7 +105,7 @@ func (c *RESTClient) GetGarbageCollectionExecution(ctx context.Context, id int64
 
 // GetGarbageCollectionSchedule returns the system GC schedule.
 func (c *RESTClient) GetGarbageCollectionSchedule(ctx context.Context) (*modelv2.GCHistory, error) {
-	resp, err := c.V2Client.Gc.GetGCSchedule(&gc.GetGCScheduleParams{
+	resp, err := c.V2Client.GC.GetGCSchedule(&gc.GetGCScheduleParams{
 		Context: ctx,
 	}, c.AuthInfo)
 	if err != nil {
@@ -115,14 +116,14 @@ func (c *RESTClient) GetGarbageCollectionSchedule(ctx context.Context) (*modelv2
 		return resp.Payload, nil
 	}
 
-	return nil, &ErrSystemGcScheduleUndefined{}
+	return nil, &common.ErrSystemGcScheduleUndefined{}
 }
 
 // ResetGarbageCollection resets the system GC schedule to it's default values
 // containing "None" as the Schedule Type, which effectively deactivates the schedule.
 // For this to work correctly, a GC schedule must exist beforehand.
 func (c *RESTClient) ResetGarbageCollection(ctx context.Context) error {
-	_, err := c.V2Client.Gc.UpdateGCSchedule(&gc.UpdateGCScheduleParams{
+	_, err := c.V2Client.GC.UpdateGCSchedule(&gc.UpdateGCScheduleParams{
 		Schedule: &modelv2.Schedule{
 			Parameters: map[string]interface{}{
 				"delete_untagged": false,

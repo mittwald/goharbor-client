@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client/products"
+	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/user"
 )
 
 const (
@@ -31,58 +31,47 @@ const (
 	ErrUserPasswordInvalidMsg = "invalid user password"
 )
 
-// ErrUserNotFound describes an error when a specific user was not found on server side.
-type ErrUserNotFound struct{}
+type (
+	// ErrUserNotFound describes an error when a specific user was not found on server side.
+	ErrUserNotFound struct{}
+	// ErrUserBadRequest describes a formal error when creating or updating a user (such as bad password).
+	ErrUserBadRequest struct{}
+	// ErrUserMismatch describes an error when the id and name of a user do not match on server side.
+	ErrUserMismatch struct{}
+	// ErrUserAlreadyExists describes an error indicating that this user already exists.
+	ErrUserAlreadyExists struct{}
+	// ErrUserInvalidID describes an error indicating an invalid user id.
+	ErrUserInvalidID struct{}
+	// ErrUserIDNotExists describes an error indicating a nonexistent user id.
+	ErrUserIDNotExists struct{}
+	// ErrUserPasswordInvalid describes an error indicating an invalid password.
+	ErrUserPasswordInvalid struct{}
+)
 
-// Error returns the error message.
 func (e *ErrUserNotFound) Error() string {
 	return ErrUserNotFoundMsg
 }
 
-// ErrUserBadRequest describes a formal error when creating or updating a user (such as bad password).
-type ErrUserBadRequest struct{}
-
-// Error returns the error message.
 func (e *ErrUserBadRequest) Error() string {
 	return ErrUserBadRequestMsg
 }
 
-// ErrUserMismatch describes an error when the id and name of a user do not match on server side.
-type ErrUserMismatch struct{}
-
-// Error returns the error message.
 func (e *ErrUserMismatch) Error() string {
 	return ErrUserMismatchMsg
 }
 
-// ErrUserAlreadyExists describes an error indicating that this user already exists.
-type ErrUserAlreadyExists struct{}
-
-// Error returns the error message.
 func (e *ErrUserAlreadyExists) Error() string {
 	return ErrUserAlreadyExistsMsg
 }
 
-// ErrUserInvalidID describes an error indicating an invalid user id.
-type ErrUserInvalidID struct{}
-
-// Error returns the error message.
 func (e *ErrUserInvalidID) Error() string {
 	return ErrUserInvalidIDMsg
 }
 
-// ErrUserIDNotExists describes an error indicating a non existing user id.
-type ErrUserIDNotExists struct{}
-
-// Error returns the error message.
 func (e *ErrUserIDNotExists) Error() string {
 	return ErrUserIDNotExistsMsg
 }
 
-// ErrUserPasswordInvalid describes an error indicating an invalid password
-type ErrUserPasswordInvalid struct{}
-
-// Error returns the error message.
 func (e *ErrUserPasswordInvalid) Error() string {
 	return ErrUserPasswordInvalidMsg
 }
@@ -96,17 +85,17 @@ func handleSwaggerUserErrors(in error) error {
 		switch t.Code {
 		case http.StatusConflict:
 			return &ErrUserAlreadyExists{}
+		case http.StatusCreated:
+			return nil
 		}
 	}
 
 	switch in.(type) {
-	case *products.PostUsersBadRequest:
-		return &ErrUserBadRequest{}
-	case *products.PutUsersUserIDBadRequest:
-		return &ErrUserInvalidID{}
-	case *products.PutUsersUserIDPasswordBadRequest:
-		return &ErrUserPasswordInvalid{}
 	default:
 		return in
+	case *user.CreateUserBadRequest:
+		return &ErrUserBadRequest{}
+	case *user.UpdateUserPasswordBadRequest:
+		return &ErrUserPasswordInvalid{}
 	}
 }

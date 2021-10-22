@@ -1,4 +1,4 @@
-// +build integration
+////go:build integration
 
 package retention
 
@@ -8,14 +8,16 @@ import (
 	"testing"
 
 	modelv2 "github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v4/apiv2/pkg/config"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/stretchr/testify/require"
+
 	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client"
+	integrationtest "github.com/mittwald/goharbor-client/v4/apiv2/pkg/testing"
 	pc "github.com/mittwald/goharbor-client/v4/apiv2/project"
-	integrationtest "github.com/mittwald/goharbor-client/v4/apiv2/testing"
-	"github.com/stretchr/testify/require"
 )
 
 var (
@@ -24,6 +26,8 @@ var (
 	v2SwaggerClient           = v2client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
 	authInfo                  = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
 	storageLimit        int64 = 1
+	opts                      = config.Options{}
+	defaultOpts               = opts.Defaults()
 )
 
 const (
@@ -69,9 +73,9 @@ func newTestRetention(projectID int64) modelv2.RetentionPolicy {
 func TestAPIRetentionNew(t *testing.T) {
 	ctx := context.Background()
 
-	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
+	c := NewClient(v2SwaggerClient, defaultOpts, authInfo)
 
-	pc := pc.NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
+	pc := pc.NewClient(v2SwaggerClient, defaultOpts, authInfo)
 
 	p, err := pc.NewProject(ctx, projectName, &storageLimit)
 	require.NoError(t, err)
@@ -87,40 +91,14 @@ func TestAPIRetentionNew(t *testing.T) {
 	require.NoError(t, err)
 
 	require.Nil(t, err)
-}
-
-func TestAPIRetentionGet(t *testing.T) {
-	ctx := context.Background()
-
-	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
-
-	pc := pc.NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
-
-	p, err := pc.NewProject(ctx, projectName, &storageLimit)
-	require.NoError(t, err)
-
-	defer pc.DeleteProject(ctx, p)
-
-	p, err = pc.GetProject(ctx, projectName)
-
-	ret := newTestRetention(int64(p.ProjectID))
-
-	err = c.NewRetentionPolicy(ctx, &ret)
-
-	require.NoError(t, err)
-	require.Nil(t, err)
-
-	rp, err := c.GetRetentionPolicyByProject(ctx, p)
-	require.NoError(t, err)
-	require.NotNil(t, rp)
 }
 
 func TestAPIRetentionUpdate(t *testing.T) {
 	ctx := context.Background()
 
-	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
+	c := NewClient(v2SwaggerClient, defaultOpts, authInfo)
 
-	pc := pc.NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
+	pc := pc.NewClient(v2SwaggerClient, defaultOpts, authInfo)
 
 	p, err := pc.NewProject(ctx, projectName, &storageLimit)
 	require.NoError(t, err)
@@ -175,9 +153,9 @@ func TestAPIRetentionUpdate(t *testing.T) {
 func TestAPIRetentionDelete(t *testing.T) {
 	ctx := context.Background()
 
-	c := NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
+	c := NewClient(v2SwaggerClient, defaultOpts, authInfo)
 
-	pc := pc.NewClient(legacySwaggerClient, v2SwaggerClient, authInfo)
+	pc := pc.NewClient(v2SwaggerClient, defaultOpts, authInfo)
 
 	p, err := pc.NewProject(ctx, projectName, &storageLimit)
 	require.NoError(t, err)
@@ -198,12 +176,13 @@ func TestAPIRetentionDelete(t *testing.T) {
 	require.NoError(t, err)
 	require.Nil(t, err)
 
-	err = c.DisableRetentionPolicy(ctx, rp)
+	err = c.DeleteRetentionPolicyByID(ctx, rp.ID)
 
 	require.NoError(t, err)
 
-	disabled, err := c.GetRetentionPolicyByProject(ctx, p)
+	deleted, err := c.GetRetentionPolicyByProject(ctx, p)
 
-	require.NoError(t, err)
-	require.Equal(t, 0, len(disabled.Rules))
+	require.Error(t, err)
+	require.ErrorIs(t, err, &ErrRetentionInternalErrors{})
+	require.Nil(t, deleted)
 }

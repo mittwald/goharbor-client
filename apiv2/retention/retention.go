@@ -6,13 +6,14 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/go-openapi/runtime"
+
+	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/retention"
 	modelv2 "github.com/mittwald/goharbor-client/v4/apiv2/model"
-
-	"github.com/go-openapi/runtime"
-	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
-	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client"
-	projectapi "github.com/mittwald/goharbor-client/v4/apiv2/project"
+	"github.com/mittwald/goharbor-client/v4/apiv2/pkg/common"
+	"github.com/mittwald/goharbor-client/v4/apiv2/pkg/config"
+	"github.com/mittwald/goharbor-client/v4/apiv2/projectmeta"
 )
 
 const (
@@ -60,8 +61,8 @@ type Client interface {
 
 // RESTClient is a subclient for handling retention related actions.
 type RESTClient struct {
-	// The swagger client
-	LegacyClient *client.Harbor
+	// Options contains optional configuration when making API calls.
+	Options *config.Options
 
 	V2Client *v2client.Harbor
 
@@ -69,11 +70,11 @@ type RESTClient struct {
 	AuthInfo runtime.ClientAuthInfoWriter
 }
 
-func NewClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
+func NewClient(v2Client *v2client.Harbor, opts *config.Options, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
 	return &RESTClient{
-		LegacyClient: legacyClient,
-		V2Client:     v2Client,
-		AuthInfo:     authInfo,
+		Options: opts,
+		V2Client: v2Client,
+		AuthInfo: authInfo,
 	}
 }
 
@@ -116,11 +117,11 @@ func (c *RESTClient) NewRetentionPolicy(ctx context.Context, ret *modelv2.Retent
 	return nil
 }
 
-// GetRetentionPolicyByProject returns a retention policy that is fetched by the metadata value contained in a project's metadata.
+// GetRetentionPolicyByProject returns the retention policy associated to a project.
 func (c *RESTClient) GetRetentionPolicyByProject(ctx context.Context, project *modelv2.Project) (*modelv2.RetentionPolicy, error) {
-	pc := projectapi.NewClient(c.LegacyClient, c.V2Client, c.AuthInfo)
+	pm := projectmeta.NewClient(c.V2Client, c.Options, c.AuthInfo)
 
-	val, err := pc.GetProjectMetadataValue(ctx, fmt.Sprint(project.ProjectID), projectapi.ProjectMetadataKeyRetentionID)
+	val, err := pm.GetProjectMetadataValue(ctx, fmt.Sprint(project.ProjectID), common.ProjectMetadataKeyRetentionID)
 	if err != nil {
 		return nil, err
 	}
@@ -140,40 +141,62 @@ func (c *RESTClient) GetRetentionPolicyByID(ctx context.Context, id int64) (*mod
 		Context: ctx,
 	}, c.AuthInfo)
 	if err != nil {
+		fmt.Println()
 		return nil, handleSwaggerRetentionErrors(err)
 	}
 
 	return resp.Payload, nil
 }
 
-// DisableRetentionPolicy replaces the rules of a retention policy with an empty set of rules.
-// As of Harbor v2.2.1, the swagger specifications do not contain a DELETE route for
-// retention policies, but instead PUT a retention policy with a dummy retention rule.
-// This function provides the same functionality as "Action -> Delete" when editing retention rules in the GUI.
-// TODO: replace this method with a new one 'DeleteRetentionPolicy'
-// once the delete route for the retention API [^1] has been released.
-// [^1]: https://github.com/goharbor/harbor/pull/14747/commits/81e5aa715b98b39fbf729048c34fe46c3af31505
-func (c *RESTClient) DisableRetentionPolicy(ctx context.Context, ret *modelv2.RetentionPolicy) error {
-	if ret == nil {
-		return &ErrRetentionNotProvided{}
-	}
+//
+// // DisableRetentionPolicy replaces the rules of a retention policy with an empty set of rules.
+// // As of Harbor v2.2.1, the swagger specifications do not contain a DELETE route for
+// // retention policies, but instead PUT a retention policy with a dummy retention rule.
+// // This function provides the same functionality as "Action -> Delete" when editing retention rules in the GUI.
+// // TODO: replace this method with a new one 'DeleteRetentionPolicy'
+// // once the delete route for the retention API [^1] has been released.
+// // [^1]: https://github.com/goharbor/harbor/pull/14747/commits/81e5aa715b98b39fbf729048c34fe46c3af31505
+// func (c *RESTClient) DisableRetentionPolicy(ctx context.Context, ret *modelv2.RetentionPolicy) error {
+// 	if ret == nil {
+// 		return &ErrRetentionNotProvided{}
+// 	}
+//
+// 	params := &retention.UpdateRetentionParams{
+// 		ID: ret.ID,
+// 		Policy: &modelv2.RetentionPolicy{
+// 			Algorithm: ret.Algorithm,
+// 			ID:        ret.ID,
+// 			Rules:     []*modelv2.RetentionRule{},
+// 			Scope:     ret.Scope,
+// 			Trigger:   ret.Trigger,
+// 		},
+// 		Context: ctx,
+// 	}
+//
+// 	params.WithTimeout(c.Options.Timeout)
+//
+// 	resp, err := c.V2Client.Retention.UpdateRetention(params, c.AuthInfo)
+//
+// 	if resp == nil {
+// 		return &ErrRetentionDoesNotExist{}
+// 	}
+//
+// 	if err != nil {
+// 		return handleSwaggerRetentionErrors(err)
+// 	}
+//
+// 	return nil
+// }
 
-	resp, err := c.V2Client.Retention.UpdateRetention(&retention.UpdateRetentionParams{
-		ID: ret.ID,
-		Policy: &modelv2.RetentionPolicy{
-			Algorithm: ret.Algorithm,
-			ID:        ret.ID,
-			Rules:     []*modelv2.RetentionRule{},
-			Scope:     ret.Scope,
-			Trigger:   ret.Trigger,
-		},
+func (c *RESTClient) DeleteRetentionPolicyByID(ctx context.Context, id int64) error {
+	params := &retention.DeleteRetentionParams{
+		ID:      id,
 		Context: ctx,
-	}, c.AuthInfo)
-
-	if resp == nil {
-		return &ErrRetentionDoesNotExist{}
 	}
 
+	params.WithTimeout(c.Options.Timeout)
+
+	_, err := c.V2Client.Retention.DeleteRetention(params, c.AuthInfo)
 	if err != nil {
 		return handleSwaggerRetentionErrors(err)
 	}
@@ -187,11 +210,15 @@ func (c *RESTClient) UpdateRetentionPolicy(ctx context.Context, ret *modelv2.Ret
 		return &ErrRetentionNotProvided{}
 	}
 
-	resp, err := c.V2Client.Retention.UpdateRetention(&retention.UpdateRetentionParams{
+	params := &retention.UpdateRetentionParams{
 		ID:      ret.ID,
 		Policy:  ret,
 		Context: ctx,
-	}, c.AuthInfo)
+	}
+
+	params.WithTimeout(c.Options.Timeout)
+
+	resp, err := c.V2Client.Retention.UpdateRetention(params, c.AuthInfo)
 
 	if resp == nil {
 		return &ErrRetentionDoesNotExist{}

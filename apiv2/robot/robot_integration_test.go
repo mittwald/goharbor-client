@@ -1,4 +1,4 @@
-// +build integration
+//go:build integration
 
 package robot
 
@@ -11,9 +11,10 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/stretchr/testify/require"
 
+	integrationtest "github.com/mittwald/goharbor-client/v4/apiv2/testing"
+
 	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
 	modelv2 "github.com/mittwald/goharbor-client/v4/apiv2/model"
-	integrationtest "github.com/mittwald/goharbor-client/v4/apiv2/testing"
 )
 
 var (
@@ -36,6 +37,8 @@ var (
 		}},
 		Secret: "",
 	}
+		opts                      = config.Options{}
+	defaultOpts               = opts.Defaults()
 )
 
 func TestAPINewRobotAccount(t *testing.T) {

@@ -5,9 +5,12 @@ import (
 	"net/url"
 	"strings"
 
+	"k8s.io/apimachinery/pkg/util/intstr"
+
 	"github.com/mittwald/goharbor-client/v4/apiv2/auditlog"
 	"github.com/mittwald/goharbor-client/v4/apiv2/gc"
 	modelv2 "github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v4/apiv2/pkg/config"
 	"github.com/mittwald/goharbor-client/v4/apiv2/quota"
 	"github.com/mittwald/goharbor-client/v4/apiv2/retention"
 	"github.com/mittwald/goharbor-client/v4/apiv2/robot"
@@ -23,21 +26,23 @@ import (
 	"github.com/mittwald/goharbor-client/v4/apiv2/project"
 	"github.com/mittwald/goharbor-client/v4/apiv2/registry"
 	"github.com/mittwald/goharbor-client/v4/apiv2/replication"
-	"github.com/mittwald/goharbor-client/v4/apiv2/system"
+	"github.com/mittwald/goharbor-client/v4/apiv2/systeminfo"
 	"github.com/mittwald/goharbor-client/v4/apiv2/user"
 )
 
 const v2URLSuffix string = "/v2.0"
 
 type Client interface {
+	auditlog.Client
 	user.Client
 	project.Client
 	registry.Client
 	replication.Client
-	system.Client
+	systeminfo.Client
 	retention.Client
 	quota.Client
 	gc.Client
+	robot.Client
 }
 
 // RESTClient implements the Client interface as a REST client
@@ -47,7 +52,7 @@ type RESTClient struct {
 	project     *project.RESTClient
 	registry    *registry.RESTClient
 	replication *replication.RESTClient
-	system      *system.RESTClient
+	system      *systeminfo.RESTClient
 	retention   *retention.RESTClient
 	quota       *quota.RESTClient
 	gc          *gc.RESTClient
@@ -55,14 +60,18 @@ type RESTClient struct {
 }
 
 // NewRESTClient constructs a new REST client containing each sub client.
-func NewRESTClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
+func NewRESTClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, opts *config.Options, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
+	if opts == nil {
+		opts = opts.Defaults()
+	}
+
 	return &RESTClient{
 		auditlog:    auditlog.NewClient(v2Client, authInfo),
-		user:        user.NewClient(legacyClient, v2Client, authInfo),
+		user:        user.NewClient(v2Client, opts, authInfo),
 		project:     project.NewClient(legacyClient, v2Client, authInfo),
 		registry:    registry.NewClient(legacyClient, v2Client, authInfo),
 		replication: replication.NewClient(legacyClient, v2Client, authInfo),
-		system:      system.NewClient(legacyClient, v2Client, authInfo),
+		system:      systeminfo.NewClient(legacyClient, v2Client, authInfo),
 		retention:   retention.NewClient(legacyClient, v2Client, authInfo),
 		quota:       quota.NewClient(legacyClient, v2Client, authInfo),
 		gc:          gc.NewClient(legacyClient, v2Client, authInfo),
@@ -72,7 +81,7 @@ func NewRESTClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authI
 
 // NewRESTClientForHost constructs a new REST client containing a swagger API client using the defined
 // host string and basePath, the additional Harbor v2 API suffix as well as basic auth info.
-func NewRESTClientForHost(u, username, password string) (*RESTClient, error) {
+func NewRESTClientForHost(u, username, password string, opts *config.Options) (*RESTClient, error) {
 	if !strings.HasSuffix(u, v2URLSuffix) {
 		u += v2URLSuffix
 	}
@@ -86,49 +95,69 @@ func NewRESTClientForHost(u, username, password string) (*RESTClient, error) {
 	v2SwaggerClient := v2client.New(runtimeclient.New(harborURL.Host, harborURL.Path, []string{harborURL.Scheme}), strfmt.Default)
 	authInfo := runtimeclient.BasicAuth(username, password)
 
-	return NewRESTClient(legacySwaggerClient, v2SwaggerClient, authInfo), nil
+	return NewRESTClient(legacySwaggerClient, v2SwaggerClient, opts, authInfo), nil
 }
 
 // User Client
 
 // NewUser wraps the NewUser method of the user sub-package.
-func (c *RESTClient) NewUser(ctx context.Context, username, email, realname, password, comments string) (*legacymodel.User, error) {
+func (c *RESTClient) NewUser(ctx context.Context, username, email, realname, password, comments string) (*modelv2.UserResp, error) {
 	return c.user.NewUser(ctx, username, email, realname, password, comments)
 }
 
-// GetUser wraps the GetUser method of the user sub-package.
-func (c *RESTClient) GetUser(ctx context.Context, username string) (*legacymodel.User, error) {
-	return c.user.GetUser(ctx, username)
+// GetUserByName wraps the GetUserByName method of the user sub-package.
+func (c *RESTClient) GetUserByName(ctx context.Context, username string) (*modelv2.UserResp, error) {
+	return c.user.GetUserByName(ctx, username)
 }
 
 // GetUserByID wraps the GetUserByID method of the user sub-package.
-func (c *RESTClient) GetUserByID(ctx context.Context, id int64) (*modelv2.UserEntity, error) {
+func (c *RESTClient) GetUserByID(ctx context.Context, id int64) (*modelv2.UserResp, error) {
 	return c.user.GetUserByID(ctx, id)
 }
 
 // ListUsers wraps the ListUsers method of the user sub-package.
-func (c *RESTClient) ListUsers(ctx context.Context) ([]*legacymodel.User, error) {
+func (c *RESTClient) ListUsers(ctx context.Context) ([]*modelv2.UserResp, error) {
 	return c.user.ListUsers(ctx)
 }
 
-// DeleteUser wraps the DeleteUser method of the user sub-package.
-func (c *RESTClient) DeleteUser(ctx context.Context, u *legacymodel.User) error {
-	return c.user.DeleteUser(ctx, u)
+// SearchUsers wraps the SearchUsers method of the user sub-package.
+func (c *RESTClient) SearchUsers(ctx context.Context, name string) ([]*modelv2.UserSearchRespItem, error) {
+	return c.user.SearchUsers(ctx, name)
 }
 
-// UpdateUser wraps the UpdateUser method of the user sub-package.
-func (c *RESTClient) UpdateUser(ctx context.Context, u *legacymodel.User) error {
-	return c.user.UpdateUser(ctx, u)
+// GetCurrentUserInfo wraps the GetCurrentUserInfo method of the user sub-package.
+func (c *RESTClient) GetCurrentUserInfo(ctx context.Context) (*modelv2.UserResp, error) {
+	return c.user.GetCurrentUserInfo(ctx)
+}
+
+// GetCurrentUserPermisisons wraps the GetCurrentUserPermisisons method of the user sub-package.
+func (c *RESTClient) GetCurrentUserPermisisons(ctx context.Context, relative bool, scope string) ([]*modelv2.Permission, error) {
+	return c.user.GetCurrentUserPermisisons(ctx, relative, scope)
+}
+
+// SetUserSysAdmin wraps the SetUserSysAdmin method of the user sub-package.
+func (c *RESTClient) SetUserSysAdmin(ctx context.Context, id int64, admin bool) error {
+	return c.user.SetUserSysAdmin(ctx, id, admin)
+}
+
+// DeleteUser wraps the DeleteUser method of the user sub-package.
+func (c *RESTClient) DeleteUser(ctx context.Context, id int64) error {
+	return c.user.DeleteUser(ctx, id)
+}
+
+// UpdateUserProfile wraps the UpdateUserProfile method of the user sub-package.
+func (c *RESTClient) UpdateUserProfile(ctx context.Context, id int64, profile *modelv2.UserProfile) error {
+	return c.user.UpdateUserProfile(ctx, id, profile)
 }
 
 // UpdateUserPassword wraps the UpdateUserPassword method of the user sub-package.
-func (c *RESTClient) UpdateUserPassword(ctx context.Context, id int64, password *legacymodel.Password) error {
-	return c.user.UpdateUserPassword(ctx, id, password)
+func (c *RESTClient) UpdateUserPassword(ctx context.Context, userID int64, old, new string) error {
+	return c.user.UpdateUserPassword(ctx, userID, old, new)
 }
 
 // UserExists wraps the UserExists method of the user sub-package.
-func (c *RESTClient) UserExists(ctx context.Context, u *legacymodel.User) (bool, error) {
-	return c.user.UserExists(ctx, u)
+func (c *RESTClient) UserExists(ctx context.Context, idOrName intstr.IntOrString) (bool, error) {
+	return c.user.UserExists(ctx, idOrName)
 }
 
 // Project Client

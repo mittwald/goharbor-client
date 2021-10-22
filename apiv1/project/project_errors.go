@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/go-openapi/runtime"
+
 	"github.com/mittwald/goharbor-client/v4/apiv1/internal/api/client/products"
 )
 

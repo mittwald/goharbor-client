@@ -1,4 +1,4 @@
-// +build !integration
+//go:build !integration
 
 package auditlog
 
@@ -10,40 +10,44 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 
-	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/auditlog"
 	"github.com/mittwald/goharbor-client/v4/apiv2/mocks"
+	unittesting "github.com/mittwald/goharbor-client/v4/apiv2/pkg/testing"
 )
 
-var authInfo = runtimeclient.BasicAuth("foo", "bar")
+var (
+	authInfo = runtimeclient.BasicAuth("foo", "bar")
+	ctx      = context.Background()
+)
 
-func BuildV2ClientWithMocks(audit *mocks.MockAuditlogClientService) *v2client.Harbor {
-	return &v2client.Harbor{
-		Auditlog: audit,
+func APIandMockClientsForTests() (*RESTClient, *unittesting.MockClients) {
+	desiredMockClients := &unittesting.MockClients{
+		Project: mocks.MockProjectClientService{},
 	}
+
+	v2Client := unittesting.BuildV2ClientWithMocks(desiredMockClients)
+
+	cl := NewClient(v2Client, &unittesting.DefaultOpts, authInfo)
+
+	return cl, desiredMockClients
 }
 
 func TestRESTClient_ListAuditLogs(t *testing.T) {
-	a := &mocks.MockAuditlogClientService{}
-
-	v2Client := BuildV2ClientWithMocks(a)
-
-	cl := NewClient(v2Client, authInfo)
-
-	ctx := context.Background()
+	apiClient, mockClient := APIandMockClientsForTests()
 
 	listAuditLogsParams := &auditlog.ListAuditLogsParams{
-		PageSize: nil,
-		Q:        nil,
+		PageSize: &apiClient.Options.PageSize,
+		Q:        &apiClient.Options.Query,
+		Sort:     &apiClient.Options.Sort,
 		Context:  ctx,
 	}
 
-	a.On("ListAuditLogs", listAuditLogsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	mockClient.Auditlog.On("ListAuditLogs", listAuditLogsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&auditlog.ListAuditLogsOK{}, nil)
 
-	_, err := cl.ListAuditLogs(ctx, nil, nil)
+	_, err := apiClient.ListAuditLogs(ctx)
 
 	assert.NoError(t, err)
 
-	a.AssertExpectations(t)
+	mockClient.Auditlog.AssertExpectations(t)
 }
