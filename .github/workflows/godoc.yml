@@ -13,4 +13,4 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Test successful curl against module mirror
-        run : test $(curl -s -o /dev/null -w "%{http_code}" ${GOPROXY}/github.com/mittwald/goharbor-client/v4/@v/${GITHUB_REF/refs\/tags\//}.info) -eq 200
+        run : test $(curl -s -o /dev/null -w "%{http_code}" ${GOPROXY}/github.com/mittwald/goharbor-client/v5/@v/${GITHUB_REF/refs\/tags\//}.info) -eq 200

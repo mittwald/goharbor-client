@@ -1,4 +1,4 @@
-module github.com/mittwald/goharbor-client/v4
+module github.com/mittwald/goharbor-client/v5
 
 go 1.17
 
@@ -10,6 +10,7 @@ require (
 	github.com/go-openapi/validate v0.20.2
 	github.com/goharbor/harbor/src v0.0.0-20211002023338-32023891eb41
 	github.com/stretchr/testify v1.7.0
+	k8s.io/apimachinery v0.21.0
 
 )
 
@@ -22,13 +23,16 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/docker/distribution v2.7.1+incompatible // indirect
 	github.com/felixge/httpsnoop v1.0.2 // indirect
+	github.com/go-logr/logr v0.4.0 // indirect
 	github.com/go-openapi/analysis v0.20.0 // indirect
 	github.com/go-openapi/jsonpointer v0.19.5 // indirect
 	github.com/go-openapi/jsonreference v0.19.5 // indirect
 	github.com/go-openapi/loads v0.20.2 // indirect
 	github.com/go-openapi/spec v0.20.3 // indirect
 	github.com/go-stack/stack v1.8.0 // indirect
+	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/google/gofuzz v1.1.0 // indirect
 	github.com/google/uuid v1.1.2 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
@@ -61,4 +65,5 @@ require (
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
+	k8s.io/klog/v2 v2.8.0 // indirect
 )
