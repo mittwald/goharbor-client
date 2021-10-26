@@ -14,10 +14,10 @@ jobs:
     name: Test
     runs-on: ubuntu-20.04
     steps:
-      - name: Set up Go 1.16.5
+      - name: Set up Go 1.17
         uses: actions/setup-go@v2
         with:
-          go-version: 1.16.5
+          go-version: 1.17
         id: go
 
       - name: Check out code into the Go module directory
@@ -35,7 +35,7 @@ jobs:
         with:
           coverageCommand: go test -coverprofile=c.out ./...
           debug: true
-          prefix: 'github.com/${{ github.repository }}/v4'
+          prefix: 'github.com/${{ github.repository }}/v5'
 
       - name: Go Test
         if: github.event_name == 'pull_request'
