@@ -1,4 +1,4 @@
-// +build integration
+//go:build integration
 
 package project
 
@@ -9,10 +9,12 @@ import (
 	"testing"
 
 	"github.com/go-openapi/strfmt"
+
 	"github.com/mittwald/goharbor-client/v5/apiv1/internal/api/client"
 	integrationtest "github.com/mittwald/goharbor-client/v5/apiv1/testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
+
 	uc "github.com/mittwald/goharbor-client/v5/apiv1/user"
 
 	"github.com/stretchr/testify/assert"
