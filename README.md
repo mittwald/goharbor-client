@@ -20,14 +20,14 @@ Install the desired client library version using `go get`:
 
 ```shell script
 # v1 Client
-go get github.com/mittwald/goharbor-client/v4/apiv1
+go get github.com/mittwald/goharbor-client/v5/apiv1
 ```
 
 or
 
 ```shell script
 # v2 Client
-go get github.com/mittwald/goharbor-client/v4/apiv2
+go get github.com/mittwald/goharbor-client/v5/apiv2
 ```
 
 ## Contributing
@@ -36,4 +36,4 @@ Before you make your changes, check to see if an [issue already exists](https://
 When in doubt where to start when making changes to the client, please refer to the [Contribution guide](./CONTRIBUTING.md).
 
 ## Documentation
-For more specific documentation, please refer to the [godoc](https://pkg.go.dev/github.com/mittwald/goharbor-client/v4) of this library.
+For more specific documentation, please refer to the [godoc](https://pkg.go.dev/github.com/mittwald/goharbor-client/v5) of this library (which also contains [usage examples](https://pkg.go.dev/github.com/mittwald/goharbor-client/v5#pkg-examples)).

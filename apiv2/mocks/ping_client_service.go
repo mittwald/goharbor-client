@@ -4,7 +4,7 @@ package mocks
 
 import (
 	runtime "github.com/go-openapi/runtime"
-	ping "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/ping"
+	ping "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/ping"
 	mock "github.com/stretchr/testify/mock"
 )
 

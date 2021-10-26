@@ -1,71 +1,151 @@
 # Contribution guide
 
 ## Table of contents
+- [Repository structure](#repository-structure)
 - [Implementing sub-clients](#implementing-sub-clients)
 - [Code generation](#code-generation)
     - [Client APIs](#client-apis)
     - [API mocks](#api-mocks)
 
+## Repository structure
+
+```shell
+.
+├── apiv1
+│  ├── client.go //  The main file of the package containing the exposed 'Client' interface
+│  ├── internal
+│  │  └── api
+│  │      └── client
+│  │          ├── harbor_client.go
+│  │          └── products // Contains the 'Products' client which wraps all v1 client functions
+│  │              └── products_client.go // contains the ClientService interface used to generate 'client_service.go'
+│  ├── mocks
+│  │  └── client_service.go
+│  ├── model // v1 API definitions
+│  ├── project // Project client (as an example)
+│  │  ├── project_errors.go
+│  │  ├── project.go
+│  │  ├── project_integration_test.go
+│  │  └── project_test.go
+│  └── [...] // Other clients
+│  ├── scripts -> ../scripts // Symbolic link to code generation scripts
+│  ├── testdata -> ../testdata // Symbolic link to integration test configuration
+│  └── testing // Testing definitions
+│
+├── apiv2
+│  ├── client.go // The main file of the package containing the exposed 'Client' interface
+│  ├── internal
+│  │  └── api
+│  │     └── client
+│  │         ├── harbor_client.go // Contains the 'Harbor' struct which wraps all of the below clients
+│  │         ├── auditlog // 'Auditlog' 'v2' API client wrapping all auditlog functions (as an example)
+│  │         └── [...] // Other 'v2' API client functions
+│  ├── mocks // Contains mock clients of the above clients in './apiv2/internal/api/client'
+│  │  └── [...]
+│  ├── model // v2 API definitions
+│  │  └── [...]
+│  ├── pkg
+│  │  ├── clients // Contains the API clients implemented by the 'Client' interface in './apiv2/client.go'
+│  │  │  ├── auditlog // 'Auditlog' client (as an example)
+│  │  │  │  ├── auditlog_errors.go
+│  │  │  │  ├── auditlog.go
+│  │  │  │  ├── auditlog_integration_test.go
+│  │  │  │  └── auditlog_test.go
+│  │  │  └── [...] // Other clients
+│  │  ├── common // Types used throughout this package
+│  │  │  └── [...]
+│  │  ├── config // goharbor-client configuration, e.g. for specifying the 'PageSize' when operating on API endpoints using pagination
+│  │  │  └── options.go
+│  │  ├── errors // Wrapped errors used throughout this package
+│  │  │  └── [...]
+│  │  ├── testing // Testing definitions
+│  │  └── util
+│  │      └── project.go
+│  ├── scripts -> ../scripts // Symbolic link to code generation scripts
+│  └── testdata -> ../testdata // Symbolic link to integration test configuration
+│
+├── go.mod
+├── go.sum
+├── Makefile
+├── scripts
+│  ├── gen-mock.sh // 'mockery' code generation (used by 'make generate')
+│  ├── setup-harbor.sh // Local harbor bootstrapping (requires helm, used by 'make setup-harbor-v1', 'make setup-harbor-v2')
+│  └── swagger-gen.sh // 'go-swagger' code generation (used by 'make generate')
+└── testdata
+    └── kind-config.yaml
+```
+
 ## Implementing sub-clients
-This client library includes separate clients supporting the `v1.10` & `v2.1` versions of `goharbor`.
 
 This section helps you to get started when adding / updating a new sub-client.
 
 --- 
-A new sub-client can be added by creating the corresponding package in either the [apiv1](./apiv1) or [apiv2](./apiv2) directory.
+A new sub-client can be added by creating the corresponding package in either the [apiv1](./apiv1) or [apiv2/pkg/clients](./apiv2/pkg/clients) directory.
 
-For example, let's look at the existing [`user` sub-client package](https://github.com/mittwald/goharbor-client/tree/master/apiv2/user) of the `v2` client:
+For example, let's look at the existing `user` package of the `v2` client:
+
 ```shell
 .
 └── apiv2
-  └── user
-      ├── user.go
-      ├── user_errors.go
-      ├── user_integration_test.go
-      └── user_test.go
+   └── pkg
+      └── clients
+         └── user
+             ├── user_errors.go
+             ├── user.go
+             ├── user_integration_test.go
+             └── user_test.go
 ```
+
 > To maintain integrity with the rest of the repository,
  new sub-client's `.go`-files should be prefixed with their package name.
 
-`user.go` holds the methods that act operations on `user` objects on the `goharbor` API.
+`user.go` holds the methods that act operations on `user` objects on the `goharbor` API. The below examples are not guaranteed to be up to date.
 
-It contains a [`RESTClient` struct](https://github.com/mittwald/goharbor-client/blob/master/apiv2/user/user.go#L17) that - for compatibility reasons - groups together the **legacy and v2** client APIs
-as well as a field `AuthInfo` for [openAPI's `runtime.ClientAuthInfoWriter`](https://pkg.go.dev/github.com/go-openapi/runtime#ClientAuthInfoWriter).
+It contains a `RESTClient` struct that groups together the `v2` Goharbor client, client `Options` as well as a field `AuthInfo` for [openAPI's `runtime.ClientAuthInfoWriter`](https://pkg.go.dev/github.com/go-openapi/runtime#ClientAuthInfoWriter).
 The latter is used to authenticate requests to the `goharbor` API:
+
 ```go
+package user
+
 import (
-    "context"
-    "errors"
-    "github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client"
-    "github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client/products"
-    v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
-    model "github.com/mittwald/goharbor-client/v4/apiv2/model/legacy"
-    "github.com/go-openapi/runtime"
+	"context"
+	"errors"
+
+	"k8s.io/apimachinery/pkg/util/intstr"
+
+	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
+	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/user"
+	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/config"
+	clienterrors "github.com/mittwald/goharbor-client/v5/apiv2/pkg/errors"
+
+	"github.com/go-openapi/runtime"
 )
 
 // RESTClient is a subclient for handling user related actions.
 type RESTClient struct {
-	// The legacy swagger client
-	LegacyClient *client.Harbor
-
 	// The new client of the harbor v2 API
 	V2Client *v2client.Harbor
+
+	// Options contains optional configuration when making API calls.
+	Options *config.Options
 
 	// AuthInfo contains the auth information that is provided on API calls.
 	AuthInfo runtime.ClientAuthInfoWriter
 }
+
 ```
 
-A [`NewClient` function](https://github.com/mittwald/goharbor-client/blob/master/apiv2/user/user.go#L28) constructs and returns the `user.RESTClient`:
+A `NewClient` function constructs and returns the `user.RESTClient`:
+
 ```go
-func NewClient(legacyClient *client.Harbor, v2Client *v2client.Harbor, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
+func NewClient(v2Client *v2client.Harbor, opts *config.Options, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
 	return &RESTClient{
-		LegacyClient: legacyClient,
-		V2Client:     v2Client,
-		AuthInfo:     authInfo,
+		Options:  opts,
+		V2Client: v2Client,
+		AuthInfo: authInfo,
 	}
 }
-
 ```
 
 The package also contains a [`Client` interface](https://github.com/mittwald/goharbor-client/blob/master/apiv2/user/user.go#L36) that holds all method signatures:
@@ -76,36 +156,36 @@ type Client interface {
 
 ```
 
-Since there are no methods in this example setup _yet_, let's implement a method called `GetUser` that returns a `user` object:
+Since there are no methods in this example setup _yet_, let's implement a method called `GetUserByName` that returns a `*modelv2.UserResp` object:
 ```go
-// GetUser returns an existing user or an error in case of failure.
-func (c *RESTClient) GetUser(ctx context.Context, username string) (*model.User, error) {
-    if username == "" {
-        return nil, errors.New("no username provided")
-    }
-    
-    resp, err := c.LegacyClient.Products.GetUsers(&products.GetUsersParams{
-        Context:  ctx,
-        Username: &username,
-    }, c.AuthInfo)
-    if err != nil {
-        return nil, handleSwaggerUserErrors(err)
-    }
-    
-    for _, v := range resp.Payload {
-        if v.Username == username {
-            return v, nil
-        }
-    }
-    
-    return nil, &ErrUserNotFound{}
+// GetUserByName returns an existing user identified by name.
+func (c *RESTClient) GetUserByName(ctx context.Context, username string) (*modelv2.UserResp, error) {
+	if username == "" {
+		return nil, errors.New("no username provided")
+	}
+
+	c.Options.PageSize = 100
+
+	resp, err := c.ListUsers(ctx)
+	if err != nil {
+		return nil, handleSwaggerUserErrors(err)
+	}
+
+	for _, u := range resp {
+		if u.Username == username {
+			return u, nil
+		}
+	}
+
+	return nil, &clienterrors.ErrUserNotFound{}
 }
+
 ```
 
 The `Client` interface should now change to include the method signature of `GetUser`:
 ```go
 type Client interface {
-	GetUser(ctx context.Context, username string) (*model.User, error)
+	GetUserByName(ctx context.Context, username string) (*modelv2.UserResp, error)
 	[...]
 }
 
@@ -138,10 +218,12 @@ type Client interface {
 
 // User Client
 
-// GetUser wraps the GetUser method of the user sub-package.
-func (c *RESTClient) GetUser(ctx context.Context, username string) (*model.User, error) {
-    return c.user.GetUser(ctx, username)
+// GetUserByName wraps the GetUserByName method of the user sub-package.
+func (c *RESTClient) GetUserByName(ctx context.Context, username string) (*modelv2.UserResp, error) {
+    return c.user.GetUserByName(ctx, username string)
 }
+
+[...]
 ```
 
 ## Code generation

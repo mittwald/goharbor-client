@@ -1,11 +1,14 @@
 package testing
 
 import (
-	runtimeclient "github.com/go-openapi/runtime/client"
+	"net/url"
 
-	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
-	"github.com/mittwald/goharbor-client/v4/apiv2/mocks"
-	"github.com/mittwald/goharbor-client/v4/apiv2/pkg/config"
+	runtimeclient "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
+
+	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
+	"github.com/mittwald/goharbor-client/v5/apiv2/mocks"
+	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/config"
 )
 
 const (
@@ -15,13 +18,11 @@ const (
 )
 
 var (
-	authInfo    = runtimeclient.BasicAuth("foo", "bar")
-	DefaultOpts = config.Options{
-		PageSize: 10,
-		Timeout:  0,
-		Sort:     "",
-		Query:    "",
-	}
+	u, _            = url.Parse(Host)
+	V2SwaggerClient = v2client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
+	AuthInfo        = runtimeclient.BasicAuth(User, Password)
+	opts            = config.Options{}
+	DefaultOpts     = opts.Defaults()
 )
 
 type MockClients struct {

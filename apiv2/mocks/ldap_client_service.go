@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	ldap "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/ldap"
+	ldap "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/ldap"
 	mock "github.com/stretchr/testify/mock"
 
 	runtime "github.com/go-openapi/runtime"
