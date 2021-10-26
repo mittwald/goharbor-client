@@ -31,7 +31,7 @@ type Project struct {
 	CurrentUserRoleIds []int32 `json:"current_user_role_ids"`
 
 	// The CVE allowlist of this project.
-	CveAllowlist *CVEAllowlist `json:"cve_allowlist,omitempty"`
+	CVEAllowlist *CVEAllowlist `json:"cve_allowlist,omitempty"`
 
 	// A deletion mark of the project.
 	Deleted bool `json:"deleted,omitempty"`
@@ -73,7 +73,7 @@ func (m *Project) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateCveAllowlist(formats); err != nil {
+	if err := m.validateCVEAllowlist(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -104,14 +104,14 @@ func (m *Project) validateCreationTime(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Project) validateCveAllowlist(formats strfmt.Registry) error {
+func (m *Project) validateCVEAllowlist(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.CveAllowlist) { // not required
+	if swag.IsZero(m.CVEAllowlist) { // not required
 		return nil
 	}
 
-	if m.CveAllowlist != nil {
-		if err := m.CveAllowlist.Validate(formats); err != nil {
+	if m.CVEAllowlist != nil {
+		if err := m.CVEAllowlist.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("cve_allowlist")
 			}

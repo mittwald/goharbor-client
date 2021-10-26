@@ -83,7 +83,8 @@ fi
 
 if [[ "${1}" = *"v2"* ]]; then
   SWAGGER_FILE="https://raw.githubusercontent.com/goharbor/harbor/${1}/api/v2.0/swagger.yaml"
-  echo "generating client API using the v2 swagger files (${1})"
+  echo "generating client API using the v2 swagger file (${1})"
+  # Generate client using the new / changed Harbor v2 API
   docker run --rm -e GOPATH="${HOME}/go:/go" -v "${HOME}:${HOME}" -w "$(pwd)" "${GOSWAGGER_IMAGE}" \
   generate client \
   -q \
@@ -91,5 +92,8 @@ if [[ "${1}" = *"v2"* ]]; then
   --model-package="apiv2/model/" \
   --name="harbor" \
   --client-package="apiv2/internal/api/client" \
+  --additional-initialism=GC \
+  --additional-initialism=CVE \
+  --additional-initialism=OIDC \
   --spec="${SWAGGER_FILE}"
 fi

@@ -18,7 +18,7 @@ import (
 type ProjectReq struct {
 
 	// The CVE allowlist of the project.
-	CveAllowlist *CVEAllowlist `json:"cve_allowlist,omitempty"`
+	CVEAllowlist *CVEAllowlist `json:"cve_allowlist,omitempty"`
 
 	// The metadata of the project.
 	Metadata *ProjectMetadata `json:"metadata,omitempty"`
@@ -41,7 +41,7 @@ type ProjectReq struct {
 func (m *ProjectReq) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateCveAllowlist(formats); err != nil {
+	if err := m.validateCVEAllowlist(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -59,14 +59,14 @@ func (m *ProjectReq) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ProjectReq) validateCveAllowlist(formats strfmt.Registry) error {
+func (m *ProjectReq) validateCVEAllowlist(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.CveAllowlist) { // not required
+	if swag.IsZero(m.CVEAllowlist) { // not required
 		return nil
 	}
 
-	if m.CveAllowlist != nil {
-		if err := m.CveAllowlist.Validate(formats); err != nil {
+	if m.CVEAllowlist != nil {
+		if err := m.CVEAllowlist.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("cve_allowlist")
 			}

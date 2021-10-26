@@ -1,4 +1,4 @@
-// +build integration
+//go:build integration
 
 package user
 
@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/go-openapi/strfmt"
+
 	"github.com/mittwald/goharbor-client/v5/apiv1/internal/api/client"
 	integrationtest "github.com/mittwald/goharbor-client/v5/apiv1/testing"
 
