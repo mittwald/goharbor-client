@@ -6,7 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -20,14 +19,12 @@ import (
 type Report struct {
 
 	// Time of generating this report
-	// Example: 2006-01-02T15:04:05
 	GeneratedAt string `json:"generated_at,omitempty"`
 
 	// scanner
 	Scanner *Scanner `json:"scanner,omitempty"`
 
 	// A standard scale for measuring the severity of a vulnerability.
-	// Example: high
 	Severity string `json:"severity,omitempty"`
 
 	// vulnerabilities
@@ -53,6 +50,7 @@ func (m *Report) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Report) validateScanner(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Scanner) { // not required
 		return nil
 	}
@@ -70,6 +68,7 @@ func (m *Report) validateScanner(formats strfmt.Registry) error {
 }
 
 func (m *Report) validateVulnerabilities(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Vulnerabilities) { // not required
 		return nil
 	}
@@ -81,56 +80,6 @@ func (m *Report) validateVulnerabilities(formats strfmt.Registry) error {
 
 		if m.Vulnerabilities[i] != nil {
 			if err := m.Vulnerabilities[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("vulnerabilities" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-// ContextValidate validate this report based on the context it is used
-func (m *Report) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateScanner(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateVulnerabilities(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *Report) contextValidateScanner(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Scanner != nil {
-		if err := m.Scanner.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("scanner")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *Report) contextValidateVulnerabilities(ctx context.Context, formats strfmt.Registry) error {
-
-	for i := 0; i < len(m.Vulnerabilities); i++ {
-
-		if m.Vulnerabilities[i] != nil {
-			if err := m.Vulnerabilities[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("vulnerabilities" + "." + strconv.Itoa(i))
 				}

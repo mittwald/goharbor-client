@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 )
 
 // GetGCReader is a Reader for the GetGC structure.
@@ -53,6 +53,7 @@ func (o *GetGCReader) ReadResponse(response runtime.ClientResponse, consumer run
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +64,7 @@ func NewGetGCOK() *GetGCOK {
 	return &GetGCOK{}
 }
 
-/* GetGCOK describes a response with status code 200, with default header values.
+/*GetGCOK handles this case with default header values.
 
 Get gc results successfully.
 */
@@ -74,6 +75,7 @@ type GetGCOK struct {
 func (o *GetGCOK) Error() string {
 	return fmt.Sprintf("[GET /system/gc/{gc_id}][%d] getGCOK  %+v", 200, o.Payload)
 }
+
 func (o *GetGCOK) GetPayload() *model.GCHistory {
 	return o.Payload
 }
@@ -95,13 +97,12 @@ func NewGetGCUnauthorized() *GetGCUnauthorized {
 	return &GetGCUnauthorized{}
 }
 
-/* GetGCUnauthorized describes a response with status code 401, with default header values.
+/*GetGCUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type GetGCUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +112,15 @@ type GetGCUnauthorized struct {
 func (o *GetGCUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /system/gc/{gc_id}][%d] getGCUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetGCUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetGCUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +137,12 @@ func NewGetGCForbidden() *GetGCForbidden {
 	return &GetGCForbidden{}
 }
 
-/* GetGCForbidden describes a response with status code 403, with default header values.
+/*GetGCForbidden handles this case with default header values.
 
 Forbidden
 */
 type GetGCForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +152,15 @@ type GetGCForbidden struct {
 func (o *GetGCForbidden) Error() string {
 	return fmt.Sprintf("[GET /system/gc/{gc_id}][%d] getGCForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetGCForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetGCForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +177,12 @@ func NewGetGCNotFound() *GetGCNotFound {
 	return &GetGCNotFound{}
 }
 
-/* GetGCNotFound describes a response with status code 404, with default header values.
+/*GetGCNotFound handles this case with default header values.
 
 Not found
 */
 type GetGCNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +192,15 @@ type GetGCNotFound struct {
 func (o *GetGCNotFound) Error() string {
 	return fmt.Sprintf("[GET /system/gc/{gc_id}][%d] getGCNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetGCNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetGCNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +217,12 @@ func NewGetGCInternalServerError() *GetGCInternalServerError {
 	return &GetGCInternalServerError{}
 }
 
-/* GetGCInternalServerError describes a response with status code 500, with default header values.
+/*GetGCInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetGCInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +232,15 @@ type GetGCInternalServerError struct {
 func (o *GetGCInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /system/gc/{gc_id}][%d] getGCInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetGCInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetGCInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

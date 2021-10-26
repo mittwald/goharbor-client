@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 )
 
 // GetLatestScheduledScanAllMetricsReader is a Reader for the GetLatestScheduledScanAllMetrics structure.
@@ -53,6 +53,7 @@ func (o *GetLatestScheduledScanAllMetricsReader) ReadResponse(response runtime.C
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +64,7 @@ func NewGetLatestScheduledScanAllMetricsOK() *GetLatestScheduledScanAllMetricsOK
 	return &GetLatestScheduledScanAllMetricsOK{}
 }
 
-/* GetLatestScheduledScanAllMetricsOK describes a response with status code 200, with default header values.
+/*GetLatestScheduledScanAllMetricsOK handles this case with default header values.
 
 OK
 */
@@ -74,6 +75,7 @@ type GetLatestScheduledScanAllMetricsOK struct {
 func (o *GetLatestScheduledScanAllMetricsOK) Error() string {
 	return fmt.Sprintf("[GET /scans/schedule/metrics][%d] getLatestScheduledScanAllMetricsOK  %+v", 200, o.Payload)
 }
+
 func (o *GetLatestScheduledScanAllMetricsOK) GetPayload() *model.Stats {
 	return o.Payload
 }
@@ -95,13 +97,12 @@ func NewGetLatestScheduledScanAllMetricsUnauthorized() *GetLatestScheduledScanAl
 	return &GetLatestScheduledScanAllMetricsUnauthorized{}
 }
 
-/* GetLatestScheduledScanAllMetricsUnauthorized describes a response with status code 401, with default header values.
+/*GetLatestScheduledScanAllMetricsUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type GetLatestScheduledScanAllMetricsUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -111,18 +112,15 @@ type GetLatestScheduledScanAllMetricsUnauthorized struct {
 func (o *GetLatestScheduledScanAllMetricsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /scans/schedule/metrics][%d] getLatestScheduledScanAllMetricsUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetLatestScheduledScanAllMetricsUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetLatestScheduledScanAllMetricsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -139,13 +137,12 @@ func NewGetLatestScheduledScanAllMetricsForbidden() *GetLatestScheduledScanAllMe
 	return &GetLatestScheduledScanAllMetricsForbidden{}
 }
 
-/* GetLatestScheduledScanAllMetricsForbidden describes a response with status code 403, with default header values.
+/*GetLatestScheduledScanAllMetricsForbidden handles this case with default header values.
 
 Forbidden
 */
 type GetLatestScheduledScanAllMetricsForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -155,18 +152,15 @@ type GetLatestScheduledScanAllMetricsForbidden struct {
 func (o *GetLatestScheduledScanAllMetricsForbidden) Error() string {
 	return fmt.Sprintf("[GET /scans/schedule/metrics][%d] getLatestScheduledScanAllMetricsForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetLatestScheduledScanAllMetricsForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetLatestScheduledScanAllMetricsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -183,13 +177,12 @@ func NewGetLatestScheduledScanAllMetricsPreconditionFailed() *GetLatestScheduled
 	return &GetLatestScheduledScanAllMetricsPreconditionFailed{}
 }
 
-/* GetLatestScheduledScanAllMetricsPreconditionFailed describes a response with status code 412, with default header values.
+/*GetLatestScheduledScanAllMetricsPreconditionFailed handles this case with default header values.
 
 Precondition failed
 */
 type GetLatestScheduledScanAllMetricsPreconditionFailed struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -199,18 +192,15 @@ type GetLatestScheduledScanAllMetricsPreconditionFailed struct {
 func (o *GetLatestScheduledScanAllMetricsPreconditionFailed) Error() string {
 	return fmt.Sprintf("[GET /scans/schedule/metrics][%d] getLatestScheduledScanAllMetricsPreconditionFailed  %+v", 412, o.Payload)
 }
+
 func (o *GetLatestScheduledScanAllMetricsPreconditionFailed) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetLatestScheduledScanAllMetricsPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -227,13 +217,12 @@ func NewGetLatestScheduledScanAllMetricsInternalServerError() *GetLatestSchedule
 	return &GetLatestScheduledScanAllMetricsInternalServerError{}
 }
 
-/* GetLatestScheduledScanAllMetricsInternalServerError describes a response with status code 500, with default header values.
+/*GetLatestScheduledScanAllMetricsInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetLatestScheduledScanAllMetricsInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -243,18 +232,15 @@ type GetLatestScheduledScanAllMetricsInternalServerError struct {
 func (o *GetLatestScheduledScanAllMetricsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /scans/schedule/metrics][%d] getLatestScheduledScanAllMetricsInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetLatestScheduledScanAllMetricsInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetLatestScheduledScanAllMetricsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

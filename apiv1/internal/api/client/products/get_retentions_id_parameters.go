@@ -17,75 +17,59 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetRetentionsIDParams creates a new GetRetentionsIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetRetentionsIDParams creates a new GetRetentionsIDParams object
+// with the default values initialized.
 func NewGetRetentionsIDParams() *GetRetentionsIDParams {
+	var ()
 	return &GetRetentionsIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetRetentionsIDParamsWithTimeout creates a new GetRetentionsIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetRetentionsIDParamsWithTimeout(timeout time.Duration) *GetRetentionsIDParams {
+	var ()
 	return &GetRetentionsIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetRetentionsIDParamsWithContext creates a new GetRetentionsIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetRetentionsIDParamsWithContext(ctx context.Context) *GetRetentionsIDParams {
+	var ()
 	return &GetRetentionsIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetRetentionsIDParamsWithHTTPClient creates a new GetRetentionsIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetRetentionsIDParamsWithHTTPClient(client *http.Client) *GetRetentionsIDParams {
+	var ()
 	return &GetRetentionsIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetRetentionsIDParams contains all the parameters to send to the API endpoint
-   for the get retentions ID operation.
-
-   Typically these are written to a http.Request.
+/*GetRetentionsIDParams contains all the parameters to send to the API endpoint
+for the get retentions ID operation typically these are written to a http.Request
 */
 type GetRetentionsIDParams struct {
 
-	/* ID.
+	/*ID
+	  Retention ID.
 
-	   Retention ID.
-
-	   Format: int64
 	*/
 	ID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get retentions ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetRetentionsIDParams) WithDefaults() *GetRetentionsIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get retentions ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetRetentionsIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get retentions ID params

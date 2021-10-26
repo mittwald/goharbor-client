@@ -11,16 +11,16 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/stretchr/testify/require"
 
-	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
+	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 
-	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client"
-	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client/products"
-	"github.com/mittwald/goharbor-client/v4/apiv2/mocks"
-	legacymodel "github.com/mittwald/goharbor-client/v4/apiv2/model/legacy"
+	"github.com/mittwald/goharbor-client/v5/apiv2/internal/legacyapi/client"
+	"github.com/mittwald/goharbor-client/v5/apiv2/internal/legacyapi/client/products"
+	"github.com/mittwald/goharbor-client/v5/apiv2/mocks"
+	legacymodel "github.com/mittwald/goharbor-client/v5/apiv2/model/legacy"
 )
 
 var (

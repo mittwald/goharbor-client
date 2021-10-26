@@ -16,97 +16,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetAdditionParams creates a new GetAdditionParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetAdditionParams creates a new GetAdditionParams object
+// with the default values initialized.
 func NewGetAdditionParams() *GetAdditionParams {
+	var ()
 	return &GetAdditionParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetAdditionParamsWithTimeout creates a new GetAdditionParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetAdditionParamsWithTimeout(timeout time.Duration) *GetAdditionParams {
+	var ()
 	return &GetAdditionParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetAdditionParamsWithContext creates a new GetAdditionParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetAdditionParamsWithContext(ctx context.Context) *GetAdditionParams {
+	var ()
 	return &GetAdditionParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetAdditionParamsWithHTTPClient creates a new GetAdditionParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetAdditionParamsWithHTTPClient(client *http.Client) *GetAdditionParams {
+	var ()
 	return &GetAdditionParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetAdditionParams contains all the parameters to send to the API endpoint
-   for the get addition operation.
-
-   Typically these are written to a http.Request.
+/*GetAdditionParams contains all the parameters to send to the API endpoint
+for the get addition operation typically these are written to a http.Request
 */
 type GetAdditionParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Addition
+	  The type of addition.
 
-	/* Addition.
-
-	   The type of addition.
 	*/
 	Addition string
+	/*ProjectName
+	  The name of the project
 
-	/* ProjectName.
-
-	   The name of the project
 	*/
 	ProjectName string
+	/*Reference
+	  The reference of the artifact, can be digest or tag
 
-	/* Reference.
-
-	   The reference of the artifact, can be digest or tag
 	*/
 	Reference string
+	/*RepositoryName
+	  The name of the repository. If it contains slash, encode it with URL encoding. e.g. a/b -> a%252Fb
 
-	/* RepositoryName.
-
-	   The name of the repository. If it contains slash, encode it with URL encoding. e.g. a/b -> a%252Fb
 	*/
 	RepositoryName string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get addition params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetAdditionParams) WithDefaults() *GetAdditionParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get addition params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetAdditionParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get addition params
@@ -211,6 +193,7 @@ func (o *GetAdditionParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param addition

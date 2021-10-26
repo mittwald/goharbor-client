@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v4/apiv1/model"
+	"github.com/mittwald/goharbor-client/v5/apiv1/model"
 )
 
 // GetReplicationExecutionsReader is a Reader for the GetReplicationExecutions structure.
@@ -47,6 +47,7 @@ func (o *GetReplicationExecutionsReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +58,7 @@ func NewGetReplicationExecutionsOK() *GetReplicationExecutionsOK {
 	return &GetReplicationExecutionsOK{}
 }
 
-/* GetReplicationExecutionsOK describes a response with status code 200, with default header values.
+/*GetReplicationExecutionsOK handles this case with default header values.
 
 Success
 */
@@ -68,6 +69,7 @@ type GetReplicationExecutionsOK struct {
 func (o *GetReplicationExecutionsOK) Error() string {
 	return fmt.Sprintf("[GET /replication/executions][%d] getReplicationExecutionsOK  %+v", 200, o.Payload)
 }
+
 func (o *GetReplicationExecutionsOK) GetPayload() []*model.ReplicationExecution {
 	return o.Payload
 }
@@ -87,7 +89,7 @@ func NewGetReplicationExecutionsUnauthorized() *GetReplicationExecutionsUnauthor
 	return &GetReplicationExecutionsUnauthorized{}
 }
 
-/* GetReplicationExecutionsUnauthorized describes a response with status code 401, with default header values.
+/*GetReplicationExecutionsUnauthorized handles this case with default header values.
 
 User need to login first.
 */
@@ -108,7 +110,7 @@ func NewGetReplicationExecutionsForbidden() *GetReplicationExecutionsForbidden {
 	return &GetReplicationExecutionsForbidden{}
 }
 
-/* GetReplicationExecutionsForbidden describes a response with status code 403, with default header values.
+/*GetReplicationExecutionsForbidden handles this case with default header values.
 
 User has no privilege for the operation.
 */
@@ -129,7 +131,7 @@ func NewGetReplicationExecutionsInternalServerError() *GetReplicationExecutionsI
 	return &GetReplicationExecutionsInternalServerError{}
 }
 
-/* GetReplicationExecutionsInternalServerError describes a response with status code 500, with default header values.
+/*GetReplicationExecutionsInternalServerError handles this case with default header values.
 
 Unexpected internal errors.
 */

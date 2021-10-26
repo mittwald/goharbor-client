@@ -10,10 +10,10 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	legacyclient "github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client"
-	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client/products"
-	"github.com/mittwald/goharbor-client/v4/apiv2/mocks"
-	legacymodel "github.com/mittwald/goharbor-client/v4/apiv2/model/legacy"
+	legacyclient "github.com/mittwald/goharbor-client/v5/apiv2/internal/legacyapi/client"
+	"github.com/mittwald/goharbor-client/v5/apiv2/internal/legacyapi/client/products"
+	"github.com/mittwald/goharbor-client/v5/apiv2/mocks"
+	legacymodel "github.com/mittwald/goharbor-client/v5/apiv2/model/legacy"
 )
 
 var authInfo = runtimeclient.BasicAuth("foo", "bar")

@@ -25,20 +25,17 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientOption is the option for Client methods
-type ClientOption func(*runtime.ClientOperation)
-
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateRobotV1(params *CreateRobotV1Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateRobotV1Created, error)
+	CreateRobotV1(params *CreateRobotV1Params, authInfo runtime.ClientAuthInfoWriter) (*CreateRobotV1Created, error)
 
-	DeleteRobotV1(params *DeleteRobotV1Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteRobotV1OK, error)
+	DeleteRobotV1(params *DeleteRobotV1Params, authInfo runtime.ClientAuthInfoWriter) (*DeleteRobotV1OK, error)
 
-	GetRobotByIDV1(params *GetRobotByIDV1Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRobotByIDV1OK, error)
+	GetRobotByIDV1(params *GetRobotByIDV1Params, authInfo runtime.ClientAuthInfoWriter) (*GetRobotByIDV1OK, error)
 
-	ListRobotV1(params *ListRobotV1Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListRobotV1OK, error)
+	ListRobotV1(params *ListRobotV1Params, authInfo runtime.ClientAuthInfoWriter) (*ListRobotV1OK, error)
 
-	UpdateRobotV1(params *UpdateRobotV1Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateRobotV1OK, error)
+	UpdateRobotV1(params *UpdateRobotV1Params, authInfo runtime.ClientAuthInfoWriter) (*UpdateRobotV1OK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -48,12 +45,13 @@ type ClientService interface {
 
   Create a robot account
 */
-func (a *Client) CreateRobotV1(params *CreateRobotV1Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateRobotV1Created, error) {
+func (a *Client) CreateRobotV1(params *CreateRobotV1Params, authInfo runtime.ClientAuthInfoWriter) (*CreateRobotV1Created, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateRobotV1Params()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "CreateRobotV1",
 		Method:             "POST",
 		PathPattern:        "/projects/{project_name_or_id}/robots",
@@ -65,12 +63,7 @@ func (a *Client) CreateRobotV1(params *CreateRobotV1Params, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -89,12 +82,13 @@ func (a *Client) CreateRobotV1(params *CreateRobotV1Params, authInfo runtime.Cli
 
   This endpoint deletes specific robot account information by robot ID.
 */
-func (a *Client) DeleteRobotV1(params *DeleteRobotV1Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteRobotV1OK, error) {
+func (a *Client) DeleteRobotV1(params *DeleteRobotV1Params, authInfo runtime.ClientAuthInfoWriter) (*DeleteRobotV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteRobotV1Params()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteRobotV1",
 		Method:             "DELETE",
 		PathPattern:        "/projects/{project_name_or_id}/robots/{robot_id}",
@@ -106,12 +100,7 @@ func (a *Client) DeleteRobotV1(params *DeleteRobotV1Params, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -130,12 +119,13 @@ func (a *Client) DeleteRobotV1(params *DeleteRobotV1Params, authInfo runtime.Cli
 
   This endpoint returns specific robot account information by robot ID.
 */
-func (a *Client) GetRobotByIDV1(params *GetRobotByIDV1Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRobotByIDV1OK, error) {
+func (a *Client) GetRobotByIDV1(params *GetRobotByIDV1Params, authInfo runtime.ClientAuthInfoWriter) (*GetRobotByIDV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRobotByIDV1Params()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetRobotByIDV1",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_name_or_id}/robots/{robot_id}",
@@ -147,12 +137,7 @@ func (a *Client) GetRobotByIDV1(params *GetRobotByIDV1Params, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -171,12 +156,13 @@ func (a *Client) GetRobotByIDV1(params *GetRobotByIDV1Params, authInfo runtime.C
 
   Get all robot accounts of specified project
 */
-func (a *Client) ListRobotV1(params *ListRobotV1Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListRobotV1OK, error) {
+func (a *Client) ListRobotV1(params *ListRobotV1Params, authInfo runtime.ClientAuthInfoWriter) (*ListRobotV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListRobotV1Params()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "ListRobotV1",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_name_or_id}/robots",
@@ -188,12 +174,7 @@ func (a *Client) ListRobotV1(params *ListRobotV1Params, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -212,12 +193,13 @@ func (a *Client) ListRobotV1(params *ListRobotV1Params, authInfo runtime.ClientA
 
   Used to disable/enable a specified robot account.
 */
-func (a *Client) UpdateRobotV1(params *UpdateRobotV1Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateRobotV1OK, error) {
+func (a *Client) UpdateRobotV1(params *UpdateRobotV1Params, authInfo runtime.ClientAuthInfoWriter) (*UpdateRobotV1OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateRobotV1Params()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "UpdateRobotV1",
 		Method:             "PUT",
 		PathPattern:        "/projects/{project_name_or_id}/robots/{robot_id}",
@@ -229,12 +211,7 @@ func (a *Client) UpdateRobotV1(params *UpdateRobotV1Params, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}

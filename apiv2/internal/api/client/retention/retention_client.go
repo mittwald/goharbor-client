@@ -25,28 +25,27 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientOption is the option for Client methods
-type ClientOption func(*runtime.ClientOperation)
-
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateRetention(params *CreateRetentionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateRetentionCreated, error)
+	CreateRetention(params *CreateRetentionParams, authInfo runtime.ClientAuthInfoWriter) (*CreateRetentionCreated, error)
 
-	GetRentenitionMetadata(params *GetRentenitionMetadataParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRentenitionMetadataOK, error)
+	DeleteRetention(params *DeleteRetentionParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRetentionOK, error)
 
-	GetRetention(params *GetRetentionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionOK, error)
+	GetRentenitionMetadata(params *GetRentenitionMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*GetRentenitionMetadataOK, error)
 
-	GetRetentionTaskLog(params *GetRetentionTaskLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionTaskLogOK, error)
+	GetRetention(params *GetRetentionParams, authInfo runtime.ClientAuthInfoWriter) (*GetRetentionOK, error)
 
-	ListRetentionExecutions(params *ListRetentionExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListRetentionExecutionsOK, error)
+	GetRetentionTaskLog(params *GetRetentionTaskLogParams, authInfo runtime.ClientAuthInfoWriter) (*GetRetentionTaskLogOK, error)
 
-	ListRetentionTasks(params *ListRetentionTasksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListRetentionTasksOK, error)
+	ListRetentionExecutions(params *ListRetentionExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*ListRetentionExecutionsOK, error)
 
-	OperateRetentionExecution(params *OperateRetentionExecutionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*OperateRetentionExecutionOK, error)
+	ListRetentionTasks(params *ListRetentionTasksParams, authInfo runtime.ClientAuthInfoWriter) (*ListRetentionTasksOK, error)
 
-	TriggerRetentionExecution(params *TriggerRetentionExecutionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*TriggerRetentionExecutionOK, *TriggerRetentionExecutionCreated, error)
+	OperateRetentionExecution(params *OperateRetentionExecutionParams, authInfo runtime.ClientAuthInfoWriter) (*OperateRetentionExecutionOK, error)
 
-	UpdateRetention(params *UpdateRetentionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateRetentionOK, error)
+	TriggerRetentionExecution(params *TriggerRetentionExecutionParams, authInfo runtime.ClientAuthInfoWriter) (*TriggerRetentionExecutionOK, *TriggerRetentionExecutionCreated, error)
+
+	UpdateRetention(params *UpdateRetentionParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRetentionOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -56,12 +55,13 @@ type ClientService interface {
 
   Create Retention Policy, you can reference metadatas API for the policy model. You can check project metadatas to find whether a retention policy is already binded. This method should only be called when no retention policy binded to project yet.
 */
-func (a *Client) CreateRetention(params *CreateRetentionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateRetentionCreated, error) {
+func (a *Client) CreateRetention(params *CreateRetentionParams, authInfo runtime.ClientAuthInfoWriter) (*CreateRetentionCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateRetentionParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "createRetention",
 		Method:             "POST",
 		PathPattern:        "/retentions",
@@ -73,12 +73,7 @@ func (a *Client) CreateRetention(params *CreateRetentionParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -93,16 +88,54 @@ func (a *Client) CreateRetention(params *CreateRetentionParams, authInfo runtime
 }
 
 /*
+  DeleteRetention deletes retention policy
+
+  Delete Retention Policy, you can reference metadatas API for the policy model. You can check project metadatas to find whether a retention policy is already binded. This method should only be called when retention policy has already binded to project.
+*/
+func (a *Client) DeleteRetention(params *DeleteRetentionParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRetentionOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteRetentionParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteRetention",
+		Method:             "DELETE",
+		PathPattern:        "/retentions/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DeleteRetentionReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteRetentionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteRetention: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   GetRentenitionMetadata gets retention metadatas
 
   Get Retention Metadatas.
 */
-func (a *Client) GetRentenitionMetadata(params *GetRentenitionMetadataParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRentenitionMetadataOK, error) {
+func (a *Client) GetRentenitionMetadata(params *GetRentenitionMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*GetRentenitionMetadataOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRentenitionMetadataParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getRentenitionMetadata",
 		Method:             "GET",
 		PathPattern:        "/retentions/metadatas",
@@ -114,12 +147,7 @@ func (a *Client) GetRentenitionMetadata(params *GetRentenitionMetadataParams, au
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -138,12 +166,13 @@ func (a *Client) GetRentenitionMetadata(params *GetRentenitionMetadataParams, au
 
   Get Retention Policy.
 */
-func (a *Client) GetRetention(params *GetRetentionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionOK, error) {
+func (a *Client) GetRetention(params *GetRetentionParams, authInfo runtime.ClientAuthInfoWriter) (*GetRetentionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRetentionParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getRetention",
 		Method:             "GET",
 		PathPattern:        "/retentions/{id}",
@@ -155,12 +184,7 @@ func (a *Client) GetRetention(params *GetRetentionParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -179,12 +203,13 @@ func (a *Client) GetRetention(params *GetRetentionParams, authInfo runtime.Clien
 
   Get Retention job task log, tags ratain or deletion detail will be shown in a table.
 */
-func (a *Client) GetRetentionTaskLog(params *GetRetentionTaskLogParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRetentionTaskLogOK, error) {
+func (a *Client) GetRetentionTaskLog(params *GetRetentionTaskLogParams, authInfo runtime.ClientAuthInfoWriter) (*GetRetentionTaskLogOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRetentionTaskLogParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getRetentionTaskLog",
 		Method:             "GET",
 		PathPattern:        "/retentions/{id}/executions/{eid}/tasks/{tid}",
@@ -196,12 +221,7 @@ func (a *Client) GetRetentionTaskLog(params *GetRetentionTaskLogParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -220,12 +240,13 @@ func (a *Client) GetRetentionTaskLog(params *GetRetentionTaskLogParams, authInfo
 
   Get Retention executions, execution status may be delayed before job service schedule it up.
 */
-func (a *Client) ListRetentionExecutions(params *ListRetentionExecutionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListRetentionExecutionsOK, error) {
+func (a *Client) ListRetentionExecutions(params *ListRetentionExecutionsParams, authInfo runtime.ClientAuthInfoWriter) (*ListRetentionExecutionsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListRetentionExecutionsParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listRetentionExecutions",
 		Method:             "GET",
 		PathPattern:        "/retentions/{id}/executions",
@@ -237,12 +258,7 @@ func (a *Client) ListRetentionExecutions(params *ListRetentionExecutionsParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -261,12 +277,13 @@ func (a *Client) ListRetentionExecutions(params *ListRetentionExecutionsParams, 
 
   Get Retention tasks, each repository as a task.
 */
-func (a *Client) ListRetentionTasks(params *ListRetentionTasksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListRetentionTasksOK, error) {
+func (a *Client) ListRetentionTasks(params *ListRetentionTasksParams, authInfo runtime.ClientAuthInfoWriter) (*ListRetentionTasksOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListRetentionTasksParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listRetentionTasks",
 		Method:             "GET",
 		PathPattern:        "/retentions/{id}/executions/{eid}/tasks",
@@ -278,12 +295,7 @@ func (a *Client) ListRetentionTasks(params *ListRetentionTasksParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -302,12 +314,13 @@ func (a *Client) ListRetentionTasks(params *ListRetentionTasksParams, authInfo r
 
   Stop a Retention execution, only support "stop" action now.
 */
-func (a *Client) OperateRetentionExecution(params *OperateRetentionExecutionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*OperateRetentionExecutionOK, error) {
+func (a *Client) OperateRetentionExecution(params *OperateRetentionExecutionParams, authInfo runtime.ClientAuthInfoWriter) (*OperateRetentionExecutionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewOperateRetentionExecutionParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "operateRetentionExecution",
 		Method:             "PATCH",
 		PathPattern:        "/retentions/{id}/executions/{eid}",
@@ -319,12 +332,7 @@ func (a *Client) OperateRetentionExecution(params *OperateRetentionExecutionPara
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -343,12 +351,13 @@ func (a *Client) OperateRetentionExecution(params *OperateRetentionExecutionPara
 
   Trigger a Retention Execution, if dry_run is True, nothing would be deleted actually.
 */
-func (a *Client) TriggerRetentionExecution(params *TriggerRetentionExecutionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*TriggerRetentionExecutionOK, *TriggerRetentionExecutionCreated, error) {
+func (a *Client) TriggerRetentionExecution(params *TriggerRetentionExecutionParams, authInfo runtime.ClientAuthInfoWriter) (*TriggerRetentionExecutionOK, *TriggerRetentionExecutionCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewTriggerRetentionExecutionParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "triggerRetentionExecution",
 		Method:             "POST",
 		PathPattern:        "/retentions/{id}/executions",
@@ -360,12 +369,7 @@ func (a *Client) TriggerRetentionExecution(params *TriggerRetentionExecutionPara
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, nil, err
 	}
@@ -385,12 +389,13 @@ func (a *Client) TriggerRetentionExecution(params *TriggerRetentionExecutionPara
 
   Update Retention Policy, you can reference metadatas API for the policy model. You can check project metadatas to find whether a retention policy is already binded. This method should only be called when retention policy has already binded to project.
 */
-func (a *Client) UpdateRetention(params *UpdateRetentionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateRetentionOK, error) {
+func (a *Client) UpdateRetention(params *UpdateRetentionParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRetentionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateRetentionParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "updateRetention",
 		Method:             "PUT",
 		PathPattern:        "/retentions/{id}",
@@ -402,12 +407,7 @@ func (a *Client) UpdateRetention(params *UpdateRetentionParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}

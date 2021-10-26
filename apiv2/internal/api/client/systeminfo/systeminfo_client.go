@@ -26,143 +26,128 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientOption is the option for Client methods
-type ClientOption func(*runtime.ClientOperation)
-
 // ClientService is the interface for Client methods
 type ClientService interface {
-	GetSysteminfo(params *GetSysteminfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSysteminfoOK, error)
+	GetCert(params *GetCertParams, authInfo runtime.ClientAuthInfoWriter, writer io.Writer) (*GetCertOK, error)
 
-	GetSysteminfoGetcert(params *GetSysteminfoGetcertParams, authInfo runtime.ClientAuthInfoWriter, writer io.Writer, opts ...ClientOption) (*GetSysteminfoGetcertOK, error)
+	GetSystemInfo(params *GetSystemInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetSystemInfoOK, error)
 
-	GetSysteminfoVolumes(params *GetSysteminfoVolumesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSysteminfoVolumesOK, error)
+	GetVolumes(params *GetVolumesParams, authInfo runtime.ClientAuthInfoWriter) (*GetVolumesOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
 
 /*
-  GetSysteminfo gets general system info
-
-  This API is for retrieving general system info, this can be called by anonymous request.  Some attributes will be omitted in the response when this API is called by anonymous request.
-
-*/
-func (a *Client) GetSysteminfo(params *GetSysteminfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSysteminfoOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetSysteminfoParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetSysteminfo",
-		Method:             "GET",
-		PathPattern:        "/systeminfo",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &GetSysteminfoReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetSysteminfoOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetSysteminfo: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetSysteminfoGetcert gets default root certificate
+  GetCert gets default root certificate
 
   This endpoint is for downloading a default root certificate.
 
 */
-func (a *Client) GetSysteminfoGetcert(params *GetSysteminfoGetcertParams, authInfo runtime.ClientAuthInfoWriter, writer io.Writer, opts ...ClientOption) (*GetSysteminfoGetcertOK, error) {
+func (a *Client) GetCert(params *GetCertParams, authInfo runtime.ClientAuthInfoWriter, writer io.Writer) (*GetCertOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetSysteminfoGetcertParams()
+		params = NewGetCertParams()
 	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetSysteminfoGetcert",
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getCert",
 		Method:             "GET",
 		PathPattern:        "/systeminfo/getcert",
 		ProducesMediaTypes: []string{"application/octet-stream"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &GetSysteminfoGetcertReader{formats: a.formats, writer: writer},
+		Reader:             &GetCertReader{formats: a.formats, writer: writer},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetSysteminfoGetcertOK)
+	success, ok := result.(*GetCertOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetSysteminfoGetcert: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for getCert: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  GetSysteminfoVolumes gets system volume info total free size
+  GetSystemInfo gets general system info
+
+  This API is for retrieving general system info, this can be called by anonymous request.  Some attributes will be omitted in the response when this API is called by anonymous request.
+
+*/
+func (a *Client) GetSystemInfo(params *GetSystemInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetSystemInfoOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSystemInfoParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getSystemInfo",
+		Method:             "GET",
+		PathPattern:        "/systeminfo",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetSystemInfoReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetSystemInfoOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getSystemInfo: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetVolumes gets system volume info total free size
 
   This endpoint is for retrieving system volume info that only provides for admin user.  Note that the response only reflects the storage status of local disk.
 
 */
-func (a *Client) GetSysteminfoVolumes(params *GetSysteminfoVolumesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSysteminfoVolumesOK, error) {
+func (a *Client) GetVolumes(params *GetVolumesParams, authInfo runtime.ClientAuthInfoWriter) (*GetVolumesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetSysteminfoVolumesParams()
+		params = NewGetVolumesParams()
 	}
-	op := &runtime.ClientOperation{
-		ID:                 "GetSysteminfoVolumes",
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getVolumes",
 		Method:             "GET",
 		PathPattern:        "/systeminfo/volumes",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &GetSysteminfoVolumesReader{formats: a.formats},
+		Reader:             &GetVolumesReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetSysteminfoVolumesOK)
+	success, ok := result.(*GetVolumesOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetSysteminfoVolumes: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for getVolumes: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

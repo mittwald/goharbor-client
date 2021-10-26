@@ -6,7 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -38,6 +37,7 @@ func (m *Resource) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Resource) validateReplicationPolicies(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ReplicationPolicies) { // not required
 		return nil
 	}
@@ -49,38 +49,6 @@ func (m *Resource) validateReplicationPolicies(formats strfmt.Registry) error {
 
 		if m.ReplicationPolicies[i] != nil {
 			if err := m.ReplicationPolicies[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("replication_policies" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-// ContextValidate validate this resource based on the context it is used
-func (m *Resource) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateReplicationPolicies(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *Resource) contextValidateReplicationPolicies(ctx context.Context, formats strfmt.Registry) error {
-
-	for i := 0; i < len(m.ReplicationPolicies); i++ {
-
-		if m.ReplicationPolicies[i] != nil {
-			if err := m.ReplicationPolicies[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("replication_policies" + "." + strconv.Itoa(i))
 				}

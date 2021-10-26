@@ -17,75 +17,64 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewStopReplicationParams creates a new StopReplicationParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewStopReplicationParams creates a new StopReplicationParams object
+// with the default values initialized.
 func NewStopReplicationParams() *StopReplicationParams {
+	var ()
 	return &StopReplicationParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewStopReplicationParamsWithTimeout creates a new StopReplicationParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewStopReplicationParamsWithTimeout(timeout time.Duration) *StopReplicationParams {
+	var ()
 	return &StopReplicationParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewStopReplicationParamsWithContext creates a new StopReplicationParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewStopReplicationParamsWithContext(ctx context.Context) *StopReplicationParams {
+	var ()
 	return &StopReplicationParams{
+
 		Context: ctx,
 	}
 }
 
 // NewStopReplicationParamsWithHTTPClient creates a new StopReplicationParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewStopReplicationParamsWithHTTPClient(client *http.Client) *StopReplicationParams {
+	var ()
 	return &StopReplicationParams{
 		HTTPClient: client,
 	}
 }
 
-/* StopReplicationParams contains all the parameters to send to the API endpoint
-   for the stop replication operation.
-
-   Typically these are written to a http.Request.
+/*StopReplicationParams contains all the parameters to send to the API endpoint
+for the stop replication operation typically these are written to a http.Request
 */
 type StopReplicationParams struct {
 
-	/* ID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   The ID of the execution.
+	*/
+	XRequestID *string
+	/*ID
+	  The ID of the execution.
 
-	   Format: int64
 	*/
 	ID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the stop replication params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *StopReplicationParams) WithDefaults() *StopReplicationParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the stop replication params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *StopReplicationParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the stop replication params
@@ -121,6 +110,17 @@ func (o *StopReplicationParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXRequestID adds the xRequestID to the stop replication params
+func (o *StopReplicationParams) WithXRequestID(xRequestID *string) *StopReplicationParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the stop replication params
+func (o *StopReplicationParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WithID adds the id to the stop replication params
 func (o *StopReplicationParams) WithID(id int64) *StopReplicationParams {
 	o.SetID(id)
@@ -139,6 +139,15 @@ func (o *StopReplicationParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-Id
+		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
+			return err
+		}
+
+	}
 
 	// path param id
 	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {

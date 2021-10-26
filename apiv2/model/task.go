@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -64,39 +62,12 @@ func (m *Task) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Task) validateExtraAttrs(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ExtraAttrs) { // not required
 		return nil
 	}
 
-	if m.ExtraAttrs != nil {
-		if err := m.ExtraAttrs.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("extra_attrs")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this task based on the context it is used
-func (m *Task) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateExtraAttrs(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *Task) contextValidateExtraAttrs(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := m.ExtraAttrs.ContextValidate(ctx, formats); err != nil {
+	if err := m.ExtraAttrs.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("extra_attrs")
 		}

@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v4/apiv1/model"
+	"github.com/mittwald/goharbor-client/v5/apiv1/model"
 )
 
 // GetRetentionsIDReader is a Reader for the GetRetentionsID structure.
@@ -47,6 +47,7 @@ func (o *GetRetentionsIDReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +58,7 @@ func NewGetRetentionsIDOK() *GetRetentionsIDOK {
 	return &GetRetentionsIDOK{}
 }
 
-/* GetRetentionsIDOK describes a response with status code 200, with default header values.
+/*GetRetentionsIDOK handles this case with default header values.
 
 Get Retention Policy successfully.
 */
@@ -68,6 +69,7 @@ type GetRetentionsIDOK struct {
 func (o *GetRetentionsIDOK) Error() string {
 	return fmt.Sprintf("[GET /retentions/{id}][%d] getRetentionsIdOK  %+v", 200, o.Payload)
 }
+
 func (o *GetRetentionsIDOK) GetPayload() *model.RetentionPolicy {
 	return o.Payload
 }
@@ -89,7 +91,7 @@ func NewGetRetentionsIDUnauthorized() *GetRetentionsIDUnauthorized {
 	return &GetRetentionsIDUnauthorized{}
 }
 
-/* GetRetentionsIDUnauthorized describes a response with status code 401, with default header values.
+/*GetRetentionsIDUnauthorized handles this case with default header values.
 
 User need to log in first.
 */
@@ -110,7 +112,7 @@ func NewGetRetentionsIDForbidden() *GetRetentionsIDForbidden {
 	return &GetRetentionsIDForbidden{}
 }
 
-/* GetRetentionsIDForbidden describes a response with status code 403, with default header values.
+/*GetRetentionsIDForbidden handles this case with default header values.
 
 User have no permission.
 */
@@ -131,7 +133,7 @@ func NewGetRetentionsIDInternalServerError() *GetRetentionsIDInternalServerError
 	return &GetRetentionsIDInternalServerError{}
 }
 
-/* GetRetentionsIDInternalServerError describes a response with status code 500, with default header values.
+/*GetRetentionsIDInternalServerError handles this case with default header values.
 
 Unexpected internal errors.
 */

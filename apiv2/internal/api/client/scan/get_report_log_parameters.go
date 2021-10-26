@@ -16,97 +16,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetReportLogParams creates a new GetReportLogParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetReportLogParams creates a new GetReportLogParams object
+// with the default values initialized.
 func NewGetReportLogParams() *GetReportLogParams {
+	var ()
 	return &GetReportLogParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetReportLogParamsWithTimeout creates a new GetReportLogParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetReportLogParamsWithTimeout(timeout time.Duration) *GetReportLogParams {
+	var ()
 	return &GetReportLogParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetReportLogParamsWithContext creates a new GetReportLogParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetReportLogParamsWithContext(ctx context.Context) *GetReportLogParams {
+	var ()
 	return &GetReportLogParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetReportLogParamsWithHTTPClient creates a new GetReportLogParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetReportLogParamsWithHTTPClient(client *http.Client) *GetReportLogParams {
+	var ()
 	return &GetReportLogParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetReportLogParams contains all the parameters to send to the API endpoint
-   for the get report log operation.
-
-   Typically these are written to a http.Request.
+/*GetReportLogParams contains all the parameters to send to the API endpoint
+for the get report log operation typically these are written to a http.Request
 */
 type GetReportLogParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*ProjectName
+	  The name of the project
 
-	/* ProjectName.
-
-	   The name of the project
 	*/
 	ProjectName string
+	/*Reference
+	  The reference of the artifact, can be digest or tag
 
-	/* Reference.
-
-	   The reference of the artifact, can be digest or tag
 	*/
 	Reference string
+	/*ReportID
+	  The report id to get the log
 
-	/* ReportID.
-
-	   The report id to get the log
 	*/
 	ReportID string
+	/*RepositoryName
+	  The name of the repository. If it contains slash, encode it with URL encoding. e.g. a/b -> a%252Fb
 
-	/* RepositoryName.
-
-	   The name of the repository. If it contains slash, encode it with URL encoding. e.g. a/b -> a%252Fb
 	*/
 	RepositoryName string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get report log params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetReportLogParams) WithDefaults() *GetReportLogParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get report log params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetReportLogParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get report log params
@@ -211,6 +193,7 @@ func (o *GetReportLogParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param project_name

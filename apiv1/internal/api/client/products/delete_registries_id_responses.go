@@ -50,6 +50,7 @@ func (o *DeleteRegistriesIDReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -60,7 +61,7 @@ func NewDeleteRegistriesIDOK() *DeleteRegistriesIDOK {
 	return &DeleteRegistriesIDOK{}
 }
 
-/* DeleteRegistriesIDOK describes a response with status code 200, with default header values.
+/*DeleteRegistriesIDOK handles this case with default header values.
 
 Registry deleted successfully.
 */
@@ -81,7 +82,7 @@ func NewDeleteRegistriesIDBadRequest() *DeleteRegistriesIDBadRequest {
 	return &DeleteRegistriesIDBadRequest{}
 }
 
-/* DeleteRegistriesIDBadRequest describes a response with status code 400, with default header values.
+/*DeleteRegistriesIDBadRequest handles this case with default header values.
 
 Registry's ID is invalid or the registry is used by policies.
 */
@@ -102,7 +103,7 @@ func NewDeleteRegistriesIDUnauthorized() *DeleteRegistriesIDUnauthorized {
 	return &DeleteRegistriesIDUnauthorized{}
 }
 
-/* DeleteRegistriesIDUnauthorized describes a response with status code 401, with default header values.
+/*DeleteRegistriesIDUnauthorized handles this case with default header values.
 
 Only admin has this authority.
 */
@@ -123,7 +124,7 @@ func NewDeleteRegistriesIDNotFound() *DeleteRegistriesIDNotFound {
 	return &DeleteRegistriesIDNotFound{}
 }
 
-/* DeleteRegistriesIDNotFound describes a response with status code 404, with default header values.
+/*DeleteRegistriesIDNotFound handles this case with default header values.
 
 Registry does not exist.
 */
@@ -144,7 +145,7 @@ func NewDeleteRegistriesIDInternalServerError() *DeleteRegistriesIDInternalServe
 	return &DeleteRegistriesIDInternalServerError{}
 }
 
-/* DeleteRegistriesIDInternalServerError describes a response with status code 500, with default header values.
+/*DeleteRegistriesIDInternalServerError handles this case with default header values.
 
 Unexpected internal errors.
 */

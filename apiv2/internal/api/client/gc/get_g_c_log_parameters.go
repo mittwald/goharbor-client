@@ -17,75 +17,64 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetGCLogParams creates a new GetGCLogParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetGCLogParams creates a new GetGCLogParams object
+// with the default values initialized.
 func NewGetGCLogParams() *GetGCLogParams {
+	var ()
 	return &GetGCLogParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetGCLogParamsWithTimeout creates a new GetGCLogParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetGCLogParamsWithTimeout(timeout time.Duration) *GetGCLogParams {
+	var ()
 	return &GetGCLogParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetGCLogParamsWithContext creates a new GetGCLogParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetGCLogParamsWithContext(ctx context.Context) *GetGCLogParams {
+	var ()
 	return &GetGCLogParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetGCLogParamsWithHTTPClient creates a new GetGCLogParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetGCLogParamsWithHTTPClient(client *http.Client) *GetGCLogParams {
+	var ()
 	return &GetGCLogParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetGCLogParams contains all the parameters to send to the API endpoint
-   for the get g c log operation.
-
-   Typically these are written to a http.Request.
+/*GetGCLogParams contains all the parameters to send to the API endpoint
+for the get g c log operation typically these are written to a http.Request
 */
 type GetGCLogParams struct {
 
-	/* GcID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   The ID of the gc log
+	*/
+	XRequestID *string
+	/*GcID
+	  The ID of the gc log
 
-	   Format: int64
 	*/
 	GcID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get g c log params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetGCLogParams) WithDefaults() *GetGCLogParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get g c log params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetGCLogParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get g c log params
@@ -121,6 +110,17 @@ func (o *GetGCLogParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXRequestID adds the xRequestID to the get g c log params
+func (o *GetGCLogParams) WithXRequestID(xRequestID *string) *GetGCLogParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the get g c log params
+func (o *GetGCLogParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WithGcID adds the gcID to the get g c log params
 func (o *GetGCLogParams) WithGcID(gcID int64) *GetGCLogParams {
 	o.SetGcID(gcID)
@@ -139,6 +139,15 @@ func (o *GetGCLogParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 		return err
 	}
 	var res []error
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-Id
+		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
+			return err
+		}
+
+	}
 
 	// path param gc_id
 	if err := r.SetPathParam("gc_id", swag.FormatInt64(o.GcID)); err != nil {

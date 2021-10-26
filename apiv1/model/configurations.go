@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -139,40 +137,13 @@ func (m *Configurations) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Configurations) validateScanAllPolicy(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ScanAllPolicy) { // not required
 		return nil
 	}
 
 	if m.ScanAllPolicy != nil {
 		if err := m.ScanAllPolicy.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("scan_all_policy")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this configurations based on the context it is used
-func (m *Configurations) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateScanAllPolicy(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *Configurations) contextValidateScanAllPolicy(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.ScanAllPolicy != nil {
-		if err := m.ScanAllPolicy.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("scan_all_policy")
 			}
@@ -228,40 +199,13 @@ func (m *ConfigurationsScanAllPolicy) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ConfigurationsScanAllPolicy) validateParameter(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Parameter) { // not required
 		return nil
 	}
 
 	if m.Parameter != nil {
 		if err := m.Parameter.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("scan_all_policy" + "." + "parameter")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this configurations scan all policy based on the context it is used
-func (m *ConfigurationsScanAllPolicy) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateParameter(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *ConfigurationsScanAllPolicy) contextValidateParameter(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Parameter != nil {
-		if err := m.Parameter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("scan_all_policy" + "." + "parameter")
 			}
@@ -301,11 +245,6 @@ type ConfigurationsScanAllPolicyParameter struct {
 
 // Validate validates this configurations scan all policy parameter
 func (m *ConfigurationsScanAllPolicyParameter) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this configurations scan all policy parameter based on context it is used
-func (m *ConfigurationsScanAllPolicyParameter) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

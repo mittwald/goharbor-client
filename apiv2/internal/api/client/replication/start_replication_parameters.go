@@ -15,76 +15,67 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 )
 
-// NewStartReplicationParams creates a new StartReplicationParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewStartReplicationParams creates a new StartReplicationParams object
+// with the default values initialized.
 func NewStartReplicationParams() *StartReplicationParams {
+	var ()
 	return &StartReplicationParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewStartReplicationParamsWithTimeout creates a new StartReplicationParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewStartReplicationParamsWithTimeout(timeout time.Duration) *StartReplicationParams {
+	var ()
 	return &StartReplicationParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewStartReplicationParamsWithContext creates a new StartReplicationParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewStartReplicationParamsWithContext(ctx context.Context) *StartReplicationParams {
+	var ()
 	return &StartReplicationParams{
+
 		Context: ctx,
 	}
 }
 
 // NewStartReplicationParamsWithHTTPClient creates a new StartReplicationParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewStartReplicationParamsWithHTTPClient(client *http.Client) *StartReplicationParams {
+	var ()
 	return &StartReplicationParams{
 		HTTPClient: client,
 	}
 }
 
-/* StartReplicationParams contains all the parameters to send to the API endpoint
-   for the start replication operation.
-
-   Typically these are written to a http.Request.
+/*StartReplicationParams contains all the parameters to send to the API endpoint
+for the start replication operation typically these are written to a http.Request
 */
 type StartReplicationParams struct {
 
-	/* Execution.
+	/*XRequestID
+	  An unique ID for the request
 
-	   The ID of policy that the execution belongs to
+	*/
+	XRequestID *string
+	/*Execution
+	  The ID of policy that the execution belongs to
+
 	*/
 	Execution *model.StartReplicationExecution
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the start replication params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *StartReplicationParams) WithDefaults() *StartReplicationParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the start replication params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *StartReplicationParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the start replication params
@@ -120,6 +111,17 @@ func (o *StartReplicationParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXRequestID adds the xRequestID to the start replication params
+func (o *StartReplicationParams) WithXRequestID(xRequestID *string) *StartReplicationParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the start replication params
+func (o *StartReplicationParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WithExecution adds the execution to the start replication params
 func (o *StartReplicationParams) WithExecution(execution *model.StartReplicationExecution) *StartReplicationParams {
 	o.SetExecution(execution)
@@ -138,6 +140,16 @@ func (o *StartReplicationParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-Id
+		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
+			return err
+		}
+
+	}
+
 	if o.Execution != nil {
 		if err := r.SetBodyParam(o.Execution); err != nil {
 			return err

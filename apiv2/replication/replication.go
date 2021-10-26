@@ -4,13 +4,13 @@ import (
 	"context"
 
 	"github.com/go-openapi/runtime"
-	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
-	replicationapi "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/replication"
-	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client"
-	modelv2 "github.com/mittwald/goharbor-client/v4/apiv2/model"
+	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
+	replicationapi "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/replication"
+	"github.com/mittwald/goharbor-client/v5/apiv2/internal/legacyapi/client"
+	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
 
-	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client/products"
-	legacymodel "github.com/mittwald/goharbor-client/v4/apiv2/model/legacy"
+	"github.com/mittwald/goharbor-client/v5/apiv2/internal/legacyapi/client/products"
+	legacymodel "github.com/mittwald/goharbor-client/v5/apiv2/model/legacy"
 )
 
 // RESTClient is a subclient for handling replication related actions.

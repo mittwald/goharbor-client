@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -35,11 +33,6 @@ type AuthproxySetting struct {
 
 // Validate validates this authproxy setting
 func (m *AuthproxySetting) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this authproxy setting based on context it is used
-func (m *AuthproxySetting) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -23,11 +21,6 @@ type CVEWhitelistItem struct {
 
 // Validate validates this c v e whitelist item
 func (m *CVEWhitelistItem) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this c v e whitelist item based on context it is used
-func (m *CVEWhitelistItem) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

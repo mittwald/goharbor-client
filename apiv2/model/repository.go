@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -20,7 +18,7 @@ import (
 type Repository struct {
 
 	// The count of the artifacts inside the repository
-	ArtifactCount int64 `json:"artifact_count,omitempty"`
+	ArtifactCount int64 `json:"artifact_count"`
 
 	// The creation time of the repository
 	// Format: date-time
@@ -39,7 +37,7 @@ type Repository struct {
 	ProjectID int64 `json:"project_id,omitempty"`
 
 	// The count that the artifact inside the repository pulled
-	PullCount int64 `json:"pull_count,omitempty"`
+	PullCount int64 `json:"pull_count"`
 
 	// The update time of the repository
 	// Format: date-time
@@ -65,6 +63,7 @@ func (m *Repository) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Repository) validateCreationTime(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.CreationTime) { // not required
 		return nil
 	}
@@ -77,6 +76,7 @@ func (m *Repository) validateCreationTime(formats strfmt.Registry) error {
 }
 
 func (m *Repository) validateUpdateTime(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.UpdateTime) { // not required
 		return nil
 	}
@@ -85,11 +85,6 @@ func (m *Repository) validateUpdateTime(formats strfmt.Registry) error {
 		return err
 	}
 
-	return nil
-}
-
-// ContextValidate validates this repository based on context it is used
-func (m *Repository) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

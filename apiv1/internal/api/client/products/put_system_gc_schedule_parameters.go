@@ -15,76 +15,62 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v4/apiv1/model"
+	"github.com/mittwald/goharbor-client/v5/apiv1/model"
 )
 
-// NewPutSystemGcScheduleParams creates a new PutSystemGcScheduleParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPutSystemGcScheduleParams creates a new PutSystemGcScheduleParams object
+// with the default values initialized.
 func NewPutSystemGcScheduleParams() *PutSystemGcScheduleParams {
+	var ()
 	return &PutSystemGcScheduleParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutSystemGcScheduleParamsWithTimeout creates a new PutSystemGcScheduleParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPutSystemGcScheduleParamsWithTimeout(timeout time.Duration) *PutSystemGcScheduleParams {
+	var ()
 	return &PutSystemGcScheduleParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPutSystemGcScheduleParamsWithContext creates a new PutSystemGcScheduleParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPutSystemGcScheduleParamsWithContext(ctx context.Context) *PutSystemGcScheduleParams {
+	var ()
 	return &PutSystemGcScheduleParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPutSystemGcScheduleParamsWithHTTPClient creates a new PutSystemGcScheduleParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPutSystemGcScheduleParamsWithHTTPClient(client *http.Client) *PutSystemGcScheduleParams {
+	var ()
 	return &PutSystemGcScheduleParams{
 		HTTPClient: client,
 	}
 }
 
-/* PutSystemGcScheduleParams contains all the parameters to send to the API endpoint
-   for the put system gc schedule operation.
-
-   Typically these are written to a http.Request.
+/*PutSystemGcScheduleParams contains all the parameters to send to the API endpoint
+for the put system gc schedule operation typically these are written to a http.Request
 */
 type PutSystemGcScheduleParams struct {
 
-	/* Schedule.
+	/*Schedule
+	  Updates of gc's schedule.
 
-	   Updates of gc's schedule.
 	*/
 	Schedule *model.AdminJobSchedule
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the put system gc schedule params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PutSystemGcScheduleParams) WithDefaults() *PutSystemGcScheduleParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the put system gc schedule params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PutSystemGcScheduleParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put system gc schedule params
@@ -138,6 +124,7 @@ func (o *PutSystemGcScheduleParams) WriteToRequest(r runtime.ClientRequest, reg 
 		return err
 	}
 	var res []error
+
 	if o.Schedule != nil {
 		if err := r.SetBodyParam(o.Schedule); err != nil {
 			return err

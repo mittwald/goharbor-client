@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -26,11 +24,6 @@ type DigitalSignature struct {
 
 // Validate validates this digital signature
 func (m *DigitalSignature) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this digital signature based on context it is used
-func (m *DigitalSignature) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

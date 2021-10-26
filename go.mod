@@ -1,6 +1,6 @@
-module github.com/mittwald/goharbor-client/v4
+module github.com/mittwald/goharbor-client/v5
 
-go 1.16
+go 1.17
 
 require (
 	github.com/go-openapi/errors v0.20.0

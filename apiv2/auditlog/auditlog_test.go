@@ -10,9 +10,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 
-	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
-	"github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client/auditlog"
-	"github.com/mittwald/goharbor-client/v4/apiv2/mocks"
+	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
+	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/auditlog"
+	"github.com/mittwald/goharbor-client/v5/apiv2/mocks"
 )
 
 var authInfo = runtimeclient.BasicAuth("foo", "bar")

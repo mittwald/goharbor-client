@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -260,6 +258,7 @@ func (m *ConfigurationsResponse) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ConfigurationsResponse) validateAuthMode(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.AuthMode) { // not required
 		return nil
 	}
@@ -277,6 +276,7 @@ func (m *ConfigurationsResponse) validateAuthMode(formats strfmt.Registry) error
 }
 
 func (m *ConfigurationsResponse) validateCountPerProject(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.CountPerProject) { // not required
 		return nil
 	}
@@ -294,6 +294,7 @@ func (m *ConfigurationsResponse) validateCountPerProject(formats strfmt.Registry
 }
 
 func (m *ConfigurationsResponse) validateEmailFrom(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.EmailFrom) { // not required
 		return nil
 	}
@@ -311,6 +312,7 @@ func (m *ConfigurationsResponse) validateEmailFrom(formats strfmt.Registry) erro
 }
 
 func (m *ConfigurationsResponse) validateEmailHost(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.EmailHost) { // not required
 		return nil
 	}
@@ -328,6 +330,7 @@ func (m *ConfigurationsResponse) validateEmailHost(formats strfmt.Registry) erro
 }
 
 func (m *ConfigurationsResponse) validateEmailIdentity(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.EmailIdentity) { // not required
 		return nil
 	}
@@ -345,6 +348,7 @@ func (m *ConfigurationsResponse) validateEmailIdentity(formats strfmt.Registry) 
 }
 
 func (m *ConfigurationsResponse) validateEmailInsecure(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.EmailInsecure) { // not required
 		return nil
 	}
@@ -362,6 +366,7 @@ func (m *ConfigurationsResponse) validateEmailInsecure(formats strfmt.Registry) 
 }
 
 func (m *ConfigurationsResponse) validateEmailPort(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.EmailPort) { // not required
 		return nil
 	}
@@ -379,6 +384,7 @@ func (m *ConfigurationsResponse) validateEmailPort(formats strfmt.Registry) erro
 }
 
 func (m *ConfigurationsResponse) validateEmailSsl(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.EmailSsl) { // not required
 		return nil
 	}
@@ -396,6 +402,7 @@ func (m *ConfigurationsResponse) validateEmailSsl(formats strfmt.Registry) error
 }
 
 func (m *ConfigurationsResponse) validateEmailUsername(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.EmailUsername) { // not required
 		return nil
 	}
@@ -413,6 +420,7 @@ func (m *ConfigurationsResponse) validateEmailUsername(formats strfmt.Registry) 
 }
 
 func (m *ConfigurationsResponse) validateLdapBaseDn(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.LdapBaseDn) { // not required
 		return nil
 	}
@@ -430,6 +438,7 @@ func (m *ConfigurationsResponse) validateLdapBaseDn(formats strfmt.Registry) err
 }
 
 func (m *ConfigurationsResponse) validateLdapFilter(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.LdapFilter) { // not required
 		return nil
 	}
@@ -447,6 +456,7 @@ func (m *ConfigurationsResponse) validateLdapFilter(formats strfmt.Registry) err
 }
 
 func (m *ConfigurationsResponse) validateLdapGroupAdminDn(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.LdapGroupAdminDn) { // not required
 		return nil
 	}
@@ -464,6 +474,7 @@ func (m *ConfigurationsResponse) validateLdapGroupAdminDn(formats strfmt.Registr
 }
 
 func (m *ConfigurationsResponse) validateLdapGroupAttributeName(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.LdapGroupAttributeName) { // not required
 		return nil
 	}
@@ -481,6 +492,7 @@ func (m *ConfigurationsResponse) validateLdapGroupAttributeName(formats strfmt.R
 }
 
 func (m *ConfigurationsResponse) validateLdapGroupBaseDn(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.LdapGroupBaseDn) { // not required
 		return nil
 	}
@@ -498,6 +510,7 @@ func (m *ConfigurationsResponse) validateLdapGroupBaseDn(formats strfmt.Registry
 }
 
 func (m *ConfigurationsResponse) validateLdapGroupSearchFilter(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.LdapGroupSearchFilter) { // not required
 		return nil
 	}
@@ -515,6 +528,7 @@ func (m *ConfigurationsResponse) validateLdapGroupSearchFilter(formats strfmt.Re
 }
 
 func (m *ConfigurationsResponse) validateLdapGroupSearchScope(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.LdapGroupSearchScope) { // not required
 		return nil
 	}
@@ -532,6 +546,7 @@ func (m *ConfigurationsResponse) validateLdapGroupSearchScope(formats strfmt.Reg
 }
 
 func (m *ConfigurationsResponse) validateLdapTimeout(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.LdapTimeout) { // not required
 		return nil
 	}
@@ -549,6 +564,7 @@ func (m *ConfigurationsResponse) validateLdapTimeout(formats strfmt.Registry) er
 }
 
 func (m *ConfigurationsResponse) validateLdapUID(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.LdapUID) { // not required
 		return nil
 	}
@@ -566,6 +582,7 @@ func (m *ConfigurationsResponse) validateLdapUID(formats strfmt.Registry) error 
 }
 
 func (m *ConfigurationsResponse) validateLdapURL(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.LdapURL) { // not required
 		return nil
 	}
@@ -583,6 +600,7 @@ func (m *ConfigurationsResponse) validateLdapURL(formats strfmt.Registry) error 
 }
 
 func (m *ConfigurationsResponse) validateOidcClientID(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.OidcClientID) { // not required
 		return nil
 	}
@@ -600,6 +618,7 @@ func (m *ConfigurationsResponse) validateOidcClientID(formats strfmt.Registry) e
 }
 
 func (m *ConfigurationsResponse) validateOidcEndpoint(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.OidcEndpoint) { // not required
 		return nil
 	}
@@ -617,6 +636,7 @@ func (m *ConfigurationsResponse) validateOidcEndpoint(formats strfmt.Registry) e
 }
 
 func (m *ConfigurationsResponse) validateOidcName(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.OidcName) { // not required
 		return nil
 	}
@@ -634,6 +654,7 @@ func (m *ConfigurationsResponse) validateOidcName(formats strfmt.Registry) error
 }
 
 func (m *ConfigurationsResponse) validateOidcScope(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.OidcScope) { // not required
 		return nil
 	}
@@ -651,6 +672,7 @@ func (m *ConfigurationsResponse) validateOidcScope(formats strfmt.Registry) erro
 }
 
 func (m *ConfigurationsResponse) validateOidcVerifyCert(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.OidcVerifyCert) { // not required
 		return nil
 	}
@@ -668,6 +690,7 @@ func (m *ConfigurationsResponse) validateOidcVerifyCert(formats strfmt.Registry)
 }
 
 func (m *ConfigurationsResponse) validateProjectCreationRestriction(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ProjectCreationRestriction) { // not required
 		return nil
 	}
@@ -685,6 +708,7 @@ func (m *ConfigurationsResponse) validateProjectCreationRestriction(formats strf
 }
 
 func (m *ConfigurationsResponse) validateQuotaPerProjectEnable(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.QuotaPerProjectEnable) { // not required
 		return nil
 	}
@@ -702,6 +726,7 @@ func (m *ConfigurationsResponse) validateQuotaPerProjectEnable(formats strfmt.Re
 }
 
 func (m *ConfigurationsResponse) validateReadOnly(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ReadOnly) { // not required
 		return nil
 	}
@@ -719,6 +744,7 @@ func (m *ConfigurationsResponse) validateReadOnly(formats strfmt.Registry) error
 }
 
 func (m *ConfigurationsResponse) validateScanAllPolicy(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ScanAllPolicy) { // not required
 		return nil
 	}
@@ -736,6 +762,7 @@ func (m *ConfigurationsResponse) validateScanAllPolicy(formats strfmt.Registry) 
 }
 
 func (m *ConfigurationsResponse) validateSelfRegistration(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.SelfRegistration) { // not required
 		return nil
 	}
@@ -753,6 +780,7 @@ func (m *ConfigurationsResponse) validateSelfRegistration(formats strfmt.Registr
 }
 
 func (m *ConfigurationsResponse) validateStoragePerProject(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.StoragePerProject) { // not required
 		return nil
 	}
@@ -770,6 +798,7 @@ func (m *ConfigurationsResponse) validateStoragePerProject(formats strfmt.Regist
 }
 
 func (m *ConfigurationsResponse) validateTokenExpiration(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.TokenExpiration) { // not required
 		return nil
 	}
@@ -787,598 +816,13 @@ func (m *ConfigurationsResponse) validateTokenExpiration(formats strfmt.Registry
 }
 
 func (m *ConfigurationsResponse) validateVerifyRemoteCert(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.VerifyRemoteCert) { // not required
 		return nil
 	}
 
 	if m.VerifyRemoteCert != nil {
 		if err := m.VerifyRemoteCert.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("verify_remote_cert")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this configurations response based on the context it is used
-func (m *ConfigurationsResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAuthMode(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateCountPerProject(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateEmailFrom(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateEmailHost(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateEmailIdentity(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateEmailInsecure(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateEmailPort(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateEmailSsl(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateEmailUsername(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateLdapBaseDn(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateLdapFilter(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateLdapGroupAdminDn(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateLdapGroupAttributeName(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateLdapGroupBaseDn(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateLdapGroupSearchFilter(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateLdapGroupSearchScope(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateLdapTimeout(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateLdapUID(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateLdapURL(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateOidcClientID(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateOidcEndpoint(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateOidcName(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateOidcScope(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateOidcVerifyCert(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateProjectCreationRestriction(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateQuotaPerProjectEnable(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateReadOnly(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateScanAllPolicy(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateSelfRegistration(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateStoragePerProject(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateTokenExpiration(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateVerifyRemoteCert(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateAuthMode(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.AuthMode != nil {
-		if err := m.AuthMode.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("auth_mode")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateCountPerProject(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.CountPerProject != nil {
-		if err := m.CountPerProject.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("count_per_project")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateEmailFrom(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.EmailFrom != nil {
-		if err := m.EmailFrom.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("email_from")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateEmailHost(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.EmailHost != nil {
-		if err := m.EmailHost.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("email_host")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateEmailIdentity(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.EmailIdentity != nil {
-		if err := m.EmailIdentity.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("email_identity")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateEmailInsecure(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.EmailInsecure != nil {
-		if err := m.EmailInsecure.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("email_insecure")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateEmailPort(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.EmailPort != nil {
-		if err := m.EmailPort.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("email_port")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateEmailSsl(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.EmailSsl != nil {
-		if err := m.EmailSsl.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("email_ssl")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateEmailUsername(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.EmailUsername != nil {
-		if err := m.EmailUsername.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("email_username")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateLdapBaseDn(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.LdapBaseDn != nil {
-		if err := m.LdapBaseDn.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ldap_base_dn")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateLdapFilter(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.LdapFilter != nil {
-		if err := m.LdapFilter.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ldap_filter")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateLdapGroupAdminDn(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.LdapGroupAdminDn != nil {
-		if err := m.LdapGroupAdminDn.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ldap_group_admin_dn")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateLdapGroupAttributeName(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.LdapGroupAttributeName != nil {
-		if err := m.LdapGroupAttributeName.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ldap_group_attribute_name")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateLdapGroupBaseDn(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.LdapGroupBaseDn != nil {
-		if err := m.LdapGroupBaseDn.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ldap_group_base_dn")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateLdapGroupSearchFilter(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.LdapGroupSearchFilter != nil {
-		if err := m.LdapGroupSearchFilter.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ldap_group_search_filter")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateLdapGroupSearchScope(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.LdapGroupSearchScope != nil {
-		if err := m.LdapGroupSearchScope.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ldap_group_search_scope")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateLdapTimeout(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.LdapTimeout != nil {
-		if err := m.LdapTimeout.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ldap_timeout")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateLdapUID(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.LdapUID != nil {
-		if err := m.LdapUID.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ldap_uid")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateLdapURL(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.LdapURL != nil {
-		if err := m.LdapURL.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ldap_url")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateOidcClientID(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.OidcClientID != nil {
-		if err := m.OidcClientID.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("oidc_client_id")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateOidcEndpoint(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.OidcEndpoint != nil {
-		if err := m.OidcEndpoint.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("oidc_endpoint")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateOidcName(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.OidcName != nil {
-		if err := m.OidcName.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("oidc_name")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateOidcScope(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.OidcScope != nil {
-		if err := m.OidcScope.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("oidc_scope")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateOidcVerifyCert(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.OidcVerifyCert != nil {
-		if err := m.OidcVerifyCert.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("oidc_verify_cert")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateProjectCreationRestriction(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.ProjectCreationRestriction != nil {
-		if err := m.ProjectCreationRestriction.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("project_creation_restriction")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateQuotaPerProjectEnable(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.QuotaPerProjectEnable != nil {
-		if err := m.QuotaPerProjectEnable.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("quota_per_project_enable")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateReadOnly(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.ReadOnly != nil {
-		if err := m.ReadOnly.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("read_only")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateScanAllPolicy(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.ScanAllPolicy != nil {
-		if err := m.ScanAllPolicy.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("scan_all_policy")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateSelfRegistration(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.SelfRegistration != nil {
-		if err := m.SelfRegistration.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("self_registration")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateStoragePerProject(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.StoragePerProject != nil {
-		if err := m.StoragePerProject.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("storage_per_project")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateTokenExpiration(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.TokenExpiration != nil {
-		if err := m.TokenExpiration.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("token_expiration")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigurationsResponse) contextValidateVerifyRemoteCert(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.VerifyRemoteCert != nil {
-		if err := m.VerifyRemoteCert.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("verify_remote_cert")
 			}
@@ -1434,40 +878,13 @@ func (m *ConfigurationsResponseScanAllPolicy) Validate(formats strfmt.Registry) 
 }
 
 func (m *ConfigurationsResponseScanAllPolicy) validateParameter(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Parameter) { // not required
 		return nil
 	}
 
 	if m.Parameter != nil {
 		if err := m.Parameter.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("scan_all_policy" + "." + "parameter")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this configurations response scan all policy based on the context it is used
-func (m *ConfigurationsResponseScanAllPolicy) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateParameter(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *ConfigurationsResponseScanAllPolicy) contextValidateParameter(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Parameter != nil {
-		if err := m.Parameter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("scan_all_policy" + "." + "parameter")
 			}
@@ -1507,11 +924,6 @@ type ConfigurationsResponseScanAllPolicyParameter struct {
 
 // Validate validates this configurations response scan all policy parameter
 func (m *ConfigurationsResponseScanAllPolicyParameter) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this configurations response scan all policy parameter based on context it is used
-func (m *ConfigurationsResponseScanAllPolicyParameter) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

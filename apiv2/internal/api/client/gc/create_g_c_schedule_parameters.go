@@ -15,76 +15,67 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 )
 
-// NewCreateGCScheduleParams creates a new CreateGCScheduleParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewCreateGCScheduleParams creates a new CreateGCScheduleParams object
+// with the default values initialized.
 func NewCreateGCScheduleParams() *CreateGCScheduleParams {
+	var ()
 	return &CreateGCScheduleParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateGCScheduleParamsWithTimeout creates a new CreateGCScheduleParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewCreateGCScheduleParamsWithTimeout(timeout time.Duration) *CreateGCScheduleParams {
+	var ()
 	return &CreateGCScheduleParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewCreateGCScheduleParamsWithContext creates a new CreateGCScheduleParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewCreateGCScheduleParamsWithContext(ctx context.Context) *CreateGCScheduleParams {
+	var ()
 	return &CreateGCScheduleParams{
+
 		Context: ctx,
 	}
 }
 
 // NewCreateGCScheduleParamsWithHTTPClient creates a new CreateGCScheduleParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewCreateGCScheduleParamsWithHTTPClient(client *http.Client) *CreateGCScheduleParams {
+	var ()
 	return &CreateGCScheduleParams{
 		HTTPClient: client,
 	}
 }
 
-/* CreateGCScheduleParams contains all the parameters to send to the API endpoint
-   for the create g c schedule operation.
-
-   Typically these are written to a http.Request.
+/*CreateGCScheduleParams contains all the parameters to send to the API endpoint
+for the create g c schedule operation typically these are written to a http.Request
 */
 type CreateGCScheduleParams struct {
 
-	/* Schedule.
+	/*XRequestID
+	  An unique ID for the request
 
-	   Updates of gc's schedule.
+	*/
+	XRequestID *string
+	/*Schedule
+	  Updates of gc's schedule.
+
 	*/
 	Schedule *model.Schedule
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the create g c schedule params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *CreateGCScheduleParams) WithDefaults() *CreateGCScheduleParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the create g c schedule params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *CreateGCScheduleParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create g c schedule params
@@ -120,6 +111,17 @@ func (o *CreateGCScheduleParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXRequestID adds the xRequestID to the create g c schedule params
+func (o *CreateGCScheduleParams) WithXRequestID(xRequestID *string) *CreateGCScheduleParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the create g c schedule params
+func (o *CreateGCScheduleParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WithSchedule adds the schedule to the create g c schedule params
 func (o *CreateGCScheduleParams) WithSchedule(schedule *model.Schedule) *CreateGCScheduleParams {
 	o.SetSchedule(schedule)
@@ -138,6 +140,16 @@ func (o *CreateGCScheduleParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-Id
+		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
+			return err
+		}
+
+	}
+
 	if o.Schedule != nil {
 		if err := r.SetBodyParam(o.Schedule); err != nil {
 			return err

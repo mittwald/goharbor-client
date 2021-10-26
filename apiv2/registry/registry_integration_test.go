@@ -7,14 +7,14 @@ import (
 	"net/url"
 	"testing"
 
-	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
-	integrationtest "github.com/mittwald/goharbor-client/v4/apiv2/testing"
+	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
+	integrationtest "github.com/mittwald/goharbor-client/v5/apiv2/testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v4/apiv2/internal/legacyapi/client"
-	model "github.com/mittwald/goharbor-client/v4/apiv2/model/legacy"
+	"github.com/mittwald/goharbor-client/v5/apiv2/internal/legacyapi/client"
+	model "github.com/mittwald/goharbor-client/v5/apiv2/model/legacy"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

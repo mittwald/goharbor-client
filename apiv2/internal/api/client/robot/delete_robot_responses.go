@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 )
 
 // DeleteRobotReader is a Reader for the DeleteRobot structure.
@@ -59,6 +59,7 @@ func (o *DeleteRobotReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,13 +70,12 @@ func NewDeleteRobotOK() *DeleteRobotOK {
 	return &DeleteRobotOK{}
 }
 
-/* DeleteRobotOK describes a response with status code 200, with default header values.
+/*DeleteRobotOK handles this case with default header values.
 
 Success
 */
 type DeleteRobotOK struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -86,12 +86,8 @@ func (o *DeleteRobotOK) Error() string {
 
 func (o *DeleteRobotOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -101,13 +97,12 @@ func NewDeleteRobotBadRequest() *DeleteRobotBadRequest {
 	return &DeleteRobotBadRequest{}
 }
 
-/* DeleteRobotBadRequest describes a response with status code 400, with default header values.
+/*DeleteRobotBadRequest handles this case with default header values.
 
 Bad request
 */
 type DeleteRobotBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -117,18 +112,15 @@ type DeleteRobotBadRequest struct {
 func (o *DeleteRobotBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /robots/{robot_id}][%d] deleteRobotBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *DeleteRobotBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteRobotBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -145,13 +137,12 @@ func NewDeleteRobotUnauthorized() *DeleteRobotUnauthorized {
 	return &DeleteRobotUnauthorized{}
 }
 
-/* DeleteRobotUnauthorized describes a response with status code 401, with default header values.
+/*DeleteRobotUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type DeleteRobotUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -161,18 +152,15 @@ type DeleteRobotUnauthorized struct {
 func (o *DeleteRobotUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /robots/{robot_id}][%d] deleteRobotUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteRobotUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteRobotUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -189,13 +177,12 @@ func NewDeleteRobotForbidden() *DeleteRobotForbidden {
 	return &DeleteRobotForbidden{}
 }
 
-/* DeleteRobotForbidden describes a response with status code 403, with default header values.
+/*DeleteRobotForbidden handles this case with default header values.
 
 Forbidden
 */
 type DeleteRobotForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -205,18 +192,15 @@ type DeleteRobotForbidden struct {
 func (o *DeleteRobotForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /robots/{robot_id}][%d] deleteRobotForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteRobotForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteRobotForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -233,13 +217,12 @@ func NewDeleteRobotNotFound() *DeleteRobotNotFound {
 	return &DeleteRobotNotFound{}
 }
 
-/* DeleteRobotNotFound describes a response with status code 404, with default header values.
+/*DeleteRobotNotFound handles this case with default header values.
 
 Not found
 */
 type DeleteRobotNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,18 +232,15 @@ type DeleteRobotNotFound struct {
 func (o *DeleteRobotNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /robots/{robot_id}][%d] deleteRobotNotFound  %+v", 404, o.Payload)
 }
+
 func (o *DeleteRobotNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteRobotNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -277,13 +257,12 @@ func NewDeleteRobotInternalServerError() *DeleteRobotInternalServerError {
 	return &DeleteRobotInternalServerError{}
 }
 
-/* DeleteRobotInternalServerError describes a response with status code 500, with default header values.
+/*DeleteRobotInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type DeleteRobotInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -293,18 +272,15 @@ type DeleteRobotInternalServerError struct {
 func (o *DeleteRobotInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /robots/{robot_id}][%d] deleteRobotInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteRobotInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *DeleteRobotInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

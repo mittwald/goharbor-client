@@ -16,84 +16,67 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/mittwald/goharbor-client/v4/apiv1/model"
+	"github.com/mittwald/goharbor-client/v5/apiv1/model"
 )
 
-// NewPutUsersUserIDParams creates a new PutUsersUserIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPutUsersUserIDParams creates a new PutUsersUserIDParams object
+// with the default values initialized.
 func NewPutUsersUserIDParams() *PutUsersUserIDParams {
+	var ()
 	return &PutUsersUserIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutUsersUserIDParamsWithTimeout creates a new PutUsersUserIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPutUsersUserIDParamsWithTimeout(timeout time.Duration) *PutUsersUserIDParams {
+	var ()
 	return &PutUsersUserIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPutUsersUserIDParamsWithContext creates a new PutUsersUserIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPutUsersUserIDParamsWithContext(ctx context.Context) *PutUsersUserIDParams {
+	var ()
 	return &PutUsersUserIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPutUsersUserIDParamsWithHTTPClient creates a new PutUsersUserIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPutUsersUserIDParamsWithHTTPClient(client *http.Client) *PutUsersUserIDParams {
+	var ()
 	return &PutUsersUserIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* PutUsersUserIDParams contains all the parameters to send to the API endpoint
-   for the put users user ID operation.
-
-   Typically these are written to a http.Request.
+/*PutUsersUserIDParams contains all the parameters to send to the API endpoint
+for the put users user ID operation typically these are written to a http.Request
 */
 type PutUsersUserIDParams struct {
 
-	/* Profile.
+	/*Profile
+	  Only email, realname and comment can be modified.
 
-	   Only email, realname and comment can be modified.
 	*/
 	Profile *model.UserProfile
+	/*UserID
+	  Registered user ID
 
-	/* UserID.
-
-	   Registered user ID
-
-	   Format: int
 	*/
 	UserID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the put users user ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PutUsersUserIDParams) WithDefaults() *PutUsersUserIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the put users user ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PutUsersUserIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put users user ID params
@@ -158,6 +141,7 @@ func (o *PutUsersUserIDParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		return err
 	}
 	var res []error
+
 	if o.Profile != nil {
 		if err := r.SetBodyParam(o.Profile); err != nil {
 			return err

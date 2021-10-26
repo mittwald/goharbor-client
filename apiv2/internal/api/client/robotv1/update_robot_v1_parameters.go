@@ -16,111 +16,94 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 )
 
-// NewUpdateRobotV1Params creates a new UpdateRobotV1Params object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewUpdateRobotV1Params creates a new UpdateRobotV1Params object
+// with the default values initialized.
 func NewUpdateRobotV1Params() *UpdateRobotV1Params {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &UpdateRobotV1Params{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateRobotV1ParamsWithTimeout creates a new UpdateRobotV1Params object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewUpdateRobotV1ParamsWithTimeout(timeout time.Duration) *UpdateRobotV1Params {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &UpdateRobotV1Params{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		timeout: timeout,
 	}
 }
 
 // NewUpdateRobotV1ParamsWithContext creates a new UpdateRobotV1Params object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewUpdateRobotV1ParamsWithContext(ctx context.Context) *UpdateRobotV1Params {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &UpdateRobotV1Params{
+		XIsResourceName: &xIsResourceNameDefault,
+
 		Context: ctx,
 	}
 }
 
 // NewUpdateRobotV1ParamsWithHTTPClient creates a new UpdateRobotV1Params object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewUpdateRobotV1ParamsWithHTTPClient(client *http.Client) *UpdateRobotV1Params {
+	var (
+		xIsResourceNameDefault = bool(false)
+	)
 	return &UpdateRobotV1Params{
-		HTTPClient: client,
+		XIsResourceName: &xIsResourceNameDefault,
+		HTTPClient:      client,
 	}
 }
 
-/* UpdateRobotV1Params contains all the parameters to send to the API endpoint
-   for the update robot v1 operation.
-
-   Typically these are written to a http.Request.
+/*UpdateRobotV1Params contains all the parameters to send to the API endpoint
+for the update robot v1 operation typically these are written to a http.Request
 */
 type UpdateRobotV1Params struct {
 
-	/* XIsResourceName.
+	/*XIsResourceName
+	  The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
 
-	   The flag to indicate whether the parameter which supports both name and id in the path is the name of the resource. When the X-Is-Resource-Name is false and the parameter can be converted to an integer, the parameter will be as an id, otherwise, it will be as a name.
 	*/
 	XIsResourceName *bool
+	/*XRequestID
+	  An unique ID for the request
 
-	/* XRequestID.
-
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*ProjectNameOrID
+	  The name or id of the project
 
-	/* ProjectNameOrID.
-
-	   The name or id of the project
 	*/
 	ProjectNameOrID string
+	/*Robot
+	  The JSON object of a robot account.
 
-	/* Robot.
-
-	   The JSON object of a robot account.
 	*/
 	Robot *model.Robot
+	/*RobotID
+	  Robot ID
 
-	/* RobotID.
-
-	   Robot ID
 	*/
 	RobotID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the update robot v1 params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *UpdateRobotV1Params) WithDefaults() *UpdateRobotV1Params {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the update robot v1 params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *UpdateRobotV1Params) SetDefaults() {
-	var (
-		xIsResourceNameDefault = bool(false)
-	)
-
-	val := UpdateRobotV1Params{
-		XIsResourceName: &xIsResourceNameDefault,
-	}
-
-	val.timeout = o.timeout
-	val.Context = o.Context
-	val.HTTPClient = o.HTTPClient
-	*o = val
 }
 
 // WithTimeout adds the timeout to the update robot v1 params
@@ -225,6 +208,7 @@ func (o *UpdateRobotV1Params) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if err := r.SetHeaderParam("X-Is-Resource-Name", swag.FormatBool(*o.XIsResourceName)); err != nil {
 			return err
 		}
+
 	}
 
 	if o.XRequestID != nil {
@@ -233,12 +217,14 @@ func (o *UpdateRobotV1Params) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param project_name_or_id
 	if err := r.SetPathParam("project_name_or_id", o.ProjectNameOrID); err != nil {
 		return err
 	}
+
 	if o.Robot != nil {
 		if err := r.SetBodyParam(o.Robot); err != nil {
 			return err

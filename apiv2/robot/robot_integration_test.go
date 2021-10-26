@@ -11,9 +11,9 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/stretchr/testify/require"
 
-	v2client "github.com/mittwald/goharbor-client/v4/apiv2/internal/api/client"
-	modelv2 "github.com/mittwald/goharbor-client/v4/apiv2/model"
-	integrationtest "github.com/mittwald/goharbor-client/v4/apiv2/testing"
+	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
+	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
+	integrationtest "github.com/mittwald/goharbor-client/v5/apiv2/testing"
 )
 
 var (
@@ -131,7 +131,7 @@ func TestAPIRefreshRobotAccountSecret(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, r)
 
-    rSec, err := c.RefreshRobotAccountSecretByName(ctx, "test-robot", "aVeryL0000ngSecret")
+	rSec, err := c.RefreshRobotAccountSecretByName(ctx, "test-robot", "aVeryL0000ngSecret")
 	require.NoError(t, err)
 	require.NotNil(t, rSec)
 

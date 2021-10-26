@@ -25,18 +25,17 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientOption is the option for Client methods
-type ClientOption func(*runtime.ClientOperation)
-
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteRepository(params *DeleteRepositoryParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteRepositoryOK, error)
+	DeleteRepository(params *DeleteRepositoryParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRepositoryOK, error)
 
-	GetRepository(params *GetRepositoryParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRepositoryOK, error)
+	GetRepository(params *GetRepositoryParams, authInfo runtime.ClientAuthInfoWriter) (*GetRepositoryOK, error)
 
-	ListRepositories(params *ListRepositoriesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListRepositoriesOK, error)
+	ListAllRepositories(params *ListAllRepositoriesParams, authInfo runtime.ClientAuthInfoWriter) (*ListAllRepositoriesOK, error)
 
-	UpdateRepository(params *UpdateRepositoryParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateRepositoryOK, error)
+	ListRepositories(params *ListRepositoriesParams, authInfo runtime.ClientAuthInfoWriter) (*ListRepositoriesOK, error)
+
+	UpdateRepository(params *UpdateRepositoryParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRepositoryOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -46,12 +45,13 @@ type ClientService interface {
 
   Delete the repository specified by name
 */
-func (a *Client) DeleteRepository(params *DeleteRepositoryParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteRepositoryOK, error) {
+func (a *Client) DeleteRepository(params *DeleteRepositoryParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRepositoryOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteRepositoryParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "deleteRepository",
 		Method:             "DELETE",
 		PathPattern:        "/projects/{project_name}/repositories/{repository_name}",
@@ -63,12 +63,7 @@ func (a *Client) DeleteRepository(params *DeleteRepositoryParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -87,12 +82,13 @@ func (a *Client) DeleteRepository(params *DeleteRepositoryParams, authInfo runti
 
   Get the repository specified by name
 */
-func (a *Client) GetRepository(params *GetRepositoryParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRepositoryOK, error) {
+func (a *Client) GetRepository(params *GetRepositoryParams, authInfo runtime.ClientAuthInfoWriter) (*GetRepositoryOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRepositoryParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getRepository",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_name}/repositories/{repository_name}",
@@ -104,12 +100,7 @@ func (a *Client) GetRepository(params *GetRepositoryParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -124,16 +115,54 @@ func (a *Client) GetRepository(params *GetRepositoryParams, authInfo runtime.Cli
 }
 
 /*
+  ListAllRepositories lists all authorized repositories
+
+  List all authorized repositories
+*/
+func (a *Client) ListAllRepositories(params *ListAllRepositoriesParams, authInfo runtime.ClientAuthInfoWriter) (*ListAllRepositoriesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListAllRepositoriesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "listAllRepositories",
+		Method:             "GET",
+		PathPattern:        "/repositories",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListAllRepositoriesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ListAllRepositoriesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for listAllRepositories: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   ListRepositories lists repositories
 
   List repositories of the specified project
 */
-func (a *Client) ListRepositories(params *ListRepositoriesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListRepositoriesOK, error) {
+func (a *Client) ListRepositories(params *ListRepositoriesParams, authInfo runtime.ClientAuthInfoWriter) (*ListRepositoriesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListRepositoriesParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listRepositories",
 		Method:             "GET",
 		PathPattern:        "/projects/{project_name}/repositories",
@@ -145,12 +174,7 @@ func (a *Client) ListRepositories(params *ListRepositoriesParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -169,12 +193,13 @@ func (a *Client) ListRepositories(params *ListRepositoriesParams, authInfo runti
 
   Update the repository specified by name
 */
-func (a *Client) UpdateRepository(params *UpdateRepositoryParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateRepositoryOK, error) {
+func (a *Client) UpdateRepository(params *UpdateRepositoryParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRepositoryOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateRepositoryParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "updateRepository",
 		Method:             "PUT",
 		PathPattern:        "/projects/{project_name}/repositories/{repository_name}",
@@ -186,12 +211,7 @@ func (a *Client) UpdateRepository(params *UpdateRepositoryParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}

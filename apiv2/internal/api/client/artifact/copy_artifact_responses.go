@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 )
 
 // CopyArtifactReader is a Reader for the CopyArtifact structure.
@@ -65,6 +65,7 @@ func (o *CopyArtifactReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,17 +76,15 @@ func NewCopyArtifactCreated() *CopyArtifactCreated {
 	return &CopyArtifactCreated{}
 }
 
-/* CopyArtifactCreated describes a response with status code 201, with default header values.
+/*CopyArtifactCreated handles this case with default header values.
 
 Created
 */
 type CopyArtifactCreated struct {
-
-	/* The location of the resource
+	/*The location of the resource
 	 */
 	Location string
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -96,19 +95,11 @@ func (o *CopyArtifactCreated) Error() string {
 
 func (o *CopyArtifactCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Location
-	hdrLocation := response.GetHeader("Location")
+	// response header Location
+	o.Location = response.GetHeader("Location")
 
-	if hdrLocation != "" {
-		o.Location = hdrLocation
-	}
-
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -118,13 +109,12 @@ func NewCopyArtifactBadRequest() *CopyArtifactBadRequest {
 	return &CopyArtifactBadRequest{}
 }
 
-/* CopyArtifactBadRequest describes a response with status code 400, with default header values.
+/*CopyArtifactBadRequest handles this case with default header values.
 
 Bad request
 */
 type CopyArtifactBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -134,18 +124,15 @@ type CopyArtifactBadRequest struct {
 func (o *CopyArtifactBadRequest) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts][%d] copyArtifactBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *CopyArtifactBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CopyArtifactBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -162,13 +149,12 @@ func NewCopyArtifactUnauthorized() *CopyArtifactUnauthorized {
 	return &CopyArtifactUnauthorized{}
 }
 
-/* CopyArtifactUnauthorized describes a response with status code 401, with default header values.
+/*CopyArtifactUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type CopyArtifactUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -178,18 +164,15 @@ type CopyArtifactUnauthorized struct {
 func (o *CopyArtifactUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts][%d] copyArtifactUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *CopyArtifactUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CopyArtifactUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -206,13 +189,12 @@ func NewCopyArtifactForbidden() *CopyArtifactForbidden {
 	return &CopyArtifactForbidden{}
 }
 
-/* CopyArtifactForbidden describes a response with status code 403, with default header values.
+/*CopyArtifactForbidden handles this case with default header values.
 
 Forbidden
 */
 type CopyArtifactForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -222,18 +204,15 @@ type CopyArtifactForbidden struct {
 func (o *CopyArtifactForbidden) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts][%d] copyArtifactForbidden  %+v", 403, o.Payload)
 }
+
 func (o *CopyArtifactForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CopyArtifactForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -250,13 +229,12 @@ func NewCopyArtifactNotFound() *CopyArtifactNotFound {
 	return &CopyArtifactNotFound{}
 }
 
-/* CopyArtifactNotFound describes a response with status code 404, with default header values.
+/*CopyArtifactNotFound handles this case with default header values.
 
 Not found
 */
 type CopyArtifactNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -266,18 +244,15 @@ type CopyArtifactNotFound struct {
 func (o *CopyArtifactNotFound) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts][%d] copyArtifactNotFound  %+v", 404, o.Payload)
 }
+
 func (o *CopyArtifactNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CopyArtifactNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -294,13 +269,12 @@ func NewCopyArtifactMethodNotAllowed() *CopyArtifactMethodNotAllowed {
 	return &CopyArtifactMethodNotAllowed{}
 }
 
-/* CopyArtifactMethodNotAllowed describes a response with status code 405, with default header values.
+/*CopyArtifactMethodNotAllowed handles this case with default header values.
 
 Method not allowed
 */
 type CopyArtifactMethodNotAllowed struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -310,18 +284,15 @@ type CopyArtifactMethodNotAllowed struct {
 func (o *CopyArtifactMethodNotAllowed) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts][%d] copyArtifactMethodNotAllowed  %+v", 405, o.Payload)
 }
+
 func (o *CopyArtifactMethodNotAllowed) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CopyArtifactMethodNotAllowed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -338,13 +309,12 @@ func NewCopyArtifactInternalServerError() *CopyArtifactInternalServerError {
 	return &CopyArtifactInternalServerError{}
 }
 
-/* CopyArtifactInternalServerError describes a response with status code 500, with default header values.
+/*CopyArtifactInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type CopyArtifactInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -354,18 +324,15 @@ type CopyArtifactInternalServerError struct {
 func (o *CopyArtifactInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/repositories/{repository_name}/artifacts][%d] copyArtifactInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *CopyArtifactInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *CopyArtifactInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

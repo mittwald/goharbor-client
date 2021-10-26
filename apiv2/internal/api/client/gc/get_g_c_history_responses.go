@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 )
 
 // GetGCHistoryReader is a Reader for the GetGCHistory structure.
@@ -49,6 +49,7 @@ func (o *GetGCHistoryReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -59,17 +60,15 @@ func NewGetGCHistoryOK() *GetGCHistoryOK {
 	return &GetGCHistoryOK{}
 }
 
-/* GetGCHistoryOK describes a response with status code 200, with default header values.
+/*GetGCHistoryOK handles this case with default header values.
 
 Get gc results successfully.
 */
 type GetGCHistoryOK struct {
-
-	/* Link refers to the previous page and next page
+	/*Link refers to the previous page and next page
 	 */
 	Link string
-
-	/* The total count of history
+	/*The total count of history
 	 */
 	XTotalCount int64
 
@@ -79,29 +78,22 @@ type GetGCHistoryOK struct {
 func (o *GetGCHistoryOK) Error() string {
 	return fmt.Sprintf("[GET /system/gc][%d] getGCHistoryOK  %+v", 200, o.Payload)
 }
+
 func (o *GetGCHistoryOK) GetPayload() []*model.GCHistory {
 	return o.Payload
 }
 
 func (o *GetGCHistoryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Link
-	hdrLink := response.GetHeader("Link")
+	// response header Link
+	o.Link = response.GetHeader("Link")
 
-	if hdrLink != "" {
-		o.Link = hdrLink
+	// response header X-Total-Count
+	xTotalCount, err := swag.ConvertInt64(response.GetHeader("X-Total-Count"))
+	if err != nil {
+		return errors.InvalidType("X-Total-Count", "header", "int64", response.GetHeader("X-Total-Count"))
 	}
-
-	// hydrates response header X-Total-Count
-	hdrXTotalCount := response.GetHeader("X-Total-Count")
-
-	if hdrXTotalCount != "" {
-		valxTotalCount, err := swag.ConvertInt64(hdrXTotalCount)
-		if err != nil {
-			return errors.InvalidType("X-Total-Count", "header", "int64", hdrXTotalCount)
-		}
-		o.XTotalCount = valxTotalCount
-	}
+	o.XTotalCount = xTotalCount
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -116,13 +108,12 @@ func NewGetGCHistoryUnauthorized() *GetGCHistoryUnauthorized {
 	return &GetGCHistoryUnauthorized{}
 }
 
-/* GetGCHistoryUnauthorized describes a response with status code 401, with default header values.
+/*GetGCHistoryUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type GetGCHistoryUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -132,18 +123,15 @@ type GetGCHistoryUnauthorized struct {
 func (o *GetGCHistoryUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /system/gc][%d] getGCHistoryUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetGCHistoryUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetGCHistoryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -160,13 +148,12 @@ func NewGetGCHistoryForbidden() *GetGCHistoryForbidden {
 	return &GetGCHistoryForbidden{}
 }
 
-/* GetGCHistoryForbidden describes a response with status code 403, with default header values.
+/*GetGCHistoryForbidden handles this case with default header values.
 
 Forbidden
 */
 type GetGCHistoryForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -176,18 +163,15 @@ type GetGCHistoryForbidden struct {
 func (o *GetGCHistoryForbidden) Error() string {
 	return fmt.Sprintf("[GET /system/gc][%d] getGCHistoryForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetGCHistoryForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetGCHistoryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -204,13 +188,12 @@ func NewGetGCHistoryInternalServerError() *GetGCHistoryInternalServerError {
 	return &GetGCHistoryInternalServerError{}
 }
 
-/* GetGCHistoryInternalServerError describes a response with status code 500, with default header values.
+/*GetGCHistoryInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetGCHistoryInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -220,18 +203,15 @@ type GetGCHistoryInternalServerError struct {
 func (o *GetGCHistoryInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /system/gc][%d] getGCHistoryInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetGCHistoryInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetGCHistoryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

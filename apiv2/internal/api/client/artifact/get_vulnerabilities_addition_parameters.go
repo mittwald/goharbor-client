@@ -16,111 +16,92 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetVulnerabilitiesAdditionParams creates a new GetVulnerabilitiesAdditionParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetVulnerabilitiesAdditionParams creates a new GetVulnerabilitiesAdditionParams object
+// with the default values initialized.
 func NewGetVulnerabilitiesAdditionParams() *GetVulnerabilitiesAdditionParams {
+	var (
+		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
+	)
 	return &GetVulnerabilitiesAdditionParams{
+		XAcceptVulnerabilities: &xAcceptVulnerabilitiesDefault,
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetVulnerabilitiesAdditionParamsWithTimeout creates a new GetVulnerabilitiesAdditionParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetVulnerabilitiesAdditionParamsWithTimeout(timeout time.Duration) *GetVulnerabilitiesAdditionParams {
+	var (
+		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
+	)
 	return &GetVulnerabilitiesAdditionParams{
+		XAcceptVulnerabilities: &xAcceptVulnerabilitiesDefault,
+
 		timeout: timeout,
 	}
 }
 
 // NewGetVulnerabilitiesAdditionParamsWithContext creates a new GetVulnerabilitiesAdditionParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetVulnerabilitiesAdditionParamsWithContext(ctx context.Context) *GetVulnerabilitiesAdditionParams {
+	var (
+		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
+	)
 	return &GetVulnerabilitiesAdditionParams{
+		XAcceptVulnerabilities: &xAcceptVulnerabilitiesDefault,
+
 		Context: ctx,
 	}
 }
 
 // NewGetVulnerabilitiesAdditionParamsWithHTTPClient creates a new GetVulnerabilitiesAdditionParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetVulnerabilitiesAdditionParamsWithHTTPClient(client *http.Client) *GetVulnerabilitiesAdditionParams {
+	var (
+		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
+	)
 	return &GetVulnerabilitiesAdditionParams{
-		HTTPClient: client,
+		XAcceptVulnerabilities: &xAcceptVulnerabilitiesDefault,
+		HTTPClient:             client,
 	}
 }
 
-/* GetVulnerabilitiesAdditionParams contains all the parameters to send to the API endpoint
-   for the get vulnerabilities addition operation.
-
-   Typically these are written to a http.Request.
+/*GetVulnerabilitiesAdditionParams contains all the parameters to send to the API endpoint
+for the get vulnerabilities addition operation typically these are written to a http.Request
 */
 type GetVulnerabilitiesAdditionParams struct {
 
-	/* XAcceptVulnerabilities.
-
-	     A comma-separated lists of MIME types for the scan report or scan summary. The first mime type will be used when the report found for it.
+	/*XAcceptVulnerabilities
+	  A comma-separated lists of MIME types for the scan report or scan summary. The first mime type will be used when the report found for it.
 	Currently the mime type supports 'application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0' and 'application/vnd.security.vulnerability.report; version=1.1'
 
-	     Default: "application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0"
 	*/
 	XAcceptVulnerabilities *string
+	/*XRequestID
+	  An unique ID for the request
 
-	/* XRequestID.
-
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*ProjectName
+	  The name of the project
 
-	/* ProjectName.
-
-	   The name of the project
 	*/
 	ProjectName string
+	/*Reference
+	  The reference of the artifact, can be digest or tag
 
-	/* Reference.
-
-	   The reference of the artifact, can be digest or tag
 	*/
 	Reference string
+	/*RepositoryName
+	  The name of the repository. If it contains slash, encode it with URL encoding. e.g. a/b -> a%252Fb
 
-	/* RepositoryName.
-
-	   The name of the repository. If it contains slash, encode it with URL encoding. e.g. a/b -> a%252Fb
 	*/
 	RepositoryName string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get vulnerabilities addition params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetVulnerabilitiesAdditionParams) WithDefaults() *GetVulnerabilitiesAdditionParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get vulnerabilities addition params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetVulnerabilitiesAdditionParams) SetDefaults() {
-	var (
-		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
-	)
-
-	val := GetVulnerabilitiesAdditionParams{
-		XAcceptVulnerabilities: &xAcceptVulnerabilitiesDefault,
-	}
-
-	val.timeout = o.timeout
-	val.Context = o.Context
-	val.HTTPClient = o.HTTPClient
-	*o = val
 }
 
 // WithTimeout adds the timeout to the get vulnerabilities addition params
@@ -225,6 +206,7 @@ func (o *GetVulnerabilitiesAdditionParams) WriteToRequest(r runtime.ClientReques
 		if err := r.SetHeaderParam("X-Accept-Vulnerabilities", *o.XAcceptVulnerabilities); err != nil {
 			return err
 		}
+
 	}
 
 	if o.XRequestID != nil {
@@ -233,6 +215,7 @@ func (o *GetVulnerabilitiesAdditionParams) WriteToRequest(r runtime.ClientReques
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param project_name
