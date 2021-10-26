@@ -1,3 +1,5 @@
+//go:build examples
+
 package apiv2
 
 import (
