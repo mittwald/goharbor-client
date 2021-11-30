@@ -1,4 +1,4 @@
-// +build integration
+//go:build integration
 
 package replication
 
@@ -8,15 +8,18 @@ import (
 	"testing"
 
 	"github.com/go-openapi/strfmt"
+
 	"github.com/mittwald/goharbor-client/v5/apiv1/internal/api/client"
 	integrationtest "github.com/mittwald/goharbor-client/v5/apiv1/testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
+
 	"github.com/mittwald/goharbor-client/v5/apiv1/registry"
 
-	model "github.com/mittwald/goharbor-client/v5/apiv1/model"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/mittwald/goharbor-client/v5/apiv1/model"
 )
 
 var (

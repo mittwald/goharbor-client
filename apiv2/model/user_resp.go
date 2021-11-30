@@ -31,7 +31,7 @@ type UserResp struct {
 	Email string `json:"email,omitempty"`
 
 	// oidc user meta
-	OidcUserMeta *OIDCUserInfo `json:"oidc_user_meta,omitempty"`
+	OIDCUserMeta *OIDCUserInfo `json:"oidc_user_meta,omitempty"`
 
 	// realname
 	Realname string `json:"realname,omitempty"`
@@ -58,7 +58,7 @@ func (m *UserResp) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateOidcUserMeta(formats); err != nil {
+	if err := m.validateOIDCUserMeta(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -85,14 +85,14 @@ func (m *UserResp) validateCreationTime(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *UserResp) validateOidcUserMeta(formats strfmt.Registry) error {
+func (m *UserResp) validateOIDCUserMeta(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.OidcUserMeta) { // not required
+	if swag.IsZero(m.OIDCUserMeta) { // not required
 		return nil
 	}
 
-	if m.OidcUserMeta != nil {
-		if err := m.OidcUserMeta.Validate(formats); err != nil {
+	if m.OIDCUserMeta != nil {
+		if err := m.OIDCUserMeta.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("oidc_user_meta")
 			}

@@ -107,34 +107,34 @@ type ConfigurationsResponse struct {
 	NotificationEnable *BoolConfigItem `json:"notification_enable,omitempty"`
 
 	// The OIDC group which has the harbor admin privileges
-	OidcAdminGroup *StringConfigItem `json:"oidc_admin_group,omitempty"`
+	OIDCAdminGroup *StringConfigItem `json:"oidc_admin_group,omitempty"`
 
 	// Auto onboard the OIDC user
-	OidcAutoOnboard *BoolConfigItem `json:"oidc_auto_onboard,omitempty"`
+	OIDCAutoOnboard *BoolConfigItem `json:"oidc_auto_onboard,omitempty"`
 
 	// The client ID of the OIDC provider
-	OidcClientID *StringConfigItem `json:"oidc_client_id,omitempty"`
+	OIDCClientID *StringConfigItem `json:"oidc_client_id,omitempty"`
 
 	// The endpoint of the OIDC provider
-	OidcEndpoint *StringConfigItem `json:"oidc_endpoint,omitempty"`
+	OIDCEndpoint *StringConfigItem `json:"oidc_endpoint,omitempty"`
 
 	// Extra parameters to add when redirect request to OIDC provider
-	OidcExtraRedirectParms *StringConfigItem `json:"oidc_extra_redirect_parms,omitempty"`
+	OIDCExtraRedirectParms *StringConfigItem `json:"oidc_extra_redirect_parms,omitempty"`
 
 	// The attribute claims the group name
-	OidcGroupsClaim *StringConfigItem `json:"oidc_groups_claim,omitempty"`
+	OIDCGroupsClaim *StringConfigItem `json:"oidc_groups_claim,omitempty"`
 
 	// The OIDC provider name
-	OidcName *StringConfigItem `json:"oidc_name,omitempty"`
+	OIDCName *StringConfigItem `json:"oidc_name,omitempty"`
 
 	// The scope of the OIDC provider
-	OidcScope *StringConfigItem `json:"oidc_scope,omitempty"`
+	OIDCScope *StringConfigItem `json:"oidc_scope,omitempty"`
 
 	// The attribute claims the username
-	OidcUserClaim *StringConfigItem `json:"oidc_user_claim,omitempty"`
+	OIDCUserClaim *StringConfigItem `json:"oidc_user_claim,omitempty"`
 
 	// Verify the OIDC provider's certificate'
-	OidcVerifyCert *BoolConfigItem `json:"oidc_verify_cert,omitempty"`
+	OIDCVerifyCert *BoolConfigItem `json:"oidc_verify_cert,omitempty"`
 
 	// Indicate who can create projects, it could be ''adminonly'' or ''everyone''.
 	ProjectCreationRestriction *StringConfigItem `json:"project_creation_restriction,omitempty"`
@@ -300,43 +300,43 @@ func (m *ConfigurationsResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateOidcAdminGroup(formats); err != nil {
+	if err := m.validateOIDCAdminGroup(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateOidcAutoOnboard(formats); err != nil {
+	if err := m.validateOIDCAutoOnboard(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateOidcClientID(formats); err != nil {
+	if err := m.validateOIDCClientID(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateOidcEndpoint(formats); err != nil {
+	if err := m.validateOIDCEndpoint(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateOidcExtraRedirectParms(formats); err != nil {
+	if err := m.validateOIDCExtraRedirectParms(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateOidcGroupsClaim(formats); err != nil {
+	if err := m.validateOIDCGroupsClaim(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateOidcName(formats); err != nil {
+	if err := m.validateOIDCName(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateOidcScope(formats); err != nil {
+	if err := m.validateOIDCScope(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateOidcUserClaim(formats); err != nil {
+	if err := m.validateOIDCUserClaim(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateOidcVerifyCert(formats); err != nil {
+	if err := m.validateOIDCVerifyCert(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -938,14 +938,14 @@ func (m *ConfigurationsResponse) validateNotificationEnable(formats strfmt.Regis
 	return nil
 }
 
-func (m *ConfigurationsResponse) validateOidcAdminGroup(formats strfmt.Registry) error {
+func (m *ConfigurationsResponse) validateOIDCAdminGroup(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.OidcAdminGroup) { // not required
+	if swag.IsZero(m.OIDCAdminGroup) { // not required
 		return nil
 	}
 
-	if m.OidcAdminGroup != nil {
-		if err := m.OidcAdminGroup.Validate(formats); err != nil {
+	if m.OIDCAdminGroup != nil {
+		if err := m.OIDCAdminGroup.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("oidc_admin_group")
 			}
@@ -956,14 +956,14 @@ func (m *ConfigurationsResponse) validateOidcAdminGroup(formats strfmt.Registry)
 	return nil
 }
 
-func (m *ConfigurationsResponse) validateOidcAutoOnboard(formats strfmt.Registry) error {
+func (m *ConfigurationsResponse) validateOIDCAutoOnboard(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.OidcAutoOnboard) { // not required
+	if swag.IsZero(m.OIDCAutoOnboard) { // not required
 		return nil
 	}
 
-	if m.OidcAutoOnboard != nil {
-		if err := m.OidcAutoOnboard.Validate(formats); err != nil {
+	if m.OIDCAutoOnboard != nil {
+		if err := m.OIDCAutoOnboard.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("oidc_auto_onboard")
 			}
@@ -974,14 +974,14 @@ func (m *ConfigurationsResponse) validateOidcAutoOnboard(formats strfmt.Registry
 	return nil
 }
 
-func (m *ConfigurationsResponse) validateOidcClientID(formats strfmt.Registry) error {
+func (m *ConfigurationsResponse) validateOIDCClientID(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.OidcClientID) { // not required
+	if swag.IsZero(m.OIDCClientID) { // not required
 		return nil
 	}
 
-	if m.OidcClientID != nil {
-		if err := m.OidcClientID.Validate(formats); err != nil {
+	if m.OIDCClientID != nil {
+		if err := m.OIDCClientID.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("oidc_client_id")
 			}
@@ -992,14 +992,14 @@ func (m *ConfigurationsResponse) validateOidcClientID(formats strfmt.Registry) e
 	return nil
 }
 
-func (m *ConfigurationsResponse) validateOidcEndpoint(formats strfmt.Registry) error {
+func (m *ConfigurationsResponse) validateOIDCEndpoint(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.OidcEndpoint) { // not required
+	if swag.IsZero(m.OIDCEndpoint) { // not required
 		return nil
 	}
 
-	if m.OidcEndpoint != nil {
-		if err := m.OidcEndpoint.Validate(formats); err != nil {
+	if m.OIDCEndpoint != nil {
+		if err := m.OIDCEndpoint.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("oidc_endpoint")
 			}
@@ -1010,14 +1010,14 @@ func (m *ConfigurationsResponse) validateOidcEndpoint(formats strfmt.Registry) e
 	return nil
 }
 
-func (m *ConfigurationsResponse) validateOidcExtraRedirectParms(formats strfmt.Registry) error {
+func (m *ConfigurationsResponse) validateOIDCExtraRedirectParms(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.OidcExtraRedirectParms) { // not required
+	if swag.IsZero(m.OIDCExtraRedirectParms) { // not required
 		return nil
 	}
 
-	if m.OidcExtraRedirectParms != nil {
-		if err := m.OidcExtraRedirectParms.Validate(formats); err != nil {
+	if m.OIDCExtraRedirectParms != nil {
+		if err := m.OIDCExtraRedirectParms.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("oidc_extra_redirect_parms")
 			}
@@ -1028,14 +1028,14 @@ func (m *ConfigurationsResponse) validateOidcExtraRedirectParms(formats strfmt.R
 	return nil
 }
 
-func (m *ConfigurationsResponse) validateOidcGroupsClaim(formats strfmt.Registry) error {
+func (m *ConfigurationsResponse) validateOIDCGroupsClaim(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.OidcGroupsClaim) { // not required
+	if swag.IsZero(m.OIDCGroupsClaim) { // not required
 		return nil
 	}
 
-	if m.OidcGroupsClaim != nil {
-		if err := m.OidcGroupsClaim.Validate(formats); err != nil {
+	if m.OIDCGroupsClaim != nil {
+		if err := m.OIDCGroupsClaim.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("oidc_groups_claim")
 			}
@@ -1046,14 +1046,14 @@ func (m *ConfigurationsResponse) validateOidcGroupsClaim(formats strfmt.Registry
 	return nil
 }
 
-func (m *ConfigurationsResponse) validateOidcName(formats strfmt.Registry) error {
+func (m *ConfigurationsResponse) validateOIDCName(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.OidcName) { // not required
+	if swag.IsZero(m.OIDCName) { // not required
 		return nil
 	}
 
-	if m.OidcName != nil {
-		if err := m.OidcName.Validate(formats); err != nil {
+	if m.OIDCName != nil {
+		if err := m.OIDCName.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("oidc_name")
 			}
@@ -1064,14 +1064,14 @@ func (m *ConfigurationsResponse) validateOidcName(formats strfmt.Registry) error
 	return nil
 }
 
-func (m *ConfigurationsResponse) validateOidcScope(formats strfmt.Registry) error {
+func (m *ConfigurationsResponse) validateOIDCScope(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.OidcScope) { // not required
+	if swag.IsZero(m.OIDCScope) { // not required
 		return nil
 	}
 
-	if m.OidcScope != nil {
-		if err := m.OidcScope.Validate(formats); err != nil {
+	if m.OIDCScope != nil {
+		if err := m.OIDCScope.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("oidc_scope")
 			}
@@ -1082,14 +1082,14 @@ func (m *ConfigurationsResponse) validateOidcScope(formats strfmt.Registry) erro
 	return nil
 }
 
-func (m *ConfigurationsResponse) validateOidcUserClaim(formats strfmt.Registry) error {
+func (m *ConfigurationsResponse) validateOIDCUserClaim(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.OidcUserClaim) { // not required
+	if swag.IsZero(m.OIDCUserClaim) { // not required
 		return nil
 	}
 
-	if m.OidcUserClaim != nil {
-		if err := m.OidcUserClaim.Validate(formats); err != nil {
+	if m.OIDCUserClaim != nil {
+		if err := m.OIDCUserClaim.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("oidc_user_claim")
 			}
@@ -1100,14 +1100,14 @@ func (m *ConfigurationsResponse) validateOidcUserClaim(formats strfmt.Registry) 
 	return nil
 }
 
-func (m *ConfigurationsResponse) validateOidcVerifyCert(formats strfmt.Registry) error {
+func (m *ConfigurationsResponse) validateOIDCVerifyCert(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.OidcVerifyCert) { // not required
+	if swag.IsZero(m.OIDCVerifyCert) { // not required
 		return nil
 	}
 
-	if m.OidcVerifyCert != nil {
-		if err := m.OidcVerifyCert.Validate(formats); err != nil {
+	if m.OIDCVerifyCert != nil {
+		if err := m.OIDCVerifyCert.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("oidc_verify_cert")
 			}

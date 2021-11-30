@@ -33,7 +33,7 @@ type ClientService interface {
 }
 
 /*
-  PingOIDC tests the o ID c endpoint
+  PingOIDC tests the OIDC endpoint
 
   Test the OIDC endpoint, the setting of the endpoint is provided in the request.  This API can only be called by system admin.
 
