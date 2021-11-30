@@ -8,6 +8,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
+	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/project"
 
 	clienttesting "github.com/mittwald/goharbor-client/v5/apiv2/pkg/testing"
@@ -28,7 +29,10 @@ func TestAPIGetQuotaByProjectID_PositiveQuota(t *testing.T) {
 	c := NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
 	pc := project.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
-	err := pc.NewProject(ctx, testProjectName, &storageLimitPositive)
+	err := pc.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  testProjectName,
+		StorageLimit: &storageLimitPositive,
+	})
 	require.NoError(t, err)
 
 	defer pc.DeleteProject(ctx, testProjectName)
@@ -51,7 +55,10 @@ func TestAPIGetQuotaByProjectID_NegativeQuota(t *testing.T) {
 	c := NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
 	pc := project.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
-	err := pc.NewProject(ctx, testProjectName, &storageLimitNegative)
+	err := pc.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  testProjectName,
+		StorageLimit: &storageLimitNegative,
+	})
 	require.NoError(t, err)
 	defer pc.DeleteProject(ctx, testProjectName)
 
@@ -72,7 +79,10 @@ func TestAPIUpdateQuotaByProjectID(t *testing.T) {
 	// Updates the projects storage quota to a positive value and compares the observed values.
 	t.Run("PositiveQuota", func(t *testing.T) {
 		pc := project.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
-		err := pc.NewProject(ctx, testProjectName, &storageLimitPositive)
+		err := pc.NewProject(ctx, &modelv2.ProjectReq{
+			ProjectName:  testProjectName,
+			StorageLimit: &storageLimitPositive,
+		})
 		require.NoError(t, err)
 		defer pc.DeleteProject(ctx, testProjectName)
 
@@ -92,7 +102,10 @@ func TestAPIUpdateQuotaByProjectID(t *testing.T) {
 	// Updates the projects storage quota to a negative value and compares the observed values.
 	t.Run("NegativeQuota", func(t *testing.T) {
 		pc := project.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
-		err := pc.NewProject(ctx, testProjectName, &storageLimitNegative)
+		err := pc.NewProject(ctx, &modelv2.ProjectReq{
+			ProjectName:  testProjectName,
+			StorageLimit: &storageLimitNegative,
+		})
 		defer pc.DeleteProject(ctx, testProjectName)
 
 		project, err := pc.GetProject(ctx, testProjectName)
@@ -112,7 +125,10 @@ func TestAPIUpdateQuotaByProjectID(t *testing.T) {
 	// which is expected to result in the quota being implicitly set to '-1'.
 	t.Run("NegativeQuota_2", func(t *testing.T) {
 		pc := project.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
-		err := pc.NewProject(ctx, testProjectName, &storageLimitNegative)
+		err := pc.NewProject(ctx, &modelv2.ProjectReq{
+			ProjectName:  testProjectName,
+			StorageLimit: &storageLimitNegative,
+		})
 		require.NoError(t, err)
 
 		defer pc.DeleteProject(ctx, testProjectName)
@@ -134,7 +150,10 @@ func TestAPIUpdateQuotaByProjectID(t *testing.T) {
 	// which is expected to result in the quota being implicitly set to '-1'.
 	t.Run("NullQuota", func(t *testing.T) {
 		pc := project.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
-		err := pc.NewProject(ctx, testProjectName, &storageLimitNegative)
+		err := pc.NewProject(ctx, &modelv2.ProjectReq{
+			ProjectName:  testProjectName,
+			StorageLimit: &storageLimitNegative,
+		})
 		require.NoError(t, err)
 		defer pc.DeleteProject(ctx, testProjectName)
 

@@ -31,7 +31,10 @@ func TestAPIProjectUserMemberAdd(t *testing.T) {
 
 	projectClient := project.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
-	err := projectClient.NewProject(ctx, projectName, &storageLimitPositive)
+	err := projectClient.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  projectName,
+		StorageLimit: &storageLimitPositive,
+	})
 	require.NoError(t, err)
 
 	p, err := projectClient.GetProject(ctx, projectName)
@@ -64,7 +67,10 @@ func TestAPIProjectMemberList(t *testing.T) {
 	c := NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
 	projectClient := project.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
-	err := projectClient.NewProject(ctx, projectName, &storageLimitPositive)
+	err := projectClient.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  projectName,
+		StorageLimit: &storageLimitPositive,
+	})
 	require.NoError(t, err)
 
 	p, err := projectClient.GetProject(ctx, projectName)
@@ -107,7 +113,10 @@ func TestAPIProjectUserMemberUpdate(t *testing.T) {
 
 	projectClient := project.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
-	err := projectClient.NewProject(ctx, projectName, &storageLimitPositive)
+	err := projectClient.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  projectName,
+		StorageLimit: &storageLimitPositive,
+	})
 	require.NoError(t, err)
 
 	p, err := projectClient.GetProject(ctx, projectName)
@@ -158,7 +167,10 @@ func TestAPIProjectUserMemberDelete(t *testing.T) {
 
 	projectClient := project.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
-	err := projectClient.NewProject(ctx, projectName, &storageLimitPositive)
+	err := projectClient.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  projectName,
+		StorageLimit: &storageLimitPositive,
+	})
 	require.NoError(t, err)
 
 	p, err := projectClient.GetProject(ctx, projectName)

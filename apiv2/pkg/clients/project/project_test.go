@@ -33,9 +33,15 @@ var (
 	pReq3 = &modelv2.ProjectReq{
 		ProjectName:  "example-project",
 		StorageLimit: &exampleStorageLimitNegative,
+		RegistryID:   int64Ptr(0),
 	}
 	ctx = context.Background()
 )
+
+// int64Ptr returns a pointer to the given int64 value.
+func int64Ptr(i int64) *int64 {
+	return &i
+}
 
 func APIandMockClientsForTests() (*RESTClient, *clienttesting.MockClients) {
 	desiredMockClients := &clienttesting.MockClients{
@@ -69,7 +75,10 @@ func TestRESTClient_NewProject(t *testing.T) {
 	mockClient.Project.On("CreateProject", postParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.CreateProjectCreated{}, nil)
 
-	err := apiClient.NewProject(ctx, exampleProject.Name, &exampleStorageLimitPositive)
+	err := apiClient.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  exampleProject.Name,
+		StorageLimit: &exampleStorageLimitPositive,
+	})
 
 	require.NoError(t, err)
 
@@ -96,7 +105,11 @@ func TestRESTClient_NewProject_UnlimitedStorage(t *testing.T) {
 	mockClient.Project.On("CreateProject", createParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.CreateProjectCreated{}, nil)
 
-	err := apiClient.NewProject(ctx, exampleProject.Name, &exampleStorageLimitNegative)
+	err := apiClient.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  exampleProject.Name,
+		StorageLimit: &exampleStorageLimitNegative,
+		RegistryID:   int64Ptr(0),
+	})
 
 	require.NoError(t, err)
 
@@ -116,7 +129,10 @@ func TestRESTClient_NewProject_ErrProjectUnauthorized(t *testing.T) {
 	mockClient.Project.On("CreateProject", createParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.CreateProjectCreated{}, &runtime.APIError{Code: http.StatusUnauthorized})
 
-	err := apiClient.NewProject(ctx, exampleProject.Name, &exampleStorageLimitPositive)
+	err := apiClient.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  exampleProject.Name,
+		StorageLimit: &exampleStorageLimitPositive,
+	})
 
 	require.Error(t, err)
 	require.ErrorIs(t, err, &errors.ErrUnauthorized{})
@@ -165,7 +181,10 @@ func TestRESTClient_NewProject_ErrProjectUnknownResource(t *testing.T) {
 	mockClient.Project.On("CreateProject", createParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(nil, &errors.ErrProjectUnknownResource{})
 
-	err := apiClient.NewProject(ctx, exampleProject.Name, &exampleStorageLimitPositive)
+	err := apiClient.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  exampleProject.Name,
+		StorageLimit: &exampleStorageLimitPositive,
+	})
 
 	require.Error(t, err)
 	require.ErrorIs(t, err, &errors.ErrProjectUnknownResource{})
@@ -186,8 +205,10 @@ func TestRESTClient_NewProject_ErrProjectInternalErrors(t *testing.T) {
 	mockClient.Project.On("CreateProject", createParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.CreateProjectCreated{}, &runtime.APIError{Code: http.StatusInternalServerError})
 
-	err := apiClient.NewProject(ctx, exampleProject.Name, &exampleStorageLimitPositive)
-
+	err := apiClient.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  exampleProject.Name,
+		StorageLimit: &exampleStorageLimitPositive,
+	})
 	require.Error(t, err)
 	require.ErrorIs(t, err, &errors.ErrProjectInternalErrors{})
 
@@ -207,8 +228,10 @@ func TestRESTClient_NewProject_ErrProjectIDNotExists(t *testing.T) {
 	mockClient.Project.On("CreateProject", createParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.CreateProjectCreated{}, &runtime.APIError{Code: http.StatusNotFound})
 
-	err := apiClient.NewProject(ctx, exampleProject.Name, &exampleStorageLimitPositive)
-
+	err := apiClient.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  exampleProject.Name,
+		StorageLimit: &exampleStorageLimitPositive,
+	})
 	require.Error(t, err)
 	require.ErrorIs(t, err, &errors.ErrProjectUnknownResource{})
 
@@ -228,7 +251,10 @@ func TestRESTClient_NewProject_ErrProjectNameAlreadyExists(t *testing.T) {
 	mockClient.Project.On("CreateProject", createParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&projectapi.CreateProjectCreated{}, &projectapi.CreateProjectConflict{})
 
-	err := apiClient.NewProject(ctx, exampleProject.Name, &exampleStorageLimitPositive)
+	err := apiClient.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  exampleProject.Name,
+		StorageLimit: &exampleStorageLimitPositive,
+	})
 
 	require.Error(t, err)
 	require.ErrorIs(t, err, &errors.ErrProjectNameAlreadyExists{})

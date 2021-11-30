@@ -138,7 +138,7 @@ func (c *RESTClient) GetRetentionPolicyByProject(ctx context.Context, projectNam
 	return c.GetRetentionPolicyByID(ctx, id)
 }
 
-// GetRetentionPolicyByID returns a retention policy identified by it's id.
+// GetRetentionPolicyByID returns a retention policy identified by its id.
 func (c *RESTClient) GetRetentionPolicyByID(ctx context.Context, id int64) (*modelv2.RetentionPolicy, error) {
 	params := &retention.GetRetentionParams{
 		ID:      id,
@@ -149,7 +149,6 @@ func (c *RESTClient) GetRetentionPolicyByID(ctx context.Context, id int64) (*mod
 
 	resp, err := c.V2Client.Retention.GetRetention(params, c.AuthInfo)
 	if err != nil {
-		fmt.Println()
 		return nil, handleSwaggerRetentionErrors(err)
 	}
 

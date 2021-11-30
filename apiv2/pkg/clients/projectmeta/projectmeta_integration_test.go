@@ -9,6 +9,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
+	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/project"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/common"
 
@@ -31,7 +32,10 @@ func TestAPIProjectMetadataAdd(t *testing.T) {
 
 	projectClient := project.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
-	err := projectClient.NewProject(ctx, projectName, &storageLimitPositive)
+	err := projectClient.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  projectName,
+		StorageLimit: &storageLimitPositive,
+	})
 	require.NoError(t, err)
 
 	p, err := projectClient.GetProject(ctx, projectName)
@@ -59,7 +63,10 @@ func TestAPIProjectMetadataGet(t *testing.T) {
 
 	projectClient := project.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
-	err := projectClient.NewProject(ctx, projectName, &storageLimitPositive)
+	err := projectClient.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  projectName,
+		StorageLimit: &storageLimitPositive,
+	})
 	require.NoError(t, err)
 
 	p, err := projectClient.GetProject(ctx, projectName)
@@ -80,7 +87,10 @@ func TestAPIProjectMetadataGetInvalidKey(t *testing.T) {
 
 	projectClient := project.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
-	err := projectClient.NewProject(ctx, projectName, &storageLimitPositive)
+	err := projectClient.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  projectName,
+		StorageLimit: &storageLimitPositive,
+	})
 	require.NoError(t, err)
 
 	p, err := projectClient.GetProject(ctx, projectName)
@@ -102,7 +112,10 @@ func TestAPIProjectMetadataList(t *testing.T) {
 	c := NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
 	projectClient := project.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
-	err := projectClient.NewProject(ctx, projectName, &storageLimitPositive)
+	err := projectClient.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  projectName,
+		StorageLimit: &storageLimitPositive,
+	})
 	require.NoError(t, err)
 
 	p, err := projectClient.GetProject(ctx, projectName)
@@ -139,7 +152,10 @@ func TestAPIProjectMetadataUpdate(t *testing.T) {
 
 	projectClient := project.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
-	err := projectClient.NewProject(ctx, projectName, &storageLimitPositive)
+	err := projectClient.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  projectName,
+		StorageLimit: &storageLimitPositive,
+	})
 	require.NoError(t, err)
 
 	p, err := projectClient.GetProject(ctx, projectName)
@@ -165,7 +181,10 @@ func TestAPIProjectMetadataDelete(t *testing.T) {
 
 	projectClient := project.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
-	err := projectClient.NewProject(ctx, projectName, &storageLimitPositive)
+	err := projectClient.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  projectName,
+		StorageLimit: &storageLimitPositive,
+	})
 	require.NoError(t, err)
 
 	p, err := projectClient.GetProject(ctx, projectName)
