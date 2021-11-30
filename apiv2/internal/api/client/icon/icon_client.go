@@ -25,12 +25,9 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientOption is the option for Client methods
-type ClientOption func(*runtime.ClientOperation)
-
 // ClientService is the interface for Client methods
 type ClientService interface {
-	GetIcon(params *GetIconParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetIconOK, error)
+	GetIcon(params *GetIconParams, authInfo runtime.ClientAuthInfoWriter) (*GetIconOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -40,12 +37,13 @@ type ClientService interface {
 
   Get the artifact icon with the specified digest. As the original icon image is resized and encoded before returning, the parameter "digest" in the path doesn't match the hash of the returned content
 */
-func (a *Client) GetIcon(params *GetIconParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetIconOK, error) {
+func (a *Client) GetIcon(params *GetIconParams, authInfo runtime.ClientAuthInfoWriter) (*GetIconOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetIconParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getIcon",
 		Method:             "GET",
 		PathPattern:        "/icons/{digest}",
@@ -57,12 +55,7 @@ func (a *Client) GetIcon(params *GetIconParams, authInfo runtime.ClientAuthInfoW
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}

@@ -6,11 +6,10 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ProjectReq project req
@@ -19,12 +18,13 @@ import (
 type ProjectReq struct {
 
 	// The CVE allowlist of the project.
-	CveAllowlist *CVEAllowlist `json:"cve_allowlist,omitempty"`
+	CVEAllowlist *CVEAllowlist `json:"cve_allowlist,omitempty"`
 
 	// The metadata of the project.
 	Metadata *ProjectMetadata `json:"metadata,omitempty"`
 
 	// The name of the project.
+	// Max Length: 255
 	ProjectName string `json:"project_name,omitempty"`
 
 	// deprecated, reserved for project creation in replication
@@ -41,11 +41,15 @@ type ProjectReq struct {
 func (m *ProjectReq) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateCveAllowlist(formats); err != nil {
+	if err := m.validateCVEAllowlist(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateMetadata(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateProjectName(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -55,13 +59,14 @@ func (m *ProjectReq) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ProjectReq) validateCveAllowlist(formats strfmt.Registry) error {
-	if swag.IsZero(m.CveAllowlist) { // not required
+func (m *ProjectReq) validateCVEAllowlist(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CVEAllowlist) { // not required
 		return nil
 	}
 
-	if m.CveAllowlist != nil {
-		if err := m.CveAllowlist.Validate(formats); err != nil {
+	if m.CVEAllowlist != nil {
+		if err := m.CVEAllowlist.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("cve_allowlist")
 			}
@@ -73,6 +78,7 @@ func (m *ProjectReq) validateCveAllowlist(formats strfmt.Registry) error {
 }
 
 func (m *ProjectReq) validateMetadata(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Metadata) { // not required
 		return nil
 	}
@@ -89,47 +95,14 @@ func (m *ProjectReq) validateMetadata(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validate this project req based on the context it is used
-func (m *ProjectReq) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
+func (m *ProjectReq) validateProjectName(formats strfmt.Registry) error {
 
-	if err := m.contextValidateCveAllowlist(ctx, formats); err != nil {
-		res = append(res, err)
+	if swag.IsZero(m.ProjectName) { // not required
+		return nil
 	}
 
-	if err := m.contextValidateMetadata(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *ProjectReq) contextValidateCveAllowlist(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.CveAllowlist != nil {
-		if err := m.CveAllowlist.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("cve_allowlist")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ProjectReq) contextValidateMetadata(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Metadata != nil {
-		if err := m.Metadata.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("metadata")
-			}
-			return err
-		}
+	if err := validate.MaxLength("project_name", "body", string(m.ProjectName), 255); err != nil {
+		return err
 	}
 
 	return nil

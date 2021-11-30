@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -32,11 +30,6 @@ type RetentionSelector struct {
 
 // Validate validates this retention selector
 func (m *RetentionSelector) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this retention selector based on context it is used
-func (m *RetentionSelector) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

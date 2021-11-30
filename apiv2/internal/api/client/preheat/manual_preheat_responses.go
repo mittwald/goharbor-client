@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 )
 
 // ManualPreheatReader is a Reader for the ManualPreheat structure.
@@ -59,6 +59,7 @@ func (o *ManualPreheatReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,17 +70,15 @@ func NewManualPreheatCreated() *ManualPreheatCreated {
 	return &ManualPreheatCreated{}
 }
 
-/* ManualPreheatCreated describes a response with status code 201, with default header values.
+/*ManualPreheatCreated handles this case with default header values.
 
 Created
 */
 type ManualPreheatCreated struct {
-
-	/* The location of the resource
+	/*The location of the resource
 	 */
 	Location string
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 }
@@ -90,19 +89,11 @@ func (o *ManualPreheatCreated) Error() string {
 
 func (o *ManualPreheatCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Location
-	hdrLocation := response.GetHeader("Location")
+	// response header Location
+	o.Location = response.GetHeader("Location")
 
-	if hdrLocation != "" {
-		o.Location = hdrLocation
-	}
-
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	return nil
 }
@@ -112,13 +103,12 @@ func NewManualPreheatBadRequest() *ManualPreheatBadRequest {
 	return &ManualPreheatBadRequest{}
 }
 
-/* ManualPreheatBadRequest describes a response with status code 400, with default header values.
+/*ManualPreheatBadRequest handles this case with default header values.
 
 Bad request
 */
 type ManualPreheatBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -128,18 +118,15 @@ type ManualPreheatBadRequest struct {
 func (o *ManualPreheatBadRequest) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/preheat/policies/{preheat_policy_name}][%d] manualPreheatBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *ManualPreheatBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ManualPreheatBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -156,13 +143,12 @@ func NewManualPreheatUnauthorized() *ManualPreheatUnauthorized {
 	return &ManualPreheatUnauthorized{}
 }
 
-/* ManualPreheatUnauthorized describes a response with status code 401, with default header values.
+/*ManualPreheatUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type ManualPreheatUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -172,18 +158,15 @@ type ManualPreheatUnauthorized struct {
 func (o *ManualPreheatUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/preheat/policies/{preheat_policy_name}][%d] manualPreheatUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *ManualPreheatUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ManualPreheatUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -200,13 +183,12 @@ func NewManualPreheatForbidden() *ManualPreheatForbidden {
 	return &ManualPreheatForbidden{}
 }
 
-/* ManualPreheatForbidden describes a response with status code 403, with default header values.
+/*ManualPreheatForbidden handles this case with default header values.
 
 Forbidden
 */
 type ManualPreheatForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -216,18 +198,15 @@ type ManualPreheatForbidden struct {
 func (o *ManualPreheatForbidden) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/preheat/policies/{preheat_policy_name}][%d] manualPreheatForbidden  %+v", 403, o.Payload)
 }
+
 func (o *ManualPreheatForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ManualPreheatForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -244,13 +223,12 @@ func NewManualPreheatNotFound() *ManualPreheatNotFound {
 	return &ManualPreheatNotFound{}
 }
 
-/* ManualPreheatNotFound describes a response with status code 404, with default header values.
+/*ManualPreheatNotFound handles this case with default header values.
 
 Not found
 */
 type ManualPreheatNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -260,18 +238,15 @@ type ManualPreheatNotFound struct {
 func (o *ManualPreheatNotFound) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/preheat/policies/{preheat_policy_name}][%d] manualPreheatNotFound  %+v", 404, o.Payload)
 }
+
 func (o *ManualPreheatNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ManualPreheatNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -288,13 +263,12 @@ func NewManualPreheatInternalServerError() *ManualPreheatInternalServerError {
 	return &ManualPreheatInternalServerError{}
 }
 
-/* ManualPreheatInternalServerError describes a response with status code 500, with default header values.
+/*ManualPreheatInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type ManualPreheatInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -304,18 +278,15 @@ type ManualPreheatInternalServerError struct {
 func (o *ManualPreheatInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /projects/{project_name}/preheat/policies/{preheat_policy_name}][%d] manualPreheatInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *ManualPreheatInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ManualPreheatInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

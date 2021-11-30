@@ -16,89 +16,69 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/mittwald/goharbor-client/v4/apiv1/model"
+	"github.com/mittwald/goharbor-client/v5/apiv1/model"
 )
 
-// NewPutProjectsProjectIDMembersMidParams creates a new PutProjectsProjectIDMembersMidParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPutProjectsProjectIDMembersMidParams creates a new PutProjectsProjectIDMembersMidParams object
+// with the default values initialized.
 func NewPutProjectsProjectIDMembersMidParams() *PutProjectsProjectIDMembersMidParams {
+	var ()
 	return &PutProjectsProjectIDMembersMidParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutProjectsProjectIDMembersMidParamsWithTimeout creates a new PutProjectsProjectIDMembersMidParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPutProjectsProjectIDMembersMidParamsWithTimeout(timeout time.Duration) *PutProjectsProjectIDMembersMidParams {
+	var ()
 	return &PutProjectsProjectIDMembersMidParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPutProjectsProjectIDMembersMidParamsWithContext creates a new PutProjectsProjectIDMembersMidParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPutProjectsProjectIDMembersMidParamsWithContext(ctx context.Context) *PutProjectsProjectIDMembersMidParams {
+	var ()
 	return &PutProjectsProjectIDMembersMidParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPutProjectsProjectIDMembersMidParamsWithHTTPClient creates a new PutProjectsProjectIDMembersMidParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPutProjectsProjectIDMembersMidParamsWithHTTPClient(client *http.Client) *PutProjectsProjectIDMembersMidParams {
+	var ()
 	return &PutProjectsProjectIDMembersMidParams{
 		HTTPClient: client,
 	}
 }
 
-/* PutProjectsProjectIDMembersMidParams contains all the parameters to send to the API endpoint
-   for the put projects project ID members mid operation.
-
-   Typically these are written to a http.Request.
+/*PutProjectsProjectIDMembersMidParams contains all the parameters to send to the API endpoint
+for the put projects project ID members mid operation typically these are written to a http.Request
 */
 type PutProjectsProjectIDMembersMidParams struct {
 
-	/* Mid.
+	/*Mid
+	  Member ID.
 
-	   Member ID.
-
-	   Format: int64
 	*/
 	Mid int64
+	/*ProjectID
+	  Relevant project ID.
 
-	/* ProjectID.
-
-	   Relevant project ID.
-
-	   Format: int64
 	*/
 	ProjectID int64
-
-	// Role.
+	/*Role*/
 	Role *model.RoleRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the put projects project ID members mid params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PutProjectsProjectIDMembersMidParams) WithDefaults() *PutProjectsProjectIDMembersMidParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the put projects project ID members mid params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PutProjectsProjectIDMembersMidParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put projects project ID members mid params
@@ -184,6 +164,7 @@ func (o *PutProjectsProjectIDMembersMidParams) WriteToRequest(r runtime.ClientRe
 	if err := r.SetPathParam("project_id", swag.FormatInt64(o.ProjectID)); err != nil {
 		return err
 	}
+
 	if o.Role != nil {
 		if err := r.SetBodyParam(o.Role); err != nil {
 			return err

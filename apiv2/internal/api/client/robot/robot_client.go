@@ -25,22 +25,19 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientOption is the option for Client methods
-type ClientOption func(*runtime.ClientOperation)
-
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateRobot(params *CreateRobotParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateRobotCreated, error)
+	CreateRobot(params *CreateRobotParams, authInfo runtime.ClientAuthInfoWriter) (*CreateRobotCreated, error)
 
-	DeleteRobot(params *DeleteRobotParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteRobotOK, error)
+	DeleteRobot(params *DeleteRobotParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRobotOK, error)
 
-	GetRobotByID(params *GetRobotByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRobotByIDOK, error)
+	GetRobotByID(params *GetRobotByIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetRobotByIDOK, error)
 
-	ListRobot(params *ListRobotParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListRobotOK, error)
+	ListRobot(params *ListRobotParams, authInfo runtime.ClientAuthInfoWriter) (*ListRobotOK, error)
 
-	RefreshSec(params *RefreshSecParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RefreshSecOK, error)
+	RefreshSec(params *RefreshSecParams, authInfo runtime.ClientAuthInfoWriter) (*RefreshSecOK, error)
 
-	UpdateRobot(params *UpdateRobotParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateRobotOK, error)
+	UpdateRobot(params *UpdateRobotParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRobotOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -50,12 +47,13 @@ type ClientService interface {
 
   Create a robot account
 */
-func (a *Client) CreateRobot(params *CreateRobotParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateRobotCreated, error) {
+func (a *Client) CreateRobot(params *CreateRobotParams, authInfo runtime.ClientAuthInfoWriter) (*CreateRobotCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateRobotParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "CreateRobot",
 		Method:             "POST",
 		PathPattern:        "/robots",
@@ -67,12 +65,7 @@ func (a *Client) CreateRobot(params *CreateRobotParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -91,12 +84,13 @@ func (a *Client) CreateRobot(params *CreateRobotParams, authInfo runtime.ClientA
 
   This endpoint deletes specific robot account information by robot ID.
 */
-func (a *Client) DeleteRobot(params *DeleteRobotParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteRobotOK, error) {
+func (a *Client) DeleteRobot(params *DeleteRobotParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRobotOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteRobotParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteRobot",
 		Method:             "DELETE",
 		PathPattern:        "/robots/{robot_id}",
@@ -108,12 +102,7 @@ func (a *Client) DeleteRobot(params *DeleteRobotParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -132,12 +121,13 @@ func (a *Client) DeleteRobot(params *DeleteRobotParams, authInfo runtime.ClientA
 
   This endpoint returns specific robot account information by robot ID.
 */
-func (a *Client) GetRobotByID(params *GetRobotByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRobotByIDOK, error) {
+func (a *Client) GetRobotByID(params *GetRobotByIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetRobotByIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRobotByIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetRobotByID",
 		Method:             "GET",
 		PathPattern:        "/robots/{robot_id}",
@@ -149,12 +139,7 @@ func (a *Client) GetRobotByID(params *GetRobotByIDParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -173,12 +158,13 @@ func (a *Client) GetRobotByID(params *GetRobotByIDParams, authInfo runtime.Clien
 
   List the robot accounts with the specified level and project.
 */
-func (a *Client) ListRobot(params *ListRobotParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListRobotOK, error) {
+func (a *Client) ListRobot(params *ListRobotParams, authInfo runtime.ClientAuthInfoWriter) (*ListRobotOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListRobotParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "ListRobot",
 		Method:             "GET",
 		PathPattern:        "/robots",
@@ -190,12 +176,7 @@ func (a *Client) ListRobot(params *ListRobotParams, authInfo runtime.ClientAuthI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -214,12 +195,13 @@ func (a *Client) ListRobot(params *ListRobotParams, authInfo runtime.ClientAuthI
 
   Refresh the robot secret
 */
-func (a *Client) RefreshSec(params *RefreshSecParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RefreshSecOK, error) {
+func (a *Client) RefreshSec(params *RefreshSecParams, authInfo runtime.ClientAuthInfoWriter) (*RefreshSecOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRefreshSecParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "RefreshSec",
 		Method:             "PATCH",
 		PathPattern:        "/robots/{robot_id}",
@@ -231,12 +213,7 @@ func (a *Client) RefreshSec(params *RefreshSecParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -255,12 +232,13 @@ func (a *Client) RefreshSec(params *RefreshSecParams, authInfo runtime.ClientAut
 
   This endpoint updates specific robot account information by robot ID.
 */
-func (a *Client) UpdateRobot(params *UpdateRobotParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateRobotOK, error) {
+func (a *Client) UpdateRobot(params *UpdateRobotParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRobotOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateRobotParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "UpdateRobot",
 		Method:             "PUT",
 		PathPattern:        "/robots/{robot_id}",
@@ -272,12 +250,7 @@ func (a *Client) UpdateRobot(params *UpdateRobotParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}

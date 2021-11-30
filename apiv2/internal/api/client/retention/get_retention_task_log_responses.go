@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 )
 
 // GetRetentionTaskLogReader is a Reader for the GetRetentionTaskLog structure.
@@ -47,6 +47,7 @@ func (o *GetRetentionTaskLogReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +58,7 @@ func NewGetRetentionTaskLogOK() *GetRetentionTaskLogOK {
 	return &GetRetentionTaskLogOK{}
 }
 
-/* GetRetentionTaskLogOK describes a response with status code 200, with default header values.
+/*GetRetentionTaskLogOK handles this case with default header values.
 
 Get Retention job task log successfully.
 */
@@ -68,6 +69,7 @@ type GetRetentionTaskLogOK struct {
 func (o *GetRetentionTaskLogOK) Error() string {
 	return fmt.Sprintf("[GET /retentions/{id}/executions/{eid}/tasks/{tid}][%d] getRetentionTaskLogOK  %+v", 200, o.Payload)
 }
+
 func (o *GetRetentionTaskLogOK) GetPayload() string {
 	return o.Payload
 }
@@ -87,13 +89,12 @@ func NewGetRetentionTaskLogUnauthorized() *GetRetentionTaskLogUnauthorized {
 	return &GetRetentionTaskLogUnauthorized{}
 }
 
-/* GetRetentionTaskLogUnauthorized describes a response with status code 401, with default header values.
+/*GetRetentionTaskLogUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type GetRetentionTaskLogUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -103,18 +104,15 @@ type GetRetentionTaskLogUnauthorized struct {
 func (o *GetRetentionTaskLogUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /retentions/{id}/executions/{eid}/tasks/{tid}][%d] getRetentionTaskLogUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetRetentionTaskLogUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetRetentionTaskLogUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -131,13 +129,12 @@ func NewGetRetentionTaskLogForbidden() *GetRetentionTaskLogForbidden {
 	return &GetRetentionTaskLogForbidden{}
 }
 
-/* GetRetentionTaskLogForbidden describes a response with status code 403, with default header values.
+/*GetRetentionTaskLogForbidden handles this case with default header values.
 
 Forbidden
 */
 type GetRetentionTaskLogForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -147,18 +144,15 @@ type GetRetentionTaskLogForbidden struct {
 func (o *GetRetentionTaskLogForbidden) Error() string {
 	return fmt.Sprintf("[GET /retentions/{id}/executions/{eid}/tasks/{tid}][%d] getRetentionTaskLogForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetRetentionTaskLogForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetRetentionTaskLogForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -175,13 +169,12 @@ func NewGetRetentionTaskLogInternalServerError() *GetRetentionTaskLogInternalSer
 	return &GetRetentionTaskLogInternalServerError{}
 }
 
-/* GetRetentionTaskLogInternalServerError describes a response with status code 500, with default header values.
+/*GetRetentionTaskLogInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type GetRetentionTaskLogInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -191,18 +184,15 @@ type GetRetentionTaskLogInternalServerError struct {
 func (o *GetRetentionTaskLogInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /retentions/{id}/executions/{eid}/tasks/{tid}][%d] getRetentionTaskLogInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetRetentionTaskLogInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *GetRetentionTaskLogInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

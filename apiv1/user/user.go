@@ -4,12 +4,12 @@ import (
 	"context"
 	"errors"
 
-	"github.com/mittwald/goharbor-client/v4/apiv1/internal/api/client"
+	"github.com/mittwald/goharbor-client/v5/apiv1/internal/api/client"
 
 	"github.com/go-openapi/runtime"
 
-	"github.com/mittwald/goharbor-client/v4/apiv1/internal/api/client/products"
-	model "github.com/mittwald/goharbor-client/v4/apiv1/model"
+	"github.com/mittwald/goharbor-client/v5/apiv1/internal/api/client/products"
+	model "github.com/mittwald/goharbor-client/v5/apiv1/model"
 )
 
 // RESTClient is a subclient for handling user related actions.

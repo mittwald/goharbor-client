@@ -17,75 +17,59 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteProjectsProjectIDParams creates a new DeleteProjectsProjectIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewDeleteProjectsProjectIDParams creates a new DeleteProjectsProjectIDParams object
+// with the default values initialized.
 func NewDeleteProjectsProjectIDParams() *DeleteProjectsProjectIDParams {
+	var ()
 	return &DeleteProjectsProjectIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteProjectsProjectIDParamsWithTimeout creates a new DeleteProjectsProjectIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteProjectsProjectIDParamsWithTimeout(timeout time.Duration) *DeleteProjectsProjectIDParams {
+	var ()
 	return &DeleteProjectsProjectIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewDeleteProjectsProjectIDParamsWithContext creates a new DeleteProjectsProjectIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewDeleteProjectsProjectIDParamsWithContext(ctx context.Context) *DeleteProjectsProjectIDParams {
+	var ()
 	return &DeleteProjectsProjectIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewDeleteProjectsProjectIDParamsWithHTTPClient creates a new DeleteProjectsProjectIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteProjectsProjectIDParamsWithHTTPClient(client *http.Client) *DeleteProjectsProjectIDParams {
+	var ()
 	return &DeleteProjectsProjectIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* DeleteProjectsProjectIDParams contains all the parameters to send to the API endpoint
-   for the delete projects project ID operation.
-
-   Typically these are written to a http.Request.
+/*DeleteProjectsProjectIDParams contains all the parameters to send to the API endpoint
+for the delete projects project ID operation typically these are written to a http.Request
 */
 type DeleteProjectsProjectIDParams struct {
 
-	/* ProjectID.
+	/*ProjectID
+	  Project ID of project which will be deleted.
 
-	   Project ID of project which will be deleted.
-
-	   Format: int64
 	*/
 	ProjectID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the delete projects project ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteProjectsProjectIDParams) WithDefaults() *DeleteProjectsProjectIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the delete projects project ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteProjectsProjectIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete projects project ID params

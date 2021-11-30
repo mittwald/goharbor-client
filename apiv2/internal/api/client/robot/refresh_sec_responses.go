@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 )
 
 // RefreshSecReader is a Reader for the RefreshSec structure.
@@ -59,6 +59,7 @@ func (o *RefreshSecReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +70,7 @@ func NewRefreshSecOK() *RefreshSecOK {
 	return &RefreshSecOK{}
 }
 
-/* RefreshSecOK describes a response with status code 200, with default header values.
+/*RefreshSecOK handles this case with default header values.
 
 Return refreshed robot sec.
 */
@@ -80,6 +81,7 @@ type RefreshSecOK struct {
 func (o *RefreshSecOK) Error() string {
 	return fmt.Sprintf("[PATCH /robots/{robot_id}][%d] refreshSecOK  %+v", 200, o.Payload)
 }
+
 func (o *RefreshSecOK) GetPayload() *model.RobotSec {
 	return o.Payload
 }
@@ -101,13 +103,12 @@ func NewRefreshSecBadRequest() *RefreshSecBadRequest {
 	return &RefreshSecBadRequest{}
 }
 
-/* RefreshSecBadRequest describes a response with status code 400, with default header values.
+/*RefreshSecBadRequest handles this case with default header values.
 
 Bad request
 */
 type RefreshSecBadRequest struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -117,18 +118,15 @@ type RefreshSecBadRequest struct {
 func (o *RefreshSecBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /robots/{robot_id}][%d] refreshSecBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *RefreshSecBadRequest) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *RefreshSecBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -145,13 +143,12 @@ func NewRefreshSecUnauthorized() *RefreshSecUnauthorized {
 	return &RefreshSecUnauthorized{}
 }
 
-/* RefreshSecUnauthorized describes a response with status code 401, with default header values.
+/*RefreshSecUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type RefreshSecUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -161,18 +158,15 @@ type RefreshSecUnauthorized struct {
 func (o *RefreshSecUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /robots/{robot_id}][%d] refreshSecUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *RefreshSecUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *RefreshSecUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -189,13 +183,12 @@ func NewRefreshSecForbidden() *RefreshSecForbidden {
 	return &RefreshSecForbidden{}
 }
 
-/* RefreshSecForbidden describes a response with status code 403, with default header values.
+/*RefreshSecForbidden handles this case with default header values.
 
 Forbidden
 */
 type RefreshSecForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -205,18 +198,15 @@ type RefreshSecForbidden struct {
 func (o *RefreshSecForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /robots/{robot_id}][%d] refreshSecForbidden  %+v", 403, o.Payload)
 }
+
 func (o *RefreshSecForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *RefreshSecForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -233,13 +223,12 @@ func NewRefreshSecNotFound() *RefreshSecNotFound {
 	return &RefreshSecNotFound{}
 }
 
-/* RefreshSecNotFound describes a response with status code 404, with default header values.
+/*RefreshSecNotFound handles this case with default header values.
 
 Not found
 */
 type RefreshSecNotFound struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -249,18 +238,15 @@ type RefreshSecNotFound struct {
 func (o *RefreshSecNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /robots/{robot_id}][%d] refreshSecNotFound  %+v", 404, o.Payload)
 }
+
 func (o *RefreshSecNotFound) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *RefreshSecNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -277,13 +263,12 @@ func NewRefreshSecInternalServerError() *RefreshSecInternalServerError {
 	return &RefreshSecInternalServerError{}
 }
 
-/* RefreshSecInternalServerError describes a response with status code 500, with default header values.
+/*RefreshSecInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type RefreshSecInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -293,18 +278,15 @@ type RefreshSecInternalServerError struct {
 func (o *RefreshSecInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /robots/{robot_id}][%d] refreshSecInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *RefreshSecInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *RefreshSecInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

@@ -16,85 +16,69 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetRepositoryParams creates a new GetRepositoryParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetRepositoryParams creates a new GetRepositoryParams object
+// with the default values initialized.
 func NewGetRepositoryParams() *GetRepositoryParams {
+	var ()
 	return &GetRepositoryParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetRepositoryParamsWithTimeout creates a new GetRepositoryParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetRepositoryParamsWithTimeout(timeout time.Duration) *GetRepositoryParams {
+	var ()
 	return &GetRepositoryParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetRepositoryParamsWithContext creates a new GetRepositoryParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetRepositoryParamsWithContext(ctx context.Context) *GetRepositoryParams {
+	var ()
 	return &GetRepositoryParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetRepositoryParamsWithHTTPClient creates a new GetRepositoryParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetRepositoryParamsWithHTTPClient(client *http.Client) *GetRepositoryParams {
+	var ()
 	return &GetRepositoryParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetRepositoryParams contains all the parameters to send to the API endpoint
-   for the get repository operation.
-
-   Typically these are written to a http.Request.
+/*GetRepositoryParams contains all the parameters to send to the API endpoint
+for the get repository operation typically these are written to a http.Request
 */
 type GetRepositoryParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*ProjectName
+	  The name of the project
 
-	/* ProjectName.
-
-	   The name of the project
 	*/
 	ProjectName string
+	/*RepositoryName
+	  The name of the repository. If it contains slash, encode it with URL encoding. e.g. a/b -> a%252Fb
 
-	/* RepositoryName.
-
-	   The name of the repository. If it contains slash, encode it with URL encoding. e.g. a/b -> a%252Fb
 	*/
 	RepositoryName string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get repository params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetRepositoryParams) WithDefaults() *GetRepositoryParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get repository params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetRepositoryParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get repository params
@@ -177,6 +161,7 @@ func (o *GetRepositoryParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param project_name

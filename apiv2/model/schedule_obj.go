@@ -6,7 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -86,6 +85,7 @@ func (m *ScheduleObj) validateTypeEnum(path, location string, value string) erro
 }
 
 func (m *ScheduleObj) validateType(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
@@ -95,11 +95,6 @@ func (m *ScheduleObj) validateType(formats strfmt.Registry) error {
 		return err
 	}
 
-	return nil
-}
-
-// ContextValidate validates this schedule obj based on context it is used
-func (m *ScheduleObj) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

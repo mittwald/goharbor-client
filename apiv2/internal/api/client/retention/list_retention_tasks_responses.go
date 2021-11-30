@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 )
 
 // ListRetentionTasksReader is a Reader for the ListRetentionTasks structure.
@@ -49,6 +49,7 @@ func (o *ListRetentionTasksReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -59,17 +60,15 @@ func NewListRetentionTasksOK() *ListRetentionTasksOK {
 	return &ListRetentionTasksOK{}
 }
 
-/* ListRetentionTasksOK describes a response with status code 200, with default header values.
+/*ListRetentionTasksOK handles this case with default header values.
 
 Get Retention job tasks successfully.
 */
 type ListRetentionTasksOK struct {
-
-	/* Link to previous page and next page
+	/*Link to previous page and next page
 	 */
 	Link string
-
-	/* The total count of available items
+	/*The total count of available items
 	 */
 	XTotalCount int64
 
@@ -79,29 +78,22 @@ type ListRetentionTasksOK struct {
 func (o *ListRetentionTasksOK) Error() string {
 	return fmt.Sprintf("[GET /retentions/{id}/executions/{eid}/tasks][%d] listRetentionTasksOK  %+v", 200, o.Payload)
 }
+
 func (o *ListRetentionTasksOK) GetPayload() []*model.RetentionExecutionTask {
 	return o.Payload
 }
 
 func (o *ListRetentionTasksOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header Link
-	hdrLink := response.GetHeader("Link")
+	// response header Link
+	o.Link = response.GetHeader("Link")
 
-	if hdrLink != "" {
-		o.Link = hdrLink
+	// response header X-Total-Count
+	xTotalCount, err := swag.ConvertInt64(response.GetHeader("X-Total-Count"))
+	if err != nil {
+		return errors.InvalidType("X-Total-Count", "header", "int64", response.GetHeader("X-Total-Count"))
 	}
-
-	// hydrates response header X-Total-Count
-	hdrXTotalCount := response.GetHeader("X-Total-Count")
-
-	if hdrXTotalCount != "" {
-		valxTotalCount, err := swag.ConvertInt64(hdrXTotalCount)
-		if err != nil {
-			return errors.InvalidType("X-Total-Count", "header", "int64", hdrXTotalCount)
-		}
-		o.XTotalCount = valxTotalCount
-	}
+	o.XTotalCount = xTotalCount
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -116,13 +108,12 @@ func NewListRetentionTasksUnauthorized() *ListRetentionTasksUnauthorized {
 	return &ListRetentionTasksUnauthorized{}
 }
 
-/* ListRetentionTasksUnauthorized describes a response with status code 401, with default header values.
+/*ListRetentionTasksUnauthorized handles this case with default header values.
 
 Unauthorized
 */
 type ListRetentionTasksUnauthorized struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -132,18 +123,15 @@ type ListRetentionTasksUnauthorized struct {
 func (o *ListRetentionTasksUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /retentions/{id}/executions/{eid}/tasks][%d] listRetentionTasksUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *ListRetentionTasksUnauthorized) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListRetentionTasksUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -160,13 +148,12 @@ func NewListRetentionTasksForbidden() *ListRetentionTasksForbidden {
 	return &ListRetentionTasksForbidden{}
 }
 
-/* ListRetentionTasksForbidden describes a response with status code 403, with default header values.
+/*ListRetentionTasksForbidden handles this case with default header values.
 
 Forbidden
 */
 type ListRetentionTasksForbidden struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -176,18 +163,15 @@ type ListRetentionTasksForbidden struct {
 func (o *ListRetentionTasksForbidden) Error() string {
 	return fmt.Sprintf("[GET /retentions/{id}/executions/{eid}/tasks][%d] listRetentionTasksForbidden  %+v", 403, o.Payload)
 }
+
 func (o *ListRetentionTasksForbidden) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListRetentionTasksForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 
@@ -204,13 +188,12 @@ func NewListRetentionTasksInternalServerError() *ListRetentionTasksInternalServe
 	return &ListRetentionTasksInternalServerError{}
 }
 
-/* ListRetentionTasksInternalServerError describes a response with status code 500, with default header values.
+/*ListRetentionTasksInternalServerError handles this case with default header values.
 
 Internal server error
 */
 type ListRetentionTasksInternalServerError struct {
-
-	/* The ID of the corresponding request for the response
+	/*The ID of the corresponding request for the response
 	 */
 	XRequestID string
 
@@ -220,18 +203,15 @@ type ListRetentionTasksInternalServerError struct {
 func (o *ListRetentionTasksInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /retentions/{id}/executions/{eid}/tasks][%d] listRetentionTasksInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *ListRetentionTasksInternalServerError) GetPayload() *model.Errors {
 	return o.Payload
 }
 
 func (o *ListRetentionTasksInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// hydrates response header X-Request-Id
-	hdrXRequestID := response.GetHeader("X-Request-Id")
-
-	if hdrXRequestID != "" {
-		o.XRequestID = hdrXRequestID
-	}
+	// response header X-Request-Id
+	o.XRequestID = response.GetHeader("X-Request-Id")
 
 	o.Payload = new(model.Errors)
 

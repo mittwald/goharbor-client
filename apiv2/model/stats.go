@@ -6,7 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -21,18 +20,15 @@ import (
 type Stats struct {
 
 	// The number of the finished scan processes triggered by the scan all action
-	// Example: 90
 	Completed int64 `json:"completed"`
 
 	// The metrics data for the each status
-	// Example: {"Error":2,"Running":3,"Success":5}
 	Metrics map[string]int64 `json:"metrics,omitempty"`
 
 	// A flag indicating job status of scan all.
 	Ongoing bool `json:"ongoing"`
 
 	// The total number of scan processes triggered by the scan all action
-	// Example: 100
 	Total int64 `json:"total"`
 
 	// The trigger of the scan all job.
@@ -87,6 +83,7 @@ func (m *Stats) validateTriggerEnum(path, location string, value string) error {
 }
 
 func (m *Stats) validateTrigger(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Trigger) { // not required
 		return nil
 	}
@@ -96,11 +93,6 @@ func (m *Stats) validateTrigger(formats strfmt.Registry) error {
 		return err
 	}
 
-	return nil
-}
-
-// ContextValidate validates this stats based on context it is used
-func (m *Stats) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

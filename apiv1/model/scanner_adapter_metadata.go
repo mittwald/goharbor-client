@@ -6,7 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -26,7 +25,6 @@ type ScannerAdapterMetadata struct {
 	Name *Scanner `json:"name,omitempty"`
 
 	// properties
-	// Example: {"harbor.scanner-adapter/registry-authorization-type":"Bearer"}
 	Properties map[string]string `json:"properties,omitempty"`
 }
 
@@ -49,6 +47,7 @@ func (m *ScannerAdapterMetadata) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ScannerAdapterMetadata) validateCapabilities(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Capabilities) { // not required
 		return nil
 	}
@@ -73,62 +72,13 @@ func (m *ScannerAdapterMetadata) validateCapabilities(formats strfmt.Registry) e
 }
 
 func (m *ScannerAdapterMetadata) validateName(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Name) { // not required
 		return nil
 	}
 
 	if m.Name != nil {
 		if err := m.Name.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("name")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this scanner adapter metadata based on the context it is used
-func (m *ScannerAdapterMetadata) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateCapabilities(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateName(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *ScannerAdapterMetadata) contextValidateCapabilities(ctx context.Context, formats strfmt.Registry) error {
-
-	for i := 0; i < len(m.Capabilities); i++ {
-
-		if m.Capabilities[i] != nil {
-			if err := m.Capabilities[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("capabilities" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *ScannerAdapterMetadata) contextValidateName(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Name != nil {
-		if err := m.Name.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("name")
 			}

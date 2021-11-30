@@ -56,6 +56,7 @@ func (o *PostRegistriesReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -66,7 +67,7 @@ func NewPostRegistriesCreated() *PostRegistriesCreated {
 	return &PostRegistriesCreated{}
 }
 
-/* PostRegistriesCreated describes a response with status code 201, with default header values.
+/*PostRegistriesCreated handles this case with default header values.
 
 Registry created successfully.
 */
@@ -87,7 +88,7 @@ func NewPostRegistriesBadRequest() *PostRegistriesBadRequest {
 	return &PostRegistriesBadRequest{}
 }
 
-/* PostRegistriesBadRequest describes a response with status code 400, with default header values.
+/*PostRegistriesBadRequest handles this case with default header values.
 
 Unsatisfied with constraints of the registry creation.
 */
@@ -108,7 +109,7 @@ func NewPostRegistriesUnauthorized() *PostRegistriesUnauthorized {
 	return &PostRegistriesUnauthorized{}
 }
 
-/* PostRegistriesUnauthorized describes a response with status code 401, with default header values.
+/*PostRegistriesUnauthorized handles this case with default header values.
 
 User need to log in first.
 */
@@ -129,7 +130,7 @@ func NewPostRegistriesConflict() *PostRegistriesConflict {
 	return &PostRegistriesConflict{}
 }
 
-/* PostRegistriesConflict describes a response with status code 409, with default header values.
+/*PostRegistriesConflict handles this case with default header values.
 
 Registry name already exists.
 */
@@ -150,7 +151,7 @@ func NewPostRegistriesUnsupportedMediaType() *PostRegistriesUnsupportedMediaType
 	return &PostRegistriesUnsupportedMediaType{}
 }
 
-/* PostRegistriesUnsupportedMediaType describes a response with status code 415, with default header values.
+/*PostRegistriesUnsupportedMediaType handles this case with default header values.
 
 The Media Type of the request is not supported, it has to be "application/json"
 */
@@ -171,7 +172,7 @@ func NewPostRegistriesInternalServerError() *PostRegistriesInternalServerError {
 	return &PostRegistriesInternalServerError{}
 }
 
-/* PostRegistriesInternalServerError describes a response with status code 500, with default header values.
+/*PostRegistriesInternalServerError handles this case with default header values.
 
 Unexpected internal errors.
 */

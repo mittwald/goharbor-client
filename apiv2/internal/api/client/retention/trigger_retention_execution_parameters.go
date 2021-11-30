@@ -17,78 +17,66 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewTriggerRetentionExecutionParams creates a new TriggerRetentionExecutionParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewTriggerRetentionExecutionParams creates a new TriggerRetentionExecutionParams object
+// with the default values initialized.
 func NewTriggerRetentionExecutionParams() *TriggerRetentionExecutionParams {
+	var ()
 	return &TriggerRetentionExecutionParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewTriggerRetentionExecutionParamsWithTimeout creates a new TriggerRetentionExecutionParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewTriggerRetentionExecutionParamsWithTimeout(timeout time.Duration) *TriggerRetentionExecutionParams {
+	var ()
 	return &TriggerRetentionExecutionParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewTriggerRetentionExecutionParamsWithContext creates a new TriggerRetentionExecutionParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewTriggerRetentionExecutionParamsWithContext(ctx context.Context) *TriggerRetentionExecutionParams {
+	var ()
 	return &TriggerRetentionExecutionParams{
+
 		Context: ctx,
 	}
 }
 
 // NewTriggerRetentionExecutionParamsWithHTTPClient creates a new TriggerRetentionExecutionParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewTriggerRetentionExecutionParamsWithHTTPClient(client *http.Client) *TriggerRetentionExecutionParams {
+	var ()
 	return &TriggerRetentionExecutionParams{
 		HTTPClient: client,
 	}
 }
 
-/* TriggerRetentionExecutionParams contains all the parameters to send to the API endpoint
-   for the trigger retention execution operation.
-
-   Typically these are written to a http.Request.
+/*TriggerRetentionExecutionParams contains all the parameters to send to the API endpoint
+for the trigger retention execution operation typically these are written to a http.Request
 */
 type TriggerRetentionExecutionParams struct {
 
-	// Body.
+	/*XRequestID
+	  An unique ID for the request
+
+	*/
+	XRequestID *string
+	/*Body*/
 	Body TriggerRetentionExecutionBody
+	/*ID
+	  Retention ID.
 
-	/* ID.
-
-	   Retention ID.
-
-	   Format: int64
 	*/
 	ID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the trigger retention execution params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *TriggerRetentionExecutionParams) WithDefaults() *TriggerRetentionExecutionParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the trigger retention execution params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *TriggerRetentionExecutionParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the trigger retention execution params
@@ -124,6 +112,17 @@ func (o *TriggerRetentionExecutionParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXRequestID adds the xRequestID to the trigger retention execution params
+func (o *TriggerRetentionExecutionParams) WithXRequestID(xRequestID *string) *TriggerRetentionExecutionParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the trigger retention execution params
+func (o *TriggerRetentionExecutionParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WithBody adds the body to the trigger retention execution params
 func (o *TriggerRetentionExecutionParams) WithBody(body TriggerRetentionExecutionBody) *TriggerRetentionExecutionParams {
 	o.SetBody(body)
@@ -153,6 +152,16 @@ func (o *TriggerRetentionExecutionParams) WriteToRequest(r runtime.ClientRequest
 		return err
 	}
 	var res []error
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-Id
+		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
+			return err
+		}
+
+	}
+
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err
 	}

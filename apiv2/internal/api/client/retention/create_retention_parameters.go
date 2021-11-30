@@ -15,76 +15,67 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 )
 
-// NewCreateRetentionParams creates a new CreateRetentionParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewCreateRetentionParams creates a new CreateRetentionParams object
+// with the default values initialized.
 func NewCreateRetentionParams() *CreateRetentionParams {
+	var ()
 	return &CreateRetentionParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateRetentionParamsWithTimeout creates a new CreateRetentionParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewCreateRetentionParamsWithTimeout(timeout time.Duration) *CreateRetentionParams {
+	var ()
 	return &CreateRetentionParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewCreateRetentionParamsWithContext creates a new CreateRetentionParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewCreateRetentionParamsWithContext(ctx context.Context) *CreateRetentionParams {
+	var ()
 	return &CreateRetentionParams{
+
 		Context: ctx,
 	}
 }
 
 // NewCreateRetentionParamsWithHTTPClient creates a new CreateRetentionParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewCreateRetentionParamsWithHTTPClient(client *http.Client) *CreateRetentionParams {
+	var ()
 	return &CreateRetentionParams{
 		HTTPClient: client,
 	}
 }
 
-/* CreateRetentionParams contains all the parameters to send to the API endpoint
-   for the create retention operation.
-
-   Typically these are written to a http.Request.
+/*CreateRetentionParams contains all the parameters to send to the API endpoint
+for the create retention operation typically these are written to a http.Request
 */
 type CreateRetentionParams struct {
 
-	/* Policy.
+	/*XRequestID
+	  An unique ID for the request
 
-	   Create Retention Policy successfully.
+	*/
+	XRequestID *string
+	/*Policy
+	  Create Retention Policy successfully.
+
 	*/
 	Policy *model.RetentionPolicy
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the create retention params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *CreateRetentionParams) WithDefaults() *CreateRetentionParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the create retention params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *CreateRetentionParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create retention params
@@ -120,6 +111,17 @@ func (o *CreateRetentionParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXRequestID adds the xRequestID to the create retention params
+func (o *CreateRetentionParams) WithXRequestID(xRequestID *string) *CreateRetentionParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the create retention params
+func (o *CreateRetentionParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WithPolicy adds the policy to the create retention params
 func (o *CreateRetentionParams) WithPolicy(policy *model.RetentionPolicy) *CreateRetentionParams {
 	o.SetPolicy(policy)
@@ -138,6 +140,16 @@ func (o *CreateRetentionParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-Id
+		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
+			return err
+		}
+
+	}
+
 	if o.Policy != nil {
 		if err := r.SetBodyParam(o.Policy); err != nil {
 			return err

@@ -6,8 +6,6 @@ package model
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -37,40 +35,13 @@ func (m *AdminJobSchedule) Validate(formats strfmt.Registry) error {
 }
 
 func (m *AdminJobSchedule) validateSchedule(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Schedule) { // not required
 		return nil
 	}
 
 	if m.Schedule != nil {
 		if err := m.Schedule.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("schedule")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this admin job schedule based on the context it is used
-func (m *AdminJobSchedule) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateSchedule(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *AdminJobSchedule) contextValidateSchedule(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Schedule != nil {
-		if err := m.Schedule.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("schedule")
 			}

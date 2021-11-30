@@ -16,79 +16,64 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteInstanceParams creates a new DeleteInstanceParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewDeleteInstanceParams creates a new DeleteInstanceParams object
+// with the default values initialized.
 func NewDeleteInstanceParams() *DeleteInstanceParams {
+	var ()
 	return &DeleteInstanceParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteInstanceParamsWithTimeout creates a new DeleteInstanceParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteInstanceParamsWithTimeout(timeout time.Duration) *DeleteInstanceParams {
+	var ()
 	return &DeleteInstanceParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewDeleteInstanceParamsWithContext creates a new DeleteInstanceParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewDeleteInstanceParamsWithContext(ctx context.Context) *DeleteInstanceParams {
+	var ()
 	return &DeleteInstanceParams{
+
 		Context: ctx,
 	}
 }
 
 // NewDeleteInstanceParamsWithHTTPClient creates a new DeleteInstanceParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteInstanceParamsWithHTTPClient(client *http.Client) *DeleteInstanceParams {
+	var ()
 	return &DeleteInstanceParams{
 		HTTPClient: client,
 	}
 }
 
-/* DeleteInstanceParams contains all the parameters to send to the API endpoint
-   for the delete instance operation.
-
-   Typically these are written to a http.Request.
+/*DeleteInstanceParams contains all the parameters to send to the API endpoint
+for the delete instance operation typically these are written to a http.Request
 */
 type DeleteInstanceParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*PreheatInstanceName
+	  Instance Name
 
-	/* PreheatInstanceName.
-
-	   Instance Name
 	*/
 	PreheatInstanceName string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the delete instance params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteInstanceParams) WithDefaults() *DeleteInstanceParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the delete instance params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteInstanceParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete instance params
@@ -160,6 +145,7 @@ func (o *DeleteInstanceParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
 
 	// path param preheat_instance_name

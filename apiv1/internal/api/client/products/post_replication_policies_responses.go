@@ -62,6 +62,7 @@ func (o *PostReplicationPoliciesReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -72,7 +73,7 @@ func NewPostReplicationPoliciesCreated() *PostReplicationPoliciesCreated {
 	return &PostReplicationPoliciesCreated{}
 }
 
-/* PostReplicationPoliciesCreated describes a response with status code 201, with default header values.
+/*PostReplicationPoliciesCreated handles this case with default header values.
 
 Created
 */
@@ -93,7 +94,7 @@ func NewPostReplicationPoliciesBadRequest() *PostReplicationPoliciesBadRequest {
 	return &PostReplicationPoliciesBadRequest{}
 }
 
-/* PostReplicationPoliciesBadRequest describes a response with status code 400, with default header values.
+/*PostReplicationPoliciesBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -114,7 +115,7 @@ func NewPostReplicationPoliciesUnauthorized() *PostReplicationPoliciesUnauthoriz
 	return &PostReplicationPoliciesUnauthorized{}
 }
 
-/* PostReplicationPoliciesUnauthorized describes a response with status code 401, with default header values.
+/*PostReplicationPoliciesUnauthorized handles this case with default header values.
 
 Unauthorized
 */
@@ -135,7 +136,7 @@ func NewPostReplicationPoliciesForbidden() *PostReplicationPoliciesForbidden {
 	return &PostReplicationPoliciesForbidden{}
 }
 
-/* PostReplicationPoliciesForbidden describes a response with status code 403, with default header values.
+/*PostReplicationPoliciesForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -156,7 +157,7 @@ func NewPostReplicationPoliciesConflict() *PostReplicationPoliciesConflict {
 	return &PostReplicationPoliciesConflict{}
 }
 
-/* PostReplicationPoliciesConflict describes a response with status code 409, with default header values.
+/*PostReplicationPoliciesConflict handles this case with default header values.
 
 Conflict
 */
@@ -177,7 +178,7 @@ func NewPostReplicationPoliciesUnsupportedMediaType() *PostReplicationPoliciesUn
 	return &PostReplicationPoliciesUnsupportedMediaType{}
 }
 
-/* PostReplicationPoliciesUnsupportedMediaType describes a response with status code 415, with default header values.
+/*PostReplicationPoliciesUnsupportedMediaType handles this case with default header values.
 
 The Media Type of the request is not supported, it has to be "application/json"
 */
@@ -198,7 +199,7 @@ func NewPostReplicationPoliciesInternalServerError() *PostReplicationPoliciesInt
 	return &PostReplicationPoliciesInternalServerError{}
 }
 
-/* PostReplicationPoliciesInternalServerError describes a response with status code 500, with default header values.
+/*PostReplicationPoliciesInternalServerError handles this case with default header values.
 
 Internal Server Error
 */

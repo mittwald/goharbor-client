@@ -16,88 +16,72 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/mittwald/goharbor-client/v4/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 )
 
-// NewUpdateRobotParams creates a new UpdateRobotParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewUpdateRobotParams creates a new UpdateRobotParams object
+// with the default values initialized.
 func NewUpdateRobotParams() *UpdateRobotParams {
+	var ()
 	return &UpdateRobotParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateRobotParamsWithTimeout creates a new UpdateRobotParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewUpdateRobotParamsWithTimeout(timeout time.Duration) *UpdateRobotParams {
+	var ()
 	return &UpdateRobotParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewUpdateRobotParamsWithContext creates a new UpdateRobotParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewUpdateRobotParamsWithContext(ctx context.Context) *UpdateRobotParams {
+	var ()
 	return &UpdateRobotParams{
+
 		Context: ctx,
 	}
 }
 
 // NewUpdateRobotParamsWithHTTPClient creates a new UpdateRobotParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewUpdateRobotParamsWithHTTPClient(client *http.Client) *UpdateRobotParams {
+	var ()
 	return &UpdateRobotParams{
 		HTTPClient: client,
 	}
 }
 
-/* UpdateRobotParams contains all the parameters to send to the API endpoint
-   for the update robot operation.
-
-   Typically these are written to a http.Request.
+/*UpdateRobotParams contains all the parameters to send to the API endpoint
+for the update robot operation typically these are written to a http.Request
 */
 type UpdateRobotParams struct {
 
-	/* XRequestID.
+	/*XRequestID
+	  An unique ID for the request
 
-	   An unique ID for the request
 	*/
 	XRequestID *string
+	/*Robot
+	  The JSON object of a robot account.
 
-	/* Robot.
-
-	   The JSON object of a robot account.
 	*/
 	Robot *model.Robot
+	/*RobotID
+	  Robot ID
 
-	/* RobotID.
-
-	   Robot ID
 	*/
 	RobotID int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the update robot params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *UpdateRobotParams) WithDefaults() *UpdateRobotParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the update robot params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *UpdateRobotParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update robot params
@@ -180,7 +164,9 @@ func (o *UpdateRobotParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
 		}
+
 	}
+
 	if o.Robot != nil {
 		if err := r.SetBodyParam(o.Robot); err != nil {
 			return err
