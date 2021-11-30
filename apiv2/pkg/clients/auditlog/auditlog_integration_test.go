@@ -9,6 +9,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
+	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/project"
 
 	clienttesting "github.com/mittwald/goharbor-client/v5/apiv2/pkg/testing"
@@ -24,7 +25,10 @@ func TestAPIListAuditLogs(t *testing.T) {
 
 	pc := project.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
-	err := pc.NewProject(ctx, "test-auditlog", &storageLimit)
+	err := pc.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  "test-auditlog",
+		StorageLimit: &storageLimit,
+	})
 	require.NoError(t, err)
 
 	p, err := pc.GetProject(ctx, "test-auditlog")
@@ -56,7 +60,10 @@ func TestAPIListAuditLogs_BigPageSize(t *testing.T) {
 	pc := project.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
 	for i := 0; i < 42; i++ {
-		err := pc.NewProject(ctx, "test-auditlog-"+strconv.Itoa(i), &storageLimit)
+		err := pc.NewProject(ctx, &modelv2.ProjectReq{
+			ProjectName:  "test-auditlog-" + strconv.Itoa(i),
+			StorageLimit: &storageLimit,
+		})
 		require.NoError(t, err)
 
 		p, err := pc.GetProject(ctx, "test-auditlog-"+strconv.Itoa(i))

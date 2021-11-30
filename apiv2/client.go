@@ -170,8 +170,8 @@ func (c *RESTClient) DeleteProjectMember(ctx context.Context, projectNameOrID st
 
 // Project Client
 
-func (c *RESTClient) NewProject(ctx context.Context, name string, storageLimit *int64) error {
-	return c.project.NewProject(ctx, name, storageLimit)
+func (c *RESTClient) NewProject(ctx context.Context, projectRequest *modelv2.ProjectReq) error {
+	return c.project.NewProject(ctx, projectRequest)
 }
 
 func (c *RESTClient) DeleteProject(ctx context.Context, nameOrID string) error {

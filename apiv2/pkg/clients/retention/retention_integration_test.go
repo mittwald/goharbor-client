@@ -63,7 +63,10 @@ func TestAPIRetentionNew(t *testing.T) {
 
 	pc := pc.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
-	err := pc.NewProject(ctx, projectName, &storageLimit)
+	err := pc.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  projectName,
+		StorageLimit: &storageLimit,
+	})
 	require.NoError(t, err)
 
 	p, err := pc.GetProject(ctx, projectName)
@@ -89,7 +92,10 @@ func TestAPIRetentionUpdate(t *testing.T) {
 
 	pc := pc.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
-	err := pc.NewProject(ctx, projectName, &storageLimit)
+	err := pc.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  projectName,
+		StorageLimit: &storageLimit,
+	})
 	require.NoError(t, err)
 
 	p, err := pc.GetProject(ctx, projectName)
@@ -149,7 +155,10 @@ func TestAPIRetentionDelete(t *testing.T) {
 
 	pc := pc.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
-	err := pc.NewProject(ctx, projectName, &storageLimit)
+	err := pc.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  projectName,
+		StorageLimit: &storageLimit,
+	})
 	require.NoError(t, err)
 
 	p, err := pc.GetProject(ctx, projectName)

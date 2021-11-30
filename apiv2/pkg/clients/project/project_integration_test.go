@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"testing"
 
+	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/registry"
 	clienterrors "github.com/mittwald/goharbor-client/v5/apiv2/pkg/errors"
 	clienttesting "github.com/mittwald/goharbor-client/v5/apiv2/pkg/testing"
 
@@ -24,7 +26,7 @@ func TestAPIProjectNew(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
-	err := c.NewProject(ctx, name, &storageLimitPositive)
+	err := c.NewProject(ctx, &modelv2.ProjectReq{ProjectName: name})
 	require.NoError(t, err)
 
 	p, err := c.GetProject(ctx, name)
@@ -32,9 +34,47 @@ func TestAPIProjectNew(t *testing.T) {
 
 	defer c.DeleteProject(ctx, name)
 
-	require.NoError(t, err)
 	require.Equal(t, name, p.Name)
 	require.False(t, p.Deleted)
+}
+
+func TestAPINewProxyCacheProject(t *testing.T) {
+	ctx := context.Background()
+
+	c := NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
+	rc := registry.NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
+
+	err := rc.NewRegistry(ctx, &modelv2.Registry{
+		Insecure: true,
+		Name:     "proxy-cache",
+		Type:     "harbor",
+		URL:      "harbor-registry:5000",
+	})
+
+	r, err := rc.GetRegistryByName(ctx, "proxy-cache")
+	require.NoError(t, err)
+
+	defer rc.DeleteRegistryByID(ctx, r.ID)
+
+	err = c.NewProject(ctx, &modelv2.ProjectReq{
+		ProjectName:  "proxy-cache",
+		RegistryID:   &r.ID,
+		StorageLimit: &storageLimitPositive,
+	})
+	require.NoError(t, err)
+
+	p, err := c.GetProject(ctx, "proxy-cache")
+	require.NoError(t, err)
+
+	defer c.DeleteProject(ctx, "proxy-cache")
+
+	err = c.UpdateProject(ctx, p, &storageLimitPositive)
+	require.NoError(t, err)
+
+	projectAfterUpdate, err := c.GetProject(ctx, "proxy-cache")
+	require.NoError(t, err)
+
+	require.Equal(t, r.ID, projectAfterUpdate.RegistryID)
 }
 
 func TestAPIProjectNew_UnlimitedStorage(t *testing.T) {
@@ -43,14 +83,13 @@ func TestAPIProjectNew_UnlimitedStorage(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
-	err := c.NewProject(ctx, name, &storageLimitPositive)
+	err := c.NewProject(ctx, &modelv2.ProjectReq{ProjectName: name})
 	require.NoError(t, err)
 
 	p, err := c.GetProject(ctx, name)
 	require.NoError(t, err)
 	defer c.DeleteProject(ctx, name)
 
-	require.NoError(t, err)
 	require.Equal(t, name, p.Name)
 	require.False(t, p.Deleted)
 }
@@ -61,7 +100,7 @@ func TestAPIProjectGet(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
-	err := c.NewProject(ctx, name, &storageLimitPositive)
+	err := c.NewProject(ctx, &modelv2.ProjectReq{ProjectName: name})
 	require.NoError(t, err)
 
 	p, err := c.GetProject(ctx, name)
@@ -79,7 +118,7 @@ func TestAPIProjectDelete(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
-	err := c.NewProject(ctx, name, &storageLimitPositive)
+	err := c.NewProject(ctx, &modelv2.ProjectReq{ProjectName: name})
 	require.NoError(t, err)
 
 	_, err = c.GetProject(ctx, name)
@@ -100,7 +139,7 @@ func TestAPIProjectList(t *testing.T) {
 
 	for i := 0; i < 10; i++ {
 		name := fmt.Sprintf("%s-%d", namePrefix, i)
-		err := c.NewProject(ctx, name, &storageLimitPositive)
+		err := c.NewProject(ctx, &modelv2.ProjectReq{ProjectName: name})
 		require.NoError(t, err)
 
 		_, err = c.GetProject(ctx, name)
@@ -127,7 +166,7 @@ func TestAPIProjectUpdate(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
-	err := c.NewProject(ctx, name, &storageLimitPositive)
+	err := c.NewProject(ctx, &modelv2.ProjectReq{ProjectName: name})
 	require.NoError(t, err)
 
 	p, err := c.GetProject(ctx, name)

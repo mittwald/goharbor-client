@@ -36,7 +36,7 @@ func NewClient(v2Client *v2client.Harbor, opts *config.Options, authInfo runtime
 }
 
 type Client interface {
-	NewProject(ctx context.Context, name string, storageLimit *int64) error
+	NewProject(ctx context.Context, projectRequest *modelv2.ProjectReq) error
 	DeleteProject(ctx context.Context, nameOrID string) error
 	GetProject(ctx context.Context, nameOrID string) (*modelv2.Project, error)
 	ListProjects(ctx context.Context, nameFilter string) ([]*modelv2.Project, error)
@@ -44,19 +44,11 @@ type Client interface {
 	ProjectExists(ctx context.Context, nameOrID string) (bool, error)
 }
 
-// NewProject creates a new project with name as the project's name.
-// Returns the project as it is stored inside Harbor or an error,
-// if the project could not be created.
-// CountLimit limits the number of repositories for this project.
-// StorageLimit limits the allocatable space for this project.
-func (c *RESTClient) NewProject(ctx context.Context, name string, storageLimit *int64) error {
-	pReq := &modelv2.ProjectReq{
-		ProjectName:  name,
-		StorageLimit: storageLimit,
-	}
-
+// NewProject creates a new project with the given request params.
+// Referencing an existing registry via projectRequest.RegistryID will create a "Proxy Cache" project.
+func (c *RESTClient) NewProject(ctx context.Context, projectRequest *modelv2.ProjectReq) error {
 	params := &projectapi.CreateProjectParams{
-		Project: pReq,
+		Project: projectRequest,
 		Context: ctx,
 	}
 
@@ -172,6 +164,7 @@ func (c *RESTClient) UpdateProject(ctx context.Context, p *modelv2.Project, stor
 		Metadata:     p.Metadata,
 		ProjectName:  p.Name,
 		StorageLimit: storageLimit,
+		RegistryID:   &p.RegistryID,
 	}
 
 	params := &projectapi.UpdateProjectParams{
