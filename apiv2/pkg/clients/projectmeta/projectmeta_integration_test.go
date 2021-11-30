@@ -10,10 +10,11 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/project"
-	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/errors"
+	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/common"
+
 	clienttesting "github.com/mittwald/goharbor-client/v5/apiv2/pkg/testing"
 
-	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/common"
+	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/errors"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/util"
 )
 
