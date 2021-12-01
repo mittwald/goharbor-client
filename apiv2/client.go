@@ -425,8 +425,8 @@ func (c *RESTClient) UpdateUserProfile(ctx context.Context, id int64, profile *m
 	return c.user.UpdateUserProfile(ctx, id, profile)
 }
 
-func (c *RESTClient) UpdateUserPassword(ctx context.Context, userID int64, old, new string) error {
-	return c.user.UpdateUserPassword(ctx, userID, old, new)
+func (c *RESTClient) UpdateUserPassword(ctx context.Context, userID int64, passwordRequest *modelv2.PasswordReq) error {
+	return c.user.UpdateUserPassword(ctx, userID, passwordRequest)
 }
 
 func (c *RESTClient) UserExists(ctx context.Context, idOrName intstr.IntOrString) (bool, error) {
