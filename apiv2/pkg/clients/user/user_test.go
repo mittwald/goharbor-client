@@ -253,22 +253,11 @@ func TestRESTClient_UpdateUserPassword(t *testing.T) {
 			mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 			Return(&user.UpdateUserPasswordOK{}, nil)
 
-		err := apiClient.UpdateUserPassword(ctx, exampleUserID, "foo", "bar")
+		err := apiClient.UpdateUserPassword(ctx, exampleUserID, &modelv2.PasswordReq{
+			NewPassword: "bar",
+			OldPassword: "foo",
+		})
 		require.NoError(t, err)
-	})
-
-	t.Run("NoOldPassword", func(t *testing.T) {
-		mockClient.User.On("GetUser", getParams,
-			mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-			Return(&user.GetUserOK{Payload: &modelv2.UserResp{UserID: exampleUserID}}, nil)
-
-		mockClient.User.On("UpdateUserPassword", updatePWParams,
-			mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-			Return(&user.UpdateUserPasswordOK{}, nil)
-
-		err := apiClient.UpdateUserPassword(ctx, exampleUserID, "", "bar")
-		require.Error(t, err)
-		require.Contains(t, err.Error(), "no old password provided")
 	})
 
 	t.Run("NoNewPassword", func(t *testing.T) {
@@ -280,7 +269,10 @@ func TestRESTClient_UpdateUserPassword(t *testing.T) {
 			mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 			Return(&user.UpdateUserPasswordOK{}, nil)
 
-		err := apiClient.UpdateUserPassword(ctx, exampleUserID, "foo", "")
+		err := apiClient.UpdateUserPassword(ctx, exampleUserID, &modelv2.PasswordReq{
+			NewPassword: "",
+			OldPassword: "foo",
+		})
 		require.Error(t, err)
 		require.Contains(t, err.Error(), "no new password provided")
 	})

@@ -46,7 +46,7 @@ type Client interface {
 	SetUserSysAdmin(ctx context.Context, id int64, admin bool) error
 	DeleteUser(ctx context.Context, id int64) error
 	UpdateUserProfile(ctx context.Context, id int64, profile *modelv2.UserProfile) error
-	UpdateUserPassword(ctx context.Context, userID int64, old, new string) error
+	UpdateUserPassword(ctx context.Context, userID int64, passwordRequest *modelv2.PasswordReq) error
 	UserExists(ctx context.Context, idOrName intstr.IntOrString) (bool, error)
 }
 
@@ -265,10 +265,9 @@ func (c *RESTClient) UpdateUserProfile(ctx context.Context, id int64, profile *m
 }
 
 // UpdateUserPassword updates a user's password from 'old' to 'new'.
-func (c *RESTClient) UpdateUserPassword(ctx context.Context, userID int64, old, new string) error {
-	if old == "" {
-		return errors.New("no old password provided")
-	} else if new == "" {
+// 'old' is an optional parameter when called by an administrator.
+func (c *RESTClient) UpdateUserPassword(ctx context.Context, userID int64, passwordRequest *modelv2.PasswordReq) error {
+	if passwordRequest.NewPassword == "" {
 		return errors.New("no new password provided")
 	}
 
@@ -278,12 +277,9 @@ func (c *RESTClient) UpdateUserPassword(ctx context.Context, userID int64, old, 
 	}
 
 	params := &user.UpdateUserPasswordParams{
-		Password: &modelv2.PasswordReq{
-			OldPassword: old,
-			NewPassword: new,
-		},
-		UserID:  userID,
-		Context: ctx,
+		Password: passwordRequest,
+		UserID:   userID,
+		Context:  ctx,
 	}
 
 	params.WithTimeout(c.Options.Timeout)

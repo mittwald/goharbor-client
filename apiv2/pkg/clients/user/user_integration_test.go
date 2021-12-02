@@ -158,7 +158,7 @@ func TestAPIUserDelete(t *testing.T) {
 	require.Nil(t, usr)
 }
 
-func TestAPIUserUpdate(t *testing.T) {
+func TestAPIUserUpdate_Profile(t *testing.T) {
 	ctx := context.Background()
 
 	c := NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
@@ -187,4 +187,27 @@ func TestAPIUserUpdate(t *testing.T) {
 	require.Equal(t, usr.Email, "foo@baz.com")
 	require.Equal(t, usr.Comment, "Some other comment")
 	require.Equal(t, usr.Realname, "Foo Baz")
+}
+
+func TestAPIUserUpdate_Password(t *testing.T) {
+	ctx := context.Background()
+
+	c := NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
+	err := c.NewUser(ctx, username, email, realname, password, comments)
+	require.NoError(t, err)
+
+	usr, err := c.GetUserByName(ctx, username)
+	require.NoError(t, err)
+
+	require.NotNil(t, usr)
+
+	defer func() {
+		_ = c.DeleteUser(ctx, usr.UserID)
+	}()
+
+	err = c.UpdateUserPassword(ctx, usr.UserID, &modelv2.PasswordReq{
+		NewPassword: password + "1",
+		OldPassword: "",
+	})
+	require.NoError(t, err)
 }
