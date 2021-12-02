@@ -111,6 +111,29 @@ func (_m *MockScan_allClientService) SetTransport(transport runtime.ClientTransp
 	_m.Called(transport)
 }
 
+// StopScanAll provides a mock function with given fields: params, authInfo
+func (_m *MockScan_allClientService) StopScanAll(params *scan_all.StopScanAllParams, authInfo runtime.ClientAuthInfoWriter) (*scan_all.StopScanAllAccepted, error) {
+	ret := _m.Called(params, authInfo)
+
+	var r0 *scan_all.StopScanAllAccepted
+	if rf, ok := ret.Get(0).(func(*scan_all.StopScanAllParams, runtime.ClientAuthInfoWriter) *scan_all.StopScanAllAccepted); ok {
+		r0 = rf(params, authInfo)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*scan_all.StopScanAllAccepted)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*scan_all.StopScanAllParams, runtime.ClientAuthInfoWriter) error); ok {
+		r1 = rf(params, authInfo)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // UpdateScanAllSchedule provides a mock function with given fields: params, authInfo
 func (_m *MockScan_allClientService) UpdateScanAllSchedule(params *scan_all.UpdateScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*scan_all.UpdateScanAllScheduleOK, error) {
 	ret := _m.Called(params, authInfo)

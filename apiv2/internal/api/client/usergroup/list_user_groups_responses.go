@@ -9,8 +9,10 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
 	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 )
@@ -63,6 +65,13 @@ func NewListUserGroupsOK() *ListUserGroupsOK {
 Get user group successfully.
 */
 type ListUserGroupsOK struct {
+	/*Link to previous page and next page
+	 */
+	Link string
+	/*The total count of available items
+	 */
+	XTotalCount int64
+
 	Payload []*model.UserGroup
 }
 
@@ -75,6 +84,16 @@ func (o *ListUserGroupsOK) GetPayload() []*model.UserGroup {
 }
 
 func (o *ListUserGroupsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header Link
+	o.Link = response.GetHeader("Link")
+
+	// response header X-Total-Count
+	xTotalCount, err := swag.ConvertInt64(response.GetHeader("X-Total-Count"))
+	if err != nil {
+		return errors.InvalidType("X-Total-Count", "header", "int64", response.GetHeader("X-Total-Count"))
+	}
+	o.XTotalCount = xTotalCount
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

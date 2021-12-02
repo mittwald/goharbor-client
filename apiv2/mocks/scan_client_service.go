@@ -64,3 +64,26 @@ func (_m *MockScanClientService) ScanArtifact(params *scan.ScanArtifactParams, a
 func (_m *MockScanClientService) SetTransport(transport runtime.ClientTransport) {
 	_m.Called(transport)
 }
+
+// StopScanArtifact provides a mock function with given fields: params, authInfo
+func (_m *MockScanClientService) StopScanArtifact(params *scan.StopScanArtifactParams, authInfo runtime.ClientAuthInfoWriter) (*scan.StopScanArtifactAccepted, error) {
+	ret := _m.Called(params, authInfo)
+
+	var r0 *scan.StopScanArtifactAccepted
+	if rf, ok := ret.Get(0).(func(*scan.StopScanArtifactParams, runtime.ClientAuthInfoWriter) *scan.StopScanArtifactAccepted); ok {
+		r0 = rf(params, authInfo)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*scan.StopScanArtifactAccepted)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*scan.StopScanArtifactParams, runtime.ClientAuthInfoWriter) error); ok {
+		r1 = rf(params, authInfo)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
