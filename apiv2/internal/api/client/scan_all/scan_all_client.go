@@ -35,6 +35,8 @@ type ClientService interface {
 
 	GetScanAllSchedule(params *GetScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*GetScanAllScheduleOK, error)
 
+	StopScanAll(params *StopScanAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopScanAllAccepted, error)
+
 	UpdateScanAllSchedule(params *UpdateScanAllScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateScanAllScheduleOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
@@ -185,6 +187,43 @@ func (a *Client) GetScanAllSchedule(params *GetScanAllScheduleParams, authInfo r
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getScanAllSchedule: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  StopScanAll stops scan all job execution
+
+  Stop scanAll job execution
+*/
+func (a *Client) StopScanAll(params *StopScanAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopScanAllAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStopScanAllParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "stopScanAll",
+		Method:             "POST",
+		PathPattern:        "/system/scanAll/stop",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &StopScanAllReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*StopScanAllAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for stopScanAll: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

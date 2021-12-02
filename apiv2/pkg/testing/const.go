@@ -21,8 +21,7 @@ var (
 	u, _            = url.Parse(Host)
 	V2SwaggerClient = v2client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
 	AuthInfo        = runtimeclient.BasicAuth(User, Password)
-	opts            = config.Options{}
-	DefaultOpts     = opts.Defaults()
+	DefaultOpts     = config.Defaults()
 )
 
 type MockClients struct {

@@ -17,12 +17,12 @@ type Options struct {
 	Query string
 }
 
-func (o *Options) Defaults() *Options {
-	o.PageSize = 10
-	o.Sort = ""
-	o.Page = 0
-	o.Query = ""
-	o.Timeout = 30 * time.Second
-
-	return o
+func Defaults() *Options {
+	return &Options{
+		PageSize: 10,
+		Page:     0,
+		Sort:     "",
+		Query:    "",
+		Timeout:  30 * time.Second,
+	}
 }

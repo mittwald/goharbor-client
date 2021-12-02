@@ -15,6 +15,9 @@ import (
 // swagger:model ReplicationFilter
 type ReplicationFilter struct {
 
+	// matches or excludes the result
+	Decoration string `json:"decoration,omitempty"`
+
 	// The replication policy filter type.
 	Type string `json:"type,omitempty"`
 

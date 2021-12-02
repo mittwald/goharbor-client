@@ -106,6 +106,29 @@ func (_m *MockUsergroupClientService) ListUserGroups(params *usergroup.ListUserG
 	return r0, r1
 }
 
+// SearchUserGroups provides a mock function with given fields: params, authInfo
+func (_m *MockUsergroupClientService) SearchUserGroups(params *usergroup.SearchUserGroupsParams, authInfo runtime.ClientAuthInfoWriter) (*usergroup.SearchUserGroupsOK, error) {
+	ret := _m.Called(params, authInfo)
+
+	var r0 *usergroup.SearchUserGroupsOK
+	if rf, ok := ret.Get(0).(func(*usergroup.SearchUserGroupsParams, runtime.ClientAuthInfoWriter) *usergroup.SearchUserGroupsOK); ok {
+		r0 = rf(params, authInfo)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*usergroup.SearchUserGroupsOK)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*usergroup.SearchUserGroupsParams, runtime.ClientAuthInfoWriter) error); ok {
+		r1 = rf(params, authInfo)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // SetTransport provides a mock function with given fields: transport
 func (_m *MockUsergroupClientService) SetTransport(transport runtime.ClientTransport) {
 	_m.Called(transport)

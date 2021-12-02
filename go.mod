@@ -3,12 +3,12 @@ module github.com/mittwald/goharbor-client/v5
 go 1.17
 
 require (
-	github.com/go-openapi/errors v0.20.0
-	github.com/go-openapi/runtime v0.19.29
-	github.com/go-openapi/strfmt v0.20.1
+	github.com/go-openapi/errors v0.20.1
+	github.com/go-openapi/runtime v0.21.0
+	github.com/go-openapi/strfmt v0.21.1
 	github.com/go-openapi/swag v0.19.15
-	github.com/go-openapi/validate v0.20.2
-	github.com/goharbor/harbor/src v0.0.0-20211002023338-32023891eb41
+	github.com/go-openapi/validate v0.20.3
+	github.com/goharbor/harbor/src v0.0.0-20211025104526-d4affc2eba6d
 	github.com/stretchr/testify v1.7.0
 	k8s.io/apimachinery v0.21.0
 
@@ -24,12 +24,12 @@ require (
 	github.com/docker/distribution v2.7.1+incompatible // indirect
 	github.com/felixge/httpsnoop v1.0.2 // indirect
 	github.com/go-logr/logr v0.4.0 // indirect
-	github.com/go-openapi/analysis v0.20.0 // indirect
+	github.com/go-openapi/analysis v0.20.1 // indirect
 	github.com/go-openapi/jsonpointer v0.19.5 // indirect
-	github.com/go-openapi/jsonreference v0.19.5 // indirect
-	github.com/go-openapi/loads v0.20.2 // indirect
-	github.com/go-openapi/spec v0.20.3 // indirect
-	github.com/go-stack/stack v1.8.0 // indirect
+	github.com/go-openapi/jsonreference v0.19.6 // indirect
+	github.com/go-openapi/loads v0.21.0 // indirect
+	github.com/go-openapi/spec v0.20.4 // indirect
+	github.com/go-stack/stack v1.8.1 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/gofuzz v1.1.0 // indirect
@@ -37,14 +37,15 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/lib/pq v1.10.0 // indirect
-	github.com/mailru/easyjson v0.7.6 // indirect
-	github.com/mitchellh/mapstructure v1.4.1 // indirect
+	github.com/mailru/easyjson v0.7.7 // indirect
+	github.com/mattn/go-sqlite3 v1.14.6 // indirect
+	github.com/mitchellh/mapstructure v1.4.3 // indirect
 	github.com/oklog/ulid v1.3.1 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/stretchr/objx v0.2.0 // indirect
-	go.mongodb.org/mongo-driver v1.5.1 // indirect
+	go.mongodb.org/mongo-driver v1.8.0 // indirect
 	go.opentelemetry.io/contrib v0.22.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.22.0 // indirect
 	go.opentelemetry.io/otel v1.0.0 // indirect

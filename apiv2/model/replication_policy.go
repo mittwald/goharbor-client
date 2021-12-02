@@ -57,6 +57,9 @@ type ReplicationPolicy struct {
 	// Whether to replicate the deletion operation.
 	ReplicateDeletion bool `json:"replicate_deletion,omitempty"`
 
+	// speed limit for each task
+	Speed *int32 `json:"speed,omitempty"`
+
 	// The source registry.
 	SrcRegistry *Registry `json:"src_registry,omitempty"`
 

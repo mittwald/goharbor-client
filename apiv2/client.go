@@ -76,7 +76,7 @@ type RESTClient struct {
 // NewRESTClient constructs a new REST client containing each sub client.
 func NewRESTClient(v2Client *v2client.Harbor, opts *config.Options, authInfo runtime.ClientAuthInfoWriter) *RESTClient {
 	if opts == nil {
-		opts = opts.Defaults()
+		opts = config.Defaults()
 	}
 
 	return &RESTClient{

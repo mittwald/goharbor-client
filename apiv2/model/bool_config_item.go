@@ -16,10 +16,10 @@ import (
 type BoolConfigItem struct {
 
 	// The configure item can be updated or not
-	Editable bool `json:"editable,omitempty"`
+	Editable bool `json:"editable"`
 
 	// The boolean value of current config item
-	Value bool `json:"value,omitempty"`
+	Value bool `json:"value"`
 }
 
 // Validate validates this bool config item

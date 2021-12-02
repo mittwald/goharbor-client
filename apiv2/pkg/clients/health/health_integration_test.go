@@ -20,8 +20,7 @@ var (
 	u, _            = url.Parse(integrationtest.Host)
 	v2SwaggerClient = v2client.New(runtimeclient.New(u.Host, u.Path, []string{u.Scheme}), strfmt.Default)
 	authInfo        = runtimeclient.BasicAuth(integrationtest.User, integrationtest.Password)
-	opts            = config.Options{}
-	defaultOpts     = opts.Defaults()
+	defaultOpts     = config.Defaults()
 )
 
 func TestAPIGetHealth(t *testing.T) {
