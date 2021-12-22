@@ -51,8 +51,8 @@ type Client interface {
 func (c *RESTClient) NewReplicationPolicy(ctx context.Context, destRegistry, srcRegistry *modelv2.Registry,
 	replicateDeletion, override, enablePolicy bool,
 	filters []*modelv2.ReplicationFilter, trigger *modelv2.ReplicationTrigger,
-	destNamespace, description, name string) error {
-
+	destNamespace, description, name string,
+) error {
 	params := &replicationapi.CreateReplicationPolicyParams{
 		Policy: &modelv2.ReplicationPolicy{
 			Description:               description,
