@@ -6,16 +6,14 @@ import (
 	"context"
 	"net/url"
 
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
+
 	runtimeclient "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
 	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/config"
 )
-
-func int64ptr(in int64) *int64 {
-	return &in
-}
 
 var (
 	harborClient, _ = NewRESTClientForHost("", "", "", nil)
@@ -35,7 +33,10 @@ func ExampleNewRESTClientForHost() {
 		panic(err)
 	}
 
-	err = harborClient.NewProject(ctx, "test-project", int64ptr(-1))
+	err = harborClient.NewProject(ctx, &model.ProjectReq{
+		ProjectName: "my-project",
+	})
+
 	if err != nil {
 		panic(err)
 	}
@@ -59,7 +60,10 @@ func ExampleNewRESTClient() {
 
 	harborClient := NewRESTClient(v2SwaggerClient, nil, authInfo)
 
-	err = harborClient.NewProject(ctx, "test-project", int64ptr(-1))
+	err = harborClient.NewProject(ctx, &model.ProjectReq{
+		ProjectName: "my-project",
+	})
+
 	if err != nil {
 		panic(err)
 	}

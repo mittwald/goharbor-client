@@ -20,5 +20,5 @@ func TestAPIGetSystemInfo(t *testing.T) {
 
 	require.Equal(t, false, *resp.WithChartmuseum)
 	require.Equal(t, false, *resp.WithNotary)
-	require.Equal(t, *resp.RegistryURL, "localhost")
+	require.Equal(t, "core.harbor.domain", *resp.RegistryURL)
 }
