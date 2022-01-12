@@ -3,6 +3,7 @@
 ## Table of contents
 - [Repository structure](#repository-structure)
 - [Implementing sub-clients](#implementing-sub-clients)
+- [Testing](#testing)
 - [Code generation](#code-generation)
     - [Client APIs](#client-apis)
     - [API mocks](#api-mocks)
@@ -224,6 +225,49 @@ func (c *RESTClient) GetUserByName(ctx context.Context, username string) (*model
 }
 
 [...]
+```
+
+## Testing
+
+### Unit Tests
+
+Unit tests are marked via the build tag `!integration`.
+
+For running unit tests against the `goharbor-client` package, the following command can be used:
+```
+make test
+```
+
+### Integration Tests
+
+Integration tests are marked via the build tag `integration`.
+
+The scripts contained in this repository can be used to set up an environment using [`kind`](https://kind.sigs.k8s.io/docs/user/quick-start/).
+
+For the Harbor registry component to work properly, an entry in the `/etc/hosts` file is required:
+```shell
+127.0.0.1 core.harbor.domain
+```
+
+For running integration tests against the `goharbor-client` package, the following commands can be used:
+```shell
+# Set up the Harbor helm chart locally (using kind).
+# Note: The setup/test run will only be executed once.
+make integration-test-v[1|2]-ci
+```
+
+The above is intended to be used in a CI environment (such as Github Actions).
+
+Executing the above is equivalent to running the following:
+```shell
+make setup-harbor-v[1|2]
+make integration-test-v[1|2]
+```
+
+The remaining cluster can be deleted using the following command:
+
+```shell
+make uninstall-harbor-v[1|2]
 ```
 
 ## Code generation

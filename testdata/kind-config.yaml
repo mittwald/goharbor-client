@@ -4,4 +4,5 @@ nodes:
 - role: control-plane
   extraPortMappings:
   - containerPort: 30002
-    hostPort: 30002
+    hostPort: 80
+    listenAddress: "127.0.0.1"

@@ -62,7 +62,6 @@ swagger_operations+=("GetRetentionsMetadatas")
 swagger_operations+=("PostRetentions")
 swagger_operations+=("GetRetentionsID")
 
-
 for i in "${swagger_operations[@]}"; do
   operation_flags+="--operation=${i} "
 done

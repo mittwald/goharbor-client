@@ -8,6 +8,8 @@ import (
 	"strconv"
 	"testing"
 
+	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/util"
+
 	"github.com/go-openapi/runtime"
 	"github.com/stretchr/testify/require"
 
@@ -33,15 +35,10 @@ var (
 	pReq3 = &modelv2.ProjectReq{
 		ProjectName:  "example-project",
 		StorageLimit: &exampleStorageLimitNegative,
-		RegistryID:   int64Ptr(0),
+		RegistryID:   util.Int64Ptr(0),
 	}
 	ctx = context.Background()
 )
-
-// int64Ptr returns a pointer to the given int64 value.
-func int64Ptr(i int64) *int64 {
-	return &i
-}
 
 func APIandMockClientsForTests() (*RESTClient, *clienttesting.MockClients) {
 	desiredMockClients := &clienttesting.MockClients{
@@ -108,7 +105,7 @@ func TestRESTClient_NewProject_UnlimitedStorage(t *testing.T) {
 	err := apiClient.NewProject(ctx, &modelv2.ProjectReq{
 		ProjectName:  exampleProject.Name,
 		StorageLimit: &exampleStorageLimitNegative,
-		RegistryID:   int64Ptr(0),
+		RegistryID:   util.Int64Ptr(0),
 	})
 
 	require.NoError(t, err)

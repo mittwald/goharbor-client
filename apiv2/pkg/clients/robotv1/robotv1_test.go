@@ -8,8 +8,9 @@ import (
 	"strconv"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/go-openapi/strfmt"
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/robotv1"
@@ -62,9 +63,9 @@ func TestRESTClient_ListProjectRobotsV1(t *testing.T) {
 
 	robots, err := apiClient.ListProjectRobotsV1(ctx, strconv.Itoa(exampleProjectID))
 
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
-	assert.Equal(t, expectedRobot, robots[0])
+	require.Equal(t, expectedRobot, robots[0])
 
 	mockClient.Robotv1.AssertExpectations(t)
 }
@@ -98,7 +99,7 @@ func TestRESTClient_AddProjectRobotV1(t *testing.T) {
 
 	err := apiClient.AddProjectRobotV1(ctx, strconv.Itoa(exampleProjectID), newRobot)
 
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	mockClient.Robotv1.AssertExpectations(t)
 }
@@ -128,7 +129,7 @@ func TestRESTClient_UpdateProjectRobotV1(t *testing.T) {
 
 	err := apiClient.UpdateProjectRobotV1(ctx, strconv.Itoa(exampleProjectID), exampleRobotID, updateRobot)
 
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	mockClient.Robotv1.AssertExpectations(t)
 }
@@ -149,7 +150,7 @@ func TestRESTClient_DeleteProjectRobotV1(t *testing.T) {
 
 	err := apiClient.DeleteProjectRobotV1(ctx, strconv.Itoa(exampleProjectID), exampleRobotID)
 
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	mockClient.Robotv1.AssertExpectations(t)
 }

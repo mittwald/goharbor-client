@@ -1,6 +1,6 @@
 .PHONY: generate swagger-generate swagger-cleanup mock-generate mock-cleanup setup-harbor-v1 setup-harbor-v2 \
 harbor-teardown test integration-test-v1-ci integration-test-v2-ci integration-test-v1 integration-test-v2 \
-fmt gofmt gofumpt goimports lint
+fmt gofmt gofumpt goimports lint uninstall-harbor-v2 uninstall-harbor-v1
 
 V1_VERSION = v1.10.9
 V2_VERSION = v2.4.0
@@ -37,25 +37,35 @@ setup-harbor-v1:
 setup-harbor-v2:
 	scripts/setup-harbor.sh $(V2_VERSION)
 
+uninstall-harbor-v2:
+	kind delete clusters "goharbor-client-integration-tests-$(V2_VERSION)"
+
+uninstall-harbor-v1:
+	kind delete clusters "goharbor-client-integration-tests-$(V1_VERSION)"
+
 test:
-	go test -v ./...
+	go test -v ./... -tags !integration
 
 INTREGRATION_V1 = CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v5/apiv1/... -tags integration
 INTEGRATION_V2 = CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v5/apiv2/... -tags integration
 
 # Integration testing (CI Jobs)
-integration-test-v1-ci: setup-harbor-v1
-	$(INTEGRATION_V1)
+integration-test-v1-ci: setup-harbor-v1 integration-test-v1
 
-integration-test-v2-ci: setup-harbor-v2
-	$(INTEGRATION_V2)
+integration-test-v2-ci: setup-harbor-v2 integration-test-v2
 
 # Integration testing (local execution)
 integration-test-v1:
 	$(INTEGRATION_V1)
 
-integration-test-v2:
+integration-test-v2: upload-test-image
 	$(INTEGRATION_V2)
+
+upload-test-image:
+	@echo Building and uploading test image
+	docker login -u admin -p Harbor12345 core.harbor.domain
+	docker build -t core.harbor.domain/library/image:test ./testdata
+	docker push core.harbor.domain/library/image:test
 
 # Exclude auto-generated code to be formatted by gofmt, gofumpt & goimports.
 FIND=find . \( -path "./apiv*/internal" -o -path "./apiv*/mocks" -o -path "./apiv*/model" \) -prune -false -o -name '*.go'

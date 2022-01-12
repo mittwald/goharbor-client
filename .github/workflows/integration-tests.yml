@@ -20,6 +20,8 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: ${{ matrix.go }}
+      - name: Add local harbor host to /etc/hosts
+        run: echo "127.0.0.1 core.harbor.domain" | sudo tee -a /etc/hosts
       - name: Setup Kind
         uses: engineerd/setup-kind@v0.5.0
         with:

@@ -46,12 +46,10 @@ type Client interface {
 	GetProject(ctx context.Context, name string) (*model.Project, error)
 	ListProjects(ctx context.Context, nameFilter string) ([]*model.Project, error)
 	UpdateProject(ctx context.Context, p *model.Project, countLimit int, storageLimit int) error
-
 	AddProjectMember(ctx context.Context, p *model.Project, u *model.User, roleID int) error
 	ListProjectMembers(ctx context.Context, p *model.Project) ([]*model.ProjectMemberEntity, error)
 	UpdateProjectMemberRole(ctx context.Context, p *model.Project, u *model.User, roleID int) error
 	DeleteProjectMember(ctx context.Context, p *model.Project, u *model.User) error
-
 	AddProjectMetadata(ctx context.Context, p *model.Project, key MetadataKey, value string) error
 	ListProjectMetadata(ctx context.Context, p *model.Project) (*model.ProjectMetadata, error)
 	GetProjectMetadataValue(ctx context.Context, p *model.Project, key MetadataKey) (string, error)
