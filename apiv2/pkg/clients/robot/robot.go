@@ -59,7 +59,7 @@ type Client interface {
 	ListRobotAccounts(ctx context.Context) ([]*modelv2.Robot, error)
 	GetRobotAccountByName(ctx context.Context, name string) (*modelv2.Robot, error)
 	GetRobotAccountByID(ctx context.Context, id int64) (*modelv2.Robot, error)
-	NewRobotAccount(ctx context.Context, r *modelv2.RobotCreate) error
+	NewRobotAccount(ctx context.Context, r *modelv2.RobotCreate) (*modelv2.RobotCreated, error)
 	DeleteRobotAccountByName(ctx context.Context, name string) error
 	DeleteRobotAccountByID(ctx context.Context, id int64) error
 	UpdateRobotAccount(ctx context.Context, r *modelv2.Robot) error
@@ -128,16 +128,16 @@ func (c *RESTClient) GetRobotAccountByID(ctx context.Context, id int64) (*modelv
 }
 
 // NewRobotAccount creates a new robot account from the specification of 'r' and returns a 'RobotCreated' response.
-func (c *RESTClient) NewRobotAccount(ctx context.Context, r *modelv2.RobotCreate) error {
-	_, err := c.V2Client.Robot.CreateRobot(&robot.CreateRobotParams{
+func (c *RESTClient) NewRobotAccount(ctx context.Context, r *modelv2.RobotCreate) (*modelv2.RobotCreated, error) {
+	resp, err := c.V2Client.Robot.CreateRobot(&robot.CreateRobotParams{
 		Robot:   r,
 		Context: ctx,
 	}, c.AuthInfo)
 	if err != nil {
-		return handleSwaggerRobotErrors(err)
+		return nil, handleSwaggerRobotErrors(err)
 	}
 
-	return nil
+	return resp.Payload, nil
 }
 
 // DeleteRobotAccountByName deletes a robot account identified by its 'name'.

@@ -131,7 +131,7 @@ func TestRESTClient_NewRobotAccount(t *testing.T) {
 			Secret:    exampleRobotCreate.Secret,
 		}}, nil)
 
-	err := apiClient.NewRobotAccount(ctx, exampleRobotCreate)
+	_, err := apiClient.NewRobotAccount(ctx, exampleRobotCreate)
 	require.NoError(t, err)
 
 	mockClient.Robot.AssertExpectations(t)
