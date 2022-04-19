@@ -85,26 +85,18 @@ if [[ "$?" -ne "0" ]]; then
 fi
 
 echo "Waiting for Harbor to become ready..."
-API_URL_PREFIX="http://localhost:80/api"
+
+API_URL_PREFIX="http://core.harbor.domain:80/api"
 if [[ "${HARBOR_VERSION}" =~ ^v2 ]]; then
-    API_URL_PREFIX="http://localhost:80/api/v2.0"
+    API_URL_PREFIX="http://core.harbor.domain:80/api/v2.0"
 fi
 
-for i in {1..100}; do
-    echo "Pinging Harbor instance ($i/100)..."
-    STATUS="$(curl -s -X GET --connect-timeout 3 "${API_URL_PREFIX}/health" | jq '.status' 2>/dev/null)"
-    if [[ "${STATUS}" == "\"healthy\"" ]]; then
-        echo -e "Harbor installation finished successfully. Visit at http://localhost:80/
+until [[ $(curl -s --fail "${API_URL_PREFIX}"/health | jq '.status' 2>/dev/null) == "\"healthy\"" ]]; do
+    printf '.'
+    sleep 5
+done; echo ""
+
+echo -e "Harbor installation finished successfully. Visit at http://localhost:80/
 Alternatively (and when running integration tests locally),
 add the following to your /etc/hosts file:
   127.0.0.1 core.harbor.domain"
-        exit 0
-    fi
-    sleep 5
-done
-
-HEALTH_STATUS="$(curl -s -X GET --connect-timeout 3 "${API_URL_PREFIX}/health" | jq)"
-
-echo -e "Timeout while waiting for the Harbor installation to finish. Health status:"
-echo "${HEALTH_STATUS}"
-exit 1

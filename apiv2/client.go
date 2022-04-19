@@ -4,10 +4,10 @@ import (
 	"context"
 	"net/url"
 	"strings"
-
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/label"
-
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/artifact"
+	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/repository"
+
 
 	"k8s.io/apimachinery/pkg/util/intstr"
 
@@ -52,6 +52,7 @@ type Client interface {
 	quota.Client
 	registry.Client
 	replication.Client
+	repository.Client
 	retention.Client
 	robot.Client
 	robotv1.Client
@@ -73,6 +74,7 @@ type RESTClient struct {
 	quota       *quota.RESTClient
 	registry    *registry.RESTClient
 	replication *replication.RESTClient
+	repository  *repository.RESTClient
 	retention   *retention.RESTClient
 	robot       *robot.RESTClient
 	robotv1     *robotv1.RESTClient
@@ -99,6 +101,7 @@ func NewRESTClient(v2Client *v2client.Harbor, opts *config.Options, authInfo run
 		quota:       quota.NewClient(v2Client, opts, authInfo),
 		registry:    registry.NewClient(v2Client, opts, authInfo),
 		replication: replication.NewClient(v2Client, opts, authInfo),
+		repository:  repository.NewClient(v2Client, opts, authInfo),
 		retention:   retention.NewClient(v2Client, opts, authInfo),
 		robot:       robot.NewClient(v2Client, opts, authInfo),
 		robotv1:     robotv1.NewClient(v2Client, opts, authInfo),
@@ -372,6 +375,28 @@ func (c *RESTClient) ListReplicationExecutions(ctx context.Context, policyID *in
 
 func (c *RESTClient) GetReplicationExecutionByID(ctx context.Context, id int64) (*modelv2.ReplicationExecution, error) {
 	return c.replication.GetReplicationExecutionByID(ctx, id)
+}
+
+// Repository Client
+
+func (c *RESTClient) GetRepository(ctx context.Context, projectName, repositoryName string) (*modelv2.Repository, error) {
+	return c.repository.GetRepository(ctx, projectName, repositoryName)
+}
+
+func (c *RESTClient) UpdateRepository(ctx context.Context, projectName, repositoryName string, update *modelv2.Repository) error {
+	return c.repository.UpdateRepository(ctx, projectName, repositoryName, update)
+}
+
+func (c *RESTClient) ListAllRepositories(ctx context.Context) ([]*modelv2.Repository, error) {
+	return c.repository.ListAllRepositories(ctx)
+}
+
+func (c *RESTClient) ListRepositories(ctx context.Context, projectName string) ([]*modelv2.Repository, error) {
+	return c.repository.ListRepositories(ctx, projectName)
+}
+
+func (c *RESTClient) DeleteRepository(ctx context.Context, projectName, repositoryName string) error {
+	return c.repository.DeleteRepository(ctx, projectName, repositoryName)
 }
 
 // Retention Client

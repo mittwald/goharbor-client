@@ -67,7 +67,6 @@ func TestAPIListArtifacts(t *testing.T) {
 	require.NotNil(t, artifacts)
 	require.Equal(t, 1, len(artifacts))
 	require.Equal(t, "IMAGE", artifacts[0].Type)
-	require.Equal(t, "sha256:d04a9a8116092a18007983459ba36800d083a079a5e11087f6b85885ec95c7f7", artifacts[0].Digest)
 }
 
 func TestAPIListTags(t *testing.T) {

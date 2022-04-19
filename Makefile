@@ -3,10 +3,10 @@ harbor-teardown test integration-test-v1-ci integration-test-v2-ci integration-t
 fmt gofmt gofumpt goimports lint uninstall-harbor-v2 uninstall-harbor-v1
 
 V1_VERSION = v1.10.9
-V2_VERSION = v2.4.0
+V2_VERSION = v2.4.1
 MOCKERY_VERSION = v2.9.4
 GOSWAGGER_VERSION = v0.25.0
-GOLANGCI_LINT_VERSION = v1.42.1
+GOLANGCI_LINT_VERSION = v1.43.0
 
 # Run all code generation targets
 generate: swagger-generate mock-generate
@@ -63,6 +63,7 @@ integration-test-v2: upload-test-image
 
 upload-test-image:
 	@echo Building and uploading test image
+	docker login -u admin -p Harbor12345 core.harbor.domain
 	docker build -t core.harbor.domain/library/image:test ./testdata
 	docker push core.harbor.domain/library/image:test
 
@@ -85,4 +86,4 @@ goimports:
 
 lint:
 	docker run --rm -v $(shell pwd):/goharbor-client -w /goharbor-client/. \
-	golangci/golangci-lint:v1.40.0 golangci-lint run --sort-results
+	golangci/golangci-lint:${GOLANGCI_LINT_VERSION} golangci-lint run --sort-results

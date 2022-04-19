@@ -45,7 +45,7 @@ type Client interface {
 	// GetVulnerabilitiesAddition(ctx context.Context, projectName, repositoryName, reference string) (string, error)
 }
 
-// ToString returns a string representation a CopyReference.
+// ToString returns a string representation of a CopyReference.
 // Possible formats are "project/repository:tag" or "project/repository@digest".
 // Returns an error if neither tag nor digest is set.
 func (in CopyReference) toString() (string, error) {
@@ -72,6 +72,20 @@ type CopyReference struct {
 	Tag            string
 	Digest         string
 }
+
+type Addition string
+
+const (
+	AdditionBuildHistory Addition = "build_history"
+	AdditionValuesYAML   Addition = "values.yaml"
+	AdditionReadme       Addition = "readme.md"
+	AdditionDependencies Addition = "dependencies"
+)
+
+// TODO: Introduce this, once https://github.com/goharbor/harbor/issues/13468 is resolved.
+//func (in Addition) string() string {
+//	return string(in)
+//}
 
 func (c *RESTClient) AddArtifactLabel(ctx context.Context, projectName, repositoryName, reference string, label *model.Label) error {
 	params := &artifact.AddLabelParams{
@@ -118,6 +132,8 @@ func (c *RESTClient) CreateTag(ctx context.Context, projectName, repositoryName,
 		Context:        ctx,
 	}
 
+	params.WithTimeout(c.Options.Timeout)
+
 	_, err := c.V2Client.Artifact.CreateTag(params, c.AuthInfo)
 
 	return handleSwaggerArtifactErrors(err)
@@ -136,19 +152,6 @@ func (c *RESTClient) DeleteTag(ctx context.Context, projectName, repositoryName,
 
 	_, err := c.V2Client.Artifact.DeleteTag(params, c.AuthInfo)
 	return handleSwaggerArtifactErrors(err)
-}
-
-type Addition string
-
-const (
-	AdditionBuildHistory Addition = "build_history"
-	AdditionValuesYAML   Addition = "values.yaml"
-	AdditionReadme       Addition = "readme.md"
-	AdditionDependencies Addition = "dependencies"
-)
-
-func (in Addition) string() string {
-	return string(in)
 }
 
 func (c *RESTClient) GetArtifact(ctx context.Context, projectName, repositoryName, reference string) (*model.Artifact, error) {
