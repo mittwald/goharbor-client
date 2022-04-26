@@ -25,7 +25,7 @@ func handleSwaggerRepositoryErrors(in error) error {
 		case http.StatusNotFound:
 			return &errors.ErrNotFound{}
 		case http.StatusInternalServerError:
-			return &errors.ErrNotFound{}
+			return &errors.ErrInternalErrors{}
 		}
 	}
 
