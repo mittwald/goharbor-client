@@ -83,18 +83,12 @@ func (c *RESTClient) GetLabelByID(ctx context.Context, id int64) (*model.Label, 
 	return resp.Payload, nil
 }
 
-func (c *RESTClient) ListLabels(ctx context.Context, name string, projectID *int64, scope Scope) ([]*model.Label, error) {
-	switch scope {
-	default:
-		return nil, fmt.Errorf("invalid scope: %s", scope)
-	case ScopeGlobal:
-		if projectID != nil {
-			return nil, fmt.Errorf("projectID must be nil for global scope")
-		}
-	case ScopeProject:
-		if projectID == nil {
-			return nil, fmt.Errorf("projectID must be set for project scope")
-		}
+func (c *RESTClient) ListLabels(ctx context.Context, name string, projectID *int64) ([]*model.Label, error) {
+	var scope Scope
+	if projectID == nil {
+		scope = ScopeGlobal
+	} else {
+		scope = ScopeProject
 	}
 
 	params := &label.ListLabelsParams{

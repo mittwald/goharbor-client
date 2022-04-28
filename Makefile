@@ -86,4 +86,4 @@ goimports:
 
 lint:
 	docker run --rm -v $(shell pwd):/goharbor-client -w /goharbor-client/. \
-	golangci/golangci-lint:v1.40.0 golangci-lint run --sort-results
+	golangci/golangci-lint:v1.45.2 golangci-lint run --sort-results

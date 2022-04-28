@@ -119,11 +119,11 @@ func TestRESTClient_ListLabels_ScopeGlobal(t *testing.T) {
 		}, nil)
 
 	t.Run("ErrProjectIDProvided", func(t *testing.T) {
-		_, err := apiClient.ListLabels(ctx, "test", util.Int64Ptr(1), ScopeGlobal)
+		_, err := apiClient.ListLabels(ctx, "test", util.Int64Ptr(1))
 		require.Error(t, err)
 	})
 
-	labels, err := apiClient.ListLabels(ctx, "test", nil, ScopeGlobal)
+	labels, err := apiClient.ListLabels(ctx, "test", nil)
 	require.NoError(t, err)
 	require.Equal(t, 1, len(labels))
 
@@ -152,11 +152,11 @@ func TestRESTClient_ListLabels_ScopeProject(t *testing.T) {
 		}, nil)
 
 	t.Run("ErrNoProjectIDProvided", func(t *testing.T) {
-		_, err := apiClient.ListLabels(ctx, "test", nil, ScopeProject)
+		_, err := apiClient.ListLabels(ctx, "test", nil)
 		require.Error(t, err)
 	})
 
-	labels, err := apiClient.ListLabels(ctx, "test", util.Int64Ptr(1), ScopeProject)
+	labels, err := apiClient.ListLabels(ctx, "test", util.Int64Ptr(1))
 	require.NoError(t, err)
 	require.Equal(t, 1, len(labels))
 
