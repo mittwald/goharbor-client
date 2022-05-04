@@ -6,7 +6,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+
 	"github.com/stretchr/testify/mock"
 
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/auditlog"
@@ -43,7 +44,7 @@ func TestRESTClient_ListAuditLogs(t *testing.T) {
 
 	_, err := apiClient.ListAuditLogs(ctx)
 
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	mockClient.Auditlog.AssertExpectations(t)
 }

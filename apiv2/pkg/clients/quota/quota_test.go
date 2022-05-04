@@ -9,8 +9,6 @@ import (
 	"testing"
 
 	"github.com/goharbor/harbor/src/pkg/quota/types"
-	"github.com/stretchr/testify/assert"
-
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/quota"
 	"github.com/mittwald/goharbor-client/v5/apiv2/mocks"
 	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
@@ -96,11 +94,10 @@ func TestRESTClient_GetQuotaByProjectID(t *testing.T) {
 
 	q, err := apiClient.GetQuotaByProjectID(ctx, exampleProjectID)
 
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
-	if assert.NotNil(t, q) {
-		require.Equal(t, int64(10), q.Hard["storage"])
-	}
+	require.NotNil(t, q)
+	require.Equal(t, int64(10), q.Hard["storage"])
 
 	mockClient.Quota.AssertExpectations(t)
 }
@@ -127,7 +124,7 @@ func TestRESTClient_UpdateStorageQuotaByProjectID(t *testing.T) {
 
 		err := apiClient.UpdateStorageQuotaByProjectID(ctx, exampleProjectID, testStorageLimitPositive)
 
-		assert.NoError(t, err)
+		require.NoError(t, err)
 
 		mockClient.Quota.AssertExpectations(t)
 	})
@@ -151,7 +148,7 @@ func TestRESTClient_UpdateStorageQuotaByProjectID(t *testing.T) {
 
 		err := apiClient.UpdateStorageQuotaByProjectID(ctx, exampleProjectID, testStorageLimitNegative)
 
-		assert.NoError(t, err)
+		require.NoError(t, err)
 
 		mockClient.Quota.AssertExpectations(t)
 	})
@@ -175,7 +172,7 @@ func TestRESTClient_UpdateStorageQuotaByProjectID(t *testing.T) {
 
 		err := apiClient.UpdateStorageQuotaByProjectID(ctx, exampleProjectID, testStorageLimitNull)
 
-		assert.NoError(t, err)
+		require.NoError(t, err)
 
 		mockClient.Quota.AssertExpectations(t)
 	})

@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	Host     = "http://localhost:30002/api/v2.0"
+	Host     = "http://core.harbor.domain:80/api/v2.0"
 	User     = "admin"
 	Password = "Harbor12345"
 )

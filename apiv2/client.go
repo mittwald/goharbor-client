@@ -5,6 +5,9 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/label"
+
+	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/artifact"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/repository"
 
 	"k8s.io/apimachinery/pkg/util/intstr"
@@ -40,8 +43,10 @@ const v2URLSuffix string = "/v2.0"
 
 type Client interface {
 	auditlog.Client
+	artifact.Client
 	gc.Client
 	health.Client
+	label.Client
 	member.Client
 	project.Client
 	projectmeta.Client
@@ -60,8 +65,10 @@ type Client interface {
 // RESTClient implements the Client interface as a REST client
 type RESTClient struct {
 	auditlog    *auditlog.RESTClient
+	artifact    *artifact.RESTClient
 	gc          *gc.RESTClient
 	health      *health.RESTClient
+	label       *label.RESTClient
 	member      *member.RESTClient
 	project     *project.RESTClient
 	projectmeta *projectmeta.RESTClient
@@ -85,8 +92,10 @@ func NewRESTClient(v2Client *v2client.Harbor, opts *config.Options, authInfo run
 
 	return &RESTClient{
 		auditlog:    auditlog.NewClient(v2Client, opts, authInfo),
+		artifact:    artifact.NewClient(v2Client, opts, authInfo),
 		gc:          gc.NewClient(v2Client, opts, authInfo),
 		health:      health.NewClient(v2Client, opts, authInfo),
+		label:       label.NewClient(v2Client, opts, authInfo),
 		member:      member.NewClient(v2Client, opts, authInfo),
 		project:     project.NewClient(v2Client, opts, authInfo),
 		projectmeta: projectmeta.NewClient(v2Client, opts, authInfo),
@@ -127,6 +136,49 @@ func (c *RESTClient) ListAuditLogs(ctx context.Context) ([]*modelv2.AuditLog, er
 	return c.auditlog.ListAuditLogs(ctx)
 }
 
+// Artifact Client
+
+// TODO: Introduce this, once https://github.com/goharbor/harbor/issues/13468 is resolved.
+//func (c *RESTClient) GetVulnerabilitiesAddition(ctx context.Context, projectName, repositoryName, reference string) (interface{}, error) {
+//	return c.artifact.GetVulnerabilitiesAddition(ctx, projectName, repositoryName, reference)
+//}
+//
+//func (c *RESTClient) GetAddition(ctx context.Context, projectName, repositoryName, reference string, addition artifact.Addition) (interface{}, error) {
+//	return c.artifact.GetAddition(ctx, projectName, repositoryName, reference, addition)
+//}
+
+func (c *RESTClient) AddArtifactLabel(ctx context.Context, projectName, repositoryName, reference string, label *modelv2.Label) error {
+	return c.artifact.AddArtifactLabel(ctx, projectName, repositoryName, reference, label)
+}
+
+func (c *RESTClient) CopyArtifact(ctx context.Context, from *artifact.CopyReference, projectName, repositoryName string) error {
+	return c.artifact.CopyArtifact(ctx, from, projectName, repositoryName)
+}
+
+func (c *RESTClient) CreateTag(ctx context.Context, projectName, repositoryName, reference string, tag *modelv2.Tag) error {
+	return c.artifact.CreateTag(ctx, projectName, repositoryName, reference, tag)
+}
+
+func (c *RESTClient) DeleteTag(ctx context.Context, projectName, repositoryName, reference, tagName string) error {
+	return c.artifact.DeleteTag(ctx, projectName, repositoryName, reference, tagName)
+}
+
+func (c *RESTClient) GetArtifact(ctx context.Context, projectName, repositoryName, reference string) (*modelv2.Artifact, error) {
+	return c.artifact.GetArtifact(ctx, projectName, repositoryName, reference)
+}
+
+func (c *RESTClient) ListArtifacts(ctx context.Context, projectName, repositoryName string) ([]*modelv2.Artifact, error) {
+	return c.artifact.ListArtifacts(ctx, projectName, repositoryName)
+}
+
+func (c *RESTClient) ListTags(ctx context.Context, projectName, repositoryName, reference string) ([]*modelv2.Tag, error) {
+	return c.artifact.ListTags(ctx, projectName, repositoryName, reference)
+}
+
+func (c *RESTClient) RemoveLabel(ctx context.Context, projectName, repositoryName, reference string, id int64) error {
+	return c.artifact.RemoveLabel(ctx, projectName, repositoryName, reference, id)
+}
+
 // GC Client
 
 func (c *RESTClient) NewGarbageCollection(ctx context.Context, gcSchedule *modelv2.Schedule) error {
@@ -153,6 +205,28 @@ func (c *RESTClient) ResetGarbageCollection(ctx context.Context) error {
 
 func (c *RESTClient) GetHealth(ctx context.Context) (*modelv2.OverallHealthStatus, error) {
 	return c.health.GetHealth(ctx)
+}
+
+// Label Client
+
+func (c *RESTClient) CreateLabel(ctx context.Context, l *modelv2.Label) error {
+	return c.label.CreateLabel(ctx, l)
+}
+
+func (c *RESTClient) GetLabelByID(ctx context.Context, id int64) (*modelv2.Label, error) {
+	return c.label.GetLabelByID(ctx, id)
+}
+
+func (c *RESTClient) ListLabels(ctx context.Context, name string, projectID *int64) ([]*modelv2.Label, error) {
+	return c.label.ListLabels(ctx, name, projectID)
+}
+
+func (c *RESTClient) DeleteLabel(ctx context.Context, id int64) error {
+	return c.label.DeleteLabel(ctx, id)
+}
+
+func (c *RESTClient) UpdateLabel(ctx context.Context, id int64, l *modelv2.Label) error {
+	return c.label.UpdateLabel(ctx, id, l)
 }
 
 // Member Client

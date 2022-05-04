@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
@@ -15,7 +17,6 @@ import (
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/errors"
 	clienttesting "github.com/mittwald/goharbor-client/v5/apiv2/pkg/testing"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 
 	"github.com/mittwald/goharbor-client/v5/apiv2/mocks"
@@ -40,7 +41,7 @@ var (
 
 func APIandMockClientsForTests() (*RESTClient, *clienttesting.MockClients) {
 	desiredMockClients := &clienttesting.MockClients{
-		Project: mocks.MockProjectClientService{},
+		GC: mocks.MockGcClientService{},
 	}
 
 	v2Client := clienttesting.BuildV2ClientWithMocks(desiredMockClients)
@@ -58,7 +59,7 @@ func TestRESTClient_NewGarbageCollection(t *testing.T) {
 
 	err := apiClient.NewGarbageCollection(ctx, schedule)
 
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	mockClient.GC.AssertExpectations(t)
 }
@@ -71,9 +72,8 @@ func TestRESTClient_NewGarbageCollection_ErrSystemInvalidSchedule(t *testing.T) 
 
 	err := apiClient.NewGarbageCollection(ctx, schedule)
 
-	if assert.Error(t, err) {
-		assert.IsType(t, &errors.ErrSystemInvalidSchedule{}, err)
-	}
+	require.Error(t, err)
+	require.IsType(t, &errors.ErrSystemInvalidSchedule{}, err)
 
 	mockClient.GC.AssertExpectations(t)
 }
@@ -86,9 +86,8 @@ func TestRESTClient_NewGarbageCollection_StatusUnauthorized(t *testing.T) {
 
 	err := apiClient.NewGarbageCollection(ctx, schedule)
 
-	if assert.Error(t, err) {
-		assert.IsType(t, &errors.ErrSystemUnauthorized{}, err)
-	}
+	require.Error(t, err)
+	require.IsType(t, &errors.ErrSystemUnauthorized{}, err)
 
 	mockClient.GC.AssertExpectations(t)
 }
@@ -101,9 +100,8 @@ func TestRESTClient_NewGarbageCollection_ErrSystemGcInProgress(t *testing.T) {
 
 	err := apiClient.NewGarbageCollection(ctx, schedule)
 
-	if assert.Error(t, err) {
-		assert.IsType(t, &errors.ErrSystemGcInProgress{}, err)
-	}
+	require.Error(t, err)
+	require.IsType(t, &errors.ErrSystemGcInProgress{}, err)
 
 	mockClient.GC.AssertExpectations(t)
 }
@@ -116,9 +114,8 @@ func TestRESTClient_NewGarbageCollection_ErrSystemInternalErrors(t *testing.T) {
 
 	err := apiClient.NewGarbageCollection(ctx, schedule)
 
-	if assert.Error(t, err) {
-		assert.IsType(t, &errors.ErrSystemInternalErrors{}, err)
-	}
+	require.Error(t, err)
+	require.IsType(t, &errors.ErrSystemInternalErrors{}, err)
 
 	mockClient.GC.AssertExpectations(t)
 }
@@ -131,9 +128,8 @@ func TestRESTClient_NewGarbageCollection_ErrSystemGcInProgress_2(t *testing.T) {
 
 	err := apiClient.NewGarbageCollection(ctx, schedule)
 
-	if assert.Error(t, err) {
-		assert.IsType(t, &errors.ErrSystemGcInProgress{}, err)
-	}
+	require.Error(t, err)
+	require.IsType(t, &errors.ErrSystemGcInProgress{}, err)
 
 	mockClient.GC.AssertExpectations(t)
 }
@@ -146,9 +142,8 @@ func TestRESTClient_NewGarbageCollection_ErrSystemInvalidSchedule_2(t *testing.T
 
 	err := apiClient.NewGarbageCollection(ctx, schedule)
 
-	if assert.Error(t, err) {
-		assert.IsType(t, &errors.ErrSystemInvalidSchedule{}, err)
-	}
+	require.Error(t, err)
+	require.IsType(t, &errors.ErrSystemInvalidSchedule{}, err)
 
 	mockClient.GC.AssertExpectations(t)
 }
@@ -168,10 +163,10 @@ func TestRESTClient_GetGarbageCollection(t *testing.T) {
 
 	gc, err := apiClient.GetGarbageCollectionSchedule(ctx)
 
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
-	assert.IsType(t, &modelv2.GCHistory{}, gc)
-	assert.Equal(t, gc.Schedule, schedule.Schedule)
+	require.IsType(t, &modelv2.GCHistory{}, gc)
+	require.Equal(t, gc.Schedule, schedule.Schedule)
 
 	mockClient.GC.AssertExpectations(t)
 }
@@ -188,9 +183,8 @@ func TestRESTClient_GetGarbageCollectionSchedule_ScheduleNil(t *testing.T) {
 
 	_, err := apiClient.GetGarbageCollectionSchedule(ctx)
 
-	if assert.Error(t, err) {
-		assert.IsType(t, &errors.ErrSystemGcScheduleUndefined{}, err)
-	}
+	require.Error(t, err)
+	require.IsType(t, &errors.ErrSystemGcScheduleUndefined{}, err)
 
 	mockClient.GC.AssertExpectations(t)
 }
@@ -222,7 +216,7 @@ func TestRESTClient_UpdateGarbageCollection(t *testing.T) {
 
 	err := apiClient.UpdateGarbageCollection(ctx, newGcReq)
 
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	mockClient.GC.AssertExpectations(t)
 }
@@ -232,9 +226,8 @@ func TestRESTClient_UpdateGarbageCollection_ScheduleNil(t *testing.T) {
 
 	err := apiClient.UpdateGarbageCollection(ctx, nil)
 
-	if assert.Error(t, err) {
-		assert.IsType(t, &errors.ErrSystemGcScheduleNotProvided{}, err)
-	}
+	require.Error(t, err)
+	require.IsType(t, &errors.ErrSystemGcScheduleNotProvided{}, err)
 }
 
 func TestRESTClient_ResetGarbageCollection(t *testing.T) {
@@ -257,7 +250,7 @@ func TestRESTClient_ResetGarbageCollection(t *testing.T) {
 
 	err := apiClient.ResetGarbageCollection(ctx)
 
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	mockClient.GC.AssertExpectations(t)
 }
