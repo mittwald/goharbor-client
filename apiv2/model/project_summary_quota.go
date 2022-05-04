@@ -9,7 +9,6 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-	"github.com/goharbor/harbor/src/pkg/quota/types"
 )
 
 // ProjectSummaryQuota project summary quota
@@ -18,10 +17,10 @@ import (
 type ProjectSummaryQuota struct {
 
 	// The hard limits of the quota
-	Hard types.ResourceList `json:"hard,omitempty"`
+	Hard ResourceList `json:"hard,omitempty"`
 
 	// The used status of the quota
-	Used types.ResourceList `json:"used,omitempty"`
+	Used ResourceList `json:"used,omitempty"`
 }
 
 // Validate validates this project summary quota

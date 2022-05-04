@@ -21,9 +21,10 @@ import (
 // with the default values initialized.
 func NewListArtifactsParams() *ListArtifactsParams {
 	var (
-		xAcceptVulnerabilitiesDefault = string("application/vnd.security.vulnerability.report; version=1.1, application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
+		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
 		pageDefault                   = int64(1)
 		pageSizeDefault               = int64(10)
+		withAccessoryDefault          = bool(false)
 		withImmutableStatusDefault    = bool(false)
 		withLabelDefault              = bool(false)
 		withScanOverviewDefault       = bool(false)
@@ -34,6 +35,7 @@ func NewListArtifactsParams() *ListArtifactsParams {
 		XAcceptVulnerabilities: &xAcceptVulnerabilitiesDefault,
 		Page:                   &pageDefault,
 		PageSize:               &pageSizeDefault,
+		WithAccessory:          &withAccessoryDefault,
 		WithImmutableStatus:    &withImmutableStatusDefault,
 		WithLabel:              &withLabelDefault,
 		WithScanOverview:       &withScanOverviewDefault,
@@ -48,9 +50,10 @@ func NewListArtifactsParams() *ListArtifactsParams {
 // with the default values initialized, and the ability to set a timeout on a request
 func NewListArtifactsParamsWithTimeout(timeout time.Duration) *ListArtifactsParams {
 	var (
-		xAcceptVulnerabilitiesDefault = string("application/vnd.security.vulnerability.report; version=1.1, application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
+		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
 		pageDefault                   = int64(1)
 		pageSizeDefault               = int64(10)
+		withAccessoryDefault          = bool(false)
 		withImmutableStatusDefault    = bool(false)
 		withLabelDefault              = bool(false)
 		withScanOverviewDefault       = bool(false)
@@ -61,6 +64,7 @@ func NewListArtifactsParamsWithTimeout(timeout time.Duration) *ListArtifactsPara
 		XAcceptVulnerabilities: &xAcceptVulnerabilitiesDefault,
 		Page:                   &pageDefault,
 		PageSize:               &pageSizeDefault,
+		WithAccessory:          &withAccessoryDefault,
 		WithImmutableStatus:    &withImmutableStatusDefault,
 		WithLabel:              &withLabelDefault,
 		WithScanOverview:       &withScanOverviewDefault,
@@ -75,9 +79,10 @@ func NewListArtifactsParamsWithTimeout(timeout time.Duration) *ListArtifactsPara
 // with the default values initialized, and the ability to set a context for a request
 func NewListArtifactsParamsWithContext(ctx context.Context) *ListArtifactsParams {
 	var (
-		xAcceptVulnerabilitiesDefault = string("application/vnd.security.vulnerability.report; version=1.1, application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
+		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
 		pageDefault                   = int64(1)
 		pageSizeDefault               = int64(10)
+		withAccessoryDefault          = bool(false)
 		withImmutableStatusDefault    = bool(false)
 		withLabelDefault              = bool(false)
 		withScanOverviewDefault       = bool(false)
@@ -88,6 +93,7 @@ func NewListArtifactsParamsWithContext(ctx context.Context) *ListArtifactsParams
 		XAcceptVulnerabilities: &xAcceptVulnerabilitiesDefault,
 		Page:                   &pageDefault,
 		PageSize:               &pageSizeDefault,
+		WithAccessory:          &withAccessoryDefault,
 		WithImmutableStatus:    &withImmutableStatusDefault,
 		WithLabel:              &withLabelDefault,
 		WithScanOverview:       &withScanOverviewDefault,
@@ -102,9 +108,10 @@ func NewListArtifactsParamsWithContext(ctx context.Context) *ListArtifactsParams
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewListArtifactsParamsWithHTTPClient(client *http.Client) *ListArtifactsParams {
 	var (
-		xAcceptVulnerabilitiesDefault = string("application/vnd.security.vulnerability.report; version=1.1, application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
+		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
 		pageDefault                   = int64(1)
 		pageSizeDefault               = int64(10)
+		withAccessoryDefault          = bool(false)
 		withImmutableStatusDefault    = bool(false)
 		withLabelDefault              = bool(false)
 		withScanOverviewDefault       = bool(false)
@@ -115,6 +122,7 @@ func NewListArtifactsParamsWithHTTPClient(client *http.Client) *ListArtifactsPar
 		XAcceptVulnerabilities: &xAcceptVulnerabilitiesDefault,
 		Page:                   &pageDefault,
 		PageSize:               &pageSizeDefault,
+		WithAccessory:          &withAccessoryDefault,
 		WithImmutableStatus:    &withImmutableStatusDefault,
 		WithLabel:              &withLabelDefault,
 		WithScanOverview:       &withScanOverviewDefault,
@@ -170,8 +178,13 @@ type ListArtifactsParams struct {
 
 	*/
 	Sort *string
+	/*WithAccessory
+	  Specify whether the accessories are included of the returning artifacts. Only works when setting "with_accessory=true"
+
+	*/
+	WithAccessory *bool
 	/*WithImmutableStatus
-	  Specify whether the immutable status is included inside the tags of the returning artifacts. Only works when setting "with_tag=true"
+	  Specify whether the immutable status is included inside the tags of the returning artifacts. Only works when setting "with_immutable_status=true"
 
 	*/
 	WithImmutableStatus *bool
@@ -320,6 +333,17 @@ func (o *ListArtifactsParams) WithSort(sort *string) *ListArtifactsParams {
 // SetSort adds the sort to the list artifacts params
 func (o *ListArtifactsParams) SetSort(sort *string) {
 	o.Sort = sort
+}
+
+// WithWithAccessory adds the withAccessory to the list artifacts params
+func (o *ListArtifactsParams) WithWithAccessory(withAccessory *bool) *ListArtifactsParams {
+	o.SetWithAccessory(withAccessory)
+	return o
+}
+
+// SetWithAccessory adds the withAccessory to the list artifacts params
+func (o *ListArtifactsParams) SetWithAccessory(withAccessory *bool) {
+	o.WithAccessory = withAccessory
 }
 
 // WithWithImmutableStatus adds the withImmutableStatus to the list artifacts params
@@ -471,6 +495,22 @@ func (o *ListArtifactsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		qSort := qrSort
 		if qSort != "" {
 			if err := r.SetQueryParam("sort", qSort); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.WithAccessory != nil {
+
+		// query param with_accessory
+		var qrWithAccessory bool
+		if o.WithAccessory != nil {
+			qrWithAccessory = *o.WithAccessory
+		}
+		qWithAccessory := swag.FormatBool(qrWithAccessory)
+		if qWithAccessory != "" {
+			if err := r.SetQueryParam("with_accessory", qWithAccessory); err != nil {
 				return err
 			}
 		}
