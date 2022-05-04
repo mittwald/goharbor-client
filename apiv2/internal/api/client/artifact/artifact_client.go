@@ -43,6 +43,8 @@ type ClientService interface {
 
 	GetVulnerabilitiesAddition(params *GetVulnerabilitiesAdditionParams, authInfo runtime.ClientAuthInfoWriter) (*GetVulnerabilitiesAdditionOK, error)
 
+	ListAccessories(params *ListAccessoriesParams, authInfo runtime.ClientAuthInfoWriter) (*ListAccessoriesOK, error)
+
 	ListArtifacts(params *ListArtifactsParams, authInfo runtime.ClientAuthInfoWriter) (*ListArtifactsOK, error)
 
 	ListTags(params *ListTagsParams, authInfo runtime.ClientAuthInfoWriter) (*ListTagsOK, error)
@@ -345,6 +347,43 @@ func (a *Client) GetVulnerabilitiesAddition(params *GetVulnerabilitiesAdditionPa
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getVulnerabilitiesAddition: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ListAccessories lists accessories
+
+  List accessories of the specific artifact
+*/
+func (a *Client) ListAccessories(params *ListAccessoriesParams, authInfo runtime.ClientAuthInfoWriter) (*ListAccessoriesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListAccessoriesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "listAccessories",
+		Method:             "GET",
+		PathPattern:        "/projects/{project_name}/repositories/{repository_name}/artifacts/{reference}/accessories",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListAccessoriesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ListAccessoriesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for listAccessories: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

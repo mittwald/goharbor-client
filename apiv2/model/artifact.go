@@ -19,6 +19,9 @@ import (
 // swagger:model Artifact
 type Artifact struct {
 
+	// accessories
+	Accessories []*Accessory `json:"accessories"`
+
 	// addition links
 	AdditionLinks AdditionLinks `json:"addition_links,omitempty"`
 
@@ -80,6 +83,10 @@ type Artifact struct {
 func (m *Artifact) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAccessories(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateAdditionLinks(formats); err != nil {
 		res = append(res, err)
 	}
@@ -119,6 +126,31 @@ func (m *Artifact) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Artifact) validateAccessories(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Accessories) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Accessories); i++ {
+		if swag.IsZero(m.Accessories[i]) { // not required
+			continue
+		}
+
+		if m.Accessories[i] != nil {
+			if err := m.Accessories[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("accessories" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 

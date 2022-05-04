@@ -20,7 +20,7 @@ import (
 // with the default values initialized.
 func NewGetVulnerabilitiesAdditionParams() *GetVulnerabilitiesAdditionParams {
 	var (
-		xAcceptVulnerabilitiesDefault = string("application/vnd.security.vulnerability.report; version=1.1, application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
+		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
 	)
 	return &GetVulnerabilitiesAdditionParams{
 		XAcceptVulnerabilities: &xAcceptVulnerabilitiesDefault,
@@ -33,7 +33,7 @@ func NewGetVulnerabilitiesAdditionParams() *GetVulnerabilitiesAdditionParams {
 // with the default values initialized, and the ability to set a timeout on a request
 func NewGetVulnerabilitiesAdditionParamsWithTimeout(timeout time.Duration) *GetVulnerabilitiesAdditionParams {
 	var (
-		xAcceptVulnerabilitiesDefault = string("application/vnd.security.vulnerability.report; version=1.1, application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
+		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
 	)
 	return &GetVulnerabilitiesAdditionParams{
 		XAcceptVulnerabilities: &xAcceptVulnerabilitiesDefault,
@@ -46,7 +46,7 @@ func NewGetVulnerabilitiesAdditionParamsWithTimeout(timeout time.Duration) *GetV
 // with the default values initialized, and the ability to set a context for a request
 func NewGetVulnerabilitiesAdditionParamsWithContext(ctx context.Context) *GetVulnerabilitiesAdditionParams {
 	var (
-		xAcceptVulnerabilitiesDefault = string("application/vnd.security.vulnerability.report; version=1.1, application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
+		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
 	)
 	return &GetVulnerabilitiesAdditionParams{
 		XAcceptVulnerabilities: &xAcceptVulnerabilitiesDefault,
@@ -59,7 +59,7 @@ func NewGetVulnerabilitiesAdditionParamsWithContext(ctx context.Context) *GetVul
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetVulnerabilitiesAdditionParamsWithHTTPClient(client *http.Client) *GetVulnerabilitiesAdditionParams {
 	var (
-		xAcceptVulnerabilitiesDefault = string("application/vnd.security.vulnerability.report; version=1.1, application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
+		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
 	)
 	return &GetVulnerabilitiesAdditionParams{
 		XAcceptVulnerabilities: &xAcceptVulnerabilitiesDefault,
