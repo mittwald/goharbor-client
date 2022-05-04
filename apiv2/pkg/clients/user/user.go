@@ -50,12 +50,7 @@ type Client interface {
 	UserExists(ctx context.Context, idOrName intstr.IntOrString) (bool, error)
 }
 
-// NewUser creates and returns a new user, or error in case of failure.
-// Username is a unique username.
-// email is the Email of the user.
-// realname is the fullname of the user.
-// password is the password for this user.
-// comments as a comment attached to the user.
+// NewUser creates a new user with the provided values.
 func (c *RESTClient) NewUser(ctx context.Context, username, email, realname, password, comments string) error {
 	params := &user.CreateUserParams{
 		UserReq: &modelv2.UserCreationReq{
