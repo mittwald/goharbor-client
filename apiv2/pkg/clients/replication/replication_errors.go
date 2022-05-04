@@ -150,7 +150,7 @@ func (e *ErrReplicationDisabled) Error() string {
 	return ErrReplicationDisabledMsg
 }
 
-// handleReplicationErrors takes a swagger generated error as input,
+// handleSwaggerReplicationErrors takes a swagger generated error as input,
 // which usually does not contain any form of error message,
 // and outputs a new error with a proper message.
 func handleSwaggerReplicationErrors(in error) error {

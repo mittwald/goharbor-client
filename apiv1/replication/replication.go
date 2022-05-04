@@ -35,7 +35,6 @@ type Client interface {
 	GetReplicationPolicyByID(ctx context.Context, id int64) (*model.ReplicationPolicy, error)
 	DeleteReplicationPolicy(ctx context.Context, r *model.ReplicationPolicy) error
 	UpdateReplicationPolicy(ctx context.Context, r *model.ReplicationPolicy) error
-
 	TriggerReplicationExecution(ctx context.Context, r *model.ReplicationExecution) error
 	GetReplicationExecutions(ctx context.Context, r *model.ReplicationExecution) ([]*model.ReplicationExecution, error)
 	GetReplicationExecutionsByID(ctx context.Context,
@@ -193,8 +192,8 @@ func (c *RESTClient) TriggerReplicationExecution(ctx context.Context, r *model.R
 // GetReplicationExecutions lists replication executions specified by ID, status or trigger.
 // Specifying the property "policy_id" will return executions of the specified policy.
 func (c *RESTClient) GetReplicationExecutions(ctx context.Context,
-	r *model.ReplicationExecution) ([]*model.ReplicationExecution, error) {
-
+	r *model.ReplicationExecution) ([]*model.ReplicationExecution, error,
+) {
 	resp, err := c.Client.Products.GetReplicationExecutions(
 		&products.GetReplicationExecutionsParams{
 			PolicyID: &r.PolicyID,
@@ -211,8 +210,8 @@ func (c *RESTClient) GetReplicationExecutions(ctx context.Context,
 
 // GetReplicationExecutionByID returns a replication execution specified by ID.
 func (c *RESTClient) GetReplicationExecutionByID(ctx context.Context,
-	id int64) (*model.ReplicationExecution, error) {
-
+	id int64) (*model.ReplicationExecution, error,
+) {
 	resp, err := c.Client.Products.GetReplicationExecutionsID(
 		&products.GetReplicationExecutionsIDParams{
 			ID:      id,
