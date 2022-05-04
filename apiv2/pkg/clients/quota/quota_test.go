@@ -82,8 +82,8 @@ func TestRESTClient_GetQuotaByProjectID(t *testing.T) {
 		mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&quota.ListQuotasOK{
 			Payload: []*modelv2.Quota{{
-				Hard: types.ResourceList{
-					types.ResourceStorage: 10,
+				Hard: modelv2.ResourceList{
+					string(types.ResourceStorage): 10,
 				},
 				ID: exampleProjectID,
 				Ref: modelv2.QuotaRefObject(map[string]interface{}{
@@ -108,8 +108,8 @@ func TestRESTClient_UpdateStorageQuotaByProjectID(t *testing.T) {
 	t.Run("PositiveLimit", func(t *testing.T) {
 		updateParams := &quota.UpdateQuotaParams{
 			Hard: &modelv2.QuotaUpdateReq{
-				Hard: map[types.ResourceName]int64{
-					types.ResourceStorage: testStorageLimitPositive,
+				Hard: modelv2.ResourceList{
+					string(types.ResourceStorage): testStorageLimitPositive,
 				},
 			},
 			ID:      exampleQuotaID,
@@ -132,8 +132,8 @@ func TestRESTClient_UpdateStorageQuotaByProjectID(t *testing.T) {
 	t.Run("NegativeLimit", func(t *testing.T) {
 		updateParams := &quota.UpdateQuotaParams{
 			Hard: &modelv2.QuotaUpdateReq{
-				Hard: map[types.ResourceName]int64{
-					types.ResourceStorage: testStorageLimitNegative,
+				Hard: modelv2.ResourceList{
+					string(types.ResourceStorage): testStorageLimitNegative,
 				},
 			},
 			ID:      exampleQuotaID,
@@ -156,8 +156,8 @@ func TestRESTClient_UpdateStorageQuotaByProjectID(t *testing.T) {
 	t.Run("NullLimit", func(t *testing.T) {
 		updateParams := &quota.UpdateQuotaParams{
 			Hard: &modelv2.QuotaUpdateReq{
-				Hard: map[types.ResourceName]int64{
-					types.ResourceStorage: testStorageLimitNegative,
+				Hard: modelv2.ResourceList{
+					string(types.ResourceStorage): testStorageLimitNegative,
 				},
 			},
 			ID:      exampleQuotaID,
