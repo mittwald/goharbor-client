@@ -21,7 +21,7 @@ import (
 // with the default values initialized.
 func NewGetArtifactParams() *GetArtifactParams {
 	var (
-		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
+		xAcceptVulnerabilitiesDefault = string("application/vnd.security.vulnerability.report; version=1.1, application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
 		pageDefault                   = int64(1)
 		pageSizeDefault               = int64(10)
 		withImmutableStatusDefault    = bool(false)
@@ -48,7 +48,7 @@ func NewGetArtifactParams() *GetArtifactParams {
 // with the default values initialized, and the ability to set a timeout on a request
 func NewGetArtifactParamsWithTimeout(timeout time.Duration) *GetArtifactParams {
 	var (
-		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
+		xAcceptVulnerabilitiesDefault = string("application/vnd.security.vulnerability.report; version=1.1, application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
 		pageDefault                   = int64(1)
 		pageSizeDefault               = int64(10)
 		withImmutableStatusDefault    = bool(false)
@@ -75,7 +75,7 @@ func NewGetArtifactParamsWithTimeout(timeout time.Duration) *GetArtifactParams {
 // with the default values initialized, and the ability to set a context for a request
 func NewGetArtifactParamsWithContext(ctx context.Context) *GetArtifactParams {
 	var (
-		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
+		xAcceptVulnerabilitiesDefault = string("application/vnd.security.vulnerability.report; version=1.1, application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
 		pageDefault                   = int64(1)
 		pageSizeDefault               = int64(10)
 		withImmutableStatusDefault    = bool(false)
@@ -102,7 +102,7 @@ func NewGetArtifactParamsWithContext(ctx context.Context) *GetArtifactParams {
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetArtifactParamsWithHTTPClient(client *http.Client) *GetArtifactParams {
 	var (
-		xAcceptVulnerabilitiesDefault = string("application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
+		xAcceptVulnerabilitiesDefault = string("application/vnd.security.vulnerability.report; version=1.1, application/vnd.scanner.adapter.vuln.report.harbor+json; version=1.0")
 		pageDefault                   = int64(1)
 		pageSizeDefault               = int64(10)
 		withImmutableStatusDefault    = bool(false)

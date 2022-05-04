@@ -191,8 +191,7 @@ func (c *RESTClient) TriggerReplicationExecution(ctx context.Context, r *model.R
 
 // GetReplicationExecutions lists replication executions specified by ID, status or trigger.
 // Specifying the property "policy_id" will return executions of the specified policy.
-func (c *RESTClient) GetReplicationExecutions(ctx context.Context,
-	r *model.ReplicationExecution) ([]*model.ReplicationExecution, error) {
+func (c *RESTClient) GetReplicationExecutions(ctx context.Context, r *model.ReplicationExecution) ([]*model.ReplicationExecution, error) {
 	resp, err := c.Client.Products.GetReplicationExecutions(
 		&products.GetReplicationExecutionsParams{
 			PolicyID: &r.PolicyID,
