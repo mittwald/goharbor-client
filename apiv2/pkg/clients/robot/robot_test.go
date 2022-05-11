@@ -62,10 +62,8 @@ var (
 			Namespace: "library",
 		}},
 	}
-	exampleSec       = "aVeryL0000ngSecret"
-	ctx              = context.Background()
-	page       int64 = 0
-	pageSize   int64 = 10
+	exampleSec = "aVeryL0000ngSecret"
+	ctx        = context.Background()
 )
 
 func APIandMockClientsForTests() (*RESTClient, *clienttesting.MockClients) {
@@ -83,7 +81,16 @@ func APIandMockClientsForTests() (*RESTClient, *clienttesting.MockClients) {
 func TestRESTClient_ListRobotAccounts(t *testing.T) {
 	apiClient, mockClient := APIandMockClientsForTests()
 
-	mockClient.Robot.On("ListRobot", &robot.ListRobotParams{Context: ctx, Page: &page, PageSize: &pageSize},
+	listRobotParams := &robot.ListRobotParams{
+		Page:     &apiClient.Options.Page,
+		PageSize: &apiClient.Options.PageSize,
+		Q:        &apiClient.Options.Query,
+		Sort:     &apiClient.Options.Sort,
+		Context:  ctx,
+	}
+	listRobotParams.WithTimeout(apiClient.Options.Timeout)
+
+	mockClient.Robot.On("ListRobot", listRobotParams,
 		mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&robot.ListRobotOK{Payload: []*modelv2.Robot{exampleRobotAccount}}, nil)
 
@@ -98,7 +105,16 @@ func TestRESTClient_ListRobotAccounts(t *testing.T) {
 func TestRESTClient_GetRobotAccountByName(t *testing.T) {
 	apiClient, mockClient := APIandMockClientsForTests()
 
-	mockClient.Robot.On("ListRobot", &robot.ListRobotParams{Context: ctx, Page: &page, PageSize: &pageSize}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	listRobotParams := &robot.ListRobotParams{
+		Page:     &apiClient.Options.Page,
+		PageSize: &apiClient.Options.PageSize,
+		Q:        &apiClient.Options.Query,
+		Sort:     &apiClient.Options.Sort,
+		Context:  ctx,
+	}
+	listRobotParams.WithTimeout(apiClient.Options.Timeout)
+
+	mockClient.Robot.On("ListRobot", listRobotParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&robot.ListRobotOK{Payload: []*modelv2.Robot{exampleRobotAccount}}, nil)
 
 	rAcc, err := apiClient.GetRobotAccountByName(ctx, "test-robot")
@@ -142,7 +158,16 @@ func TestRESTClient_NewRobotAccount(t *testing.T) {
 func TestRESTClient_DeleteRobotAccountByName(t *testing.T) {
 	apiClient, mockClient := APIandMockClientsForTests()
 
-	mockClient.Robot.On("ListRobot", &robot.ListRobotParams{Context: ctx, Page: &page, PageSize: &pageSize}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	listRobotParams := &robot.ListRobotParams{
+		Page:     &apiClient.Options.Page,
+		PageSize: &apiClient.Options.PageSize,
+		Q:        &apiClient.Options.Query,
+		Sort:     &apiClient.Options.Sort,
+		Context:  ctx,
+	}
+	listRobotParams.WithTimeout(apiClient.Options.Timeout)
+
+	mockClient.Robot.On("ListRobot", listRobotParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&robot.ListRobotOK{Payload: []*modelv2.Robot{exampleRobotAccount}}, nil)
 
 	mockClient.Robot.On("DeleteRobot", &robot.DeleteRobotParams{Context: ctx, RobotID: exampleRobotAccount.ID}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
@@ -195,7 +220,16 @@ func TestRESTClient_RefreshRobotAccountSecretByID(t *testing.T) {
 func TestRESTClient_RefreshRobotAccountSecretByName(t *testing.T) {
 	apiClient, mockClient := APIandMockClientsForTests()
 
-	mockClient.Robot.On("ListRobot", &robot.ListRobotParams{Context: ctx, Page: &page, PageSize: &pageSize}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	listRobotParams := &robot.ListRobotParams{
+		Page:     &apiClient.Options.Page,
+		PageSize: &apiClient.Options.PageSize,
+		Q:        &apiClient.Options.Query,
+		Sort:     &apiClient.Options.Sort,
+		Context:  ctx,
+	}
+	listRobotParams.WithTimeout(apiClient.Options.Timeout)
+
+	mockClient.Robot.On("ListRobot", listRobotParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&robot.ListRobotOK{Payload: []*modelv2.Robot{exampleRobotAccount}}, nil)
 
 	mockClient.Robot.On("RefreshSec", &robot.RefreshSecParams{Context: ctx, RobotID: exampleRobotAccount.ID, RobotSec: &modelv2.RobotSec{Secret: exampleSec}}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).

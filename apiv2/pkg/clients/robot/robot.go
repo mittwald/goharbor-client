@@ -89,21 +89,25 @@ func (in AccessAction) String() string {
 func (c *RESTClient) ListRobotAccounts(ctx context.Context) ([]*modelv2.Robot, error) {
 	var robotAccounts []*modelv2.Robot
 	var page int64 = c.Options.Page
-	var pageSize int64 = c.Options.PageSize
+
+	params := &robot.ListRobotParams{
+		Page:     &page,
+		PageSize: &c.Options.PageSize,
+		Q:        &c.Options.Query,
+		Sort:     &c.Options.Sort,
+		Context:  ctx,
+	}
+	params.WithTimeout(c.Options.Timeout)
 
 	for {
-		resp, err := c.V2Client.Robot.ListRobot(&robot.ListRobotParams{
-			Context:  ctx,
-			Page:     &page,
-			PageSize: &pageSize,
-		}, c.AuthInfo)
+		resp, err := c.V2Client.Robot.ListRobot(params, c.AuthInfo)
 		if err != nil {
 			return nil, handleSwaggerRobotErrors(err)
 		}
 
 		robotAccounts = append(robotAccounts, resp.Payload...)
 
-		if (page+1)*pageSize >= resp.XTotalCount {
+		if (page+1)*c.Options.PageSize >= resp.XTotalCount {
 			break
 		}
 
