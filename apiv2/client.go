@@ -436,7 +436,7 @@ func (c *RESTClient) GetRobotAccountByID(ctx context.Context, id int64) (*modelv
 	return c.robot.GetRobotAccountByID(ctx, id)
 }
 
-func (c *RESTClient) NewRobotAccount(ctx context.Context, r *modelv2.RobotCreate) error {
+func (c *RESTClient) NewRobotAccount(ctx context.Context, r *modelv2.RobotCreate) (*modelv2.RobotCreated, error) {
 	return c.robot.NewRobotAccount(ctx, r)
 }
 

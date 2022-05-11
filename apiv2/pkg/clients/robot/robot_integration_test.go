@@ -35,8 +35,10 @@ func TestAPINewRobotAccount(t *testing.T) {
 
 	defer c.DeleteRobotAccountByName(ctx, "test-robot")
 
-	err := c.NewRobotAccount(ctx, testRobotAccountCreate)
+	robotCreated, err := c.NewRobotAccount(ctx, testRobotAccountCreate)
 	require.NoError(t, err)
+	require.NotNil(t, robotCreated)
+
 	r, err := c.GetRobotAccountByName(ctx, testRobotAccountCreate.Name)
 	require.NoError(t, err)
 
@@ -49,7 +51,7 @@ func TestAPIListRobots(t *testing.T) {
 
 	defer c.DeleteRobotAccountByName(ctx, "test-robot")
 
-	err := c.NewRobotAccount(ctx, testRobotAccountCreate)
+	_, err := c.NewRobotAccount(ctx, testRobotAccountCreate)
 	require.NoError(t, err)
 
 	robots, err := c.ListRobotAccounts(ctx)
@@ -65,7 +67,7 @@ func TestAPIGetRobotByName(t *testing.T) {
 
 	defer c.DeleteRobotAccountByName(ctx, "test-robot")
 
-	err := c.NewRobotAccount(ctx, testRobotAccountCreate)
+	_, err := c.NewRobotAccount(ctx, testRobotAccountCreate)
 	require.NoError(t, err)
 
 	robot, err := c.GetRobotAccountByName(ctx, "test-robot")
@@ -79,7 +81,7 @@ func TestAPIUpdateRobotAccount(t *testing.T) {
 
 	defer c.DeleteRobotAccountByName(ctx, "test-robot")
 
-	err := c.NewRobotAccount(ctx, testRobotAccountCreate)
+	_, err := c.NewRobotAccount(ctx, testRobotAccountCreate)
 	require.NoError(t, err)
 
 	r, err := c.GetRobotAccountByName(ctx, "test-robot")
@@ -117,7 +119,7 @@ func TestAPIRefreshRobotAccountSecret(t *testing.T) {
 
 	defer c.DeleteRobotAccountByName(ctx, "test-robot")
 
-	err := c.NewRobotAccount(ctx, testRobotAccountCreate)
+	_, err := c.NewRobotAccount(ctx, testRobotAccountCreate)
 	require.NoError(t, err)
 
 	r, err := c.GetRobotAccountByName(ctx, "test-robot")
