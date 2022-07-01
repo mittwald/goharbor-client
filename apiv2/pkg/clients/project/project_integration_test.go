@@ -103,14 +103,25 @@ func TestAPIProjectGet(t *testing.T) {
 	err := c.NewProject(ctx, &modelv2.ProjectReq{ProjectName: name})
 	require.NoError(t, err)
 
-	p, err := c.GetProject(ctx, name)
-	require.NoError(t, err)
-	require.NoError(t, err)
-	defer c.DeleteProject(ctx, name)
+	var pID int32
+	var byName, byID *modelv2.Project
 
-	p2, err := c.GetProject(ctx, name)
-	require.NoError(t, err)
-	require.Equal(t, p, p2)
+	t.Run("ByName", func(t *testing.T) {
+		byName, err := c.GetProject(ctx, name)
+		require.NoError(t, err)
+		require.NoError(t, err)
+		pID = byName.ProjectID
+	})
+
+	t.Run("ByID", func(t *testing.T) {
+		byID, err := c.GetProject(ctx, fmt.Sprint(pID))
+		require.NoError(t, err)
+		require.NotNil(t, byID)
+	})
+
+	require.Equal(t, byName, byID)
+
+	defer c.DeleteProject(ctx, name)
 }
 
 func TestAPIProjectDelete(t *testing.T) {
