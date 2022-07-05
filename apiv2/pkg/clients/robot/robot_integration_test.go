@@ -100,7 +100,8 @@ func TestAPIUpdateRobotAccount(t *testing.T) {
 				Action:   ActionPush.String(),
 				Resource: ResourceRepository.String(),
 			}},
-			Namespace: "*",
+			Kind:      "project",
+			Namespace: "library",
 		}},
 	})
 
