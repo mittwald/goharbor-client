@@ -87,7 +87,7 @@ func (in AccessAction) String() string {
 // ListRobotAccounts ListProjectRobots returns a list of all robot accounts.
 func (c *RESTClient) ListRobotAccounts(ctx context.Context) ([]*modelv2.Robot, error) {
 	var robotAccounts []*modelv2.Robot
-	var page int64 = c.Options.Page
+	page := c.Options.Page
 
 	params := &robot.ListRobotParams{
 		Page:     &page,
@@ -104,14 +104,15 @@ func (c *RESTClient) ListRobotAccounts(ctx context.Context) ([]*modelv2.Robot, e
 			return nil, handleSwaggerRobotErrors(err)
 		}
 
+		totalCount := resp.XTotalCount
+
 		robotAccounts = append(robotAccounts, resp.Payload...)
 
-		if (page+1)*c.Options.PageSize >= resp.XTotalCount {
+		if int64(len(robotAccounts)) >= totalCount {
 			break
 		}
 
-		page += 1
-
+		page++
 	}
 
 	return robotAccounts, nil

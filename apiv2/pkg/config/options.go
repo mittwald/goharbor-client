@@ -20,7 +20,7 @@ type Options struct {
 func Defaults() *Options {
 	return &Options{
 		PageSize: 10,
-		Page:     0,
+		Page:     1,
 		Sort:     "",
 		Query:    "",
 		Timeout:  30 * time.Second,
