@@ -127,7 +127,13 @@ func TestRESTClient_GetRobotAccountByName(t *testing.T) {
 func TestRESTClient_GetRobotAccountByID(t *testing.T) {
 	apiClient, mockClient := APIandMockClientsForTests()
 
-	mockClient.Robot.On("GetRobotByID", &robot.GetRobotByIDParams{Context: ctx, RobotID: 1}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	getRobotParams := &robot.GetRobotByIDParams{
+		RobotID: 1,
+		Context: ctx,
+	}
+	getRobotParams.WithTimeout(apiClient.Options.Timeout)
+
+	mockClient.Robot.On("GetRobotByID", getRobotParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&robot.GetRobotByIDOK{Payload: exampleRobotAccount}, nil)
 
 	rAcc, err := apiClient.GetRobotAccountByID(ctx, 1)
@@ -140,7 +146,10 @@ func TestRESTClient_GetRobotAccountByID(t *testing.T) {
 func TestRESTClient_NewRobotAccount(t *testing.T) {
 	apiClient, mockClient := APIandMockClientsForTests()
 
-	mockClient.Robot.On("CreateRobot", &robot.CreateRobotParams{Context: ctx, Robot: exampleRobotCreate},
+	createRobotParams := &robot.CreateRobotParams{Context: ctx, Robot: exampleRobotCreate}
+	createRobotParams.WithTimeout(apiClient.Options.Timeout)
+
+	mockClient.Robot.On("CreateRobot", createRobotParams,
 		mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&robot.CreateRobotCreated{Payload: &modelv2.RobotCreated{
 			ExpiresAt: exampleRobotAccount.ExpiresAt,
@@ -170,7 +179,13 @@ func TestRESTClient_DeleteRobotAccountByName(t *testing.T) {
 	mockClient.Robot.On("ListRobot", listRobotParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&robot.ListRobotOK{Payload: []*modelv2.Robot{exampleRobotAccount}}, nil)
 
-	mockClient.Robot.On("DeleteRobot", &robot.DeleteRobotParams{Context: ctx, RobotID: exampleRobotAccount.ID}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	deleteRobotParams := &robot.DeleteRobotParams{
+		Context: ctx,
+		RobotID: exampleRobotAccount.ID,
+	}
+	deleteRobotParams.WithTimeout(apiClient.Options.Timeout)
+
+	mockClient.Robot.On("DeleteRobot", deleteRobotParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&robot.DeleteRobotOK{}, nil)
 
 	err := apiClient.DeleteRobotAccountByName(ctx, "test-robot")
@@ -182,7 +197,10 @@ func TestRESTClient_DeleteRobotAccountByName(t *testing.T) {
 func TestRESTClient_DeleteRobotAccountByID(t *testing.T) {
 	apiClient, mockClient := APIandMockClientsForTests()
 
-	mockClient.Robot.On("DeleteRobot", &robot.DeleteRobotParams{Context: ctx, RobotID: exampleRobotAccount.ID}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	deleteRobotParams := &robot.DeleteRobotParams{Context: ctx, RobotID: exampleRobotAccount.ID}
+	deleteRobotParams.WithTimeout(apiClient.Options.Timeout)
+
+	mockClient.Robot.On("DeleteRobot", deleteRobotParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&robot.DeleteRobotOK{}, nil)
 
 	err := apiClient.DeleteRobotAccountByID(ctx, 1)
@@ -194,7 +212,10 @@ func TestRESTClient_DeleteRobotAccountByID(t *testing.T) {
 func TestRESTClient_UpdateRobotAccount(t *testing.T) {
 	apiClient, mockClient := APIandMockClientsForTests()
 
-	mockClient.Robot.On("UpdateRobot", &robot.UpdateRobotParams{Context: ctx, RobotID: exampleRobotAccount.ID, Robot: exampleRobotUpdate}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	updateRobotParams := &robot.UpdateRobotParams{Context: ctx, RobotID: exampleRobotAccount.ID, Robot: exampleRobotUpdate}
+	updateRobotParams.WithTimeout(apiClient.Options.Timeout)
+
+	mockClient.Robot.On("UpdateRobot", updateRobotParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&robot.UpdateRobotOK{}, nil)
 
 	err := apiClient.UpdateRobotAccount(ctx, exampleRobotUpdate)
@@ -206,7 +227,16 @@ func TestRESTClient_UpdateRobotAccount(t *testing.T) {
 func TestRESTClient_RefreshRobotAccountSecretByID(t *testing.T) {
 	apiClient, mockClient := APIandMockClientsForTests()
 
-	mockClient.Robot.On("RefreshSec", &robot.RefreshSecParams{Context: ctx, RobotID: exampleRobotAccount.ID, RobotSec: &modelv2.RobotSec{Secret: exampleSec}}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	refreshSecParams := &robot.RefreshSecParams{
+		Context: ctx,
+		RobotID: exampleRobotAccount.ID,
+		RobotSec: &modelv2.RobotSec{
+			Secret: exampleSec,
+		},
+	}
+	refreshSecParams.WithTimeout(apiClient.Options.Timeout)
+
+	mockClient.Robot.On("RefreshSec", refreshSecParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&robot.RefreshSecOK{Payload: &modelv2.RobotSec{Secret: exampleSec}}, nil)
 
 	rSec, err := apiClient.RefreshRobotAccountSecretByID(ctx, 1, exampleSec)
@@ -232,7 +262,16 @@ func TestRESTClient_RefreshRobotAccountSecretByName(t *testing.T) {
 	mockClient.Robot.On("ListRobot", listRobotParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&robot.ListRobotOK{Payload: []*modelv2.Robot{exampleRobotAccount}}, nil)
 
-	mockClient.Robot.On("RefreshSec", &robot.RefreshSecParams{Context: ctx, RobotID: exampleRobotAccount.ID, RobotSec: &modelv2.RobotSec{Secret: exampleSec}}, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+	refreshSecParams := &robot.RefreshSecParams{
+		Context: ctx,
+		RobotID: exampleRobotAccount.ID,
+		RobotSec: &modelv2.RobotSec{
+			Secret: exampleSec,
+		},
+	}
+	refreshSecParams.WithTimeout(apiClient.Options.Timeout)
+
+	mockClient.Robot.On("RefreshSec", refreshSecParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&robot.RefreshSecOK{Payload: &modelv2.RobotSec{Secret: exampleSec}}, nil)
 
 	rSec, err := apiClient.RefreshRobotAccountSecretByName(ctx, "test-robot", exampleSec)

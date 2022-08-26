@@ -2,7 +2,6 @@ package robot
 
 import (
 	"context"
-
 	"github.com/go-openapi/runtime"
 
 	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
@@ -137,10 +136,13 @@ func (c *RESTClient) GetRobotAccountByName(ctx context.Context, name string) (*m
 
 // GetRobotAccountByID GetRobotByID returns a robot account identified by its 'id'.
 func (c *RESTClient) GetRobotAccountByID(ctx context.Context, id int64) (*modelv2.Robot, error) {
-	resp, err := c.V2Client.Robot.GetRobotByID(&robot.GetRobotByIDParams{
+	params := &robot.GetRobotByIDParams{
 		RobotID: id,
 		Context: ctx,
-	}, c.AuthInfo)
+	}
+	params.WithTimeout(c.Options.Timeout)
+
+	resp, err := c.V2Client.Robot.GetRobotByID(params, c.AuthInfo)
 	if err != nil {
 		return nil, handleSwaggerRobotErrors(err)
 	}
@@ -150,10 +152,13 @@ func (c *RESTClient) GetRobotAccountByID(ctx context.Context, id int64) (*modelv
 
 // NewRobotAccount creates a new robot account from the specification of 'r' and returns a 'RobotCreated' response.
 func (c *RESTClient) NewRobotAccount(ctx context.Context, r *modelv2.RobotCreate) (*modelv2.RobotCreated, error) {
-	resp, err := c.V2Client.Robot.CreateRobot(&robot.CreateRobotParams{
+	params := &robot.CreateRobotParams{
 		Robot:   r,
 		Context: ctx,
-	}, c.AuthInfo)
+	}
+	params.WithTimeout(c.Options.Timeout)
+
+	resp, err := c.V2Client.Robot.CreateRobot(params, c.AuthInfo)
 	if err != nil {
 		return nil, handleSwaggerRobotErrors(err)
 	}
@@ -180,10 +185,13 @@ func (c *RESTClient) DeleteRobotAccountByName(ctx context.Context, name string) 
 
 // DeleteRobotAccountByID DeleteProjectRobotByID deletes a robot account identified by its id.
 func (c *RESTClient) DeleteRobotAccountByID(ctx context.Context, id int64) error {
-	_, err := c.V2Client.Robot.DeleteRobot(&robot.DeleteRobotParams{
+	params := &robot.DeleteRobotParams{
 		RobotID: id,
 		Context: ctx,
-	}, c.AuthInfo)
+	}
+	params.WithTimeout(c.Options.Timeout)
+
+	_, err := c.V2Client.Robot.DeleteRobot(params, c.AuthInfo)
 	if err != nil {
 		return handleSwaggerRobotErrors(err)
 	}
@@ -193,12 +201,17 @@ func (c *RESTClient) DeleteRobotAccountByID(ctx context.Context, id int64) error
 
 // UpdateRobotAccount updates the robot account 'r' with the provided specification.
 // Note that modelv2.Robot.Name & modelv2.Robot.Level are immutable by API definitions.
+// NOTE: Updating existing system-level robot accounts with wildcard access to all projects
+// will fail until https://github.com/goharbor/harbor/pull/17117 is merged.
 func (c *RESTClient) UpdateRobotAccount(ctx context.Context, r *modelv2.Robot) error {
-	_, err := c.V2Client.Robot.UpdateRobot(&robot.UpdateRobotParams{
+	params := &robot.UpdateRobotParams{
 		Robot:   r,
 		RobotID: r.ID,
 		Context: ctx,
-	}, c.AuthInfo)
+	}
+	params.WithTimeout(c.Options.Timeout)
+
+	_, err := c.V2Client.Robot.UpdateRobot(params, c.AuthInfo)
 	if err != nil {
 		return handleSwaggerRobotErrors(err)
 	}
@@ -209,11 +222,14 @@ func (c *RESTClient) UpdateRobotAccount(ctx context.Context, r *modelv2.Robot) e
 // RefreshRobotAccountSecretByID updates the robot account secret with the provided string "sec", by its id and return a 'RobotSec' response.
 func (c *RESTClient) RefreshRobotAccountSecretByID(ctx context.Context, id int64, sec string) (*modelv2.RobotSec, error) {
 	r := &modelv2.RobotSec{Secret: sec}
-	res, err := c.V2Client.Robot.RefreshSec(&robot.RefreshSecParams{
+	params := &robot.RefreshSecParams{
 		RobotSec: r,
 		RobotID:  id,
 		Context:  ctx,
-	}, c.AuthInfo)
+	}
+	params.WithTimeout(c.Options.Timeout)
+
+	res, err := c.V2Client.Robot.RefreshSec(params, c.AuthInfo)
 	if err != nil {
 		return nil, handleSwaggerRobotErrors(err)
 	}
