@@ -109,12 +109,11 @@ func (c *RESTClient) ListRobotAccounts(ctx context.Context) ([]*modelv2.Robot, e
 
 		robotAccounts = append(robotAccounts, resp.Payload...)
 
-		if int64(len(robotAccounts)) > totalCount {
+		if int64(len(robotAccounts)) >= totalCount {
 			break
-		} else {
-			page++
 		}
 
+		page++
 	}
 
 	return robotAccounts, nil
