@@ -3,7 +3,6 @@ package label
 import (
 	"context"
 	"fmt"
-
 	"github.com/go-openapi/runtime"
 	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/label"
@@ -84,6 +83,9 @@ func (c *RESTClient) GetLabelByID(ctx context.Context, id int64) (*model.Label, 
 }
 
 func (c *RESTClient) ListLabels(ctx context.Context, name string, projectID *int64) ([]*model.Label, error) {
+	var labels []*model.Label
+	page := c.Options.Page
+
 	var scope Scope
 	if projectID == nil {
 		scope = ScopeGlobal
@@ -93,7 +95,7 @@ func (c *RESTClient) ListLabels(ctx context.Context, name string, projectID *int
 
 	params := &label.ListLabelsParams{
 		Name:      &name,
-		Page:      &c.Options.Page,
+		Page:      &page,
 		PageSize:  &c.Options.PageSize,
 		ProjectID: projectID,
 		Q:         &c.Options.Query,
@@ -104,12 +106,28 @@ func (c *RESTClient) ListLabels(ctx context.Context, name string, projectID *int
 
 	params.WithTimeout(c.Options.Timeout)
 
-	resp, err := c.V2Client.Label.ListLabels(params, c.AuthInfo)
-	if err != nil {
-		return nil, handleSwaggerLabelErrors(err)
+	for {
+		resp, err := c.V2Client.Label.ListLabels(params, c.AuthInfo)
+		if err != nil {
+			return nil, handleSwaggerLabelErrors(err)
+		}
+
+		if len(resp.Payload) == 0 {
+			break
+		}
+
+		totalCount := resp.XTotalCount
+
+		labels = append(labels, resp.Payload...)
+
+		if int64(len(labels)) >= totalCount {
+			break
+		}
+
+		page++
 	}
 
-	return resp.Payload, nil
+	return labels, nil
 }
 
 func (c *RESTClient) DeleteLabel(ctx context.Context, id int64) error {

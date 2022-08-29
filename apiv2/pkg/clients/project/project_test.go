@@ -384,6 +384,7 @@ func TestRESTClient_ListProjects(t *testing.T) {
 
 	listParams := &projectapi.ListProjectsParams{
 		Name:     &exampleProject.Name,
+		Page:     &apiClient.Options.Page,
 		PageSize: &apiClient.Options.PageSize,
 		Q:        &apiClient.Options.Query,
 		Sort:     &apiClient.Options.Sort,
@@ -400,53 +401,6 @@ func TestRESTClient_ListProjects(t *testing.T) {
 	require.NoError(t, err)
 
 	mockClient.Project.AssertExpectations(t)
-}
-
-func TestRESTClient_ListProjectsErrProjectNotFound(t *testing.T) {
-	apiClient, mockClient := APIandMockClientsForTests()
-
-	listParams := &projectapi.ListProjectsParams{
-		Name:     &exampleProject.Name,
-		PageSize: &apiClient.Options.PageSize,
-		Q:        &apiClient.Options.Query,
-		Sort:     &apiClient.Options.Sort,
-		Context:  ctx,
-	}
-
-	listParams.WithTimeout(apiClient.Options.Timeout)
-
-	mockClient.Project.On("ListProjects", listParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{}, nil)
-
-	resp, err := apiClient.ListProjects(ctx, exampleProject.Name)
-
-	require.Error(t, err)
-	require.ErrorIs(t, err, &errors.ErrProjectNotFound{})
-	require.Nil(t, resp)
-
-	mockClient.Project.AssertExpectations(t)
-}
-
-func TestRESTClient_ListProjects_ErrProjectUnknownResource(t *testing.T) {
-	apiClient, mockClient := APIandMockClientsForTests()
-
-	listParams := &projectapi.ListProjectsParams{
-		Name:     &exampleProject.Name,
-		PageSize: &apiClient.Options.PageSize,
-		Q:        &apiClient.Options.Query,
-		Sort:     &apiClient.Options.Sort,
-		Context:  ctx,
-	}
-
-	listParams.WithTimeout(apiClient.Options.Timeout)
-
-	mockClient.Project.On("ListProjects", listParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
-		Return(&projectapi.ListProjectsOK{Payload: []*modelv2.Project{exampleProject}}, &runtime.APIError{Code: http.StatusNotFound})
-
-	_, err := apiClient.ListProjects(ctx, exampleProject.Name)
-
-	require.Error(t, err)
-	require.ErrorIs(t, err, &errors.ErrProjectUnknownResource{})
 }
 
 func TestRESTClient_UpdateProject(t *testing.T) {

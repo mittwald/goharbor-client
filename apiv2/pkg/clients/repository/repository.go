@@ -79,8 +79,11 @@ func (c *RESTClient) UpdateRepository(ctx context.Context, projectName, reposito
 }
 
 func (c *RESTClient) ListAllRepositories(ctx context.Context) ([]*model.Repository, error) {
+	var repositories []*model.Repository
+	page := c.Options.Page
+
 	params := &repository.ListAllRepositoriesParams{
-		Page:     &c.Options.Page,
+		Page:     &page,
 		PageSize: &c.Options.PageSize,
 		Q:        &c.Options.Query,
 		Sort:     &c.Options.Sort,
@@ -89,21 +92,37 @@ func (c *RESTClient) ListAllRepositories(ctx context.Context) ([]*model.Reposito
 
 	params.WithTimeout(c.Options.Timeout)
 
-	resp, err := c.V2Client.Repository.ListAllRepositories(params, c.AuthInfo)
-	if err != nil {
-		return nil, handleSwaggerRepositoryErrors(err)
+	for {
+		resp, err := c.V2Client.Repository.ListAllRepositories(params, c.AuthInfo)
+
+		if err != nil {
+			return nil, handleSwaggerRepositoryErrors(err)
+		}
+
+		if len(resp.Payload) == 0 {
+			break
+		}
+
+		totalCount := resp.XTotalCount
+
+		repositories = append(repositories, resp.Payload...)
+
+		if int64(len(repositories)) >= totalCount {
+			break
+		}
+
+		page++
 	}
 
-	if resp.Payload != nil {
-		return resp.Payload, nil
-	}
-
-	return nil, &errors.ErrNotFound{}
+	return repositories, nil
 }
 
 func (c *RESTClient) ListRepositories(ctx context.Context, projectName string) ([]*model.Repository, error) {
+	var repositories []*model.Repository
+	page := c.Options.Page
+
 	params := &repository.ListRepositoriesParams{
-		Page:        &c.Options.Page,
+		Page:        &page,
 		PageSize:    &c.Options.PageSize,
 		ProjectName: projectName,
 		Q:           &c.Options.Query,
@@ -113,16 +132,24 @@ func (c *RESTClient) ListRepositories(ctx context.Context, projectName string) (
 
 	params.WithTimeout(c.Options.Timeout)
 
-	resp, err := c.V2Client.Repository.ListRepositories(params, c.AuthInfo)
-	if err != nil {
-		return nil, handleSwaggerRepositoryErrors(err)
+	for {
+		resp, err := c.V2Client.Repository.ListRepositories(params, c.AuthInfo)
+		if err != nil {
+			return nil, handleSwaggerRepositoryErrors(err)
+		}
+
+		totalCount := resp.XTotalCount
+
+		repositories = append(repositories, resp.Payload...)
+
+		if int64(len(repositories)) >= totalCount {
+			break
+		}
+
+		page++
 	}
 
-	if resp.Payload != nil {
-		return resp.Payload, nil
-	}
-
-	return nil, &errors.ErrNotFound{}
+	return repositories, nil
 }
 
 func (c *RESTClient) DeleteRepository(ctx context.Context, projectName, repositoryName string) error {

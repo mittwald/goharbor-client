@@ -110,17 +110,13 @@ func TestAPIAddLabel(t *testing.T) {
 //	c := NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 //
 //	artifact, err := c.GetAddition(ctx, projectName, repositoryName, reference, AdditionBuildHistory)
-//	fmt.Println(err.Error())
 //	require.NoError(t, err)
-//
-//	fmt.Println(artifact)
-//}
+// }
 
 //func TestAPIGetVulnerabilitiesAddition(t *testing.T) {
 //	ctx := context.Background()
 //	c := NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 //
 //	_, err := c.GetVulnerabilitiesAddition(ctx, projectName, repositoryName, reference)
-//	fmt.Println(err)
 //	require.Error(t, err)
 //}

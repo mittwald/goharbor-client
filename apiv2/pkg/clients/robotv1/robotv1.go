@@ -2,9 +2,7 @@ package robotv1
 
 import (
 	"context"
-
 	"github.com/go-openapi/runtime"
-
 	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/robotv1"
 	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
@@ -40,8 +38,11 @@ type Client interface {
 
 // ListProjectRobotsV1 returns a list of all robot accounts in project p.
 func (c *RESTClient) ListProjectRobotsV1(ctx context.Context, projectNameOrID string) ([]*modelv2.Robot, error) {
+	var robotAccounts []*modelv2.Robot
+	page := c.Options.Page
+
 	params := &robotv1.ListRobotV1Params{
-		Page:            &c.Options.Page,
+		Page:            &page,
 		PageSize:        &c.Options.PageSize,
 		ProjectNameOrID: projectNameOrID,
 		Q:               &c.Options.Query,
@@ -51,12 +52,28 @@ func (c *RESTClient) ListProjectRobotsV1(ctx context.Context, projectNameOrID st
 
 	params.WithTimeout(c.Options.Timeout)
 
-	resp, err := c.V2Client.Robotv1.ListRobotV1(params, c.AuthInfo)
-	if err != nil {
-		return nil, handleSwaggerRobotV1Errors(err)
+	for {
+		resp, err := c.V2Client.Robotv1.ListRobotV1(params, c.AuthInfo)
+		if err != nil {
+			return nil, handleSwaggerRobotV1Errors(err)
+		}
+
+		if len(resp.Payload) == 0 {
+			break
+		}
+
+		totalCount := resp.XTotalCount
+
+		robotAccounts = append(robotAccounts, resp.Payload...)
+
+		if int64(len(robotAccounts)) >= totalCount {
+			break
+		}
+
+		page++
 	}
 
-	return resp.Payload, nil
+	return robotAccounts, nil
 }
 
 // AddProjectRobotV1 creates the robot account 'r' and adds it to the project 'p'.

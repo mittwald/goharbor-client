@@ -8,7 +8,7 @@ import (
 
 	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/user"
-	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/config"
 	clienterrors "github.com/mittwald/goharbor-client/v5/apiv2/pkg/errors"
 
@@ -37,23 +37,23 @@ func NewClient(v2Client *v2client.Harbor, opts *config.Options, authInfo runtime
 
 type Client interface {
 	NewUser(ctx context.Context, username, email, realname, password, comments string) error
-	GetUserByName(ctx context.Context, username string) (*modelv2.UserResp, error)
-	GetUserByID(ctx context.Context, id int64) (*modelv2.UserResp, error)
-	ListUsers(ctx context.Context) ([]*modelv2.UserResp, error)
-	SearchUsers(ctx context.Context, name string) ([]*modelv2.UserSearchRespItem, error)
-	GetCurrentUserInfo(ctx context.Context) (*modelv2.UserResp, error)
-	GetCurrentUserPermisisons(ctx context.Context, relative bool, scope string) ([]*modelv2.Permission, error)
+	GetUserByName(ctx context.Context, username string) (*model.UserResp, error)
+	GetUserByID(ctx context.Context, id int64) (*model.UserResp, error)
+	ListUsers(ctx context.Context) ([]*model.UserResp, error)
+	SearchUsers(ctx context.Context, name string) ([]*model.UserSearchRespItem, error)
+	GetCurrentUserInfo(ctx context.Context) (*model.UserResp, error)
+	GetCurrentUserPermisisons(ctx context.Context, relative bool, scope string) ([]*model.Permission, error)
 	SetUserSysAdmin(ctx context.Context, id int64, admin bool) error
 	DeleteUser(ctx context.Context, id int64) error
-	UpdateUserProfile(ctx context.Context, id int64, profile *modelv2.UserProfile) error
-	UpdateUserPassword(ctx context.Context, userID int64, passwordRequest *modelv2.PasswordReq) error
+	UpdateUserProfile(ctx context.Context, id int64, profile *model.UserProfile) error
+	UpdateUserPassword(ctx context.Context, userID int64, passwordRequest *model.PasswordReq) error
 	UserExists(ctx context.Context, idOrName intstr.IntOrString) (bool, error)
 }
 
 // NewUser creates a new user with the provided values.
 func (c *RESTClient) NewUser(ctx context.Context, username, email, realname, password, comments string) error {
 	params := &user.CreateUserParams{
-		UserReq: &modelv2.UserCreationReq{
+		UserReq: &model.UserCreationReq{
 			Username: username,
 			Password: password,
 			Email:    email,
@@ -74,7 +74,7 @@ func (c *RESTClient) NewUser(ctx context.Context, username, email, realname, pas
 }
 
 // GetUserByName returns an existing user identified by name.
-func (c *RESTClient) GetUserByName(ctx context.Context, username string) (*modelv2.UserResp, error) {
+func (c *RESTClient) GetUserByName(ctx context.Context, username string) (*model.UserResp, error) {
 	if username == "" {
 		return nil, errors.New("no username provided")
 	}
@@ -96,7 +96,7 @@ func (c *RESTClient) GetUserByName(ctx context.Context, username string) (*model
 }
 
 // GetUserByID returns an existing user identified by ID.
-func (c *RESTClient) GetUserByID(ctx context.Context, id int64) (*modelv2.UserResp, error) {
+func (c *RESTClient) GetUserByID(ctx context.Context, id int64) (*model.UserResp, error) {
 	if id <= 0 {
 		return nil, &clienterrors.ErrUserInvalidID{}
 	}
@@ -129,8 +129,12 @@ func (c *RESTClient) GetUserByID(ctx context.Context, id int64) (*modelv2.UserRe
 
 // ListUsers lists and returns all registered Harbor users.
 // The maximum number of users listed is bound to the RESTClient's configured PageSize.
-func (c *RESTClient) ListUsers(ctx context.Context) ([]*modelv2.UserResp, error) {
+func (c *RESTClient) ListUsers(ctx context.Context) ([]*model.UserResp, error) {
+	var users []*model.UserResp
+	page := c.Options.Page
+
 	params := user.ListUsersParams{
+		Page:     &page,
 		PageSize: &c.Options.PageSize,
 		Q:        &c.Options.Query,
 		Sort:     &c.Options.Sort,
@@ -139,16 +143,32 @@ func (c *RESTClient) ListUsers(ctx context.Context) ([]*modelv2.UserResp, error)
 
 	params.WithTimeout(c.Options.Timeout)
 
-	resp, err := c.V2Client.User.ListUsers(&params, c.AuthInfo)
-	if err != nil {
-		return nil, handleSwaggerUserErrors(err)
+	for {
+		resp, err := c.V2Client.User.ListUsers(&params, c.AuthInfo)
+		if err != nil {
+			return nil, handleSwaggerUserErrors(err)
+		}
+
+		if len(resp.Payload) == 0 {
+			break
+		}
+
+		totalCount := resp.XTotalCount
+
+		users = append(users, resp.Payload...)
+
+		if int64(len(users)) >= totalCount {
+			break
+		}
+
+		page++
 	}
 
-	return resp.Payload, nil
+	return users, nil
 }
 
 // SearchUsers searches all existing users by the provided username 'name' and returns matching users.
-func (c *RESTClient) SearchUsers(ctx context.Context, name string) ([]*modelv2.UserSearchRespItem, error) {
+func (c *RESTClient) SearchUsers(ctx context.Context, name string) ([]*model.UserSearchRespItem, error) {
 	params := &user.SearchUsersParams{
 		PageSize: &c.Options.PageSize,
 		Username: name,
@@ -170,7 +190,7 @@ func (c *RESTClient) SearchUsers(ctx context.Context, name string) ([]*modelv2.U
 }
 
 // GetCurrentUserInfo returns information of currently active user.
-func (c *RESTClient) GetCurrentUserInfo(ctx context.Context) (*modelv2.UserResp, error) {
+func (c *RESTClient) GetCurrentUserInfo(ctx context.Context) (*model.UserResp, error) {
 	params := &user.GetCurrentUserInfoParams{
 		Context: ctx,
 	}
@@ -186,7 +206,7 @@ func (c *RESTClient) GetCurrentUserInfo(ctx context.Context) (*modelv2.UserResp,
 }
 
 // GetCurrentUserPermisisons returns the permissions of the currently active user.
-func (c *RESTClient) GetCurrentUserPermisisons(ctx context.Context, relative bool, scope string) ([]*modelv2.Permission, error) {
+func (c *RESTClient) GetCurrentUserPermisisons(ctx context.Context, relative bool, scope string) ([]*model.Permission, error) {
 	params := &user.GetCurrentUserPermissionsParams{
 		Relative: &relative,
 		Scope:    &scope,
@@ -206,7 +226,7 @@ func (c *RESTClient) GetCurrentUserPermisisons(ctx context.Context, relative boo
 // SetUserSysAdmin updates a user's administrator privileges.
 func (c *RESTClient) SetUserSysAdmin(ctx context.Context, id int64, admin bool) error {
 	params := &user.SetUserSysAdminParams{
-		SysadminFlag: &modelv2.UserSysAdminFlag{
+		SysadminFlag: &model.UserSysAdminFlag{
 			SysadminFlag: admin,
 		},
 		UserID:  id,
@@ -240,7 +260,7 @@ func (c *RESTClient) DeleteUser(ctx context.Context, id int64) error {
 }
 
 // UpdateUserProfile updates a user identified by id with the specified profile data.
-func (c *RESTClient) UpdateUserProfile(ctx context.Context, id int64, profile *modelv2.UserProfile) error {
+func (c *RESTClient) UpdateUserProfile(ctx context.Context, id int64, profile *model.UserProfile) error {
 	_, err := c.GetUserByID(ctx, id)
 	if err != nil {
 		return err
@@ -261,7 +281,7 @@ func (c *RESTClient) UpdateUserProfile(ctx context.Context, id int64, profile *m
 
 // UpdateUserPassword updates a user's password from 'old' to 'new'.
 // 'old' is an optional parameter when called by an administrator.
-func (c *RESTClient) UpdateUserPassword(ctx context.Context, userID int64, passwordRequest *modelv2.PasswordReq) error {
+func (c *RESTClient) UpdateUserPassword(ctx context.Context, userID int64, passwordRequest *model.PasswordReq) error {
 	if passwordRequest.NewPassword == "" {
 		return errors.New("no new password provided")
 	}

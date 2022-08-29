@@ -99,6 +99,7 @@ func TestAPIProjectMemberList(t *testing.T) {
 		},
 		RoleID: 1,
 	})
+
 	require.NoError(t, err)
 
 	members, err = c.ListProjectMembers(ctx, p.Name, u.Username)

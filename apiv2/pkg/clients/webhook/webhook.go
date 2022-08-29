@@ -8,7 +8,7 @@ import (
 
 	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/webhook"
-	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/config"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/errors"
 )
@@ -34,15 +34,19 @@ func NewClient(v2Client *v2client.Harbor, opts *config.Options, authInfo runtime
 }
 
 type Client interface {
-	ListProjectWebhookPolicies(ctx context.Context, projectID int) ([]*modelv2.WebhookPolicy, error)
-	AddProjectWebhookPolicy(ctx context.Context, projectID int, policy *modelv2.WebhookPolicy) error
-	UpdateProjectWebhookPolicy(ctx context.Context, projectID int, policy *modelv2.WebhookPolicy) error
+	ListProjectWebhookPolicies(ctx context.Context, projectID int) ([]*model.WebhookPolicy, error)
+	AddProjectWebhookPolicy(ctx context.Context, projectID int, policy *model.WebhookPolicy) error
+	UpdateProjectWebhookPolicy(ctx context.Context, projectID int, policy *model.WebhookPolicy) error
 	DeleteProjectWebhookPolicy(ctx context.Context, projectID int, policyID int64) error
 }
 
 // ListProjectWebhookPolicies returns a list of all webhook policies in project p.
-func (c *RESTClient) ListProjectWebhookPolicies(ctx context.Context, projectID int) ([]*modelv2.WebhookPolicy, error) {
+func (c *RESTClient) ListProjectWebhookPolicies(ctx context.Context, projectID int) ([]*model.WebhookPolicy, error) {
+	var webhookPolicies []*model.WebhookPolicy
+	page := c.Options.Page
+
 	params := &webhook.ListWebhookPoliciesOfProjectParams{
+		Page:            &page,
 		PageSize:        &c.Options.PageSize,
 		ProjectNameOrID: strconv.Itoa(projectID),
 		Q:               &c.Options.Query,
@@ -52,16 +56,32 @@ func (c *RESTClient) ListProjectWebhookPolicies(ctx context.Context, projectID i
 
 	params.WithTimeout(c.Options.Timeout)
 
-	resp, err := c.V2Client.Webhook.ListWebhookPoliciesOfProject(params, c.AuthInfo)
-	if err != nil {
-		return nil, handleSwaggerWebhookErrors(err)
+	for {
+		resp, err := c.V2Client.Webhook.ListWebhookPoliciesOfProject(params, c.AuthInfo)
+		if err != nil {
+			return nil, handleSwaggerWebhookErrors(err)
+		}
+
+		if len(resp.Payload) == 0 {
+			break
+		}
+
+		totalCount := resp.XTotalCount
+
+		webhookPolicies = append(webhookPolicies, resp.Payload...)
+
+		if int64(len(webhookPolicies)) >= totalCount {
+			break
+		}
+
+		page++
 	}
 
-	return resp.Payload, nil
+	return webhookPolicies, nil
 }
 
 // AddProjectWebhookPolicy adds a webhook policy to project p.
-func (c *RESTClient) AddProjectWebhookPolicy(ctx context.Context, projectID int, policy *modelv2.WebhookPolicy) error {
+func (c *RESTClient) AddProjectWebhookPolicy(ctx context.Context, projectID int, policy *model.WebhookPolicy) error {
 	if policy == nil {
 		return &errors.ErrProjectNoWebhookPolicyProvided{}
 	}
@@ -80,7 +100,7 @@ func (c *RESTClient) AddProjectWebhookPolicy(ctx context.Context, projectID int,
 }
 
 // UpdateProjectWebhookPolicy updates the WebhookPolicy 'policy' in the project identified by 'projectID'.
-func (c *RESTClient) UpdateProjectWebhookPolicy(ctx context.Context, projectID int, policy *modelv2.WebhookPolicy) error {
+func (c *RESTClient) UpdateProjectWebhookPolicy(ctx context.Context, projectID int, policy *model.WebhookPolicy) error {
 	if policy == nil {
 		return &errors.ErrProjectNoWebhookPolicyProvided{}
 	}

@@ -45,6 +45,7 @@ func TestRESTClient_GetQuotaByProjectID_Unexpected(t *testing.T) {
 
 	refID := strconv.Itoa(int(exampleProjectID))
 	listParams := &quota.ListQuotasParams{
+		Page:        &apiClient.Options.Page,
 		PageSize:    &apiClient.Options.PageSize,
 		ReferenceID: &refID,
 		Sort:        &apiClient.Options.Sort,
@@ -70,6 +71,7 @@ func TestRESTClient_GetQuotaByProjectID(t *testing.T) {
 	refID := strconv.Itoa(int(exampleProjectID))
 
 	listParams := &quota.ListQuotasParams{
+		Page:        &apiClient.Options.Page,
 		PageSize:    &apiClient.Options.PageSize,
 		ReferenceID: &refID,
 		Sort:        &apiClient.Options.Sort,
