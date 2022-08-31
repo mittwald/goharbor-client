@@ -124,6 +124,7 @@ func (c *RESTClient) GetProject(ctx context.Context, nameOrID string) (*modelv2.
 func (c *RESTClient) ListProjects(ctx context.Context, nameFilter string) ([]*modelv2.Project, error) {
 	params := &projectapi.ListProjectsParams{
 		Name:     &nameFilter,
+		Page:     &c.Options.Page,
 		PageSize: &c.Options.PageSize,
 		Q:        &c.Options.Query,
 		Sort:     &c.Options.Sort,
