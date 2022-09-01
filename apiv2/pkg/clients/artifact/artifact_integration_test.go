@@ -94,7 +94,8 @@ func TestAPIAddLabel(t *testing.T) {
 	})
 	require.NoError(t, err)
 
-	labels, err := lc.ListLabels(ctx, "test", util.Int64Ptr(1))
+	labels, err := lc.ListLabels(ctx, "test", util.Int64Ptr(1), label.ScopeProject)
+
 	require.NoError(t, err)
 	require.Equal(t, 1, len(labels))
 

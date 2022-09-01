@@ -4,11 +4,11 @@ import (
 	"context"
 	"net/url"
 	"strings"
-
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/label"
 
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/artifact"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/repository"
+
 
 	"k8s.io/apimachinery/pkg/util/intstr"
 
@@ -217,8 +217,9 @@ func (c *RESTClient) GetLabelByID(ctx context.Context, id int64) (*modelv2.Label
 	return c.label.GetLabelByID(ctx, id)
 }
 
-func (c *RESTClient) ListLabels(ctx context.Context, name string, projectID *int64) ([]*modelv2.Label, error) {
-	return c.label.ListLabels(ctx, name, projectID)
+func (c *RESTClient) ListLabels(ctx context.Context, name string, projectID *int64, scope label.Scope) ([]*modelv2.Label, error) {
+	return c.label.ListLabels(ctx, name, projectID, scope)
+
 }
 
 func (c *RESTClient) DeleteLabel(ctx context.Context, id int64) error {
