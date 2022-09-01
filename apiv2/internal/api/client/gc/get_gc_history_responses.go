@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/mittwald/goharbor-client/v5/apiv2/model"
+	"github.com/testwill/goharbor-client/v5/apiv2/model"
 )
 
 // GetGCHistoryReader is a Reader for the GetGCHistory structure.

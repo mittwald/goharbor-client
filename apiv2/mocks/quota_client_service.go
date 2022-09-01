@@ -4,7 +4,7 @@ package mocks
 
 import (
 	runtime "github.com/go-openapi/runtime"
-	quota "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/quota"
+	quota "github.com/testwill/goharbor-client/v5/apiv2/internal/api/client/quota"
 	mock "github.com/stretchr/testify/mock"
 )
 

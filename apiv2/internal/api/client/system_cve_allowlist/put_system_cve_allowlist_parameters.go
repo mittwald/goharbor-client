@@ -15,7 +15,7 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v5/apiv2/model"
+	"github.com/testwill/goharbor-client/v5/apiv2/model"
 )
 
 // NewPutSystemCVEAllowlistParams creates a new PutSystemCVEAllowlistParams object

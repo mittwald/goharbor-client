@@ -10,7 +10,7 @@ import (
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v5/apiv1/internal/api/client/products"
+	"github.com/testwill/goharbor-client/v5/apiv1/internal/api/client/products"
 )
 
 // Default harbor HTTP client.

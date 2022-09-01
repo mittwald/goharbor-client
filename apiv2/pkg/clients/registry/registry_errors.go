@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/registry"
-	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/errors"
+	"github.com/testwill/goharbor-client/v5/apiv2/internal/api/client/registry"
+	"github.com/testwill/goharbor-client/v5/apiv2/pkg/errors"
 )
 
 // handleRegistryErrors takes a swagger generated error as input,

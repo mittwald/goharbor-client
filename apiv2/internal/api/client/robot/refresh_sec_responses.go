@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v5/apiv2/model"
+	"github.com/testwill/goharbor-client/v5/apiv2/model"
 )
 
 // RefreshSecReader is a Reader for the RefreshSec structure.

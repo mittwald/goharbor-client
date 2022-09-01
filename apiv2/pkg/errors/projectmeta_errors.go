@@ -1,6 +1,6 @@
 package errors
 
-import "github.com/mittwald/goharbor-client/v5/apiv2/pkg/common"
+import "github.com/testwill/goharbor-client/v5/apiv2/pkg/common"
 
 const (
 	// ErrProjectMetadataAlreadyExistsMsg is the error message for ErrProjectMetadataAlreadyExists error.

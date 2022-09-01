@@ -1,8 +1,8 @@
 package systeminfo
 
 import (
-	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/systeminfo"
-	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/errors"
+	"github.com/testwill/goharbor-client/v5/apiv2/internal/api/client/systeminfo"
+	"github.com/testwill/goharbor-client/v5/apiv2/pkg/errors"
 )
 
 // handleSwaggerSystemInfoErrors takes a swagger generated error as input,

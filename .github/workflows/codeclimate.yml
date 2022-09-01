@@ -25,7 +25,7 @@ jobs:
 
       - name: Hack Code Climate and Go Modules
         if: github.event_name != 'pull_request'
-        run: mkdir -p github.com/mittwald && ln -sf $(pwd) github.com/mittwald/goharbor-client
+        run: mkdir -p github.com/testwill && ln -sf $(pwd) github.com/testwill/goharbor-client
 
       - name: Test & publish code coverage
         if: github.event_name != 'pull_request'

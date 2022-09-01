@@ -11,10 +11,10 @@ import (
 	"github.com/go-openapi/runtime"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
-	"github.com/mittwald/goharbor-client/v5/apiv1/internal/api/client"
-	"github.com/mittwald/goharbor-client/v5/apiv1/internal/api/client/products"
-	"github.com/mittwald/goharbor-client/v5/apiv1/mocks"
-	model "github.com/mittwald/goharbor-client/v5/apiv1/model"
+	"github.com/testwill/goharbor-client/v5/apiv1/internal/api/client"
+	"github.com/testwill/goharbor-client/v5/apiv1/internal/api/client/products"
+	"github.com/testwill/goharbor-client/v5/apiv1/mocks"
+	model "github.com/testwill/goharbor-client/v5/apiv1/model"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

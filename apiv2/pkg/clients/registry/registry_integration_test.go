@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"testing"
 
-	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
+	modelv2 "github.com/testwill/goharbor-client/v5/apiv2/model"
 
-	clienttesting "github.com/mittwald/goharbor-client/v5/apiv2/pkg/testing"
+	clienttesting "github.com/testwill/goharbor-client/v5/apiv2/pkg/testing"
 
 	"github.com/stretchr/testify/require"
 )

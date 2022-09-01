@@ -9,11 +9,11 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/registry"
-	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
-	unittesting "github.com/mittwald/goharbor-client/v5/apiv2/pkg/testing"
+	"github.com/testwill/goharbor-client/v5/apiv2/internal/api/client/registry"
+	modelv2 "github.com/testwill/goharbor-client/v5/apiv2/model"
+	unittesting "github.com/testwill/goharbor-client/v5/apiv2/pkg/testing"
 
-	"github.com/mittwald/goharbor-client/v5/apiv2/mocks"
+	"github.com/testwill/goharbor-client/v5/apiv2/mocks"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 )

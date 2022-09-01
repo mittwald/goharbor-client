@@ -4,7 +4,7 @@ package mocks
 
 import (
 	runtime "github.com/go-openapi/runtime"
-	replication "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/replication"
+	replication "github.com/testwill/goharbor-client/v5/apiv2/internal/api/client/replication"
 	mock "github.com/stretchr/testify/mock"
 )
 

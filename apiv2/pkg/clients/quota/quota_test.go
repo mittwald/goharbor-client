@@ -9,11 +9,11 @@ import (
 	"testing"
 
 	"github.com/goharbor/harbor/src/pkg/quota/types"
-	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/quota"
-	"github.com/mittwald/goharbor-client/v5/apiv2/mocks"
-	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
-	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/errors"
-	clienttesting "github.com/mittwald/goharbor-client/v5/apiv2/pkg/testing"
+	"github.com/testwill/goharbor-client/v5/apiv2/internal/api/client/quota"
+	"github.com/testwill/goharbor-client/v5/apiv2/mocks"
+	modelv2 "github.com/testwill/goharbor-client/v5/apiv2/model"
+	"github.com/testwill/goharbor-client/v5/apiv2/pkg/errors"
+	clienttesting "github.com/testwill/goharbor-client/v5/apiv2/pkg/testing"
 
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"

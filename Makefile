@@ -46,8 +46,8 @@ uninstall-harbor-v1:
 test:
 	go test -v ./... -tags !integration
 
-INTEGRATION_V1 = CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v5/apiv1/... -tags integration
-INTEGRATION_V2 = CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/mittwald/goharbor-client/v5/apiv2/... -tags integration
+INTEGRATION_V1 = CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/testwill/goharbor-client/v5/apiv1/... -tags integration
+INTEGRATION_V2 = CGO_ENABLED=0 go test -p 1 -count 1 -v github.com/testwill/goharbor-client/v5/apiv2/... -tags integration
 
 # Integration testing (CI Jobs)
 integration-test-v1-ci: setup-harbor-v1 integration-test-v1

@@ -8,11 +8,11 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/project"
-	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/user"
-	clienttesting "github.com/mittwald/goharbor-client/v5/apiv2/pkg/testing"
+	"github.com/testwill/goharbor-client/v5/apiv2/pkg/clients/project"
+	"github.com/testwill/goharbor-client/v5/apiv2/pkg/clients/user"
+	clienttesting "github.com/testwill/goharbor-client/v5/apiv2/pkg/testing"
 
-	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
+	modelv2 "github.com/testwill/goharbor-client/v5/apiv2/model"
 )
 
 var (

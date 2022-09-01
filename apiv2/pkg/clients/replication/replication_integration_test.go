@@ -6,11 +6,11 @@ import (
 	"context"
 	"testing"
 
-	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
-	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/errors"
-	clienttesting "github.com/mittwald/goharbor-client/v5/apiv2/pkg/testing"
+	modelv2 "github.com/testwill/goharbor-client/v5/apiv2/model"
+	"github.com/testwill/goharbor-client/v5/apiv2/pkg/errors"
+	clienttesting "github.com/testwill/goharbor-client/v5/apiv2/pkg/testing"
 
-	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/registry"
+	"github.com/testwill/goharbor-client/v5/apiv2/pkg/clients/registry"
 
 	"github.com/stretchr/testify/require"
 )

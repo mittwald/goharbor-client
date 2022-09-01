@@ -114,11 +114,11 @@ import (
 
 	"k8s.io/apimachinery/pkg/util/intstr"
 
-	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
-	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/user"
-	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
-	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/config"
-	clienterrors "github.com/mittwald/goharbor-client/v5/apiv2/pkg/errors"
+	v2client "github.com/testwill/goharbor-client/v5/apiv2/internal/api/client"
+	"github.com/testwill/goharbor-client/v5/apiv2/internal/api/client/user"
+	modelv2 "github.com/testwill/goharbor-client/v5/apiv2/model"
+	"github.com/testwill/goharbor-client/v5/apiv2/pkg/config"
+	clienterrors "github.com/testwill/goharbor-client/v5/apiv2/pkg/errors"
 
 	"github.com/go-openapi/runtime"
 )
@@ -149,7 +149,7 @@ func NewClient(v2Client *v2client.Harbor, opts *config.Options, authInfo runtime
 }
 ```
 
-The package also contains a [`Client` interface](https://github.com/mittwald/goharbor-client/blob/master/apiv2/user/user.go#L36) that holds all method signatures:
+The package also contains a [`Client` interface](https://github.com/testwill/goharbor-client/blob/master/apiv2/user/user.go#L36) that holds all method signatures:
 ```go
 type Client interface {
 	[...]
@@ -194,7 +194,7 @@ type Client interface {
 
 ---
 
-To make the sub-client's methods accessible via the `github.com/mittwald/goharbor-client/apiv2` package, 
+To make the sub-client's methods accessible via the `github.com/testwill/goharbor-client/apiv2` package, 
 the above implementation has to be wrapped together in [apiv2/client.go](./apiv2/client.go): 
 
 ```go

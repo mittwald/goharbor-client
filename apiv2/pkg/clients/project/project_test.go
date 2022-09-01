@@ -8,19 +8,19 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/util"
+	"github.com/testwill/goharbor-client/v5/apiv2/pkg/util"
 
 	"github.com/go-openapi/runtime"
 	"github.com/stretchr/testify/require"
 
-	projectapi "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/project"
-	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
-	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/errors"
-	clienttesting "github.com/mittwald/goharbor-client/v5/apiv2/pkg/testing"
+	projectapi "github.com/testwill/goharbor-client/v5/apiv2/internal/api/client/project"
+	modelv2 "github.com/testwill/goharbor-client/v5/apiv2/model"
+	"github.com/testwill/goharbor-client/v5/apiv2/pkg/errors"
+	clienttesting "github.com/testwill/goharbor-client/v5/apiv2/pkg/testing"
 
 	"github.com/stretchr/testify/mock"
 
-	"github.com/mittwald/goharbor-client/v5/apiv2/mocks"
+	"github.com/testwill/goharbor-client/v5/apiv2/mocks"
 )
 
 var (

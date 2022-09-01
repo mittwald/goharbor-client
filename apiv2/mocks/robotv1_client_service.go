@@ -4,7 +4,7 @@ package mocks
 
 import (
 	runtime "github.com/go-openapi/runtime"
-	robotv1 "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/robotv1"
+	robotv1 "github.com/testwill/goharbor-client/v5/apiv2/internal/api/client/robotv1"
 	mock "github.com/stretchr/testify/mock"
 )
 

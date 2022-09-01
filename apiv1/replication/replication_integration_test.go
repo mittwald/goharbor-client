@@ -9,17 +9,17 @@ import (
 
 	"github.com/go-openapi/strfmt"
 
-	"github.com/mittwald/goharbor-client/v5/apiv1/internal/api/client"
-	integrationtest "github.com/mittwald/goharbor-client/v5/apiv1/testing"
+	"github.com/testwill/goharbor-client/v5/apiv1/internal/api/client"
+	integrationtest "github.com/testwill/goharbor-client/v5/apiv1/testing"
 
 	runtimeclient "github.com/go-openapi/runtime/client"
 
-	"github.com/mittwald/goharbor-client/v5/apiv1/registry"
+	"github.com/testwill/goharbor-client/v5/apiv1/registry"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/mittwald/goharbor-client/v5/apiv1/model"
+	"github.com/testwill/goharbor-client/v5/apiv1/model"
 )
 
 var (

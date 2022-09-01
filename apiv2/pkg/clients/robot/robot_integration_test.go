@@ -9,8 +9,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
-	clienttesting "github.com/mittwald/goharbor-client/v5/apiv2/pkg/testing"
+	modelv2 "github.com/testwill/goharbor-client/v5/apiv2/model"
+	clienttesting "github.com/testwill/goharbor-client/v5/apiv2/pkg/testing"
 )
 
 var testRobotAccountCreate = &modelv2.RobotCreate{

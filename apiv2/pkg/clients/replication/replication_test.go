@@ -9,10 +9,10 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	replicationapi "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/replication"
-	"github.com/mittwald/goharbor-client/v5/apiv2/mocks"
-	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
-	clienttesting "github.com/mittwald/goharbor-client/v5/apiv2/pkg/testing"
+	replicationapi "github.com/testwill/goharbor-client/v5/apiv2/internal/api/client/replication"
+	"github.com/testwill/goharbor-client/v5/apiv2/mocks"
+	modelv2 "github.com/testwill/goharbor-client/v5/apiv2/model"
+	clienttesting "github.com/testwill/goharbor-client/v5/apiv2/pkg/testing"
 )
 
 const (

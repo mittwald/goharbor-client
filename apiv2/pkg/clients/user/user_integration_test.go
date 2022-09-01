@@ -7,9 +7,9 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/user"
-	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
-	clienttesting "github.com/mittwald/goharbor-client/v5/apiv2/pkg/testing"
+	"github.com/testwill/goharbor-client/v5/apiv2/internal/api/client/user"
+	modelv2 "github.com/testwill/goharbor-client/v5/apiv2/model"
+	clienttesting "github.com/testwill/goharbor-client/v5/apiv2/pkg/testing"
 
 	"github.com/stretchr/testify/require"
 )
