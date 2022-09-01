@@ -91,8 +91,8 @@ func (c *RESTClient) UpdateStorageQuotaByProjectID(ctx context.Context, projectI
 
 	params := &quota.UpdateQuotaParams{
 		Hard: &modelv2.QuotaUpdateReq{
-			Hard: map[types.ResourceName]int64{
-				types.ResourceStorage: storageLimit,
+			Hard: modelv2.ResourceList{
+				string(types.ResourceStorage): storageLimit,
 			},
 		},
 		ID:      projectID,

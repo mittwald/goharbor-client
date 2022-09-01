@@ -9,6 +9,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // GeneralInfo general info
@@ -21,6 +22,10 @@ type GeneralInfo struct {
 
 	// The setting of auth proxy this is only available when Harbor relies on authproxy for authentication.
 	AuthproxySettings *AuthproxySetting `json:"authproxy_settings,omitempty"`
+
+	// The current time of the server.
+	// Format: date-time
+	CurrentTime *strfmt.DateTime `json:"current_time,omitempty"`
 
 	// The external URL of Harbor, with protocol.
 	ExternalURL *string `json:"external_url,omitempty"`
@@ -64,6 +69,10 @@ func (m *GeneralInfo) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateCurrentTime(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -83,6 +92,19 @@ func (m *GeneralInfo) validateAuthproxySettings(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *GeneralInfo) validateCurrentTime(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CurrentTime) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("current_time", "body", "date-time", m.CurrentTime.String(), formats); err != nil {
+		return err
 	}
 
 	return nil

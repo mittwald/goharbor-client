@@ -30,6 +30,7 @@ func TestAPICreateLabel(t *testing.T) {
 
 	defer c.DeleteLabel(ctx, labels[0].ID)
 
+
 	require.NoError(t, err)
 }
 
@@ -47,6 +48,7 @@ func TestAPIUpdateLabel(t *testing.T) {
 	require.NoError(t, err)
 
 	labels, err := c.ListLabels(ctx, "label", nil, ScopeGlobal)
+
 	require.NoError(t, err)
 	require.Equal(t, 1, len(labels))
 
@@ -59,6 +61,7 @@ func TestAPIUpdateLabel(t *testing.T) {
 
 	err = c.UpdateLabel(ctx, labels[0].ID, update)
 	require.NoError(t, err)
+
 
 	defer c.DeleteLabel(ctx, labels[0].ID)
 

@@ -95,6 +95,7 @@ func (c *RESTClient) ListLabels(ctx context.Context, name string, projectID *int
 		if projectID == nil {
 			return nil, fmt.Errorf("projectID must be set for project scope")
 		}
+
 	}
 
 	params := &label.ListLabelsParams{

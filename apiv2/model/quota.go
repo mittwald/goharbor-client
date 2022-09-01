@@ -10,7 +10,6 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
-	"github.com/goharbor/harbor/src/pkg/quota/types"
 )
 
 // Quota The quota object
@@ -23,7 +22,7 @@ type Quota struct {
 	CreationTime strfmt.DateTime `json:"creation_time,omitempty"`
 
 	// The hard limits of the quota
-	Hard types.ResourceList `json:"hard,omitempty"`
+	Hard ResourceList `json:"hard,omitempty"`
 
 	// ID of the quota
 	ID int64 `json:"id,omitempty"`
@@ -36,7 +35,7 @@ type Quota struct {
 	UpdateTime strfmt.DateTime `json:"update_time,omitempty"`
 
 	// The used status of the quota
-	Used types.ResourceList `json:"used,omitempty"`
+	Used ResourceList `json:"used,omitempty"`
 }
 
 // Validate validates this quota
