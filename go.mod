@@ -1,4 +1,4 @@
-module github.com/mittwald/goharbor-client/v5
+module github.com/testwill/goharbor-client/v5
 
 go 1.18
 
