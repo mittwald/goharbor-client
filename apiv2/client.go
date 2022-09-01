@@ -5,6 +5,7 @@ import (
 	"net/url"
 	"strings"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/label"
+
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/artifact"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/repository"
 
@@ -218,6 +219,7 @@ func (c *RESTClient) GetLabelByID(ctx context.Context, id int64) (*modelv2.Label
 
 func (c *RESTClient) ListLabels(ctx context.Context, name string, projectID *int64, scope label.Scope) ([]*modelv2.Label, error) {
 	return c.label.ListLabels(ctx, name, projectID, scope)
+
 }
 
 func (c *RESTClient) DeleteLabel(ctx context.Context, id int64) error {
@@ -435,7 +437,7 @@ func (c *RESTClient) GetRobotAccountByID(ctx context.Context, id int64) (*modelv
 	return c.robot.GetRobotAccountByID(ctx, id)
 }
 
-func (c *RESTClient) NewRobotAccount(ctx context.Context, r *modelv2.RobotCreate) error {
+func (c *RESTClient) NewRobotAccount(ctx context.Context, r *modelv2.RobotCreate) (*modelv2.RobotCreated, error) {
 	return c.robot.NewRobotAccount(ctx, r)
 }
 

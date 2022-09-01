@@ -4,6 +4,7 @@ package robot
 
 import (
 	"context"
+	"strconv"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -35,8 +36,10 @@ func TestAPINewRobotAccount(t *testing.T) {
 
 	defer c.DeleteRobotAccountByName(ctx, "test-robot")
 
-	err := c.NewRobotAccount(ctx, testRobotAccountCreate)
+	robotCreated, err := c.NewRobotAccount(ctx, testRobotAccountCreate)
 	require.NoError(t, err)
+	require.NotNil(t, robotCreated)
+
 	r, err := c.GetRobotAccountByName(ctx, testRobotAccountCreate.Name)
 	require.NoError(t, err)
 
@@ -49,7 +52,7 @@ func TestAPIListRobots(t *testing.T) {
 
 	defer c.DeleteRobotAccountByName(ctx, "test-robot")
 
-	err := c.NewRobotAccount(ctx, testRobotAccountCreate)
+	_, err := c.NewRobotAccount(ctx, testRobotAccountCreate)
 	require.NoError(t, err)
 
 	robots, err := c.ListRobotAccounts(ctx)
@@ -59,13 +62,38 @@ func TestAPIListRobots(t *testing.T) {
 	require.Equal(t, 1, len(robots))
 }
 
+func TestAPIListRobots_Multiple(t *testing.T) {
+	ctx := context.Background()
+	c := NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
+	count := 44
+
+	t.Run("CreateAndListRobots", func(t *testing.T) {
+		for i := 0; i < count; i++ {
+			robot := *testRobotAccountCreate
+			robot.Name = strconv.Itoa(i)
+			_, err := c.NewRobotAccount(ctx, &robot)
+			require.NoError(t, err)
+		}
+
+		robots, err := c.ListRobotAccounts(ctx)
+		require.NoError(t, err)
+		require.NotNil(t, robots)
+
+		for i := 0; i <= count; i++ {
+			c.DeleteRobotAccountByName(ctx, strconv.Itoa(i))
+		}
+
+		require.Equal(t, count, len(robots))
+	})
+}
+
 func TestAPIGetRobotByName(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
 	defer c.DeleteRobotAccountByName(ctx, "test-robot")
 
-	err := c.NewRobotAccount(ctx, testRobotAccountCreate)
+	_, err := c.NewRobotAccount(ctx, testRobotAccountCreate)
 	require.NoError(t, err)
 
 	robot, err := c.GetRobotAccountByName(ctx, "test-robot")
@@ -79,7 +107,7 @@ func TestAPIUpdateRobotAccount(t *testing.T) {
 
 	defer c.DeleteRobotAccountByName(ctx, "test-robot")
 
-	err := c.NewRobotAccount(ctx, testRobotAccountCreate)
+	_, err := c.NewRobotAccount(ctx, testRobotAccountCreate)
 	require.NoError(t, err)
 
 	r, err := c.GetRobotAccountByName(ctx, "test-robot")
@@ -98,7 +126,8 @@ func TestAPIUpdateRobotAccount(t *testing.T) {
 				Action:   ActionPush.String(),
 				Resource: ResourceRepository.String(),
 			}},
-			Namespace: "*",
+			Kind:      "project",
+			Namespace: "library",
 		}},
 	})
 
@@ -117,7 +146,7 @@ func TestAPIRefreshRobotAccountSecret(t *testing.T) {
 
 	defer c.DeleteRobotAccountByName(ctx, "test-robot")
 
-	err := c.NewRobotAccount(ctx, testRobotAccountCreate)
+	_, err := c.NewRobotAccount(ctx, testRobotAccountCreate)
 	require.NoError(t, err)
 
 	r, err := c.GetRobotAccountByName(ctx, "test-robot")

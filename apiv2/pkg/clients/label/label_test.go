@@ -118,12 +118,14 @@ func TestRESTClient_ListLabels_ScopeGlobal(t *testing.T) {
 			Payload: []*model.Label{&testLabel},
 		}, nil)
 
+
 	t.Run("ErrProjectIDProvided", func(t *testing.T) {
 		_, err := apiClient.ListLabels(ctx, "test", util.Int64Ptr(1), ScopeGlobal)
 		require.Error(t, err)
 	})
 
 	labels, err := apiClient.ListLabels(ctx, "test", nil, ScopeGlobal)
+
 	require.NoError(t, err)
 	require.Equal(t, 1, len(labels))
 
@@ -157,6 +159,7 @@ func TestRESTClient_ListLabels_ScopeProject(t *testing.T) {
 	})
 
 	labels, err := apiClient.ListLabels(ctx, "test", util.Int64Ptr(1), ScopeProject)
+
 	require.NoError(t, err)
 	require.Equal(t, 1, len(labels))
 

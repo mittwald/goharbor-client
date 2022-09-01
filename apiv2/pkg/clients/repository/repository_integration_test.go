@@ -20,7 +20,8 @@ func TestAPIRepositoryListAllRepositories(t *testing.T) {
 
 	repositories, err := c.ListAllRepositories(ctx)
 	require.NoError(t, err)
-	require.Empty(t, repositories)
+	// A repository should exist, as the Makefile target `upload-test-image` pushes a test image.
+	require.NotEmpty(t, repositories)
 }
 
 func TestAPIRepositoryListRepositories(t *testing.T) {
