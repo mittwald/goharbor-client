@@ -74,6 +74,7 @@ func TestRESTClient_ListProjectMembers(t *testing.T) {
 
 	listParams := &member.ListProjectMembersParams{
 		Entityname:      &exampleMember.MemberUser.Username,
+		Page:            &apiClient.Options.Page,
 		PageSize:        &apiClient.Options.PageSize,
 		ProjectNameOrID: exampleProject.Name,
 		Context:         ctx,
@@ -97,6 +98,7 @@ func TestRESTClient_ListProjectMembers_ErrProjectUnknownResource(t *testing.T) {
 
 	listParams := &member.ListProjectMembersParams{
 		Entityname:      &exampleMember.MemberUser.Username,
+		Page:            &apiClient.Options.Page,
 		PageSize:        &apiClient.Options.PageSize,
 		ProjectNameOrID: exampleProject.Name,
 		Context:         ctx,
@@ -122,6 +124,7 @@ func TestRESTClient_UpdateProjectMember(t *testing.T) {
 	q := ""
 	listParams := &member.ListProjectMembersParams{
 		Entityname:      &q,
+		Page:            &apiClient.Options.Page,
 		PageSize:        &apiClient.Options.PageSize,
 		ProjectNameOrID: exampleProject.Name,
 		Context:         ctx,
@@ -166,6 +169,7 @@ func TestRESTClient_DeleteProjectMember(t *testing.T) {
 	q := ""
 	listParams := &member.ListProjectMembersParams{
 		Entityname:      &q,
+		Page:            &apiClient.Options.Page,
 		PageSize:        &apiClient.Options.PageSize,
 		ProjectNameOrID: exampleProject.Name,
 		Context:         ctx,

@@ -11,7 +11,7 @@ import (
 
 	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/quota"
-	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/config"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/errors"
 )
@@ -37,13 +37,17 @@ func NewClient(v2Client *v2client.Harbor, opts *config.Options, authInfo runtime
 }
 
 type Client interface {
-	ListQuotas(ctx context.Context, referenceType, referenceID *string) ([]*modelv2.Quota, error)
-	GetQuotaByProjectID(ctx context.Context, projectID int64) (*modelv2.Quota, error)
+	ListQuotas(ctx context.Context, referenceType, referenceID *string) ([]*model.Quota, error)
+	GetQuotaByProjectID(ctx context.Context, projectID int64) (*model.Quota, error)
 	UpdateStorageQuotaByProjectID(ctx context.Context, projectID int64, storageLimit int64) error
 }
 
-func (c *RESTClient) ListQuotas(ctx context.Context, referenceType, referenceID *string) ([]*modelv2.Quota, error) {
+func (c *RESTClient) ListQuotas(ctx context.Context, referenceType, referenceID *string) ([]*model.Quota, error) {
+	var quotas []*model.Quota
+	page := c.Options.Page
+
 	params := &quota.ListQuotasParams{
+		Page:        &page,
 		PageSize:    &c.Options.PageSize,
 		Reference:   referenceType,
 		ReferenceID: referenceID,
@@ -53,16 +57,32 @@ func (c *RESTClient) ListQuotas(ctx context.Context, referenceType, referenceID 
 
 	params.WithTimeout(c.Options.Timeout)
 
-	resp, err := c.V2Client.Quota.ListQuotas(params, c.AuthInfo)
-	if err != nil {
-		return nil, handleSwaggerQuotaErrors(err)
+	for {
+		resp, err := c.V2Client.Quota.ListQuotas(params, c.AuthInfo)
+		if err != nil {
+			return nil, handleSwaggerQuotaErrors(err)
+		}
+
+		if len(resp.Payload) == 0 {
+			break
+		}
+
+		totalCount := resp.XTotalCount
+
+		quotas = append(quotas, resp.Payload...)
+
+		if int64(len(quotas)) >= totalCount {
+			break
+		}
+
+		page++
 	}
 
-	return resp.Payload, nil
+	return quotas, nil
 }
 
 // GetQuotaByProjectID returns a quota object containing all configured quotas for a project.
-func (c *RESTClient) GetQuotaByProjectID(ctx context.Context, projectID int64) (*modelv2.Quota, error) {
+func (c *RESTClient) GetQuotaByProjectID(ctx context.Context, projectID int64) (*model.Quota, error) {
 	projectIDStr := strconv.Itoa(int(projectID))
 
 	quotas, err := c.ListQuotas(ctx, nil, &projectIDStr)
@@ -90,8 +110,8 @@ func (c *RESTClient) UpdateStorageQuotaByProjectID(ctx context.Context, projectI
 	}
 
 	params := &quota.UpdateQuotaParams{
-		Hard: &modelv2.QuotaUpdateReq{
-			Hard: modelv2.ResourceList{
+		Hard: &model.QuotaUpdateReq{
+			Hard: model.ResourceList{
 				string(types.ResourceStorage): storageLimit,
 			},
 		},

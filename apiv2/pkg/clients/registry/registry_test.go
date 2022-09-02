@@ -97,6 +97,7 @@ func TestRESTClient_GetRegistryByName(t *testing.T) {
 	name := "name=" + reg.Name
 
 	listParams := &registry.ListRegistriesParams{
+		Page:     &apiClient.Options.Page,
 		PageSize: &apiClient.Options.PageSize,
 		Q:        &name,
 		Sort:     &apiClient.Options.Sort,

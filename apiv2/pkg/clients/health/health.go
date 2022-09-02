@@ -7,7 +7,7 @@ import (
 
 	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/health"
-	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/config"
 )
 
@@ -32,10 +32,10 @@ func NewClient(v2Client *v2client.Harbor, opts *config.Options, authInfo runtime
 }
 
 type Client interface {
-	GetHealth(ctx context.Context) (*modelv2.OverallHealthStatus, error)
+	GetHealth(ctx context.Context) (*model.OverallHealthStatus, error)
 }
 
-func (c *RESTClient) GetHealth(ctx context.Context) (*modelv2.OverallHealthStatus, error) {
+func (c *RESTClient) GetHealth(ctx context.Context) (*model.OverallHealthStatus, error) {
 	params := &health.GetHealthParams{
 		Context: ctx,
 	}

@@ -254,7 +254,7 @@ func TestRESTClient_ListArtifacts(t *testing.T) {
 
 	resp, err := apiClient.ListArtifacts(ctx, projectName, repositoryName)
 	require.NoError(t, err)
-	require.NotNil(t, resp)
+	require.Len(t, resp, 0)
 
 	mockClient.Artifact.AssertExpectations(t)
 }
@@ -278,7 +278,7 @@ func TestRESTClient_ListTags(t *testing.T) {
 
 	resp, err := apiClient.ListTags(ctx, projectName, repositoryName, reference)
 	require.NoError(t, err)
-	require.NotNil(t, resp)
+	require.Len(t, resp, 0)
 
 	mockClient.Artifact.AssertExpectations(t)
 }

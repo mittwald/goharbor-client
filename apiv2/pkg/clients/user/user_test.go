@@ -54,15 +54,6 @@ func TestTRESTClient_NewUser(t *testing.T) {
 
 	createParams.WithTimeout(apiClient.Options.Timeout)
 
-	listParams := &user.ListUsersParams{
-		PageSize: &clienttesting.DefaultOpts.PageSize,
-		Q:        &clienttesting.DefaultOpts.Query,
-		Sort:     &clienttesting.DefaultOpts.Sort,
-		Context:  ctx,
-	}
-
-	listParams.WithTimeout(apiClient.Options.Timeout)
-
 	mockClient.User.On("CreateUser", createParams,
 		mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&user.CreateUserCreated{}, nil)
@@ -151,6 +142,7 @@ func TestRESTClient_GetUserByName(t *testing.T) {
 	apiClient, mockClient := APIandMockClientsForTests()
 
 	listParams := &user.ListUsersParams{
+		Page:     &apiClient.Options.Page,
 		PageSize: &apiClient.Options.PageSize,
 		Q:        &apiClient.Options.Query,
 		Sort:     &apiClient.Options.Sort,
@@ -322,6 +314,7 @@ func TestRESTClient_UserExists(t *testing.T) {
 	getParams.WithTimeout(apiClient.Options.Timeout)
 
 	listParams := &user.ListUsersParams{
+		Page:     &apiClient.Options.Page,
 		PageSize: &apiClient.Options.PageSize,
 		Q:        &apiClient.Options.Query,
 		Sort:     &apiClient.Options.Sort,

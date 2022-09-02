@@ -33,11 +33,14 @@ func TestRESTClient_ListAuditLogs(t *testing.T) {
 	apiClient, mockClient := APIandMockClientsForTests()
 
 	listAuditLogsParams := &auditlog.ListAuditLogsParams{
+		Page:     &apiClient.Options.Page,
 		PageSize: &apiClient.Options.PageSize,
 		Q:        &apiClient.Options.Query,
 		Sort:     &apiClient.Options.Sort,
 		Context:  ctx,
 	}
+
+	listAuditLogsParams.WithTimeout(apiClient.Options.Timeout)
 
 	mockClient.Auditlog.On("ListAuditLogs", listAuditLogsParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&auditlog.ListAuditLogsOK{}, nil)

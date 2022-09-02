@@ -3,7 +3,6 @@ package artifact
 import (
 	"context"
 	"fmt"
-
 	"github.com/go-openapi/runtime"
 	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/artifact"
@@ -173,27 +172,49 @@ func (c *RESTClient) GetArtifact(ctx context.Context, projectName, repositoryNam
 }
 
 func (c *RESTClient) ListArtifacts(ctx context.Context, projectName, repositoryName string) ([]*model.Artifact, error) {
+	var artifacts []*model.Artifact
+	page := c.Options.Page
+
 	params := artifact.NewListArtifactsParams()
 	params.WithContext(ctx)
 	params.WithTimeout(c.Options.Timeout)
-	params.Page = &c.Options.Page
+	params.Page = &page
 	params.PageSize = &c.Options.PageSize
 	params.Q = &c.Options.Query
 	params.Sort = &c.Options.Sort
 	params.WithProjectName(projectName)
 	params.WithRepositoryName(repositoryName)
 
-	resp, err := c.V2Client.Artifact.ListArtifacts(params, c.AuthInfo)
-	if err != nil {
-		return nil, handleSwaggerArtifactErrors(err)
+	for {
+		resp, err := c.V2Client.Artifact.ListArtifacts(params, c.AuthInfo)
+		if err != nil {
+			return nil, handleSwaggerArtifactErrors(err)
+		}
+
+		if len(resp.Payload) == 0 {
+			break
+		}
+
+		totalCount := resp.XTotalCount
+
+		artifacts = append(artifacts, resp.Payload...)
+
+		if int64(len(artifacts)) >= totalCount {
+			break
+		}
+
+		page++
 	}
 
-	return resp.Payload, nil
+	return artifacts, nil
 }
 
 func (c *RESTClient) ListTags(ctx context.Context, projectName, repositoryName, reference string) ([]*model.Tag, error) {
+	var tags []*model.Tag
+	page := c.Options.Page
+
 	params := artifact.NewListTagsParams()
-	params.Page = &c.Options.Page
+	params.Page = &page
 	params.PageSize = &c.Options.PageSize
 	params.WithProjectName(projectName)
 	params.WithRepositoryName(repositoryName)
@@ -203,12 +224,28 @@ func (c *RESTClient) ListTags(ctx context.Context, projectName, repositoryName, 
 	params.WithContext(ctx)
 	params.WithTimeout(c.Options.Timeout)
 
-	resp, err := c.V2Client.Artifact.ListTags(params, c.AuthInfo)
-	if err != nil {
-		return nil, handleSwaggerArtifactErrors(err)
+	for {
+		resp, err := c.V2Client.Artifact.ListTags(params, c.AuthInfo)
+		if err != nil {
+			return nil, handleSwaggerArtifactErrors(err)
+		}
+
+		if len(resp.Payload) == 0 {
+			break
+		}
+
+		totalCount := resp.XTotalCount
+
+		tags = append(tags, resp.Payload...)
+
+		if int64(len(tags)) >= totalCount {
+			break
+		}
+
+		page++
 	}
 
-	return resp.Payload, nil
+	return tags, nil
 }
 
 func (c *RESTClient) RemoveLabel(ctx context.Context, projectName, repositoryName, reference string, id int64) error {

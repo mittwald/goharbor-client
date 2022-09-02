@@ -6,7 +6,7 @@ import (
 
 	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/robot"
-	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/config"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/errors"
 )
@@ -55,15 +55,15 @@ func NewClient(v2Client *v2client.Harbor, opts *config.Options, authInfo runtime
 }
 
 type Client interface {
-	ListRobotAccounts(ctx context.Context) ([]*modelv2.Robot, error)
-	GetRobotAccountByName(ctx context.Context, name string) (*modelv2.Robot, error)
-	GetRobotAccountByID(ctx context.Context, id int64) (*modelv2.Robot, error)
-	NewRobotAccount(ctx context.Context, r *modelv2.RobotCreate) (*modelv2.RobotCreated, error)
+	ListRobotAccounts(ctx context.Context) ([]*model.Robot, error)
+	GetRobotAccountByName(ctx context.Context, name string) (*model.Robot, error)
+	GetRobotAccountByID(ctx context.Context, id int64) (*model.Robot, error)
+	NewRobotAccount(ctx context.Context, r *model.RobotCreate) (*model.RobotCreated, error)
 	DeleteRobotAccountByName(ctx context.Context, name string) error
 	DeleteRobotAccountByID(ctx context.Context, id int64) error
-	UpdateRobotAccount(ctx context.Context, r *modelv2.Robot) error
-	RefreshRobotAccountSecretByID(ctx context.Context, id int64, sec string) (*modelv2.RobotSec, error)
-	RefreshRobotAccountSecretByName(ctx context.Context, name string, sec string) (*modelv2.RobotSec, error)
+	UpdateRobotAccount(ctx context.Context, r *model.Robot) error
+	RefreshRobotAccountSecretByID(ctx context.Context, id int64, sec string) (*model.RobotSec, error)
+	RefreshRobotAccountSecretByName(ctx context.Context, name string, sec string) (*model.RobotSec, error)
 }
 
 type Level string
@@ -85,8 +85,8 @@ func (in AccessAction) String() string {
 }
 
 // ListRobotAccounts ListProjectRobots returns a list of all robot accounts.
-func (c *RESTClient) ListRobotAccounts(ctx context.Context) ([]*modelv2.Robot, error) {
-	var robotAccounts []*modelv2.Robot
+func (c *RESTClient) ListRobotAccounts(ctx context.Context) ([]*model.Robot, error) {
+	var robotAccounts []*model.Robot
 	page := c.Options.Page
 
 	params := &robot.ListRobotParams{
@@ -102,6 +102,10 @@ func (c *RESTClient) ListRobotAccounts(ctx context.Context) ([]*modelv2.Robot, e
 		resp, err := c.V2Client.Robot.ListRobot(params, c.AuthInfo)
 		if err != nil {
 			return nil, handleSwaggerRobotErrors(err)
+		}
+
+		if len(resp.Payload) == 0 {
+			break
 		}
 
 		totalCount := resp.XTotalCount
@@ -120,7 +124,7 @@ func (c *RESTClient) ListRobotAccounts(ctx context.Context) ([]*modelv2.Robot, e
 
 // GetRobotAccountByName GetRobotByName lists all existing robot accounts and returns the one matching the provided name.
 // Note that the generic 'robot$'-prefix of the robot name is implicitly used for getting the resource.
-func (c *RESTClient) GetRobotAccountByName(ctx context.Context, name string) (*modelv2.Robot, error) {
+func (c *RESTClient) GetRobotAccountByName(ctx context.Context, name string) (*model.Robot, error) {
 	robots, err := c.ListRobotAccounts(ctx)
 	if err != nil {
 		return nil, err
@@ -136,7 +140,7 @@ func (c *RESTClient) GetRobotAccountByName(ctx context.Context, name string) (*m
 }
 
 // GetRobotAccountByID GetRobotByID returns a robot account identified by its 'id'.
-func (c *RESTClient) GetRobotAccountByID(ctx context.Context, id int64) (*modelv2.Robot, error) {
+func (c *RESTClient) GetRobotAccountByID(ctx context.Context, id int64) (*model.Robot, error) {
 	params := &robot.GetRobotByIDParams{
 		RobotID: id,
 		Context: ctx,
@@ -152,7 +156,7 @@ func (c *RESTClient) GetRobotAccountByID(ctx context.Context, id int64) (*modelv
 }
 
 // NewRobotAccount creates a new robot account from the specification of 'r' and returns a 'RobotCreated' response.
-func (c *RESTClient) NewRobotAccount(ctx context.Context, r *modelv2.RobotCreate) (*modelv2.RobotCreated, error) {
+func (c *RESTClient) NewRobotAccount(ctx context.Context, r *model.RobotCreate) (*model.RobotCreated, error) {
 	params := &robot.CreateRobotParams{
 		Robot:   r,
 		Context: ctx,
@@ -201,10 +205,10 @@ func (c *RESTClient) DeleteRobotAccountByID(ctx context.Context, id int64) error
 }
 
 // UpdateRobotAccount updates the robot account 'r' with the provided specification.
-// Note that modelv2.Robot.Name & modelv2.Robot.Level are immutable by API definitions.
+// Note that model.Robot.Name & model.Robot.Level are immutable by API definitions.
 // NOTE: Updating existing system-level robot accounts with wildcard access to all projects
 // will fail until https://github.com/goharbor/harbor/pull/17117 is merged.
-func (c *RESTClient) UpdateRobotAccount(ctx context.Context, r *modelv2.Robot) error {
+func (c *RESTClient) UpdateRobotAccount(ctx context.Context, r *model.Robot) error {
 	params := &robot.UpdateRobotParams{
 		Robot:   r,
 		RobotID: r.ID,
@@ -221,8 +225,8 @@ func (c *RESTClient) UpdateRobotAccount(ctx context.Context, r *modelv2.Robot) e
 }
 
 // RefreshRobotAccountSecretByID updates the robot account secret with the provided string "sec", by its id and return a 'RobotSec' response.
-func (c *RESTClient) RefreshRobotAccountSecretByID(ctx context.Context, id int64, sec string) (*modelv2.RobotSec, error) {
-	r := &modelv2.RobotSec{Secret: sec}
+func (c *RESTClient) RefreshRobotAccountSecretByID(ctx context.Context, id int64, sec string) (*model.RobotSec, error) {
+	r := &model.RobotSec{Secret: sec}
 	params := &robot.RefreshSecParams{
 		RobotSec: r,
 		RobotID:  id,
@@ -239,7 +243,7 @@ func (c *RESTClient) RefreshRobotAccountSecretByID(ctx context.Context, id int64
 }
 
 // RefreshRobotAccountSecretByName updates the robot account secret with the provided string "sec", by its name and return a 'RobotSec' response.
-func (c *RESTClient) RefreshRobotAccountSecretByName(ctx context.Context, name string, sec string) (*modelv2.RobotSec, error) {
+func (c *RESTClient) RefreshRobotAccountSecretByName(ctx context.Context, name string, sec string) (*model.RobotSec, error) {
 	robots, err := c.ListRobotAccounts(ctx)
 	if err != nil {
 		return nil, err

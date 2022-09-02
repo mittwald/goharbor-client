@@ -44,6 +44,7 @@ func TestRESTClient_ListProjectWebhookPolicies(t *testing.T) {
 	}
 
 	listParams := &webhook.ListWebhookPoliciesOfProjectParams{
+		Page:            &apiClient.Options.Page,
 		PageSize:        &apiClient.Options.PageSize,
 		ProjectNameOrID: util.ProjectIDAsString(1),
 		Q:               &apiClient.Options.Query,

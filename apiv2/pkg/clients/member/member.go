@@ -2,12 +2,11 @@ package member
 
 import (
 	"context"
-
 	"github.com/go-openapi/runtime"
 
 	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/member"
-	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/config"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/errors"
 )
@@ -44,14 +43,14 @@ func NewClient(v2Client *v2client.Harbor, opts *config.Options, authInfo runtime
 }
 
 type Client interface {
-	AddProjectMember(ctx context.Context, projectNameOrID string, m *modelv2.ProjectMember) error
-	ListProjectMembers(ctx context.Context, projectNameOrID, memberQuery string) ([]*modelv2.ProjectMemberEntity, error)
-	UpdateProjectMember(ctx context.Context, projectNameOrID string, m *modelv2.ProjectMember) error
-	DeleteProjectMember(ctx context.Context, projectNameOrID string, m *modelv2.ProjectMember) error
+	AddProjectMember(ctx context.Context, projectNameOrID string, m *model.ProjectMember) error
+	ListProjectMembers(ctx context.Context, projectNameOrID, memberQuery string) ([]*model.ProjectMemberEntity, error)
+	UpdateProjectMember(ctx context.Context, projectNameOrID string, m *model.ProjectMember) error
+	DeleteProjectMember(ctx context.Context, projectNameOrID string, m *model.ProjectMember) error
 }
 
 // AddProjectMember adds the project member 'm' to the corresponding project.
-func (c *RESTClient) AddProjectMember(ctx context.Context, projectNameOrID string, m *modelv2.ProjectMember) error {
+func (c *RESTClient) AddProjectMember(ctx context.Context, projectNameOrID string, m *model.ProjectMember) error {
 	if m == nil {
 		return &errors.ErrProjectNoMemberProvided{}
 	}
@@ -70,26 +69,46 @@ func (c *RESTClient) AddProjectMember(ctx context.Context, projectNameOrID strin
 }
 
 // ListProjectMembers returns a list of project members.
-func (c *RESTClient) ListProjectMembers(ctx context.Context, projectNameOrID, memberQuery string) ([]*modelv2.ProjectMemberEntity, error) {
+func (c *RESTClient) ListProjectMembers(ctx context.Context, projectNameOrID, memberQuery string) ([]*model.ProjectMemberEntity, error) {
+	var members []*model.ProjectMemberEntity
+	page := c.Options.Page
+
 	params := &member.ListProjectMembersParams{
-		Entityname:      &memberQuery,
+		Page:            &page,
 		PageSize:        &c.Options.PageSize,
+		Entityname:      &memberQuery,
 		ProjectNameOrID: projectNameOrID,
 		Context:         ctx,
 	}
 
 	params.WithTimeout(c.Options.Timeout)
 
-	resp, err := c.V2Client.Member.ListProjectMembers(params, c.AuthInfo)
-	if err != nil {
-		return nil, handleSwaggerMemberErrors(err)
+	for {
+		resp, err := c.V2Client.Member.ListProjectMembers(params, c.AuthInfo)
+		if err != nil {
+			return nil, handleSwaggerMemberErrors(err)
+		}
+
+		if len(resp.Payload) == 0 {
+			break
+		}
+
+		totalCount := resp.XTotalCount
+
+		members = append(members, resp.Payload...)
+
+		if int64(len(members)) >= totalCount {
+			break
+		}
+
+		page++
 	}
 
-	return resp.Payload, nil
+	return members, nil
 }
 
 // UpdateProjectMember updates a project member.
-func (c *RESTClient) UpdateProjectMember(ctx context.Context, projectNameOrID string, m *modelv2.ProjectMember) error {
+func (c *RESTClient) UpdateProjectMember(ctx context.Context, projectNameOrID string, m *model.ProjectMember) error {
 	mid, err := c.getMemberID(ctx, projectNameOrID, m)
 	if err != nil {
 		return err
@@ -98,7 +117,7 @@ func (c *RESTClient) UpdateProjectMember(ctx context.Context, projectNameOrID st
 	params := &member.UpdateProjectMemberParams{
 		Mid:             mid,
 		ProjectNameOrID: projectNameOrID,
-		Role:            &modelv2.RoleRequest{RoleID: m.RoleID},
+		Role:            &model.RoleRequest{RoleID: m.RoleID},
 		Context:         ctx,
 	}
 
@@ -110,7 +129,7 @@ func (c *RESTClient) UpdateProjectMember(ctx context.Context, projectNameOrID st
 }
 
 // DeleteProjectMember deletes the membership between a user and a project.
-func (c *RESTClient) DeleteProjectMember(ctx context.Context, projectNameOrID string, m *modelv2.ProjectMember) error {
+func (c *RESTClient) DeleteProjectMember(ctx context.Context, projectNameOrID string, m *model.ProjectMember) error {
 	if m == nil {
 		return &errors.ErrProjectNoMemberProvided{}
 	}
@@ -134,7 +153,7 @@ func (c *RESTClient) DeleteProjectMember(ctx context.Context, projectNameOrID st
 }
 
 // getMemberID returns the member ID of a user or usergroup in project p.
-func (c *RESTClient) getMemberID(ctx context.Context, projectNameOrID string, m *modelv2.ProjectMember) (int64, error) {
+func (c *RESTClient) getMemberID(ctx context.Context, projectNameOrID string, m *model.ProjectMember) (int64, error) {
 	members, err := c.ListProjectMembers(ctx, projectNameOrID, "")
 	if err != nil {
 		return 0, err
