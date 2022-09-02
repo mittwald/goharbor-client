@@ -22,6 +22,10 @@ type ScheduleObj struct {
 	// A cron expression, a time-based job scheduler.
 	Cron string `json:"cron,omitempty"`
 
+	// The next time to schedule to run the job.
+	// Format: date-time
+	NextScheduledTime strfmt.DateTime `json:"next_scheduled_time,omitempty"`
+
 	// The schedule type. The valid values are 'Hourly', 'Daily', 'Weekly', 'Custom', 'Manual' and 'None'.
 	// 'Manual' means to trigger it right away and 'None' means to cancel the schedule.
 	//
@@ -33,6 +37,10 @@ type ScheduleObj struct {
 func (m *ScheduleObj) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateNextScheduledTime(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
@@ -40,6 +48,19 @@ func (m *ScheduleObj) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *ScheduleObj) validateNextScheduledTime(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.NextScheduledTime) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("next_scheduled_time", "body", "date-time", m.NextScheduledTime.String(), formats); err != nil {
+		return err
+	}
+
 	return nil
 }
 

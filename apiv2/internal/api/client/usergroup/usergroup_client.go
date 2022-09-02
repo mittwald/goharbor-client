@@ -156,7 +156,7 @@ func (a *Client) GetUserGroup(params *GetUserGroupParams, authInfo runtime.Clien
 /*
   ListUserGroups gets all user groups information
 
-  Get all user groups information
+  Get all user groups information, it is open for system admin
 */
 func (a *Client) ListUserGroups(params *ListUserGroupsParams, authInfo runtime.ClientAuthInfoWriter) (*ListUserGroupsOK, error) {
 	// TODO: Validate the params before sending

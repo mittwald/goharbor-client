@@ -134,6 +134,29 @@ func (_m *MockGcClientService) SetTransport(transport runtime.ClientTransport) {
 	_m.Called(transport)
 }
 
+// StopGC provides a mock function with given fields: params, authInfo
+func (_m *MockGcClientService) StopGC(params *gc.StopGCParams, authInfo runtime.ClientAuthInfoWriter) (*gc.StopGCOK, error) {
+	ret := _m.Called(params, authInfo)
+
+	var r0 *gc.StopGCOK
+	if rf, ok := ret.Get(0).(func(*gc.StopGCParams, runtime.ClientAuthInfoWriter) *gc.StopGCOK); ok {
+		r0 = rf(params, authInfo)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*gc.StopGCOK)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*gc.StopGCParams, runtime.ClientAuthInfoWriter) error); ok {
+		r1 = rf(params, authInfo)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // UpdateGCSchedule provides a mock function with given fields: params, authInfo
 func (_m *MockGcClientService) UpdateGCSchedule(params *gc.UpdateGCScheduleParams, authInfo runtime.ClientAuthInfoWriter) (*gc.UpdateGCScheduleOK, error) {
 	ret := _m.Called(params, authInfo)

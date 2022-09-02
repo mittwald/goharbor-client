@@ -16,6 +16,9 @@ import (
 // swagger:model ConfigurationsResponse
 type ConfigurationsResponse struct {
 
+	// The endpoint of the audit log forwarder
+	AuditLogForwardEndpoint *StringConfigItem `json:"audit_log_forward_endpoint,omitempty"`
+
 	// The auth mode of current system, such as "db_auth", "ldap_auth", "oidc_auth"
 	AuthMode *StringConfigItem `json:"auth_mode,omitempty"`
 
@@ -157,6 +160,9 @@ type ConfigurationsResponse struct {
 	// Whether the Harbor instance supports self-registration.  If it''s set to false, admin need to add user to the instance.
 	SelfRegistration *BoolConfigItem `json:"self_registration,omitempty"`
 
+	// Whether skip the audit log in database
+	SkipAuditLogDatabase *BoolConfigItem `json:"skip_audit_log_database,omitempty"`
+
 	// The storage quota per project
 	StoragePerProject *IntegerConfigItem `json:"storage_per_project,omitempty"`
 
@@ -179,6 +185,10 @@ type ConfigurationsResponse struct {
 // Validate validates this configurations response
 func (m *ConfigurationsResponse) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateAuditLogForwardEndpoint(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateAuthMode(formats); err != nil {
 		res = append(res, err)
@@ -368,6 +378,10 @@ func (m *ConfigurationsResponse) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateSkipAuditLogDatabase(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateStoragePerProject(formats); err != nil {
 		res = append(res, err)
 	}
@@ -395,6 +409,24 @@ func (m *ConfigurationsResponse) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *ConfigurationsResponse) validateAuditLogForwardEndpoint(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AuditLogForwardEndpoint) { // not required
+		return nil
+	}
+
+	if m.AuditLogForwardEndpoint != nil {
+		if err := m.AuditLogForwardEndpoint.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("audit_log_forward_endpoint")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -1236,6 +1268,24 @@ func (m *ConfigurationsResponse) validateSelfRegistration(formats strfmt.Registr
 		if err := m.SelfRegistration.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("self_registration")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ConfigurationsResponse) validateSkipAuditLogDatabase(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.SkipAuditLogDatabase) { // not required
+		return nil
+	}
+
+	if m.SkipAuditLogDatabase != nil {
+		if err := m.SkipAuditLogDatabase.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("skip_audit_log_database")
 			}
 			return err
 		}

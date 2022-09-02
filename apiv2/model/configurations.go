@@ -15,6 +15,9 @@ import (
 // swagger:model Configurations
 type Configurations struct {
 
+	// The audit log forward endpoint
+	AuditLogForwardEndpoint *string `json:"audit_log_forward_endpoint,omitempty"`
+
 	// The auth mode of current system, such as "db_auth", "ldap_auth", "oidc_auth"
 	AuthMode *string `json:"auth_mode,omitempty"`
 
@@ -161,6 +164,9 @@ type Configurations struct {
 
 	// Whether the Harbor instance supports self-registration.  If it''s set to false, admin need to add user to the instance.
 	SelfRegistration *bool `json:"self_registration,omitempty"`
+
+	// Skip audit log database
+	SkipAuditLogDatabase *bool `json:"skip_audit_log_database,omitempty"`
 
 	// The storage quota per project
 	StoragePerProject *int64 `json:"storage_per_project,omitempty"`
