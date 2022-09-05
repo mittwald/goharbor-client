@@ -85,12 +85,7 @@ func ExampleNewRESTClient_withOptions() {
 	v2SwaggerClient := v2client.New(runtimeclient.New(harborURL.Host, harborURL.Path, []string{harborURL.Scheme}), strfmt.Default)
 	authInfo := runtimeclient.BasicAuth(username, password)
 
-	options := &config.Options{
-		PageSize: 100,
-		Timeout:  10,
-		Sort:     "-name", // Sort all results in reversed alphabetical order
-		Query:    "",
-	}
+	options := config.Defaults().WithSort("-name")
 
 	harborClient := NewRESTClient(v2SwaggerClient, options, authInfo)
 
