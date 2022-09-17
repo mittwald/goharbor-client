@@ -167,6 +167,10 @@ func (c *RESTClient) GetArtifact(ctx context.Context, projectName, repositoryNam
 	return c.artifact.GetArtifact(ctx, projectName, repositoryName, reference)
 }
 
+func (c *RESTClient) DeleteArtifact(ctx context.Context, projectName, repositoryName, reference string) error {
+	return c.artifact.DeleteArtifact(ctx, projectName, repositoryName, reference)
+}
+
 func (c *RESTClient) ListArtifacts(ctx context.Context, projectName, repositoryName string) ([]*modelv2.Artifact, error) {
 	return c.artifact.ListArtifacts(ctx, projectName, repositoryName)
 }
