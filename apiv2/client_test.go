@@ -28,7 +28,11 @@ func ExampleNewRESTClientForHost() {
 	username := "user"
 	password := "password"
 
-	harborClient, err := NewRESTClientForHost(apiURL, username, password, nil)
+	clientOpts := runtimeclient.TLSClientOptions{
+		InsecureSkipVerify: true,
+	}
+
+	harborClient, err := NewRESTClientForHost(apiURL, username, password, nil, clientOpts)
 	if err != nil {
 		panic(err)
 	}
@@ -55,7 +59,14 @@ func ExampleNewRESTClient() {
 		panic(err)
 	}
 
-	v2SwaggerClient := v2client.New(runtimeclient.New(harborURL.Host, harborURL.Path, []string{harborURL.Scheme}), strfmt.Default)
+	clientOpts := runtimeclient.TLSClientOptions{
+		InsecureSkipVerify: true,
+		//refer to github.com/go-openapi/runtime/client/runtime_test.go
+		//Certificate:        "",
+		//Key:                "",
+	}
+
+	v2SwaggerClient := v2client.New(runtimeclient.NewWithClient(harborURL.Host, harborURL.Path, []string{harborURL.Scheme}, clientOpts), strfmt.Default)
 	authInfo := runtimeclient.BasicAuth(username, password)
 
 	harborClient := NewRESTClient(v2SwaggerClient, nil, authInfo)
@@ -82,7 +93,11 @@ func ExampleNewRESTClient_withOptions() {
 		panic(err)
 	}
 
-	v2SwaggerClient := v2client.New(runtimeclient.New(harborURL.Host, harborURL.Path, []string{harborURL.Scheme}), strfmt.Default)
+	clientOpts := runtimeclient.TLSClientOptions{
+		InsecureSkipVerify: true,
+	}
+
+	v2SwaggerClient := v2client.New(runtimeclient.NewWithClient(harborURL.Host, harborURL.Path, []string{harborURL.Scheme}, clientOpts), strfmt.Default)
 	authInfo := runtimeclient.BasicAuth(username, password)
 
 	options := &config.Options{

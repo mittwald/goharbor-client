@@ -114,7 +114,7 @@ func NewRESTClient(v2Client *v2client.Harbor, opts *config.Options, authInfo run
 
 // NewRESTClientForHost constructs a new REST client containing a swagger API client using the defined
 // host string and basePath, the additional Harbor v2 API suffix as well as basic auth info.
-func NewRESTClientForHost(u, username, password string, opts *config.Options) (*RESTClient, error) {
+func NewRESTClientForHost(u, username, password string, opts *config.Options, clientOpts runtimeclient.TLSClientOptions) (*RESTClient, error) {
 	if !strings.HasSuffix(u, v2URLSuffix) {
 		u += v2URLSuffix
 	}
@@ -124,7 +124,12 @@ func NewRESTClientForHost(u, username, password string, opts *config.Options) (*
 		return nil, err
 	}
 
-	v2SwaggerClient := v2client.New(runtimeclient.New(harborURL.Host, harborURL.Path, []string{harborURL.Scheme}), strfmt.Default)
+	client, err := runtimeclient.TLSClient(clientOpts)
+	if err != nil {
+		return nil, err
+	}
+
+	v2SwaggerClient := v2client.New(runtimeclient.NewWithClient(harborURL.Host, harborURL.Path, []string{harborURL.Scheme}, client), strfmt.Default)
 	authInfo := runtimeclient.BasicAuth(username, password)
 
 	return NewRESTClient(v2SwaggerClient, opts, authInfo), nil
