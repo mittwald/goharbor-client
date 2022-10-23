@@ -2,6 +2,8 @@ package apiv2
 
 import (
 	"context"
+	v2Model "github.com/mittwald/goharbor-client/v5/apiv2/model"
+	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/configurations"
 	"net/url"
 	"strings"
 
@@ -60,28 +62,30 @@ type Client interface {
 	systeminfo.Client
 	user.Client
 	webhook.Client
+	configurations.Client
 }
 
 // RESTClient implements the Client interface as a REST client
 type RESTClient struct {
-	auditlog    *auditlog.RESTClient
-	artifact    *artifact.RESTClient
-	gc          *gc.RESTClient
-	health      *health.RESTClient
-	label       *label.RESTClient
-	member      *member.RESTClient
-	project     *project.RESTClient
-	projectmeta *projectmeta.RESTClient
-	quota       *quota.RESTClient
-	registry    *registry.RESTClient
-	replication *replication.RESTClient
-	repository  *repository.RESTClient
-	retention   *retention.RESTClient
-	robot       *robot.RESTClient
-	robotv1     *robotv1.RESTClient
-	systeminfo  *systeminfo.RESTClient
-	user        *user.RESTClient
-	webhook     *webhook.RESTClient
+	auditlog      *auditlog.RESTClient
+	artifact      *artifact.RESTClient
+	gc            *gc.RESTClient
+	health        *health.RESTClient
+	label         *label.RESTClient
+	member        *member.RESTClient
+	project       *project.RESTClient
+	projectmeta   *projectmeta.RESTClient
+	quota         *quota.RESTClient
+	registry      *registry.RESTClient
+	replication   *replication.RESTClient
+	repository    *repository.RESTClient
+	retention     *retention.RESTClient
+	robot         *robot.RESTClient
+	robotv1       *robotv1.RESTClient
+	systeminfo    *systeminfo.RESTClient
+	user          *user.RESTClient
+	webhook       *webhook.RESTClient
+	configuration *configurations.RESTClient
 }
 
 // NewRESTClient constructs a new REST client containing each sub client.
@@ -91,24 +95,25 @@ func NewRESTClient(v2Client *v2client.Harbor, opts *config.Options, authInfo run
 	}
 
 	return &RESTClient{
-		auditlog:    auditlog.NewClient(v2Client, opts, authInfo),
-		artifact:    artifact.NewClient(v2Client, opts, authInfo),
-		gc:          gc.NewClient(v2Client, opts, authInfo),
-		health:      health.NewClient(v2Client, opts, authInfo),
-		label:       label.NewClient(v2Client, opts, authInfo),
-		member:      member.NewClient(v2Client, opts, authInfo),
-		project:     project.NewClient(v2Client, opts, authInfo),
-		projectmeta: projectmeta.NewClient(v2Client, opts, authInfo),
-		quota:       quota.NewClient(v2Client, opts, authInfo),
-		registry:    registry.NewClient(v2Client, opts, authInfo),
-		replication: replication.NewClient(v2Client, opts, authInfo),
-		repository:  repository.NewClient(v2Client, opts, authInfo),
-		retention:   retention.NewClient(v2Client, opts, authInfo),
-		robot:       robot.NewClient(v2Client, opts, authInfo),
-		robotv1:     robotv1.NewClient(v2Client, opts, authInfo),
-		systeminfo:  systeminfo.NewClient(v2Client, opts, authInfo),
-		user:        user.NewClient(v2Client, opts, authInfo),
-		webhook:     webhook.NewClient(v2Client, opts, authInfo),
+		auditlog:      auditlog.NewClient(v2Client, opts, authInfo),
+		artifact:      artifact.NewClient(v2Client, opts, authInfo),
+		gc:            gc.NewClient(v2Client, opts, authInfo),
+		health:        health.NewClient(v2Client, opts, authInfo),
+		label:         label.NewClient(v2Client, opts, authInfo),
+		member:        member.NewClient(v2Client, opts, authInfo),
+		project:       project.NewClient(v2Client, opts, authInfo),
+		projectmeta:   projectmeta.NewClient(v2Client, opts, authInfo),
+		quota:         quota.NewClient(v2Client, opts, authInfo),
+		registry:      registry.NewClient(v2Client, opts, authInfo),
+		replication:   replication.NewClient(v2Client, opts, authInfo),
+		repository:    repository.NewClient(v2Client, opts, authInfo),
+		retention:     retention.NewClient(v2Client, opts, authInfo),
+		robot:         robot.NewClient(v2Client, opts, authInfo),
+		robotv1:       robotv1.NewClient(v2Client, opts, authInfo),
+		systeminfo:    systeminfo.NewClient(v2Client, opts, authInfo),
+		user:          user.NewClient(v2Client, opts, authInfo),
+		webhook:       webhook.NewClient(v2Client, opts, authInfo),
+		configuration: configurations.NewClient(v2Client, opts, authInfo),
 	}
 }
 
@@ -550,4 +555,12 @@ func (c *RESTClient) UpdateProjectWebhookPolicy(ctx context.Context, projectID i
 
 func (c *RESTClient) DeleteProjectWebhookPolicy(ctx context.Context, projectID int, policyID int64) error {
 	return c.webhook.DeleteProjectWebhookPolicy(ctx, projectID, policyID)
+}
+
+func (c *RESTClient) GetConfigurationsInfo(ctx context.Context) (*v2Model.ConfigurationsResponse, error) {
+	return c.configuration.GetConfigurationsInfo(ctx)
+}
+
+func (c *RESTClient) UpdateConfigurationsInfo(ctx context.Context, cf *v2Model.Configurations) error {
+	return c.configuration.UpdateConfigurationsInfo(ctx, cf)
 }
