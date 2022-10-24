@@ -54,12 +54,11 @@ func (c *RESTClient) UpdateConfigurationsInfo(ctx context.Context, cf *model.Con
 		Context: ctx,
 	}
 	params.WithTimeout(c.Options.Timeout)
-
 	params.Configurations = cf
 
 	_, err := c.V2Client.Configure.UpdateConfigurations(params, c.AuthInfo)
 	if err != nil {
-		return handleSwaggerSystemErrors(err)
+		return err
 	}
 	return nil
 }

@@ -2,7 +2,6 @@ package apiv2
 
 import (
 	"context"
-	v2Model "github.com/mittwald/goharbor-client/v5/apiv2/model"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/configurations"
 	"net/url"
 	"strings"
@@ -557,10 +556,10 @@ func (c *RESTClient) DeleteProjectWebhookPolicy(ctx context.Context, projectID i
 	return c.webhook.DeleteProjectWebhookPolicy(ctx, projectID, policyID)
 }
 
-func (c *RESTClient) GetConfigurationsInfo(ctx context.Context) (*v2Model.ConfigurationsResponse, error) {
+func (c *RESTClient) GetConfigurationsInfo(ctx context.Context) (*modelv2.ConfigurationsResponse, error) {
 	return c.configuration.GetConfigurationsInfo(ctx)
 }
 
-func (c *RESTClient) UpdateConfigurationsInfo(ctx context.Context, cf *v2Model.Configurations) error {
+func (c *RESTClient) UpdateConfigurationsInfo(ctx context.Context, cf *modelv2.Configurations) error {
 	return c.configuration.UpdateConfigurationsInfo(ctx, cf)
 }
