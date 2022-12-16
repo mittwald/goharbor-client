@@ -4,6 +4,7 @@ package apiv2
 
 import (
 	"context"
+	"github.com/go-openapi/runtime"
 	"net/url"
 
 	"github.com/mittwald/goharbor-client/v5/apiv2/model"
@@ -109,6 +110,30 @@ func ExampleNewRESTClient_withOptions() {
 
 func ExampleRESTClient_NewUser() {
 	err := harborClient.NewUser(ctx, "test-user", "foo@example.com", "test user", "password", "a test user")
+	if err != nil {
+		panic(err)
+	}
+}
+
+func ExampleNewRESTClientWithAuthFunc() {
+	// This example constructs a new goharbor-client for a goharbor instance
+	// and create an example project.
+	ctx := context.Background()
+	apiURL := "harbor.mydomain.com/api"
+	tokenAuthFunc := func() runtime.ClientAuthInfoWriterFunc {
+		return runtime.ClientAuthInfoWriterFunc(func(r runtime.ClientRequest, _ strfmt.Registry) error {
+			return r.SetHeaderParam("Authorization", "Bearer 123456")
+		})
+	}
+	harborClient, err := NewRESTClientWithAuthFunc(apiURL, tokenAuthFunc(), nil)
+	if err != nil {
+		panic(err)
+	}
+
+	err = harborClient.NewProject(ctx, &model.ProjectReq{
+		ProjectName: "my-project",
+	})
+
 	if err != nil {
 		panic(err)
 	}
