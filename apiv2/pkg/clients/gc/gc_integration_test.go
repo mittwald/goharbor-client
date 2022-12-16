@@ -78,7 +78,8 @@ func TestGetGarbageCollectionSchedule(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, gc)
 
-	require.Equal(t, gc.Schedule, sched)
+	require.Equal(t, gc.Schedule.Cron, sched.Cron)
+	require.Equal(t, gc.Schedule.Type, sched.Type)
 
 	defer c.ResetGarbageCollection(ctx)
 }
