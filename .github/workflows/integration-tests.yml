@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         harbor: [v1, v2]
-        go: [1.18]
+        go: [1.19]
     steps:
       - uses: actions/checkout@v2
       - name: Setup Go
