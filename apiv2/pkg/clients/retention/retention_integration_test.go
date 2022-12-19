@@ -51,7 +51,7 @@ func newTestRetention(projectID int64) modelv2.RetentionPolicy {
 		},
 		Trigger: &modelv2.RetentionRuleTrigger{
 			Kind:     "Schedule",
-			Settings: map[string]interface{}{"cron": "0 * * * *"},
+			Settings: map[string]interface{}{"cron": "* 0 * * * *"},
 		},
 	}
 }

@@ -18,7 +18,7 @@ type UserGroupSearchItem struct {
 	// The name of the user group
 	GroupName string `json:"group_name,omitempty"`
 
-	// The group type, 1 for LDAP group, 2 for HTTP group.
+	// The group type, 1 for LDAP group, 2 for HTTP group, 3 for OIDC group.
 	GroupType int64 `json:"group_type,omitempty"`
 
 	// The ID of the user group

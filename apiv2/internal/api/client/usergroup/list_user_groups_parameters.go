@@ -86,6 +86,11 @@ type ListUserGroupsParams struct {
 
 	*/
 	XRequestID *string
+	/*GroupName
+	  group name need to search, fuzzy matches
+
+	*/
+	GroupName *string
 	/*LdapGroupDn
 	  search with ldap group DN
 
@@ -151,6 +156,17 @@ func (o *ListUserGroupsParams) SetXRequestID(xRequestID *string) {
 	o.XRequestID = xRequestID
 }
 
+// WithGroupName adds the groupName to the list user groups params
+func (o *ListUserGroupsParams) WithGroupName(groupName *string) *ListUserGroupsParams {
+	o.SetGroupName(groupName)
+	return o
+}
+
+// SetGroupName adds the groupName to the list user groups params
+func (o *ListUserGroupsParams) SetGroupName(groupName *string) {
+	o.GroupName = groupName
+}
+
 // WithLdapGroupDn adds the ldapGroupDn to the list user groups params
 func (o *ListUserGroupsParams) WithLdapGroupDn(ldapGroupDn *string) *ListUserGroupsParams {
 	o.SetLdapGroupDn(ldapGroupDn)
@@ -197,6 +213,22 @@ func (o *ListUserGroupsParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		// header param X-Request-Id
 		if err := r.SetHeaderParam("X-Request-Id", *o.XRequestID); err != nil {
 			return err
+		}
+
+	}
+
+	if o.GroupName != nil {
+
+		// query param group_name
+		var qrGroupName string
+		if o.GroupName != nil {
+			qrGroupName = *o.GroupName
+		}
+		qGroupName := qrGroupName
+		if qGroupName != "" {
+			if err := r.SetQueryParam("group_name", qGroupName); err != nil {
+				return err
+			}
 		}
 
 	}

@@ -25,6 +25,7 @@ import (
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/preheat"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/project"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/project_metadata"
+	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/purge"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/quota"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/registry"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/replication"
@@ -34,6 +35,7 @@ import (
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/robotv1"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/scan"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/scan_all"
+	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/scan_data_export"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/scanner"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/search"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/statistic"
@@ -102,6 +104,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Harbor {
 	cli.Preheat = preheat.New(transport, formats)
 	cli.Project = project.New(transport, formats)
 	cli.ProjectMetadata = project_metadata.New(transport, formats)
+	cli.Purge = purge.New(transport, formats)
 	cli.Quota = quota.New(transport, formats)
 	cli.Registry = registry.New(transport, formats)
 	cli.Replication = replication.New(transport, formats)
@@ -111,6 +114,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Harbor {
 	cli.Robotv1 = robotv1.New(transport, formats)
 	cli.Scan = scan.New(transport, formats)
 	cli.ScanAll = scan_all.New(transport, formats)
+	cli.ScanDataExport = scan_data_export.New(transport, formats)
 	cli.Scanner = scanner.New(transport, formats)
 	cli.Search = search.New(transport, formats)
 	cli.Statistic = statistic.New(transport, formats)
@@ -194,6 +198,8 @@ type Harbor struct {
 
 	ProjectMetadata project_metadata.ClientService
 
+	Purge purge.ClientService
+
 	Quota quota.ClientService
 
 	Registry registry.ClientService
@@ -211,6 +217,8 @@ type Harbor struct {
 	Scan scan.ClientService
 
 	ScanAll scan_all.ClientService
+
+	ScanDataExport scan_data_export.ClientService
 
 	Scanner scanner.ClientService
 
@@ -251,6 +259,7 @@ func (c *Harbor) SetTransport(transport runtime.ClientTransport) {
 	c.Preheat.SetTransport(transport)
 	c.Project.SetTransport(transport)
 	c.ProjectMetadata.SetTransport(transport)
+	c.Purge.SetTransport(transport)
 	c.Quota.SetTransport(transport)
 	c.Registry.SetTransport(transport)
 	c.Replication.SetTransport(transport)
@@ -260,6 +269,7 @@ func (c *Harbor) SetTransport(transport runtime.ClientTransport) {
 	c.Robotv1.SetTransport(transport)
 	c.Scan.SetTransport(transport)
 	c.ScanAll.SetTransport(transport)
+	c.ScanDataExport.SetTransport(transport)
 	c.Scanner.SetTransport(transport)
 	c.Search.SetTransport(transport)
 	c.Statistic.SetTransport(transport)
