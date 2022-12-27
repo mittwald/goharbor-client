@@ -36,6 +36,7 @@ type Client interface {
 	CreateTag(ctx context.Context, projectName, repositoryName, reference string, tag *model.Tag) error
 	DeleteTag(ctx context.Context, projectName, repositoryName, reference, tagName string) error
 	GetArtifact(ctx context.Context, projectName, repositoryName, reference string) (*model.Artifact, error)
+	DeleteArtifact(ctx context.Context, projectName, repositoryName, reference string) error
 	ListArtifacts(ctx context.Context, projectName, repositoryName string) ([]*model.Artifact, error)
 	ListTags(ctx context.Context, projectName, repositoryName, reference string) ([]*model.Tag, error)
 	RemoveLabel(ctx context.Context, projectName, repositoryName, reference string, id int64) error
@@ -169,6 +170,22 @@ func (c *RESTClient) GetArtifact(ctx context.Context, projectName, repositoryNam
 	}
 
 	return resp.Payload, nil
+}
+
+func (c *RESTClient) DeleteArtifact(ctx context.Context, projectName, repositoryName, reference string) error {
+	params := artifact.NewDeleteArtifactParams()
+	params.WithTimeout(c.Options.Timeout)
+	params.WithProjectName(projectName)
+	params.WithRepositoryName(repositoryName)
+	params.WithReference(reference)
+	params.WithContext(ctx)
+
+	_, err := c.V2Client.Artifact.DeleteArtifact(params, c.AuthInfo)
+	if err != nil {
+		return handleSwaggerArtifactErrors(err)
+	}
+
+	return nil
 }
 
 func (c *RESTClient) ListArtifacts(ctx context.Context, projectName, repositoryName string) ([]*model.Artifact, error) {
