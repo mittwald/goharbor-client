@@ -19,6 +19,9 @@ import (
 // swagger:model ReplicationPolicy
 type ReplicationPolicy struct {
 
+	// Whether to enable copy by chunk.
+	CopyByChunk *bool `json:"copy_by_chunk,omitempty"`
+
 	// The create time of the policy.
 	// Format: date-time
 	CreationTime strfmt.DateTime `json:"creation_time,omitempty"`

@@ -21,6 +21,9 @@ type RegistryInfo struct {
 	// The description
 	Description string `json:"description,omitempty"`
 
+	// The registry whether support copy by chunk.
+	SupportedCopyByChunk *bool `json:"supported_copy_by_chunk,omitempty"`
+
 	// The filters that the registry supports
 	SupportedResourceFilters []*FilterStyle `json:"supported_resource_filters"`
 

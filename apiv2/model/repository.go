@@ -22,7 +22,7 @@ type Repository struct {
 
 	// The creation time of the repository
 	// Format: date-time
-	CreationTime strfmt.DateTime `json:"creation_time,omitempty"`
+	CreationTime *strfmt.DateTime `json:"creation_time,omitempty"`
 
 	// The description of the repository
 	Description string `json:"description,omitempty"`
