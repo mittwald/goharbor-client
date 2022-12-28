@@ -17,6 +17,7 @@ import (
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/health"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/icon"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/immutable"
+	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/jobservice"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/label"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/ldap"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/member"
@@ -37,6 +38,7 @@ import (
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/scan_all"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/scan_data_export"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/scanner"
+	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/schedule"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/search"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/statistic"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/system_cve_allowlist"
@@ -96,6 +98,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Harbor {
 	cli.Health = health.New(transport, formats)
 	cli.Icon = icon.New(transport, formats)
 	cli.Immutable = immutable.New(transport, formats)
+	cli.Jobservice = jobservice.New(transport, formats)
 	cli.Label = label.New(transport, formats)
 	cli.Ldap = ldap.New(transport, formats)
 	cli.Member = member.New(transport, formats)
@@ -116,6 +119,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Harbor {
 	cli.ScanAll = scan_all.New(transport, formats)
 	cli.ScanDataExport = scan_data_export.New(transport, formats)
 	cli.Scanner = scanner.New(transport, formats)
+	cli.Schedule = schedule.New(transport, formats)
 	cli.Search = search.New(transport, formats)
 	cli.Statistic = statistic.New(transport, formats)
 	cli.SystemCVEAllowlist = system_cve_allowlist.New(transport, formats)
@@ -182,6 +186,8 @@ type Harbor struct {
 
 	Immutable immutable.ClientService
 
+	Jobservice jobservice.ClientService
+
 	Label label.ClientService
 
 	Ldap ldap.ClientService
@@ -222,6 +228,8 @@ type Harbor struct {
 
 	Scanner scanner.ClientService
 
+	Schedule schedule.ClientService
+
 	Search search.ClientService
 
 	Statistic statistic.ClientService
@@ -251,6 +259,7 @@ func (c *Harbor) SetTransport(transport runtime.ClientTransport) {
 	c.Health.SetTransport(transport)
 	c.Icon.SetTransport(transport)
 	c.Immutable.SetTransport(transport)
+	c.Jobservice.SetTransport(transport)
 	c.Label.SetTransport(transport)
 	c.Ldap.SetTransport(transport)
 	c.Member.SetTransport(transport)
@@ -271,6 +280,7 @@ func (c *Harbor) SetTransport(transport runtime.ClientTransport) {
 	c.ScanAll.SetTransport(transport)
 	c.ScanDataExport.SetTransport(transport)
 	c.Scanner.SetTransport(transport)
+	c.Schedule.SetTransport(transport)
 	c.Search.SetTransport(transport)
 	c.Statistic.SetTransport(transport)
 	c.SystemCVEAllowlist.SetTransport(transport)
