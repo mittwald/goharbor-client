@@ -6,7 +6,7 @@ V1_VERSION = v1.10.15
 V2_VERSION = v2.7.0
 MOCKERY_VERSION = v2.14.0
 GOSWAGGER_VERSION = v0.25.0
-GOLANGCI_LINT_VERSION = v1.47.2
+GOLANGCI_LINT_VERSION = v1.50.1
 
 # Run all code generation targets
 generate: swagger-generate mock-generate
