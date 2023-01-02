@@ -41,6 +41,7 @@ type MockClients struct {
 	Preheat            mocks.MockPreheatClientService
 	Project            mocks.MockProjectClientService
 	ProjectMetadata    mocks.MockProject_metadataClientService
+	Purge              mocks.MockPurgeClientService
 	Quota              mocks.MockQuotaClientService
 	Registry           mocks.MockRegistryClientService
 	Replication        mocks.MockReplicationClientService
@@ -78,6 +79,7 @@ func BuildV2ClientWithMocks(m *MockClients) *v2client.Harbor {
 		Preheat:            &m.Preheat,
 		Project:            &m.Project,
 		ProjectMetadata:    &m.ProjectMetadata,
+		Purge:              &m.Purge,
 		Quota:              &m.Quota,
 		Registry:           &m.Registry,
 		Replication:        &m.Replication,

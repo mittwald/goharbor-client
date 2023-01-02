@@ -9,6 +9,7 @@ require (
 	github.com/go-openapi/swag v0.21.1
 	github.com/go-openapi/validate v0.21.0
 	github.com/goharbor/harbor/src v0.0.0-20220518065850-5a4f6c6167cf
+	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.7.1
 	k8s.io/apimachinery v0.24.0
 
