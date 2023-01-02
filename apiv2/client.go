@@ -2,6 +2,7 @@ package apiv2
 
 import (
 	"context"
+	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/ping"
 	"net/url"
 	"strings"
 
@@ -48,6 +49,7 @@ type Client interface {
 	health.Client
 	label.Client
 	member.Client
+	ping.Client
 	project.Client
 	projectmeta.Client
 	quota.Client
@@ -70,6 +72,7 @@ type RESTClient struct {
 	health      *health.RESTClient
 	label       *label.RESTClient
 	member      *member.RESTClient
+	ping        *ping.RESTClient
 	project     *project.RESTClient
 	projectmeta *projectmeta.RESTClient
 	quota       *quota.RESTClient
@@ -97,6 +100,7 @@ func NewRESTClient(v2Client *v2client.Harbor, opts *config.Options, authInfo run
 		health:      health.NewClient(v2Client, opts, authInfo),
 		label:       label.NewClient(v2Client, opts, authInfo),
 		member:      member.NewClient(v2Client, opts, authInfo),
+		ping:        ping.NewClient(v2Client, opts, authInfo),
 		project:     project.NewClient(v2Client, opts, authInfo),
 		projectmeta: projectmeta.NewClient(v2Client, opts, authInfo),
 		quota:       quota.NewClient(v2Client, opts, authInfo),
@@ -571,4 +575,10 @@ func (c *RESTClient) UpdateProjectWebhookPolicy(ctx context.Context, projectID i
 
 func (c *RESTClient) DeleteProjectWebhookPolicy(ctx context.Context, projectID int, policyID int64) error {
 	return c.webhook.DeleteProjectWebhookPolicy(ctx, projectID, policyID)
+}
+
+// Ping Client
+
+func (c *RESTClient) GetPing(ctx context.Context) (string, error) {
+	return c.ping.GetPing(ctx)
 }

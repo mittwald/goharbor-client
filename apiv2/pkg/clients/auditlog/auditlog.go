@@ -2,6 +2,7 @@ package auditlog
 
 import (
 	"context"
+
 	"github.com/go-openapi/runtime"
 
 	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
@@ -54,7 +55,7 @@ func (c *RESTClient) ListAuditLogs(ctx context.Context) ([]*model.AuditLog, erro
 		if err != nil {
 			return nil, handleSwaggerAuditLogErrors(err)
 		}
-		
+
 		if len(resp.Payload) == 0 {
 			break
 		}

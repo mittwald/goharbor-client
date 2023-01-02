@@ -100,7 +100,7 @@ For example, let's look at the existing `user` package of the `v2` client:
 > To maintain integrity with the rest of the repository,
  new sub-client's `.go`-files should be prefixed with their package name.
 
-`user.go` holds the methods that act operations on `user` objects on the `goharbor` API. The below examples are not guaranteed to be up to date.
+`user.go` holds the methods that act operations on `user` objects on the `goharbor` API. The below examples are not guaranteed to be up-to-date.
 
 It contains a `RESTClient` struct that groups together the `v2` Goharbor client, client `Options` as well as a field `AuthInfo` for [openAPI's `runtime.ClientAuthInfoWriter`](https://pkg.go.dev/github.com/go-openapi/runtime#ClientAuthInfoWriter).
 The latter is used to authenticate requests to the `goharbor` API:
