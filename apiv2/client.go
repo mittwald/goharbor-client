@@ -5,6 +5,8 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/purge"
+
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/label"
 
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/artifact"
@@ -50,6 +52,7 @@ type Client interface {
 	member.Client
 	project.Client
 	projectmeta.Client
+	purge.Client
 	quota.Client
 	registry.Client
 	replication.Client
@@ -72,6 +75,7 @@ type RESTClient struct {
 	member      *member.RESTClient
 	project     *project.RESTClient
 	projectmeta *projectmeta.RESTClient
+	purge       *purge.RESTClient
 	quota       *quota.RESTClient
 	registry    *registry.RESTClient
 	replication *replication.RESTClient
@@ -99,6 +103,7 @@ func NewRESTClient(v2Client *v2client.Harbor, opts *config.Options, authInfo run
 		member:      member.NewClient(v2Client, opts, authInfo),
 		project:     project.NewClient(v2Client, opts, authInfo),
 		projectmeta: projectmeta.NewClient(v2Client, opts, authInfo),
+		purge:       purge.NewClient(v2Client, opts, authInfo),
 		quota:       quota.NewClient(v2Client, opts, authInfo),
 		registry:    registry.NewClient(v2Client, opts, authInfo),
 		replication: replication.NewClient(v2Client, opts, authInfo),
@@ -314,6 +319,33 @@ func (c *RESTClient) UpdateProjectMetadata(ctx context.Context, projectNameOrID 
 
 func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context, projectNameOrID string, key common.MetadataKey) error {
 	return c.projectmeta.DeleteProjectMetadataValue(ctx, projectNameOrID, key)
+}
+
+// Purge Client
+
+func (c *RESTClient) CreatePurgeSchedule(ctx context.Context, schedule *modelv2.Schedule) error {
+	return c.purge.CreatePurgeSchedule(ctx, schedule)
+}
+func (c *RESTClient) RunPurge(ctx context.Context, dryRun bool) error {
+	return c.purge.RunPurge(ctx, dryRun)
+}
+func (c *RESTClient) ListPurgeHistory(ctx context.Context) ([]*modelv2.ExecHistory, error) {
+	return c.purge.ListPurgeHistory(ctx)
+}
+func (c *RESTClient) GetPurgeJob(ctx context.Context, id int64) (*modelv2.ExecHistory, error) {
+	return c.purge.GetPurgeJob(ctx, id)
+}
+func (c *RESTClient) GetPurgeJobLog(ctx context.Context, id int64) (string, error) {
+	return c.purge.GetPurgeJobLog(ctx, id)
+}
+func (c *RESTClient) GetPurgeSchedule(ctx context.Context) (*modelv2.ExecHistory, error) {
+	return c.purge.GetPurgeSchedule(ctx)
+}
+func (c *RESTClient) StopPurge(ctx context.Context, id int64) error {
+	return c.purge.StopPurge(ctx, id)
+}
+func (c *RESTClient) UpdatePurgeSchedule(ctx context.Context, schedule *modelv2.Schedule) error {
+	return c.purge.UpdatePurgeSchedule(ctx, schedule)
 }
 
 // Quota Client

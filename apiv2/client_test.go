@@ -4,8 +4,9 @@ package apiv2
 
 import (
 	"context"
-	"github.com/go-openapi/runtime"
 	"net/url"
+
+	"github.com/go-openapi/runtime"
 
 	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 

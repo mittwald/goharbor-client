@@ -2,6 +2,7 @@ package gc
 
 import (
 	"context"
+
 	"github.com/go-openapi/runtime"
 
 	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
@@ -12,7 +13,7 @@ import (
 	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 )
 
-// RESTClient is a subclient for handling system related actions.
+// RESTClient is a subclient for handling garbage collection related actions.
 type RESTClient struct {
 	// Options contains optional configuration when making API calls.
 	Options *config.Options

@@ -3,6 +3,7 @@ package artifact
 import (
 	"context"
 	"fmt"
+
 	"github.com/go-openapi/runtime"
 	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/artifact"

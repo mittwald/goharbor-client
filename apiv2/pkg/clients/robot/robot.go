@@ -2,6 +2,7 @@ package robot
 
 import (
 	"context"
+
 	"github.com/go-openapi/runtime"
 
 	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
@@ -234,12 +235,12 @@ func (c *RESTClient) RefreshRobotAccountSecretByID(ctx context.Context, id int64
 	}
 	params.WithTimeout(c.Options.Timeout)
 
-	res, err := c.V2Client.Robot.RefreshSec(params, c.AuthInfo)
+	resp, err := c.V2Client.Robot.RefreshSec(params, c.AuthInfo)
 	if err != nil {
 		return nil, handleSwaggerRobotErrors(err)
 	}
 
-	return res.Payload, nil
+	return resp.Payload, nil
 }
 
 // RefreshRobotAccountSecretByName updates the robot account secret with the provided string "sec", by its name and return a 'RobotSec' response.
