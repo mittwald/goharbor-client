@@ -26,5 +26,5 @@ Environment:
 - Other
 
 ```
-# IMPORANT: Please make sure to anonymize any PII like IP addresses and usernames!
+# IMPORTANT: Please make sure to anonymize any PII like IP addresses and usernames!
 ```
