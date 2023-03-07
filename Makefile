@@ -2,8 +2,8 @@
 harbor-teardown test integration-test-v1-ci integration-test-v2-ci integration-test-v1 integration-test-v2 \
 fmt gofmt gofumpt goimports lint uninstall-harbor-v2 uninstall-harbor-v1
 
-V1_VERSION = v1.10.15
-V2_VERSION = v2.7.0
+V1_VERSION = v1.10.17
+V2_VERSION = v2.7.1
 MOCKERY_VERSION = v2.14.0
 GOSWAGGER_VERSION = v0.25.0
 GOLANGCI_LINT_VERSION = v1.50.1
