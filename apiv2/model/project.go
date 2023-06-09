@@ -17,9 +17,6 @@ import (
 // swagger:model Project
 type Project struct {
 
-	// The total number of charts under this project.
-	ChartCount int64 `json:"chart_count"`
-
 	// The creation time of the project.
 	// Format: date-time
 	CreationTime strfmt.DateTime `json:"creation_time,omitempty"`

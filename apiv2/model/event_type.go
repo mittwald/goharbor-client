@@ -9,7 +9,7 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// EventType Webhook supportted event type.
+// EventType Webhook supported event type.
 //
 // swagger:model EventType
 type EventType string

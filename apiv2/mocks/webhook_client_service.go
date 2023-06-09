@@ -60,6 +60,29 @@ func (_m *MockWebhookClientService) DeleteWebhookPolicyOfProject(params *webhook
 	return r0, r1
 }
 
+// GetLogsOfWebhookTask provides a mock function with given fields: params, authInfo
+func (_m *MockWebhookClientService) GetLogsOfWebhookTask(params *webhook.GetLogsOfWebhookTaskParams, authInfo runtime.ClientAuthInfoWriter) (*webhook.GetLogsOfWebhookTaskOK, error) {
+	ret := _m.Called(params, authInfo)
+
+	var r0 *webhook.GetLogsOfWebhookTaskOK
+	if rf, ok := ret.Get(0).(func(*webhook.GetLogsOfWebhookTaskParams, runtime.ClientAuthInfoWriter) *webhook.GetLogsOfWebhookTaskOK); ok {
+		r0 = rf(params, authInfo)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*webhook.GetLogsOfWebhookTaskOK)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*webhook.GetLogsOfWebhookTaskParams, runtime.ClientAuthInfoWriter) error); ok {
+		r1 = rf(params, authInfo)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // GetSupportedEventTypes provides a mock function with given fields: params, authInfo
 func (_m *MockWebhookClientService) GetSupportedEventTypes(params *webhook.GetSupportedEventTypesParams, authInfo runtime.ClientAuthInfoWriter) (*webhook.GetSupportedEventTypesOK, error) {
 	ret := _m.Called(params, authInfo)
@@ -121,6 +144,52 @@ func (_m *MockWebhookClientService) LastTrigger(params *webhook.LastTriggerParam
 
 	var r1 error
 	if rf, ok := ret.Get(1).(func(*webhook.LastTriggerParams, runtime.ClientAuthInfoWriter) error); ok {
+		r1 = rf(params, authInfo)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// ListExecutionsOfWebhookPolicy provides a mock function with given fields: params, authInfo
+func (_m *MockWebhookClientService) ListExecutionsOfWebhookPolicy(params *webhook.ListExecutionsOfWebhookPolicyParams, authInfo runtime.ClientAuthInfoWriter) (*webhook.ListExecutionsOfWebhookPolicyOK, error) {
+	ret := _m.Called(params, authInfo)
+
+	var r0 *webhook.ListExecutionsOfWebhookPolicyOK
+	if rf, ok := ret.Get(0).(func(*webhook.ListExecutionsOfWebhookPolicyParams, runtime.ClientAuthInfoWriter) *webhook.ListExecutionsOfWebhookPolicyOK); ok {
+		r0 = rf(params, authInfo)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*webhook.ListExecutionsOfWebhookPolicyOK)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*webhook.ListExecutionsOfWebhookPolicyParams, runtime.ClientAuthInfoWriter) error); ok {
+		r1 = rf(params, authInfo)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// ListTasksOfWebhookExecution provides a mock function with given fields: params, authInfo
+func (_m *MockWebhookClientService) ListTasksOfWebhookExecution(params *webhook.ListTasksOfWebhookExecutionParams, authInfo runtime.ClientAuthInfoWriter) (*webhook.ListTasksOfWebhookExecutionOK, error) {
+	ret := _m.Called(params, authInfo)
+
+	var r0 *webhook.ListTasksOfWebhookExecutionOK
+	if rf, ok := ret.Get(0).(func(*webhook.ListTasksOfWebhookExecutionParams, runtime.ClientAuthInfoWriter) *webhook.ListTasksOfWebhookExecutionOK); ok {
+		r0 = rf(params, authInfo)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*webhook.ListTasksOfWebhookExecutionOK)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*webhook.ListTasksOfWebhookExecutionParams, runtime.ClientAuthInfoWriter) error); ok {
 		r1 = rf(params, authInfo)
 	} else {
 		r1 = ret.Error(1)

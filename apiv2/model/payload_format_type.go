@@ -9,12 +9,12 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NotifyType Webhook supported notify type.
+// PayloadFormatType The type of webhook paylod format.
 //
-// swagger:model NotifyType
-type NotifyType string
+// swagger:model PayloadFormatType
+type PayloadFormatType string
 
-// Validate validates this notify type
-func (m NotifyType) Validate(formats strfmt.Registry) error {
+// Validate validates this payload format type
+func (m PayloadFormatType) Validate(formats strfmt.Registry) error {
 	return nil
 }

@@ -39,6 +39,9 @@ type GeneralInfo struct {
 	// The flag to indicate whether notification mechanism is enabled on Harbor instance.
 	NotificationEnable *bool `json:"notification_enable,omitempty"`
 
+	// The flag to indicate whether the current auth mode should consider as a primary one.
+	PrimaryAuthMode *bool `json:"primary_auth_mode,omitempty"`
+
 	// Indicate who can create projects, it could be 'adminonly' or 'everyone'.
 	ProjectCreationRestriction *string `json:"project_creation_restriction,omitempty"`
 
@@ -53,9 +56,6 @@ type GeneralInfo struct {
 
 	// Indicate whether the Harbor instance enable user to register himself.
 	SelfRegistration *bool `json:"self_registration,omitempty"`
-
-	// If the Harbor instance is deployed with nested chartmuseum.
-	WithChartmuseum *bool `json:"with_chartmuseum,omitempty"`
 
 	// If the Harbor instance is deployed with nested notary.
 	WithNotary *bool `json:"with_notary,omitempty"`

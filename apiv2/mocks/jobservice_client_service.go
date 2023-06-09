@@ -14,6 +14,29 @@ type MockJobserviceClientService struct {
 	mock.Mock
 }
 
+// ActionGetJobLog provides a mock function with given fields: params, authInfo
+func (_m *MockJobserviceClientService) ActionGetJobLog(params *jobservice.ActionGetJobLogParams, authInfo runtime.ClientAuthInfoWriter) (*jobservice.ActionGetJobLogOK, error) {
+	ret := _m.Called(params, authInfo)
+
+	var r0 *jobservice.ActionGetJobLogOK
+	if rf, ok := ret.Get(0).(func(*jobservice.ActionGetJobLogParams, runtime.ClientAuthInfoWriter) *jobservice.ActionGetJobLogOK); ok {
+		r0 = rf(params, authInfo)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*jobservice.ActionGetJobLogOK)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*jobservice.ActionGetJobLogParams, runtime.ClientAuthInfoWriter) error); ok {
+		r1 = rf(params, authInfo)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // ActionPendingJobs provides a mock function with given fields: params, authInfo
 func (_m *MockJobserviceClientService) ActionPendingJobs(params *jobservice.ActionPendingJobsParams, authInfo runtime.ClientAuthInfoWriter) (*jobservice.ActionPendingJobsOK, error) {
 	ret := _m.Called(params, authInfo)

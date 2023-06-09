@@ -33,9 +33,9 @@ type ClientService interface {
 }
 
 /*
-  Search searches for projects repositories and helm charts
+  Search searches for projects and repositories
 
-  The Search endpoint returns information about the projects, repositories and helm charts offered at public status or related to the current logged in user. The response includes the project, repository list and charts in a proper display order.
+  The Search endpoint returns information about the projects and repositories offered at public status or related to the current logged in user. The response includes the project and repository list in a proper display order.
 */
 func (a *Client) Search(params *SearchParams, authInfo runtime.ClientAuthInfoWriter) (*SearchOK, error) {
 	// TODO: Validate the params before sending

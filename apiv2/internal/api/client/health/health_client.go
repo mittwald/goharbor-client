@@ -35,7 +35,7 @@ type ClientService interface {
 /*
   GetHealth checks the status of harbor components
 
-  Check the status of Harbor components
+  Check the status of Harbor components. This path does not require authentication.
 */
 func (a *Client) GetHealth(params *GetHealthParams, authInfo runtime.ClientAuthInfoWriter) (*GetHealthOK, error) {
 	// TODO: Validate the params before sending

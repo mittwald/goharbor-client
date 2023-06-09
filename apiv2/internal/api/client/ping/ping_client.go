@@ -33,9 +33,9 @@ type ClientService interface {
 }
 
 /*
-  GetPing pings harbor to check if it s alive
+  GetPing pings harbor to check if the API server is alive
 
-  This API simply replies a pong to indicate the process to handle API is up, disregarding the health status of dependent components.
+  This API simply replies a pong to indicate the process to handle API is up, disregarding the health status of dependent components. This path does not require any authentication.
 */
 func (a *Client) GetPing(params *GetPingParams, authInfo runtime.ClientAuthInfoWriter) (*GetPingOK, error) {
 	// TODO: Validate the params before sending

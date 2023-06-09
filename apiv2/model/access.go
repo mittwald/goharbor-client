@@ -15,13 +15,13 @@ import (
 // swagger:model Access
 type Access struct {
 
-	// The action of the access
+	// The action of the access. Possible actions are *, pull, push, create, read, update, delete, list, operate, scanner-pull and stop.
 	Action string `json:"action,omitempty"`
 
 	// The effect of the access
 	Effect string `json:"effect,omitempty"`
 
-	// The resource of the access
+	// The resource of the access. Possible resources are *, artifact, artifact-addition, artifact-label, audit-log, catalog, configuration, distribution, garbage-collection, helm-chart, helm-chart-version, helm-chart-version-label, immutable-tag, label, ldap-user, log, member, metadata, notification-policy, preheat-instance, preheat-policy, project, quota, registry, replication, replication-adapter, replication-policy, repository, robot, scan, scan-all, scanner, system-volumes, tag, tag-retention, user, user-group or "" (for self-reference).
 	Resource string `json:"resource,omitempty"`
 }
 
