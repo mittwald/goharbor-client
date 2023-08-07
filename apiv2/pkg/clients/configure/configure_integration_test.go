@@ -27,6 +27,6 @@ func TestAPIUpdateConfigs(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
-	resp, err := c.UpdateConfigs(ctx, &modelv2.Configurations{AuthMode: authMode})
+	err := c.UpdateConfigs(ctx, &modelv2.Configurations{AuthMode: authMode})
 	require.NoError(t, err)
 }
