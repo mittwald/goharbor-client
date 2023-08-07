@@ -6,6 +6,9 @@ import (
 	"context"
 	"testing"
 
+	modelv2 "github.com/mittwald/goharbor-client/v5/apiv2/model"
+	clienttesting "github.com/mittwald/goharbor-client/v5/apiv2/pkg/testing"
+
 	"github.com/stretchr/testify/require"
 )
 
