@@ -63,14 +63,14 @@ func NewGetInternalconfigOK() *GetInternalconfigOK {
 Get system configurations successfully. The response body is a map.
 */
 type GetInternalconfigOK struct {
-	Payload model.InternalConfigurationsResponse
+	Payload *model.InternalConfigurationsResponse
 }
 
 func (o *GetInternalconfigOK) Error() string {
 	return fmt.Sprintf("[GET /internalconfig][%d] getInternalconfigOK  %+v", 200, o.Payload)
 }
 
-func (o *GetInternalconfigOK) GetPayload() model.InternalConfigurationsResponse {
+func (o *GetInternalconfigOK) GetPayload() *model.InternalConfigurationsResponse {
 	return o.Payload
 }
 
