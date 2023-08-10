@@ -37,6 +37,29 @@ func (_m *MockConfigureClientService) GetConfigurations(params *configure.GetCon
 	return r0, r1
 }
 
+// GetInternalconfig provides a mock function with given fields: params, authInfo
+func (_m *MockConfigureClientService) GetInternalconfig(params *configure.GetInternalconfigParams, authInfo runtime.ClientAuthInfoWriter) (*configure.GetInternalconfigOK, error) {
+	ret := _m.Called(params, authInfo)
+
+	var r0 *configure.GetInternalconfigOK
+	if rf, ok := ret.Get(0).(func(*configure.GetInternalconfigParams, runtime.ClientAuthInfoWriter) *configure.GetInternalconfigOK); ok {
+		r0 = rf(params, authInfo)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*configure.GetInternalconfigOK)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*configure.GetInternalconfigParams, runtime.ClientAuthInfoWriter) error); ok {
+		r1 = rf(params, authInfo)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // SetTransport provides a mock function with given fields: transport
 func (_m *MockConfigureClientService) SetTransport(transport runtime.ClientTransport) {
 	_m.Called(transport)
