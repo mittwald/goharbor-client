@@ -5,6 +5,7 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/configure"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/ping"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/statistic"
 
@@ -49,6 +50,7 @@ const v2URLSuffix string = "/v2.0"
 type Client interface {
 	auditlog.Client
 	artifact.Client
+	configure.Client
 	gc.Client
 	health.Client
 	label.Client
@@ -73,6 +75,7 @@ type Client interface {
 type RESTClient struct {
 	auditlog    *auditlog.RESTClient
 	artifact    *artifact.RESTClient
+	configure   *configure.RESTClient
 	gc          *gc.RESTClient
 	health      *health.RESTClient
 	label       *label.RESTClient
@@ -103,6 +106,7 @@ func NewRESTClient(v2Client *v2client.Harbor, opts *config.Options, authInfo run
 	return &RESTClient{
 		auditlog:    auditlog.NewClient(v2Client, opts, authInfo),
 		artifact:    artifact.NewClient(v2Client, opts, authInfo),
+		configure:   configure.NewClient(v2Client, opts, authInfo),
 		gc:          gc.NewClient(v2Client, opts, authInfo),
 		health:      health.NewClient(v2Client, opts, authInfo),
 		label:       label.NewClient(v2Client, opts, authInfo),
@@ -211,6 +215,16 @@ func (c *RESTClient) ListTags(ctx context.Context, projectName, repositoryName, 
 
 func (c *RESTClient) RemoveLabel(ctx context.Context, projectName, repositoryName, reference string, id int64) error {
 	return c.artifact.RemoveLabel(ctx, projectName, repositoryName, reference, id)
+}
+
+// Configure Client
+
+func (c *RESTClient) GetConfig(ctx context.Context) (*modelv2.ConfigurationsResponse, error) {
+	return c.configure.GetConfigs(ctx)
+}
+
+func (c *RESTClient) UpdateConfigs(ctx context.Context, cfg *modelv2.Configurations) error {
+	return c.configure.UpdateConfigs(ctx, cfg)
 }
 
 // GC Client
