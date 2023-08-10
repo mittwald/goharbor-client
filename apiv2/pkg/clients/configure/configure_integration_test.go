@@ -19,14 +19,14 @@ func TestAPIGetConfig(t *testing.T) {
 	resp, err := c.GetConfigs(ctx)
 	require.NoError(t, err)
 
-	require.Equal(t, "db_auth", *resp.AuthMode)
+	require.Equal(t, "db_auth", *&resp.AuthMode.Value)
 }
 
 func TestAPIUpdateConfigs(t *testing.T) {
-	authMode := "oidc"
+	authMode := "db_auth"
 	ctx := context.Background()
 	c := NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
 
-	err := c.UpdateConfigs(ctx, &modelv2.Configurations{AuthMode: authMode})
+	err := c.UpdateConfigs(ctx, &modelv2.Configurations{AuthMode: &authMode})
 	require.NoError(t, err)
 }
