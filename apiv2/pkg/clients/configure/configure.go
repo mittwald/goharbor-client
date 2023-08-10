@@ -33,7 +33,6 @@ func NewClient(v2Client *v2client.Harbor, opts *config.Options, authInfo runtime
 
 type Client interface {
 	GetConfigs(ctx context.Context) (*model.ConfigurationsResponse, error)
-	GetInternalConfigs(ctx context.Context) (*model.InternalConfigurationsResponse, error)
 	UpdateConfigs(ctx context.Context, newConfiguration *model.Configurations) error
 }
 
