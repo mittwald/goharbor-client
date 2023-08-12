@@ -21,7 +21,7 @@ type ComponentHealthStatus struct {
 	// The component name
 	Name string `json:"name,omitempty"`
 
-	// The health status of component
+	// The health status of component. Is either "healthy" or "unhealthy".
 	Status string `json:"status,omitempty"`
 }
 

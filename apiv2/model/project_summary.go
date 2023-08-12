@@ -16,9 +16,6 @@ import (
 // swagger:model ProjectSummary
 type ProjectSummary struct {
 
-	// The total number of charts under this project.
-	ChartCount int64 `json:"chart_count"`
-
 	// The total number of developer members.
 	DeveloperCount int64 `json:"developer_count,omitempty"`
 

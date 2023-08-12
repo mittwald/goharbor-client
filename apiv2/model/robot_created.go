@@ -21,13 +21,13 @@ type RobotCreated struct {
 	// Format: date-time
 	CreationTime strfmt.DateTime `json:"creation_time,omitempty"`
 
-	// The expiration data of the robot
+	// The expiration date of the robot
 	ExpiresAt int64 `json:"expires_at,omitempty"`
 
 	// The ID of the robot
 	ID int64 `json:"id,omitempty"`
 
-	// The name of the tag
+	// The name of the robot
 	Name string `json:"name,omitempty"`
 
 	// The secret of the robot

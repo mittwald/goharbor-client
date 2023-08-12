@@ -31,11 +31,17 @@ type ClientService interface {
 
 	DeleteWebhookPolicyOfProject(params *DeleteWebhookPolicyOfProjectParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteWebhookPolicyOfProjectOK, error)
 
+	GetLogsOfWebhookTask(params *GetLogsOfWebhookTaskParams, authInfo runtime.ClientAuthInfoWriter) (*GetLogsOfWebhookTaskOK, error)
+
 	GetSupportedEventTypes(params *GetSupportedEventTypesParams, authInfo runtime.ClientAuthInfoWriter) (*GetSupportedEventTypesOK, error)
 
 	GetWebhookPolicyOfProject(params *GetWebhookPolicyOfProjectParams, authInfo runtime.ClientAuthInfoWriter) (*GetWebhookPolicyOfProjectOK, error)
 
 	LastTrigger(params *LastTriggerParams, authInfo runtime.ClientAuthInfoWriter) (*LastTriggerOK, error)
+
+	ListExecutionsOfWebhookPolicy(params *ListExecutionsOfWebhookPolicyParams, authInfo runtime.ClientAuthInfoWriter) (*ListExecutionsOfWebhookPolicyOK, error)
+
+	ListTasksOfWebhookExecution(params *ListTasksOfWebhookExecutionParams, authInfo runtime.ClientAuthInfoWriter) (*ListTasksOfWebhookExecutionOK, error)
 
 	ListWebhookPoliciesOfProject(params *ListWebhookPoliciesOfProjectParams, authInfo runtime.ClientAuthInfoWriter) (*ListWebhookPoliciesOfProjectOK, error)
 
@@ -121,9 +127,47 @@ func (a *Client) DeleteWebhookPolicyOfProject(params *DeleteWebhookPolicyOfProje
 }
 
 /*
+  GetLogsOfWebhookTask gets logs for a specific webhook task
+
+  This endpoint returns the logs of a specific webhook task.
+
+*/
+func (a *Client) GetLogsOfWebhookTask(params *GetLogsOfWebhookTaskParams, authInfo runtime.ClientAuthInfoWriter) (*GetLogsOfWebhookTaskOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetLogsOfWebhookTaskParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetLogsOfWebhookTask",
+		Method:             "GET",
+		PathPattern:        "/projects/{project_name_or_id}/webhook/policies/{webhook_policy_id}/executions/{execution_id}/tasks/{task_id}/log",
+		ProducesMediaTypes: []string{"text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetLogsOfWebhookTaskReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetLogsOfWebhookTaskOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetLogsOfWebhookTask: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   GetSupportedEventTypes gets supported event types and notify types
 
-  Get supportted event types and notify types.
+  Get supported event types and notify types.
 */
 func (a *Client) GetSupportedEventTypes(params *GetSupportedEventTypesParams, authInfo runtime.ClientAuthInfoWriter) (*GetSupportedEventTypesOK, error) {
 	// TODO: Validate the params before sending
@@ -230,6 +274,82 @@ func (a *Client) LastTrigger(params *LastTriggerParams, authInfo runtime.ClientA
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for LastTrigger: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ListExecutionsOfWebhookPolicy lists executions for a specific webhook policy
+
+  This endpoint returns the executions of a specific webhook policy.
+
+*/
+func (a *Client) ListExecutionsOfWebhookPolicy(params *ListExecutionsOfWebhookPolicyParams, authInfo runtime.ClientAuthInfoWriter) (*ListExecutionsOfWebhookPolicyOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListExecutionsOfWebhookPolicyParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "ListExecutionsOfWebhookPolicy",
+		Method:             "GET",
+		PathPattern:        "/projects/{project_name_or_id}/webhook/policies/{webhook_policy_id}/executions",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListExecutionsOfWebhookPolicyReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ListExecutionsOfWebhookPolicyOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for ListExecutionsOfWebhookPolicy: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ListTasksOfWebhookExecution lists tasks for a specific webhook execution
+
+  This endpoint returns the tasks of a specific webhook execution.
+
+*/
+func (a *Client) ListTasksOfWebhookExecution(params *ListTasksOfWebhookExecutionParams, authInfo runtime.ClientAuthInfoWriter) (*ListTasksOfWebhookExecutionOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListTasksOfWebhookExecutionParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "ListTasksOfWebhookExecution",
+		Method:             "GET",
+		PathPattern:        "/projects/{project_name_or_id}/webhook/policies/{webhook_policy_id}/executions/{execution_id}/tasks",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListTasksOfWebhookExecutionReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ListTasksOfWebhookExecutionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for ListTasksOfWebhookExecution: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

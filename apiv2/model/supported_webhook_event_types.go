@@ -13,7 +13,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// SupportedWebhookEventTypes Supportted webhook event types and notify types.
+// SupportedWebhookEventTypes Supported webhook event types and notify types.
 //
 // swagger:model SupportedWebhookEventTypes
 type SupportedWebhookEventTypes struct {
@@ -23,6 +23,9 @@ type SupportedWebhookEventTypes struct {
 
 	// notify type
 	NotifyType []NotifyType `json:"notify_type"`
+
+	// payload formats
+	PayloadFormats []*PayloadFormat `json:"payload_formats"`
 }
 
 // Validate validates this supported webhook event types
@@ -34,6 +37,10 @@ func (m *SupportedWebhookEventTypes) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateNotifyType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePayloadFormats(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -76,6 +83,31 @@ func (m *SupportedWebhookEventTypes) validateNotifyType(formats strfmt.Registry)
 				return ve.ValidateName("notify_type" + "." + strconv.Itoa(i))
 			}
 			return err
+		}
+
+	}
+
+	return nil
+}
+
+func (m *SupportedWebhookEventTypes) validatePayloadFormats(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.PayloadFormats) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.PayloadFormats); i++ {
+		if swag.IsZero(m.PayloadFormats[i]) { // not required
+			continue
+		}
+
+		if m.PayloadFormats[i] != nil {
+			if err := m.PayloadFormats[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("payload_formats" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
 		}
 
 	}

@@ -4,7 +4,7 @@ HARBOR_VERSION="${1}"
 HARBOR_CHART_VERSION=""
 REGISTRY_IMAGE_TAG="2.7.1"
 
-echo "Check for existence of necessary tools..."
+echo "Checking for existence of necessary tools..."
 
 docker --version &>/dev/null
 if [[ $? -ne "0" ]]; then

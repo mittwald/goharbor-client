@@ -36,8 +36,14 @@ type Accessory struct {
 	// The artifact size of the accessory
 	Size int64 `json:"size"`
 
-	// The subject artifact id of the accessory
-	SubjectArtifactID int64 `json:"subject_artifact_id"`
+	// The subject artifact digest of the accessory
+	SubjectArtifactDigest string `json:"subject_artifact_digest"`
+
+	// Going to be deprecated, use repo and digest for insteand. The subject artifact id of the accessory.
+	SubjectArtifactID int64 `json:"subject_artifact_id,omitempty"`
+
+	// The subject artifact repository name of the accessory
+	SubjectArtifactRepo string `json:"subject_artifact_repo"`
 
 	// The artifact size of the accessory
 	Type string `json:"type"`

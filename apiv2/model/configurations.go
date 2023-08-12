@@ -126,6 +126,9 @@ type Configurations struct {
 	// Verify the OIDC provider's certificate'
 	OIDCVerifyCert *bool `json:"oidc_verify_cert,omitempty"`
 
+	// The flag to indicate whether the current auth mode should consider as a primary one.
+	PrimaryAuthMode *bool `json:"primary_auth_mode,omitempty"`
+
 	// Indicate who can create projects, it could be ''adminonly'' or ''everyone''.
 	ProjectCreationRestriction *string `json:"project_creation_restriction,omitempty"`
 
@@ -140,6 +143,9 @@ type Configurations struct {
 
 	// The robot account token duration in days
 	RobotTokenDuration *int64 `json:"robot_token_duration,omitempty"`
+
+	// Whether or not to skip update pull time for scanner
+	ScannerSkipUpdatePulltime *bool `json:"scanner_skip_update_pulltime,omitempty"`
 
 	// Whether the Harbor instance supports self-registration.  If it''s set to false, admin need to add user to the instance.
 	SelfRegistration *bool `json:"self_registration,omitempty"`
