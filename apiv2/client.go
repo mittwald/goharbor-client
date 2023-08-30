@@ -47,6 +47,9 @@ import (
 
 const v2URLSuffix string = "/v2.0"
 
+// This ensures RESTClient implements the Client interface
+var _ Client = (*RESTClient)(nil)
+
 type Client interface {
 	auditlog.Client
 	artifact.Client
@@ -219,7 +222,7 @@ func (c *RESTClient) RemoveLabel(ctx context.Context, projectName, repositoryNam
 
 // Configure Client
 
-func (c *RESTClient) GetConfig(ctx context.Context) (*modelv2.ConfigurationsResponse, error) {
+func (c *RESTClient) GetConfigs(ctx context.Context) (*modelv2.ConfigurationsResponse, error) {
 	return c.configure.GetConfigs(ctx)
 }
 
@@ -265,7 +268,7 @@ func (c *RESTClient) GetLabelByID(ctx context.Context, id int64) (*modelv2.Label
 	return c.label.GetLabelByID(ctx, id)
 }
 
-func (c *RESTClient) ListLabels(ctx context.Context, name string, projectID *int64) ([]*modelv2.Label, error) {
+func (c *RESTClient) ListLabels(ctx context.Context, name string, projectID *int64, scope label.Scope) ([]*modelv2.Label, error) {
 	return c.label.ListLabels(ctx, name, projectID)
 }
 
