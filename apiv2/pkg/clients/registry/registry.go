@@ -86,8 +86,11 @@ func (c *RESTClient) GetRegistryByName(ctx context.Context, name string) (*model
 		return nil, handleSwaggerRegistryErrors(err)
 	}
 
-	if len(registries) > 1 {
-		return nil, &errors.ErrMultipleResults{}
+	switch nregistries := len(registries); {
+		case nregistries > 1:
+			return nil, &errors.ErrMultipleResults{}
+		case nregistries == 0:
+			return nil, &errors.ErrRegistryNotFound{}
 	}
 	return registries[0], nil
 }
