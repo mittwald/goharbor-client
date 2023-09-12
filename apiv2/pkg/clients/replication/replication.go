@@ -93,8 +93,11 @@ func (c *RESTClient) GetReplicationPolicyByName(ctx context.Context, name string
 		return nil, err
 	}
 
-	if len(policies) > 1 {
+	switch {
+	case len(policies) > 1:
 		return nil, &errors.ErrMultipleResults{}
+	case len(policies) == 0:
+		return nil, &errors.ErrNotFound{}
 	}
 
 	return policies[0], nil
