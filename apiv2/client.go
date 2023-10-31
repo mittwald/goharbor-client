@@ -2,6 +2,7 @@ package apiv2
 
 import (
 	"context"
+	"net/http"
 	"net/url"
 	"strings"
 
@@ -145,6 +146,24 @@ func NewRESTClientForHost(u, username, password string, opts *config.Options) (*
 	}
 
 	v2SwaggerClient := v2client.New(runtimeclient.New(harborURL.Host, harborURL.Path, []string{harborURL.Scheme}), strfmt.Default)
+	authInfo := runtimeclient.BasicAuth(username, password)
+
+	return NewRESTClient(v2SwaggerClient, opts, authInfo), nil
+}
+
+// NewRESTClientForHostWithClient constructs a new REST client containing a swagger API client using the defined
+// host string and basePath, the additional Harbor v2 API suffix as well as basic auth info while using provided http client.
+func NewRESTClientForHostWithClient(u, username, password string, opts *config.Options, client *http.Client) (*RESTClient, error) {
+	if !strings.HasSuffix(u, v2URLSuffix) {
+		u += v2URLSuffix
+	}
+
+	harborURL, err := url.Parse(u)
+	if err != nil {
+		return nil, err
+	}
+
+	v2SwaggerClient := v2client.New(runtimeclient.NewWithClient(harborURL.Host, harborURL.Path, []string{harborURL.Scheme}, client), strfmt.Default)
 	authInfo := runtimeclient.BasicAuth(username, password)
 
 	return NewRESTClient(v2SwaggerClient, opts, authInfo), nil
