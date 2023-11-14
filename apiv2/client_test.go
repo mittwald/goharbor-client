@@ -71,6 +71,42 @@ func ExampleNewRESTClient() {
 	}
 }
 
+func ExampleNewRESTClientWithHttpClient() {
+	// This example constructs a new (goharbor) REST client
+	// and create an example project.
+	ctx := context.Background()
+	apiURL := "harbor.mydomain.com/api"
+	username := "user"
+	password := "password"
+
+	var optsTLS runtimeclient.TLSClientOptions
+	// optsTLS.Certificate = "/path/to/client.crt"
+	// optsTLS.Key = "/path/to/client.Key"
+	// optsTLS.CA = "/path/to/rootca.cert.pem"
+	client, err := runtimeclient.TLSClient(optsTLS)
+	if err != nil {
+		return nil, err
+	}
+
+	harborURL, err := url.Parse(apiURL)
+	if err != nil {
+		panic(err)
+	}
+
+	v2SwaggerClient := v2client.New(runtimeclient.NewWithClient(harborURL.Host, harborURL.Path, []string{harborURL.Scheme}), strfmt.Default)
+	authInfo := runtimeclient.BasicAuth(username, password)
+
+	harborClient := NewRESTClient(v2SwaggerClient, nil, authInfo)
+
+	err = harborClient.NewProject(ctx, &model.ProjectReq{
+		ProjectName: "my-project",
+	})
+
+	if err != nil {
+		panic(err)
+	}
+}
+
 func ExampleNewRESTClient_withOptions() {
 	// This example constructs a new (goharbor) REST client using the provided 'options',
 	// and lists all projects matching the 'options' configuration.
