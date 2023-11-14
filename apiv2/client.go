@@ -7,6 +7,7 @@ import (
 
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/configure"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/ping"
+	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/scanall"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/statistic"
 
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/purge"
@@ -69,6 +70,7 @@ type Client interface {
 	retention.Client
 	robot.Client
 	robotv1.Client
+	scanall.Client
 	systeminfo.Client
 	user.Client
 	webhook.Client
@@ -94,6 +96,7 @@ type RESTClient struct {
 	retention   *retention.RESTClient
 	robot       *robot.RESTClient
 	robotv1     *robotv1.RESTClient
+	scanall     *scanall.RESTClient
 	statistic   *statistic.RESTClient
 	systeminfo  *systeminfo.RESTClient
 	user        *user.RESTClient
@@ -125,6 +128,7 @@ func NewRESTClient(v2Client *v2client.Harbor, opts *config.Options, authInfo run
 		retention:   retention.NewClient(v2Client, opts, authInfo),
 		robot:       robot.NewClient(v2Client, opts, authInfo),
 		robotv1:     robotv1.NewClient(v2Client, opts, authInfo),
+		scanall:     scanall.NewClient(v2Client, opts, authInfo),
 		statistic:   statistic.NewClient(v2Client, opts, authInfo),
 		systeminfo:  systeminfo.NewClient(v2Client, opts, authInfo),
 		user:        user.NewClient(v2Client, opts, authInfo),
@@ -560,6 +564,18 @@ func (c *RESTClient) DeleteProjectRobotV1(ctx context.Context, projectNameOrID s
 
 func (c *RESTClient) GetStatistic(ctx context.Context) (*modelv2.Statistic, error) {
 	return c.statistic.GetStatistic(ctx)
+}
+
+// Scanall Client
+
+func (c *RESTClient) CreateScanAllSchedule(ctx context.Context, schedule *modelv2.Schedule) error {
+	return c.scanall.CreateScanAllSchedule(ctx, schedule)
+}
+func (c *RESTClient) GetScanAllSchedule(ctx context.Context) (*modelv2.Schedule, error) {
+	return c.scanall.GetScanAllSchedule(ctx)
+}
+func (c *RESTClient) UpdateScanAllSchedule(ctx context.Context, schedule *modelv2.Schedule) error {
+	return c.scanall.UpdateScanAllSchedule(ctx, schedule)
 }
 
 // Systeminfo Client
