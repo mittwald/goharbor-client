@@ -64,6 +64,7 @@ func (c *RESTClient) NewReplicationPolicy(ctx context.Context, destRegistry, src
 			Name:                      name,
 			Override:                  override,
 			ReplicateDeletion:         replicateDeletion,
+			Deletion:                  replicateDeletion,
 			SrcRegistry:               srcRegistry,
 			Trigger:                   trigger,
 		},
