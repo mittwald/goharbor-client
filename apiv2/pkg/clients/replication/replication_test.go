@@ -33,6 +33,7 @@ var (
 	destNamespace     = ns
 	replication       = &modelv2.ReplicationPolicy{
 		ReplicateDeletion: replicateDeletion,
+		Deletion:          replicateDeletion,
 		Description:       description,
 		DestNamespace:     destNamespace,
 		DestRegistry:      destRegistry,
