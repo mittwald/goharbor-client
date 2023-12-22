@@ -21,6 +21,9 @@ type Configurations struct {
 	// The auth mode of current system, such as "db_auth", "ldap_auth", "oidc_auth"
 	AuthMode *string `json:"auth_mode,omitempty"`
 
+	// The banner message for the UI.It is the stringified result of the banner message object
+	BannerMessage *string `json:"banner_message,omitempty"`
+
 	// The group which has the harbor admin privileges
 	HTTPAuthproxyAdminGroups *string `json:"http_authproxy_admin_groups,omitempty"`
 

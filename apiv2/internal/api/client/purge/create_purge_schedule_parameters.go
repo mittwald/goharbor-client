@@ -68,9 +68,9 @@ type CreatePurgeScheduleParams struct {
 	*/
 	XRequestID *string
 	/*Schedule
-	  The purge job's schedule, it is a json object. ｜
-	The sample format is ｜
-	{"parameters":{"audit_retention_hour":168,"dry_run":true, "include_operations":"create,delete,pull"},"schedule":{"type":"Hourly","cron":"0 0 * * * *"}} ｜
+	  The purge job's schedule, it is a json object. |
+	The sample format is |
+	{"parameters":{"audit_retention_hour":168,"dry_run":true, "include_operations":"create,delete,pull"},"schedule":{"type":"Hourly","cron":"0 0 * * * *"}} |
 	the include_operation should be a comma separated string, e.g. create,delete,pull, if it is empty, no operation will be purged.
 
 

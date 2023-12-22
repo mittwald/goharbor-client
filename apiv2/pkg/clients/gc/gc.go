@@ -69,7 +69,8 @@ func (c *RESTClient) NewGarbageCollection(ctx context.Context, gcSchedule *model
 
 // UpdateGarbageCollection updates the system GC schedule.
 func (c *RESTClient) UpdateGarbageCollection(ctx context.Context,
-	newGCSchedule *model.Schedule) error {
+	newGCSchedule *model.Schedule,
+) error {
 	if newGCSchedule == nil {
 		return &errors.ErrSystemGcScheduleNotProvided{}
 	}

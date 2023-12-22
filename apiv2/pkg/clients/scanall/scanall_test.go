@@ -69,9 +69,10 @@ func TestRESTClient_GetScanAllSchedule(t *testing.T) {
 
 	mockClient.ScanAll.On("GetScanAllSchedule", params, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&scan_all.GetScanAllScheduleOK{
-			Payload: &model.Schedule{Schedule: &model.ScheduleObj{
-				Type: "Daily",
-			},
+			Payload: &model.Schedule{
+				Schedule: &model.ScheduleObj{
+					Type: "Daily",
+				},
 			},
 		}, nil)
 	_, err := apiClient.GetScanAllSchedule(ctx)

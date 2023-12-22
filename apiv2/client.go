@@ -374,24 +374,31 @@ func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context, projectName
 func (c *RESTClient) CreatePurgeSchedule(ctx context.Context, schedule *modelv2.Schedule) error {
 	return c.purge.CreatePurgeSchedule(ctx, schedule)
 }
+
 func (c *RESTClient) RunPurge(ctx context.Context, dryRun bool) error {
 	return c.purge.RunPurge(ctx, dryRun)
 }
+
 func (c *RESTClient) ListPurgeHistory(ctx context.Context) ([]*modelv2.ExecHistory, error) {
 	return c.purge.ListPurgeHistory(ctx)
 }
+
 func (c *RESTClient) GetPurgeJob(ctx context.Context, id int64) (*modelv2.ExecHistory, error) {
 	return c.purge.GetPurgeJob(ctx, id)
 }
+
 func (c *RESTClient) GetPurgeJobLog(ctx context.Context, id int64) (string, error) {
 	return c.purge.GetPurgeJobLog(ctx, id)
 }
+
 func (c *RESTClient) GetPurgeSchedule(ctx context.Context) (*modelv2.ExecHistory, error) {
 	return c.purge.GetPurgeSchedule(ctx)
 }
+
 func (c *RESTClient) StopPurge(ctx context.Context, id int64) error {
 	return c.purge.StopPurge(ctx, id)
 }
+
 func (c *RESTClient) UpdatePurgeSchedule(ctx context.Context, schedule *modelv2.Schedule) error {
 	return c.purge.UpdatePurgeSchedule(ctx, schedule)
 }
@@ -441,7 +448,8 @@ func (c *RESTClient) UpdateRegistry(ctx context.Context, u *modelv2.RegistryUpda
 func (c *RESTClient) NewReplicationPolicy(ctx context.Context, destRegistry, srcRegistry *modelv2.Registry,
 	replicateDeletion, override, enablePolicy bool,
 	filters []*modelv2.ReplicationFilter, trigger *modelv2.ReplicationTrigger,
-	destNamespace, description, name string) error {
+	destNamespace, description, name string,
+) error {
 	return c.replication.NewReplicationPolicy(ctx, destRegistry, srcRegistry,
 		replicateDeletion, override, enablePolicy,
 		filters, trigger, destNamespace, description, name)
@@ -590,9 +598,11 @@ func (c *RESTClient) GetStatistic(ctx context.Context) (*modelv2.Statistic, erro
 func (c *RESTClient) CreateScanAllSchedule(ctx context.Context, schedule *modelv2.Schedule) error {
 	return c.scanall.CreateScanAllSchedule(ctx, schedule)
 }
+
 func (c *RESTClient) GetScanAllSchedule(ctx context.Context) (*modelv2.Schedule, error) {
 	return c.scanall.GetScanAllSchedule(ctx)
 }
+
 func (c *RESTClient) UpdateScanAllSchedule(ctx context.Context, schedule *modelv2.Schedule) error {
 	return c.scanall.UpdateScanAllSchedule(ctx, schedule)
 }

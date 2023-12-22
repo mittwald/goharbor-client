@@ -93,7 +93,8 @@ func (c *RESTClient) UpdateUserPassword(ctx context.Context, id int64, password 
 
 // NewProject wraps the NewProject method of the project sub-package.
 func (c *RESTClient) NewProject(ctx context.Context, name string,
-	countLimit int, storageLimit int) (*model.Project, error) {
+	countLimit int, storageLimit int,
+) (*model.Project, error) {
 	return c.project.NewProject(ctx, name, countLimit, storageLimit)
 }
 
@@ -140,7 +141,8 @@ func (c *RESTClient) DeleteProjectMember(ctx context.Context, p *model.Project, 
 
 // AddProjectMetadata wraps the AddProjectMetadata method of the project sub-package.
 func (c *RESTClient) AddProjectMetadata(ctx context.Context,
-	p *model.Project, key project.MetadataKey, value string) error {
+	p *model.Project, key project.MetadataKey, value string,
+) error {
 	return c.project.AddProjectMetadata(ctx, p, key, value)
 }
 
@@ -151,13 +153,15 @@ func (c *RESTClient) ListProjectMetadata(ctx context.Context, p *model.Project) 
 
 // UpdateProjectMetadata wraps the UpdateProjectMetadata method of the project sub-package.
 func (c *RESTClient) UpdateProjectMetadata(ctx context.Context,
-	p *model.Project, key project.MetadataKey, value string) error {
+	p *model.Project, key project.MetadataKey, value string,
+) error {
 	return c.project.UpdateProjectMetadata(ctx, p, key, value)
 }
 
 // DeleteProjectMetadataValue wraps the DeleteProjectMetadataValue method of the project sub-package.
 func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context,
-	p *model.Project, key project.MetadataKey) error {
+	p *model.Project, key project.MetadataKey,
+) error {
 	return c.project.DeleteProjectMetadataValue(ctx, p, key)
 }
 
@@ -165,7 +169,8 @@ func (c *RESTClient) DeleteProjectMetadataValue(ctx context.Context,
 
 // NewRegistry wraps the NewRegistry method of the registry sub-package.
 func (c *RESTClient) NewRegistry(ctx context.Context, name, registryType, url string,
-	credential *model.RegistryCredential, insecure bool) (*model.Registry, error) {
+	credential *model.RegistryCredential, insecure bool,
+) (*model.Registry, error) {
 	return c.registry.NewRegistry(ctx, name, registryType, url,
 		credential, insecure)
 }
@@ -190,7 +195,8 @@ func (c *RESTClient) UpdateRegistry(ctx context.Context, r *model.Registry) erro
 // NewReplicationPolicy wraps the NewReplicationPolicy method of the replication sub-package.
 func (c *RESTClient) NewReplicationPolicy(ctx context.Context, destRegistry, srcRegistry *model.Registry,
 	replicateDeletion, override, enablePolicy bool, filters []*model.ReplicationFilter,
-	trigger *model.ReplicationTrigger, destNamespace, description, name string) (*model.ReplicationPolicy, error) {
+	trigger *model.ReplicationTrigger, destNamespace, description, name string,
+) (*model.ReplicationPolicy, error) {
 	return c.replication.NewReplicationPolicy(ctx, destRegistry, srcRegistry, replicateDeletion,
 		override, enablePolicy, filters, trigger, destNamespace, description, name)
 }
@@ -222,7 +228,8 @@ func (c *RESTClient) TriggerReplicationExecution(ctx context.Context, r *model.R
 
 // GetReplicationExecutions wraps the GetReplicationExecutions method of the replication sub-package.
 func (c *RESTClient) GetReplicationExecutions(ctx context.Context,
-	r *model.ReplicationExecution) ([]*model.ReplicationExecution, error) {
+	r *model.ReplicationExecution,
+) ([]*model.ReplicationExecution, error) {
 	return c.replication.GetReplicationExecutions(ctx, r)
 }
 
@@ -235,13 +242,15 @@ func (c *RESTClient) GetReplicationExecutionByID(ctx context.Context, id int64) 
 
 // NewSystemGarbageCollection wraps the NewSystemGarbageCollection method of the system sub-package.
 func (c *RESTClient) NewSystemGarbageCollection(ctx context.Context,
-	cron, scheduleType string) (*model.AdminJobSchedule, error) {
+	cron, scheduleType string,
+) (*model.AdminJobSchedule, error) {
 	return c.system.NewSystemGarbageCollection(ctx, cron, scheduleType)
 }
 
 // UpdateSystemGarbageCollection wraps the UpdateSystemGarbageCollection method of the system sub-package.
 func (c *RESTClient) UpdateSystemGarbageCollection(ctx context.Context,
-	newGcSchedule *model.AdminJobScheduleObj) error {
+	newGcSchedule *model.AdminJobScheduleObj,
+) error {
 	return c.system.UpdateSystemGarbageCollection(ctx, newGcSchedule)
 }
 

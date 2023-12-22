@@ -12,9 +12,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var (
-	ctx context.Context
-)
+var ctx context.Context
 
 func APIandMockClientsForTests() (*RESTClient, *clienttesting.MockClients) {
 	desiredMockClients := &clienttesting.MockClients{
