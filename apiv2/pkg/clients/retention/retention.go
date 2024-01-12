@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	clienterrors "github.com/mittwald/goharbor-client/v5/apiv2/pkg/errors"
 	"strconv"
 
 	"github.com/go-openapi/runtime"
@@ -186,13 +187,12 @@ func (c *RESTClient) UpdateRetentionPolicy(ctx context.Context, ret *modelv2.Ret
 	params.WithTimeout(c.Options.Timeout)
 
 	resp, err := c.V2Client.Retention.UpdateRetention(params, c.AuthInfo)
-
-	if resp == nil {
-		return &ErrRetentionDoesNotExist{}
-	}
-
 	if err != nil {
 		return handleSwaggerRetentionErrors(err)
+	}
+
+	if resp == nil {
+		return &clienterrors.ErrNotFound{}
 	}
 
 	return nil

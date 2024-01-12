@@ -3,7 +3,6 @@ package project
 import (
 	"context"
 	goerr "errors"
-
 	projectapi "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/project"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/config"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/errors"
@@ -109,10 +108,11 @@ func (c *RESTClient) GetProject(ctx context.Context, nameOrID string) (*model.Pr
 
 	resp, err := c.V2Client.Project.GetProject(params, c.AuthInfo)
 	if err != nil {
-		if resp == nil {
-			return nil, &errors.ErrProjectNotFound{}
-		}
 		return nil, handleSwaggerProjectErrors(err)
+	}
+
+	if resp == nil {
+		return nil, &errors.ErrProjectNotFound{}
 	}
 
 	return resp.Payload, nil

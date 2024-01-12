@@ -27,7 +27,7 @@ func handleSwaggerProjectErrors(in error) error {
 		case http.StatusForbidden:
 			return &errors.ErrProjectNoPermission{}
 		case http.StatusNotFound:
-			return &errors.ErrProjectUnknownResource{}
+			return &errors.ErrProjectNotFound{}
 		case http.StatusInternalServerError:
 			return &errors.ErrProjectInternalErrors{}
 		}
