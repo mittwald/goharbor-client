@@ -230,7 +230,7 @@ func TestRESTClient_NewProject_ErrProjectIDNotExists(t *testing.T) {
 		StorageLimit: &exampleStorageLimitPositive,
 	})
 	require.Error(t, err)
-	require.ErrorIs(t, err, &errors.ErrProjectUnknownResource{})
+	require.ErrorIs(t, err, &errors.ErrProjectNotFound{})
 
 	mockClient.Project.AssertExpectations(t)
 }
@@ -341,7 +341,7 @@ func TestRESTClient_DeleteProject_ErrProjectUnknownResource(t *testing.T) {
 
 	err := apiClient.DeleteProject(ctx, "foo")
 	require.Error(t, err)
-	require.ErrorIs(t, err, &errors.ErrProjectUnknownResource{})
+	require.ErrorIs(t, err, &errors.ErrProjectMismatch{})
 
 	mockClient.Project.AssertExpectations(t)
 }
