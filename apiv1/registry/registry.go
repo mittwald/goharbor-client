@@ -39,7 +39,8 @@ type Client interface {
 // Returns the registry as it is stored inside Harbor or an error,
 // if it cannot be created.
 func (c *RESTClient) NewRegistry(ctx context.Context, name, registryType, url string,
-	credential *model.RegistryCredential, insecure bool) (*model.Registry, error) {
+	credential *model.RegistryCredential, insecure bool,
+) (*model.Registry, error) {
 	rReq := &model.Registry{
 		Credential: credential,
 		Insecure:   insecure,
@@ -94,7 +95,8 @@ func (c *RESTClient) GetRegistry(ctx context.Context, name string) (*model.Regis
 // Returns an error when no matching registry is found or when
 // having difficulties talking to the API.
 func (c *RESTClient) DeleteRegistry(ctx context.Context,
-	r *model.Registry) error {
+	r *model.Registry,
+) error {
 	if r == nil {
 		return &ErrRegistryNotProvided{}
 	}

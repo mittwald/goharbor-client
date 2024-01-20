@@ -136,6 +136,7 @@ func (c *RESTClient) ListPurgeHistory(ctx context.Context) ([]*model.ExecHistory
 
 	return history, nil
 }
+
 func (c *RESTClient) GetPurgeJob(ctx context.Context, id int64) (*model.ExecHistory, error) {
 	params := &purge.GetPurgeJobParams{
 		PurgeID: id,
@@ -150,6 +151,7 @@ func (c *RESTClient) GetPurgeJob(ctx context.Context, id int64) (*model.ExecHist
 
 	return resp.Payload, nil
 }
+
 func (c *RESTClient) GetPurgeJobLog(ctx context.Context, id int64) (string, error) {
 	params := &purge.GetPurgeJobLogParams{
 		PurgeID: id,
@@ -164,6 +166,7 @@ func (c *RESTClient) GetPurgeJobLog(ctx context.Context, id int64) (string, erro
 
 	return resp.Payload, nil
 }
+
 func (c *RESTClient) GetPurgeSchedule(ctx context.Context) (*model.ExecHistory, error) {
 	params := &purge.GetPurgeScheduleParams{
 		Context: ctx,
@@ -177,6 +180,7 @@ func (c *RESTClient) GetPurgeSchedule(ctx context.Context) (*model.ExecHistory, 
 
 	return resp.Payload, nil
 }
+
 func (c *RESTClient) StopPurge(ctx context.Context, id int64) error {
 	params := &purge.StopPurgeParams{
 		PurgeID: id,
@@ -191,6 +195,7 @@ func (c *RESTClient) StopPurge(ctx context.Context, id int64) error {
 
 	return nil
 }
+
 func (c *RESTClient) UpdatePurgeSchedule(ctx context.Context, schedule *model.Schedule) error {
 	params := &purge.UpdatePurgeScheduleParams{
 		Schedule: schedule,

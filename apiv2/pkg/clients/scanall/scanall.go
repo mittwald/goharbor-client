@@ -12,8 +12,6 @@ import (
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/errors"
 )
 
-const ()
-
 // RESTClient is a subclient for handling project related actions.
 type RESTClient struct {
 	// Options contains optional configuration when making API calls.
@@ -52,7 +50,6 @@ func (c *RESTClient) CreateScanAllSchedule(ctx context.Context, schedule *model.
 	_, err := c.V2Client.ScanAll.CreateScanAllSchedule(params, c.AuthInfo)
 
 	return handleSwaggerScanallErrors(err)
-
 }
 
 // GetScanAllSchedule returns the scan all schedule.
@@ -85,5 +82,4 @@ func (c *RESTClient) UpdateScanAllSchedule(ctx context.Context, schedule *model.
 	_, err := c.V2Client.ScanAll.UpdateScanAllSchedule(params, c.AuthInfo)
 
 	return handleSwaggerScanallErrors(err)
-
 }

@@ -23,6 +23,9 @@ type GeneralInfo struct {
 	// The setting of auth proxy this is only available when Harbor relies on authproxy for authentication.
 	AuthproxySettings *AuthproxySetting `json:"authproxy_settings,omitempty"`
 
+	// The banner message for the UI. It is the stringified result of the banner message object.
+	BannerMessage *string `json:"banner_message,omitempty"`
+
 	// The current time of the server.
 	// Format: date-time
 	CurrentTime *strfmt.DateTime `json:"current_time,omitempty"`
@@ -56,9 +59,6 @@ type GeneralInfo struct {
 
 	// Indicate whether the Harbor instance enable user to register himself.
 	SelfRegistration *bool `json:"self_registration,omitempty"`
-
-	// If the Harbor instance is deployed with nested notary.
-	WithNotary *bool `json:"with_notary,omitempty"`
 }
 
 // Validate validates this general info

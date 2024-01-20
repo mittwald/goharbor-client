@@ -26,6 +26,7 @@ func APIandMockClientsForTests() (*RESTClient, *clienttesting.MockClients) {
 
 	return cl, desiredMockClients
 }
+
 func TestRESTClient_GetPing(t *testing.T) {
 	apiClient, mockClient := APIandMockClientsForTests()
 

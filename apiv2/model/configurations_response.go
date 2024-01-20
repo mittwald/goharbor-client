@@ -22,6 +22,9 @@ type ConfigurationsResponse struct {
 	// The auth mode of current system, such as "db_auth", "ldap_auth", "oidc_auth"
 	AuthMode *StringConfigItem `json:"auth_mode,omitempty"`
 
+	// The banner message for the UI.It is the stringified result of the banner message object
+	BannerMessage *StringConfigItem `json:"banner_message,omitempty"`
+
 	// The group which has the harbor admin privileges
 	HTTPAuthproxyAdminGroups *StringConfigItem `json:"http_authproxy_admin_groups,omitempty"`
 
@@ -182,6 +185,10 @@ func (m *ConfigurationsResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAuthMode(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateBannerMessage(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -419,6 +426,24 @@ func (m *ConfigurationsResponse) validateAuthMode(formats strfmt.Registry) error
 		if err := m.AuthMode.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("auth_mode")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ConfigurationsResponse) validateBannerMessage(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.BannerMessage) { // not required
+		return nil
+	}
+
+	if m.BannerMessage != nil {
+		if err := m.BannerMessage.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("banner_message")
 			}
 			return err
 		}

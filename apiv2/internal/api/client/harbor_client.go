@@ -40,6 +40,7 @@ import (
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/scanner"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/schedule"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/search"
+	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/securityhub"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/statistic"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/system_cve_allowlist"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/systeminfo"
@@ -121,6 +122,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Harbor {
 	cli.Scanner = scanner.New(transport, formats)
 	cli.Schedule = schedule.New(transport, formats)
 	cli.Search = search.New(transport, formats)
+	cli.Securityhub = securityhub.New(transport, formats)
 	cli.Statistic = statistic.New(transport, formats)
 	cli.SystemCVEAllowlist = system_cve_allowlist.New(transport, formats)
 	cli.Systeminfo = systeminfo.New(transport, formats)
@@ -232,6 +234,8 @@ type Harbor struct {
 
 	Search search.ClientService
 
+	Securityhub securityhub.ClientService
+
 	Statistic statistic.ClientService
 
 	SystemCVEAllowlist system_cve_allowlist.ClientService
@@ -282,6 +286,7 @@ func (c *Harbor) SetTransport(transport runtime.ClientTransport) {
 	c.Scanner.SetTransport(transport)
 	c.Schedule.SetTransport(transport)
 	c.Search.SetTransport(transport)
+	c.Securityhub.SetTransport(transport)
 	c.Statistic.SetTransport(transport)
 	c.SystemCVEAllowlist.SetTransport(transport)
 	c.Systeminfo.SetTransport(transport)

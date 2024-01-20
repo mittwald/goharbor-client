@@ -45,7 +45,8 @@ type Client interface {
 func (c *RESTClient) NewReplicationPolicy(ctx context.Context, destRegistry, srcRegistry *model.Registry,
 	replicateDeletion, override, enablePolicy bool,
 	filters []*model.ReplicationFilter, trigger *model.ReplicationTrigger,
-	destNamespace, description, name string) (*model.ReplicationPolicy, error) {
+	destNamespace, description, name string,
+) (*model.ReplicationPolicy, error) {
 	pReq := &model.ReplicationPolicy{
 		Deletion:      replicateDeletion,
 		Description:   description,
@@ -125,7 +126,8 @@ func (c *RESTClient) GetReplicationPolicyByID(ctx context.Context, id int64) (*m
 // Returns an error when no matching replication is found or when
 // having difficulties talking to the API.
 func (c *RESTClient) DeleteReplicationPolicy(ctx context.Context,
-	r *model.ReplicationPolicy) error {
+	r *model.ReplicationPolicy,
+) error {
 	if r == nil {
 		return &ErrReplicationNotProvided{}
 	}
@@ -150,7 +152,8 @@ func (c *RESTClient) DeleteReplicationPolicy(ctx context.Context,
 
 // Update updates a replication.
 func (c *RESTClient) UpdateReplicationPolicy(ctx context.Context,
-	r *model.ReplicationPolicy) error {
+	r *model.ReplicationPolicy,
+) error {
 	if r == nil {
 		return &ErrReplicationNotProvided{}
 	}

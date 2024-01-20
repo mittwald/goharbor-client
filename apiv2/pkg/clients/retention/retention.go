@@ -102,6 +102,10 @@ func (t TagSelector) String() string {
 }
 
 // NewRetentionPolicy creates a new tag retention policy for a project.
+// Note: When setting a `cron` configuration for a retention policy,
+// the cron format must include `0` at the first index.
+// Also, the character at the second index must be `*`, e.g. `0 * * * * *`.
+// See: https://github.com/goharbor/harbor/pull/18923/files
 func (c *RESTClient) NewRetentionPolicy(ctx context.Context, ret *modelv2.RetentionPolicy) error {
 	if ret == nil {
 		return &ErrRetentionNotProvided{}

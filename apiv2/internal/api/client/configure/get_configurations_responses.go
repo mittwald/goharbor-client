@@ -93,7 +93,7 @@ func NewGetConfigurationsUnauthorized() *GetConfigurationsUnauthorized {
 
 /*GetConfigurationsUnauthorized handles this case with default header values.
 
-User need to log in first.ß
+User need to log in first.
 */
 type GetConfigurationsUnauthorized struct {
 }

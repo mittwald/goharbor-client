@@ -43,7 +43,8 @@ type Client interface {
 // password is the password for this user.
 // comments as a comment attached to the user.
 func (c *RESTClient) NewUser(ctx context.Context, username, email, realname, password,
-	comments string) (*model.User, error) {
+	comments string,
+) (*model.User, error) {
 	uReq := &model.User{
 		Username: username,
 		Password: password,
