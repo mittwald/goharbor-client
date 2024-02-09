@@ -3,12 +3,12 @@ package artifact
 import (
 	"context"
 	"fmt"
-
 	"github.com/go-openapi/runtime"
 	v2client "github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client"
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/artifact"
 	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/config"
+	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/util"
 )
 
 // RESTClient is a subclient for handling artifact related actions.
@@ -164,6 +164,7 @@ func (c *RESTClient) GetArtifact(ctx context.Context, projectName, repositoryNam
 	params.WithRepositoryName(repositoryName)
 	params.WithReference(reference)
 	params.WithContext(ctx)
+	params.WithWithLabel(util.BoolPtr(true))
 
 	resp, err := c.V2Client.Artifact.GetArtifact(params, c.AuthInfo)
 	if err != nil {
@@ -202,6 +203,7 @@ func (c *RESTClient) ListArtifacts(ctx context.Context, projectName, repositoryN
 	params.Sort = &c.Options.Sort
 	params.WithProjectName(projectName)
 	params.WithRepositoryName(repositoryName)
+	params.WithWithLabel(util.BoolPtr(true))
 
 	for {
 		resp, err := c.V2Client.Artifact.ListArtifacts(params, c.AuthInfo)
