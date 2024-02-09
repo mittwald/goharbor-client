@@ -4,6 +4,7 @@ package artifact
 
 import (
 	"context"
+	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/util"
 	"testing"
 
 	"github.com/mittwald/goharbor-client/v5/apiv2/internal/api/client/artifact"
@@ -223,6 +224,7 @@ func TestRESTClient_GetArtifact(t *testing.T) {
 	getParams.WithRepositoryName(repositoryName)
 	getParams.WithReference(reference)
 	getParams.WithContext(ctx)
+	getParams.WithWithLabel(util.BoolPtr(true))
 
 	getParams.WithTimeout(apiClient.Options.Timeout)
 
@@ -248,6 +250,7 @@ func TestRESTClient_ListArtifacts(t *testing.T) {
 	listParams.WithSort(&apiClient.Options.Sort)
 	listParams.WithQ(&apiClient.Options.Query)
 	listParams.WithTimeout(apiClient.Options.Timeout)
+	listParams.WithWithLabel(util.BoolPtr(true))
 
 	mockClient.Artifact.On("ListArtifacts", listParams, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(&artifact.ListArtifactsOK{Payload: []*model.Artifact{}}, nil)
