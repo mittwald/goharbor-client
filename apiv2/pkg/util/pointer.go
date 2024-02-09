@@ -7,3 +7,7 @@ func Int64Ptr(in int64) *int64 {
 func StringPtr(in string) *string {
 	return &in
 }
+
+func BoolPtr(in bool) *bool {
+	return &in
+}
