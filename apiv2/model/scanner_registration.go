@@ -57,7 +57,8 @@ type ScannerRegistration struct {
 	UpdateTime strfmt.DateTime `json:"update_time,omitempty"`
 
 	// A base URL of the scanner adapter
-	URL string `json:"url,omitempty"`
+	// Format: uri
+	URL strfmt.URI `json:"url,omitempty"`
 
 	// Indicate whether use internal registry addr for the scanner to pull content or not
 	UseInternalAddr *bool `json:"use_internal_addr"`
@@ -81,6 +82,10 @@ func (m *ScannerRegistration) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateUpdateTime(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateURL(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -110,6 +115,19 @@ func (m *ScannerRegistration) validateUpdateTime(formats strfmt.Registry) error 
 	}
 
 	if err := validate.FormatOf("update_time", "body", "date-time", m.UpdateTime.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ScannerRegistration) validateURL(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.URL) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
 		return err
 	}
 

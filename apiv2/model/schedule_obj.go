@@ -26,10 +26,11 @@ type ScheduleObj struct {
 	// Format: date-time
 	NextScheduledTime strfmt.DateTime `json:"next_scheduled_time,omitempty"`
 
-	// The schedule type. The valid values are 'Hourly', 'Daily', 'Weekly', 'Custom', 'Manual' and 'None'.
-	// 'Manual' means to trigger it right away and 'None' means to cancel the schedule.
+	// The schedule type. The valid values are 'Hourly', 'Daily', 'Weekly', 'Custom', 'Manual', 'None' and 'Schedule'.
+	// 'Manual' means to trigger it right away, 'Schedule' means to trigger it by a specified cron schedule and
+	// 'None' means to cancel the schedule.
 	//
-	// Enum: [Hourly Daily Weekly Custom Manual None]
+	// Enum: [Hourly Daily Weekly Custom Manual None Schedule]
 	Type string `json:"type,omitempty"`
 }
 
@@ -68,7 +69,7 @@ var scheduleObjTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["Hourly","Daily","Weekly","Custom","Manual","None"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["Hourly","Daily","Weekly","Custom","Manual","None","Schedule"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -95,6 +96,9 @@ const (
 
 	// ScheduleObjTypeNone captures enum value "None"
 	ScheduleObjTypeNone string = "None"
+
+	// ScheduleObjTypeSchedule captures enum value "Schedule"
+	ScheduleObjTypeSchedule string = "Schedule"
 )
 
 // prop value enum

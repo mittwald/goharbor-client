@@ -68,6 +68,7 @@ func TestAPIGetPurgeSchedule(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, purgeSchedule)
 }
+
 func TestAPIStopPurge(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)
@@ -82,6 +83,7 @@ func TestAPIStopPurge(t *testing.T) {
 	err = c.StopPurge(ctx, purgeJobs[0].ID)
 	require.NoError(t, err)
 }
+
 func TestAPIUpdatePurgeSchedule(t *testing.T) {
 	ctx := context.Background()
 	c := NewClient(clienttesting.V2SwaggerClient, clienttesting.DefaultOpts, clienttesting.AuthInfo)

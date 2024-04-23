@@ -63,7 +63,8 @@ type Client interface {
 // CountLimit limits the number of repositories for this project.
 // StorageLimit limits the allocatable space for this project.
 func (c *RESTClient) NewProject(ctx context.Context, name string,
-	countLimit int, storageLimit int) (*model.Project, error) {
+	countLimit int, storageLimit int,
+) (*model.Project, error) {
 	pReq := &model.ProjectReq{
 		CveWhitelist: nil,
 		Metadata:     nil,
@@ -93,7 +94,8 @@ func (c *RESTClient) NewProject(ctx context.Context, name string,
 // Returns an error when no matching project is found or when
 // having difficulties talking to the API.
 func (c *RESTClient) DeleteProject(ctx context.Context,
-	p *model.Project) error {
+	p *model.Project,
+) error {
 	if p == nil {
 		return &ErrProjectNotProvided{}
 	}
@@ -119,7 +121,8 @@ func (c *RESTClient) DeleteProject(ctx context.Context,
 // Returns an error if it cannot find a matching project or when
 // having difficulties talking to the API.
 func (c *RESTClient) GetProject(ctx context.Context,
-	name string) (*model.Project, error) {
+	name string,
+) (*model.Project, error) {
 	if name == "" {
 		return nil, &ErrProjectNameNotProvided{}
 	}
@@ -145,7 +148,8 @@ func (c *RESTClient) GetProject(ctx context.Context,
 // Returns all projects if name is an empty string.
 // Returns an error if no projects were found.
 func (c *RESTClient) ListProjects(ctx context.Context,
-	nameFilter string) ([]*model.Project, error) {
+	nameFilter string,
+) ([]*model.Project, error) {
 	resp, err := c.Client.Products.GetProjects(
 		&products.GetProjectsParams{
 			Name:    &nameFilter,
@@ -165,7 +169,8 @@ func (c *RESTClient) ListProjects(ctx context.Context,
 // UpdateProject updates a project with the specified data.
 // Returns an error if name/ID pair of p does not match a stored project.
 func (c *RESTClient) UpdateProject(ctx context.Context, p *model.Project,
-	countLimit int, storageLimit int) error {
+	countLimit int, storageLimit int,
+) error {
 	project, err := c.GetProject(ctx, p.Name)
 	if err != nil {
 		return err

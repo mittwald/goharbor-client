@@ -94,7 +94,6 @@ func (c *RESTClient) ListAllRepositories(ctx context.Context) ([]*model.Reposito
 
 	for {
 		resp, err := c.V2Client.Repository.ListAllRepositories(params, c.AuthInfo)
-
 		if err != nil {
 			return nil, handleSwaggerRepositoryErrors(err)
 		}
