@@ -111,7 +111,11 @@ func (c *RESTClient) GetUserByID(ctx context.Context, id int64) (*model.UserResp
 	params.WithTimeout(c.Options.Timeout)
 
 	resp, err := c.V2Client.User.GetUser(params, c.AuthInfo)
-
+	
+        if err != nil {
+		return nil, handleSwaggerUserErrors(err)
+	}
+	
 	if resp.Payload == nil {
 		return nil, &clienterrors.ErrUserNotFound{}
 	}
@@ -120,9 +124,6 @@ func (c *RESTClient) GetUserByID(ctx context.Context, id int64) (*model.UserResp
 		return nil, &clienterrors.ErrUserInvalidID{}
 	}
 
-	if err != nil {
-		return nil, handleSwaggerUserErrors(err)
-	}
 
 	return resp.Payload, nil
 }
