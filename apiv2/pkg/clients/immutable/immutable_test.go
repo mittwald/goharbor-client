@@ -111,6 +111,7 @@ func TestRESTClient_UpdateImmuRule(t *testing.T) {
 		ImmutableRuleID: int64(immutableRuleID),
 		ProjectNameOrID: strconv.Itoa(projectID),
 		ImmutableRule: &model.ImmutableRule{
+			ID: int64(immutableRuleID),
 			TagSelectors: []*model.ImmutableSelector{{
 				Decoration: "matches",
 				Kind:       "doublestar",
@@ -166,6 +167,41 @@ func TestRESTClient_UpdateImmuRuleNotFound(t *testing.T) {
 
 	mockClient.Immutable.On("UpdateImmuRule", params, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
 		Return(nil, &errors.ErrNotFound{})
+
+	err := apiClient.UpdateImmuRule(ctx, strconv.Itoa(projectID), params.ImmutableRule, int64(immutableRuleID))
+
+	require.Error(t, err)
+
+	mockClient.Immutable.AssertExpectations(t)
+}
+
+func TestRESTClient_UpdateImmuRuleBadRequest(t *testing.T) {
+	apiClient, mockClient := APIandMockClientsForTests()
+
+	params := &immutable.UpdateImmuRuleParams{
+		ImmutableRuleID: int64(immutableRuleID),
+		ProjectNameOrID: strconv.Itoa(projectID),
+		ImmutableRule: &model.ImmutableRule{
+			TagSelectors: []*model.ImmutableSelector{{
+				Decoration: "matches",
+				Kind:       "doublestar",
+				Pattern:    "1.0.0",
+			}},
+			ScopeSelectors: map[string][]model.ImmutableSelector{
+				"repository": {{
+					Decoration: "repoMatches",
+					Kind:       "doublestar",
+					Pattern:    "**",
+				}},
+			},
+		},
+		Context: ctx,
+	}
+
+	params.WithTimeout(apiClient.Options.Timeout)
+
+	mockClient.Immutable.On("UpdateImmuRule", params, mock.AnythingOfType("runtime.ClientAuthInfoWriterFunc")).
+		Return(nil, &errors.ErrBadRequest{})
 
 	err := apiClient.UpdateImmuRule(ctx, strconv.Itoa(projectID), params.ImmutableRule, int64(immutableRuleID))
 

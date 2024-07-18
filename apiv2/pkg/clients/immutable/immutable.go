@@ -64,6 +64,8 @@ func (c *RESTClient) UpdateImmuRule(ctx context.Context, projectNameOrID string,
 
 	params.WithTimeout(c.Options.Timeout)
 
+	params.ImmutableRule.ID = immutableRuleID
+
 	_, err := c.V2Client.Immutable.UpdateImmuRule(params, c.AuthInfo)
 	if err != nil {
 		return handleSwaggerImmutableRuleErrors(err)
