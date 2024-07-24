@@ -32,7 +32,7 @@ func NewClient(v2Client *v2client.Harbor, opts *config.Options, authInfo runtime
 
 type Client interface {
 	CreateImmuRule(ctx context.Context, projectNameOrID string, immutableRule *model.ImmutableRule) error
-	UpdateImmuRule(ctx context.Context, projectNameOrID string, immutableRule *model.ImmutableRule) error
+	UpdateImmuRule(ctx context.Context, projectNameOrID string, immutableRule *model.ImmutableRule, immutableRuleID int64) error
 	DeleteImmuRule(ctx context.Context, projectNameOrID string, immutableRuleID int64) error
 	ListImmuRules(ctx context.Context, projectNameOrID string) ([]*model.ImmutableRule, error)
 }

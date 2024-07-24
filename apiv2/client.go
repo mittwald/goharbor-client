@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/configure"
+	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/immutable"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/ping"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/scanall"
 	"github.com/mittwald/goharbor-client/v5/apiv2/pkg/clients/statistic"
@@ -58,6 +59,7 @@ type Client interface {
 	configure.Client
 	gc.Client
 	health.Client
+	immutable.Client
 	label.Client
 	member.Client
 	ping.Client
@@ -84,6 +86,7 @@ type RESTClient struct {
 	configure   *configure.RESTClient
 	gc          *gc.RESTClient
 	health      *health.RESTClient
+	immutable	*immutable.RESTClient
 	label       *label.RESTClient
 	member      *member.RESTClient
 	ping        *ping.RESTClient
@@ -116,6 +119,7 @@ func NewRESTClient(v2Client *v2client.Harbor, opts *config.Options, authInfo run
 		configure:   configure.NewClient(v2Client, opts, authInfo),
 		gc:          gc.NewClient(v2Client, opts, authInfo),
 		health:      health.NewClient(v2Client, opts, authInfo),
+		immutable:   immutable.NewClient(v2Client, opts, authInfo),
 		label:       label.NewClient(v2Client, opts, authInfo),
 		member:      member.NewClient(v2Client, opts, authInfo),
 		ping:        ping.NewClient(v2Client, opts, authInfo),
@@ -279,6 +283,24 @@ func (c *RESTClient) ResetGarbageCollection(ctx context.Context) error {
 
 func (c *RESTClient) GetHealth(ctx context.Context) (*modelv2.OverallHealthStatus, error) {
 	return c.health.GetHealth(ctx)
+}
+
+// Immutable Client
+
+func (c *RESTClient) CreateImmuRule(ctx context.Context, projectNameOrID string, immutableRule *modelv2.ImmutableRule) error {
+	return c.immutable.CreateImmuRule(ctx, projectNameOrID, immutableRule)
+}
+
+func (c *RESTClient) UpdateImmuRule(ctx context.Context, projectNameOrID string, immutableRule *modelv2.ImmutableRule, immutableRuleID int64) error {
+	return c.immutable.UpdateImmuRule(ctx, projectNameOrID, immutableRule, immutableRuleID)
+}
+
+func (c *RESTClient) DeleteImmuRule(ctx context.Context, projectNameOrID string, immutableRuleID int64) error {
+	return c.immutable.DeleteImmuRule(ctx, projectNameOrID, immutableRuleID)
+}
+
+func (c *RESTClient) ListImmuRules(ctx context.Context, projectNameOrID string) ([]*modelv2.ImmutableRule, error) {
+	return c.immutable.ListImmuRules(ctx, projectNameOrID)
 }
 
 // Label Client
