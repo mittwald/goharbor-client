@@ -86,7 +86,7 @@ type RESTClient struct {
 	configure   *configure.RESTClient
 	gc          *gc.RESTClient
 	health      *health.RESTClient
-	immutable	*immutable.RESTClient
+	immutable   *immutable.RESTClient
 	label       *label.RESTClient
 	member      *member.RESTClient
 	ping        *ping.RESTClient
@@ -265,6 +265,10 @@ func (c *RESTClient) NewGarbageCollection(ctx context.Context, gcSchedule *model
 
 func (c *RESTClient) UpdateGarbageCollection(ctx context.Context, newGCSchedule *modelv2.Schedule) error {
 	return c.gc.UpdateGarbageCollection(ctx, newGCSchedule)
+}
+
+func (c *RESTClient) GetGarbageCollectionExecutions(ctx context.Context) ([]*modelv2.GCHistory, error) {
+	return c.gc.GetGarbageCollectionExecutions(ctx)
 }
 
 func (c *RESTClient) GetGarbageCollectionExecution(ctx context.Context, id int64) (*modelv2.GCHistory, error) {

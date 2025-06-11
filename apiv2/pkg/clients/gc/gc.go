@@ -37,6 +37,7 @@ type Client interface {
 	NewGarbageCollection(ctx context.Context, gcSchedule *model.Schedule) error
 	UpdateGarbageCollection(ctx context.Context,
 		newGCSchedule *model.Schedule) error
+	GetGarbageCollectionExecutions(ctx context.Context) ([]*model.GCHistory, error)
 	GetGarbageCollectionExecution(ctx context.Context, id int64) (*model.GCHistory, error)
 	GetGarbageCollectionSchedule(ctx context.Context) (*model.GCHistory, error)
 	ResetGarbageCollection(ctx context.Context) error
@@ -86,6 +87,18 @@ func (c *RESTClient) UpdateGarbageCollection(ctx context.Context,
 	}, c.AuthInfo)
 
 	return handleSwaggerSystemErrors(err)
+}
+
+// GetGarbageCollectionExecutions Returns the garbage collection executions.
+func (c *RESTClient) GetGarbageCollectionExecutions(ctx context.Context) ([]*model.GCHistory, error) {
+	resp, err := c.V2Client.GC.GetGCHistory(&gc.GetGCHistoryParams{
+		Context: ctx,
+	}, c.AuthInfo)
+	if err != nil {
+		return nil, handleSwaggerSystemErrors(err)
+	}
+
+	return resp.Payload, nil
 }
 
 // GetGarbageCollectionExecution Returns a garbage collection execution identified by its id.
