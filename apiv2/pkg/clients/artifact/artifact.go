@@ -165,6 +165,7 @@ func (c *RESTClient) GetArtifact(ctx context.Context, projectName, repositoryNam
 	params.WithReference(reference)
 	params.WithContext(ctx)
 	params.WithWithLabel(util.BoolPtr(true))
+	params.WithWithAccessory(util.BoolPtr(true))
 
 	resp, err := c.V2Client.Artifact.GetArtifact(params, c.AuthInfo)
 	if err != nil {
