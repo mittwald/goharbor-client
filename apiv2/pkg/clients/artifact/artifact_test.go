@@ -225,6 +225,7 @@ func TestRESTClient_GetArtifact(t *testing.T) {
 	getParams.WithReference(reference)
 	getParams.WithContext(ctx)
 	getParams.WithWithLabel(util.BoolPtr(true))
+	getParams.WithWithAccessory(util.BoolPtr(true))
 
 	getParams.WithTimeout(apiClient.Options.Timeout)
 
