@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/go-openapi/runtime"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
@@ -215,4 +216,16 @@ func TestRESTClient_DeleteRetentionPolicy(t *testing.T) {
 	require.NoError(t, err)
 
 	mockClient.Retention.AssertExpectations(t)
+}
+
+func TestToTagSelectorExtras(t *testing.T) {
+	expectWithUntagged := `{"untagged":true}`
+	actualWithUntagged := ToTagSelectorExtras(true)
+
+	assert.Equal(t, expectWithUntagged, actualWithUntagged)
+
+	expectWithoutUntagged := `{"untagged":false}`
+	actualWithoutUntagged := ToTagSelectorExtras(false)
+
+	assert.Equal(t, expectWithoutUntagged, actualWithoutUntagged)
 }
