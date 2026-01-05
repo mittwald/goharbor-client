@@ -4,8 +4,6 @@
 [![Go Doc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://pkg.go.dev/github.com/mittwald/goharbor-client/v5)
 [![Release](https://img.shields.io/github/release/mittwald/goharbor-client.svg?style=flat-square)](https://github.com/mittwald/goharbor-client/releases/latest)
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/a765bafaa29f6f8fdde7/maintainability)](https://codeclimate.com/github/mittwald/goharbor-client/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/a765bafaa29f6f8fdde7/test_coverage)](https://codeclimate.com/github/mittwald/goharbor-client/test_coverage)
 [![Actions Status](https://github.com/mittwald/goharbor-client/workflows/Test/badge.svg)](https://github.com/mittwald/goharbor-client/actions)
 
 A Go client library enabling programs to perform CRUD operations on the [goharbor](https://github.com/goharbor/harbor) API.
