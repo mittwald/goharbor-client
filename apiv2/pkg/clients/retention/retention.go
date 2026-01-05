@@ -206,9 +206,9 @@ func (c *RESTClient) UpdateRetentionPolicy(ctx context.Context, ret *modelv2.Ret
 // Represents the functionality of the 'untagged artifacts' checkbox when editing tag retention rules in the Harbor UI.
 func ToTagSelectorExtras(untagged bool) string {
 	if untagged {
-		return `{"untagged":"true"}`
+		return `{"untagged":true}`
 	}
-	return `{"untagged":"false"}`
+	return `{"untagged":false}`
 }
 
 // evaluateRetentionRuleParams evaluates the provided map of PolicyTemplate by comparing the keys to the pre-defined PolicyTemplates.
