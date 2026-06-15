@@ -12,7 +12,6 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.8.4
 	k8s.io/apimachinery v0.29.0
-
 )
 
 require (

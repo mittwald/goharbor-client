@@ -18,6 +18,9 @@ type ProjectMetadata struct {
 	// Whether scan images automatically when pushing. The valid values are "true", "false".
 	AutoScan *string `json:"auto_scan,omitempty"`
 
+	// Whether auto SBOM generation is enabled. The valid values are "true", "false".
+	AutoSbomGeneration *string `json:"auto_sbom_generation,omitempty"`
+
 	// Whether content trust is enabled or not. If it is enabled, user can't pull unsigned images from this project. The valid values are "true", "false".
 	EnableContentTrust *string `json:"enable_content_trust,omitempty"`
 
@@ -26,6 +29,12 @@ type ProjectMetadata struct {
 
 	// Whether prevent the vulnerable images from running. The valid values are "true", "false".
 	PreventVul *string `json:"prevent_vul,omitempty"`
+
+	// Whether to cache locally if the image is not found in the proxy. The valid values are "true", "false".
+	ProxyCacheLocalOnNotFound *string `json:"proxy_cache_local_on_not_found,omitempty"`
+
+	// The proxy speed limit in KB. The valid values are numeric strings, e.g., "-1" for unlimited.
+	ProxySpeedKb *string `json:"proxy_speed_kb,omitempty"`
 
 	// The public status of the project. The valid values are "true", "false".
 	Public string `json:"public,omitempty"`
